@@ -101,3 +101,15 @@ This verifies that:
 - the Edge Function contains explicit resource hallucination prevention
 - finalization requires teacher resource verification and no pending Quick Draft sections
 - BYOK Flash-Lite high-thinking configuration remains intact
+
+## Phase 4 TOS checks
+
+Run:
+
+```bash
+npm run validate:phase4
+```
+
+This executes deterministic allocation cases for zero, one, and many competencies; totals 37 and 43; decimal weights; exact manual-percentage sums; manual item overrides; stable Hamilton tie-breaking; and gap/overlap-free item placements. It also checks the mobile custom picker architecture, grading-term/curriculum-period separation, Phase 4 migration/RLS/RPC guards, and the explicit assessment-generation stop boundary. Its XLSX tests perform a real OOXML round trip against the checked-in master and verify hashes, formula/merge protection, styles, dimensions, print metadata, freeze panes, recalculation flags, stale mapped-row clearing, duplicate/range preflight, and Strict OOXML rejection.
+
+After it passes, run every older validator plus `npm run build`. Old tests must not be weakened to make Phase 4 pass.

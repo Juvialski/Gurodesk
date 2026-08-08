@@ -6,7 +6,7 @@ const read = (file) => readFile(resolve(root, file), 'utf8')
 const fail = (message) => { throw new Error(message) }
 
 const pkg = JSON.parse(await read('package.json'))
-if (!['0.3.5', '0.3.6', '0.3.7', '0.3.8', '0.3.9', '0.3.10', '0.3.11', '0.4.0'].includes(pkg.version)) fail(`Expected Phase 3.5+ package version; found ${pkg.version}.`)
+if (!['0.3.5', '0.3.6', '0.3.7', '0.3.8', '0.3.9', '0.3.10', '0.3.11', '0.4.0', '0.5.0'].includes(pkg.version)) fail(`Expected Phase 3.5+ package version; found ${pkg.version}.`)
 
 const migration = await read('supabase/migrations/202608080008_phase35_lesson_suggestions.sql')
 for (const required of ['teacher_lesson_preferences', 'actual_resources', 'preferred_approaches', 'quick_draft', "'suggested'", 'enable row level security']) {
@@ -44,3 +44,4 @@ console.log('✓ Quick Draft fills only empty planning fields and requires revie
 console.log('✓ specific resources/references stay teacher-entered and verified')
 console.log('✓ reusable teaching setup is RLS-protected and constrains AI suggestions')
 console.log('✓ Flash-Lite high-thinking BYOK behavior retained')
+

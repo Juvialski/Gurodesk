@@ -16,7 +16,7 @@ Do not require manual merging when a complete project ZIP is feasible.
 
 ---
 
-## Current state — Phase 3 complete + BYOK checkpoint
+## Current state — Phase 4 TOS foundation complete
 
 ### Foundation retained
 
@@ -159,6 +159,11 @@ Never create `VITE_GEMINI_API_KEY`.
 5. `202608080005_phase3_lesson_planning.sql`
 6. `202608080006_seed_lesson_planning_policy_metadata.sql`
 7. `202608080007_phase3_byok_ai.sql`
+8. `202608080008_phase35_lesson_suggestions.sql`
+9. `202608080009_phase36_export_preferences.sql`
+10. `202608080010_phase363_multilingual_lesson_support.sql`
+11. `202608080011_phase37_custom_document_templates.sql`
+12. `202608080012_phase4_tos_builder.sql`
 
 Phase 3 tables:
 
@@ -207,41 +212,33 @@ Lesson body stays in existing `documents.structured_content` to avoid a parallel
 
 ---
 
-## Next recommended phase — Phase 4: TOS + Assessment Engine
+## Phase 4 checkpoint — TOS Builder complete
 
-Build TOS first, then tests from the TOS—not the other way around.
+The implemented boundary is `Curriculum → TOS` only. Preserve:
 
-Recommended sequence:
+- verified assignment/curriculum resolution and canonical fallback safeguards;
+- independent school grading-term and curriculum-guide-period fields;
+- decimal-string/`bigint` Hamilton allocation with stable reconciliation to the exact selected total;
+- configurable cognitive-process categories and deterministic contiguous item placement;
+- teacher-owned draft/final/version records with atomic relational row saves;
+- mobile competency cards and custom picker rather than a wide spreadsheet or native multi-select;
+- built-in print/PDF/XLSX output and fresh-copy XLSX template filling;
+- optional one-time Gemini mapping of extracted workbook structure only; and
+- demo/localStorage operation without Supabase.
 
-1. Review DO 015, s. 2026 assessment/grading policy in detail.
-2. Define assessment-policy rules separately from curriculum rules.
-3. Add TOS schema and builder:
-   - selected covered competencies
-   - instructional time / weighting
-   - cognitive-process distribution
-   - deterministic item-count calculations
-   - exact total validation
-4. Add assessment schema/question bank.
-5. Generate assessment items only where policy permits and always ground them in selected verified competencies + TOS cells.
-6. Validate every generated item against:
-   - competency
-   - expected cognitive level
-   - item type
-   - answer-key completeness
-   - total count
-7. Create student test view + answer key/solutions.
-8. Keep exports for later unless print is needed for testing.
+Important Phase 4 files are listed in `PHASE4_IMPLEMENTATION_MANIFEST.md`. Apply migration `202608080012_phase4_tos_builder.sql`, deploy `tos-template-analyzer`, and run `npm run validate:phase4` plus every retained validator.
 
-Important: the AI constraints for lesson planning do not automatically equal the AI constraints for test-item generation. Review DO 003 + DO 015 before deciding what AI may do in assessment creation.
+The next recommended step is deployment review and phone-based acceptance testing of the completed TOS foundation. Do not begin question generation, test papers, answer keys, results, item analysis, or remediation without explicit approval. Before any later assessment implementation, independently review the then-current official assessment policy; lesson-planning AI constraints do not automatically define assessment AI policy.
 
 ---
 
-## Later phases
+## Later phases (not implemented)
+
+- Explicitly approved assessment phase: question bank/test papers/answer keys grounded in finalized TOS records
 
 - Phase 5: assessment results + item analysis + remediation reports
 - Phase 6: role-aware Paperwork Hub under DO 006, s. 2025/current updates
-- Phase 7: DOCX/PDF/XLSX export engine
-- Phase 8: admin DepEd source ingestion/review/update tools
+- Later admin phase: DepEd source ingestion/review/update tools
 
 ---
 
@@ -251,6 +248,17 @@ Important: the AI constraints for lesson planning do not automatically equal the
 npm run curriculum:validate
 npm run validate:phase2
 npm run validate:phase3
+npm run validate:byok
+npm run validate:phase35
+npm run validate:phase351
+npm run validate:phase352
+npm run validate:phase353
+npm run validate:phase36
+npm run validate:phase361
+npm run validate:phase362
+npm run validate:phase363
+npm run validate:phase37
+npm run validate:phase4
 npm run typecheck
 npm run build
 ```

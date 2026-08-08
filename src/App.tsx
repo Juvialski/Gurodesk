@@ -1,4 +1,4 @@
-import { ClipboardCheck, FileBarChart, Files, TableProperties } from 'lucide-react'
+import { ClipboardCheck, FileBarChart, Files } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
@@ -15,6 +15,9 @@ import { LessonPlanEditorPage } from './pages/LessonPlanEditorPage'
 import { LessonPlanPrintPreviewPage } from './pages/LessonPlanPrintPreviewPage'
 import { OnboardingPage } from './pages/OnboardingPage'
 import { SettingsPage } from './pages/SettingsPage'
+import { TosEditorPage } from './pages/TosEditorPage'
+import { TosListPage } from './pages/TosListPage'
+import { TosPrintPreviewPage } from './pages/TosPrintPreviewPage'
 
 function LoadingScreen({ label = 'Opening GuroDesk…' }: { label?: string }) {
   return <div className="loading-screen"><span className="loader" /><strong>{label}</strong></div>
@@ -24,6 +27,7 @@ function WorkspaceRoutes() {
   return (
     <Routes>
       <Route path="lesson-plans/:id/print" element={<LessonPlanPrintPreviewPage />} />
+      <Route path="tos/:id/print" element={<TosPrintPreviewPage />} />
       <Route element={<AppShell />}>
         <Route index element={<DashboardPage />} />
         <Route path="classes" element={<ClassesPage />} />
@@ -31,8 +35,10 @@ function WorkspaceRoutes() {
         <Route path="lesson-plans" element={<LessonPlansPage />} />
         <Route path="lesson-plans/new" element={<LessonPlanEditorPage />} />
         <Route path="lesson-plans/:id" element={<LessonPlanEditorPage />} />
-        <Route path="assessments" element={<FeaturePlaceholderPage eyebrow="Assessment studio" title="Assessments" description="Build competency-aligned tests, answer keys, rubrics, and analysis-ready assessment records." phase="Phase 4" icon={ClipboardCheck} bullets={['Question bank schema', 'Competency mapping', 'Answer keys and solutions', 'TOS-linked generation']} />} />
-        <Route path="tos" element={<FeaturePlaceholderPage eyebrow="Assessment planning" title="TOS Builder" description="Create a mathematically validated Table of Specifications from actual covered competencies and instructional time." phase="Phase 4" icon={TableProperties} bullets={['Validated totals', 'Cognitive-level distribution', 'Competency coverage', 'Direct test generation']} />} />
+        <Route path="assessments" element={<FeaturePlaceholderPage eyebrow="Assessment studio" title="Assessments" description="Assessment-question and test-paper generation are intentionally outside the Phase 4 TOS foundation." phase="Future phase" icon={ClipboardCheck} bullets={['Question generation is not active', 'Test papers are not active', 'Answer keys are not active', 'Item analysis is not active']} />} />
+        <Route path="tos" element={<TosListPage />} />
+        <Route path="tos/new" element={<TosEditorPage />} />
+        <Route path="tos/:id" element={<TosEditorPage />} />
         <Route path="paperwork" element={<FeaturePlaceholderPage eyebrow="Teacher paperwork" title="Paperwork" description="Show only the forms and reports relevant to the teacher's role, assignment, and active DepEd policy version." phase="Phase 6" icon={FileBarChart} bullets={['Role-aware paperwork matrix', 'Reusable teacher data', 'Policy-version aware templates', 'Clear LIS boundaries']} />} />
         <Route path="files" element={<FeaturePlaceholderPage eyebrow="Documents" title="My Files" description="Saved lesson plans already support Word/PDF exports. This area will become the unified library for lessons, TOS files, test papers, reports, and export versions." phase="Phase 3.6+" icon={Files} bullets={['Saved documents', 'Versions', 'Search and filters', 'Exports']} />} />
         <Route path="settings" element={<SettingsPage />} />

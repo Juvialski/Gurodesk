@@ -11,3 +11,6 @@ verify_jwt = true
 
 [functions.template-analyzer]
 verify_jwt = true
+
+[functions.tos-template-analyzer]
+verify_jwt = true

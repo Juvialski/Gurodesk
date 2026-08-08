@@ -6,7 +6,7 @@ const pass = (message) => console.log(`PASS: ${message}`)
 const read = (path) => readFile(path, 'utf8')
 
 const pkg = JSON.parse(await read('package.json'))
-if (!['0.3.8', '0.3.9', '0.3.10', '0.3.11', '0.4.0'].includes(pkg.version)) fail('package version must be 0.3.8, 0.3.9, 0.3.10, or 0.3.11')
+if (!['0.3.8', '0.3.9', '0.3.10', '0.3.11', '0.4.0', '0.5.0'].includes(pkg.version)) fail('package version must be 0.3.8, 0.3.9, 0.3.10, or 0.3.11')
 else pass(`package version ${pkg.version}`)
 for (const dep of ['docx', 'jspdf']) {
   if (!pkg.dependencies?.[dep]) fail(`missing ${dep} dependency`)

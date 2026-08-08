@@ -1,7 +1,7 @@
 {
   "name": "gurodesk",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
@@ -21,24 +21,26 @@
     "validate:phase361": "node scripts/check-phase361.mjs",
     "validate:phase362": "node scripts/check-phase362.mjs",
     "validate:phase363": "node scripts/check-phase363.mjs",
-    "validate:phase37": "node scripts/check-phase37.mjs"
+    "validate:phase37": "node scripts/check-phase37.mjs",
+    "validate:phase4": "node scripts/check-phase4.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
+    "docx": "^9.5.1",
+    "docx-preview": "^0.4.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
     "lucide-react": "^0.468.0",
+    "pizzip": "^3.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.8.0",
-    "docx": "^9.5.1",
-    "jspdf": "^3.0.1",
-    "pizzip": "^3.2.0",
-    "docx-preview": "^0.4.0",
-    "html2canvas": "^1.4.1"
+    "react-router-dom": "^7.8.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "@xmldom/xmldom": "^0.8.13",
     "typescript": "^5.9.2",
     "vite": "^7.1.2"
   }

@@ -1,3 +1,15 @@
+GURODESK 0.5.0 — PHASE 4 TABLE OF SPECIFICATIONS BUILDER
+
+PHASE 4 MERGE CHECKPOINT
+- This remains a complete project root; never nest it inside another project folder.
+- Preserve every Phase 2–3.7 file, migration, validator, multilingual/export feature, and custom DOCX-template capability.
+- Apply migration 202608080012_phase4_tos_builder.sql after 001–011.
+- Deploy tos-template-analyzer with JWT verification and the existing server-side BYOK secrets.
+- Keep document-templates private. Original DOCX/XLSX masters are never edited in place.
+- Run npm run validate:phase4, every retained earlier validator, and npm run build.
+- Stop at Curriculum → TOS. Do not add question, test-paper, answer-key, results, item-analysis, remediation, or AI question-writing features without explicit approval.
+
+RETAINED EARLIER CHECKPOINTS
 GURODESK 0.3.11 — PHASE 3.6.3 MULTILINGUAL LESSON SUPPORT
 
 This ZIP is a COMPLETE project root. Do not place it inside another folder.
@@ -77,3 +89,4 @@ PHASE 3.7 CUSTOM TEMPLATE ENGINE
 - Preserve supabase/functions/template-analyzer/index.ts. Raw DOCX bytes must never be sent to Gemini; only extracted text structure is analyzed.
 - Preserve migration 202608080011_phase37_custom_document_templates.sql and the private document-templates Storage bucket/RLS policies.
 - Run npm run validate:phase37 plus all prior validation scripts.
+

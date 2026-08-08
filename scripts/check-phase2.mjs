@@ -32,7 +32,7 @@ if (seed !== seedMigration) fail('Generated curriculum seed and migration copy a
 if ((seed.match(/insert into public\.curriculum_competencies/g) ?? []).length !== 52) fail('Generated seed does not contain 52 competency inserts.')
 
 const packageJson = JSON.parse(await read('package.json'))
-if (!['0.2.0', '0.3.0', '0.3.1', '0.3.5', '0.3.6', '0.3.7', '0.3.8', '0.3.9', '0.3.10', '0.3.11', '0.4.0'].includes(packageJson.version)) fail(`Expected Phase 2+ package version; found ${packageJson.version}.`)
+if (!['0.2.0', '0.3.0', '0.3.1', '0.3.5', '0.3.6', '0.3.7', '0.3.8', '0.3.9', '0.3.10', '0.3.11', '0.4.0', '0.5.0'].includes(packageJson.version)) fail(`Expected Phase 2+ package version; found ${packageJson.version}.`)
 
 async function sourceFiles(dir) {
   const out = []

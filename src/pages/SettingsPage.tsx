@@ -4,9 +4,11 @@ import { AiSetupPanel } from '../components/AiSetupPanel'
 import { TeachingSetupPanel } from '../components/TeachingSetupPanel'
 import { ExportSettingsPanel } from '../components/ExportSettingsPanel'
 import { DocumentTemplatesPanel } from '../components/DocumentTemplatesPanel'
+import { TosTemplatesPanel } from '../components/TosTemplatesPanel'
 import { useApp } from '../contexts/AppContext'
 import { POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
 import { demoStore } from '../lib/demoStore'
+import { clearDemoTosDocuments } from '../lib/tosRepository'
 import { PageHeader } from '../components/PageHeader'
 import type { Profile } from '../types/app'
 
@@ -26,6 +28,7 @@ export function SettingsPage() {
 
   function resetDemo() {
     if (backendMode !== 'demo') return
+    clearDemoTosDocuments()
     demoStore.reset()
     void refreshWorkspace()
   }
@@ -51,6 +54,7 @@ export function SettingsPage() {
           {profile && <TeachingSetupPanel userId={profile.id} isDemo={isDemo} />}
           {profile && <ExportSettingsPanel userId={profile.id} profile={profile} isDemo={isDemo} />}
           {profile && <DocumentTemplatesPanel userId={profile.id} isDemo={isDemo} />}
+          {profile && <TosTemplatesPanel userId={profile.id} isDemo={isDemo} />}
           <AiSetupPanel isDemo={isDemo} />
         </div>
 

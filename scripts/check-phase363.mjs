@@ -6,7 +6,7 @@ const pass = (message) => console.log(`PASS: ${message}`)
 const read = (path) => readFile(path, 'utf8')
 
 const pkg = JSON.parse(await read('package.json'))
-if (!['0.3.11', '0.4.0'].includes(pkg.version)) fail(`expected Phase 3.6.3+ package version, found ${pkg.version}`)
+if (!['0.3.11', '0.4.0', '0.5.0'].includes(pkg.version)) fail(`expected Phase 3.6.3+ package version, found ${pkg.version}`)
 if (!pkg.scripts?.['validate:phase363']) fail('missing validate:phase363 script')
 
 const migration = await read('supabase/migrations/202608080010_phase363_multilingual_lesson_support.sql')
@@ -55,3 +55,4 @@ if (failures) {
   process.exit(1)
 }
 console.log('\nPhase 3.6.3 multilingual lesson support validation passed.')
+

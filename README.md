@@ -1,4 +1,4 @@
-# GuroDesk — Phase 3.7 Custom Template Engine
+# GuroDesk — Phase 4 Table of Specifications Builder
 
 GuroDesk is a mobile-friendly web workspace for DepEd teachers. It is designed around one rule: **verified curriculum and policy data first; teacher judgment first; AI only where current DepEd rules allow it.**
 
@@ -8,6 +8,14 @@ GuroDesk is a mobile-friendly web workspace for DepEd teachers. It is designed a
 Teachers can upload the exact `.docx` ILAW/DLP master their school already uses. GuroDesk extracts document structure locally, can use one Gemini BYOK call to suggest field mappings, lets the teacher correct those mappings, stores the unchanged master in a private Supabase Storage bucket, and fills a copy of the same DOCX for future lessons without another AI call. Custom-template Word output is master-based; preview/PDF uses the filled DOCX rendered in the browser.
 
 See `docs/PHASE_3_7_CUSTOM_TEMPLATES.md`.
+
+## Phase 4 TOS Builder
+
+Phase 4 adds a mobile-first Table of Specifications workflow grounded only in verified curriculum competencies. Teachers can use equal, instructional-time, or manual-percentage weighting; adjust item-count overrides and configurable cognitive categories; save, reopen, duplicate, and finalize drafts; and export a plain printable/PDF/XLSX TOS. All percentages, item counts, rounding, and contiguous item placements are calculated deterministically in application code—Gemini never performs TOS arithmetic.
+
+Signed-in teachers can also upload an existing school `.xlsx` TOS master, inspect its workbook structure locally, use one optional Gemini BYOK call to suggest mappings, correct those mappings, and reuse a fresh copy of the unchanged master for deterministic future exports. Demo mode retains the built-in TOS workflow and export without Supabase.
+
+This phase stops at `Curriculum → TOS`; it does not generate questions, test papers, answer keys, results, item analysis, or remediation. See `docs/PHASE_4_TOS_BUILDER.md`.
 
 ## Phase 3 status
 
@@ -66,6 +74,7 @@ Apply in order:
 9. `202608080009_phase36_export_preferences.sql`
 10. `202608080010_phase363_multilingual_lesson_support.sql`
 11. `202608080011_phase37_custom_document_templates.sql`
+12. `202608080012_phase4_tos_builder.sql`
 
 Then set browser-safe variables only:
 
@@ -101,9 +110,15 @@ npm run validate:phase2
 npm run validate:phase3
 npm run validate:byok
 npm run validate:phase35
+npm run validate:phase351
+npm run validate:phase352
+npm run validate:phase353
 npm run validate:phase36
+npm run validate:phase361
+npm run validate:phase362
 npm run validate:phase363
 npm run validate:phase37
+npm run validate:phase4
 npm run typecheck
 npm run build
 ```

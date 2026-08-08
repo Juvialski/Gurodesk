@@ -9,6 +9,7 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  TableProperties,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -330,7 +331,8 @@ export function CurriculumPage() {
                   <p>Select any competency in the list. GuroDesk will preserve that selection as the grounding target for lesson and assessment creation.</p>
                 )}
                 {selectedCompetency && assignment ? <Link className="future-action active-action" to={`/lesson-plans/new?assignment=${assignment.id}&competency=${selectedCompetency.id}`}><Sparkles size={16} /><span><strong>Create lesson plan</strong><small>Open ILAW planner</small></span></Link> : <button className="future-action" disabled><Sparkles size={16} /><span><strong>Create lesson plan</strong><small>Select a competency</small></span></button>}
-                <button className="future-action" disabled={!selectedCompetency}><FileQuestion size={16} /><span><strong>Create quiz</strong><small>Phase 4</small></span></button>
+                {selectedCompetency && assignment ? <Link className="future-action active-action" to={`/tos/new?assignment=${assignment.id}&competency=${selectedCompetency.id}`}><TableProperties size={16} /><span><strong>Add to TOS</strong><small>Open Phase 4 builder</small></span></Link> : <button className="future-action" disabled><TableProperties size={16} /><span><strong>Add to TOS</strong><small>Select a competency</small></span></button>}
+                <button className="future-action" disabled><FileQuestion size={16} /><span><strong>Create quiz</strong><small>Future phase</small></span></button>
               </section>
             </aside>
           </div>

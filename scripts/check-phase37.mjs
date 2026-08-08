@@ -6,7 +6,7 @@ const pass = (message) => console.log(`PASS: ${message}`)
 const read = (path) => readFile(path, 'utf8')
 
 const pkg = JSON.parse(await read('package.json'))
-if (pkg.version !== '0.4.0') fail(`expected Phase 3.7 version 0.4.0, found ${pkg.version}`)
+if (!['0.4.0', '0.5.0'].includes(pkg.version)) fail(`expected Phase 3.7+ package version, found ${pkg.version}`)
 for (const dependency of ['pizzip', 'docx-preview', 'html2canvas']) if (!pkg.dependencies?.[dependency]) fail(`missing ${dependency} dependency`)
 if (!pkg.scripts?.['validate:phase37']) fail('missing validate:phase37 script')
 pass('custom-template browser dependencies configured')
@@ -60,3 +60,4 @@ if (failures) {
   process.exit(1)
 }
 console.log('\nPhase 3.7 custom document template validation passed.')
+
