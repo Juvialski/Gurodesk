@@ -8,13 +8,17 @@ function ExportField({ label, body }: { label: string; body: string }) {
 function IlawBlock({ letter, title, fields }: { letter: string; title: string; fields: LessonPlanExportModel['ilaw']['intentions'] }) {
   return (
     <section className="print-ilaw-block">
-      <div className="print-section-heading"><span>{letter}</span><strong>{title}</strong></div>
+      <div className="print-section-heading"><strong>{letter}. {title}</strong></div>
       {fields.map((field) => <ExportField key={field.key} label={field.heading} body={field.body} />)}
     </section>
   )
 }
 
 export function LessonPlanDocumentView({ model }: { model: LessonPlanExportModel }) {
+  const gradeAndSection = `${model.lesson.gradeLevel}${model.lesson.sections && model.lesson.sections !== 'Not specified' ? ` – ${model.lesson.sections}` : ''}`
+  const sessionSummary = `${model.lesson.sessions} session(s), ${model.lesson.duration}`
+  const schedule = [model.lesson.lessonDate, model.lesson.weekLabel].filter((value) => value && value !== 'Not specified').join(' · ')
+
   return (
     <article className="lesson-print-document">
       {model.status !== 'final' && <div className="print-draft-banner">{model.status.toUpperCase()} COPY</div>}
@@ -23,47 +27,28 @@ export function LessonPlanDocumentView({ model }: { model: LessonPlanExportModel
         <strong>Department of Education</strong>
         <p>{model.identity.region}</p>
         <p>{model.identity.division}</p>
+        <p className="print-school-name">{model.identity.schoolName}</p>
         <h1>{model.documentTitle}</h1>
-        <h2>{model.lesson.title}</h2>
       </header>
 
       <table className="print-meta-table">
         <tbody>
-          <tr><th>School</th><td>{model.identity.schoolName}</td><th>School Year</th><td>{model.lesson.schoolYear}</td></tr>
-          <tr><th>Teacher</th><td>{model.identity.teacherName}</td><th>Grade Level</th><td>{model.lesson.gradeLevel}</td></tr>
-          <tr><th>Learning Area</th><td>{model.lesson.learningArea}</td><th>Sections</th><td>{model.lesson.sections}</td></tr>
-          <tr><th>Lesson Date</th><td>{model.lesson.lessonDate}</td><th>Week / Schedule</th><td>{model.lesson.weekLabel}</td></tr>
-          <tr><th>Curriculum-guide Period</th><td>{model.lesson.curriculumPeriod}</td><th>School Grading Term</th><td>{model.lesson.gradingTerm}</td></tr>
-          <tr><th>No. of Sessions</th><td>{model.lesson.sessions}</td><th>Duration</th><td>{model.lesson.duration}</td></tr>
+          <tr><th>Lesson Title</th><td>{model.lesson.title}</td><th>Learning Area/s</th><td>{model.lesson.learningArea}</td></tr>
+          <tr><th>Name of Teacher/s</th><td>{model.identity.teacherName}</td><th>Grade Level and Section</th><td>{gradeAndSection}</td></tr>
+          <tr><th>No. of Sessions</th><td>{sessionSummary}</td><th>Date / Week</th><td>{schedule || 'Not specified'}</td></tr>
+          <tr><th>School Year</th><td>{model.lesson.schoolYear}</td><th>Term / Curriculum Period</th><td>{model.lesson.gradingTerm} / {model.lesson.curriculumPeriod}</td></tr>
+          <tr><th>References</th><td colSpan={3}><div className="print-preserve-lines">{model.references || 'Not specified'}</div></td></tr>
         </tbody>
       </table>
 
-      <section className="print-context-block">
-        <h3>Verified Curriculum Context</h3>
-        <ExportField label={model.competency.label} body={model.competency.text} />
-        <ExportField label="Performance standard" body={model.competency.performanceStandard} />
-        <ExportField label="Source provenance" body={model.competency.source} />
-      </section>
-
-      <IlawBlock letter="I" title="Intentions" fields={model.ilaw.intentions} />
-      <IlawBlock letter="L" title="Learning Experience" fields={model.ilaw.learningExperience} />
-      <IlawBlock letter="A" title="Assessing Learning" fields={model.ilaw.assessingLearning} />
-      <IlawBlock letter="W" title="Ways Forward" fields={model.ilaw.waysForward} />
-
-      <section className="print-context-block">
-        <h3>References</h3>
-        <ExportField label="Teacher-entered references" body={model.references} />
-      </section>
-
-      {model.aiDeclaration && <section className="print-context-block print-ai-block"><h3>AI Use Declaration</h3><p>{model.aiDeclaration}</p></section>}
+      <IlawBlock letter="I" title="INTENTIONS" fields={model.ilaw.intentions} />
+      <IlawBlock letter="L" title="LEARNING EXPERIENCE" fields={model.ilaw.learningExperience} />
+      <IlawBlock letter="A" title="ASSESSING LEARNING" fields={model.ilaw.assessingLearning} />
+      <IlawBlock letter="W" title="WAYS FORWARD" fields={model.ilaw.waysForward} />
 
       {model.signatories.length > 0 && <section className="print-signatories">
         {model.signatories.map((item) => <div key={item.role}><span>{item.role}</span><strong>{item.name || '____________________________'}</strong><small>{item.title}</small></div>)}
       </section>}
-
-      <footer className="print-document-footer">
-        <p>Generated using the GuroDesk ILAW Standard template. GuroDesk is an independent tool and does not imply DepEd endorsement.</p>
-      </footer>
     </article>
   )
 }

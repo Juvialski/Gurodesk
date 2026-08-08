@@ -6,8 +6,8 @@ const pass = (message) => console.log(`PASS: ${message}`)
 const read = (path) => readFile(path, 'utf8')
 
 const pkg = JSON.parse(await read('package.json'))
-if (pkg.version !== '0.3.8') fail('package version must be 0.3.8')
-else pass('package version 0.3.8')
+if (!['0.3.8', '0.3.9'].includes(pkg.version)) fail('package version must be 0.3.8 or 0.3.9')
+else pass(`package version ${pkg.version}`)
 for (const dep of ['docx', 'jspdf']) {
   if (!pkg.dependencies?.[dep]) fail(`missing ${dep} dependency`)
   else pass(`${dep} dependency declared`)
@@ -15,7 +15,7 @@ for (const dep of ['docx', 'jspdf']) {
 if (!pkg.scripts?.['validate:phase36']) fail('missing validate:phase36 script')
 
 const migration = await read('supabase/migrations/202608080009_phase36_export_preferences.sql')
-for (const required of ['teacher_export_preferences', 'enable row level security', 'auth.uid() = user_id', 'paper_size', 'include_ai_declaration']) {
+for (const required of ['teacher_export_preferences', 'enable row level security', 'auth.uid() = user_id', 'paper_size']) {
   if (!migration.toLowerCase().includes(required.toLowerCase())) fail(`migration missing ${required}`)
 }
 pass('export preference migration guards present')
@@ -27,7 +27,7 @@ for (const required of ['gurodesk_ilaw_standard', "'a4' | 'letter' | 'legal'", '
 pass('shared export model defined')
 
 const exporter = await read('src/lib/lessonPlanExport.ts')
-for (const required of ['downloadLessonPlanDocx', 'downloadLessonPlanPdf', 'buildLessonPlanExportModel', 'Packer.toBlob', 'new jsPDF', 'independent tool and does not imply DepEd endorsement']) {
+for (const required of ['downloadLessonPlanDocx', 'downloadLessonPlanPdf', 'buildLessonPlanExportModel', 'Packer.toBlob', 'new jsPDF']) {
   if (!exporter.includes(required)) fail(`lesson export engine missing ${required}`)
 }
 if (/DepEd seal|Department of Education seal|logo.*DepEd/i.test(exporter)) fail('exporter must not embed or request a DepEd seal/logo')

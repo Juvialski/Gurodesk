@@ -46,6 +46,14 @@ PHASE 3.6 EXPORT ENGINE
 - Preserve the Phase 3.5.3 in-app Verified Competency picker.
 - Install the new `docx` and `jspdf` dependencies from package.json.
 - Keep migration `202608080009_phase36_export_preferences.sql` at `supabase/migrations/`.
-- Do not replace the GuroDesk ILAW Standard exporter with a hard-coded DepEd logo/seal.
+- Keep the supplied plain ILAW Standard exporter and do not add a DepEd logo/seal.
 - Verify a saved lesson opens `/lesson-plans/:id/print` and exposes Print, Word, and PDF actions.
 - Run `npm run validate:phase36` and all prior validation scripts.
+
+
+PHASE 3.6.1 PLAIN ILAW EXPORT CLEANUP
+- Keep printable Word/PDF/print-preview documents plain and submission-ready.
+- Do not add GuroDesk branding, AI-use blocks, tool disclaimers, or curriculum-source provenance to generated lesson documents.
+- Keep internal AI audit/provenance data in the app/database; only the exported document is cleaned.
+- Preserve the ILAW Standard order: Intentions → Learning Experience → Assessing Learning → Ways Forward.
+- Run `npm run validate:phase361` in addition to all prior validation scripts.

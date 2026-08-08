@@ -1,5 +1,6 @@
 export type ExportPaperSize = 'a4' | 'letter' | 'legal'
 
+// Keep the stored ID stable so existing teacher preferences continue to load.
 export type ExportTemplateId = 'gurodesk_ilaw_standard'
 
 export type TeacherExportPreferences = {
@@ -12,6 +13,8 @@ export type TeacherExportPreferences = {
   reviewedByTitle: string
   notedByName: string
   notedByTitle: string
+  // Retained only for backwards compatibility with the existing database schema.
+  // Phase 3.6.1 exports intentionally ignore these flags and stay plain.
   includeAiDeclaration: boolean
   includeSourceProvenance: boolean
   createdAt: string | null
@@ -50,12 +53,6 @@ export type LessonPlanExportModel = {
     sessions: string
     duration: string
   }
-  competency: {
-    label: string
-    text: string
-    performanceStandard: string
-    source: string
-  }
   ilaw: {
     intentions: LessonExportSection[]
     learningExperience: LessonExportSection[]
@@ -64,15 +61,13 @@ export type LessonPlanExportModel = {
   }
   references: string
   signatories: Array<{ role: string; name: string; title: string }>
-  aiDeclaration: string
-  generatedAt: string
 }
 
 export const EXPORT_TEMPLATE_OPTIONS: Array<{ id: ExportTemplateId; label: string; description: string }> = [
   {
     id: 'gurodesk_ilaw_standard',
-    label: 'GuroDesk ILAW Standard',
-    description: 'Clean DepEd-aligned ILAW layout. This is a GuroDesk template, not an official DepEd-issued form.',
+    label: 'ILAW Standard',
+    description: 'Plain printable ILAW lesson-plan layout using Intentions, Learning Experience, Assessing Learning, and Ways Forward.',
   },
 ]
 
@@ -93,8 +88,8 @@ export function createDefaultTeacherExportPreferences(userId: string): TeacherEx
     reviewedByTitle: '',
     notedByName: '',
     notedByTitle: '',
-    includeAiDeclaration: true,
-    includeSourceProvenance: true,
+    includeAiDeclaration: false,
+    includeSourceProvenance: false,
     createdAt: null,
     updatedAt: null,
   }

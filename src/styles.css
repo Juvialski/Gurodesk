@@ -795,39 +795,31 @@ button.competency-row.selected .competency-text { color: #244a74; }
 .print-preview-title small { color: var(--muted); font-size: 10px; margin-top: 3px; }
 .print-preview-actions { display: flex; gap: 8px; }
 .print-preview-stage { padding: 34px 18px 70px; display: flex; justify-content: center; }
-.lesson-print-document { position: relative; background: white; width: 210mm; min-height: 297mm; padding: 16mm 15mm 15mm; box-shadow: 0 14px 38px rgba(18,35,59,.15); font-family: Arial, Helvetica, sans-serif; font-size: 10pt; line-height: 1.42; overflow: hidden; }
+
+.lesson-print-document { position: relative; background: white; width: 210mm; min-height: 297mm; padding: 16mm 15mm 15mm; box-shadow: 0 14px 38px rgba(18,35,59,.12); font-family: Arial, Helvetica, sans-serif; font-size: 10pt; line-height: 1.42; color: #111; overflow: hidden; }
 .paper-letter .lesson-print-document { width: 215.9mm; min-height: 279.4mm; }
 .paper-legal .lesson-print-document { width: 215.9mm; min-height: 355.6mm; }
-.print-draft-banner { position: absolute; top: 14mm; right: -20mm; width: 78mm; padding: 3mm 0; transform: rotate(35deg); text-align: center; background: #f7e7e9; color: #a23d4b; font-size: 8pt; font-weight: 800; letter-spacing: 1.2px; border: 1px solid #eccbd0; }
-.print-document-header { text-align: center; margin-bottom: 7mm; }
-.print-document-header p { margin: 0 0 1.2mm; font-size: 8.5pt; color: #566275; }
-.print-document-header > strong { display: block; color: #17365d; font-size: 10.5pt; margin-bottom: 1.2mm; }
-.print-document-header h1 { color: #17365d; font-size: 16pt; text-transform: uppercase; margin: 5mm 0 1.5mm; letter-spacing: .3px; }
-.print-document-header h2 { font-size: 12pt; color: #202938; margin: 0; }
+.print-draft-banner { position: absolute; top: 14mm; right: -20mm; width: 78mm; padding: 3mm 0; transform: rotate(35deg); text-align: center; background: #f2f2f2; color: #333; font-size: 8pt; font-weight: 800; letter-spacing: 1.2px; border: 1px solid #999; }
+.print-document-header { text-align: center; margin-bottom: 7mm; color: #111; }
+.print-document-header p { margin: 0 0 1.2mm; font-size: 8.5pt; color: #222; }
+.print-document-header > strong { display: block; color: #111; font-size: 10.5pt; margin-bottom: 1.2mm; }
+.print-document-header .print-school-name { margin-top: 1mm; font-weight: 700; }
+.print-document-header h1 { color: #111; font-size: 15pt; text-transform: uppercase; margin: 5mm 0 1.5mm; letter-spacing: .3px; }
 .print-meta-table { width: 100%; border-collapse: collapse; table-layout: fixed; margin-bottom: 6mm; }
-.print-meta-table th, .print-meta-table td { border: 1px solid #aeb9c8; padding: 2.2mm 2.5mm; vertical-align: top; }
-.print-meta-table th { width: 18%; text-transform: uppercase; font-size: 7.5pt; color: #526075; background: #f2f5f9; text-align: left; }
-.print-meta-table td { width: 32%; font-size: 8.8pt; }
-.print-context-block, .print-ilaw-block { margin-top: 5mm; break-inside: avoid-page; }
-.print-context-block h3 { margin: 0 0 3mm; padding-bottom: 1.5mm; color: #17365d; font-size: 10.5pt; border-bottom: 1.5px solid #17365d; }
-.print-section-heading { min-height: 9mm; padding: 2mm 3mm; display: flex; align-items: center; gap: 2.5mm; background: #17365d; color: white; break-after: avoid-page; }
-.print-section-heading span { width: 6mm; height: 6mm; border-radius: 50%; display: inline-grid; place-items: center; background: white; color: #17365d; font-size: 8pt; font-weight: 800; }
+.print-meta-table th, .print-meta-table td { border: 1px solid #777; padding: 2.2mm 2.5mm; vertical-align: top; }
+.print-meta-table th { width: 20%; font-size: 7.8pt; color: #111; background: #f2f2f2; text-align: left; }
+.print-meta-table td { width: 30%; font-size: 8.8pt; }
+.print-ilaw-block { margin-top: 5mm; break-inside: auto; }
+.print-section-heading { padding: 2mm 0 1.5mm; border-top: 1.5px solid #111; border-bottom: 1.5px solid #111; color: #111; break-after: avoid-page; }
 .print-section-heading strong { font-size: 10.5pt; }
 .print-field { padding: 3mm 0 1.5mm; break-inside: avoid-page; }
-.print-field > strong { display: block; color: #17365d; font-size: 8.8pt; margin-bottom: 1.3mm; }
+.print-field > strong { display: block; color: #111; font-size: 8.8pt; margin-bottom: 1.3mm; }
 .print-preserve-lines { white-space: pre-wrap; }
-.print-ai-block { padding: 3mm; background: #f7f9fc; border: 1px solid #dfe6ef; }
-.print-ai-block p { margin: 0; font-size: 8.5pt; color: #4d596a; }
 .print-signatories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9mm; margin-top: 12mm; break-inside: avoid-page; }
 .print-signatories > div { min-height: 24mm; display: flex; flex-direction: column; justify-content: flex-end; text-align: center; }
-.print-signatories span { color: #687487; font-size: 7.5pt; margin-bottom: 7mm; }
-.print-signatories strong { border-top: 1px solid #6e7785; padding-top: 1.5mm; font-size: 9pt; }
-.print-signatories small { color: #687487; font-size: 7.5pt; margin-top: 1mm; }
-.print-document-footer { margin-top: 9mm; padding-top: 2mm; border-top: 1px solid #d8dfe8; color: #7a8493; font-size: 6.8pt; text-align: center; }
-.print-document-footer p { margin: 0; }
-.export-preview-error { min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 10px; padding: 28px; text-align: center; background: #f6f8fb; }
-.export-preview-error h2 { margin: 0; color: var(--navy); }
-.export-preview-error p { color: var(--muted); max-width: 480px; }
+.print-signatories span { color: #444; font-size: 7.5pt; margin-bottom: 7mm; }
+.print-signatories strong { border-top: 1px solid #555; padding-top: 1.5mm; font-size: 9pt; }
+.print-signatories small { color: #444; font-size: 7.5pt; margin-top: 1mm; }
 
 @media (max-width: 760px) {
   .print-preview-toolbar { grid-template-columns: 1fr; gap: 8px; padding: 10px 12px; }

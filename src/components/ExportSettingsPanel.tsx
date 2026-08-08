@@ -14,7 +14,7 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
     let mounted = true
     setLoading(true)
     loadTeacherExportPreferences(userId, isDemo)
-      .then((value) => { if (mounted) setPreferences(value) })
+      .then((value) => { if (mounted) setPreferences({ ...value, includeAiDeclaration: false, includeSourceProvenance: false }) })
       .catch((err) => { if (mounted) setMessage(err instanceof Error ? err.message : 'Unable to load export settings.') })
       .finally(() => { if (mounted) setLoading(false) })
     return () => { mounted = false }
@@ -24,8 +24,8 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
     setSaving(true)
     setMessage('')
     try {
-      const saved = await saveTeacherExportPreferences(preferences, isDemo)
-      setPreferences(saved)
+      const saved = await saveTeacherExportPreferences({ ...preferences, includeAiDeclaration: false, includeSourceProvenance: false }, isDemo)
+      setPreferences({ ...saved, includeAiDeclaration: false, includeSourceProvenance: false })
       setMessage('Document export settings saved.')
     } catch (err) {
       setMessage(err instanceof Error ? err.message : 'Unable to save export settings.')
@@ -39,14 +39,14 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
   return (
     <section className="panel export-settings-panel">
       <div className="panel-heading">
-        <div><span className="eyebrow">Document exports</span><h2>Printable document defaults</h2><p>Used by lesson-plan PDF and Word exports now, and by TOS/tests/reports as those modules are added.</p></div>
+        <div><span className="eyebrow">Document exports</span><h2>Printable document defaults</h2><p>Lesson-plan exports use a plain ILAW layout. These same defaults will be reused by later TOS, assessment, and report exports.</p></div>
         <span className="settings-feature-icon"><FileDown size={20} /></span>
       </div>
 
       {loading ? <div className="settings-inline-loading">Loading export settings…</div> : <>
         <div className="export-template-card">
           <div><strong>{template.label}</strong><p>{template.description}</p></div>
-          <span className="phase-pill live">Active</span>
+          <span className="phase-pill live">Default</span>
         </div>
 
         <div className="settings-subsection">
@@ -72,11 +72,6 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
           <label>Reviewed by title<input value={preferences.reviewedByTitle} onChange={(event) => setPreferences((current) => ({ ...current, reviewedByTitle: event.target.value }))} placeholder="e.g. Master Teacher I" /></label>
           <label>Noted by name<input value={preferences.notedByName} onChange={(event) => setPreferences((current) => ({ ...current, notedByName: event.target.value }))} placeholder="Optional" /></label>
           <label>Noted by title<input value={preferences.notedByTitle} onChange={(event) => setPreferences((current) => ({ ...current, notedByTitle: event.target.value }))} placeholder="e.g. School Principal" /></label>
-        </div>
-
-        <div className="export-toggle-list">
-          <label className="check-row"><input type="checkbox" checked={preferences.includeSourceProvenance} onChange={(event) => setPreferences((current) => ({ ...current, includeSourceProvenance: event.target.checked }))} /><span><strong>Include curriculum source provenance</strong><small>Add the verified competency source title/page when available.</small></span></label>
-          <label className="check-row"><input type="checkbox" checked={preferences.includeAiDeclaration} onChange={(event) => setPreferences((current) => ({ ...current, includeAiDeclaration: event.target.checked }))} /><span><strong>Include AI-use declaration</strong><small>Only appears when AI assistance was actually recorded in the lesson.</small></span></label>
         </div>
 
         {message && <div className={`form-message ${message.toLowerCase().includes('unable') ? 'error' : ''}`}>{message}</div>}

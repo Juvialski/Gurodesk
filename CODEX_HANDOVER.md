@@ -283,3 +283,10 @@ The current shipped layout is `gurodesk_ilaw_standard`. It is intentionally a Gu
 Dependencies added: `docx`, `jspdf`.
 
 Run `npm run validate:phase36` plus all earlier validation scripts. Keep the Phase 3.5.3 in-app mobile competency picker intact.
+
+
+---
+
+## Phase 3.6.1 export rule — do not undo
+
+Printable lesson-plan outputs must remain plain. Do not print GuroDesk branding, AI-use declarations, tool disclaimers, or curriculum-source provenance in PDF/DOCX/print preview. Internal audit/provenance records remain part of the application. The visible default template label is `ILAW Standard`, following the four-part ILAW order.

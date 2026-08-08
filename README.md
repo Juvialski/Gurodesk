@@ -102,4 +102,4 @@ Signed-in Supabase users must connect their own Gemini API key before entering t
 
 ## Phase 3.6 - printable exports
 
-Saved lesson plans can now be previewed and exported as PDF or editable Word `.docx` files. Settings includes reusable paper-size/signatory/export options backed by `teacher_export_preferences`. The first layout is the independent `GuroDesk ILAW Standard` template and is designed to be extended for TOS, assessments, and future school/division-specific layouts.
+Saved lesson plans can now be previewed and exported as PDF or editable Word `.docx` files. Settings includes reusable paper-size and signatory defaults backed by `teacher_export_preferences`. Phase 3.6.1 makes the default output a plain `ILAW Standard` document: no GuroDesk branding, no AI-use block, no source-provenance block, and no tool disclaimer in the printable file. The export follows the ILAW order directly: Intentions, Learning Experience, Assessing Learning, and Ways Forward.
