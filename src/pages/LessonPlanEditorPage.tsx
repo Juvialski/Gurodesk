@@ -144,7 +144,12 @@ export function LessonPlanEditorPage() {
 
   const validation = useMemo(() => plan ? validateLessonPlan(plan.content) : null, [plan])
   const period = bundle?.periods.find((item) => item.label === plan?.content.curriculumPeriodLabel) ?? bundle?.periods[0] ?? null
-  const visibleCompetencies = bundle?.competencies.filter((item) => !period || item.academicPeriodId === period.id) ?? []
+  const periodCompetencies = bundle?.competencies.filter((item) => !period || item.academicPeriodId === period.id) ?? []
+  // Never leave a verified competency select silently empty when verified rows exist.
+  // If a legacy/imported period ID does not match, show all verified competencies and
+  // make the mismatch visible instead of presenting a dead mobile dropdown.
+  const periodMappingFallback = Boolean(bundle?.competencies.length && period && periodCompetencies.length === 0)
+  const visibleCompetencies = periodMappingFallback ? (bundle?.competencies ?? []) : periodCompetencies
 
   function updateContent(mutator: (content: LessonPlanContent) => void) {
     setSavedMessage('')
@@ -367,7 +372,11 @@ export function LessonPlanEditorPage() {
               <label>Minutes per session<input type="number" min="10" max="300" value={plan.content.durationMinutes} onChange={(event) => updateContent((c) => { c.durationMinutes = Math.max(10, Number(event.target.value) || 60) })} /></label>
             </div>
             <div className="section-picker"><strong>Sections</strong><div>{assignment?.sections.map((section) => <label className="check-chip" key={section}><input type="checkbox" checked={plan.content.sections.includes(section)} onChange={(event) => updateContent((c) => { c.sections = event.target.checked ? [...new Set([...c.sections, section])] : c.sections.filter((item) => item !== section) })} /> {section}</label>)}</div></div>
-            <label className="full-field">Verified competency<select value={plan.content.competency.id} onChange={(event) => selectCompetency(event.target.value)} disabled={!bundle?.available}><option value="">Choose a verified competency</option>{visibleCompetencies.map((item) => <option key={item.id} value={item.id}>{item.sortOrder}. {item.competencyText}</option>)}</select></label>
+            <label className="full-field">Verified competency<select value={plan.content.competency.id} onChange={(event) => selectCompetency(event.target.value)} disabled={!bundle?.available || visibleCompetencies.length === 0}><option value="">{bundle === null ? 'Loading verified competencies…' : visibleCompetencies.length === 0 ? 'No verified competencies available' : 'Choose a verified competency'}</option>{visibleCompetencies.map((item) => <option key={item.id} value={item.id}>{item.sortOrder}. {item.competencyText}</option>)}</select></label>
+            {bundle && !bundle.available && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>Verified curriculum unavailable for this assignment</strong><p>{bundle.coverageNote || 'No verified curriculum bundle was returned.'}</p></div></div>}
+            {bundle?.available && visibleCompetencies.length === 0 && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>No competency rows were returned</strong><p>{bundle.coverageNote || 'Try reopening the lesson. GuroDesk will not invent competencies.'}</p></div></div>}
+            {periodMappingFallback && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>Period mapping needs review</strong><p>The selected period did not match the imported competency period IDs, so all verified competencies are shown rather than leaving this selector empty.</p></div></div>}
+            {bundle?.coverageNote?.includes('Verified local manifest fallback') && <div className="curriculum-inline-status info"><ShieldCheck size={15} /><div><strong>Verified manifest fallback active</strong><p>{bundle.coverageNote}</p></div></div>}
             {plan.content.competency.text && <div className="competency-grounding"><ShieldCheck size={16} /><div><strong>{plan.content.competency.code || 'Verified competency'}</strong><p>{plan.content.competency.text}</p><small>{plan.content.competency.sourceTitle}{plan.content.competency.sourcePage ? ` · p. ${plan.content.competency.sourcePage}` : ''}</small></div></div>}
             {plan.content.performanceStandard && <div className="standard-grounding"><small>Performance standard</small><p>{plan.content.performanceStandard}</p></div>}
             <label className="full-field teacher-verified-field">References<textarea rows={3} value={plan.content.references} onChange={(event) => updateContent((c) => { c.references = event.target.value })} placeholder="Only books, modules, websites, page numbers, or teacher-made materials you actually used." /><small>Teacher-entered only. GuroDesk will not generate citations or page numbers.</small></label>

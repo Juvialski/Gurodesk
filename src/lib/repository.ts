@@ -223,6 +223,22 @@ export async function loadCurriculumNavigator(
 ): Promise<CurriculumNavigatorBundle> {
   if (demo || !supabase) return getDemoCurriculumBundle(schoolYear, gradeLevel, learningArea)
 
+  // The canonical local manifest is the exact verified source used to generate the
+  // production seed. It is a safe read-only fallback if the production knowledge
+  // query temporarily returns no rows (for example while migrations/indexes settle).
+  // We never invent curriculum content here.
+  const localVerifiedFallback = getDemoCurriculumBundle(schoolYear, gradeLevel, learningArea)
+  const fallback = (reason: string): CurriculumNavigatorBundle | null =>
+    localVerifiedFallback.available
+      ? {
+          ...localVerifiedFallback,
+          schoolYear,
+          coverageNote:
+            `Verified local manifest fallback is active because ${reason}. ` +
+            'This is the same reviewed Grade 7 Mathematics manifest used to generate the Supabase seed; no competency was invented.',
+        }
+      : null
+
   const { data: applicabilityRows, error: applicabilityError } = await supabase
     .from('curriculum_applicability')
     .select('curriculum_version_id, implementation_status, notes')
@@ -232,9 +248,15 @@ export async function loadCurriculumNavigator(
     .order('priority', { ascending: true })
     .limit(1)
 
-  if (applicabilityError) throw applicabilityError
+  if (applicabilityError) {
+    const local = fallback('the Supabase applicability lookup failed')
+    if (local) return local
+    throw applicabilityError
+  }
   const applicability = applicabilityRows?.[0] as Record<string, unknown> | undefined
   if (!applicability) {
+    const local = fallback('Supabase returned no applicability row for this assignment')
+    if (local) return local
     return {
       available: false,
       schoolYear,
@@ -263,10 +285,16 @@ export async function loadCurriculumNavigator(
       .limit(1),
   ])
 
-  if (versionResult.error) throw versionResult.error
-  if (subjectResult.error) throw subjectResult.error
+  if (versionResult.error || subjectResult.error) {
+    const local = fallback('the Supabase curriculum version/subject lookup failed')
+    if (local) return local
+    if (versionResult.error) throw versionResult.error
+    throw subjectResult.error
+  }
   const subjectRow = subjectResult.data?.[0] as Record<string, unknown> | undefined
   if (!subjectRow) {
+    const local = fallback('Supabase returned no verified subject row for this assignment')
+    if (local) return local
     return {
       available: false,
       schoolYear,
@@ -301,10 +329,23 @@ export async function loadCurriculumNavigator(
       .order('sort_order'),
   ])
 
-  if (periodsResult.error) throw periodsResult.error
-  if (domainsResult.error) throw domainsResult.error
-  if (standardsResult.error) throw standardsResult.error
-  if (competenciesResult.error) throw competenciesResult.error
+  if (periodsResult.error || domainsResult.error || standardsResult.error || competenciesResult.error) {
+    const local = fallback('one of the Supabase verified curriculum queries failed')
+    if (local) return local
+    if (periodsResult.error) throw periodsResult.error
+    if (domainsResult.error) throw domainsResult.error
+    if (standardsResult.error) throw standardsResult.error
+    throw competenciesResult.error
+  }
+
+  // A bundle with periods but zero verified competencies makes the native select
+  // appear to do nothing on mobile. For the one curriculum whose canonical manifest
+  // is bundled and source-verified, fall back to that manifest instead of leaving a
+  // silent empty dropdown.
+  if ((competenciesResult.data ?? []).length === 0) {
+    const local = fallback('Supabase returned zero verified competency rows')
+    if (local) return local
+  }
 
   const sourceId = subjectRow.source_document_id ? String(subjectRow.source_document_id) : null
   let source: SourceDocument | null = null
@@ -510,14 +551,44 @@ export async function loadLessonPlan(id: string, userId: string, demo: boolean):
   return data ? mapLessonPlan(data as Record<string, unknown>) : null
 }
 
+function looksLikeUuid(value: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
+}
+
+async function resolveProductionCompetencyId(plan: LessonPlanRecord): Promise<string | null> {
+  if (!supabase || !plan.content.competency.id) return null
+  if (looksLikeUuid(plan.content.competency.id)) return plan.content.competency.id
+
+  // Local-manifest fallback IDs are intentionally not written into the UUID FK.
+  // Resolve the exact verified production row from its source-grounded snapshot.
+  let query = supabase
+    .from('curriculum_competencies')
+    .select('id')
+    .eq('verification_status', 'verified')
+    .eq('competency_text', plan.content.competency.text)
+
+  if (plan.content.competency.sourcePage !== null) {
+    query = query.eq('source_page', plan.content.competency.sourcePage)
+  }
+
+  const { data, error } = await query.limit(1)
+  if (error) return null
+  return data?.[0]?.id ? String(data[0].id) : null
+}
+
 async function writeLessonPlanCompetencyLink(plan: LessonPlanRecord) {
   if (!supabase || !plan.content.competency.id) return
   const { error: deleteError } = await supabase.from('lesson_plan_competencies').delete().eq('document_id', plan.id)
   if (deleteError) throw deleteError
 
+  const competencyId = await resolveProductionCompetencyId(plan)
+  // The structured lesson document still keeps the verified source snapshot if the
+  // production FK cannot be resolved yet. We never write a fabricated UUID.
+  if (!competencyId) return
+
   const { error: insertError } = await supabase.from('lesson_plan_competencies').insert({
     document_id: plan.id,
-    competency_id: plan.content.competency.id,
+    competency_id: competencyId,
     competency_text_snapshot: plan.content.competency.text,
     competency_code_snapshot: plan.content.competency.code,
     source_page_snapshot: plan.content.competency.sourcePage,

@@ -1,7 +1,10 @@
 import { ClipboardCheck, FileBarChart, Files, TableProperties } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { useApp } from './contexts/AppContext'
+import { loadAiCredentialStatus } from './lib/repository'
+import { AiSetupRequiredPage } from './pages/AiSetupRequiredPage'
 import { AuthPage } from './pages/AuthPage'
 import { ClassesPage } from './pages/ClassesPage'
 import { CurriculumPage } from './pages/CurriculumPage'
@@ -12,17 +15,11 @@ import { LessonPlanEditorPage } from './pages/LessonPlanEditorPage'
 import { OnboardingPage } from './pages/OnboardingPage'
 import { SettingsPage } from './pages/SettingsPage'
 
-function LoadingScreen() {
-  return <div className="loading-screen"><span className="loader" /><strong>Opening GuroDesk…</strong></div>
+function LoadingScreen({ label = 'Opening GuroDesk…' }: { label?: string }) {
+  return <div className="loading-screen"><span className="loader" /><strong>{label}</strong></div>
 }
 
-export default function App() {
-  const { user, profile, loading, authLoading } = useApp()
-
-  if (authLoading || (user && loading && !profile)) return <LoadingScreen />
-  if (!user) return <AuthPage />
-  if (!profile || !profile.onboardingCompleted) return <OnboardingPage />
-
+function WorkspaceRoutes() {
   return (
     <Routes>
       <Route element={<AppShell />}>
@@ -41,4 +38,35 @@ export default function App() {
       </Route>
     </Routes>
   )
+}
+
+function SignedInExperience() {
+  const { profile, isDemo } = useApp()
+  const [aiGate, setAiGate] = useState<'checking' | 'required' | 'ready'>(isDemo ? 'ready' : 'checking')
+
+  useEffect(() => {
+    let mounted = true
+    if (isDemo) {
+      setAiGate('ready')
+      return () => { mounted = false }
+    }
+    setAiGate('checking')
+    loadAiCredentialStatus(false)
+      .then((status) => { if (mounted) setAiGate(status.configured ? 'ready' : 'required') })
+      .catch(() => { if (mounted) setAiGate('required') })
+    return () => { mounted = false }
+  }, [isDemo])
+
+  if (aiGate === 'checking') return <LoadingScreen label="Checking Gemini setup…" />
+  if (aiGate === 'required') return <AiSetupRequiredPage onConfigured={() => setAiGate('ready')} />
+  if (!profile || !profile.onboardingCompleted) return <OnboardingPage />
+  return <WorkspaceRoutes />
+}
+
+export default function App() {
+  const { user, profile, loading, authLoading } = useApp()
+
+  if (authLoading || (user && loading && !profile)) return <LoadingScreen />
+  if (!user) return <AuthPage />
+  return <SignedInExperience />
 }

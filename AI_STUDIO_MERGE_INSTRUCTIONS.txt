@@ -20,3 +20,16 @@ After merge, verify Settings contains both:
 - AI Assistant
 
 Then verify Lesson Plans supports Quick Draft suggestions while keeping Learning resources and References teacher-controlled.
+
+PHASE 3.5.1 HOTFIX
+- Keep the verified competency selector fix in src/pages/LessonPlanEditorPage.tsx.
+- Keep the canonical verified-manifest fallback in src/lib/repository.ts.
+- Do not remove the production competency-ID resolver; it prevents local fallback IDs from being written into UUID foreign keys.
+- Run npm run validate:phase351 in addition to the earlier validation scripts.
+
+
+PHASE 3.5.2 HOTFIX
+- Do not remove the mandatory Gemini setup gate for signed-in production users.
+- Keep demo mode exempt so the sample workspace can still open without a real API key.
+- Keep the mobile Paste from clipboard button and manual-paste fallback.
+- Run: npm run validate:phase352

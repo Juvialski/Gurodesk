@@ -2,9 +2,7 @@
 
 ## Product objective
 
-GuroDesk is a DepEd-teacher web workspace that reduces repetitive planning, assessment, and paperwork using verified curriculum/policy data plus teacher-controlled AI assistance.
-
-Preferred workflow:
+GuroDesk is a DepEd-teacher web workspace that reduces repetitive planning, assessment, and paperwork using verified DepEd curriculum/policy data. The user works primarily from a phone and uses this workflow:
 
 ```text
 ChatGPT/Codex edits complete project
@@ -14,95 +12,122 @@ ChatGPT/Codex edits complete project
 → next phase
 ```
 
-Avoid manual merging when a complete ZIP is feasible.
+Do not require manual merging when a complete project ZIP is feasible.
 
-## Current state — Phase 3.5 complete
+---
 
-### Foundation
+## Current state — Phase 3 complete + BYOK checkpoint
+
+### Foundation retained
 
 - Vite + React + TypeScript
 - responsive phone/desktop UI
-- Supabase Auth + demo/localStorage mode
-- teacher profile/onboarding/assignments
+- demo/localStorage mode without secrets
+- Supabase Auth mode
+- teacher profile/onboarding
+- teaching assignments
+- dashboard/class management
 - strict RLS for teacher-owned data
 - generic documents + document versions
 
-### Curriculum engine
+### Curriculum Engine retained
 
 - versioned official source architecture
 - curriculum applicability by school year / grade
 - Curriculum Navigator
 - curriculum-guide periods scoped by subject
-- grading calendar stored separately
+- school grading calendar stored separately
 - instructional pacing / Budget of Work layer stored separately
-- source provenance + pages
-- verified Grade 7 Mathematics dataset: 52 competencies
-- no fabricated official content for unloaded subjects
+- source provenance + source pages
+- first verified full dataset: Grade 7 Mathematics, 52 competencies, four curriculum-guide quarters
+- no fabricated content for unloaded subjects
 
-### Lesson planning
+### Phase 3 implemented
 
-- `/lesson-plans`, `/lesson-plans/new`, `/lesson-plans/:id`
-- ILAW structured lesson content
-- Curriculum → verified competency → lesson handoff
-- curriculum period and grading term remain separate
-- competency/source/performance-standard grounding
-- save draft/final + versioning
-- `lesson_plan_competencies` snapshots
-- `lesson_plan_ai_events` audit trail
+- `/lesson-plans` list
+- `/lesson-plans/new` ILAW editor
+- `/lesson-plans/:id` saved-plan editor
+- Curriculum → selected competency → Create lesson plan handoff
+- structured `LessonPlanContent` schema v1
+- ILAW sections:
+  - Intentions
+  - Learning Experience
+  - Assessing Learning
+  - Ways Forward
+- curriculum sequence period and grading term shown separately
+- verified competency snapshot/source provenance
+- performance-standard context when loaded
+- class-level learner-context field with privacy warning
+- ILAW self-check / readiness score
+- save draft + mark final
+- version row created per explicit save
+- `lesson_plan_competencies` verified competency link
+- `lesson_plan_ai_events` audit metadata
+- automatic AI-use declaration
+- teacher-review acknowledgement required after AI support before self-check passes
+- demo-mode local AI-support preview clearly labelled as non-Gemini
 
-### Phase 3.5 teacher-guided suggestions
+### BYOK AI checkpoint
 
-- Quick Draft generates a coherent set of suggestions for empty planning fields in one call
-- Quick Draft preserves all existing teacher text
-- applied Quick Draft fields are marked pending review and block finalization until confirmed
-- individual 3-option suggestions for objectives, lesson flow, opening, contextualization, universal inclusion supports, formative assessment, evidence, next steps, continuity, and extension
-- text polishing still supports clarity/organization/grammar/formatting
-- learner context stays teacher-provided; AI may polish it only
-- post-lesson reflection stays teacher-authored; AI may polish it only
-- **Learning resources and References are never AI-filled**
-- teacher confirms actual lesson resources before finalizing
-- reusable `teacher_lesson_preferences` table/UI stores duration, language, class-level profile, available technology, preferred approaches, actual resources, resource notes
-- Edge Function resource rule forbids invented books, pages, devices, websites, materials, citations, and local facts
+- no shared GuroDesk Gemini API key
+- each teacher connects a personal Google AI Studio Gemini key
+- API key sent only to authenticated `ai-settings` Edge Function during setup
+- AES-GCM encrypted credential stored in `teacher_ai_credentials`
+- credential/settings tables have RLS enabled and no browser CRUD policies
+- browser receives only masked last-four/verification metadata
+- default model: `gemini-3.5-flash-lite` with explicit `thinkingLevel: high`
+- Lite fallback: `gemini-3.1-flash-lite` with explicit `thinkingLevel: high`
+- `gemini-3.6-flash` and `gemini-3.5-flash` remain manually selectable
+- automatic fallback is Lite-only; never auto-consume limited-call Flash models
+- quota numbers shown in UI are guidance, not enforced limits
 
-### BYOK AI
 
-- no shared GuroDesk Gemini key
-- each teacher connects a personal Google AI Studio key
-- key encrypted server-side in `teacher_ai_credentials`
-- model settings stored in `teacher_ai_settings`
-- credential tables have RLS and no normal browser CRUD policies
-- default: `gemini-3.5-flash-lite`, explicit high thinking
-- Lite fallback: `gemini-3.1-flash-lite`, explicit high thinking
-- `gemini-3.6-flash` and `gemini-3.5-flash` manually selectable
-- automatic fallback stays Lite-only
+---
 
-## AI architecture
+## Critical policy finding — do not undo
+
+Detailed review of **DO 016, s. 2026 — Guidelines on Lesson Planning and Learning Design** changed the original product assumption.
+
+The policy says:
+
+- AI must be auxiliary.
+- human judgment/pedagogical discretion remain paramount.
+- fully AI-generated lesson plans are not allowed.
+- AI is prohibited for core instructional decisions such as defining objectives, unpacking competencies, designing the learning experience/instructional strategies, and critical judgments about learner needs.
+- after key instructional decisions are made, limited AI can rephrase/organize/refine text.
+- guided AI can help with routine technical support such as grammar, clarity, formatting, and translation.
+
+Therefore **do not turn Phase 3 into a one-click AI lesson generator**, even if technically easy. That would undermine the current product's DepEd-aligned positioning.
+
+GuroDesk should reduce workload through:
+
+- verified curriculum lookup
+- reuse
+- teacher-assignment defaults
+- structured ILAW editor
+- templating
+- validation
+- versioning
+- AI text assistance only after teacher-authored decisions
+- future export/reuse/collaboration
+
+---
+
+## Gemini architecture
+
+Browser never receives Gemini secret.
 
 ```text
 React
+→ supabase.functions.invoke('lesson-ai-support')
 → authenticated Supabase Edge Function
-→ resolve teacher BYOK credential + model preferences
-→ competency/resource/privacy grounded prompt
-→ Gemini
-→ suggestion/revision preview
-→ teacher chooses/adapts/approves
+→ allowlisted support task
+→ Gemini REST API
+→ revision preview
+→ teacher explicitly applies revision
 ```
 
-Suggestion allowlist:
-
-- `suggest_learning_objectives`
-- `suggest_home_alternative`
-- `suggest_pre_lesson`
-- `suggest_lesson_flow`
-- `suggest_contextualization`
-- `suggest_inclusion`
-- `suggest_formative_assessment`
-- `suggest_evidence_of_learning`
-- `suggest_next_steps`
-- `suggest_extended_learning`
-- `quick_draft`
-
-Revision allowlist:
+Server allowlist:
 
 - `refine_clarity`
 - `organize_text`
@@ -110,7 +135,20 @@ Revision allowlist:
 - `format_text`
 - `translate`
 
-Never create `VITE_GEMINI_API_KEY` or expose service-role credentials.
+The endpoint rejects short/empty input and prompt-instructs Gemini not to introduce instructional decisions.
+
+Credential/model architecture:
+
+- teacher API key is encrypted per user in `teacher_ai_credentials`
+- model preferences are server-managed in `teacher_ai_settings`
+- `ai-settings` handles status/test/save/remove/model settings
+- `lesson-ai-support` decrypts only for the active authenticated request
+- no shared `GEMINI_API_KEY` or `GEMINI_MODEL` is used
+- optional server-only `GURODESK_CREDENTIAL_ENCRYPTION_KEY`; service-role-derived material is the zero-config fallback
+
+Never create `VITE_GEMINI_API_KEY`.
+
+---
 
 ## Migration order
 
@@ -121,64 +159,105 @@ Never create `VITE_GEMINI_API_KEY` or expose service-role credentials.
 5. `202608080005_phase3_lesson_planning.sql`
 6. `202608080006_seed_lesson_planning_policy_metadata.sql`
 7. `202608080007_phase3_byok_ai.sql`
-8. `202608080008_phase35_lesson_suggestions.sql`
 
-## Architecture constraints — do not undo
+Phase 3 tables:
 
-1. Do not fabricate official curriculum/policy content.
-2. Only verified competencies are attachable/teacher-visible.
-3. Curriculum-guide period ≠ grading term ≠ Budget of Work pacing.
-4. Do not infer quarter→term mappings.
-5. Do not expose Gemini or service-role secrets client-side.
-6. Keep demo mode functional.
-7. Keep teacher-owned data behind RLS.
-8. Do not weaken RLS to fix UI bugs.
-9. Quick Draft must never overwrite existing teacher text.
-10. Do not AI-fill specific resources, references, books, page numbers, devices, materials, URLs, or citations.
-11. AI may mention a specific resource only when teacher-listed in teaching setup/context.
-12. Do not infer sensitive learner facts or diagnoses.
-13. Post-lesson reflection describes what actually happened and stays teacher-authored.
-14. AI output remains a suggestion/revision until teacher selects or confirms it.
-15. Do not use DepEd seal/logo or imply official endorsement.
+- `lesson_plan_competencies`
+- `lesson_plan_ai_events`
+
+Lesson body stays in existing `documents.structured_content` to avoid a parallel document model.
+
+---
 
 ## Files to read first
 
 - `src/pages/LessonPlanEditorPage.tsx`
+- `src/pages/LessonPlansPage.tsx`
 - `src/components/AiAssistTextarea.tsx`
-- `src/components/TeachingSetupPanel.tsx`
 - `src/types/lessonPlan.ts`
-- `src/types/teachingSetup.ts`
 - `src/lib/lessonPlanValidation.ts`
 - `src/lib/lessonPlanFactory.ts`
 - `src/lib/repository.ts`
+- `src/data/lessonPlanningPolicy.ts`
 - `supabase/functions/lesson-ai-support/index.ts`
-- `supabase/functions/_shared/ai-models.ts`
-- `supabase/migrations/202608080008_phase35_lesson_suggestions.sql`
-- `docs/PHASE_3_5_LESSON_SUGGESTIONS.md`
+- `supabase/migrations/202608080005_phase3_lesson_planning.sql`
+- `supabase/migrations/202608080007_phase3_byok_ai.sql`
+- `supabase/functions/ai-settings/index.ts`
+- `src/components/AiSetupPanel.tsx`
+- `src/data/aiModels.ts`
+- `docs/PHASE_3_LESSON_PLANNING.md`
+
+---
+
+## Architecture constraints
+
+1. No fabricated official curriculum content.
+2. Only verified competency rows are teacher-visible/attachable.
+3. Curriculum guide period ≠ school grading term ≠ Budget of Work pacing.
+4. Do not infer quarter→term mappings.
+5. Do not expose teacher Gemini plaintext/ciphertext or service-role secrets client-side.
+6. Keep demo mode functional.
+7. Keep teacher-owned data behind RLS.
+8. Do not weaken RLS to fix UI bugs.
+9. AI cannot create empty core ILAW fields.
+10. AI output is previewed before teacher applies it.
+11. Record AI use and require teacher review acknowledgement.
+12. Do not use DepEd seal/logo or imply official endorsement.
+13. Avoid learner personally identifying/sensitive information in lesson-plan AI prompts.
+
+---
 
 ## Next recommended phase — Phase 4: TOS + Assessment Engine
 
-Build TOS first, then tests from validated TOS cells.
+Build TOS first, then tests from the TOS—not the other way around.
 
-1. Review current assessment/grading rules (DO 015, s. 2026) in detail.
-2. Define policy rules separately from curriculum rules.
-3. Add TOS schema/builder: covered competencies, instructional time/weight, cognitive distribution, deterministic item counts, exact-total validation.
-4. Add assessment/question-bank schema.
-5. Generate items grounded in selected verified competencies + TOS cells.
-6. Validate competency, cognitive level, item type, answer-key completeness, and totals.
-7. Build student test + answer key/solutions views.
-8. Keep AI model selection/BYOK shared with lesson planning.
+Recommended sequence:
 
-## Validation
+1. Review DO 015, s. 2026 assessment/grading policy in detail.
+2. Define assessment-policy rules separately from curriculum rules.
+3. Add TOS schema and builder:
+   - selected covered competencies
+   - instructional time / weighting
+   - cognitive-process distribution
+   - deterministic item-count calculations
+   - exact total validation
+4. Add assessment schema/question bank.
+5. Generate assessment items only where policy permits and always ground them in selected verified competencies + TOS cells.
+6. Validate every generated item against:
+   - competency
+   - expected cognitive level
+   - item type
+   - answer-key completeness
+   - total count
+7. Create student test view + answer key/solutions.
+8. Keep exports for later unless print is needed for testing.
+
+Important: the AI constraints for lesson planning do not automatically equal the AI constraints for test-item generation. Review DO 003 + DO 015 before deciding what AI may do in assessment creation.
+
+---
+
+## Later phases
+
+- Phase 5: assessment results + item analysis + remediation reports
+- Phase 6: role-aware Paperwork Hub under DO 006, s. 2025/current updates
+- Phase 7: DOCX/PDF/XLSX export engine
+- Phase 8: admin DepEd source ingestion/review/update tools
+
+---
+
+## Validation commands
 
 ```bash
 npm run curriculum:validate
 npm run validate:phase2
 npm run validate:phase3
-npm run validate:byok
-npm run validate:phase35
 npm run typecheck
 npm run build
 ```
 
-If the packaging environment cannot install `@supabase/supabase-js`, do not remove Supabase. Run the dependency-backed Vite build in AI Studio/public npm.
+If the local environment cannot install `@supabase/supabase-js`, do not remove Supabase. AI Studio's normal npm environment should perform the actual dependency-backed Vite build.
+
+
+## Phase 3.5.2 UX correction
+
+Production users are now gated through `AiSetupRequiredPage` immediately after authentication until `ai-settings` reports a configured Gemini BYOK credential. This occurs before teacher-profile onboarding. Demo mode is exempt. `AiSetupPanel` now supports a mobile clipboard button, explicit `onPaste`, no autocapitalization/autocorrect, and key show/hide. Preserve this behavior.

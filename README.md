@@ -1,49 +1,52 @@
-# GuroDesk — Phase 3.5 + BYOK AI
+# GuroDesk — Phase 3 + BYOK AI checkpoint
 
-GuroDesk is a mobile-friendly web workspace for DepEd teachers. Its core rule is: **verified curriculum/policy data first, teacher-verified real-world context, and AI used to reduce repetitive drafting—not to fabricate official content or classroom facts.**
+GuroDesk is a mobile-friendly web workspace for DepEd teachers. It is designed around one rule: **verified curriculum and policy data first; teacher judgment first; AI only where current DepEd rules allow it.**
 
-## Current status
+## Phase 3 status
 
 Implemented and retained:
 
 - React + TypeScript + Vite responsive application
 - Supabase Auth + strict teacher-owned RLS
-- local demo mode for AI Studio preview
+- local demo mode for AI Studio preview without secrets
 - teacher onboarding, profile, school year, and teaching assignments
 - verified Curriculum Navigator
 - Grade 7 Mathematics MATATAG dataset: 52 verified competencies with source provenance
 - curriculum-guide periods separate from school grading terms
 - instructional pacing / Budget of Work foundation
-- ILAW Lesson Planning workspace aligned to the current lesson-planning architecture
-- lesson saving + document versions + verified competency snapshots
+- **ILAW Lesson Planning workspace aligned to DO 016, s. 2026**
+- start a lesson directly from a selected verified competency
+- teacher-authored Intentions, Learning Experience, Assessing Learning, and Ways Forward
+- ILAW self-check before finalizing
+- lesson saving + document versions
+- verified competency linkage/snapshots per saved lesson
+- AI-use declaration stored in the lesson
 - teacher BYOK Gemini support through Supabase Edge Functions
-- encrypted per-teacher Gemini credentials; no shared app Gemini key
-- Gemini 3.5 Flash-Lite default + Gemini 3.1 Flash-Lite Lite-only fallback, both explicit high thinking
+- encrypted per-teacher Gemini API credentials; no shared application Gemini key
+- Gemini 3.5 Flash-Lite default + Gemini 3.1 Flash-Lite Lite-only fallback, both explicitly high-thinking
 - Gemini 3.6 Flash and Gemini 3.5 Flash remain manually selectable
+- server-side allowlist that limits Gemini to text refinement/organization/grammar/formatting/translation
+- AI buttons remain disabled until the teacher has authored the section
+- AI audit events for saved lesson documents
 
-## Phase 3.5 lesson workflow
+## Why there is no one-click AI lesson generator
 
-Teachers no longer have to start every ILAW field from a blank box.
+DO 016, s. 2026 states that AI is an auxiliary tool and that fully AI-generated lesson plans are not allowed. Core instructional decisions—including objectives, unpacking competencies, learning experiences/strategies, assessment decisions, and critical learner-response judgments—remain teacher responsibilities.
 
-GuroDesk now offers:
+GuroDesk therefore automates the repetitive structure, curriculum lookup, reuse, validation, saving, and formatting while keeping those decisions teacher-led. Gemini can refine text after the teacher has made the decision.
 
-- **Quick Draft** — one Gemini call prepares a coherent set of suggestions for currently empty planning fields
-- 3-option suggestions for objectives, openings, lesson flow, contextualization, inclusion supports, formative assessment, evidence of learning, next steps, and extended learning
-- teacher selection/editing before suggestions become final instructional text
-- Quick Draft review tracking; unreviewed Quick Draft text blocks finalization
-- reusable **My teaching setup** defaults for duration, language, class-level context, available technology, preferred approaches, and teacher-listed resources
-- class-level privacy warnings
-- AI-use declaration and audit events
+## Run locally / AI Studio
 
-### Resource accuracy boundary
+```bash
+npm install
+npm run dev
+```
 
-AI **does not fill the Learning resources or References fields**.
-
-Saved resources in **My teaching setup** are only a reusable library. AI may name a specific book, module, website, material, device, or equipment item only after the teacher adds it to the current lesson and verifies that it is actually being used. Available-technology settings are feasibility context only and never permission for AI to require or name a device. Page numbers and citations are never invented.
-
-Post-lesson reflection also remains teacher-authored because it describes what actually happened; AI may polish that text after the teacher writes it.
+With no Supabase variables, choose **Open sample teacher workspace**. Demo data is stored in localStorage.
 
 ## Supabase migration order
+
+Apply in order:
 
 1. `202608080001_phase1_foundation.sql`
 2. `202608080002_phase2_curriculum_engine.sql`
@@ -52,24 +55,32 @@ Post-lesson reflection also remains teacher-authored because it describes what a
 5. `202608080005_phase3_lesson_planning.sql`
 6. `202608080006_seed_lesson_planning_policy_metadata.sql`
 7. `202608080007_phase3_byok_ai.sql`
-8. `202608080008_phase35_lesson_suggestions.sql`
 
-Migration 008 adds `teacher_lesson_preferences` and expands the lesson-AI audit allowlist for suggestion tasks.
+Then set browser-safe variables only:
 
-The production browser uses only the Supabase project URL and publishable key. Never expose a service-role key or Gemini key in browser variables.
+```env
+VITE_SUPABASE_URL=your-project-url
+VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
+```
+
+Never expose the service-role key or Gemini key in browser variables.
 
 ## Gemini BYOK
 
-Each signed-in teacher connects a personal key in **Settings → AI Assistant**. The key is tested, encrypted server-side, and never returned to the browser.
+GuroDesk does **not** use a shared Gemini API key. Each signed-in teacher connects a personal key from **Settings → AI Assistant**. The key is tested, encrypted server-side, and never returned to the browser.
 
-Model behavior:
+Default model behavior:
 
-- `gemini-3.5-flash-lite` — default, explicit high thinking
-- `gemini-3.1-flash-lite` — automatic Lite fallback, explicit high thinking
+- `gemini-3.5-flash-lite` — primary, explicit high thinking
+- `gemini-3.1-flash-lite` — recommended automatic Lite fallback, explicit high thinking
 - `gemini-3.6-flash` — manually selectable
 - `gemini-3.5-flash` — manually selectable
 
-Automatic fallback never switches into the two limited-call Flash models.
+The UI shows the requested free-tier call guides (500/day for the Lite models and 20/day for the two Flash models) but never enforces them; provider responses remain authoritative.
+
+No `GEMINI_API_KEY` or `VITE_GEMINI_API_KEY` is required.
+
+See `docs/PHASE_3_BYOK_AI.md`.
 
 ## Validation
 
@@ -78,11 +89,13 @@ npm run curriculum:validate
 npm run validate:phase2
 npm run validate:phase3
 npm run validate:byok
-npm run validate:phase35
 npm run typecheck
 npm run build
 ```
 
-The packaging environment may not contain `@supabase/supabase-js`; run the dependency-backed build in AI Studio if the local mirror cannot install it.
+See `docs/AI_STUDIO_SETUP.md`, `docs/PHASE_3_LESSON_PLANNING.md`, and `CODEX_HANDOVER.md`.
 
-See `docs/PHASE_3_LESSON_PLANNING.md`, `docs/PHASE_3_5_LESSON_SUGGESTIONS.md`, `docs/PHASE_3_BYOK_AI.md`, and `CODEX_HANDOVER.md`.
+
+## Phase 3.5.2 — first-run Gemini setup
+
+Signed-in Supabase users must connect their own Gemini API key before entering the normal workspace. This prevents AI suggestion actions from appearing broken because no key was configured. Demo mode remains exempt. The API-key field includes a mobile-friendly one-tap clipboard action, explicit paste handling, and show/hide control.

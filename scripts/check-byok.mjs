@@ -6,7 +6,7 @@ const read = (file) => readFile(resolve(root, file), 'utf8')
 const fail = (message) => { throw new Error(message) }
 
 const pkg = JSON.parse(await read('package.json'))
-if (!['0.3.1', '0.3.5'].includes(pkg.version)) fail(`Expected BYOK-capable package version; found ${pkg.version}.`)
+if (!['0.3.1', '0.3.5', '0.3.6', '0.3.7'].includes(pkg.version)) fail(`Expected BYOK-capable package version; found ${pkg.version}.`)
 
 const migration = await read('supabase/migrations/202608080007_phase3_byok_ai.sql')
 for (const required of ['teacher_ai_credentials', 'teacher_ai_settings', 'api_key_ciphertext', 'encryption_key_source', 'enable row level security', 'Intentionally no authenticated CRUD policies']) {

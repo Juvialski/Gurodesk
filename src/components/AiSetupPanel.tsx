@@ -3,12 +3,15 @@ import {
   ExternalLink,
   KeyRound,
   RefreshCw,
+  ClipboardPaste,
+  Eye,
+  EyeOff,
   Save,
   ShieldCheck,
   Sparkles,
   Trash2,
 } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { AI_MODELS, AI_STUDIO_API_KEY_URL, LITE_AI_MODELS, getAiModel, isLiteAiModel } from '../data/aiModels'
 import {
   loadAiCredentialStatus,
@@ -19,7 +22,11 @@ import {
 } from '../lib/repository'
 import type { AiCredentialStatus, AiModelId, LiteAiModelId } from '../types/ai'
 
-type Props = { isDemo: boolean }
+type Props = {
+  isDemo: boolean
+  onStatusChange?: (status: AiCredentialStatus) => void
+  requiredMode?: boolean
+}
 
 const initialStatus: AiCredentialStatus = {
   configured: false,
@@ -30,22 +37,24 @@ const initialStatus: AiCredentialStatus = {
   fallbackEnabled: true,
 }
 
-export function AiSetupPanel({ isDemo }: Props) {
+export function AiSetupPanel({ isDemo, onStatusChange, requiredMode = false }: Props) {
   const [status, setStatus] = useState<AiCredentialStatus>(initialStatus)
   const [apiKey, setApiKey] = useState('')
   const [loading, setLoading] = useState(true)
   const [working, setWorking] = useState<string | null>(null)
   const [notice, setNotice] = useState<{ kind: 'success' | 'error'; text: string } | null>(null)
+  const [showKey, setShowKey] = useState(false)
+  const keyInputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
     let mounted = true
     setLoading(true)
     loadAiCredentialStatus(isDemo)
-      .then((next) => { if (mounted) setStatus(next) })
+      .then((next) => { if (mounted) { setStatus(next); onStatusChange?.(next) } })
       .catch((error) => { if (mounted) setNotice({ kind: 'error', text: error instanceof Error ? error.message : 'Unable to load AI settings.' }) })
       .finally(() => { if (mounted) setLoading(false) })
     return () => { mounted = false }
-  }, [isDemo])
+  }, [isDemo, onStatusChange])
 
   const selectedModel = useMemo(() => getAiModel(status.preferredModel), [status.preferredModel])
   const selectedIsLite = isLiteAiModel(status.preferredModel)
@@ -57,6 +66,26 @@ export function AiSetupPanel({ isDemo }: Props) {
     }
     setStatus((current) => ({ ...current, preferredModel: model, fallbackModel }))
     setNotice(null)
+  }
+
+
+  function cleanPastedKey(value: string) {
+    return value.trim().replace(/\s+/g, '')
+  }
+
+  async function pasteFromClipboard() {
+    setNotice(null)
+    try {
+      if (!navigator.clipboard?.readText) throw new Error('Clipboard API unavailable')
+      const clipboardText = cleanPastedKey(await navigator.clipboard.readText())
+      if (!clipboardText) throw new Error('Clipboard is empty')
+      setApiKey(clipboardText)
+      keyInputRef.current?.focus()
+      setNotice({ kind: 'success', text: 'API key pasted from your clipboard. Tap Test & save key to continue.' })
+    } catch {
+      keyInputRef.current?.focus()
+      setNotice({ kind: 'error', text: 'One-tap paste was blocked by this browser. Tap and hold inside the API key box, then choose Paste. The field is optimized for mobile text paste.' })
+    }
   }
 
   async function saveKey() {
@@ -77,6 +106,7 @@ export function AiSetupPanel({ isDemo }: Props) {
         fallbackEnabled: status.fallbackEnabled,
       }, isDemo)
       setStatus(result)
+      onStatusChange?.(result)
       setApiKey('')
       setNotice({ kind: 'success', text: result.message })
     } catch (error) {
@@ -96,6 +126,7 @@ export function AiSetupPanel({ isDemo }: Props) {
         fallbackEnabled: status.fallbackEnabled,
       }, isDemo)
       setStatus(result)
+      onStatusChange?.(result)
       setNotice({ kind: 'success', text: 'AI model preferences saved.' })
     } catch (error) {
       setNotice({ kind: 'error', text: error instanceof Error ? error.message : 'Unable to save AI model preferences.' })
@@ -112,6 +143,7 @@ export function AiSetupPanel({ isDemo }: Props) {
       setNotice({ kind: 'success', text: `${result.message} Tested with ${getAiModel(result.model as AiModelId).label}.` })
       const refreshed = await loadAiCredentialStatus(isDemo)
       setStatus(refreshed)
+      onStatusChange?.(refreshed)
     } catch (error) {
       setNotice({ kind: 'error', text: error instanceof Error ? error.message : 'Gemini test failed.' })
     } finally {
@@ -126,6 +158,7 @@ export function AiSetupPanel({ isDemo }: Props) {
     try {
       const result = await removeTeacherAiCredential(isDemo)
       setStatus(result)
+      onStatusChange?.(result)
       setApiKey('')
       setNotice({ kind: 'success', text: 'Gemini API key removed.' })
     } catch (error) {
@@ -161,20 +194,41 @@ export function AiSetupPanel({ isDemo }: Props) {
       <div className="ai-key-entry">
         <label>
           <span>2. Paste API key</span>
-          <input
-            type="password"
-            value={apiKey}
-            autoComplete="off"
-            spellCheck={false}
-            placeholder={status.configured ? 'Paste a new key only if you want to replace the saved key' : 'Paste Gemini API key'}
-            onChange={(event) => setApiKey(event.target.value)}
-            disabled={isDemo || Boolean(working)}
-          />
+          <div className="ai-key-input-row">
+            <input
+              ref={keyInputRef}
+              type={showKey ? 'text' : 'password'}
+              value={apiKey}
+              autoComplete="off"
+              autoCapitalize="none"
+              autoCorrect="off"
+              inputMode="text"
+              enterKeyHint="done"
+              spellCheck={false}
+              placeholder={status.configured ? 'Paste a new key only if you want to replace the saved key' : 'Paste Gemini API key'}
+              onChange={(event) => setApiKey(event.target.value)}
+              onPaste={(event) => {
+                event.preventDefault()
+                setApiKey(cleanPastedKey(event.clipboardData.getData('text')))
+                setNotice(null)
+              }}
+              disabled={isDemo || Boolean(working)}
+            />
+            <button className="ai-key-icon-button" type="button" onClick={() => setShowKey((value) => !value)} disabled={isDemo || Boolean(working)} aria-label={showKey ? 'Hide API key' : 'Show API key'} title={showKey ? 'Hide API key' : 'Show API key'}>
+              {showKey ? <EyeOff size={17} /> : <Eye size={17} />}
+            </button>
+          </div>
+          <small className="mobile-paste-help">On mobile, use the Paste from clipboard button. If your browser blocks it, tap the eye icon if needed, then tap and hold this box and choose Paste.</small>
         </label>
-        <button className="button primary" type="button" onClick={() => void saveKey()} disabled={isDemo || apiKey.trim().length < 20 || Boolean(working)}>
-          {working === 'save-key' ? <span className="mini-spinner" /> : <KeyRound size={15} />}
-          {status.configured ? 'Test & replace key' : 'Test & save key'}
-        </button>
+        <div className="ai-key-entry-actions">
+          <button className="button secondary" type="button" onClick={() => void pasteFromClipboard()} disabled={isDemo || Boolean(working)}>
+            <ClipboardPaste size={15} /> Paste from clipboard
+          </button>
+          <button className="button primary" type="button" onClick={() => void saveKey()} disabled={isDemo || apiKey.trim().length < 20 || Boolean(working)}>
+            {working === 'save-key' ? <span className="mini-spinner" /> : <KeyRound size={15} />}
+            {status.configured ? 'Test & replace key' : 'Test & save key'}
+          </button>
+        </div>
       </div>
       <p className="field-help">The key is sent over the authenticated Edge Function, tested once, encrypted server-side, and never returned to your browser after saving.</p>
 
@@ -242,7 +296,7 @@ export function AiSetupPanel({ isDemo }: Props) {
           {working === 'settings' ? <span className="mini-spinner" /> : <Save size={15} />} Save model settings
         </button>
         {status.configured && <button className="button ghost" type="button" onClick={() => void testConnection()} disabled={Boolean(working)}>{working === 'test' ? <span className="mini-spinner" /> : <RefreshCw size={15} />} Test saved key</button>}
-        {status.configured && <button className="button ghost danger-soft" type="button" onClick={() => void removeKey()} disabled={Boolean(working)}>{working === 'remove' ? <span className="mini-spinner" /> : <Trash2 size={15} />} Remove key</button>}
+        {status.configured && !requiredMode && <button className="button ghost danger-soft" type="button" onClick={() => void removeKey()} disabled={Boolean(working)}>{working === 'remove' ? <span className="mini-spinner" /> : <Trash2 size={15} />} Remove key</button>}
       </div>
     </section>
   )
