@@ -15,7 +15,8 @@
     "validate:byok": "node scripts/check-byok.mjs",
     "validate:phase35": "node scripts/check-phase35.mjs",
     "validate:phase351": "node scripts/check-phase351.mjs",
-    "validate:phase352": "node scripts/check-phase352.mjs"
+    "validate:phase352": "node scripts/check-phase352.mjs",
+    "validate:phase353": "node scripts/check-phase353.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

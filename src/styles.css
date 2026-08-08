@@ -728,3 +728,36 @@ button.competency-row.selected .competency-text { color: #244a74; }
   .ai-key-entry-actions { flex-direction: column; align-items: stretch; }
   .ai-key-entry-actions .button { width: 100%; }
 }
+
+
+/* Phase 3.5.3 — mobile-safe in-app verified competency picker.
+   Avoid native <select> because Android browsers inside AI Studio's embedded preview can fail to open it. */
+.competency-picker-field { position: relative; }
+.competency-picker-label { display: block; margin-bottom: 7px; color: #4f5c70; font-size: 12px; font-weight: 700; }
+.competency-picker-trigger { width: 100%; min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 14px; border: 1px solid #dfe5ec; border-radius: 10px; background: #fff; color: #28394e; text-align: left; cursor: pointer; font: inherit; }
+.competency-picker-trigger > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10.5px; font-weight: 700; }
+.competency-picker-trigger:hover:not(:disabled), .competency-picker-trigger.open { border-color: #83add7; box-shadow: 0 0 0 3px rgba(54,119,187,.10); }
+.competency-picker-trigger:disabled { color: #94a0af; background: #f6f8fa; cursor: not-allowed; }
+.competency-picker-chevron { flex: 0 0 auto; color: #60758c; font-size: 18px; line-height: 1; transform: translateY(-2px); }
+.competency-picker-panel { margin-top: 7px; border: 1px solid #d8e2ed; border-radius: 12px; background: #fff; box-shadow: 0 12px 30px rgba(31,67,104,.12); overflow: hidden; }
+.competency-picker-panel > input { width: calc(100% - 20px); margin: 10px; min-height: 43px; }
+.competency-picker-summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 0 11px 8px; color: #78899d; font-size: 8.5px; }
+.competency-picker-summary button { border: 0; background: none; color: #2867a6; font-size: 8.5px; font-weight: 800; cursor: pointer; padding: 4px; }
+.competency-picker-list { max-height: 320px; overflow-y: auto; overscroll-behavior: contain; border-top: 1px solid #edf1f5; }
+.competency-picker-option { width: 100%; display: grid; grid-template-columns: 29px minmax(0,1fr); gap: 9px; align-items: start; padding: 11px; border: 0; border-bottom: 1px solid #edf1f5; background: #fff; color: #465b72; text-align: left; cursor: pointer; }
+.competency-picker-option:last-child { border-bottom: 0; }
+.competency-picker-option:hover, .competency-picker-option:focus-visible { background: #f5f9fe; outline: none; }
+.competency-picker-option.selected { background: #edf6ff; }
+.competency-picker-number { width: 29px; height: 29px; display: grid; place-items: center; border-radius: 8px; background: #eef4fa; color: #376b9f; font-size: 8.5px; font-weight: 900; }
+.competency-picker-option.selected .competency-picker-number { background: #1764ad; color: #fff; }
+.competency-picker-copy { min-width: 0; }
+.competency-picker-copy small { display: block; margin-bottom: 3px; color: #7790a8; font-size: 7.5px; font-weight: 800; }
+.competency-picker-copy strong { display: block; color: #42566e; font-size: 9.5px; font-weight: 700; line-height: 1.5; }
+.competency-picker-empty { padding: 18px 12px; color: #8290a1; font-size: 9px; text-align: center; }
+@media (max-width: 520px) {
+  .competency-picker-trigger { min-height: 52px; }
+  .competency-picker-trigger > span:first-child { white-space: normal; line-height: 1.4; }
+  .competency-picker-list { max-height: min(46vh, 360px); }
+  .competency-picker-option { padding: 12px 10px; }
+  .competency-picker-copy strong { font-size: 10px; }
+}

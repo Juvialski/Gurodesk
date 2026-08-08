@@ -33,3 +33,10 @@ PHASE 3.5.2 HOTFIX
 - Keep demo mode exempt so the sample workspace can still open without a real API key.
 - Keep the mobile Paste from clipboard button and manual-paste fallback.
 - Run: npm run validate:phase352
+
+
+PHASE 3.5.3 MOBILE COMPETENCY PICKER HOTFIX
+- Replace the native Verified competency <select> with the supplied in-app searchable picker.
+- Do not convert it back to a native select; Android browsers inside the AI Studio embedded preview can fail to open native selects.
+- Preserve the Phase 3.5.1 verified-manifest fallback and production competency-ID resolver.
+- Run: npm run validate:phase353

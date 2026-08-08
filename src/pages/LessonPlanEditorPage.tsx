@@ -54,6 +54,8 @@ export function LessonPlanEditorPage() {
   const [quickDraftLoading, setQuickDraftLoading] = useState(false)
   const [quickDraftPreview, setQuickDraftPreview] = useState<LessonAiSupportResponse | null>(null)
   const [quickDraftMessage, setQuickDraftMessage] = useState<string | null>(null)
+  const [competencyPickerOpen, setCompetencyPickerOpen] = useState(false)
+  const [competencySearch, setCompetencySearch] = useState('')
 
   const assignment = assignments.find((item) => item.id === assignmentId) ?? null
 
@@ -150,6 +152,12 @@ export function LessonPlanEditorPage() {
   // make the mismatch visible instead of presenting a dead mobile dropdown.
   const periodMappingFallback = Boolean(bundle?.competencies.length && period && periodCompetencies.length === 0)
   const visibleCompetencies = periodMappingFallback ? (bundle?.competencies ?? []) : periodCompetencies
+  const normalizedCompetencySearch = competencySearch.trim().toLowerCase()
+  const filteredCompetencies = normalizedCompetencySearch
+    ? visibleCompetencies.filter((item) =>
+        `${item.competencyCode ?? ''} ${item.competencyText}`.toLowerCase().includes(normalizedCompetencySearch),
+      )
+    : visibleCompetencies
 
   function updateContent(mutator: (content: LessonPlanContent) => void) {
     setSavedMessage('')
@@ -166,12 +174,16 @@ export function LessonPlanEditorPage() {
 
   function changeAssignment(nextId: string) {
     if (!isNew) return
+    setCompetencyPickerOpen(false)
+    setCompetencySearch('')
     setAssignmentId(nextId)
     const nextAssignment = assignments.find((item) => item.id === nextId)
     if (nextAssignment && user) setPlan(freshPlan(user.id, nextAssignment))
   }
 
   function selectCurriculumPeriod(label: string) {
+    setCompetencyPickerOpen(false)
+    setCompetencySearch('')
     updateContent((content) => {
       content.curriculumPeriodLabel = label
       content.competency = { id: '', code: null, text: '', sourcePage: null, sourceTitle: bundle?.source?.title ?? null }
@@ -182,6 +194,8 @@ export function LessonPlanEditorPage() {
   function selectCompetency(competencyId: string) {
     const competency = bundle?.competencies.find((item) => item.id === competencyId)
     if (!competency) return
+    setCompetencyPickerOpen(false)
+    setCompetencySearch('')
     updateContent((content) => {
       content.competency = {
         id: competency.id,
@@ -372,7 +386,59 @@ export function LessonPlanEditorPage() {
               <label>Minutes per session<input type="number" min="10" max="300" value={plan.content.durationMinutes} onChange={(event) => updateContent((c) => { c.durationMinutes = Math.max(10, Number(event.target.value) || 60) })} /></label>
             </div>
             <div className="section-picker"><strong>Sections</strong><div>{assignment?.sections.map((section) => <label className="check-chip" key={section}><input type="checkbox" checked={plan.content.sections.includes(section)} onChange={(event) => updateContent((c) => { c.sections = event.target.checked ? [...new Set([...c.sections, section])] : c.sections.filter((item) => item !== section) })} /> {section}</label>)}</div></div>
-            <label className="full-field">Verified competency<select value={plan.content.competency.id} onChange={(event) => selectCompetency(event.target.value)} disabled={!bundle?.available || visibleCompetencies.length === 0}><option value="">{bundle === null ? 'Loading verified competencies…' : visibleCompetencies.length === 0 ? 'No verified competencies available' : 'Choose a verified competency'}</option>{visibleCompetencies.map((item) => <option key={item.id} value={item.id}>{item.sortOrder}. {item.competencyText}</option>)}</select></label>
+            <div className="full-field competency-picker-field">
+              <span className="competency-picker-label">Verified competency</span>
+              <button
+                type="button"
+                className={`competency-picker-trigger ${competencyPickerOpen ? 'open' : ''}`}
+                aria-haspopup="listbox"
+                aria-expanded={competencyPickerOpen}
+                disabled={!bundle?.available || visibleCompetencies.length === 0}
+                onClick={() => setCompetencyPickerOpen((open) => !open)}
+              >
+                <span>{plan.content.competency.text || (bundle === null ? 'Loading verified competencies…' : visibleCompetencies.length === 0 ? 'No verified competencies available' : 'Choose a verified competency')}</span>
+                <span className="competency-picker-chevron" aria-hidden="true">⌄</span>
+              </button>
+              {competencyPickerOpen && visibleCompetencies.length > 0 && (
+                <div className="competency-picker-panel">
+                  <input
+                    type="search"
+                    value={competencySearch}
+                    onChange={(event) => setCompetencySearch(event.target.value)}
+                    placeholder="Search competency text or code"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck={false}
+                    aria-label="Search verified competencies"
+                  />
+                  <div className="competency-picker-summary">
+                    <span>{filteredCompetencies.length} verified {filteredCompetencies.length === 1 ? 'competency' : 'competencies'}</span>
+                    <button type="button" onClick={() => { setCompetencyPickerOpen(false); setCompetencySearch('') }}>Close</button>
+                  </div>
+                  <div className="competency-picker-list" role="listbox" aria-label="Verified competencies">
+                    {filteredCompetencies.length > 0 ? filteredCompetencies.map((item) => (
+                      <button
+                        type="button"
+                        role="option"
+                        aria-selected={plan.content.competency.id === item.id}
+                        className={`competency-picker-option ${plan.content.competency.id === item.id ? 'selected' : ''}`}
+                        key={item.id}
+                        onClick={() => selectCompetency(item.id)}
+                      >
+                        <span className="competency-picker-number">{item.sortOrder}</span>
+                        <span className="competency-picker-copy">
+                          {item.competencyCode && <small>{item.competencyCode}</small>}
+                          <strong>{item.competencyText}</strong>
+                        </span>
+                      </button>
+                    )) : (
+                      <div className="competency-picker-empty">No verified competency matches “{competencySearch}”.</div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
             {bundle && !bundle.available && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>Verified curriculum unavailable for this assignment</strong><p>{bundle.coverageNote || 'No verified curriculum bundle was returned.'}</p></div></div>}
             {bundle?.available && visibleCompetencies.length === 0 && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>No competency rows were returned</strong><p>{bundle.coverageNote || 'Try reopening the lesson. GuroDesk will not invent competencies.'}</p></div></div>}
             {periodMappingFallback && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>Period mapping needs review</strong><p>The selected period did not match the imported competency period IDs, so all verified competencies are shown rather than leaving this selector empty.</p></div></div>}
