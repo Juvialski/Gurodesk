@@ -40,7 +40,7 @@ export function DashboardPage() {
         <div className="panel next-panel">
           <span className="eyebrow">Now available</span>
           <h2>Curriculum engine</h2>
-          <p>Curriculum Navigator and the Phase 3 ILAW lesson planner now share the same verified competency source, school-year context, and teacher assignments.</p>
+          <p>Curriculum Navigator, the ILAW lesson planner, and printable Word/PDF exports now share the same verified competency source, school-year context, and teacher assignments.</p>
           <div className="next-list">
             <span><BookMarked size={17} /> Verified curriculum navigator</span>
             <span><Table2 size={17} /> Academic-period mapping</span>
@@ -51,7 +51,7 @@ export function DashboardPage() {
       </section>
 
       <section className="quick-grid">
-        <Link to="/lesson-plans" className="quick-card"><span className="metric-icon blue"><CalendarCheck2 size={19} /></span><div><strong>Lesson Plans</strong><p>Teacher-led ILAW planning with verified competencies and AI guardrails.</p></div><span className="phase-pill live">Live</span></Link>
+        <Link to="/lesson-plans" className="quick-card"><span className="metric-icon blue"><CalendarCheck2 size={19} /></span><div><strong>Lesson Plans</strong><p>Teacher-led ILAW planning with verified competencies, guided AI suggestions, and Word/PDF exports.</p></div><span className="phase-pill live">Live</span></Link>
         <Link to="/tos" className="quick-card disabled-feature"><span className="metric-icon green"><Table2 size={19} /></span><div><strong>TOS Builder</strong><p>Validated item distribution from taught competencies.</p></div><span className="phase-pill">Phase 4</span></Link>
         <Link to="/assessments" className="quick-card disabled-feature"><span className="metric-icon amber"><ClipboardList size={19} /></span><div><strong>Assessments</strong><p>Tests, answer keys, rubrics, and competency mapping.</p></div><span className="phase-pill">Phase 4</span></Link>
       </section>

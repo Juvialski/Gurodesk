@@ -261,3 +261,25 @@ If the local environment cannot install `@supabase/supabase-js`, do not remove S
 ## Phase 3.5.2 UX correction
 
 Production users are now gated through `AiSetupRequiredPage` immediately after authentication until `ai-settings` reports a configured Gemini BYOK credential. This occurs before teacher-profile onboarding. Demo mode is exempt. `AiSetupPanel` now supports a mobile clipboard button, explicit `onPaste`, no autocapitalization/autocorrect, and key show/hide. Preserve this behavior.
+
+---
+
+## Phase 3.6 export checkpoint - COMPLETE
+
+Do not remove these files/features:
+
+- `src/types/export.ts`
+- `src/lib/lessonPlanExport.ts`
+- `src/components/ExportSettingsPanel.tsx`
+- `src/components/LessonPlanDocumentView.tsx`
+- `src/pages/LessonPlanPrintPreviewPage.tsx`
+- `supabase/migrations/202608080009_phase36_export_preferences.sql`
+- `docs/PHASE_3_6_EXPORT_ENGINE.md`
+
+Lesson plans now support preview, browser print, PDF download, and Word `.docx` download. Export preferences are reusable and are the foundation for Phase 4 TOS/assessment exports.
+
+The current shipped layout is `gurodesk_ilaw_standard`. It is intentionally a GuroDesk template, not represented as an official DepEd-issued form. Do not add DepEd seals/logos or imply endorsement.
+
+Dependencies added: `docx`, `jspdf`.
+
+Run `npm run validate:phase36` plus all earlier validation scripts. Keep the Phase 3.5.3 in-app mobile competency picker intact.

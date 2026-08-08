@@ -1,4 +1,4 @@
-import { ArrowLeft, BookOpenCheck, CheckCircle2, CircleAlert, FileCheck2, Lightbulb, Save, ShieldCheck, Sparkles } from 'lucide-react'
+import { ArrowLeft, BookOpenCheck, CheckCircle2, CircleAlert, FileCheck2, FileDown, Lightbulb, Save, ShieldCheck, Sparkles } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AiAssistTextarea } from '../components/AiAssistTextarea'
@@ -349,7 +349,7 @@ export function LessonPlanEditorPage() {
   return (
     <>
       <PageHeader
-        eyebrow="ILAW lesson planning · Phase 3.5"
+        eyebrow="ILAW lesson planning · Phase 3.6"
         title={isNew ? 'New lesson plan' : plan.title || 'Lesson plan'}
         description="Start from verified curriculum. GuroDesk can prepare optional objectives, activities, assessment, and ways-forward suggestions; you choose and adapt the final plan. Resources and references stay teacher-verified."
         actions={<div className="editor-header-actions"><Link to="/lesson-plans" className="button ghost"><ArrowLeft size={15} /> Back</Link><button className="button primary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button></div>}
@@ -508,7 +508,8 @@ export function LessonPlanEditorPage() {
             <div className="current-status"><FileCheck2 size={16} /><strong>{plan.status}</strong></div>
             <button className="button primary full" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button>
             <button className="button secondary full" disabled={saving || !validation?.ready} onClick={() => void save('final')}><CheckCircle2 size={15} /> Mark final</button>
-            {!validation?.ready && <small>Complete the ILAW self-check before marking this plan final.</small>}
+            {plan.id ? <Link className="button ghost full" to={`/lesson-plans/${plan.id}/print`}><FileDown size={15} /> Preview / download</Link> : <button className="button ghost full" disabled><FileDown size={15} /> Save before export</button>}
+            {!validation?.ready && <small>Complete the ILAW self-check before marking this plan final. Saved drafts can still be previewed/exported with a draft label.</small>}
           </section>
         </aside>
       </div>

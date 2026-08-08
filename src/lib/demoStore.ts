@@ -2,11 +2,14 @@ import type { Profile, TeacherAssignment } from '../types/app'
 import type { LessonPlanRecord } from '../types/lessonPlan'
 import type { TeacherLessonPreferences } from '../types/teachingSetup'
 import { createDefaultTeacherLessonPreferences } from '../types/teachingSetup'
+import type { TeacherExportPreferences } from '../types/export'
+import { createDefaultTeacherExportPreferences } from '../types/export'
 
 const PROFILE_KEY = 'gurodesk.demo.profile.v1'
 const ASSIGNMENTS_KEY = 'gurodesk.demo.assignments.v1'
 const LESSON_PLANS_KEY = 'gurodesk.demo.lessonPlans.v1'
 const LESSON_PREFERENCES_KEY = 'gurodesk.demo.lessonPreferences.v1'
+const EXPORT_PREFERENCES_KEY = 'gurodesk.demo.exportPreferences.v1'
 const USER_ID = 'demo-teacher'
 
 const defaultProfile: Profile = {
@@ -65,6 +68,14 @@ export const demoStore = {
     localStorage.setItem(LESSON_PREFERENCES_KEY, JSON.stringify(preferences))
   },
 
+  getExportPreferences(userId = USER_ID): TeacherExportPreferences {
+    return read(EXPORT_PREFERENCES_KEY, createDefaultTeacherExportPreferences(userId))
+  },
+
+  saveExportPreferences(preferences: TeacherExportPreferences) {
+    localStorage.setItem(EXPORT_PREFERENCES_KEY, JSON.stringify(preferences))
+  },
+
   loadDemoWorkspace(): { profile: Profile; assignments: TeacherAssignment[] } {
     const profile: Profile = {
       ...defaultProfile,
@@ -105,5 +116,6 @@ export const demoStore = {
     localStorage.removeItem(ASSIGNMENTS_KEY)
     localStorage.removeItem(LESSON_PLANS_KEY)
     localStorage.removeItem(LESSON_PREFERENCES_KEY)
+    localStorage.removeItem(EXPORT_PREFERENCES_KEY)
   },
 }

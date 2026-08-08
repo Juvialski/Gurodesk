@@ -6,7 +6,7 @@ const read = (file) => readFile(resolve(root, file), 'utf8')
 const fail = (message) => { throw new Error(message) }
 
 const pkg = JSON.parse(await read('package.json'))
-if (!['0.3.5', '0.3.6', '0.3.7'].includes(pkg.version)) fail(`Expected Phase 3.5+ package version; found ${pkg.version}.`)
+if (!['0.3.5', '0.3.6', '0.3.7', '0.3.8'].includes(pkg.version)) fail(`Expected Phase 3.5+ package version; found ${pkg.version}.`)
 
 const migration = await read('supabase/migrations/202608080008_phase35_lesson_suggestions.sql')
 for (const required of ['teacher_lesson_preferences', 'actual_resources', 'preferred_approaches', 'quick_draft', "'suggested'", 'enable row level security']) {

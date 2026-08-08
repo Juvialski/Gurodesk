@@ -2,6 +2,7 @@ import { Database, RotateCcw, Save, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { AiSetupPanel } from '../components/AiSetupPanel'
 import { TeachingSetupPanel } from '../components/TeachingSetupPanel'
+import { ExportSettingsPanel } from '../components/ExportSettingsPanel'
 import { useApp } from '../contexts/AppContext'
 import { POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
 import { demoStore } from '../lib/demoStore'
@@ -47,6 +48,7 @@ export function SettingsPage() {
           </section>
 
           {profile && <TeachingSetupPanel userId={profile.id} isDemo={isDemo} />}
+          {profile && <ExportSettingsPanel userId={profile.id} profile={profile} isDemo={isDemo} />}
           <AiSetupPanel isDemo={isDemo} />
         </div>
 

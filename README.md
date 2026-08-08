@@ -99,3 +99,7 @@ See `docs/AI_STUDIO_SETUP.md`, `docs/PHASE_3_LESSON_PLANNING.md`, and `CODEX_HAN
 ## Phase 3.5.2 — first-run Gemini setup
 
 Signed-in Supabase users must connect their own Gemini API key before entering the normal workspace. This prevents AI suggestion actions from appearing broken because no key was configured. Demo mode remains exempt. The API-key field includes a mobile-friendly one-tap clipboard action, explicit paste handling, and show/hide control.
+
+## Phase 3.6 - printable exports
+
+Saved lesson plans can now be previewed and exported as PDF or editable Word `.docx` files. Settings includes reusable paper-size/signatory/export options backed by `teacher_export_preferences`. The first layout is the independent `GuroDesk ILAW Standard` template and is designed to be extended for TOS, assessments, and future school/division-specific layouts.

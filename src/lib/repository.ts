@@ -3,6 +3,8 @@ import type { Profile, TeacherAssignment } from '../types/app'
 import type { AiCredentialSaveResult, AiCredentialStatus, AiSettingsUpdate } from '../types/ai'
 import type { LessonAiSupportRequest, LessonAiSupportResponse, LessonPlanRecord } from '../types/lessonPlan'
 import type { TeacherLessonPreferences } from '../types/teachingSetup'
+import type { TeacherExportPreferences } from '../types/export'
+import { createDefaultTeacherExportPreferences } from '../types/export'
 import { createDefaultTeacherLessonPreferences } from '../types/teachingSetup'
 import { normalizeLessonContent } from './lessonPlanFactory'
 import type {
@@ -450,6 +452,63 @@ export async function loadSchoolYearCalendar(
   }
 }
 
+
+
+function mapTeacherExportPreferences(row: Record<string, unknown>): TeacherExportPreferences {
+  return {
+    userId: String(row.user_id),
+    defaultTemplateId: String(row.default_template_id ?? 'gurodesk_ilaw_standard') as TeacherExportPreferences['defaultTemplateId'],
+    paperSize: String(row.paper_size ?? 'a4') as TeacherExportPreferences['paperSize'],
+    preparedByName: String(row.prepared_by_name ?? ''),
+    preparedByTitle: String(row.prepared_by_title ?? ''),
+    reviewedByName: String(row.reviewed_by_name ?? ''),
+    reviewedByTitle: String(row.reviewed_by_title ?? ''),
+    notedByName: String(row.noted_by_name ?? ''),
+    notedByTitle: String(row.noted_by_title ?? ''),
+    includeAiDeclaration: row.include_ai_declaration !== false,
+    includeSourceProvenance: row.include_source_provenance !== false,
+    createdAt: row.created_at ? String(row.created_at) : null,
+    updatedAt: row.updated_at ? String(row.updated_at) : null,
+  }
+}
+
+export async function loadTeacherExportPreferences(userId: string, demo: boolean): Promise<TeacherExportPreferences> {
+  if (demo || !supabase) return demoStore.getExportPreferences(userId)
+  const { data, error } = await supabase
+    .from('teacher_export_preferences')
+    .select('*')
+    .eq('user_id', userId)
+    .maybeSingle()
+  if (error) throw error
+  return data ? mapTeacherExportPreferences(data as Record<string, unknown>) : createDefaultTeacherExportPreferences(userId)
+}
+
+export async function saveTeacherExportPreferences(preferences: TeacherExportPreferences, demo: boolean): Promise<TeacherExportPreferences> {
+  if (demo || !supabase) {
+    demoStore.saveExportPreferences(preferences)
+    return preferences
+  }
+  const { data, error } = await supabase
+    .from('teacher_export_preferences')
+    .upsert({
+      user_id: preferences.userId,
+      default_template_id: preferences.defaultTemplateId,
+      paper_size: preferences.paperSize,
+      prepared_by_name: preferences.preparedByName,
+      prepared_by_title: preferences.preparedByTitle,
+      reviewed_by_name: preferences.reviewedByName,
+      reviewed_by_title: preferences.reviewedByTitle,
+      noted_by_name: preferences.notedByName,
+      noted_by_title: preferences.notedByTitle,
+      include_ai_declaration: preferences.includeAiDeclaration,
+      include_source_provenance: preferences.includeSourceProvenance,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id' })
+    .select('*')
+    .single()
+  if (error) throw error
+  return mapTeacherExportPreferences(data as Record<string, unknown>)
+}
 
 function mapTeacherLessonPreferences(row: Record<string, unknown>): TeacherLessonPreferences {
   return {

@@ -40,3 +40,12 @@ PHASE 3.5.3 MOBILE COMPETENCY PICKER HOTFIX
 - Do not convert it back to a native select; Android browsers inside the AI Studio embedded preview can fail to open native selects.
 - Preserve the Phase 3.5.1 verified-manifest fallback and production competency-ID resolver.
 - Run: npm run validate:phase353
+
+PHASE 3.6 EXPORT ENGINE
+- Merge all files into the existing project root. Do not create a nested folder.
+- Preserve the Phase 3.5.3 in-app Verified Competency picker.
+- Install the new `docx` and `jspdf` dependencies from package.json.
+- Keep migration `202608080009_phase36_export_preferences.sql` at `supabase/migrations/`.
+- Do not replace the GuroDesk ILAW Standard exporter with a hard-coded DepEd logo/seal.
+- Verify a saved lesson opens `/lesson-plans/:id/print` and exposes Print, Word, and PDF actions.
+- Run `npm run validate:phase36` and all prior validation scripts.

@@ -1,4 +1,4 @@
-import { Archive, ArrowRight, BookOpenCheck, CalendarDays, FileCheck2, Plus, ShieldCheck, Sparkles } from 'lucide-react'
+import { Archive, ArrowRight, BookOpenCheck, CalendarDays, Download, FileCheck2, Plus, ShieldCheck, Sparkles } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
@@ -38,9 +38,9 @@ export function LessonPlansPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Planning · Phase 3"
+        eyebrow="Planning · Phase 3.6"
         title="Lesson Plans"
-        description="Teacher-led ILAW planning grounded in verified curriculum records, with policy-safe AI support for refinement and routine technical tasks."
+        description="Teacher-led ILAW planning grounded in verified curriculum records, with guided AI suggestions and printable Word/PDF exports."
         actions={<Link className="button primary" to="/lesson-plans/new"><Plus size={16} /> New lesson plan</Link>}
       />
 
@@ -72,6 +72,7 @@ export function LessonPlansPage() {
               <div className="lesson-card-meta"><span>{plan.content.numberOfSessions} session{plan.content.numberOfSessions === 1 ? '' : 's'}</span><span>Updated {new Date(plan.updatedAt).toLocaleDateString()}</span></div>
               <div className="lesson-card-actions">
                 <button className="icon-button danger" type="button" onClick={() => void archive(plan.id)} title="Archive"><Archive size={16} /></button>
+                <Link className="button ghost" to={`/lesson-plans/${plan.id}/print`}><Download size={14} /> Export</Link>
                 <Link className="button secondary" to={`/lesson-plans/${plan.id}`}>Open plan <ArrowRight size={14} /></Link>
               </div>
             </article>
