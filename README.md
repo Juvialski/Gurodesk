@@ -1,6 +1,13 @@
-# GuroDesk — Phase 3 + BYOK AI checkpoint
+# GuroDesk — Phase 3.7 Custom Template Engine
 
 GuroDesk is a mobile-friendly web workspace for DepEd teachers. It is designed around one rule: **verified curriculum and policy data first; teacher judgment first; AI only where current DepEd rules allow it.**
+
+
+## Phase 3.7 custom templates
+
+Teachers can upload the exact `.docx` ILAW/DLP master their school already uses. GuroDesk extracts document structure locally, can use one Gemini BYOK call to suggest field mappings, lets the teacher correct those mappings, stores the unchanged master in a private Supabase Storage bucket, and fills a copy of the same DOCX for future lessons without another AI call. Custom-template Word output is master-based; preview/PDF uses the filled DOCX rendered in the browser.
+
+See `docs/PHASE_3_7_CUSTOM_TEMPLATES.md`.
 
 ## Phase 3 status
 
@@ -55,6 +62,10 @@ Apply in order:
 5. `202608080005_phase3_lesson_planning.sql`
 6. `202608080006_seed_lesson_planning_policy_metadata.sql`
 7. `202608080007_phase3_byok_ai.sql`
+8. `202608080008_phase35_lesson_suggestions.sql`
+9. `202608080009_phase36_export_preferences.sql`
+10. `202608080010_phase363_multilingual_lesson_support.sql`
+11. `202608080011_phase37_custom_document_templates.sql`
 
 Then set browser-safe variables only:
 
@@ -89,6 +100,10 @@ npm run curriculum:validate
 npm run validate:phase2
 npm run validate:phase3
 npm run validate:byok
+npm run validate:phase35
+npm run validate:phase36
+npm run validate:phase363
+npm run validate:phase37
 npm run typecheck
 npm run build
 ```
@@ -102,13 +117,4 @@ Signed-in Supabase users must connect their own Gemini API key before entering t
 
 ## Phase 3.6 - printable exports
 
-Saved lesson plans can now be previewed and exported as PDF or editable Word `.docx` files. Settings includes reusable paper-size/signatory/export options backed by `teacher_export_preferences`. The default layout is the plain `ILAW Standard` template and is designed to be extended for TOS, assessments, and future school/division-specific layouts.
-
-
-## Phase 3.6.3 — Filipino and multilingual lessons
-
-Lesson suggestions now explicitly follow the teacher-selected language instead of relying on model inference. `Auto` matches Filipino subjects/lesson text, while teachers may choose English, Filipino, bilingual English + Filipino, or name a local language. Printable PDF/Word/print labels can be English, Filipino, or automatically match the lesson. Export selection changes headings only and never silently translates teacher-authored content.
-
-Migration: `supabase/migrations/202608080010_phase363_multilingual_lesson_support.sql`.
-
-Validation: `npm run validate:phase363`.
+Saved lesson plans can now be previewed and exported as PDF or editable Word `.docx` files. Settings includes reusable paper-size/signatory/export options backed by `teacher_export_preferences`. The first layout is the independent `GuroDesk ILAW Standard` template and is designed to be extended for TOS, assessments, and future school/division-specific layouts.

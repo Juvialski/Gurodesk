@@ -68,3 +68,12 @@ PHASE 3.6.3 MULTILINGUAL LESSON SUPPORT
 - Export language changes labels/headings only; never auto-translate teacher lesson content during download.
 - Preserve direct Translate to Filipino / English / configured local language actions in lesson fields.
 - Run `npm run validate:phase363` plus all earlier validation scripts.
+
+PHASE 3.7 CUSTOM TEMPLATE ENGINE
+- Merge all files into the existing project root; do not create a nested folder.
+- Install new dependencies from package.json: pizzip, docx-preview, html2canvas.
+- Preserve src/lib/docxTemplate.ts. It fills copies of original teacher DOCX masters deterministically; do not replace it with AI-generated formatting.
+- Preserve src/components/DocumentTemplatesPanel.tsx and the mobile-safe mapping picker.
+- Preserve supabase/functions/template-analyzer/index.ts. Raw DOCX bytes must never be sent to Gemini; only extracted text structure is analyzed.
+- Preserve migration 202608080011_phase37_custom_document_templates.sql and the private document-templates Storage bucket/RLS policies.
+- Run npm run validate:phase37 plus all prior validation scripts.

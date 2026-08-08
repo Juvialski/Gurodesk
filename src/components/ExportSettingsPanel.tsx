@@ -39,14 +39,14 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
   return (
     <section className="panel export-settings-panel">
       <div className="panel-heading">
-        <div><span className="eyebrow">Document exports</span><h2>Printable document defaults</h2><p>Lesson-plan exports use a plain ILAW layout. These same defaults will be reused by later TOS, assessment, and report exports.</p></div>
+        <div><span className="eyebrow">Document exports</span><h2>Printable document defaults</h2><p>The built-in ILAW layout remains the fallback. Custom school DOCX templates can be added below and set as the default for lesson-plan exports.</p></div>
         <span className="settings-feature-icon"><FileDown size={20} /></span>
       </div>
 
       {loading ? <div className="settings-inline-loading">Loading export settings…</div> : <>
         <div className="export-template-card">
           <div><strong>{template.label}</strong><p>{template.description}</p></div>
-          <span className="phase-pill live">Default</span>
+          <span className="phase-pill">Built-in fallback</span>
         </div>
 
 

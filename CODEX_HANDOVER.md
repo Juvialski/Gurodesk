@@ -159,9 +159,6 @@ Never create `VITE_GEMINI_API_KEY`.
 5. `202608080005_phase3_lesson_planning.sql`
 6. `202608080006_seed_lesson_planning_policy_metadata.sql`
 7. `202608080007_phase3_byok_ai.sql`
-8. `202608080008_phase35_lesson_suggestions.sql`
-9. `202608080009_phase36_export_preferences.sql`
-10. `202608080010_phase363_multilingual_lesson_support.sql`
 
 Phase 3 tables:
 
@@ -281,27 +278,25 @@ Do not remove these files/features:
 
 Lesson plans now support preview, browser print, PDF download, and Word `.docx` download. Export preferences are reusable and are the foundation for Phase 4 TOS/assessment exports.
 
-The current shipped layout ID is `gurodesk_ilaw_standard`, displayed to teachers as `ILAW Standard`. It is a plain ILAW-style export and is not represented as an official DepEd-issued form. Do not add DepEd seals/logos or imply endorsement.
+The current shipped layout is `gurodesk_ilaw_standard`. It is intentionally a GuroDesk template, not represented as an official DepEd-issued form. Do not add DepEd seals/logos or imply endorsement.
 
 Dependencies added: `docx`, `jspdf`.
 
 Run `npm run validate:phase36` plus all earlier validation scripts. Keep the Phase 3.5.3 in-app mobile competency picker intact.
 
+## Phase 3.7 — Custom teacher templates
 
----
+Teachers may upload the exact Word ILAW/DLP template their school already uses. GuroDesk extracts DOCX structure in the browser, can use one BYOK Gemini call to suggest field mappings, requires/permits teacher correction, stores the unchanged master privately in Supabase Storage, and reuses deterministic mappings for all future exports with no AI call.
 
-## Phase 3.6.3 multilingual lesson checkpoint — COMPLETE
+Important files:
+- `src/types/documentTemplate.ts`
+- `src/lib/docxTemplate.ts`
+- `src/lib/templateRepository.ts`
+- `src/lib/customTemplateRender.ts`
+- `src/components/DocumentTemplatesPanel.tsx`
+- `src/components/CustomDocxPreview.tsx`
+- `supabase/functions/template-analyzer/index.ts`
+- `supabase/migrations/202608080011_phase37_custom_document_templates.sql`
+- `docs/PHASE_3_7_CUSTOM_TEMPLATES.md`
 
-Preserve:
-
-- `teacher_lesson_preferences.language_preference` with Auto / English / Filipino / bilingual / local-language options
-- `teacher_lesson_preferences.local_language_name`
-- explicit output-language enforcement in `lesson-ai-support`
-- non-translation polishing preserves teacher text language
-- direct field translation to Filipino, English, or configured local language
-- `teacher_export_preferences.document_language` = match / english / filipino
-- localized PDF, DOCX, and print-preview labels
-- export localization changes labels only; it must not silently translate teacher lesson content
-- migration `202608080010_phase363_multilingual_lesson_support.sql`
-
-Run `npm run validate:phase363` plus all prior validation scripts.
+Do not rebuild uploaded documents into the built-in ILAW layout. Custom Word export must start from a copy of the original teacher upload. Phase 4 should reuse this abstraction for XLSX TOS templates.

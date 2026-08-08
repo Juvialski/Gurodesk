@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { AiSetupPanel } from '../components/AiSetupPanel'
 import { TeachingSetupPanel } from '../components/TeachingSetupPanel'
 import { ExportSettingsPanel } from '../components/ExportSettingsPanel'
+import { DocumentTemplatesPanel } from '../components/DocumentTemplatesPanel'
 import { useApp } from '../contexts/AppContext'
 import { POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
 import { demoStore } from '../lib/demoStore'
@@ -49,6 +50,7 @@ export function SettingsPage() {
 
           {profile && <TeachingSetupPanel userId={profile.id} isDemo={isDemo} />}
           {profile && <ExportSettingsPanel userId={profile.id} profile={profile} isDemo={isDemo} />}
+          {profile && <DocumentTemplatesPanel userId={profile.id} isDemo={isDemo} />}
           <AiSetupPanel isDemo={isDemo} />
         </div>
 
