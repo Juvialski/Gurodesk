@@ -61,7 +61,8 @@ export const demoStore = {
   },
 
   getLessonPreferences(userId = USER_ID): TeacherLessonPreferences {
-    return read(LESSON_PREFERENCES_KEY, createDefaultTeacherLessonPreferences(userId))
+    const defaults = createDefaultTeacherLessonPreferences(userId)
+    return { ...defaults, ...read(LESSON_PREFERENCES_KEY, defaults) }
   },
 
   saveLessonPreferences(preferences: TeacherLessonPreferences) {
@@ -69,7 +70,8 @@ export const demoStore = {
   },
 
   getExportPreferences(userId = USER_ID): TeacherExportPreferences {
-    return read(EXPORT_PREFERENCES_KEY, createDefaultTeacherExportPreferences(userId))
+    const defaults = createDefaultTeacherExportPreferences(userId)
+    return { ...defaults, ...read(EXPORT_PREFERENCES_KEY, defaults) }
   },
 
   saveExportPreferences(preferences: TeacherExportPreferences) {

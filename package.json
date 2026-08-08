@@ -1,7 +1,7 @@
 {
   "name": "gurodesk",
   "private": true,
-  "version": "0.3.9",
+  "version": "0.3.11",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
@@ -18,7 +18,9 @@
     "validate:phase352": "node scripts/check-phase352.mjs",
     "validate:phase353": "node scripts/check-phase353.mjs",
     "validate:phase36": "node scripts/check-phase36.mjs",
-    "validate:phase361": "node scripts/check-phase361.mjs"
+    "validate:phase361": "node scripts/check-phase361.mjs",
+    "validate:phase362": "node scripts/check-phase362.mjs",
+    "validate:phase363": "node scripts/check-phase363.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

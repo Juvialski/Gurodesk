@@ -102,4 +102,13 @@ Signed-in Supabase users must connect their own Gemini API key before entering t
 
 ## Phase 3.6 - printable exports
 
-Saved lesson plans can now be previewed and exported as PDF or editable Word `.docx` files. Settings includes reusable paper-size and signatory defaults backed by `teacher_export_preferences`. Phase 3.6.1 makes the default output a plain `ILAW Standard` document: no GuroDesk branding, no AI-use block, no source-provenance block, and no tool disclaimer in the printable file. The export follows the ILAW order directly: Intentions, Learning Experience, Assessing Learning, and Ways Forward.
+Saved lesson plans can now be previewed and exported as PDF or editable Word `.docx` files. Settings includes reusable paper-size/signatory/export options backed by `teacher_export_preferences`. The default layout is the plain `ILAW Standard` template and is designed to be extended for TOS, assessments, and future school/division-specific layouts.
+
+
+## Phase 3.6.3 — Filipino and multilingual lessons
+
+Lesson suggestions now explicitly follow the teacher-selected language instead of relying on model inference. `Auto` matches Filipino subjects/lesson text, while teachers may choose English, Filipino, bilingual English + Filipino, or name a local language. Printable PDF/Word/print labels can be English, Filipino, or automatically match the lesson. Export selection changes headings only and never silently translates teacher-authored content.
+
+Migration: `supabase/migrations/202608080010_phase363_multilingual_lesson_support.sql`.
+
+Validation: `npm run validate:phase363`.

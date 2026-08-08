@@ -13,6 +13,7 @@ import {
 import { jsPDF } from 'jspdf'
 import type { Profile } from '../types/app'
 import type { LessonPlanRecord } from '../types/lessonPlan'
+import type { TeacherLessonPreferences } from '../types/teachingSetup'
 import type {
   ExportPaperSize,
   LessonPlanExportModel,
@@ -31,18 +32,140 @@ function display(value: string | null | undefined, fallback = 'Not specified') {
   return clean(value) || fallback
 }
 
-function formatDate(value: string) {
+function formatDate(value: string, language: 'english' | 'filipino') {
   if (!value) return 'Not specified'
   const parsed = new Date(`${value}T00:00:00`)
   if (Number.isNaN(parsed.getTime())) return value
-  return new Intl.DateTimeFormat('en-PH', {
+  return new Intl.DateTimeFormat(language === 'filipino' ? 'fil-PH' : 'en-PH', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   }).format(parsed)
 }
 
-function competencyAndStandards(plan: LessonPlanRecord) {
+const ENGLISH_LABELS = {
+  republic: 'Republic of the Philippines',
+  department: 'Department of Education',
+  documentTitle: 'ILAW LESSON PLAN',
+  teacher: 'Teacher',
+  gradeSection: 'Grade Level / Section',
+  learningArea: 'Learning Area',
+  lessonTitle: 'Lesson Title',
+  date: 'Date',
+  weekSchedule: 'Week / Schedule',
+  schoolYear: 'School Year',
+  gradingTerm: 'Grading Term',
+  curriculumPeriod: 'Curriculum Period',
+  sessionsDuration: 'Sessions / Duration',
+  references: 'References',
+  intentions: 'INTENTIONS',
+  learningExperience: 'LEARNING EXPERIENCE',
+  assessingLearning: 'ASSESSING LEARNING',
+  waysForward: 'WAYS FORWARD',
+  signatures: 'SIGNATURES',
+  preparedBy: 'Prepared by',
+  reviewedBy: 'Reviewed by',
+  notedBy: 'Noted by',
+  sessionUnit: 'session(s)',
+  draftCopy: 'DRAFT COPY',
+  archivedCopy: 'ARCHIVED COPY',
+} as const
+
+const FILIPINO_LABELS = {
+  republic: 'Republika ng Pilipinas',
+  department: 'Kagawaran ng Edukasyon',
+  documentTitle: 'ILAW BANGHAY-ARALIN',
+  teacher: 'Guro',
+  gradeSection: 'Baitang / Seksyon',
+  learningArea: 'Larangan ng Pagkatuto',
+  lessonTitle: 'Pamagat ng Aralin',
+  date: 'Petsa',
+  weekSchedule: 'Linggo / Iskedyul',
+  schoolYear: 'Taong Panuruan',
+  gradingTerm: 'Termino ng Pagmamarka',
+  curriculumPeriod: 'Panahon sa Kurikulum',
+  sessionsDuration: 'Mga Sesyon / Tagal',
+  references: 'Mga Sanggunian',
+  intentions: 'MGA LAYUNIN',
+  learningExperience: 'KARANASAN SA PAGKATUTO',
+  assessingLearning: 'PAGTATAYA SA PAGKATUTO',
+  waysForward: 'MGA SUSUNOD NA HAKBANG',
+  signatures: 'MGA LAGDA',
+  preparedBy: 'Inihanda ni',
+  reviewedBy: 'Sinuri ni',
+  notedBy: 'Pinagtibay ni',
+  sessionUnit: 'sesyon',
+  draftCopy: 'BORADOR',
+  archivedCopy: 'NAKA-ARCHIVE NA KOPYA',
+} as const
+
+const ENGLISH_FIELD_LABELS = {
+  competencyStandards: 'Learning Competency and Curriculum Standards',
+  learningObjectives: 'Learning Objectives',
+  learnerContext: 'Learner Context',
+  preLesson: 'Pre-Lesson',
+  lessonFlow: 'Lesson Flow',
+  resources: 'Learning Resources',
+  contextualization: 'Opportunities for Integration and Contextualization',
+  inclusion: 'Inclusion and Accommodations',
+  homeAlternative: 'Learning Continuity / Home-Based Alternative',
+  formative: 'Formative Assessment',
+  evidence: 'Evidence of Learning',
+  extended: 'Extended Learning Opportunities',
+  nextSteps: 'Next Steps / Intervention',
+  reflection: 'Reflection',
+  performanceStandard: 'Performance Standard',
+} as const
+
+const FILIPINO_FIELD_LABELS = {
+  competencyStandards: 'Kasanayang Pampagkatuto at mga Pamantayan sa Kurikulum',
+  learningObjectives: 'Mga Layunin sa Pagkatuto',
+  learnerContext: 'Konteksto ng mga Mag-aaral',
+  preLesson: 'Bago ang Aralin',
+  lessonFlow: 'Daloy ng Aralin',
+  resources: 'Mga Kagamitang Panturo',
+  contextualization: 'Mga Pagkakataon para sa Integrasyon at Kontekstuwalisasyon',
+  inclusion: 'Inklusyon at mga Angkop na Suporta',
+  homeAlternative: 'Pagpapatuloy ng Pagkatuto / Alternatibong Gawaing Pantahanan',
+  formative: 'Pormatibong Pagtataya',
+  evidence: 'Katibayan ng Pagkatuto',
+  extended: 'Karagdagang Pagkakataon sa Pagkatuto',
+  nextSteps: 'Mga Susunod na Hakbang / Interbensyon',
+  reflection: 'Pagninilay',
+  performanceStandard: 'Pamantayan sa Pagganap',
+} as const
+
+function looksFilipino(text: string) {
+  const normalized = ` ${text.toLowerCase().replace(/[^a-záéíóúñ\s-]/g, ' ')} `
+  const markers = [' ang ', ' mga ', ' ng ', ' sa ', ' ay ', ' upang ', ' mag-aaral', ' aralin', ' gawain', ' pagkatuto', ' natutukoy', ' naipapaliwanag', ' nakagagawa']
+  return markers.reduce((score, marker) => score + (normalized.includes(marker) ? 1 : 0), 0) >= 3
+}
+
+function resolveExportLanguage(
+  plan: LessonPlanRecord,
+  preferences: TeacherExportPreferences,
+  lessonPreferences?: TeacherLessonPreferences | null,
+): 'english' | 'filipino' {
+  if (preferences.documentLanguage === 'filipino') return 'filipino'
+  if (preferences.documentLanguage === 'english') return 'english'
+
+  const lessonText = [
+    plan.content.learningArea,
+    plan.content.lessonTitle,
+    plan.content.intentions.learningObjectives,
+    plan.content.learningExperience.preLessonActivity,
+    plan.content.learningExperience.lessonFlow,
+    plan.content.assessingLearning.formativeAssessments,
+    plan.content.waysForward.nextSteps,
+  ].filter(Boolean).join('\n')
+
+  if (plan.content.learningArea.toLowerCase().includes('filipino')) return 'filipino'
+  if (looksFilipino(lessonText)) return 'filipino'
+  if (lessonPreferences?.languagePreference === 'Filipino') return 'filipino'
+  return 'english'
+}
+
+function competencyAndStandards(plan: LessonPlanRecord, language: 'english' | 'filipino') {
   const competency = plan.content.competency
   const lines: string[] = []
   const competencyText = clean(competency.text)
@@ -50,7 +173,10 @@ function competencyAndStandards(plan: LessonPlanRecord) {
     lines.push(clean(competency.code) ? `${clean(competency.code)}: ${competencyText}` : competencyText)
   }
   const performanceStandard = clean(plan.content.performanceStandard)
-  if (performanceStandard) lines.push(`Performance Standard: ${performanceStandard}`)
+  if (performanceStandard) {
+    const label = language === 'filipino' ? FILIPINO_FIELD_LABELS.performanceStandard : ENGLISH_FIELD_LABELS.performanceStandard
+    lines.push(`${label}: ${performanceStandard}`)
+  }
   return lines.join('\n')
 }
 
@@ -58,36 +184,42 @@ export function buildLessonPlanExportModel(
   plan: LessonPlanRecord,
   profile: Profile,
   preferences: TeacherExportPreferences,
+  lessonPreferences?: TeacherLessonPreferences | null,
 ): LessonPlanExportModel {
   const content = plan.content
+  const language = resolveExportLanguage(plan, preferences, lessonPreferences)
+  const labels = language === 'filipino' ? FILIPINO_LABELS : ENGLISH_LABELS
+  const fieldLabels = language === 'filipino' ? FILIPINO_FIELD_LABELS : ENGLISH_FIELD_LABELS
   const signatories = [
     {
-      role: 'Prepared by',
+      role: labels.preparedBy,
       name: clean(preferences.preparedByName) || clean(profile.fullName),
       title: clean(preferences.preparedByTitle) || clean(profile.positionTitle),
     },
     {
-      role: 'Reviewed by',
+      role: labels.reviewedBy,
       name: clean(preferences.reviewedByName),
       title: clean(preferences.reviewedByTitle),
     },
     {
-      role: 'Noted by',
+      role: labels.notedBy,
       name: clean(preferences.notedByName),
       title: clean(preferences.notedByTitle),
     },
-  ].filter((item) => item.name || item.role === 'Prepared by')
+  ].filter((item) => item.name || item.role === labels.preparedBy)
 
   return {
-    documentTitle: 'ILAW LESSON PLAN',
+    documentTitle: labels.documentTitle,
     templateLabel: 'ILAW Standard',
+    language,
+    labels,
     status: plan.status,
     identity: {
-      teacherName: display(profile.fullName),
-      positionTitle: display(profile.positionTitle),
-      schoolName: display(profile.schoolName),
-      region: display(profile.region),
-      division: display(profile.division),
+      teacherName: display(profile.fullName, ''),
+      positionTitle: clean(profile.positionTitle),
+      schoolName: clean(profile.schoolName),
+      region: clean(profile.region),
+      division: clean(profile.division),
     },
     lesson: {
       title: display(content.lessonTitle),
@@ -97,33 +229,35 @@ export function buildLessonPlanExportModel(
       sections: content.sections.length ? content.sections.join(', ') : 'Not specified',
       curriculumPeriod: display(content.curriculumPeriodLabel),
       gradingTerm: display(content.gradingTermLabel),
-      lessonDate: formatDate(content.lessonDate),
+      lessonDate: formatDate(content.lessonDate, language),
       weekLabel: display(content.weekLabel),
       sessions: `${content.numberOfSessions || 1}`,
-      duration: `${content.durationMinutes || 60} minutes per session`,
+      duration: language === 'filipino'
+        ? `${content.durationMinutes || 60} minuto bawat sesyon`
+        : `${content.durationMinutes || 60} minutes per session`,
     },
     ilaw: {
       intentions: [
-        { key: 'competency-standards', heading: 'Learning Competency and Curriculum Standards', body: competencyAndStandards(plan) },
-        { key: 'learning-objectives', heading: 'Learning Objectives', body: clean(content.intentions.learningObjectives) },
-        { key: 'learner-context', heading: 'Learner Context', body: clean(content.learnerContext) },
+        { key: 'competency-standards', heading: fieldLabels.competencyStandards, body: competencyAndStandards(plan, language) },
+        { key: 'learning-objectives', heading: fieldLabels.learningObjectives, body: clean(content.intentions.learningObjectives) },
+        { key: 'learner-context', heading: fieldLabels.learnerContext, body: clean(content.learnerContext) },
       ],
       learningExperience: [
-        { key: 'pre-lesson', heading: 'Pre-Lesson', body: clean(content.learningExperience.preLessonActivity) },
-        { key: 'lesson-flow', heading: 'Lesson Flow', body: clean(content.learningExperience.lessonFlow) },
-        { key: 'resources', heading: 'Learning Resources', body: clean(content.learningExperience.resources) },
-        { key: 'contextualization', heading: 'Opportunities for Integration and Contextualization', body: clean(content.learningExperience.integrationContextualization) },
-        { key: 'inclusion', heading: 'Inclusion and Accommodations', body: clean(content.learningExperience.inclusionAccommodations) },
-        { key: 'home-alternative', heading: 'Learning Continuity / Home-Based Alternative', body: clean(content.learningExperience.homeBasedAlternative) },
+        { key: 'pre-lesson', heading: fieldLabels.preLesson, body: clean(content.learningExperience.preLessonActivity) },
+        { key: 'lesson-flow', heading: fieldLabels.lessonFlow, body: clean(content.learningExperience.lessonFlow) },
+        { key: 'resources', heading: fieldLabels.resources, body: clean(content.learningExperience.resources) },
+        { key: 'contextualization', heading: fieldLabels.contextualization, body: clean(content.learningExperience.integrationContextualization) },
+        { key: 'inclusion', heading: fieldLabels.inclusion, body: clean(content.learningExperience.inclusionAccommodations) },
+        { key: 'home-alternative', heading: fieldLabels.homeAlternative, body: clean(content.learningExperience.homeBasedAlternative) },
       ],
       assessingLearning: [
-        { key: 'formative', heading: 'Formative Assessment', body: clean(content.assessingLearning.formativeAssessments) },
-        { key: 'evidence', heading: 'Evidence of Learning', body: clean(content.assessingLearning.evidenceOfLearning) },
+        { key: 'formative', heading: fieldLabels.formative, body: clean(content.assessingLearning.formativeAssessments) },
+        { key: 'evidence', heading: fieldLabels.evidence, body: clean(content.assessingLearning.evidenceOfLearning) },
       ],
       waysForward: [
-        { key: 'extended', heading: 'Extended Learning Opportunities', body: clean(content.waysForward.extendedLearning) },
-        { key: 'next-steps', heading: 'Next Steps / Intervention', body: clean(content.waysForward.nextSteps) },
-        { key: 'reflection', heading: 'Reflection', body: clean(content.waysForward.reflection) },
+        { key: 'extended', heading: fieldLabels.extended, body: clean(content.waysForward.extendedLearning) },
+        { key: 'next-steps', heading: fieldLabels.nextSteps, body: clean(content.waysForward.nextSteps) },
+        { key: 'reflection', heading: fieldLabels.reflection, body: clean(content.waysForward.reflection) },
       ],
     },
     references: clean(content.references),
@@ -173,19 +307,35 @@ function tableBorders() {
   }
 }
 
-function infoCell(label: string, value: string) {
-  const lines = value.split(/\r?\n/)
+function exportValue(value: string | null | undefined) {
+  const normalized = clean(value)
+  return normalized === 'Not specified' ? '' : normalized
+}
+
+function docxMetaLabelCell(label: string) {
   return new TableCell({
-    width: { size: 50, type: WidthType.PERCENTAGE },
-    margins: { top: 90, bottom: 90, left: 120, right: 120 },
-    children: [
-      new Paragraph({
-        spacing: { after: 35 },
-        children: [new TextRun({ text: label, bold: true, size: 17, color: TEXT })],
-      }),
-      ...lines.map((line) => new Paragraph({ children: [new TextRun({ text: line || ' ', size: 20, color: TEXT })] })),
-    ],
+    width: { size: 28, type: WidthType.PERCENTAGE },
+    margins: { top: 80, bottom: 80, left: 110, right: 110 },
+    children: [new Paragraph({
+      children: [new TextRun({ text: label, bold: true, size: 18, color: TEXT })],
+    })],
   })
+}
+
+function docxMetaValueCell(value: string) {
+  const lines = (exportValue(value) || ' ').split(/\r?\n/)
+  return new TableCell({
+    width: { size: 72, type: WidthType.PERCENTAGE },
+    margins: { top: 80, bottom: 80, left: 120, right: 120 },
+    children: lines.map((line) => new Paragraph({
+      spacing: { after: 20 },
+      children: [new TextRun({ text: line || ' ', size: 19, color: TEXT })],
+    })),
+  })
+}
+
+function docxMetaRow(label: string, value: string) {
+  return new TableRow({ children: [docxMetaLabelCell(label), docxMetaValueCell(value)] })
 }
 
 function docxSectionHeading(text: string) {
@@ -220,63 +370,62 @@ export async function downloadLessonPlanDocx(
 ) {
   const paper = docxPaperSize(preferences.paperSize)
   const gradeAndSection = `${model.lesson.gradeLevel}${model.lesson.sections && model.lesson.sections !== 'Not specified' ? ` - ${model.lesson.sections}` : ''}`
-  const sessionSummary = `${model.lesson.sessions} session(s), ${model.lesson.duration}`
-  const schedule = [model.lesson.lessonDate, model.lesson.weekLabel].filter((value) => value && value !== 'Not specified').join(' - ') || 'Not specified'
+  const sessionSummary = `${model.lesson.sessions} ${model.labels.sessionUnit}, ${model.lesson.duration}`
 
-  const children: Array<Paragraph | Table> = [
-    new Paragraph({
-      alignment: AlignmentType.CENTER,
-      spacing: { after: 40 },
-      children: [new TextRun({ text: 'Republic of the Philippines', size: 18, color: TEXT })],
-    }),
+  const headerLines = [
     new Paragraph({
       alignment: AlignmentType.CENTER,
       spacing: { after: 30 },
-      children: [new TextRun({ text: 'Department of Education', bold: true, size: 20, color: TEXT })],
+      children: [new TextRun({ text: model.labels.republic, size: 17, color: TEXT })],
     }),
     new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: 25 },
-      children: [new TextRun({ text: model.identity.region, size: 17, color: TEXT })],
+      spacing: { after: 26 },
+      children: [new TextRun({ text: model.labels.department, bold: true, size: 20, color: TEXT })],
     }),
+    ...(model.identity.region ? [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 20 }, children: [new TextRun({ text: model.identity.region, size: 16, color: TEXT })] })] : []),
+    ...(model.identity.division ? [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 20 }, children: [new TextRun({ text: model.identity.division, size: 16, color: TEXT })] })] : []),
+    ...(model.identity.schoolName ? [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 90 }, children: [new TextRun({ text: model.identity.schoolName, bold: true, size: 18, color: TEXT })] })] : []),
     new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: 25 },
-      children: [new TextRun({ text: model.identity.division, size: 17, color: TEXT })],
+      spacing: { before: 40, after: 120 },
+      children: [new TextRun({ text: model.documentTitle, bold: true, size: 27, color: TEXT })],
     }),
-    new Paragraph({
-      alignment: AlignmentType.CENTER,
-      spacing: { after: 120 },
-      children: [new TextRun({ text: model.identity.schoolName, bold: true, size: 18, color: TEXT })],
-    }),
-    new Paragraph({
-      alignment: AlignmentType.CENTER,
-      spacing: { after: 150 },
-      children: [new TextRun({ text: model.documentTitle, bold: true, size: 28, color: TEXT })],
-    }),
+  ]
+
+  const metaRows = [
+    docxMetaRow(model.labels.teacher, model.identity.teacherName),
+    docxMetaRow(model.labels.gradeSection, gradeAndSection),
+    docxMetaRow(model.labels.learningArea, model.lesson.learningArea),
+    docxMetaRow(model.labels.lessonTitle, model.lesson.title),
+    docxMetaRow(model.labels.date, model.lesson.lessonDate),
+    docxMetaRow(model.labels.weekSchedule, model.lesson.weekLabel),
+    docxMetaRow(model.labels.schoolYear, model.lesson.schoolYear),
+    docxMetaRow(model.labels.gradingTerm, model.lesson.gradingTerm),
+    docxMetaRow(model.labels.curriculumPeriod, model.lesson.curriculumPeriod),
+    docxMetaRow(model.labels.sessionsDuration, sessionSummary),
+    docxMetaRow(model.labels.references, model.references),
+  ]
+
+  const children: Array<Paragraph | Table> = [
+    ...headerLines,
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       borders: tableBorders(),
-      rows: [
-        new TableRow({ children: [infoCell('Lesson Title', model.lesson.title), infoCell('Learning Area/s', model.lesson.learningArea)] }),
-        new TableRow({ children: [infoCell('Name of Teacher/s', model.identity.teacherName), infoCell('Grade Level and Section', gradeAndSection)] }),
-        new TableRow({ children: [infoCell('No. of Sessions', sessionSummary), infoCell('Date / Week', schedule)] }),
-        new TableRow({ children: [infoCell('School Year', model.lesson.schoolYear), infoCell('Term / Curriculum Period', `${model.lesson.gradingTerm} / ${model.lesson.curriculumPeriod}`)] }),
-        new TableRow({ children: [infoCell('References', model.references || 'Not specified'), infoCell('Teacher Position', model.identity.positionTitle)] }),
-      ],
+      rows: metaRows,
     }),
-    docxSectionHeading('I. INTENTIONS'),
+    docxSectionHeading(`I. ${model.labels.intentions}`),
     ...model.ilaw.intentions.flatMap((item) => docxField(item.heading, item.body)),
-    docxSectionHeading('L. LEARNING EXPERIENCE'),
+    docxSectionHeading(`L. ${model.labels.learningExperience}`),
     ...model.ilaw.learningExperience.flatMap((item) => docxField(item.heading, item.body)),
-    docxSectionHeading('A. ASSESSING LEARNING'),
+    docxSectionHeading(`A. ${model.labels.assessingLearning}`),
     ...model.ilaw.assessingLearning.flatMap((item) => docxField(item.heading, item.body)),
-    docxSectionHeading('W. WAYS FORWARD'),
+    docxSectionHeading(`W. ${model.labels.waysForward}`),
     ...model.ilaw.waysForward.flatMap((item) => docxField(item.heading, item.body)),
   ]
 
   if (model.signatories.length) {
-    children.push(docxSectionHeading('SIGNATURES'))
+    children.push(docxSectionHeading(model.labels.signatures))
     for (const item of model.signatories) {
       children.push(
         new Paragraph({ spacing: { before: 230, after: 25 }, children: [new TextRun({ text: item.role, size: 18, color: MUTED })] }),
@@ -289,7 +438,7 @@ export async function downloadLessonPlanDocx(
   const document = new Document({
     creator: model.identity.teacherName,
     title: `${model.lesson.title} - ILAW Lesson Plan`,
-    description: 'ILAW lesson plan',
+    description: model.language === 'filipino' ? 'ILAW banghay-aralin' : 'ILAW lesson plan',
     sections: [{
       properties: {
         page: {
@@ -365,54 +514,73 @@ function pdfLabelBody(ctx: PdfContext, label: string, body: string) {
   pdfText(ctx, body, { size: 9.5, color: [0, 0, 0], gapAfter: 9 })
 }
 
-function pdfInfoRow(ctx: PdfContext, leftLabel: string, leftValue: string, rightLabel: string, rightValue: string) {
-  const colWidth = ctx.width / 2
-  const labelWidth = 82
-  const pad = 6
-  const leftLines = ctx.doc.splitTextToSize(leftValue, colWidth - labelWidth - pad * 2) as string[]
-  const rightLines = ctx.doc.splitTextToSize(rightValue, colWidth - labelWidth - pad * 2) as string[]
-  const rowHeight = Math.max(27, Math.max(leftLines.length, rightLines.length) * 11 + 10)
-  pdfEnsure(ctx, rowHeight + 2)
-  const top = ctx.y - 11
-  ctx.doc.setDrawColor(90, 90, 90)
+function pdfMetaRow(ctx: PdfContext, label: string, value: string) {
+  const labelWidth = Math.min(128, ctx.width * 0.29)
+  const padX = 7
+  const padY = 6
+  const lineHeight = 10.5
+  const labelLines = ctx.doc.splitTextToSize(label, labelWidth - padX * 2) as string[]
+  const displayValue = exportValue(value) || ' '
+  const valueLines = ctx.doc.splitTextToSize(displayValue, ctx.width - labelWidth - padX * 2) as string[]
+  const rowHeight = Math.max(26, Math.max(labelLines.length, valueLines.length) * lineHeight + padY * 2)
+  pdfEnsure(ctx, rowHeight + 1)
+  const top = ctx.y
+
+  ctx.doc.setDrawColor(105, 105, 105)
   ctx.doc.setLineWidth(0.45)
   ctx.doc.rect(ctx.x, top, ctx.width, rowHeight)
-  ctx.doc.line(ctx.x + colWidth, top, ctx.x + colWidth, top + rowHeight)
-  ctx.doc.setFillColor(242, 242, 242)
-  ctx.doc.rect(ctx.x, top, labelWidth, rowHeight, 'F')
-  ctx.doc.rect(ctx.x + colWidth, top, labelWidth, rowHeight, 'F')
+  ctx.doc.line(ctx.x + labelWidth, top, ctx.x + labelWidth, top + rowHeight)
+
+  const textY = top + padY + 7.5
   ctx.doc.setFont('helvetica', 'bold')
   ctx.doc.setFontSize(8.2)
   ctx.doc.setTextColor(0, 0, 0)
-  ctx.doc.text(leftLabel, ctx.x + pad, ctx.y + 3)
-  ctx.doc.text(rightLabel, ctx.x + colWidth + pad, ctx.y + 3)
+  ctx.doc.text(labelLines, ctx.x + padX, textY)
+
   ctx.doc.setFont('helvetica', 'normal')
-  ctx.doc.setFontSize(8.6)
-  ctx.doc.text(leftLines, ctx.x + labelWidth + pad, ctx.y + 3)
-  ctx.doc.text(rightLines, ctx.x + colWidth + labelWidth + pad, ctx.y + 3)
-  ctx.y = top + rowHeight + 11
+  ctx.doc.setFontSize(8.8)
+  ctx.doc.text(valueLines, ctx.x + labelWidth + padX, textY)
+  ctx.y = top + rowHeight
 }
 
-function pdfWideRow(ctx: PdfContext, label: string, value: string) {
-  const labelWidth = 82
-  const pad = 6
-  const lines = ctx.doc.splitTextToSize(value, ctx.width - labelWidth - pad * 2) as string[]
-  const rowHeight = Math.max(28, lines.length * 11 + 10)
-  pdfEnsure(ctx, rowHeight + 2)
-  const top = ctx.y - 11
-  ctx.doc.setDrawColor(90, 90, 90)
-  ctx.doc.setLineWidth(0.45)
-  ctx.doc.rect(ctx.x, top, ctx.width, rowHeight)
-  ctx.doc.setFillColor(242, 242, 242)
-  ctx.doc.rect(ctx.x, top, labelWidth, rowHeight, 'F')
-  ctx.doc.setFont('helvetica', 'bold')
-  ctx.doc.setFontSize(8.2)
+function pdfHeaderLine(ctx: PdfContext, text: string, options?: { bold?: boolean; size?: number; gap?: number }) {
+  if (!clean(text)) return
+  ctx.doc.setFont('helvetica', options?.bold ? 'bold' : 'normal')
+  ctx.doc.setFontSize(options?.size ?? 8.5)
   ctx.doc.setTextColor(0, 0, 0)
-  ctx.doc.text(label, ctx.x + pad, ctx.y + 3)
-  ctx.doc.setFont('helvetica', 'normal')
-  ctx.doc.setFontSize(8.6)
-  ctx.doc.text(lines, ctx.x + labelWidth + pad, ctx.y + 3)
-  ctx.y = top + rowHeight + 11
+  ctx.doc.text(text, ctx.doc.internal.pageSize.getWidth() / 2, ctx.y, { align: 'center' })
+  ctx.y += options?.gap ?? 12
+}
+
+function pdfSignatoryGrid(ctx: PdfContext, signatories: LessonPlanExportModel['signatories']) {
+  if (!signatories.length) return
+  pdfEnsure(ctx, 92)
+  const count = Math.min(3, signatories.length)
+  const colWidth = ctx.width / count
+  const top = ctx.y + 8
+  signatories.slice(0, count).forEach((item, index) => {
+    const center = ctx.x + colWidth * index + colWidth / 2
+    ctx.doc.setFont('helvetica', 'normal')
+    ctx.doc.setFontSize(8.3)
+    ctx.doc.text(item.role, center, top, { align: 'center' })
+    const lineY = top + 30
+    ctx.doc.setDrawColor(70, 70, 70)
+    ctx.doc.setLineWidth(0.45)
+    ctx.doc.line(center - colWidth * 0.34, lineY, center + colWidth * 0.34, lineY)
+    if (clean(item.name)) {
+      ctx.doc.setFont('helvetica', 'bold')
+      ctx.doc.setFontSize(8.8)
+      const nameLines = ctx.doc.splitTextToSize(item.name, colWidth * 0.72) as string[]
+      ctx.doc.text(nameLines, center, lineY + 12, { align: 'center' })
+    }
+    if (clean(item.title)) {
+      ctx.doc.setFont('helvetica', 'normal')
+      ctx.doc.setFontSize(7.6)
+      const titleLines = ctx.doc.splitTextToSize(item.title, colWidth * 0.72) as string[]
+      ctx.doc.text(titleLines, center, lineY + 25, { align: 'center' })
+    }
+  })
+  ctx.y = top + 64
 }
 
 export function downloadLessonPlanPdf(
@@ -422,48 +590,40 @@ export function downloadLessonPlanPdf(
   const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: pdfFormat(preferences.paperSize), compress: true })
   const pageWidth = doc.internal.pageSize.getWidth()
   const pageHeight = doc.internal.pageSize.getHeight()
-  const margin = 48
+  const margin = 54
   const ctx: PdfContext = { doc, x: margin, y: 54, width: pageWidth - margin * 2, bottom: pageHeight - 54 }
   const gradeAndSection = `${model.lesson.gradeLevel}${model.lesson.sections && model.lesson.sections !== 'Not specified' ? ` - ${model.lesson.sections}` : ''}`
-  const sessionSummary = `${model.lesson.sessions} session(s), ${model.lesson.duration}`
-  const schedule = [model.lesson.lessonDate, model.lesson.weekLabel].filter((value) => value && value !== 'Not specified').join(' - ') || 'Not specified'
+  const sessionSummary = `${model.lesson.sessions} ${model.labels.sessionUnit}, ${model.lesson.duration}`
 
-  doc.setFont('helvetica', 'normal')
-  doc.setFontSize(9)
-  doc.setTextColor(0, 0, 0)
-  doc.text('Republic of the Philippines', pageWidth / 2, ctx.y, { align: 'center' })
-  ctx.y += 14
-  doc.setFont('helvetica', 'bold')
-  doc.setFontSize(10)
-  doc.text('Department of Education', pageWidth / 2, ctx.y, { align: 'center' })
-  ctx.y += 13
-  doc.setFont('helvetica', 'normal')
-  doc.setFontSize(8.5)
-  doc.text(model.identity.region, pageWidth / 2, ctx.y, { align: 'center' })
-  ctx.y += 12
-  doc.text(model.identity.division, pageWidth / 2, ctx.y, { align: 'center' })
-  ctx.y += 12
-  doc.setFont('helvetica', 'bold')
-  doc.text(model.identity.schoolName, pageWidth / 2, ctx.y, { align: 'center' })
-  ctx.y += 24
+  pdfHeaderLine(ctx, model.labels.republic, { size: 8.5, gap: 12 })
+  pdfHeaderLine(ctx, model.labels.department, { bold: true, size: 10, gap: 12 })
+  pdfHeaderLine(ctx, model.identity.region, { size: 8.2, gap: 11 })
+  pdfHeaderLine(ctx, model.identity.division, { size: 8.2, gap: 11 })
+  pdfHeaderLine(ctx, model.identity.schoolName, { bold: true, size: 8.8, gap: 18 })
 
   doc.setFont('helvetica', 'bold')
-  doc.setFontSize(15)
+  doc.setFontSize(14)
   doc.text(model.documentTitle, pageWidth / 2, ctx.y, { align: 'center' })
-  ctx.y += 24
+  ctx.y += 22
 
-  pdfInfoRow(ctx, 'Lesson Title', model.lesson.title, 'Learning Area/s', model.lesson.learningArea)
-  pdfInfoRow(ctx, 'Name of Teacher/s', model.identity.teacherName, 'Grade Level and Section', gradeAndSection)
-  pdfInfoRow(ctx, 'No. of Sessions', sessionSummary, 'Date / Week', schedule)
-  pdfInfoRow(ctx, 'School Year', model.lesson.schoolYear, 'Term / Curriculum Period', `${model.lesson.gradingTerm} / ${model.lesson.curriculumPeriod}`)
-  pdfWideRow(ctx, 'References', model.references || 'Not specified')
-  ctx.y += 7
+  pdfMetaRow(ctx, model.labels.teacher, model.identity.teacherName)
+  pdfMetaRow(ctx, model.labels.gradeSection, gradeAndSection)
+  pdfMetaRow(ctx, model.labels.learningArea, model.lesson.learningArea)
+  pdfMetaRow(ctx, model.labels.lessonTitle, model.lesson.title)
+  pdfMetaRow(ctx, model.labels.date, model.lesson.lessonDate)
+  pdfMetaRow(ctx, model.labels.weekSchedule, model.lesson.weekLabel)
+  pdfMetaRow(ctx, model.labels.schoolYear, model.lesson.schoolYear)
+  pdfMetaRow(ctx, model.labels.gradingTerm, model.lesson.gradingTerm)
+  pdfMetaRow(ctx, model.labels.curriculumPeriod, model.lesson.curriculumPeriod)
+  pdfMetaRow(ctx, model.labels.sessionsDuration, sessionSummary)
+  pdfMetaRow(ctx, model.labels.references, model.references)
+  ctx.y += 10
 
   const groups: Array<[string, LessonPlanExportModel['ilaw'][keyof LessonPlanExportModel['ilaw']]]> = [
-    ['I. INTENTIONS', model.ilaw.intentions],
-    ['L. LEARNING EXPERIENCE', model.ilaw.learningExperience],
-    ['A. ASSESSING LEARNING', model.ilaw.assessingLearning],
-    ['W. WAYS FORWARD', model.ilaw.waysForward],
+    [`I. ${model.labels.intentions}`, model.ilaw.intentions],
+    [`L. ${model.labels.learningExperience}`, model.ilaw.learningExperience],
+    [`A. ${model.labels.assessingLearning}`, model.ilaw.assessingLearning],
+    [`W. ${model.labels.waysForward}`, model.ilaw.waysForward],
   ]
   for (const [heading, fields] of groups) {
     pdfSection(ctx, heading)
@@ -471,12 +631,8 @@ export function downloadLessonPlanPdf(
   }
 
   if (model.signatories.length) {
-    pdfSection(ctx, 'SIGNATURES')
-    for (const item of model.signatories) {
-      pdfText(ctx, item.role, { size: 8.5, color: [70, 70, 70], gapAfter: 2 })
-      pdfText(ctx, item.name || '____________________________', { bold: true, size: 10, gapAfter: 2 })
-      pdfText(ctx, item.title, { size: 8.5, color: [70, 70, 70], gapAfter: 12 })
-    }
+    pdfSection(ctx, model.labels.signatures)
+    pdfSignatoryGrid(ctx, model.signatories)
   }
 
   const pageCount = doc.getNumberOfPages()

@@ -1,4 +1,4 @@
-GURODESK 0.3.5 — PHASE 3.5 LESSON SUGGESTIONS + BYOK
+GURODESK 0.3.11 — PHASE 3.6.3 MULTILINGUAL LESSON SUPPORT
 
 This ZIP is a COMPLETE project root. Do not place it inside another folder.
 
@@ -13,6 +13,8 @@ When uploading to AI Studio:
 Supabase Git integration should then automatically:
 - apply migration 007 for per-teacher BYOK AI credentials/settings
 - apply migration 008 for teacher lesson preferences and Phase 3.5 AI-support audit types
+- apply migration 009 for document export preferences
+- apply migration 010 for multilingual lesson/export preferences
 - deploy/redeploy ai-settings, lesson-ai-support, and gemini-health Edge Functions
 
 After merge, verify Settings contains both:
@@ -57,3 +59,12 @@ PHASE 3.6.1 PLAIN ILAW EXPORT CLEANUP
 - Keep internal AI audit/provenance data in the app/database; only the exported document is cleaned.
 - Preserve the ILAW Standard order: Intentions → Learning Experience → Assessing Learning → Ways Forward.
 - Run `npm run validate:phase361` in addition to all prior validation scripts.
+
+PHASE 3.6.3 MULTILINGUAL LESSON SUPPORT
+- Keep migration `202608080010_phase363_multilingual_lesson_support.sql` at `supabase/migrations/`.
+- Preserve `Auto — match subject / lesson text`, Filipino, bilingual, and teacher-named local-language lesson settings.
+- Do not remove the explicit OUTPUT LANGUAGE RULE in `supabase/functions/lesson-ai-support/index.ts`.
+- Keep PDF/DOCX/print labels selectable as Match lesson language, English, or Filipino.
+- Export language changes labels/headings only; never auto-translate teacher lesson content during download.
+- Preserve direct Translate to Filipino / English / configured local language actions in lesson fields.
+- Run `npm run validate:phase363` plus all earlier validation scripts.

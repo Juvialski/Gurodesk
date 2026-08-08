@@ -459,6 +459,7 @@ function mapTeacherExportPreferences(row: Record<string, unknown>): TeacherExpor
     userId: String(row.user_id),
     defaultTemplateId: String(row.default_template_id ?? 'gurodesk_ilaw_standard') as TeacherExportPreferences['defaultTemplateId'],
     paperSize: String(row.paper_size ?? 'a4') as TeacherExportPreferences['paperSize'],
+    documentLanguage: String(row.document_language ?? 'match') as TeacherExportPreferences['documentLanguage'],
     preparedByName: String(row.prepared_by_name ?? ''),
     preparedByTitle: String(row.prepared_by_title ?? ''),
     reviewedByName: String(row.reviewed_by_name ?? ''),
@@ -494,6 +495,7 @@ export async function saveTeacherExportPreferences(preferences: TeacherExportPre
       user_id: preferences.userId,
       default_template_id: preferences.defaultTemplateId,
       paper_size: preferences.paperSize,
+      document_language: preferences.documentLanguage,
       prepared_by_name: preferences.preparedByName,
       prepared_by_title: preferences.preparedByTitle,
       reviewed_by_name: preferences.reviewedByName,
@@ -514,7 +516,8 @@ function mapTeacherLessonPreferences(row: Record<string, unknown>): TeacherLesso
   return {
     userId: String(row.user_id),
     defaultDurationMinutes: Number(row.default_duration_minutes ?? 60),
-    languagePreference: String(row.language_preference ?? 'English'),
+    languagePreference: String(row.language_preference ?? 'Auto'),
+    localLanguageName: String(row.local_language_name ?? ''),
     typicalClassProfile: String(row.typical_class_profile ?? ''),
     availableTechnology: Array.isArray(row.available_technology) ? row.available_technology.map(String) : [],
     preferredApproaches: Array.isArray(row.preferred_approaches) ? row.preferred_approaches.map(String) : [],
@@ -547,6 +550,7 @@ export async function saveTeacherLessonPreferences(preferences: TeacherLessonPre
       user_id: preferences.userId,
       default_duration_minutes: preferences.defaultDurationMinutes,
       language_preference: preferences.languagePreference,
+      local_language_name: preferences.localLanguageName,
       typical_class_profile: preferences.typicalClassProfile,
       available_technology: preferences.availableTechnology,
       preferred_approaches: preferences.preferredApproaches,
@@ -748,16 +752,33 @@ function demoAiSupport(request: LessonAiSupportRequest): LessonAiSupportResponse
   const type = request.supportType
   const competency = request.lessonContext.competencyText || 'the selected competency'
   const base = request.text?.trim().replace(/\s+/g, ' ') ?? ''
+  const preference = request.lessonContext.teachingSetup?.languagePreference ?? 'Auto'
+  const filipino = preference === 'Filipino' || (preference === 'Auto' && request.lessonContext.learningArea.toLowerCase().includes('filipino'))
   const suggested = type.startsWith('suggest_') || type === 'quick_draft'
   if (suggested) {
-    const suggestions = [
+    const suggestions = filipino ? [
+      `Opsyon 1 na nakabatay sa ${competency}. Suriin at iangkop ito sa aktuwal na klase.`,
+      `Opsyon 2 na nakabatay sa ${competency}. Ayusin ang oras at detalye bago gamitin.`,
+      `Opsyon 3 na nakabatay sa ${competency}. Tiyaking angkop ito sa mga mag-aaral at sa mga kagamitang talagang mayroon.`,
+    ] : [
       `Option 1 grounded in ${competency}. Review and adapt this starting point for your actual class.`,
       `Option 2 grounded in ${competency}. Adjust the pacing and language before using it.`,
       `Option 3 grounded in ${competency}. Confirm that it matches your learners and available resources.`,
     ]
     if (type === 'quick_draft') {
       return {
-        draft: {
+        draft: filipino ? {
+          lessonTitle: 'Banghay-araling susuriin ng guro',
+          learningObjectives: `Maipakita ng mga mag-aaral ang kasanayang ito: ${competency}. Suriin at ayusin ang layunin ayon sa saklaw ng aralin.`,
+          preLessonActivity: 'Magsagawa ng maikling pagbalik-aral sa dating kaalaman na hindi nangangailangan ng kagamitang hindi nakalista.',
+          lessonFlow: 'Panimula: buhayin ang dating kaalaman. Paglinang: talakayin o imodelo ang pangunahing ideya. Gabay na pagsasanay: magsagawa ng mga halimbawa na may agarang puna. Malayang pagsasanay: ipakita ng mga mag-aaral ang target na kasanayan. Pagwawakas: ibuod ang katibayan ng pagkatuto. Iangkop ang oras sa aktuwal na klase.',
+          integrationContextualization: 'Iugnay ang ideya sa pamilyar na sitwasyong angkop sa klase. Palitan ito ng tiyak na kontekstong napatunayan ng guro.',
+          inclusionAccommodations: 'Magbigay ng malinaw na panuto, halimbawa, iba-ibang paraan ng pagsagot, at karagdagang gabay nang hindi nagpapalagay ng anumang diagnosis o kondisyon ng mag-aaral.',
+          formativeAssessments: 'Gumamit ng maiikling pagtataya habang nagpapatuloy ang aralin at isang maikling gawain sa pagtatapos na nakaayon sa kasanayan.',
+          evidenceOfLearning: 'Hanapin ang wastong pangangatwiran, tamang paggamit ng target na kasanayan, at mga paliwanag na nagpapakita ng pag-unawa.',
+          nextSteps: 'Kung hindi pa sapat ang ebidensya, muling ituro ang partikular na maling pagkaunawa gamit ang ibang halimbawa; kung sapat na, magpatuloy sa mas masalimuot na aplikasyon.',
+          extendedLearning: 'Magbigay ng opsyonal na karagdagang gawain na gumagamit ng parehong kasanayan sa bagong ngunit kaugnay na sitwasyon.',
+        } : {
           lessonTitle: 'Teacher-reviewed lesson draft',
           learningObjectives: `Learners demonstrate the selected competency: ${competency}. Review and rewrite this objective to match the intended lesson scope.`,
           preLessonActivity: 'Use a short prior-knowledge check that requires no unlisted materials. Review the prompts before teaching.',

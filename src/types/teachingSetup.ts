@@ -2,6 +2,7 @@ export type TeacherLessonPreferences = {
   userId: string
   defaultDurationMinutes: number
   languagePreference: string
+  localLanguageName: string
   typicalClassProfile: string
   availableTechnology: string[]
   preferredApproaches: string[]
@@ -28,11 +29,20 @@ export const APPROACH_OPTIONS = [
   'Independent practice',
 ] as const
 
+export const LESSON_LANGUAGE_OPTIONS = [
+  { value: 'Auto', label: 'Auto — match subject / lesson text' },
+  { value: 'English', label: 'English' },
+  { value: 'Filipino', label: 'Filipino' },
+  { value: 'English + Filipino', label: 'English + Filipino' },
+  { value: 'Mother tongue / local language', label: 'Mother tongue / local language' },
+] as const
+
 export function createDefaultTeacherLessonPreferences(userId: string): TeacherLessonPreferences {
   return {
     userId,
     defaultDurationMinutes: 60,
-    languagePreference: 'English',
+    languagePreference: 'Auto',
+    localLanguageName: '',
     typicalClassProfile: '',
     availableTechnology: [],
     preferredApproaches: [],

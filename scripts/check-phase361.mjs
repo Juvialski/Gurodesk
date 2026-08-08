@@ -6,8 +6,8 @@ const pass = (message) => console.log(`PASS: ${message}`)
 const read = (path) => readFile(path, 'utf8')
 
 const pkg = JSON.parse(await read('package.json'))
-if (pkg.version !== '0.3.9') fail('package version must be 0.3.9')
-else pass('package version 0.3.9')
+if (!['0.3.9', '0.3.10', '0.3.11'].includes(pkg.version)) fail('package version must support Phase 3.6.1+')
+else pass(`package version ${pkg.version}`)
 
 const exporter = await read('src/lib/lessonPlanExport.ts')
 const view = await read('src/components/LessonPlanDocumentView.tsx')
@@ -38,10 +38,10 @@ for (const required of [
   'Formative Assessment',
   'Extended Learning Opportunities',
   'Reflection',
-  'I. INTENTIONS',
-  'L. LEARNING EXPERIENCE',
-  'A. ASSESSING LEARNING',
-  'W. WAYS FORWARD',
+  'model.labels.intentions',
+  'model.labels.learningExperience',
+  'model.labels.assessingLearning',
+  'model.labels.waysForward',
 ]) {
   if (!visibleExportCode.includes(required)) fail(`standard ILAW export missing: ${required}`)
 }

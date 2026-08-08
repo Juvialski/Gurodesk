@@ -1,4 +1,5 @@
 export type ExportPaperSize = 'a4' | 'letter' | 'legal'
+export type ExportDocumentLanguage = 'match' | 'english' | 'filipino'
 
 // Keep the stored ID stable so existing teacher preferences continue to load.
 export type ExportTemplateId = 'gurodesk_ilaw_standard'
@@ -7,6 +8,7 @@ export type TeacherExportPreferences = {
   userId: string
   defaultTemplateId: ExportTemplateId
   paperSize: ExportPaperSize
+  documentLanguage: ExportDocumentLanguage
   preparedByName: string
   preparedByTitle: string
   reviewedByName: string
@@ -14,7 +16,7 @@ export type TeacherExportPreferences = {
   notedByName: string
   notedByTitle: string
   // Retained only for backwards compatibility with the existing database schema.
-  // Phase 3.6.1 exports intentionally ignore these flags and stay plain.
+  // Phase 3.6+ exports intentionally ignore these flags and stay plain.
   includeAiDeclaration: boolean
   includeSourceProvenance: boolean
   createdAt: string | null
@@ -35,9 +37,39 @@ export type LessonExportSection = {
   body: string
 }
 
+export type LessonExportLabels = {
+  republic: string
+  department: string
+  documentTitle: string
+  teacher: string
+  gradeSection: string
+  learningArea: string
+  lessonTitle: string
+  date: string
+  weekSchedule: string
+  schoolYear: string
+  gradingTerm: string
+  curriculumPeriod: string
+  sessionsDuration: string
+  references: string
+  intentions: string
+  learningExperience: string
+  assessingLearning: string
+  waysForward: string
+  signatures: string
+  preparedBy: string
+  reviewedBy: string
+  notedBy: string
+  sessionUnit: string
+  draftCopy: string
+  archivedCopy: string
+}
+
 export type LessonPlanExportModel = {
   documentTitle: string
   templateLabel: string
+  language: 'english' | 'filipino'
+  labels: LessonExportLabels
   status: 'draft' | 'final' | 'archived'
   identity: LessonExportIdentity
   lesson: {
@@ -77,11 +109,18 @@ export const EXPORT_PAPER_OPTIONS: Array<{ id: ExportPaperSize; label: string }>
   { id: 'legal', label: 'Legal' },
 ]
 
+export const EXPORT_DOCUMENT_LANGUAGE_OPTIONS: Array<{ id: ExportDocumentLanguage; label: string; description: string }> = [
+  { id: 'match', label: 'Match lesson language', description: 'Uses Filipino labels for Filipino lessons and English labels otherwise.' },
+  { id: 'english', label: 'English', description: 'Always use English document labels.' },
+  { id: 'filipino', label: 'Filipino', description: 'Always use Filipino document labels.' },
+]
+
 export function createDefaultTeacherExportPreferences(userId: string): TeacherExportPreferences {
   return {
     userId,
     defaultTemplateId: 'gurodesk_ilaw_standard',
     paperSize: 'a4',
+    documentLanguage: 'match',
     preparedByName: '',
     preparedByTitle: '',
     reviewedByName: '',

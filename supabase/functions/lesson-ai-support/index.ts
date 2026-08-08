@@ -47,6 +47,7 @@ type RequestBody = {
     currentFormativeAssessment?: string
     teachingSetup?: {
       languagePreference?: string
+      localLanguageName?: string
       typicalClassProfile?: string
       availableTechnology?: string[]
       preferredApproaches?: string[]
@@ -152,6 +153,7 @@ function contextText(body: RequestBody) {
     ctx.numberOfSessions ? `Number of sessions: ${ctx.numberOfSessions}` : '',
     ctx.learnerContext ? `Teacher-provided class-level context: ${ctx.learnerContext}` : '',
     setup.languagePreference ? `Teacher language preference: ${setup.languagePreference}` : '',
+    setup.localLanguageName ? `Teacher-specified local language: ${setup.localLanguageName}` : '',
     setup.typicalClassProfile ? `Reusable teacher-provided class profile: ${setup.typicalClassProfile}` : '',
     approaches.length ? `Teacher-preferred approaches: ${approaches.join('; ')}` : '',
     technology.length ? `TECHNOLOGY AVAILABILITY FOR FEASIBILITY ONLY: ${technology.join('; ')}` : 'TECHNOLOGY AVAILABILITY FOR FEASIBILITY ONLY: none listed',
@@ -159,6 +161,40 @@ function contextText(body: RequestBody) {
     setup.resourceNotes ? `Teacher resource constraints: ${setup.resourceNotes}` : '',
     ctx.currentFormativeAssessment ? `Current formative-assessment plan: ${ctx.currentFormativeAssessment}` : '',
   ].filter(Boolean).join('\n')
+}
+
+function looksFilipino(text: string) {
+  const normalized = ` ${text.toLowerCase().replace(/[^a-záéíóúñ\s-]/g, ' ')} `
+  const markers = [' ang ', ' mga ', ' ng ', ' sa ', ' ay ', ' upang ', ' mag-aaral', ' aralin', ' gawain', ' pagkatuto', ' natutukoy', ' naipapaliwanag', ' nakagagawa']
+  return markers.reduce((score, marker) => score + (normalized.includes(marker) ? 1 : 0), 0) >= 3
+}
+
+function outputLanguageInstruction(body: RequestBody, teacherText = '') {
+  const ctx = body.lessonContext ?? {}
+  const setup = ctx.teachingSetup ?? {}
+  const preference = (setup.languagePreference ?? 'Auto').trim().toLowerCase()
+  const localLanguage = setup.localLanguageName?.trim()
+
+  if (preference === 'filipino') {
+    return 'Write all generated planning suggestions in natural Filipino suitable for a Philippine classroom. Keep official competency wording exactly as supplied when quoting it.'
+  }
+  if (preference === 'english + filipino') {
+    return 'Write in natural Filipino-English bilingual classroom language. Do not force code-switching into every sentence; keep technical terms clear and teacher-editable.'
+  }
+  if (preference === 'mother tongue / local language') {
+    if (localLanguage) return `Write the generated suggestions in ${localLanguage}. Keep official curriculum terms exactly as supplied when a confident local-language equivalent is uncertain; do not invent translations.`
+    return 'Follow the dominant language already used in the lesson text. If there is not enough text to determine it, use Filipino and keep official curriculum terms as supplied.'
+  }
+  if (preference === 'english') {
+    return 'Write all generated planning suggestions in clear natural English.'
+  }
+
+  const sample = [teacherText, ctx.teacherIntent, ctx.learnerContext, ctx.learningArea].filter(Boolean).join('\n')
+  const subjectIsFilipino = (ctx.learningArea ?? '').toLowerCase().includes('filipino')
+  if (subjectIsFilipino || looksFilipino(sample)) {
+    return 'Automatically match this lesson in Filipino. Write all generated planning suggestions in natural Filipino and preserve official competency wording when quoted.'
+  }
+  return 'Automatically match the lesson language. Use clear natural English unless the supplied lesson text is predominantly Filipino.'
 }
 
 const sharedSuggestionGuardrail = `You are GuroDesk, a planning-suggestion assistant for a Philippine DepEd teacher. Produce OPTIONAL starting points, never a claim that the teacher has made the final instructional decision. Ground suggestions in the VERIFIED COMPETENCY and supplied context. The teacher will select, edit, validate, and approve the final plan.
@@ -293,12 +329,15 @@ Deno.serve(async (req) => {
     let prompt: string
     let maxOutputTokens = 4096
     if (revisionSupport.has(supportType as RevisionSupportType)) {
-      prompt = `You are a text-support assistant. The teacher supplied the content and remains responsible for its accuracy. Perform only the requested text operation. Do not add new facts, resources, citations, objectives, activities, assessments, strategies, learner judgments, or instructional decisions. Return only the revised text.\n\nTask: ${instructionForRevision(supportType as RevisionSupportType, body.targetLanguage)}\n${context ? `\nContext for preserving meaning only:\n${context}\n` : ''}\nTeacher text:\n---\n${text}\n---`
+      const revisionLanguageRule = supportType === 'translate'
+        ? `Translation target: ${body.targetLanguage || 'the requested language'}.`
+        : 'LANGUAGE RULE: Preserve the language of the teacher-authored text. Do not translate it unless the selected task is Translate.'
+      prompt = `You are a text-support assistant. The teacher supplied the content and remains responsible for its accuracy. Perform only the requested text operation. Do not add new facts, resources, citations, objectives, activities, assessments, strategies, learner judgments, or instructional decisions. Return only the revised text.\n\n${revisionLanguageRule}\nTask: ${instructionForRevision(supportType as RevisionSupportType, body.targetLanguage)}\n${context ? `\nContext for preserving meaning only:\n${context}\n` : ''}\nTeacher text:\n---\n${text}\n---`
     } else if (supportType === 'quick_draft') {
       maxOutputTokens = 7500
-      prompt = `${sharedSuggestionGuardrail}\n\nPrepare ONE coherent quick-draft set of OPTIONAL suggestions. This is a review shortcut, not a final lesson plan. Do not include references or learning resources; those fields are teacher-controlled. Do not generate a post-lesson reflection because teaching has not happened yet. Existing teacher text, if any, must not be treated as something to overwrite automatically.\n\n${context}\n\nReturn ONLY valid JSON with exactly this shape and string values:\n{\n  "lessonTitle": "...",\n  "learningObjectives": "...",\n  "homeBasedAlternative": "...",\n  "preLessonActivity": "...",\n  "lessonFlow": "...",\n  "integrationContextualization": "...",\n  "inclusionAccommodations": "...",\n  "formativeAssessments": "...",\n  "evidenceOfLearning": "...",\n  "nextSteps": "...",\n  "extendedLearning": "..."\n}\n\nMake lessonFlow practical for the stated minutes/sessions. Use conditional wording for nextSteps. Never insert a specific resource unless teacher-listed in the context.`
+      prompt = `${sharedSuggestionGuardrail}\n\nOUTPUT LANGUAGE RULE: ${outputLanguageInstruction(body, text)}\n\nPrepare ONE coherent quick-draft set of OPTIONAL suggestions. This is a review shortcut, not a final lesson plan. Do not include references or learning resources; those fields are teacher-controlled. Do not generate a post-lesson reflection because teaching has not happened yet. Existing teacher text, if any, must not be treated as something to overwrite automatically.\n\n${context}\n\nReturn ONLY valid JSON with exactly this shape and string values:\n{\n  "lessonTitle": "...",\n  "learningObjectives": "...",\n  "homeBasedAlternative": "...",\n  "preLessonActivity": "...",\n  "lessonFlow": "...",\n  "integrationContextualization": "...",\n  "inclusionAccommodations": "...",\n  "formativeAssessments": "...",\n  "evidenceOfLearning": "...",\n  "nextSteps": "...",\n  "extendedLearning": "..."\n}\n\nMake lessonFlow practical for the stated minutes/sessions. Use conditional wording for nextSteps. Never insert a specific resource unless teacher-listed in the context.`
     } else {
-      prompt = `${sharedSuggestionGuardrail}\n\nTask: ${instructionForSuggestion(supportType as Exclude<SuggestionSupportType, 'quick_draft'>)}\n\n${context}\n${text ? `\nCurrent teacher text, if they want alternatives:\n---\n${text}\n---\n` : ''}\nReturn ONLY valid JSON in this shape: {"suggestions":["option 1","option 2","option 3"]}. Each option must be self-contained and editable. Do not include commentary outside the JSON.`
+      prompt = `${sharedSuggestionGuardrail}\n\nOUTPUT LANGUAGE RULE: ${outputLanguageInstruction(body, text)}\n\nTask: ${instructionForSuggestion(supportType as Exclude<SuggestionSupportType, 'quick_draft'>)}\n\n${context}\n${text ? `\nCurrent teacher text, if they want alternatives:\n---\n${text}\n---\n` : ''}\nReturn ONLY valid JSON in this shape: {"suggestions":["option 1","option 2","option 3"]}. Each option must be self-contained and editable. Do not include commentary outside the JSON.`
     }
 
     let result: Awaited<ReturnType<typeof callWithFallback>>

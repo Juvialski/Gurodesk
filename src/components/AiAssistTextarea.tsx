@@ -47,13 +47,13 @@ export function AiAssistTextarea({
   const [suggestions, setSuggestions] = useState<{ items: string[]; supportType: AiSupportType; model: string; fallbackUsed?: boolean; thinkingLevel?: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  async function assist(supportType: AiSupportType) {
+  async function assist(supportType: AiSupportType, targetLanguage?: string) {
     if (value.trim().length < 10) return
     setLoading(supportType)
     setError(null)
     setRevision(null)
     try {
-      const result = await runLessonAiSupport({ supportType, sectionKey, text: value, documentId: documentId || undefined, lessonContext: context }, isDemo)
+      const result = await runLessonAiSupport({ supportType, sectionKey, text: value, targetLanguage, documentId: documentId || undefined, lessonContext: context }, isDemo)
       if (!result.output) throw new Error('AI support returned no revised text.')
       setRevision({ text: result.output, supportType, model: result.model, fallbackUsed: result.fallbackUsed, thinkingLevel: result.thinkingLevel })
     } catch (err) {
@@ -100,7 +100,9 @@ export function AiAssistTextarea({
               {loading === type ? <span className="mini-spinner" /> : <Icon size={13} />}{toolLabel}
             </button>
           ))}
-          <button type="button" className="ai-tool-button" disabled title="Language selection will be added in a later localization pass."><Languages size={13} /> Translate</button>
+          <button type="button" className="ai-tool-button" disabled={Boolean(loading)} onClick={() => void assist('translate', 'Filipino')}><Languages size={13} /> Filipino</button>
+          <button type="button" className="ai-tool-button" disabled={Boolean(loading)} onClick={() => void assist('translate', 'English')}><Languages size={13} /> English</button>
+          {context.teachingSetup?.localLanguageName?.trim() && <button type="button" className="ai-tool-button" disabled={Boolean(loading)} onClick={() => void assist('translate', context.teachingSetup?.localLanguageName?.trim())}><Languages size={13} /> {context.teachingSetup.localLanguageName.trim()}</button>}
         </>}
       </div>
       {suggestionType && !context.competencyText.trim() && <small className="ai-guardrail">Choose a verified competency first so suggestions stay curriculum-grounded.</small>}

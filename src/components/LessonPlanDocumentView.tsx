@@ -16,38 +16,53 @@ function IlawBlock({ letter, title, fields }: { letter: string; title: string; f
 
 export function LessonPlanDocumentView({ model }: { model: LessonPlanExportModel }) {
   const gradeAndSection = `${model.lesson.gradeLevel}${model.lesson.sections && model.lesson.sections !== 'Not specified' ? ` – ${model.lesson.sections}` : ''}`
-  const sessionSummary = `${model.lesson.sessions} session(s), ${model.lesson.duration}`
-  const schedule = [model.lesson.lessonDate, model.lesson.weekLabel].filter((value) => value && value !== 'Not specified').join(' · ')
+  const sessionSummary = `${model.lesson.sessions} ${model.labels.sessionUnit}, ${model.lesson.duration}`
+  const copyLabel = model.status === 'archived' ? model.labels.archivedCopy : model.labels.draftCopy
 
   return (
-    <article className="lesson-print-document">
-      {model.status !== 'final' && <div className="print-draft-banner">{model.status.toUpperCase()} COPY</div>}
+    <article className="lesson-print-document" lang={model.language === 'filipino' ? 'fil' : 'en'}>
+      {model.status !== 'final' && <div className="print-draft-banner">{copyLabel}</div>}
       <header className="print-document-header">
-        <p>Republic of the Philippines</p>
-        <strong>Department of Education</strong>
-        <p>{model.identity.region}</p>
-        <p>{model.identity.division}</p>
-        <p className="print-school-name">{model.identity.schoolName}</p>
+        <p>{model.labels.republic}</p>
+        <strong>{model.labels.department}</strong>
+        {model.identity.region && <p>{model.identity.region}</p>}
+        {model.identity.division && <p>{model.identity.division}</p>}
+        {model.identity.schoolName && <p className="print-school-name">{model.identity.schoolName}</p>}
         <h1>{model.documentTitle}</h1>
       </header>
 
       <table className="print-meta-table">
         <tbody>
-          <tr><th>Lesson Title</th><td>{model.lesson.title}</td><th>Learning Area/s</th><td>{model.lesson.learningArea}</td></tr>
-          <tr><th>Name of Teacher/s</th><td>{model.identity.teacherName}</td><th>Grade Level and Section</th><td>{gradeAndSection}</td></tr>
-          <tr><th>No. of Sessions</th><td>{sessionSummary}</td><th>Date / Week</th><td>{schedule || 'Not specified'}</td></tr>
-          <tr><th>School Year</th><td>{model.lesson.schoolYear}</td><th>Term / Curriculum Period</th><td>{model.lesson.gradingTerm} / {model.lesson.curriculumPeriod}</td></tr>
-          <tr><th>References</th><td colSpan={3}><div className="print-preserve-lines">{model.references || 'Not specified'}</div></td></tr>
+          <tr><th>{model.labels.teacher}</th><td>{model.identity.teacherName}</td></tr>
+          <tr><th>{model.labels.gradeSection}</th><td>{gradeAndSection}</td></tr>
+          <tr><th>{model.labels.learningArea}</th><td>{model.lesson.learningArea}</td></tr>
+          <tr><th>{model.labels.lessonTitle}</th><td>{model.lesson.title}</td></tr>
+          <tr><th>{model.labels.date}</th><td>{model.lesson.lessonDate === 'Not specified' ? '' : model.lesson.lessonDate}</td></tr>
+          <tr><th>{model.labels.weekSchedule}</th><td>{model.lesson.weekLabel === 'Not specified' ? '' : model.lesson.weekLabel}</td></tr>
+          <tr><th>{model.labels.schoolYear}</th><td>{model.lesson.schoolYear}</td></tr>
+          <tr><th>{model.labels.gradingTerm}</th><td>{model.lesson.gradingTerm === 'Not specified' ? '' : model.lesson.gradingTerm}</td></tr>
+          <tr><th>{model.labels.curriculumPeriod}</th><td>{model.lesson.curriculumPeriod === 'Not specified' ? '' : model.lesson.curriculumPeriod}</td></tr>
+          <tr><th>{model.labels.sessionsDuration}</th><td>{sessionSummary}</td></tr>
+          <tr><th>{model.labels.references}</th><td><div className="print-preserve-lines">{model.references}</div></td></tr>
         </tbody>
       </table>
 
-      <IlawBlock letter="I" title="INTENTIONS" fields={model.ilaw.intentions} />
-      <IlawBlock letter="L" title="LEARNING EXPERIENCE" fields={model.ilaw.learningExperience} />
-      <IlawBlock letter="A" title="ASSESSING LEARNING" fields={model.ilaw.assessingLearning} />
-      <IlawBlock letter="W" title="WAYS FORWARD" fields={model.ilaw.waysForward} />
+      <IlawBlock letter="I" title={model.labels.intentions} fields={model.ilaw.intentions} />
+      <IlawBlock letter="L" title={model.labels.learningExperience} fields={model.ilaw.learningExperience} />
+      <IlawBlock letter="A" title={model.labels.assessingLearning} fields={model.ilaw.assessingLearning} />
+      <IlawBlock letter="W" title={model.labels.waysForward} fields={model.ilaw.waysForward} />
 
-      {model.signatories.length > 0 && <section className="print-signatories">
-        {model.signatories.map((item) => <div key={item.role}><span>{item.role}</span><strong>{item.name || '____________________________'}</strong><small>{item.title}</small></div>)}
+      {model.signatories.length > 0 && <section className="print-signatures">
+        <div className="print-section-heading"><strong>{model.labels.signatures}</strong></div>
+        <div className="print-signature-grid">
+          {model.signatories.map((item) => (
+            <div className="print-signature" key={item.role}>
+              <span>{item.role}</span>
+              <strong>{item.name || '____________________________'}</strong>
+              {item.title && <small>{item.title}</small>}
+            </div>
+          ))}
+        </div>
       </section>}
     </article>
   )

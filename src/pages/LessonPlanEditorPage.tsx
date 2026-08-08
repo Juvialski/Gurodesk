@@ -334,6 +334,7 @@ export function LessonPlanEditorPage() {
     currentFormativeAssessment: plan.content.assessingLearning.formativeAssessments,
     teachingSetup: {
       languagePreference: preferences.languagePreference,
+      localLanguageName: preferences.localLanguageName,
       typicalClassProfile: preferences.typicalClassProfile,
       availableTechnology: preferences.availableTechnology,
       preferredApproaches: preferences.preferredApproaches,
@@ -349,7 +350,7 @@ export function LessonPlanEditorPage() {
   return (
     <>
       <PageHeader
-        eyebrow="ILAW lesson planning · Phase 3.6"
+        eyebrow="ILAW lesson planning · Phase 3.6.3"
         title={isNew ? 'New lesson plan' : plan.title || 'Lesson plan'}
         description="Start from verified curriculum. GuroDesk can prepare optional objectives, activities, assessment, and ways-forward suggestions; you choose and adapt the final plan. Resources and references stay teacher-verified."
         actions={<div className="editor-header-actions"><Link to="/lesson-plans" className="button ghost"><ArrowLeft size={15} /> Back</Link><button className="button primary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button></div>}

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { loadTeacherLessonPreferences, saveTeacherLessonPreferences } from '../lib/repository'
 import {
   APPROACH_OPTIONS,
+  LESSON_LANGUAGE_OPTIONS,
   TECHNOLOGY_OPTIONS,
   createDefaultTeacherLessonPreferences,
   type TeacherLessonPreferences,
@@ -84,10 +85,11 @@ export function TeachingSetupPanel({ userId, isDemo }: Props) {
       {loading ? <div className="lesson-loading"><span className="loader" /><strong>Loading teaching setup…</strong></div> : <>
         <div className="form-grid two teaching-setup-grid">
           <label>Typical minutes per session<input type="number" min="10" max="300" value={form.defaultDurationMinutes} onChange={(event) => setForm({ ...form, defaultDurationMinutes: Math.max(10, Number(event.target.value) || 60) })} /></label>
-          <label>Usual language<select value={form.languagePreference} onChange={(event) => setForm({ ...form, languagePreference: event.target.value })}><option>English</option><option>Filipino</option><option>English + Filipino</option><option>Mother tongue / local language</option></select></label>
+          <label>Usual lesson language<select value={form.languagePreference} onChange={(event) => setForm({ ...form, languagePreference: event.target.value })}>{LESSON_LANGUAGE_OPTIONS.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select></label>
+          {form.languagePreference === 'Mother tongue / local language' && <label>Local language name<input value={form.localLanguageName} onChange={(event) => setForm({ ...form, localLanguageName: event.target.value })} placeholder="e.g. Cebuano, Ilocano, Hiligaynon" /></label>}
           <label className="span-two">Typical class profile<textarea rows={3} value={form.typicalClassProfile} onChange={(event) => setForm({ ...form, typicalClassProfile: event.target.value })} placeholder="Class-level information only, e.g. mixed readiness; benefits from worked examples and short guided practice." /></label>
         </div>
-        <p className="field-help privacy-help">Do not enter learner names, diagnoses, addresses, account details, or other sensitive personal information.</p>
+        <p className="field-help privacy-help">Language controls apply to new AI suggestions. Auto follows the subject and existing lesson text. Do not enter learner names, diagnoses, addresses, account details, or other sensitive personal information.</p>
 
         <div className="teaching-preference-block">
           <strong>Technology actually available</strong>

@@ -108,6 +108,7 @@ export type LessonPlanValidationResult = {
 
 export type LessonAiTeachingSetup = {
   languagePreference: string
+  localLanguageName: string
   typicalClassProfile: string
   availableTechnology: string[]
   preferredApproaches: string[]

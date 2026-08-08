@@ -1,6 +1,6 @@
 import { CheckCircle2, FileDown, Save } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { EXPORT_PAPER_OPTIONS, EXPORT_TEMPLATE_OPTIONS, createDefaultTeacherExportPreferences, type TeacherExportPreferences } from '../types/export'
+import { EXPORT_DOCUMENT_LANGUAGE_OPTIONS, EXPORT_PAPER_OPTIONS, EXPORT_TEMPLATE_OPTIONS, createDefaultTeacherExportPreferences, type TeacherExportPreferences } from '../types/export'
 import type { Profile } from '../types/app'
 import { loadTeacherExportPreferences, saveTeacherExportPreferences } from '../lib/repository'
 
@@ -47,6 +47,25 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
         <div className="export-template-card">
           <div><strong>{template.label}</strong><p>{template.description}</p></div>
           <span className="phase-pill live">Default</span>
+        </div>
+
+
+        <div className="settings-subsection">
+          <strong>Document labels</strong>
+          <p className="field-help">This changes headings and labels only. Your actual lesson content is never translated during export.</p>
+          <div className="choice-row export-language-choices">
+            {EXPORT_DOCUMENT_LANGUAGE_OPTIONS.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                className={`choice-chip ${preferences.documentLanguage === item.id ? 'selected' : ''}`}
+                onClick={() => setPreferences((current) => ({ ...current, documentLanguage: item.id }))}
+                title={item.description}
+              >
+                {preferences.documentLanguage === item.id && <CheckCircle2 size={14} />}{item.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="settings-subsection">
