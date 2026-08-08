@@ -1,5 +1,6 @@
 import { getDemoCurriculumBundle } from '../data/demoCurriculum'
 import type { Profile, TeacherAssignment } from '../types/app'
+import type { LessonAiSupportRequest, LessonAiSupportResponse, LessonPlanRecord } from '../types/lessonPlan'
 import type {
   CurriculumCompetency,
   CurriculumDomain,
@@ -403,3 +404,180 @@ export async function loadSchoolYearCalendar(
     source: sourceResult.data ? mapSourceDocument(sourceResult.data as Record<string, unknown>) : null,
   }
 }
+
+function mapLessonPlan(row: Record<string, unknown>): LessonPlanRecord {
+  return {
+    id: String(row.id),
+    userId: String(row.user_id),
+    assignmentId: row.assignment_id ? String(row.assignment_id) : null,
+    title: String(row.title),
+    schoolYear: String(row.school_year),
+    academicPeriodLabel: row.academic_period_label ? String(row.academic_period_label) : null,
+    status: String(row.status) as LessonPlanRecord['status'],
+    content: row.structured_content as LessonPlanRecord['content'],
+    createdAt: String(row.created_at),
+    updatedAt: String(row.updated_at),
+  }
+}
+
+export async function loadLessonPlans(userId: string, demo: boolean): Promise<LessonPlanRecord[]> {
+  if (demo || !supabase) {
+    return demoStore.getLessonPlans().filter((item) => item.userId === userId && item.status !== 'archived')
+      .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+  }
+
+  const { data, error } = await supabase
+    .from('documents')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('document_type', 'lesson_plan')
+    .neq('status', 'archived')
+    .order('updated_at', { ascending: false })
+
+  if (error) throw error
+  return (data ?? []).map((row) => mapLessonPlan(row as Record<string, unknown>))
+}
+
+export async function loadLessonPlan(id: string, userId: string, demo: boolean): Promise<LessonPlanRecord | null> {
+  if (demo || !supabase) {
+    return demoStore.getLessonPlans().find((item) => item.id === id && item.userId === userId) ?? null
+  }
+
+  const { data, error } = await supabase
+    .from('documents')
+    .select('*')
+    .eq('id', id)
+    .eq('user_id', userId)
+    .eq('document_type', 'lesson_plan')
+    .maybeSingle()
+
+  if (error) throw error
+  return data ? mapLessonPlan(data as Record<string, unknown>) : null
+}
+
+async function writeLessonPlanCompetencyLink(plan: LessonPlanRecord) {
+  if (!supabase || !plan.content.competency.id) return
+  const { error: deleteError } = await supabase.from('lesson_plan_competencies').delete().eq('document_id', plan.id)
+  if (deleteError) throw deleteError
+
+  const { error: insertError } = await supabase.from('lesson_plan_competencies').insert({
+    document_id: plan.id,
+    competency_id: plan.content.competency.id,
+    competency_text_snapshot: plan.content.competency.text,
+    competency_code_snapshot: plan.content.competency.code,
+    source_page_snapshot: plan.content.competency.sourcePage,
+  })
+  if (insertError) throw insertError
+}
+
+export async function saveLessonPlan(plan: LessonPlanRecord, demo: boolean): Promise<LessonPlanRecord> {
+  const now = new Date().toISOString()
+  if (demo || !supabase) {
+    const records = demoStore.getLessonPlans()
+    const existingIndex = records.findIndex((item) => item.id === plan.id)
+    const saved: LessonPlanRecord = {
+      ...plan,
+      id: plan.id || crypto.randomUUID(),
+      createdAt: plan.createdAt || now,
+      updatedAt: now,
+    }
+    if (existingIndex >= 0) records[existingIndex] = saved
+    else records.push(saved)
+    demoStore.saveLessonPlans(records)
+    return saved
+  }
+
+  if (!plan.id) {
+    const { data, error } = await supabase
+      .from('documents')
+      .insert({
+        user_id: plan.userId,
+        assignment_id: plan.assignmentId,
+        document_type: 'lesson_plan',
+        title: plan.title,
+        school_year: plan.schoolYear,
+        academic_period_label: plan.academicPeriodLabel,
+        status: plan.status,
+        structured_content: plan.content,
+      })
+      .select('*')
+      .single()
+    if (error) throw error
+    const saved = mapLessonPlan(data as Record<string, unknown>)
+    await writeLessonPlanCompetencyLink(saved)
+    await supabase.from('document_versions').insert({
+      document_id: saved.id,
+      version_number: 1,
+      structured_content: saved.content,
+      change_note: 'Initial lesson plan draft',
+    })
+    return saved
+  }
+
+  const { data, error } = await supabase
+    .from('documents')
+    .update({
+      assignment_id: plan.assignmentId,
+      title: plan.title,
+      school_year: plan.schoolYear,
+      academic_period_label: plan.academicPeriodLabel,
+      status: plan.status,
+      structured_content: plan.content,
+      updated_at: now,
+    })
+    .eq('id', plan.id)
+    .eq('user_id', plan.userId)
+    .select('*')
+    .single()
+  if (error) throw error
+
+  const saved = mapLessonPlan(data as Record<string, unknown>)
+  await writeLessonPlanCompetencyLink(saved)
+  const { data: latestVersion } = await supabase
+    .from('document_versions')
+    .select('version_number')
+    .eq('document_id', saved.id)
+    .order('version_number', { ascending: false })
+    .limit(1)
+  const nextVersion = Number(latestVersion?.[0]?.version_number ?? 0) + 1
+  await supabase.from('document_versions').insert({
+    document_id: saved.id,
+    version_number: nextVersion,
+    structured_content: saved.content,
+    change_note: 'Teacher saved lesson plan',
+  })
+  return saved
+}
+
+export async function archiveLessonPlan(id: string, userId: string, demo: boolean) {
+  if (demo || !supabase) {
+    const records = demoStore.getLessonPlans().map((item) => item.id === id && item.userId === userId ? { ...item, status: 'archived' as const, updatedAt: new Date().toISOString() } : item)
+    demoStore.saveLessonPlans(records)
+    return
+  }
+  const { error } = await supabase.from('documents').update({ status: 'archived' }).eq('id', id).eq('user_id', userId)
+  if (error) throw error
+}
+
+function demoAiSupport(request: LessonAiSupportRequest): LessonAiSupportResponse {
+  let output = request.text.trim().replace(/\s+/g, ' ')
+  if (request.supportType === 'organize_text' || request.supportType === 'format_text') {
+    const parts = output.split(/(?<=[.!?])\s+/).filter(Boolean)
+    if (parts.length > 1) output = parts.map((item) => `• ${item.trim()}`).join('\n')
+  }
+  return {
+    output,
+    model: 'demo-local-preview',
+    supportType: request.supportType,
+    declarationCategory: request.supportType === 'refine_clarity' || request.supportType === 'organize_text' ? 'limited' : 'guided',
+  }
+}
+
+export async function runLessonAiSupport(request: LessonAiSupportRequest, demo: boolean): Promise<LessonAiSupportResponse> {
+  if (demo || !supabase) return demoAiSupport(request)
+  const { data, error } = await supabase.functions.invoke('lesson-ai-support', { body: request })
+  if (error) throw error
+  if (!data?.output) throw new Error('AI support returned no text.')
+  return data as LessonAiSupportResponse
+}
+

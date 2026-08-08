@@ -1,33 +1,36 @@
-# GuroDesk — Phase 2 Curriculum Engine
+# GuroDesk — Phase 3
 
-GuroDesk is a mobile-friendly web workspace intended to reduce repetitive DepEd teacher planning and paperwork. The product principle is **structured, versioned DepEd knowledge first; AI generation second**.
+GuroDesk is a mobile-friendly web workspace for DepEd teachers. It is designed around one rule: **verified curriculum and policy data first; teacher judgment first; AI only where current DepEd rules allow it.**
 
-## Phase 2 implemented
+## Phase 3 status
 
-- everything from the Phase 1 React + TypeScript + Supabase foundation
-- real Curriculum Navigator UI filtered by the teacher's saved assignments
-- school-year-aware curriculum applicability records
-- curriculum-guide sequence periods separated from school grading/reporting periods
-- SY 2026-2027 three-term grading-calendar metadata foundation
-- verified source provenance shown in the teacher UI
-- canonical JSON curriculum-manifest format
-- manifest validator that rejects unsafe/incomplete verified imports
-- deterministic manifest-to-Supabase SQL generator
-- first complete verified dataset: **Grade 7 Mathematics, 52 competencies, Quarters 1-4** from the official DepEd MATATAG Mathematics curriculum guide
-- demo mode uses the same verified manifest rather than mock competencies
-- Supabase seed migration for Grade 7 Mathematics
-- source/verification guardrails so normal teachers cannot publish official curriculum records
+Implemented and retained:
 
-## Intentionally not implemented yet
+- React + TypeScript + Vite responsive application
+- Supabase Auth + strict teacher-owned RLS
+- local demo mode for AI Studio preview without secrets
+- teacher onboarding, profile, school year, and teaching assignments
+- verified Curriculum Navigator
+- Grade 7 Mathematics MATATAG dataset: 52 verified competencies with source provenance
+- curriculum-guide periods separate from school grading terms
+- instructional pacing / Budget of Work foundation
+- **ILAW Lesson Planning workspace aligned to DO 016, s. 2026**
+- start a lesson directly from a selected verified competency
+- teacher-authored Intentions, Learning Experience, Assessing Learning, and Ways Forward
+- ILAW self-check before finalizing
+- lesson saving + document versions
+- verified competency linkage/snapshots per saved lesson
+- AI-use declaration stored in the lesson
+- server-side Gemini support through Supabase Edge Functions
+- server-side allowlist that limits Gemini to text refinement/organization/grammar/formatting/translation
+- AI buttons remain disabled until the teacher has authored the section
+- AI audit events for saved lesson documents
 
-- Gemini lesson generation (Phase 3)
-- TOS/test generation (Phase 4)
-- assessment-result analysis
-- paperwork templates
-- DOCX/PDF/XLSX export engine
-- bulk curriculum coverage for every grade/subject
+## Why there is no one-click AI lesson generator
 
-The curriculum engine is deliberately built before AI generation so later prompts can be grounded in verified records instead of asking Gemini to remember DepEd requirements.
+DO 016, s. 2026 states that AI is an auxiliary tool and that fully AI-generated lesson plans are not allowed. Core instructional decisions—including objectives, unpacking competencies, learning experiences/strategies, assessment decisions, and critical learner-response judgments—remain teacher responsibilities.
+
+GuroDesk therefore automates the repetitive structure, curriculum lookup, reuse, validation, saving, and formatting while keeping those decisions teacher-led. Gemini can refine text after the teacher has made the decision.
 
 ## Run locally / AI Studio
 
@@ -36,54 +39,48 @@ npm install
 npm run dev
 ```
 
-No environment variables are needed for demo mode. Choose **Open sample teacher workspace** and open **Curriculum** to browse the Grade 7 Mathematics dataset.
+With no Supabase variables, choose **Open sample teacher workspace**. Demo data is stored in localStorage.
 
-## Connect Supabase
+## Supabase migration order
 
-Apply migrations in filename order:
+Apply in order:
 
-```text
-supabase/migrations/202608080001_phase1_foundation.sql
-supabase/migrations/202608080002_phase2_curriculum_engine.sql
-supabase/migrations/202608080003_seed_g7_mathematics.sql
-supabase/migrations/202608080004_phase2_pacing_foundation.sql
-```
+1. `202608080001_phase1_foundation.sql`
+2. `202608080002_phase2_curriculum_engine.sql`
+3. `202608080003_seed_g7_mathematics.sql`
+4. `202608080004_phase2_pacing_foundation.sql`
+5. `202608080005_phase3_lesson_planning.sql`
+6. `202608080006_seed_lesson_planning_policy_metadata.sql`
 
-Then copy `.env.example` to `.env.local` and add:
+Then set browser-safe variables only:
 
 ```env
 VITE_SUPABASE_URL=your-project-url
 VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
-Do **not** put `GEMINI_API_KEY` in a `VITE_*` variable. Gemini remains server-side through Supabase Edge Functions.
+Never expose the service-role key or Gemini key in browser variables.
 
-## Curriculum data workflow
+## Gemini Edge Function
 
-Verified curriculum data lives under `data/curriculum/` as source-controlled JSON manifests.
+Set secrets server-side:
 
-Validate all manifests:
+```bash
+supabase secrets set GEMINI_API_KEY=your-secret
+supabase secrets set GEMINI_MODEL=your-supported-gemini-model
+supabase functions deploy lesson-ai-support
+```
+
+`GEMINI_MODEL` is deliberately configurable so model upgrades do not require a frontend rewrite.
+
+## Validation
 
 ```bash
 npm run curriculum:validate
+npm run validate:phase2
+npm run validate:phase3
+npm run typecheck
+npm run build
 ```
 
-Regenerate the Grade 7 Mathematics seed:
-
-```bash
-npm run curriculum:generate:g7math
-```
-
-Never hand-edit generated curriculum SQL. Correct the reviewed manifest, validate it, and regenerate.
-
-## Security / integrity rules
-
-- teacher-owned data remains protected by RLS
-- official knowledge tables are read-only to normal authenticated users
-- draft curriculum versions are not teacher-visible
-- teacher-visible competencies must have `verification_status = verified`
-- no curriculum competency is invented by Gemini
-- no browser code receives the Gemini API key
-- three-term school grading does not overwrite quarter-based sequencing in a curriculum guide
-
-See `docs/PHASE_2_CURRICULUM_ENGINE.md`, `docs/DEPED_SOURCE_REGISTER.md`, `docs/AI_STUDIO_SETUP.md`, and `CODEX_HANDOVER.md`.
+See `docs/AI_STUDIO_SETUP.md`, `docs/PHASE_3_LESSON_PLANNING.md`, and `CODEX_HANDOVER.md`.

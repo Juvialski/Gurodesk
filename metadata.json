@@ -1,6 +1,6 @@
 {
   "name": "Gurodesk",
-  "description": "Gurodesk workspace - Ready for uploaded files and development.",
+  "description": "DepEd MATATAG Lesson Planning Workspace for Filipino Teachers",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

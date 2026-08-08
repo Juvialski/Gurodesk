@@ -1,7 +1,9 @@
 import type { Profile, TeacherAssignment } from '../types/app'
+import type { LessonPlanRecord } from '../types/lessonPlan'
 
 const PROFILE_KEY = 'gurodesk.demo.profile.v1'
 const ASSIGNMENTS_KEY = 'gurodesk.demo.assignments.v1'
+const LESSON_PLANS_KEY = 'gurodesk.demo.lessonPlans.v1'
 const USER_ID = 'demo-teacher'
 
 const defaultProfile: Profile = {
@@ -44,6 +46,14 @@ export const demoStore = {
     localStorage.setItem(ASSIGNMENTS_KEY, JSON.stringify(assignments))
   },
 
+  getLessonPlans(): LessonPlanRecord[] {
+    return read(LESSON_PLANS_KEY, [])
+  },
+
+  saveLessonPlans(plans: LessonPlanRecord[]) {
+    localStorage.setItem(LESSON_PLANS_KEY, JSON.stringify(plans))
+  },
+
   loadDemoWorkspace(): { profile: Profile; assignments: TeacherAssignment[] } {
     const profile: Profile = {
       ...defaultProfile,
@@ -82,5 +92,6 @@ export const demoStore = {
   reset() {
     localStorage.removeItem(PROFILE_KEY)
     localStorage.removeItem(ASSIGNMENTS_KEY)
+    localStorage.removeItem(LESSON_PLANS_KEY)
   },
 }

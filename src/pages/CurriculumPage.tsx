@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
@@ -323,12 +324,12 @@ export function CurriculumPage() {
                       <p>{selectedCompetency.competencyText}</p>
                       <small>Verified source{selectedCompetency.sourcePage ? ` · page ${selectedCompetency.sourcePage}` : ''}</small>
                     </div>
-                    <p>Phase 3 will pass this exact verified competency and its source context into Gemini instead of asking the model to remember the curriculum.</p>
+                    <p>GuroDesk will pass this exact verified competency into the teacher-led ILAW planner. Gemini is limited to permitted text-support tasks after the teacher makes the core instructional decisions.</p>
                   </>
                 ) : (
                   <p>Select any competency in the list. GuroDesk will preserve that selection as the grounding target for lesson and assessment creation.</p>
                 )}
-                <button className="future-action" disabled={!selectedCompetency}><Sparkles size={16} /><span><strong>Create lesson</strong><small>Phase 3</small></span></button>
+                {selectedCompetency && assignment ? <Link className="future-action active-action" to={`/lesson-plans/new?assignment=${assignment.id}&competency=${selectedCompetency.id}`}><Sparkles size={16} /><span><strong>Create lesson plan</strong><small>Open ILAW planner</small></span></Link> : <button className="future-action" disabled><Sparkles size={16} /><span><strong>Create lesson plan</strong><small>Select a competency</small></span></button>}
                 <button className="future-action" disabled={!selectedCompetency}><FileQuestion size={16} /><span><strong>Create quiz</strong><small>Phase 4</small></span></button>
               </section>
             </aside>
