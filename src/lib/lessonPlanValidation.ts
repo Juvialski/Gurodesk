@@ -5,54 +5,61 @@ function hasText(value: string, minimum = 8) {
 }
 
 export function validateLessonPlan(content: LessonPlanContent): LessonPlanValidationResult {
+  const pendingSuggestions = content.aiSuggestionReview?.pendingSections ?? []
   const items = [
     {
       key: 'competency',
       label: 'Verified competency is attached',
       passed: Boolean(content.competency.id && hasText(content.competency.text, 12)),
-      detail: 'Intentions must begin from a verified curriculum competency.',
+      detail: 'The plan must stay grounded in a verified curriculum competency.',
     },
     {
       key: 'objectives',
-      label: 'Teacher-authored learning objectives are clear',
+      label: 'Learning objectives are clear and teacher-approved',
       passed: hasText(content.intentions.learningObjectives, 20),
-      detail: 'The teacher—not AI—must unpack or sequence the competency into manageable objectives.',
+      detail: 'AI may offer starting points, but the teacher approves the final objectives.',
     },
     {
       key: 'experience',
       label: 'Learning experience is teachable and coherent',
       passed: hasText(content.learningExperience.preLessonActivity, 12) && hasText(content.learningExperience.lessonFlow, 40),
-      detail: 'Another teacher should be able to understand the intended flow without guessing.',
+      detail: 'The selected flow should be practical for the actual class and available time.',
     },
     {
       key: 'resources',
-      label: 'Learning resources are identified',
-      passed: hasText(content.learningExperience.resources, 5),
-      detail: 'Resources should be relevant and aligned with the objectives.',
+      label: 'Resources are verified by the teacher',
+      passed: content.resourcesVerifiedByTeacher && hasText(content.learningExperience.resources, 3),
+      detail: 'GuroDesk does not invent books, pages, devices, or materials. Confirm only resources you actually use, or select no additional resources.',
     },
     {
       key: 'context',
       label: 'Learner context or contextualization is considered',
       passed: hasText(content.learnerContext, 12) || hasText(content.learningExperience.integrationContextualization, 12),
-      detail: 'Planning should respond to learner readiness, context, culture, or available resources.',
+      detail: 'Use class-level context only and avoid learner-identifying or sensitive data.',
     },
     {
       key: 'assessment',
       label: 'Formative assessment is integrated',
       passed: hasText(content.assessingLearning.formativeAssessments, 20) && hasText(content.assessingLearning.evidenceOfLearning, 12),
-      detail: 'Checks should generate evidence that can guide immediate instructional decisions.',
+      detail: 'The teacher should confirm that the selected checks produce useful evidence of learning.',
     },
     {
       key: 'ways-forward',
       label: 'Ways forward are actionable',
       passed: hasText(content.waysForward.nextSteps, 15),
-      detail: 'Identify likely remediation, reteaching, enrichment, or next instructional steps.',
+      detail: 'Confirm likely remediation, reteaching, enrichment, or next instructional steps.',
+    },
+    {
+      key: 'suggestion-review',
+      label: 'Quick Draft suggestions have been reviewed',
+      passed: pendingSuggestions.length === 0,
+      detail: pendingSuggestions.length ? `${pendingSuggestions.length} Quick Draft section${pendingSuggestions.length === 1 ? '' : 's'} still need teacher review.` : 'No unreviewed Quick Draft text remains.',
     },
     {
       key: 'ai-review',
-      label: 'AI-assisted text has teacher review',
+      label: 'AI-assisted content has teacher review',
       passed: !content.aiDeclaration.used || content.aiDeclaration.reviewedByTeacher,
-      detail: 'Any permitted AI support must remain subject to teacher review, validation, and adaptation.',
+      detail: 'AI suggestions and revisions must be reviewed, adapted where needed, and approved by the teacher before finalization.',
     },
   ]
 

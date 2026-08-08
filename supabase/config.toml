@@ -3,5 +3,8 @@ project_id = "gurodesk"
 [functions.gemini-health]
 verify_jwt = true
 
+[functions.ai-settings]
+verify_jwt = true
+
 [functions.lesson-ai-support]
 verify_jwt = true

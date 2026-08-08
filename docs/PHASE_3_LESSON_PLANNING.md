@@ -1,64 +1,76 @@
-# Phase 3 — Teacher-led ILAW Lesson Planning
+# Phase 3 / 3.5 — ILAW Lesson Planning
 
 Reviewed: 2026-08-08
 
-## Policy model
+## Planning model
 
-Phase 3 is built around DepEd Order No. 016, s. 2026. GuroDesk treats ILAW as the lesson-planning framework:
+GuroDesk keeps the ILAW planning structure:
 
-- **Intentions** — verified learning competency plus teacher-authored learning objectives.
-- **Learning Experience** — teacher-selected resources, pre-lesson activity, flow, contextualization, and inclusion supports.
-- **Assessing Learning** — teacher-designed formative checks and evidence of learning.
-- **Ways Forward** — teacher reflection and next instructional steps.
+- **Intentions** — verified competency plus teacher-approved learning objectives
+- **Learning Experience** — resources, pre-lesson activity, lesson flow, contextualization, inclusion supports, and continuity alternatives
+- **Assessing Learning** — formative checks and evidence of learning
+- **Ways Forward** — reflection, next steps, remediation/enrichment, and extended learning
 
-The app does not impose extra paperwork as required national fields. The UI is a working planner built around the ILAW elements.
+The app is a working planning assistant, not an assertion that every UI field is a nationally mandated paperwork field.
 
-## AI guardrail
+## AI assistance model
 
-DO 016 states that AI is auxiliary and that fully AI-generated lesson plans are not allowed. Core instructional decisions remain with the teacher. Therefore Phase 3 deliberately does **not** provide one-click generation of objectives, lesson flow, assessment design, or ways-forward decisions.
+Phase 3.5 intentionally provides more help than the original Phase 3 implementation.
 
-AI support is exposed only after a teacher has entered text, for these allowlisted operations:
+AI may generate **optional starting-point suggestions** grounded in the selected verified competency and teacher-provided context. The teacher chooses, edits, validates, and approves the final instructional text.
 
-- refine clarity
-- organize teacher-authored text
-- grammar/spelling
-- formatting
-- translation (server support exists; UI language picker is deferred)
+Two modes exist:
 
-The Edge Function rejects unsupported task types and instructs Gemini not to introduce new instructional content.
+1. **Field suggestions** — generate 3 alternatives and explicitly choose one.
+2. **Quick Draft** — generate a coherent set of suggestions for currently empty planning fields. Existing teacher text is never overwritten. Quick Draft sections are marked pending review until the teacher confirms them.
+
+Text polishing remains available for clarity, organization, grammar, and formatting.
+
+## Fields AI must not fabricate
+
+The following boundaries are intentional:
+
+- **Learning resources** — teacher-entered and teacher-verified only
+- **References** — teacher-entered only; no invented titles, page numbers, URLs, or citations
+- **Learner context** — teacher-provided class-level information only; AI may polish but does not invent learner facts
+- **Reflection** — teacher-authored after instruction; AI may polish but does not invent what happened in class
+
+The Edge Function contains a resource-accuracy rule that prohibits naming a specific resource/device unless the teacher explicitly listed it as available.
+
+## Reusable teaching setup
+
+`teacher_lesson_preferences` stores teacher-owned defaults:
+
+- typical minutes per session
+- language preference
+- class-level profile
+- available technology
+- preferred approaches
+- actual books/modules/materials used by the teacher
+- resource constraints/notes
+
+RLS limits the row to the teacher who owns it.
 
 ## Data model
 
-Lesson content is stored in the existing `documents` table using:
+Lesson content remains in `documents.structured_content` with schema version 1 plus backward-compatible Phase 3.5 fields:
 
-- `document_type = 'lesson_plan'`
-- structured JSON content with schema version 1
-- document versions on each explicit save
-- `lesson_plan_competencies` for a verified competency link plus immutable snapshots
-- `lesson_plan_ai_events` for server-side AI-support audit events when a saved document ID is available
+- `resourcesVerifiedByTeacher`
+- `aiSuggestionReview.pendingSections`
+- `aiSuggestionReview.lastQuickDraftAt`
 
-## Curriculum and calendar handling
+`lesson_plan_ai_events` audits both revision and suggestion operations for saved lesson documents.
 
-The planner keeps these separate:
+## Curriculum/calendar separation
 
-1. curriculum-guide sequence period (for example Quarter 2)
-2. verified instructional pacing / Budget of Work when available
-3. school grading term (Term 1–3 for SY 2026–2027)
+Keep these concepts separate:
 
-Phase 3 does not infer Quarter → Term mappings.
+1. curriculum-guide sequence period
+2. instructional pacing / Budget of Work
+3. school grading term
 
-## Privacy boundary
+Do not infer a quarter-to-term mapping unless verified pacing data explicitly provides one.
 
-Lesson context fields are for class-level planning. The UI explicitly discourages entering learner names, addresses, diagnoses, or other sensitive personal data.
+## Privacy
 
-## Demo mode
-
-Demo mode saves plans in localStorage. AI buttons use a clearly labelled local preview transformation and do not pretend that Gemini was called.
-
-## Deferred
-
-- DOCX/PDF export
-- collaborative shared lesson plans
-- verified Three-Term BoW dataset ingestion
-- print templates
-- instructional leader coaching workflow
+Lesson AI receives class-level planning context only. The UI warns teachers not to enter learner names, diagnoses, addresses, account information, or other sensitive personal data.

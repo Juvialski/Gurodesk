@@ -1,6 +1,10 @@
 import { getDemoCurriculumBundle } from '../data/demoCurriculum'
 import type { Profile, TeacherAssignment } from '../types/app'
+import type { AiCredentialSaveResult, AiCredentialStatus, AiSettingsUpdate } from '../types/ai'
 import type { LessonAiSupportRequest, LessonAiSupportResponse, LessonPlanRecord } from '../types/lessonPlan'
+import type { TeacherLessonPreferences } from '../types/teachingSetup'
+import { createDefaultTeacherLessonPreferences } from '../types/teachingSetup'
+import { normalizeLessonContent } from './lessonPlanFactory'
 import type {
   CurriculumCompetency,
   CurriculumDomain,
@@ -405,6 +409,57 @@ export async function loadSchoolYearCalendar(
   }
 }
 
+
+function mapTeacherLessonPreferences(row: Record<string, unknown>): TeacherLessonPreferences {
+  return {
+    userId: String(row.user_id),
+    defaultDurationMinutes: Number(row.default_duration_minutes ?? 60),
+    languagePreference: String(row.language_preference ?? 'English'),
+    typicalClassProfile: String(row.typical_class_profile ?? ''),
+    availableTechnology: Array.isArray(row.available_technology) ? row.available_technology.map(String) : [],
+    preferredApproaches: Array.isArray(row.preferred_approaches) ? row.preferred_approaches.map(String) : [],
+    actualResources: Array.isArray(row.actual_resources) ? row.actual_resources.map(String) : [],
+    resourceNotes: String(row.resource_notes ?? ''),
+    createdAt: row.created_at ? String(row.created_at) : null,
+    updatedAt: row.updated_at ? String(row.updated_at) : null,
+  }
+}
+
+export async function loadTeacherLessonPreferences(userId: string, demo: boolean): Promise<TeacherLessonPreferences> {
+  if (demo || !supabase) return demoStore.getLessonPreferences(userId)
+  const { data, error } = await supabase
+    .from('teacher_lesson_preferences')
+    .select('*')
+    .eq('user_id', userId)
+    .maybeSingle()
+  if (error) throw error
+  return data ? mapTeacherLessonPreferences(data as Record<string, unknown>) : createDefaultTeacherLessonPreferences(userId)
+}
+
+export async function saveTeacherLessonPreferences(preferences: TeacherLessonPreferences, demo: boolean): Promise<TeacherLessonPreferences> {
+  if (demo || !supabase) {
+    demoStore.saveLessonPreferences(preferences)
+    return preferences
+  }
+  const { data, error } = await supabase
+    .from('teacher_lesson_preferences')
+    .upsert({
+      user_id: preferences.userId,
+      default_duration_minutes: preferences.defaultDurationMinutes,
+      language_preference: preferences.languagePreference,
+      typical_class_profile: preferences.typicalClassProfile,
+      available_technology: preferences.availableTechnology,
+      preferred_approaches: preferences.preferredApproaches,
+      actual_resources: preferences.actualResources,
+      resource_notes: preferences.resourceNotes,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id' })
+    .select('*')
+    .single()
+  if (error) throw error
+  return mapTeacherLessonPreferences(data as Record<string, unknown>)
+}
+
 function mapLessonPlan(row: Record<string, unknown>): LessonPlanRecord {
   return {
     id: String(row.id),
@@ -414,7 +469,7 @@ function mapLessonPlan(row: Record<string, unknown>): LessonPlanRecord {
     schoolYear: String(row.school_year),
     academicPeriodLabel: row.academic_period_label ? String(row.academic_period_label) : null,
     status: String(row.status) as LessonPlanRecord['status'],
-    content: row.structured_content as LessonPlanRecord['content'],
+    content: normalizeLessonContent(row.structured_content as LessonPlanRecord['content'], String(row.status) as LessonPlanRecord['status']),
     createdAt: String(row.created_at),
     updatedAt: String(row.updated_at),
   }
@@ -560,24 +615,124 @@ export async function archiveLessonPlan(id: string, userId: string, demo: boolea
 }
 
 function demoAiSupport(request: LessonAiSupportRequest): LessonAiSupportResponse {
-  let output = request.text.trim().replace(/\s+/g, ' ')
-  if (request.supportType === 'organize_text' || request.supportType === 'format_text') {
+  const type = request.supportType
+  const competency = request.lessonContext.competencyText || 'the selected competency'
+  const base = request.text?.trim().replace(/\s+/g, ' ') ?? ''
+  const suggested = type.startsWith('suggest_') || type === 'quick_draft'
+  if (suggested) {
+    const suggestions = [
+      `Option 1 grounded in ${competency}. Review and adapt this starting point for your actual class.`,
+      `Option 2 grounded in ${competency}. Adjust the pacing and language before using it.`,
+      `Option 3 grounded in ${competency}. Confirm that it matches your learners and available resources.`,
+    ]
+    if (type === 'quick_draft') {
+      return {
+        draft: {
+          lessonTitle: 'Teacher-reviewed lesson draft',
+          learningObjectives: `Learners demonstrate the selected competency: ${competency}. Review and rewrite this objective to match the intended lesson scope.`,
+          preLessonActivity: 'Use a short prior-knowledge check that requires no unlisted materials. Review the prompts before teaching.',
+          lessonFlow: 'Opening: activate prior knowledge. Development: model or discuss the core idea. Guided practice: work through examples with feedback. Independent check: learners demonstrate the target skill. Closure: summarize evidence of learning. Adjust timing to the actual class.',
+          integrationContextualization: 'Connect the idea to a familiar situation that is appropriate for the class. Replace this with a specific local context you have verified.',
+          inclusionAccommodations: 'Offer clear instructions, worked examples, flexible response options, and additional guided practice without assuming any learner diagnosis or condition.',
+          formativeAssessments: 'Use brief checks during the lesson and a short end-of-session task aligned to the selected competency.',
+          evidenceOfLearning: 'Look for accurate reasoning, correct application of the targeted skill, and explanations that show understanding.',
+          nextSteps: 'If evidence is incomplete, reteach the specific misconception with another example; if secure, proceed to a more complex application.',
+          extendedLearning: 'Offer an optional extension that applies the same competency in a new but closely related situation.',
+        },
+        model: 'demo-local-preview', supportType: type, declarationCategory: 'suggested', suggestions: [],
+      }
+    }
+    return { suggestions, model: 'demo-local-preview', supportType: type, declarationCategory: 'suggested' }
+  }
+  let output = base
+  if (type === 'organize_text' || type === 'format_text') {
     const parts = output.split(/(?<=[.!?])\s+/).filter(Boolean)
     if (parts.length > 1) output = parts.map((item) => `• ${item.trim()}`).join('\n')
   }
   return {
     output,
     model: 'demo-local-preview',
-    supportType: request.supportType,
-    declarationCategory: request.supportType === 'refine_clarity' || request.supportType === 'organize_text' ? 'limited' : 'guided',
+    supportType: type,
+    declarationCategory: type === 'refine_clarity' || type === 'organize_text' ? 'limited' : 'guided',
   }
 }
 
 export async function runLessonAiSupport(request: LessonAiSupportRequest, demo: boolean): Promise<LessonAiSupportResponse> {
   if (demo || !supabase) return demoAiSupport(request)
   const { data, error } = await supabase.functions.invoke('lesson-ai-support', { body: request })
-  if (error) throw error
-  if (!data?.output) throw new Error('AI support returned no text.')
+  if (error) throw new Error(await edgeFunctionErrorMessage(error, 'AI support could not be completed.'))
+  if (data?.error) throw new Error(String(data.error))
+  if (!data?.output && !data?.suggestions?.length && !data?.draft) throw new Error('AI support returned no usable content.')
   return data as LessonAiSupportResponse
 }
 
+
+
+function defaultAiCredentialStatus(): AiCredentialStatus {
+  return {
+    configured: false,
+    keyLast4: null,
+    verifiedAt: null,
+    preferredModel: 'gemini-3.5-flash-lite',
+    fallbackModel: 'gemini-3.1-flash-lite',
+    fallbackEnabled: true,
+  }
+}
+
+async function edgeFunctionErrorMessage(error: unknown, fallback: string) {
+  const maybe = error as { message?: string; context?: Response } | null
+  try {
+    if (maybe?.context) {
+      const payload = await maybe.context.clone().json() as { error?: string }
+      if (payload?.error) return payload.error
+    }
+  } catch {}
+  return maybe?.message || fallback
+}
+
+async function invokeAiSettings(body: Record<string, unknown>) {
+  if (!supabase) throw new Error('Supabase is not configured yet.')
+  const { data, error } = await supabase.functions.invoke('ai-settings', { body })
+  if (error) throw new Error(await edgeFunctionErrorMessage(error, 'Unable to update AI settings.'))
+  if (data?.error) throw new Error(String(data.error))
+  return data as Record<string, unknown>
+}
+
+export async function loadAiCredentialStatus(demo: boolean): Promise<AiCredentialStatus> {
+  if (demo || !supabase) return defaultAiCredentialStatus()
+  const data = await invokeAiSettings({ action: 'status' })
+  return data as unknown as AiCredentialStatus
+}
+
+export async function saveTeacherAiCredential(
+  apiKey: string,
+  settings: AiSettingsUpdate,
+  demo: boolean,
+): Promise<AiCredentialSaveResult> {
+  if (demo || !supabase) {
+    throw new Error('Sign in to your Supabase-backed GuroDesk account before connecting a Gemini API key.')
+  }
+  const data = await invokeAiSettings({ action: 'save_key', apiKey, ...settings })
+  return data as unknown as AiCredentialSaveResult
+}
+
+export async function updateTeacherAiSettings(
+  settings: AiSettingsUpdate,
+  demo: boolean,
+): Promise<AiCredentialStatus> {
+  if (demo || !supabase) return { ...defaultAiCredentialStatus(), ...settings }
+  const data = await invokeAiSettings({ action: 'update_settings', ...settings })
+  return data as unknown as AiCredentialStatus
+}
+
+export async function testTeacherAiCredential(demo: boolean): Promise<{ ok: boolean; model: string; message: string }> {
+  if (demo || !supabase) throw new Error('Gemini connection testing is available after signing in to Supabase mode.')
+  const data = await invokeAiSettings({ action: 'test_saved_key' })
+  return data as unknown as { ok: boolean; model: string; message: string }
+}
+
+export async function removeTeacherAiCredential(demo: boolean): Promise<AiCredentialStatus> {
+  if (demo || !supabase) return defaultAiCredentialStatus()
+  const data = await invokeAiSettings({ action: 'remove_key' })
+  return data as unknown as AiCredentialStatus
+}

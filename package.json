@@ -1,7 +1,7 @@
 {
   "name": "gurodesk",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.5",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
@@ -11,7 +11,9 @@
     "curriculum:validate": "node scripts/validate-curriculum.mjs data/curriculum/*.json",
     "curriculum:generate:g7math": "node scripts/generate-curriculum-sql.mjs data/curriculum/matatag-grade7-mathematics.json supabase/seeds/matatag-grade7-mathematics.sql",
     "validate:phase2": "node scripts/check-phase2.mjs",
-    "validate:phase3": "node scripts/check-phase3.mjs"
+    "validate:phase3": "node scripts/check-phase3.mjs",
+    "validate:byok": "node scripts/check-byok.mjs",
+    "validate:phase35": "node scripts/check-phase35.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

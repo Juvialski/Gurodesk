@@ -1,5 +1,5 @@
 import type { TeacherAssignment } from '../types/app'
-import type { LessonPlanContent, LessonPlanRecord } from '../types/lessonPlan'
+import type { LessonPlanContent, LessonPlanRecord, LessonPlanStatus } from '../types/lessonPlan'
 
 export function createBlankLessonContent(assignment: TeacherAssignment): LessonPlanContent {
   return {
@@ -18,6 +18,7 @@ export function createBlankLessonContent(assignment: TeacherAssignment): LessonP
     numberOfSessions: 1,
     durationMinutes: 60,
     references: '',
+    resourcesVerifiedByTeacher: false,
     competency: { id: '', code: null, text: '', sourcePage: null, sourceTitle: null },
     performanceStandard: '',
     learnerContext: '',
@@ -33,6 +34,23 @@ export function createBlankLessonContent(assignment: TeacherAssignment): LessonP
     assessingLearning: { formativeAssessments: '', evidenceOfLearning: '' },
     waysForward: { reflection: '', nextSteps: '', extendedLearning: '' },
     aiDeclaration: { used: false, categories: [], operations: [], statement: 'No AI assistance was used in the preparation of this lesson plan.', reviewedByTeacher: false },
+    aiSuggestionReview: { pendingSections: [], lastQuickDraftAt: null },
+  }
+}
+
+export function normalizeLessonContent(content: LessonPlanContent, status: LessonPlanStatus = 'draft'): LessonPlanContent {
+  return {
+    ...content,
+    resourcesVerifiedByTeacher: content.resourcesVerifiedByTeacher ?? status === 'final',
+    aiSuggestionReview: content.aiSuggestionReview ?? { pendingSections: [], lastQuickDraftAt: null },
+    aiDeclaration: {
+      ...content.aiDeclaration,
+      categories: content.aiDeclaration?.categories ?? [],
+      operations: content.aiDeclaration?.operations ?? [],
+      reviewedByTeacher: content.aiDeclaration?.reviewedByTeacher ?? false,
+      used: content.aiDeclaration?.used ?? false,
+      statement: content.aiDeclaration?.statement ?? 'No AI assistance was used in the preparation of this lesson plan.',
+    },
   }
 }
 

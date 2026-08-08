@@ -1,13 +1,33 @@
-export type AiSupportType = 'refine_clarity' | 'organize_text' | 'grammar_spelling' | 'format_text' | 'translate'
+export type AiRevisionSupportType = 'refine_clarity' | 'organize_text' | 'grammar_spelling' | 'format_text' | 'translate'
+
+export type AiSuggestionSupportType =
+  | 'suggest_learning_objectives'
+  | 'suggest_home_alternative'
+  | 'suggest_pre_lesson'
+  | 'suggest_lesson_flow'
+  | 'suggest_contextualization'
+  | 'suggest_inclusion'
+  | 'suggest_formative_assessment'
+  | 'suggest_evidence_of_learning'
+  | 'suggest_next_steps'
+  | 'suggest_extended_learning'
+  | 'quick_draft'
+
+export type AiSupportType = AiRevisionSupportType | AiSuggestionSupportType
 
 export type LessonPlanStatus = 'draft' | 'final' | 'archived'
 
 export type LessonPlanAiDeclaration = {
   used: boolean
-  categories: Array<'limited' | 'guided'>
+  categories: Array<'limited' | 'guided' | 'suggested'>
   operations: AiSupportType[]
   statement: string
   reviewedByTeacher: boolean
+}
+
+export type LessonAiSuggestionReview = {
+  pendingSections: string[]
+  lastQuickDraftAt: string | null
 }
 
 export type LessonPlanContent = {
@@ -26,6 +46,7 @@ export type LessonPlanContent = {
   numberOfSessions: number
   durationMinutes: number
   references: string
+  resourcesVerifiedByTeacher: boolean
   competency: {
     id: string
     code: string | null
@@ -56,6 +77,7 @@ export type LessonPlanContent = {
     extendedLearning: string
   }
   aiDeclaration: LessonPlanAiDeclaration
+  aiSuggestionReview: LessonAiSuggestionReview
 }
 
 export type LessonPlanRecord = {
@@ -84,23 +106,59 @@ export type LessonPlanValidationResult = {
   items: LessonPlanValidationItem[]
 }
 
+export type LessonAiTeachingSetup = {
+  languagePreference: string
+  typicalClassProfile: string
+  availableTechnology: string[]
+  preferredApproaches: string[]
+  actualResources: string[]
+  resourceNotes: string
+}
+
 export type LessonAiSupportRequest = {
   supportType: AiSupportType
   sectionKey: string
-  text: string
+  text?: string
   targetLanguage?: string
   documentId?: string
   lessonContext: {
     gradeLevel: string
     learningArea: string
     competencyText: string
+    performanceStandard?: string
     teacherIntent: string
+    curriculumPeriodLabel?: string
+    gradingTermLabel?: string
+    durationMinutes?: number
+    numberOfSessions?: number
+    learnerContext?: string
+    currentFormativeAssessment?: string
+    teachingSetup?: LessonAiTeachingSetup
   }
 }
 
+export type LessonQuickDraft = {
+  lessonTitle?: string
+  learningObjectives?: string
+  homeBasedAlternative?: string
+  preLessonActivity?: string
+  lessonFlow?: string
+  integrationContextualization?: string
+  inclusionAccommodations?: string
+  formativeAssessments?: string
+  evidenceOfLearning?: string
+  nextSteps?: string
+  extendedLearning?: string
+}
+
 export type LessonAiSupportResponse = {
-  output: string
+  output?: string
+  suggestions?: string[]
+  draft?: LessonQuickDraft
   model: string
+  preferredModel?: string
+  fallbackUsed?: boolean
+  thinkingLevel?: 'high' | 'model_default'
   supportType: AiSupportType
-  declarationCategory: 'limited' | 'guided'
+  declarationCategory: 'limited' | 'guided' | 'suggested'
 }

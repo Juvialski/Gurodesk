@@ -1,0 +1,22 @@
+GURODESK 0.3.5 — PHASE 3.5 LESSON SUGGESTIONS + BYOK
+
+This ZIP is a COMPLETE project root. Do not place it inside another folder.
+
+When uploading to AI Studio:
+1. Merge/replace the ZIP contents into the CURRENT project root.
+2. Do NOT leave these files inside a nested gurodesk-phase35/, gurodesk-byok/, or gurodesk-phase3/ folder.
+3. Keep src/, data/, supabase/, scripts/, docs/, package.json, and vite.config.ts at the project root.
+4. Do not rewrite, simplify, or remove the supplied security/policy guardrails.
+5. Run the app and validation scripts.
+6. Push ALL resulting changes to GitHub main.
+
+Supabase Git integration should then automatically:
+- apply migration 007 for per-teacher BYOK AI credentials/settings
+- apply migration 008 for teacher lesson preferences and Phase 3.5 AI-support audit types
+- deploy/redeploy ai-settings, lesson-ai-support, and gemini-health Edge Functions
+
+After merge, verify Settings contains both:
+- My teaching setup
+- AI Assistant
+
+Then verify Lesson Plans supports Quick Draft suggestions while keeping Learning resources and References teacher-controlled.

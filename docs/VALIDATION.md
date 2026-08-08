@@ -64,3 +64,40 @@ In demo mode:
 ## Build-environment note
 
 The packaging sandbox uses a private npm mirror that currently returns 404 for `@supabase/supabase-js`. Because dependency installation fails before compilation, final `npm install && npm run build` must also be run in AI Studio or a normal public-npm environment. This is an environment limitation, not a reason to remove Supabase from the project.
+
+## Phase 3 BYOK checks
+
+Run:
+
+```bash
+npm run validate:byok
+```
+
+This verifies that:
+
+- migration 007 creates encrypted teacher AI credential/settings tables
+- browser clients have no direct credential-table CRUD policies
+- `ai-settings` is deployed as an authenticated Edge Function
+- no shared `GEMINI_API_KEY` remains in lesson AI
+- Gemini 3.5 Flash-Lite and 3.1 Flash-Lite are configured with explicit high thinking
+- Gemini 3.6 Flash and 3.5 Flash remain selectable
+- automatic fallback is limited to the two Flash-Lite models
+- browser code never references service-role secrets or credential ciphertext
+
+## Phase 3.5 lesson-suggestion checks
+
+Run:
+
+```bash
+npm run validate:phase35
+```
+
+This verifies that:
+
+- migration 008 creates the RLS-protected reusable teaching setup
+- Quick Draft and field-level suggestion operations are allowlisted/audited
+- Quick Draft fills only empty fields and requires teacher review
+- Learning resources and References remain teacher-controlled fields
+- the Edge Function contains explicit resource hallucination prevention
+- finalization requires teacher resource verification and no pending Quick Draft sections
+- BYOK Flash-Lite high-thinking configuration remains intact

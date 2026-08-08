@@ -1,9 +1,12 @@
 import type { Profile, TeacherAssignment } from '../types/app'
 import type { LessonPlanRecord } from '../types/lessonPlan'
+import type { TeacherLessonPreferences } from '../types/teachingSetup'
+import { createDefaultTeacherLessonPreferences } from '../types/teachingSetup'
 
 const PROFILE_KEY = 'gurodesk.demo.profile.v1'
 const ASSIGNMENTS_KEY = 'gurodesk.demo.assignments.v1'
 const LESSON_PLANS_KEY = 'gurodesk.demo.lessonPlans.v1'
+const LESSON_PREFERENCES_KEY = 'gurodesk.demo.lessonPreferences.v1'
 const USER_ID = 'demo-teacher'
 
 const defaultProfile: Profile = {
@@ -54,6 +57,14 @@ export const demoStore = {
     localStorage.setItem(LESSON_PLANS_KEY, JSON.stringify(plans))
   },
 
+  getLessonPreferences(userId = USER_ID): TeacherLessonPreferences {
+    return read(LESSON_PREFERENCES_KEY, createDefaultTeacherLessonPreferences(userId))
+  },
+
+  saveLessonPreferences(preferences: TeacherLessonPreferences) {
+    localStorage.setItem(LESSON_PREFERENCES_KEY, JSON.stringify(preferences))
+  },
+
   loadDemoWorkspace(): { profile: Profile; assignments: TeacherAssignment[] } {
     const profile: Profile = {
       ...defaultProfile,
@@ -93,5 +104,6 @@ export const demoStore = {
     localStorage.removeItem(PROFILE_KEY)
     localStorage.removeItem(ASSIGNMENTS_KEY)
     localStorage.removeItem(LESSON_PLANS_KEY)
+    localStorage.removeItem(LESSON_PREFERENCES_KEY)
   },
 }

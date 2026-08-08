@@ -6,7 +6,7 @@ const read = (file) => readFile(resolve(root, file), 'utf8')
 const fail = (message) => { throw new Error(message) }
 
 const pkg = JSON.parse(await read('package.json'))
-if (pkg.version !== '0.3.0') fail(`Expected package version 0.3.0; found ${pkg.version}.`)
+if (!['0.3.0', '0.3.1', '0.3.5'].includes(pkg.version)) fail(`Expected Phase 3+ package version; found ${pkg.version}.`)
 
 const migration = await read('supabase/migrations/202608080005_phase3_lesson_planning.sql')
 for (const required of ['lesson_plan_competencies', 'lesson_plan_ai_events', 'verification_status = \'verified\'', 'document_type = \'lesson_plan\'']) {
@@ -15,19 +15,17 @@ for (const required of ['lesson_plan_competencies', 'lesson_plan_ai_events', 've
 
 const fn = await read('supabase/functions/lesson-ai-support/index.ts')
 for (const allowed of ['refine_clarity', 'organize_text', 'grammar_spelling', 'format_text', 'translate']) {
-  if (!fn.includes(allowed)) fail(`AI support function missing allowlisted task ${allowed}`)
+  if (!fn.includes(allowed)) fail(`AI text-support function missing task ${allowed}`)
 }
-for (const prohibitedPhrase of ['design learning experiences', 'create a lesson plan', 'teacher has already made the core instructional decision']) {
-  if (!fn.toLowerCase().includes(prohibitedPhrase.toLowerCase())) fail(`AI guardrail prompt missing phrase: ${prohibitedPhrase}`)
-}
-if (!fn.includes('Write the section yourself before requesting AI support.')) fail('AI endpoint does not reject empty teacher-authored input.')
+if (!fn.includes('VERIFIED COMPETENCY')) fail('Lesson AI is not grounded in verified competency context.')
+if (!fn.includes('RESOURCE ACCURACY RULE')) fail('Lesson AI resource hallucination guard is missing.')
 
 const policy = await read('src/data/lessonPlanningPolicy.ts')
 if (!policy.includes('DO 016, s. 2026')) fail('Lesson planning policy code is missing.')
-if (!policy.toLowerCase().includes('fully ai-generated lesson plans are not allowed')) fail('Browser policy guardrail copy is missing.')
+if (!policy.toLowerCase().includes('teacher remains responsible')) fail('Teacher-responsibility policy copy is missing.')
 
 const editor = await read('src/pages/LessonPlanEditorPage.tsx')
-for (const required of ['Intentions', 'Learning Experience', 'Assessing Learning', 'Ways Forward', 'Teacher decision', 'AI use declaration']) {
+for (const required of ['Intentions', 'Learning Experience', 'Assessing Learning', 'Ways Forward', 'AI use declaration']) {
   if (!editor.includes(required)) fail(`Editor missing ${required}`)
 }
 if (!editor.includes('curriculumPeriodLabel') || !editor.includes('gradingTermLabel')) fail('Editor must keep curriculum period and grading term separate.')
@@ -48,8 +46,8 @@ for (const file of await sourceFiles('src')) {
   if (text.toLowerCase().includes('service_role')) fail(`Browser source ${file} references a Supabase service-role credential.`)
 }
 
-console.log('✓ Phase 3 lesson-planning architecture checks passed')
+console.log('✓ Phase 3 lesson-planning foundation checks passed')
 console.log('✓ ILAW fields and curriculum/term separation present')
-console.log('✓ AI endpoint is allowlisted and rejects empty teacher-authored input')
+console.log('✓ AI remains competency-grounded with teacher-responsibility and resource-accuracy guards')
 console.log('✓ verified-competency and lesson-document RLS guards present')
 console.log('✓ browser source contains no Gemini/service-role secret reference')
