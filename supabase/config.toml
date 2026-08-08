@@ -1,0 +1,4 @@
+project_id = "gurodesk"
+
+[functions.gemini-health]
+verify_jwt = true

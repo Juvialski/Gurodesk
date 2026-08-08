@@ -1,0 +1,590 @@
+{
+  "schemaVersion": 1,
+  "slug": "matatag-grade7-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-08",
+    "notes": "Transcribed from the official DepEd MATATAG Mathematics curriculum guide pages 30-33. Competency and performance-standard records preserve source meaning and page provenance. Competency sortOrder is GuroDesk sequence order; no competency code is asserted where the guide does not provide one."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Curriculum: Mathematics Grades 1, 4 and 7",
+    "issuanceCode": null,
+    "sourceUrl": "https://www.deped.gov.ph/wp-content/uploads/MATATAG-Mathematics-CG-Grades1-4-and-7.pdf",
+    "publishedOn": null,
+    "publisher": "Department of Education"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Grade 7 entered phased implementation in SY 2024-2025. Curriculum guide sequence for this subject remains organized by quarters."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Grade 7 Phase 1 implementation."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Grade 7 continues under the Revised K to 10 / MATATAG curriculum."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Grade 7 continues under the Revised K to 10 / MATATAG curriculum. Three-term grading is modeled separately from curriculum-quarter sequencing."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 7",
+    "code": "MATH7",
+    "name": "Mathematics",
+    "description": "Official Grade 7 Mathematics curriculum records from the MATATAG curriculum guide."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 30
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 31
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 32
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 33
+    }
+  ],
+  "domains": [
+    {
+      "code": "MG",
+      "name": "Measurement and Geometry",
+      "sortOrder": 1
+    },
+    {
+      "code": "NA",
+      "name": "Number and Algebra",
+      "sortOrder": 2
+    },
+    {
+      "code": "DP",
+      "name": "Data and Probability",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [
+    {
+      "quarter": 1,
+      "text": "By the end of the quarter, the learners are able to draw and describe the features/properties of regular and irregular polygons; use percentages in different contexts; identify and use rates; create a financial plan; and describe, order, and perform operations on rational numbers.",
+      "sourcePage": 30
+    },
+    {
+      "quarter": 2,
+      "text": "By the end of the quarter, the learners are able to determine square roots of perfect squares and cube roots of perfect cubes, and identify irrational numbers; convert units of measure from different systems of measure; find the volume of square and rectangular pyramids and the volume of cylinders; describe sets and their subsets, and the union and intersection of sets; and illustrate sets and subsets, and union and intersection of sets, using Venn diagrams.",
+      "sourcePage": 31
+    },
+    {
+      "quarter": 3,
+      "text": "By the end of the quarter, the learners are able to collect data and organize data in a frequency distribution table; represent and interpret data in different types of graphs; compare and order integers, including through the use of the number line; perform the four operations with integers; simplify numerical expressions involving integers; and identify the absolute value of an integer.",
+      "sourcePage": 32
+    },
+    {
+      "quarter": 4,
+      "text": "By the end of the quarter, the learners are able to solve simple equations; substitute into an algebraic expression to evaluate the expression; rearrange a formula to make a different variable the subject of the formula; gather data from experiments and represent the data in different forms; and write numbers in scientific notation and perform operations on numbers written in scientific notation.",
+      "sourcePage": 33
+    }
+  ],
+  "competencies": [
+    {
+      "quarter": 1,
+      "domain": "MG",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Draw and describe regular and irregular polygons with 5, 6, 8, or 10 sides, based on measurements of sides and angles, using a ruler and protractor.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "MG",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Draw triangles, quadrilaterals, and regular polygons (5, 6, 8, or 10 sides) with given angle measures.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "MG",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Describe and explain the relationships between angle pairs based on their measures.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "MG",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Classify polygons according to the number of sides, whether they are regular or irregular, and whether they are convex or non-convex.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "MG",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Deduce the relationship between the exterior angle and adjacent interior angle of a polygon.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "MG",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Determine the measures of angles and the number of sides of polygons.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "NA",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Solve problems involving percentage increase and percentage decrease.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "NA",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Solve money problems involving percentages, such as discount, commission, sales tax, and simple interest.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "NA",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Create a financial plan.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "NA",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Identify and explain the uses of rates.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "NA",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Solve problems involving rates, such as speed.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "NA",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Describe given rational numbers as fractions, decimals, or percentages.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "NA",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Order rational numbers on a number line.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 1,
+      "domain": "NA",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Perform operations on rational numbers.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "NA",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Determine the square roots of perfect squares and the cube roots of perfect cubes.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "NA",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Identify irrational numbers involving square roots and cube roots, and their locations on the number line.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "MG",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Convert units of measure within the International System of Units (SI) and across different systems of measure.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "MG",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Explain inductively the volume of a cylinder using the area of a circle, leading to the identification of the formula.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "MG",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Find the volume of a cylinder.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "MG",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Solve problems involving the volumes of cylinders.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "MG",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Explore inductively the volume of square and rectangular pyramids using rectangular prisms, leading to the identification of the formula.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "MG",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Estimate volumes of square and rectangular pyramids.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "MG",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Solve problems involving volumes of square or rectangular pyramids.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "NA",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Describe sets and their subsets, the union of sets, and the intersection of sets.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "NA",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Illustrate sets and their subsets, the union of sets, and the intersection of sets through the use of Venn diagrams.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 2,
+      "domain": "NA",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Illustrate the different subsets of real numbers.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "DP",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Investigate different data collection and sampling techniques.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "DP",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Organize statistical data in a frequency distribution table.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "DP",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Use appropriate graphs to represent organized data: pie graph, bar graph, line graph, and stem-and-leaf plot.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "DP",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Interpret statistical graphs.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "NA",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Describe the set of integers.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "NA",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Use positive and negative numbers to describe directions or opposites in real-life situations.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "NA",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Locate integers on the number line.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "NA",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Compare and order integers.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "NA",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Add and subtract integers using concrete models, pictorial models, and integers written as numerals.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "NA",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Multiply and divide integers.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "NA",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Simplify numerical expressions involving integers using number properties and the order of operations (GEMDAS).",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 3,
+      "domain": "NA",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Identify the absolute value of an integer and its meaning on the number line.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Solve simple equations represented by bar models to find unknowns.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Distinguish a variable from a constant in an algebraic expression.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Evaluate algebraic expressions given the value or values of the variables.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Translate verbal phrases into algebraic expressions.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Illustrate the properties of equality.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Solve one variable in terms of the other variables in a formula.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Write equations in algebraic form.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Find the value of an unknown in an equation where the unknown is non-negative.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Solve problems involving algebraic expressions and formulas.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "DP",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Collect data from experiments, such as coin tosses or die rolls.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "DP",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Express outcomes in words and/or symbols, and represent outcomes in tables and/or graphs.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "DP",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Solve problems using the outcomes of experiments.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Write numbers in scientific notation to represent very large or very small numbers, and vice versa.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "quarter": 4,
+      "domain": "NA",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Perform operations on numbers expressed in scientific notation.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    }
+  ]
+}

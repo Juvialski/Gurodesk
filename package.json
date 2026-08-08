@@ -1,0 +1,29 @@
+{
+  "name": "gurodesk",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit --pretty false",
+    "preview": "vite preview --host 0.0.0.0",
+    "curriculum:validate": "node scripts/validate-curriculum.mjs data/curriculum/*.json",
+    "curriculum:generate:g7math": "node scripts/generate-curriculum-sql.mjs data/curriculum/matatag-grade7-mathematics.json supabase/seeds/matatag-grade7-mathematics.sql",
+    "validate:phase2": "node scripts/check-phase2.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.55.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.2"
+  }
+}

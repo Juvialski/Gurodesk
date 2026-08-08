@@ -1,0 +1,40 @@
+import { BookOpenText, ClipboardCheck, FileBarChart, Files, TableProperties } from 'lucide-react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { AppShell } from './components/AppShell'
+import { useApp } from './contexts/AppContext'
+import { AuthPage } from './pages/AuthPage'
+import { ClassesPage } from './pages/ClassesPage'
+import { CurriculumPage } from './pages/CurriculumPage'
+import { DashboardPage } from './pages/DashboardPage'
+import { FeaturePlaceholderPage } from './pages/FeaturePlaceholderPage'
+import { OnboardingPage } from './pages/OnboardingPage'
+import { SettingsPage } from './pages/SettingsPage'
+
+function LoadingScreen() {
+  return <div className="loading-screen"><span className="loader" /><strong>Opening GuroDesk…</strong></div>
+}
+
+export default function App() {
+  const { user, profile, loading, authLoading } = useApp()
+
+  if (authLoading || (user && loading && !profile)) return <LoadingScreen />
+  if (!user) return <AuthPage />
+  if (!profile || !profile.onboardingCompleted) return <OnboardingPage />
+
+  return (
+    <Routes>
+      <Route element={<AppShell />}>
+        <Route index element={<DashboardPage />} />
+        <Route path="classes" element={<ClassesPage />} />
+        <Route path="curriculum" element={<CurriculumPage />} />
+        <Route path="lesson-plans" element={<FeaturePlaceholderPage eyebrow="Planning" title="Lesson Plans" description="Create, edit, version, and later export curriculum-grounded lesson plans." phase="Phase 3" icon={BookOpenText} bullets={['Structured lesson records', 'Curriculum grounding', 'Section-level AI regeneration', 'Future DOCX/PDF export']} />} />
+        <Route path="assessments" element={<FeaturePlaceholderPage eyebrow="Assessment studio" title="Assessments" description="Build competency-aligned tests, answer keys, rubrics, and analysis-ready assessment records." phase="Phase 4" icon={ClipboardCheck} bullets={['Question bank schema', 'Competency mapping', 'Answer keys and solutions', 'TOS-linked generation']} />} />
+        <Route path="tos" element={<FeaturePlaceholderPage eyebrow="Assessment planning" title="TOS Builder" description="Create a mathematically validated Table of Specifications from actual covered competencies and instructional time." phase="Phase 4" icon={TableProperties} bullets={['Validated totals', 'Cognitive-level distribution', 'Competency coverage', 'Direct test generation']} />} />
+        <Route path="paperwork" element={<FeaturePlaceholderPage eyebrow="Teacher paperwork" title="Paperwork" description="Show only the forms and reports relevant to the teacher's role, assignment, and active DepEd policy version." phase="Phase 6" icon={FileBarChart} bullets={['Role-aware paperwork matrix', 'Reusable teacher data', 'Policy-version aware templates', 'Clear LIS boundaries']} />} />
+        <Route path="files" element={<FeaturePlaceholderPage eyebrow="Documents" title="My Files" description="A future home for generated lesson plans, TOS files, test papers, reports, and export versions." phase="Phase 3+" icon={Files} bullets={['Saved documents', 'Versions', 'Search and filters', 'Exports']} />} />
+        <Route path="settings" element={<SettingsPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
+  )
+}

@@ -1,0 +1,114 @@
+import manifest from '../../data/curriculum/matatag-grade7-mathematics.json'
+import type { CurriculumNavigatorBundle } from '../types/curriculum'
+
+const source = {
+  id: `src-${manifest.slug}`,
+  sourceType: manifest.source.sourceType as 'curriculum_guide',
+  title: manifest.source.title,
+  issuanceCode: manifest.source.issuanceCode,
+  sourceUrl: manifest.source.sourceUrl,
+  publishedOn: manifest.source.publishedOn,
+  verificationStatus: 'verified' as const,
+}
+
+const version = {
+  id: `cv-${manifest.curriculumVersion.code.toLowerCase()}`,
+  code: manifest.curriculumVersion.code,
+  name: manifest.curriculumVersion.name,
+  framework: manifest.curriculumVersion.framework,
+  effectiveFromSchoolYear: manifest.curriculumVersion.effectiveFromSchoolYear,
+  effectiveToSchoolYear: manifest.curriculumVersion.effectiveToSchoolYear,
+  status: manifest.curriculumVersion.status as 'active',
+  implementationNotes: manifest.curriculumVersion.implementationNotes,
+}
+
+const subject = {
+  id: `subj-${manifest.subject.code.toLowerCase()}`,
+  gradeLevel: manifest.subject.gradeLevel,
+  code: manifest.subject.code,
+  name: manifest.subject.name,
+  description: manifest.subject.description,
+}
+
+const periods = manifest.periods.map((period) => ({
+  id: `period-${manifest.subject.code.toLowerCase()}-${period.sequence}`,
+  label: period.label,
+  sequence: period.sequence,
+  periodType: period.periodType as 'quarter',
+}))
+
+const domains = manifest.domains.map((domain) => ({
+  id: `domain-${manifest.subject.code.toLowerCase()}-${domain.code.toLowerCase()}`,
+  code: domain.code,
+  name: domain.name,
+  sortOrder: domain.sortOrder,
+}))
+
+const periodIdByQuarter = Object.fromEntries(periods.map((period) => [period.sequence, period.id]))
+const domainIdByCode = Object.fromEntries(domains.map((domain) => [domain.code, domain.id]))
+
+const standards = manifest.performanceStandards.map((standard) => ({
+  id: `std-${manifest.subject.code.toLowerCase()}-q${standard.quarter}-performance`,
+  standardType: 'performance' as const,
+  standardText: standard.text,
+  domainId: null,
+  academicPeriodId: periodIdByQuarter[standard.quarter] ?? null,
+  sourcePage: standard.sourcePage,
+}))
+
+const competencies = manifest.competencies.map((competency) => ({
+  id: `comp-${manifest.subject.code.toLowerCase()}-q${competency.quarter}-${competency.sortOrder}`,
+  competencyCode: competency.competencyCode,
+  competencyText: competency.text,
+  sortOrder: competency.sortOrder,
+  domainId: domainIdByCode[competency.domain] ?? null,
+  academicPeriodId: periodIdByQuarter[competency.quarter] ?? null,
+  sourcePage: competency.sourcePage,
+  verificationStatus: competency.verificationStatus as 'verified',
+}))
+
+const bundle: CurriculumNavigatorBundle = {
+  available: true,
+  schoolYear: '2026-2027',
+  gradeLevel: manifest.subject.gradeLevel,
+  learningArea: manifest.subject.name,
+  version,
+  subject,
+  periods,
+  domains,
+  standards,
+  competencies,
+  source,
+  coverageNote:
+    'Demo mode includes the complete Grade 7 Mathematics competency set from the verified official MATATAG curriculum guide. Other grades and learning areas remain intentionally unavailable until their source manifests are verified and imported.',
+}
+
+export function getDemoCurriculumBundle(
+  schoolYear: string,
+  gradeLevel: string,
+  learningArea: string,
+): CurriculumNavigatorBundle {
+  const applicable = manifest.applicability.some(
+    (item) => item.schoolYear === schoolYear && item.gradeLevel === gradeLevel,
+  )
+
+  if (applicable && gradeLevel === manifest.subject.gradeLevel && learningArea === manifest.subject.name) {
+    return { ...bundle, schoolYear }
+  }
+
+  return {
+    available: false,
+    schoolYear,
+    gradeLevel,
+    learningArea,
+    version: null,
+    subject: null,
+    periods: [],
+    domains: [],
+    standards: [],
+    competencies: [],
+    source: null,
+    coverageNote:
+      'This assignment does not have a verified demo curriculum manifest yet. Supabase mode will show it once an official source has been reviewed and imported.',
+  }
+}
