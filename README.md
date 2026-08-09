@@ -1,10 +1,10 @@
-# GuroDesk — Phase 5.4 Production-Ready Assessment and Results Workflow
+# GuroDesk — Phase 5.5 Automated Integration and Regression Harness
 
 GuroDesk is a mobile-first workspace for DepEd teachers. Its operating rule is: **verified curriculum and policy data first, teacher judgment first, and AI only inside an explicit teacher-review workflow.**
 
 ## Current implementation
 
-Phases 1–5.3 are preserved. This release completes Phase 4.4 assessment expansion/scoring/adaptive QA and Phase 5.4 multi-point results compatibility/production acceptance:
+Phases 1–5.4 are preserved. This release adds the Phase 5.5 behavior-first test harness without adding a teacher-facing product feature:
 
 - batched, verified TOS curriculum resolution without per-competency Supabase lookups;
 - lossless, height-aware pagination for long TOS competency text and notes;
@@ -29,9 +29,14 @@ Phases 1–5.3 are preserved. This release completes Phase 4.4 assessment expans
 - clearly labelled binary facility versus normalized multi-point achievement, with item-count and point-based competency/cognitive views;
 - configurable, neutral remediation signals and editable plans, with optional aggregate-only Gemini activity suggestions that never receive learner identity or raw answers; and
 - Assessment Results Summary, Item Analysis, Competency Performance, and Remediation Plan reports with Print, PDF, DOCX, and combined seven-sheet XLSX output; and
-- Render static-site SPA rewrites, browser-safe environment guidance, additive migrations through `019`, production security notes, and a phone-first smoke-test checklist.
+- Render static-site SPA rewrites, browser-safe environment guidance, additive migrations through `020`, production security notes, and a phone-first smoke-test checklist;
+- Vitest unit regressions for scoring, locks, error handling, AI orchestration, retry/429 behavior, and Gemini boundaries;
+- real fresh and data-bearing upgrade migration paths through migration 020;
+- local Supabase Auth/JWT, RLS, RPC, PostgREST relationship, repository round-trip, partial-credit, analysis, and remediation integration tests;
+- a focused Playwright suite for login, TOS-to-assessment creation, save/reload/list behavior, and deep routes; and
+- GitHub Actions plus a single local-only `npm run test:release` quality gate.
 
-This release **stops after Phase 5.4**. It does not implement class records, grading sheets, report cards, attendance, awards/ranking, student/parent portals, or automated subjective grading by AI.
+This release **stops after Phase 5.5**. It does not implement class records, grading sheets, report cards, attendance, awards/ranking, student/parent portals, or automated subjective grading by AI.
 
 See:
 
@@ -47,6 +52,8 @@ See:
 - `docs/PHASE5_RESULT_TEMPLATE_ARCHITECTURE.md`
 - `docs/PRODUCTION_DEPLOYMENT.md`
 - `docs/PRODUCTION_SMOKE_TEST.md`
+- `docs/TESTING.md`
+- `PHASE55_TESTING_MANIFEST.md`
 - `CODEX_HANDOVER.md`
 
 ## Assessment architecture
@@ -95,6 +102,7 @@ Apply in order:
 17. `202608090017_phase44_question_type_enum.sql`
 18. `202608090018_phase44_assessment_scoring_qa.sql`
 19. `202608090019_phase54_results_compatibility.sql`
+20. `202608090020_fix_assessment_save_alias_ambiguity.sql`
 
 Deploy all functions listed in `supabase/config.toml`, including `assessment-question-generator` and the aggregate-only `remediation-suggester`.
 
@@ -128,31 +136,13 @@ Objective answers are compared to the saved structured answer key without AI. Pr
 ## Validation
 
 ```bash
-npm run curriculum:validate
-npm run validate:phase2
-npm run validate:phase3
-npm run validate:byok
-npm run validate:phase35
-npm run validate:phase351
-npm run validate:phase352
-npm run validate:phase353
-npm run validate:phase36
-npm run validate:phase361
-npm run validate:phase362
-npm run validate:phase363
-npm run validate:phase37
-npm run validate:phase4
-npm run validate:phase41
-npm run validate:phase42
-npm run validate:phase43
-npm run validate:phase44
-npm run validate:phase50
-npm run validate:phase51
-npm run validate:phase52
-npm run validate:phase53
-npm run validate:phase54
-npm run typecheck
-npm run build
+npm test
+npm run test:ci
+npm run test:db:fresh
+npm run test:db:upgrade
+npm run test:integration
+npm run test:e2e
+npm run test:release
 ```
 
-Old validators remain part of the release gate and must not be weakened to make new work pass.
+`npm run test:ci` includes `npm run validate:all`, which executes every retained Phase 1–5.4 validator. `npm run test:release` starts only an isolated local Supabase stack and refuses the production project reference or any non-local target. See `docs/TESTING.md` for prerequisites, fixtures, CI behavior, and the distinction between implemented and actually executed gates.

@@ -1,15 +1,16 @@
-# GuroDesk handover — complete through Phase 5.4
+# GuroDesk handover — complete through Phase 5.5
 
 ## Release boundary
 
-This release preserves Phases 1–5.3 and completes, in order:
+This release preserves Phases 1–5.4 and completes:
 
-1. **Phase 4.4 — Assessment Type Expansion, Scoring Model, and Accuracy-First Adaptive QA**
-2. **Phase 5.4 — Results/Analysis Compatibility, Production Acceptance, and Deployment Readiness**
+1. **Phase 5.5 — Automated Integration, Migration, RLS, and Regression Testing**
 
 **Stop here.** Do not begin class records, grading sheets, report cards, attendance, a student portal, a curriculum expansion, or another major teacher workflow without explicit authorization.
 
-The uploaded Phase 5.3 ZIP was inspected first and used as the implementation source. GitHub `Juvialski/Gurodesk` was used only for comparison and did not contain a newer implementation. The previously observed connector write failure was HTTP 403, so no repeated write/authentication attempts were made. This complete root-level project is the merge artifact.
+GitHub `Juvialski/Gurodesk` `main` at commit `022afc55dd0f43f964f5d56df5111fe3c1e2da5a` was verified as the implementation source. The attached ZIP was byte-for-byte identical to that checkout. All existing migrations 001–020 and production behavior were preserved.
+
+The first attempted GitHub write for Phase 5.5 returned HTTP 403 (`Resource not accessible by integration`), so no further repository writes were attempted. The root-level Phase 5.5 ZIP is the handoff artifact; importing it onto `main` will trigger the included CI workflow.
 
 ## Phase 4.4 assessment architecture
 
@@ -86,6 +87,18 @@ Remediation defaults to point-weighted evidence for new plans and preserves the 
 
 Draft result entry remains local/debounced and batch-persisted rather than saving every keystroke or issuing one network request per cell. Existing one-point assessments, result sessions, item analysis, remediation plans, reports, demo records, and snapshots remain compatible.
 
+## Phase 5.5 automated regression harness
+
+Phase 5.5 adds no teacher-facing feature and no database migration. It converts the production regressions from Phases 5.0–5.4 into executable behavior gates:
+
+- Vitest unit regressions cover error extraction, Render SPA fallback, assessment AI risk routing and one-item repair, malformed provider JSON, scheduler pacing/retry ceilings/429 handling, lock and replacement behavior, partial-credit totals, and Gemini Lite fallback boundaries.
+- The database harness applies the real migrations 001–020 to a fresh database and separately upgrades a data-bearing schema from migration 014 through 020. It asserts final schema behavior, the migration 018 trigger/backfill, preserved IDs/data/points, migration 020 existing-assessment saves, and finalized-assessment immutability.
+- Supabase integration tests use two real local Auth users and teacher JWTs for RLS, new/existing assessment RPC saves, duplicate/archive behavior, 40-item round trips, explicit PostgREST foreign-key relationships, tamper rejection, lock/unlock behavior, the required `1/1 + 3/5 + 8/10 = 12/16` result path, analysis, remediation, and cross-teacher denial across the major Phase 2–5.4 teacher-owned domains.
+- Playwright covers authenticated dashboard access, finalized-TOS assessment creation, editor save/reload/list/reopen behavior, and representative deep-route refreshes.
+- GitHub Actions runs the static/unit/build gate and a single disposable local Supabase stack for fresh/upgrade migration, integration, and Chromium E2E tests. `npm run test:release` provides the equivalent local release gate.
+
+All networked test entry points reject the production project ref `hmeybakjxtzmiebtxonc` and non-loopback Supabase URLs. Gemini calls are mocked or aborted, so automated tests never consume a teacher key or provider quota. Full commands, fixture boundaries, and failure ownership are documented in `docs/TESTING.md` and `PHASE55_TESTING_MANIFEST.md`.
+
 ## Database changes and security review
 
 Apply all migrations in filename order. New additive/corrective migrations are:
@@ -93,12 +106,13 @@ Apply all migrations in filename order. New additive/corrective migrations are:
 17. `supabase/migrations/202608090017_phase44_question_type_enum.sql`
 18. `supabase/migrations/202608090018_phase44_assessment_scoring_qa.sql`
 19. `supabase/migrations/202608090019_phase54_results_compatibility.sql`
+20. `supabase/migrations/202608090020_fix_assessment_save_alias_ambiguity.sql`
 
-Migration 017 extends the database question-type enum. Migration 018 adds assessment settings, target points, points, QA/lifecycle metadata, bounded per-item history, strict typed payload validation, and owner-authoritative save/finalize rules. Migration 019 hardens multi-point result snapshots/outcomes, answer shapes, score bounds, batch save relationships, and compatibility defaults.
+Migration 017 extends the database question-type enum. Migration 018 adds assessment settings, target points, points, QA/lifecycle metadata, bounded per-item history, strict typed payload validation, and owner-authoritative save/finalize rules. Migration 019 hardens multi-point result snapshots/outcomes, answer shapes, score bounds, batch save relationships, and compatibility defaults. Migration 020 corrects the existing-assessment save alias ambiguity.
 
-The static adversarial review covered migrations 013–019, foreign-key ownership paths, grants, owner-only RLS, immutable finalized records, service-role-only AI audit inserts, private template Storage paths, and `SECURITY DEFINER` functions with explicit safe `search_path` and `auth.uid()` ownership derivation. Browser configuration contains only publishable Supabase values. A repository scan found no committed Gemini key, service-role key, database URL/password, access token, JWT, encryption secret, or private key value.
+The static adversarial review covered migrations 013–020, foreign-key ownership paths, grants, owner-only RLS, immutable finalized records, service-role-only AI audit inserts, private template Storage paths, and `SECURITY DEFINER` functions with explicit safe `search_path` and `auth.uid()` ownership derivation. Browser configuration contains only publishable Supabase values. A repository scan found no committed Gemini key, service-role key, database URL/password, access token, JWT, encryption secret, or private key value.
 
-Live two-teacher RLS and migration execution remain staging acceptance requirements because this environment did not provide a PostgreSQL/Supabase migration runner.
+The Phase 5.5 local-stack gate now executes the previously manual fresh/upgrade migration and two-teacher RLS acceptance paths without using production credentials.
 
 ## Production deployment
 
@@ -112,30 +126,29 @@ Phone-friendly deployment and acceptance instructions are in:
 - `docs/PRODUCTION_SMOKE_TEST.md`
 - `docs/PHASE_5_4_SECURITY_REVIEW.md`
 - `docs/PHASE_5_4_PRODUCTION_ACCEPTANCE.md`
+- `docs/TESTING.md`
+- `PHASE55_TESTING_MANIFEST.md`
 
 ## Validation result
 
-On 2026-08-09, one complete retained run passed:
+On 2026-08-09, the retained local static gate passed:
 
-- all 23 project validators: curriculum, Phase 2, Phase 3/BYOK/3.5–3.7, Phase 4/4.1–4.4, and Phase 5.0–5.4;
-- all eleven valid typed question fixtures plus invalid-answer/component cases;
-- 32-item/60-point, target-point, partial-credit, legacy one-point, adaptive-QA, scheduler, structured-export, normalized-analysis, remediation-denominator, and production-contract checks;
-- `npm run typecheck`; and
-- `npm run build` with 2,027 modules transformed successfully.
+- application, test, and E2E TypeScript checks;
+- every existing project validator from Phases 1–5.4;
+- 17 new Vitest regression tests across five files; and
+- the production Vite bundle with 2,027 modules transformed successfully.
 
-The only build diagnostic was Vite's non-fatal existing large-chunk advisory. No validator was removed or weakened.
+The Playwright runner also discovered all eight intended setup/browser tests. This workspace did not provide Docker or `psql`, so database, Supabase integration, and browser execution must run through the included GitHub Actions local-stack job after the ZIP is imported. A skipped live gate cannot report green. The only local build diagnostic was Vite's existing non-fatal large-chunk advisory; no validator was removed or weakened.
 
 ## Known limitations
 
-- Live Supabase migration application, cross-teacher RLS probes, deployed Auth redirects, Storage isolation, and real Edge Function/BYOK calls require the staging/production projects.
+- Deployed Auth redirects, Storage isolation, real Edge Function/BYOK behavior, and the production smoke checklist still require the staging/production projects.
 - Android route-refresh, slow-network/reconnect, real provider 429/quota behavior, and physical PDF/DOCX/print inspection for every new question type require the production smoke test.
 - The local Gemini request estimate counts GuroDesk-observed requests and cannot know provider-wide usage; an Edge Function's internal Lite fallback can add provider usage not visible as a separate browser invocation. Provider responses remain authoritative.
 - Subjective responses are not automatically graded by AI. Teachers award final partial credit.
 - Arbitrary repeating-question blocks in uploaded custom assessment DOCX masters and full custom result-analysis XLSX filling remain explicit future extension points, not claimed features.
 - The production JavaScript bundle still triggers Vite's large-chunk advisory. It is safe to deploy but route-level code splitting is a later performance improvement.
 
-## Exact recommended next phase
+## Release stop
 
-Request explicit approval for **Phase 5.5 — Controlled Production Rollout and Live Acceptance**. That phase should add no major product domain: apply migrations 017–019 in staging, deploy Edge Functions, run two-teacher adversarial RLS/Storage tests, exercise real teacher BYOK and provider failures, validate Supabase Auth redirects and Render nested-route reloads, inspect every export on Android, then promote the same reviewed commit to production.
-
-Do not begin class records, grading sheets, report cards, attendance, a student portal, new curriculum subjects, or another document domain as part of that acceptance phase.
+Phase 5.5 is the authorized stopping point. Run the short `docs/PRODUCTION_SMOKE_TEST.md` checklist after the normal deployment, but do not begin class records, grading sheets, report cards, attendance, a student portal, new curriculum subjects, or another document domain without explicit authorization.

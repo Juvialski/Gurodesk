@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": [
+    "src",
+    "supabase/functions/_shared/ai-models.ts",
+    "supabase/functions/_shared/gemini.ts",
+    "tests/unit/**/*.ts",
+    "tests/integration/**/*.ts",
+    "vitest.config.ts"
+  ]
+}

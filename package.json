@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc --noEmit && vite build",
+    "build:bundle": "vite build",
     "typecheck": "tsc --noEmit --pretty false",
+    "typecheck:tests": "tsc -p tsconfig.tests.json --noEmit --pretty false",
+    "typecheck:e2e": "tsc -p tsconfig.e2e.json --noEmit --pretty false",
     "preview": "vite preview --host 0.0.0.0",
     "curriculum:validate": "node scripts/validate-curriculum.mjs data/curriculum/*.json",
     "curriculum:generate:g7math": "node scripts/generate-curriculum-sql.mjs data/curriculum/matatag-grade7-mathematics.json supabase/seeds/matatag-grade7-mathematics.sql",
@@ -31,7 +34,18 @@
     "validate:phase52": "node scripts/check-phase52.mjs",
     "validate:phase53": "node scripts/check-phase53.mjs && node scripts/check-phase53-security.mjs",
     "validate:phase44": "node scripts/check-phase44-domain.mjs && node scripts/check-phase44-ai-editor.mjs",
-    "validate:phase54": "node scripts/check-phase54.mjs"
+    "validate:phase54": "node scripts/check-phase54.mjs",
+    "validate:all": "node scripts/run-existing-validators.mjs",
+    "test": "npm run test:unit",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:db": "bash scripts/test-db-migrations.sh --all",
+    "test:db:fresh": "bash scripts/test-db-migrations.sh --fresh",
+    "test:db:upgrade": "bash scripts/test-db-migrations.sh --upgrade",
+    "test:e2e:prepare": "node scripts/prepare-e2e-user.mjs",
+    "test:e2e": "playwright test",
+    "test:ci": "npm run typecheck && npm run typecheck:tests && npm run typecheck:e2e && npm run validate:all && npm run test:unit && npm run build:bundle",
+    "test:release": "bash scripts/test-release.sh"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
@@ -46,11 +60,15 @@
     "react-router-dom": "^7.8.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^24.10.13",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
     "@xmldom/xmldom": "^0.8.13",
+    "supabase": "^2.113.0",
     "typescript": "^5.9.2",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "vitest": "^4.1.10"
   }
 }

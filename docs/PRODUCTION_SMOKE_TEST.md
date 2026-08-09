@@ -1,51 +1,28 @@
 # GuroDesk production smoke test
 
-Run this checklist on an Android phone in a clean browser session. Use teacher-owned test data only.
+Run this short checklist on an Android phone after the automated CI workflow is green. Use teacher-owned smoke-test data and remove it afterward.
 
-## Auth
+## Environment and auth
 
-- [ ] Sign up and complete verification redirect.
-- [ ] Log in, set the teacher's own Gemini BYOK key, log out, and log in again.
-- [ ] Confirm the session persists on refresh and expires cleanly without a blank screen.
+- [ ] Open the deployed Render URL, sign in, refresh, sign out, and sign in again.
+- [ ] Confirm Supabase verification/reset redirects return to the deployed app without a blank page.
+- [ ] Refresh one nested assessment route and one nested results route; both must remain in the SPA.
 
-## Curriculum and lessons
+## One real BYOK check
 
-- [ ] Verified competency loading succeeds.
-- [ ] Create and reopen a lesson plan.
-- [ ] Request an AI suggestion using the teacher key; verify only teacher-authorized context is used.
-- [ ] Export lesson PDF and DOCX; check Filipino/Unicode text and pagination.
+- [ ] Connect the teacher's own Gemini key in Settings and run one low-risk assessment suggestion.
+- [ ] Confirm the suggestion is editable, the saved draft survives refresh, and no learner identity is sent.
+- [ ] Remove or rotate the smoke-test key if it was created only for acceptance.
 
-## TOS
+## Critical production round trip
 
-- [ ] Create and finalize a TOS.
-- [ ] Confirm item allocation and cognitive mappings remain unchanged.
-- [ ] Export PDF/XLSX and the configured teacher template path.
+- [ ] Create/finalize one TOS, create an assessment from it, edit one item, save, refresh, and reopen it from All Assessments.
+- [ ] Create a small roster/result session, record objective and partial-credit points, and confirm the displayed total equals earned-point sum.
+- [ ] Open analysis/remediation and confirm the point denominators match the saved assessment snapshot.
 
-## Assessment and QA
+## Physical output and mobile behavior
 
-- [ ] Create an assessment from finalized TOS.
-- [ ] Configure allowed types and points; confirm `Items` and `Total points` are separate.
-- [ ] Generate a mixed-format test and edit one question inside the app.
-- [ ] Replace one question only; try Generate Alternative and Check Accuracy.
-- [ ] Lock an accepted item, verify bulk actions skip it, then restore a previous item version.
-- [ ] Enter Identification, Fill in the Blank, Numerical, Problem Solving, Matching, Multiple Select, Constructed Response, and Essay items.
-- [ ] Record objective answers and teacher partial credit such as 3/5; confirm no subjective answer is AI-scored.
-- [ ] Run Final Test Review and resolve hard errors; review or consciously override warnings.
-- [ ] Download Student Copy, Teacher Copy, and Answer Key/Scoring Guide. Confirm student output hides answers, TOS IDs, QA state, model names, and internal metadata.
+- [ ] Download one student assessment and one results export; inspect pagination, Unicode/Filipino text, and absence of internal/AI metadata.
+- [ ] Confirm the assessment navigator, learner picker, Save controls, and downloads work without horizontal overflow.
 
-## Results and analysis
-
-- [ ] Load a teacher-owned roster and create a result session.
-- [ ] Enter objective responses, fill/matching partial credit, and subjective teacher points in batched draft saves.
-- [ ] Confirm the main score shows points (for example `47 / 60`), while fully-correct item count is separate.
-- [ ] Open item analysis and confirm one-point binary facility is labeled separately from normalized point achievement.
-- [ ] Open competency/cognitive analysis and confirm both item counts and point denominators are visible.
-- [ ] Open remediation; confirm the default evidence basis is point-weighted and the denominator is explained.
-- [ ] Request optional remediation suggestions; confirm no learner names, IDs, raw answers, or per-learner histories are sent.
-- [ ] Export results PDF, DOCX, XLSX, and print preview; check long text, partial points, Unicode, and no AI/internal metadata.
-
-## Mobile and deployment
-
-- [ ] Refresh `/lessons/...`, `/tos/...`, `/assessments/...`, `/results/...`, `/results/.../analysis`, and `/results/.../remediation` directly.
-- [ ] Use phone navigation, item navigator, learner picker, and export/download controls without horizontal overflow.
-- [ ] Simulate failed save, offline/reconnect, malformed AI response, quota/429, and cancelled generation in staging; verify work is preserved.
+Do not repeat migration, RLS, PostgREST, malformed-response, 429, or deep-route matrix testing manually; those belong to the automated Phase 5.5 harness.
