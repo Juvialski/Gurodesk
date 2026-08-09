@@ -19,9 +19,15 @@ alter table public.assessment_items
 alter table public.assessment_items
   add column if not exists version_history jsonb not null default '[]'::jsonb;
 
+alter table public.assessment_items
+  disable trigger assessment_item_write_state_guard;
+
 update public.assessment_items
 set points_possible = coalesce(points, 1)
 where points_possible is null;
+
+alter table public.assessment_items
+  enable trigger assessment_item_write_state_guard;
 
 alter table public.assessment_items
   alter column points_possible set default 1,
