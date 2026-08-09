@@ -12,12 +12,12 @@ create or replace function public.save_assessment_document(
   p_source_tos_document_id uuid,
   p_title text,
   p_school_year text,
-  p_academic_period_label text,
-  p_instructions text,
-  p_status text,
-  p_structured_content jsonb,
-  p_items jsonb,
-  p_change_note text default 'Teacher saved assessment'
+  p_academic_period_label text default null,
+  p_instructions text default '',
+  p_status text default 'draft',
+  p_structured_content jsonb default '{}'::jsonb,
+  p_items jsonb default '[]'::jsonb,
+  p_change_note text default 'Teacher saved assessment draft'
 )
 returns public.documents
 language plpgsql
