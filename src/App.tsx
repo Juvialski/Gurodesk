@@ -1,10 +1,14 @@
-import { ClipboardCheck, FileBarChart, Files } from 'lucide-react'
+import { FileBarChart, Files } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { useApp } from './contexts/AppContext'
 import { loadAiCredentialStatus } from './lib/repository'
 import { AiSetupRequiredPage } from './pages/AiSetupRequiredPage'
+import { AssessmentEditorPage } from './pages/AssessmentEditorPage'
+import { AssessmentNewPage } from './pages/AssessmentNewPage'
+import { AssessmentPrintPreviewPage } from './pages/AssessmentPrintPreviewPage'
+import { AssessmentsPage } from './pages/AssessmentsPage'
 import { AuthPage } from './pages/AuthPage'
 import { ClassesPage } from './pages/ClassesPage'
 import { CurriculumPage } from './pages/CurriculumPage'
@@ -28,6 +32,7 @@ function WorkspaceRoutes() {
     <Routes>
       <Route path="lesson-plans/:id/print" element={<LessonPlanPrintPreviewPage />} />
       <Route path="tos/:id/print" element={<TosPrintPreviewPage />} />
+      <Route path="assessments/:id/print" element={<AssessmentPrintPreviewPage />} />
       <Route element={<AppShell />}>
         <Route index element={<DashboardPage />} />
         <Route path="classes" element={<ClassesPage />} />
@@ -35,7 +40,9 @@ function WorkspaceRoutes() {
         <Route path="lesson-plans" element={<LessonPlansPage />} />
         <Route path="lesson-plans/new" element={<LessonPlanEditorPage />} />
         <Route path="lesson-plans/:id" element={<LessonPlanEditorPage />} />
-        <Route path="assessments" element={<FeaturePlaceholderPage eyebrow="Assessment studio" title="Assessments" description="Assessment-question and test-paper generation are intentionally outside the Phase 4 TOS foundation." phase="Future phase" icon={ClipboardCheck} bullets={['Question generation is not active', 'Test papers are not active', 'Answer keys are not active', 'Item analysis is not active']} />} />
+        <Route path="assessments" element={<AssessmentsPage />} />
+        <Route path="assessments/new" element={<AssessmentNewPage />} />
+        <Route path="assessments/:id" element={<AssessmentEditorPage />} />
         <Route path="tos" element={<TosListPage />} />
         <Route path="tos/new" element={<TosEditorPage />} />
         <Route path="tos/:id" element={<TosEditorPage />} />

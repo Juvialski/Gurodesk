@@ -1,5 +1,7 @@
 # Phase 4 — Table of Specifications Builder
 
+> Historical phase boundary: this document describes the completed TOS foundation. The project now continues through the separately documented, explicitly authorized Phases 4.1–4.3. Its “no assessment generation” statements describe Phase 4 itself, not the current application boundary. Results, grading, item analysis, and remediation remain unimplemented.
+
 ## Scope
 
 Phase 4 implements only `Curriculum → TOS`. It does not generate assessment questions, test papers, answer keys, item analysis, result-driven remediation, or AI-written questions.

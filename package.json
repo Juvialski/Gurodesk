@@ -22,7 +22,10 @@
     "validate:phase362": "node scripts/check-phase362.mjs",
     "validate:phase363": "node scripts/check-phase363.mjs",
     "validate:phase37": "node scripts/check-phase37.mjs",
-    "validate:phase4": "node scripts/check-phase4.mjs"
+    "validate:phase4": "node scripts/check-phase4.mjs",
+    "validate:phase41": "node scripts/check-phase41.mjs",
+    "validate:phase42": "node scripts/check-phase42.mjs",
+    "validate:phase43": "node scripts/check-phase43.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

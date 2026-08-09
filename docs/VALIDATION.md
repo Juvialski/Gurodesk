@@ -63,7 +63,7 @@ In demo mode:
 
 ## Build-environment note
 
-The packaging sandbox uses a private npm mirror that currently returns 404 for `@supabase/supabase-js`. Because dependency installation fails before compilation, final `npm install && npm run build` must also be run in AI Studio or a normal public-npm environment. This is an environment limitation, not a reason to remove Supabase from the project.
+Run `npm install`, `npm run typecheck`, and `npm run build` in the delivery environment. Do not remove Supabase or weaken validation because of a transient package-registry failure; record any genuine environment limitation in the handover instead.
 
 ## Phase 3 BYOK checks
 
@@ -110,6 +110,32 @@ Run:
 npm run validate:phase4
 ```
 
-This executes deterministic allocation cases for zero, one, and many competencies; totals 37 and 43; decimal weights; exact manual-percentage sums; manual item overrides; stable Hamilton tie-breaking; and gap/overlap-free item placements. It also checks the mobile custom picker architecture, grading-term/curriculum-period separation, Phase 4 migration/RLS/RPC guards, and the explicit assessment-generation stop boundary. Its XLSX tests perform a real OOXML round trip against the checked-in master and verify hashes, formula/merge protection, styles, dimensions, print metadata, freeze panes, recalculation flags, stale mapped-row clearing, duplicate/range preflight, and Strict OOXML rejection.
+This executes deterministic allocation cases for zero, one, and many competencies; totals 37 and 43; decimal weights; exact manual-percentage sums; manual item overrides; stable Hamilton tie-breaking; and gap/overlap-free item placements. It also checks the mobile custom picker architecture, grading-term/curriculum-period separation, Phase 4 migration/RLS/RPC guards, bounded batch curriculum resolution, and lossless height-aware PDF row pagination. Its XLSX tests perform a real OOXML round trip against the checked-in master and verify hashes, formula/merge protection, styles, dimensions, print metadata, freeze panes, recalculation flags, stale mapped-row clearing, duplicate/range preflight, and Strict OOXML rejection.
 
 After it passes, run every older validator plus `npm run build`. Old tests must not be weakened to make Phase 4 pass.
+
+## Phase 4.1 assessment foundation
+
+```bash
+npm run validate:phase41
+```
+
+Checks finalized-TOS enforcement; exact 1/37/40/43 expansion; multiple competency/category traces; gap, duplicate, and mapping-drift rejection; structured question answers; teacher-review gating; duplication; and the assessment persistence/RLS contract.
+
+## Phase 4.2 AI question generation
+
+```bash
+npm run validate:phase42
+```
+
+Checks authenticated BYOK-only generation, Lite-only fallback, high thinking, server-loaded immutable mapping, structured JSON parsing, question-type validation, resource-invention guardrails, language transmission, bounded retry/concurrency, cancellation, mapping immutability, and partial batch success.
+
+## Phase 4.3 assessment documents
+
+```bash
+npm run validate:phase43
+```
+
+Checks that Student Copy is answer/mapping/AI/ID/branding-free, Teacher Copy can include structured answers and optional review context, Answer Key is compact and derived from structured answers, Filipino/authored text is preserved, and long content is not silently omitted. It also verifies the built-in PDF, DOCX, and Print entry points.
+
+The absolute implementation boundary after these checks is Phase 4.3. Learner results, grading, item analysis, distractor statistics, learner analytics, and remediation are not part of this release.

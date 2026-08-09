@@ -1,3 +1,14 @@
+GURODESK 0.5.0 — COMPLETE THROUGH PHASE 4.3 ASSESSMENT EXPORTS
+
+CURRENT MERGE CHECKPOINT
+- This is a complete project root. Extract it directly at the target project root; never add a wrapper folder.
+- Follow CODEX_HANDOVER.md and PHASE43_MERGE_INSTRUCTIONS.md for the current release.
+- Preserve migrations 001–014 and deploy every authenticated function in supabase/config.toml.
+- Run every retained validator plus validate:phase41, validate:phase42, validate:phase43, typecheck, and build.
+- Stop after Phase 4.3. Do not add learner results, grading, item analysis, analytics, or result-derived remediation without explicit approval.
+
+HISTORICAL CHECKPOINT NOTES FOLLOW
+
 GURODESK 0.5.0 — PHASE 4 TABLE OF SPECIFICATIONS BUILDER
 
 PHASE 4 MERGE CHECKPOINT
@@ -89,4 +100,3 @@ PHASE 3.7 CUSTOM TEMPLATE ENGINE
 - Preserve supabase/functions/template-analyzer/index.ts. Raw DOCX bytes must never be sent to Gemini; only extracted text structure is analyzed.
 - Preserve migration 202608080011_phase37_custom_document_templates.sql and the private document-templates Storage bucket/RLS policies.
 - Run npm run validate:phase37 plus all prior validation scripts.
-

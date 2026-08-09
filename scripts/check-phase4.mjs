@@ -15,6 +15,12 @@ async function loadAllocationEngine() {
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
 }
 
+async function loadTosPagination() {
+  const source = read('src/lib/tosPdfPagination.ts')
+  const output = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
+  return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
+}
+
 async function loadXlsxEngine() {
   const source = read('src/lib/xlsxTemplate.ts')
   let output = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
@@ -96,7 +102,8 @@ const app = read('src/App.tsx')
 assert.match(app, /path="tos" element={<TosListPage/)
 assert.match(app, /path="tos\/new" element={<TosEditorPage/)
 assert.match(app, /path="tos\/:id\/print" element={<TosPrintPreviewPage/)
-assert.match(app, /Question generation is not active/)
+// Assessment routes may be present in the Phase 4.1 integration branch; the
+// TOS architecture checks below remain independent of that UI boundary.
 
 const editor = read('src/pages/TosEditorPage.tsx')
 assert.match(editor, /competency-picker-trigger/)
@@ -113,6 +120,14 @@ const tosRepository = read('src/lib/tosRepository.ts')
 assert.match(tosRepository, /requireAllCompetencies: true/)
 assert.match(tosRepository, /clearDemoTosDocuments/)
 assert.match(tosRepository, /safeDraftDecimal/)
+assert.match(tosRepository, /resolveVerifiedCompetenciesBatch/)
+assert.match(tosRepository, /matchesTosCompetencySnapshot/)
+assert.match(tosRepository, /Promise\.all\(\[/)
+assert.match(tosRepository, /\.in\('subject_id', validSubjectIds\)/)
+assert.match(tosRepository, /\.in\('curriculum_version_id', \[\.\.\.new Set\(validSubjects/)
+assert.doesNotMatch(tosRepository, /academic_periods'\)\.select\('id, subject_id/)
+assert.doesNotMatch(tosRepository, /content\.rows\.map\(async/)
+assert.doesNotMatch(tosRepository, /function resolveCompetency\(/)
 
 const analyzerSource = read('supabase/functions/tos-template-analyzer/index.ts')
 const analyzerCompile = ts.transpileModule(analyzerSource, {
@@ -168,6 +183,21 @@ assert.match(tosExportSource, /model\.signatories\.forEach/)
 assert.match(tosExportSource, /No category was silently omitted/)
 assert.match(tosExportSource, /DRAFT COPY/)
 assert.match(tosExportSource, /Map the TOS title before exporting a draft/)
+assert.match(tosExportSource, /paginateTosRows/)
+assert.match(tosExportSource, /chunkTosLines/)
+assert.match(tosExportSource, /contentBottom - firstTableTop/)
+assert.match(tosExportSource, /contentBottom - subsequentTableTop/)
+assert.match(tosExportSource, /firstNotesPageLines/)
+assert.doesNotMatch(tosExportSource, /Math\.min\(72/)
+assert.doesNotMatch(tosExportSource, /lines\.slice/)
+
+const tosPagination = await loadTosPagination()
+const longCompetencyLines = Array.from({ length: 121 }, (_, index) => `line-${index + 1}`)
+const paginationPages = tosPagination.paginateTosRows([{ cells: [longCompetencyLines, ['short']] }], { firstPageHeight: 60, subsequentPageHeight: 80, lineHeight: 8, rowPadding: 12 })
+assert.ok(paginationPages.length > 1, 'oversized TOS rows must continue onto additional pages')
+assert.deepEqual(paginationPages.flatMap((page) => page.rows.flatMap((row) => row.cells[0])).filter(Boolean), longCompetencyLines, 'TOS pagination must preserve every wrapped row line exactly once')
+paginationPages.forEach((page, index) => assert.ok(page.height <= (index === 0 ? 60 : 80), 'rendered row heights must fit each page budget'))
+assert.ok(paginationPages.slice(1).every((page) => page.rows.some((row) => row.continuesFromPrevious)), 'continuation rows must be represented explicitly for repeated table headers')
 
 const workbookBytes = fs.readFileSync(path.join(root, 'src/assets/tos-standard.xlsx'))
 const workbookZip = new PizZip(workbookBytes)

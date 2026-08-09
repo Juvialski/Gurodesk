@@ -6,7 +6,12 @@ import type { TeacherExportPreferences } from '../types/export'
 import type { TosRecord } from '../types/tos'
 import type { TosExportModel } from '../types/tosExport'
 import { downloadBlob } from './docxTemplate'
+import { chunkTosLines, paginateTosRows } from './tosPdfPagination'
 import { fillXlsxTemplate, type TosXlsxValues } from './xlsxTemplate'
+
+// Re-export pure pagination primitives for non-UI consumers and regression
+// tests without requiring them to load jsPDF or the XLSX template engine.
+export { chunkTosLines, paginateTosRows } from './tosPdfPagination'
 
 function clean(value: string | null | undefined) { return (value ?? '').trim() }
 function numeric(value: string) { const parsed = Number(value); return Number.isFinite(parsed) ? parsed : null }
@@ -78,7 +83,11 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
   const rawWidths = [...fixedWidths, ...Array(categoryCount).fill(cognitiveWidth), ...tailWidths]
   const factor = usable / rawWidths.reduce((sum, value) => sum + value, 0)
   const widths = rawWidths.map((value) => value * factor)
-  const headers = ['#', 'Code', 'Learning competency', 'Curriculum period', 'Minutes', 'Weight %', ...model.categories.slice(0, categoryCount).map((item) => item.shortLabel), 'Items', 'Placement', 'Notes']
+  const headers = ['#', 'Code', 'Learning competency', 'Curriculum period', 'Minutes', 'Weight %', ...model.categories.filter((_, index) => index < categoryCount).map((item) => item.shortLabel), 'Items', 'Placement', 'Notes']
+  const statusHeaderOffset = exportStatusLabel(model.status) ? 12 : 0
+  const contentBottom = pageHeight - 42
+  const firstTableTop = margin + 22 + statusHeaderOffset + (5 * 13) + 7 + 30
+  const subsequentTableTop = margin + 22 + statusHeaderOffset + 30
 
   function pageHeader(first: boolean) {
     let y = margin
@@ -96,43 +105,79 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
         `TOS: ${model.title}`, `Total Items: ${model.totalItems}`,
       ]
       metadata.forEach((text, index) => doc.text(text, margin + (index % 2) * usable / 2, y + Math.floor(index / 2) * 13))
-      y += 72
+      y += Math.ceil(metadata.length / 2) * 13 + 7
     }
     let x = margin
     const height = 30
-    headers.forEach((header, index) => { doc.setFillColor(240, 240, 240); doc.rect(x, y, widths[index], height, 'FD'); doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5); const lines = fitText(doc, header, widths[index] - 5, 6.5); doc.text(lines.slice(0, 3), x + widths[index] / 2, y + 10, { align: 'center' }); x += widths[index] })
+    headers.forEach((header, index) => { doc.setFillColor(240, 240, 240); doc.rect(x, y, widths[index], height, 'FD'); doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5); const lines = fitText(doc, header, widths[index] - 5, 6.5); doc.text(lines, x + widths[index] / 2, y + 10, { align: 'center' }); x += widths[index] })
     return y + height
   }
 
-  let y = pageHeader(true)
-  model.rows.forEach((row) => {
-    const values: Array<string | number> = [row.rowNumber, row.competencyCode, row.competency, row.curriculumPeriod, row.instructionalMinutes ?? '', row.weightPercent.toFixed(2), ...row.cognitiveItems.slice(0, categoryCount), row.itemCount, row.itemPlacement, row.notes]
-    const lines = values.map((value, index) => fitText(doc, String(value), widths[index] - 5, 6.4))
-    const rowHeight = Math.max(20, Math.min(72, Math.max(...lines.map((item) => item.length)) * 8 + 6))
-    if (y + rowHeight > pageHeight - 42) { doc.addPage(); y = pageHeader(false) }
-    let x = margin
-    values.forEach((_value, index) => { doc.rect(x, y, widths[index], rowHeight); doc.setFont('helvetica', 'normal'); doc.setFontSize(6.4); doc.text(lines[index].slice(0, 8), index === 2 || index === values.length - 1 ? x + 3 : x + widths[index] / 2, y + 9, { align: index === 2 || index === values.length - 1 ? 'left' : 'center' }); x += widths[index] })
-    y += rowHeight
+  // Use separate point budgets for the metadata-heavy first page and repeated
+  // table-header pages. `paginateTosRows` splits an oversized competency/notes
+  // cell into continuation rows; no line is sliced.
+  const wrappedRows = model.rows.map((row) => {
+    const values: Array<string | number> = [row.rowNumber, row.competencyCode, row.competency, row.curriculumPeriod, row.instructionalMinutes ?? '', row.weightPercent.toFixed(2), ...row.cognitiveItems.filter((_, index) => index < categoryCount), row.itemCount, row.itemPlacement, row.notes]
+    return { cells: values.map((value, index) => fitText(doc, String(value), widths[index] - 5, 6.4)) }
   })
-  if (y + 70 > pageHeight - 36) { doc.addPage(); y = margin }
-  y += 16
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.text(`TOTAL: ${model.rows.reduce((sum, row) => sum + row.weightPercent, 0).toFixed(2)}% · ${model.rows.reduce((sum, row) => sum + row.itemCount, 0)} items`, margin, y)
-  y += 15
+  const tablePages = paginateTosRows(wrappedRows, {
+    firstPageHeight: Math.max(20, contentBottom - firstTableTop),
+    subsequentPageHeight: Math.max(20, contentBottom - subsequentTableTop),
+    lineHeight: 8,
+    rowPadding: 12,
+  })
+  const pagesToRender = tablePages.length ? tablePages : [{ rows: [], lineCount: 0 }]
+  pagesToRender.forEach((tablePage, pageIndex) => {
+    if (pageIndex > 0) doc.addPage()
+    let y = pageHeader(pageIndex === 0)
+    tablePage.rows.forEach((segment) => {
+      const rowHeight = Math.max(20, segment.height)
+      let x = margin
+      segment.cells.forEach((lines, index) => {
+        doc.rect(x, y, widths[index], rowHeight)
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(6.4)
+        doc.text(lines, index === 2 || index === segment.cells.length - 1 ? x + 3 : x + widths[index] / 2, y + 9, { align: index === 2 || index === segment.cells.length - 1 ? 'left' : 'center' })
+        x += widths[index]
+      })
+      y += rowHeight
+    })
+  })
+
+  const totalLabel = `TOTAL: ${model.rows.reduce((sum, row) => sum + row.weightPercent, 0).toFixed(2)}% · ${model.rows.reduce((sum, row) => sum + row.itemCount, 0)} items`
+  const plainPageHeader = () => {
+    let y = margin
+    doc.setTextColor(0, 0, 0)
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.text(model.documentTitle, pageWidth / 2, y + 8, { align: 'center' }); y += 22
+    const statusLabel = exportStatusLabel(model.status)
+    if (statusLabel) { doc.setFontSize(8); doc.text(statusLabel, pageWidth / 2, y, { align: 'center' }); y += 12 }
+    return y + 10
+  }
+
+  // Totals and global notes use their own pages.  This makes the table and
+  // signatures independent of note length and guarantees there is no overlap.
+  doc.addPage()
+  let y = plainPageHeader()
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.text(totalLabel, margin, y); y += 16
   if (model.notes) {
     const lines = fitText(doc, `Notes: ${model.notes}`, usable, 7.5)
-    if (y + lines.length * 9 + 10 > pageHeight - 36) { doc.addPage(); y = margin }
-    doc.setFont('helvetica', 'normal'); doc.text(lines, margin, y)
-    y += lines.length * 9 + 12
+    const noteLineHeight = 9
+    const firstNotesPageLines = Math.max(1, Math.floor((contentBottom - y) / noteLineHeight))
+    const chunks = chunkTosLines(lines, firstNotesPageLines)
+    chunks.forEach((chunk, index) => {
+      if (index > 0) { doc.addPage(); y = plainPageHeader() }
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.text(chunk, margin, y)
+      y += chunk.length * noteLineHeight + 10
+    })
   }
   if (model.signatories.length) {
-    if (y + 58 > pageHeight - 36) { doc.addPage(); y = margin }
+    doc.addPage(); y = plainPageHeader()
     const columnWidth = usable / model.signatories.length
     model.signatories.forEach((item, index) => {
       const center = margin + columnWidth * index + columnWidth / 2
       doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.text(item.role, center, y + 4, { align: 'center' })
       doc.line(center - columnWidth * .32, y + 32, center + columnWidth * .32, y + 32)
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.text(item.name || ' ', center, y + 30, { align: 'center' })
-      if (item.title) { doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5); doc.text(item.title, center, y + 43, { align: 'center' }) }
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.text(fitText(doc, item.name || ' ', columnWidth * .7, 8), center, y + 30, { align: 'center' })
+      if (item.title) { doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5); doc.text(fitText(doc, item.title, columnWidth * .8, 6.5), center, y + 43, { align: 'center' }) }
     })
   }
   const pageCount = doc.getNumberOfPages()
@@ -166,7 +211,7 @@ export function buildTosXlsxValues(model: TosExportModel): TosXlsxValues {
     totalItems: model.totalItems, weightingMethod: model.weightingMethod, totalWeight: model.rows.reduce((sum, row) => sum + row.weightPercent, 0),
   }
   for (let index = 0; index < 8; index += 1) scalar[`cognitiveLabel${index + 1}` as TosTemplateFieldKey] = ''
-  model.categories.slice(0, 8).forEach((category, index) => { scalar[`cognitiveLabel${index + 1}` as TosTemplateFieldKey] = category.shortLabel || category.label })
+  model.categories.filter((_, index) => index < 8).forEach((category, index) => { scalar[`cognitiveLabel${index + 1}` as TosTemplateFieldKey] = category.shortLabel || category.label })
   model.signatories.forEach((item) => {
     const field: TosTemplateFieldKey = item.role === 'Reviewed by' ? 'reviewedBy' : item.role === 'Noted by' ? 'notedBy' : 'preparedBy'
     scalar[field] = [item.name, item.title].filter(Boolean).join('\n')
@@ -179,7 +224,7 @@ export function buildTosXlsxValues(model: TosExportModel): TosXlsxValues {
         rowCurriculumPeriod: row.curriculumPeriod, instructionalMinutes: row.instructionalMinutes ?? '',
         weightPercent: row.weightPercent, itemCount: row.itemCount, itemPlacement: row.itemPlacement, rowNotes: row.notes,
       }
-      row.cognitiveItems.slice(0, 8).forEach((count, index) => { values[`cognitiveItems${index + 1}` as TosTemplateFieldKey] = count })
+      row.cognitiveItems.filter((_, index) => index < 8).forEach((count, index) => { values[`cognitiveItems${index + 1}` as TosTemplateFieldKey] = count })
       return values
     }),
   }

@@ -1,21 +1,22 @@
-# AI Studio upload checklist — Phase 3.5 + BYOK AI
+# AI Studio upload checklist — completed through Phase 4.3
 
 This project supports the phone-first **ZIP → AI Studio → GitHub** workflow.
 
 ## Upload / merge
 
-Extract the ZIP contents directly into the existing project root. Do **not** create a nested `gurodesk-phase35/` folder.
+Extract the ZIP contents directly into the existing project root. Do **not** create a nested wrapper folder.
 
 ## Supabase migrations
 
-Production migration order now ends with:
+Apply every migration in filename order. Production migration order currently ends with:
 
-7. `supabase/migrations/202608080007_phase3_byok_ai.sql`
-8. `supabase/migrations/202608080008_phase35_lesson_suggestions.sql`
+12. `supabase/migrations/202608080012_phase4_tos_builder.sql`
+13. `supabase/migrations/202608080013_phase41_assessment_engine.sql`
+14. `supabase/migrations/202608080014_phase42_assessment_ai_audit.sql`
 
-If GitHub production integration is enabled, pushing migration 008 to `main` should apply it automatically.
+Deploy every Edge Function listed in `supabase/config.toml`, including the authenticated `assessment-question-generator` function. Keep the existing server-only credential encryption and Supabase service-role secrets configured.
 
-## Phase 3.5 test
+## Phone acceptance test
 
 After signing in:
 
@@ -30,6 +31,10 @@ After signing in:
 9. Use an individual **Suggest 3** action and choose one option.
 10. In Learning resources, use only teacher-entered/saved resources and check the verification box.
 11. Save, reload, and confirm persistence.
+12. Finalize a TOS, create an assessment from it, and confirm every item number and mapping is preallocated.
+13. Generate one AI suggestion, review and accept it, then save and reopen the assessment.
+14. Export Student Copy, Teacher Copy, and Answer Key in PDF and Word, and inspect browser Print preview.
+15. Confirm Student Copy contains no answers, curriculum/cognitive metadata, AI metadata, internal IDs, or GuroDesk branding.
 
 ## BYOK
 
@@ -47,3 +52,5 @@ Do not let AI Studio remove these:
 - learner context is class-level and teacher-provided
 - BYOK credentials remain server-side/encrypted
 - RLS must not be weakened to fix UI problems
+- AI may author only a candidate question; it cannot alter item number, competency, cognitive category, or finalized TOS allocation
+- learner results, grading, item analysis, distractor statistics, analytics, and result-derived remediation remain outside the Phase 4.3 boundary

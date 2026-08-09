@@ -332,7 +332,7 @@ export function CurriculumPage() {
                 )}
                 {selectedCompetency && assignment ? <Link className="future-action active-action" to={`/lesson-plans/new?assignment=${assignment.id}&competency=${selectedCompetency.id}`}><Sparkles size={16} /><span><strong>Create lesson plan</strong><small>Open ILAW planner</small></span></Link> : <button className="future-action" disabled><Sparkles size={16} /><span><strong>Create lesson plan</strong><small>Select a competency</small></span></button>}
                 {selectedCompetency && assignment ? <Link className="future-action active-action" to={`/tos/new?assignment=${assignment.id}&competency=${selectedCompetency.id}`}><TableProperties size={16} /><span><strong>Add to TOS</strong><small>Open Phase 4 builder</small></span></Link> : <button className="future-action" disabled><TableProperties size={16} /><span><strong>Add to TOS</strong><small>Select a competency</small></span></button>}
-                <button className="future-action" disabled><FileQuestion size={16} /><span><strong>Create quiz</strong><small>Future phase</small></span></button>
+                <Link className="future-action active-action" to="/assessments/new"><FileQuestion size={16} /><span><strong>Create assessment</strong><small>Choose a finalized TOS</small></span></Link>
               </section>
             </aside>
           </div>

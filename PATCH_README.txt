@@ -1,4 +1,10 @@
-GuroDesk Supabase connection patch
+HISTORICAL NOTE — NO SEPARATE PATCH ACTION IS REQUIRED FOR THE COMPLETE PHASE 4.3 ZIP
+
+This retained note described an older standalone Supabase connection patch. The
+complete project already contains its current connection module. Follow
+CODEX_HANDOVER.md and .env.example; do not copy secrets into browser variables.
+
+GuroDesk Supabase connection patch (historical)
 
 Replace:
 src/lib/supabase.ts

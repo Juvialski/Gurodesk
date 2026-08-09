@@ -1,54 +1,45 @@
-# GuroDesk — Phase 4 Table of Specifications Builder
+# GuroDesk — Phase 4.3 Assessment Workflow
 
-GuroDesk is a mobile-friendly web workspace for DepEd teachers. It is designed around one rule: **verified curriculum and policy data first; teacher judgment first; AI only where current DepEd rules allow it.**
+GuroDesk is a mobile-first workspace for DepEd teachers. Its operating rule is: **verified curriculum and policy data first, teacher judgment first, and AI only inside an explicit teacher-review workflow.**
 
+## Current implementation
 
-## Phase 3.7 custom templates
+Phases 1–4 are preserved. The current release adds the authorized Phase 4 hotfixes and Phases 4.1–4.3:
 
-Teachers can upload the exact `.docx` ILAW/DLP master their school already uses. GuroDesk extracts document structure locally, can use one Gemini BYOK call to suggest field mappings, lets the teacher correct those mappings, stores the unchanged master in a private Supabase Storage bucket, and fills a copy of the same DOCX for future lessons without another AI call. Custom-template Word output is master-based; preview/PDF uses the filled DOCX rendered in the browser.
+- batched, verified TOS curriculum resolution without per-competency Supabase lookups;
+- lossless, height-aware pagination for long TOS competency text and notes;
+- assessment creation only from a finalized, teacher-owned TOS;
+- one deterministic assessment slot for every TOS item number `1..N`;
+- immutable competency and cognitive-category mappings with one canonical source snapshot;
+- structured Multiple Choice, True/False, Short Answer, and Constructed Response data;
+- mobile item navigator, Previous/Next controls, direct number navigation, mapping badges, and completion state;
+- draft, reopen, edit, duplicate, finalize, archive, and local demo persistence;
+- authenticated Gemini BYOK question suggestions on top of immutable slots;
+- teacher-controlled Generate, Alternative, Regenerate, Accept, and manual-edit flows;
+- bounded, cancellable Generate Missing Items with finite retry/backoff and partial-success preservation; and
+- Student Copy, Teacher Copy, and deterministic Answer Key output through browser Print, PDF, and editable Word `.docx`.
 
-See `docs/PHASE_3_7_CUSTOM_TEMPLATES.md`.
+This release **stops after Phase 4.3**. It does not encode learner results, calculate grades, perform item analysis, calculate distractor statistics, produce learner analytics, or generate remediation recommendations.
 
-## Phase 4 TOS Builder
+See:
 
-Phase 4 adds a mobile-first Table of Specifications workflow grounded only in verified curriculum competencies. Teachers can use equal, instructional-time, or manual-percentage weighting; adjust item-count overrides and configurable cognitive categories; save, reopen, duplicate, and finalize drafts; and export a plain printable/PDF/XLSX TOS. All percentages, item counts, rounding, and contiguous item placements are calculated deterministically in application code—Gemini never performs TOS arithmetic.
+- `docs/PHASE_4_TOS_BUILDER.md`
+- `docs/PHASE_4_1_ASSESSMENT_ENGINE.md`
+- `docs/PHASE_4_2_AI_QUESTION_GENERATION.md`
+- `docs/PHASE_4_3_ASSESSMENT_EXPORTS.md`
+- `CODEX_HANDOVER.md`
 
-Signed-in teachers can also upload an existing school `.xlsx` TOS master, inspect its workbook structure locally, use one optional Gemini BYOK call to suggest mappings, correct those mappings, and reuse a fresh copy of the unchanged master for deterministic future exports. Demo mode retains the built-in TOS workflow and export without Supabase.
+## Assessment architecture
 
-This phase stops at `Curriculum → TOS`; it does not generate questions, test papers, answer keys, results, item analysis, or remediation. See `docs/PHASE_4_TOS_BUILDER.md`.
+The finalized TOS—not Gemini—is the allocation authority. Application and database validation preserve item number, verified competency, cognitive category, allocation range, curriculum identity, source TOS ID, and source version. AI receives one already-mapped slot and may return only a structured candidate question. A candidate remains separate until the teacher accepts or manually edits it.
 
-## Phase 3 status
+Correct answers are stored as typed data. Student output is built from an answer-free export model; teacher and answer-key output use the saved structured answer and never ask AI to reconstruct it.
 
-Implemented and retained:
+Phase 3.7 custom lesson DOCX templates and Phase 4 custom TOS XLSX templates remain intact. Built-in assessment exports are complete. Exact repeating-block support for arbitrary custom assessment DOCX masters is deliberately deferred; the shared assessment export model is the safe extension point.
 
-- React + TypeScript + Vite responsive application
-- Supabase Auth + strict teacher-owned RLS
-- local demo mode for AI Studio preview without secrets
-- teacher onboarding, profile, school year, and teaching assignments
-- verified Curriculum Navigator
-- Grade 7 Mathematics MATATAG dataset: 52 verified competencies with source provenance
-- curriculum-guide periods separate from school grading terms
-- instructional pacing / Budget of Work foundation
-- **ILAW Lesson Planning workspace aligned to DO 016, s. 2026**
-- start a lesson directly from a selected verified competency
-- teacher-authored Intentions, Learning Experience, Assessing Learning, and Ways Forward
-- ILAW self-check before finalizing
-- lesson saving + document versions
-- verified competency linkage/snapshots per saved lesson
-- AI-use declaration stored in the lesson
-- teacher BYOK Gemini support through Supabase Edge Functions
-- encrypted per-teacher Gemini API credentials; no shared application Gemini key
-- Gemini 3.5 Flash-Lite default + Gemini 3.1 Flash-Lite Lite-only fallback, both explicitly high-thinking
-- Gemini 3.6 Flash and Gemini 3.5 Flash remain manually selectable
-- server-side allowlist that limits Gemini to text refinement/organization/grammar/formatting/translation
-- AI buttons remain disabled until the teacher has authored the section
-- AI audit events for saved lesson documents
+## Policy boundary
 
-## Why there is no one-click AI lesson generator
-
-DO 016, s. 2026 states that AI is an auxiliary tool and that fully AI-generated lesson plans are not allowed. Core instructional decisions—including objectives, unpacking competencies, learning experiences/strategies, assessment decisions, and critical learner-response judgments—remain teacher responsibilities.
-
-GuroDesk therefore automates the repetitive structure, curriculum lookup, reuse, validation, saving, and formatting while keeping those decisions teacher-led. Gemini can refine text after the teacher has made the decision.
+Assessment-design decisions were reviewed against DepEd Order No. 015, s. 2026. GuroDesk distinguishes official requirements from product good practice and school/division conventions in `docs/DEPED_SOURCE_REGISTER.md`. AI supports drafting only; it does not alter curriculum allocation, replace professional judgment, determine grades, or receive learner personally identifiable information.
 
 ## Run locally / AI Studio
 
@@ -57,7 +48,7 @@ npm install
 npm run dev
 ```
 
-With no Supabase variables, choose **Open sample teacher workspace**. Demo data is stored in localStorage.
+Without Supabase browser variables, choose **Open sample teacher workspace**. Demo records are stored in localStorage and use a clearly labelled non-Gemini sample generator.
 
 ## Supabase migration order
 
@@ -75,32 +66,31 @@ Apply in order:
 10. `202608080010_phase363_multilingual_lesson_support.sql`
 11. `202608080011_phase37_custom_document_templates.sql`
 12. `202608080012_phase4_tos_builder.sql`
+13. `202608080013_phase41_assessment_engine.sql`
+14. `202608080014_phase42_assessment_ai_audit.sql`
 
-Then set browser-safe variables only:
+Deploy all functions listed in `supabase/config.toml`, including `assessment-question-generator`.
+
+Set browser-safe variables only:
 
 ```env
 VITE_SUPABASE_URL=your-project-url
 VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
-Never expose the service-role key or Gemini key in browser variables.
+Never expose a service-role key, credential-encryption material, or Gemini API key in browser variables.
 
 ## Gemini BYOK
 
-GuroDesk does **not** use a shared Gemini API key. Each signed-in teacher connects a personal key from **Settings → AI Assistant**. The key is tested, encrypted server-side, and never returned to the browser.
+Each signed-in teacher connects a personal key through **Settings → AI Assistant**. The encrypted credential is decrypted only inside authenticated Edge Functions and never returned to the browser.
 
-Default model behavior:
-
-- `gemini-3.5-flash-lite` — primary, explicit high thinking
-- `gemini-3.1-flash-lite` — recommended automatic Lite fallback, explicit high thinking
-- `gemini-3.6-flash` — manually selectable
-- `gemini-3.5-flash` — manually selectable
-
-The UI shows the requested free-tier call guides (500/day for the Lite models and 20/day for the two Flash models) but never enforces them; provider responses remain authoritative.
+- Primary: `gemini-3.5-flash-lite`, high thinking
+- Automatic fallback: `gemini-3.1-flash-lite`, high thinking
+- Automatic fallback remains Lite-only
+- Flash models remain manual selections and are not automatically consumed
+- Provider quota guidance is descriptive, never a hard-coded guarantee
 
 No `GEMINI_API_KEY` or `VITE_GEMINI_API_KEY` is required.
-
-See `docs/PHASE_3_BYOK_AI.md`.
 
 ## Validation
 
@@ -119,17 +109,11 @@ npm run validate:phase362
 npm run validate:phase363
 npm run validate:phase37
 npm run validate:phase4
+npm run validate:phase41
+npm run validate:phase42
+npm run validate:phase43
 npm run typecheck
 npm run build
 ```
 
-See `docs/AI_STUDIO_SETUP.md`, `docs/PHASE_3_LESSON_PLANNING.md`, and `CODEX_HANDOVER.md`.
-
-
-## Phase 3.5.2 — first-run Gemini setup
-
-Signed-in Supabase users must connect their own Gemini API key before entering the normal workspace. This prevents AI suggestion actions from appearing broken because no key was configured. Demo mode remains exempt. The API-key field includes a mobile-friendly one-tap clipboard action, explicit paste handling, and show/hide control.
-
-## Phase 3.6 - printable exports
-
-Saved lesson plans can now be previewed and exported as PDF or editable Word `.docx` files. Settings includes reusable paper-size/signatory/export options backed by `teacher_export_preferences`. The first layout is the independent `GuroDesk ILAW Standard` template and is designed to be extended for TOS, assessments, and future school/division-specific layouts.
+Old validators remain part of the release gate and must not be weakened to make new work pass.

@@ -5,6 +5,7 @@ import { AppProvider } from './contexts/AppContext'
 import App from './App'
 import './styles.css'
 import './tos.css'
+import './assessment.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

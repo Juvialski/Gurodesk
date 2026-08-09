@@ -91,43 +91,170 @@ type ResolvedCompetency = {
   curriculumPeriodLabel: string
 }
 
-async function resolveCompetency(row: TosContent['rows'][number], content: TosContent): Promise<ResolvedCompetency | null> {
-  if (!supabase) return null
-  let query = supabase.from('curriculum_competencies')
-    .select('id, subject_id, academic_period_id, competency_code, competency_text, source_page')
-    .eq('verification_status', 'verified')
-  query = looksLikeUuid(row.competency.id) ? query.eq('id', row.competency.id) : query.eq('competency_text', row.competency.text)
-  if (row.competency.sourcePage !== null) query = query.eq('source_page', row.competency.sourcePage)
-  const { data, error } = await query.limit(8)
-  if (error) throw error
-  const matches: ResolvedCompetency[] = []
-  for (const candidate of data ?? []) {
-    const subjectResult = await supabase.from('curriculum_subjects').select('id, grade_level, name, curriculum_version_id').eq('id', String(candidate.subject_id)).single()
-    if (subjectResult.error || !subjectResult.data) continue
-    const subject = subjectResult.data
-    if (String(subject.grade_level) !== content.gradeLevel || String(subject.name).toLocaleLowerCase('en') !== content.learningArea.toLocaleLowerCase('en')) continue
-    const versionResult = await supabase.from('curriculum_versions').select('id, code').eq('id', String(subject.curriculum_version_id)).single()
-    if (versionResult.error || !versionResult.data || (content.curriculumVersionCode && String(versionResult.data.code) !== content.curriculumVersionCode)) continue
-    let periodLabel = ''
-    if (candidate.academic_period_id) {
-      const periodResult = await supabase.from('academic_periods').select('id, label').eq('id', String(candidate.academic_period_id)).single()
-      if (periodResult.error || !periodResult.data) continue
-      periodLabel = String(periodResult.data.label)
-      if (!content.curriculumPeriodLabels.includes(periodLabel) && !content.curriculumPeriodIds.includes(String(candidate.academic_period_id))) continue
-    }
-    matches.push({
-      id: String(candidate.id),
-      code: candidate.competency_code ? String(candidate.competency_code) : null,
-      text: String(candidate.competency_text),
-      sourcePage: candidate.source_page === null ? null : Number(candidate.source_page),
-      curriculumPeriodLabel: periodLabel,
+type SubjectContext = {
+  id: string
+  gradeLevel: string
+  name: string
+  curriculumVersionId: string
+}
+
+type VersionContext = {
+  id: string
+  code: string
+}
+
+type PeriodContext = {
+  id: string
+  label: string
+  curriculumVersionId: string
+}
+
+type VerifiedCompetencyCandidate = {
+  id: string
+  subjectId: string
+  academicPeriodId: string | null
+  code: string | null
+  text: string
+  sourcePage: number | null
+}
+
+/**
+ * The Phase 3.5.1 fallback is deliberately exact: a local-manifest ID is not
+ * a production UUID, so it may only resolve by the saved competency text and
+ * source page.  Keep this helper pure so the rule is easy to regression-test.
+ */
+export function matchesTosCompetencySnapshot(
+  row: TosContent['rows'][number],
+  candidate: Pick<VerifiedCompetencyCandidate, 'id' | 'text' | 'sourcePage'>,
+) {
+  if (looksLikeUuid(row.competency.id)) return candidate.id === row.competency.id
+  return candidate.text === row.competency.text
+    && (row.competency.sourcePage === null || candidate.sourcePage === row.competency.sourcePage)
+}
+
+function subjectMatchesContent(subject: SubjectContext, content: TosContent) {
+  return subject.gradeLevel === content.gradeLevel
+    && subject.name.toLocaleLowerCase('en') === content.learningArea.toLocaleLowerCase('en')
+}
+
+function versionMatchesContent(version: VersionContext, content: TosContent) {
+  return (!content.curriculumVersionCode || version.code === content.curriculumVersionCode)
+    && (!looksLikeUuid(content.curriculumVersionId) || version.id === content.curriculumVersionId)
+}
+
+function periodMatchesContent(
+  candidate: VerifiedCompetencyCandidate,
+  period: PeriodContext | null,
+  subject: SubjectContext,
+  content: TosContent,
+) {
+  if (!candidate.academicPeriodId) return true
+  if (!period) return false
+  return period.curriculumVersionId === subject.curriculumVersionId
+    && (content.curriculumPeriodIds.includes(candidate.academicPeriodId)
+    || content.curriculumPeriodLabels.includes(period.label)
+    )
+}
+
+/**
+ * Resolve all selected rows with a fixed number of set queries.  The previous
+ * implementation queried subject, version, and period once per candidate;
+ * this resolver loads the subject/version context, then loads verified
+ * competencies and academic periods in two set queries and matches in memory.
+ */
+async function resolveVerifiedCompetenciesBatch(rows: TosContent['rows'], content: TosContent) {
+  const unresolved = new Map<string, ResolvedCompetency | null>(rows.map((row) => [row.id, null]))
+  if (!supabase || !rows.length) return unresolved
+
+  // This is intentionally a new set of Supabase requests for every save.  In
+  // particular, finalization never reuses a previous row-resolution result;
+  // the save RPC independently performs its server-side verification too.
+  const subjectQuery = supabase.from('curriculum_subjects')
+    .select('id, grade_level, name, curriculum_version_id')
+    .eq('grade_level', content.gradeLevel)
+  const subjectResult = looksLikeUuid(content.curriculumSubjectId)
+    ? await subjectQuery.eq('id', content.curriculumSubjectId)
+    : await subjectQuery
+  if (subjectResult.error) throw subjectResult.error
+
+  const subjects = (subjectResult.data ?? []).map((item) => ({
+    id: String(item.id),
+    gradeLevel: String(item.grade_level),
+    name: String(item.name),
+    curriculumVersionId: String(item.curriculum_version_id),
+  } satisfies SubjectContext)).filter((subject) => subjectMatchesContent(subject, content))
+  const subjectIds = subjects.map((subject) => subject.id)
+  const versionIds = [...new Set(subjects.map((subject) => subject.curriculumVersionId))]
+  if (!subjectIds.length || !versionIds.length) return unresolved
+
+  const versionResult = await supabase.from('curriculum_versions').select('id, code').in('id', versionIds)
+  if (versionResult.error) throw versionResult.error
+  const versions = new Map<string, VersionContext>((versionResult.data ?? []).map((item) => [String(item.id), {
+    id: String(item.id), code: String(item.code),
+  }]))
+  const validSubjects = subjects.filter((subject) => {
+    const version = versions.get(subject.curriculumVersionId)
+    return Boolean(version && versionMatchesContent(version, content))
+  })
+  const validSubjectIds = validSubjects.map((subject) => subject.id)
+  if (!validSubjectIds.length) return unresolved
+
+  // These are the only row-independent data loads after subject/version
+  // context resolution.  They remain fixed-count even for hundreds of rows.
+  const [competenciesResult, periodsResult] = await Promise.all([
+    supabase.from('curriculum_competencies')
+      .select('id, subject_id, academic_period_id, competency_code, competency_text, source_page')
+      .in('subject_id', validSubjectIds)
+      .eq('verification_status', 'verified'),
+    supabase.from('academic_periods')
+      .select('id, curriculum_version_id, label')
+      .in('curriculum_version_id', [...new Set(validSubjects.map((subject) => subject.curriculumVersionId))]),
+  ])
+  if (competenciesResult.error) throw competenciesResult.error
+  if (periodsResult.error) throw periodsResult.error
+
+  const periods = new Map<string, PeriodContext>((periodsResult.data ?? []).map((item) => [String(item.id), {
+    id: String(item.id), label: String(item.label), curriculumVersionId: String(item.curriculum_version_id),
+  }]))
+  const candidates = (competenciesResult.data ?? []).map((item) => ({
+    id: String(item.id),
+    subjectId: String(item.subject_id),
+    academicPeriodId: item.academic_period_id ? String(item.academic_period_id) : null,
+    code: item.competency_code ? String(item.competency_code) : null,
+    text: String(item.competency_text),
+    sourcePage: item.source_page === null || item.source_page === undefined ? null : Number(item.source_page),
+  } satisfies VerifiedCompetencyCandidate))
+  const subjectById = new Map(validSubjects.map((subject) => [subject.id, subject]))
+
+  for (const row of rows) {
+    const matches = candidates.filter((candidate) => {
+      const subject = subjectById.get(candidate.subjectId)
+      const version = subject ? versions.get(subject.curriculumVersionId) : null
+      const period = candidate.academicPeriodId ? periods.get(candidate.academicPeriodId) ?? null : null
+      return Boolean(subject && version && subjectMatchesContent(subject, content)
+        && versionMatchesContent(version, content)
+        && matchesTosCompetencySnapshot(row, candidate)
+        && periodMatchesContent(candidate, period, subject, content))
     })
+    // Exactly one match is required.  Zero means stale; multiple means the
+    // fallback snapshot is ambiguous and must never choose arbitrarily.
+    if (matches.length === 1) {
+      const [match] = matches
+      unresolved.set(row.id, {
+        id: match.id,
+        code: match.code,
+        text: match.text,
+        sourcePage: match.sourcePage,
+        curriculumPeriodLabel: match.academicPeriodId ? periods.get(match.academicPeriodId)?.label ?? '' : '',
+      })
+    }
   }
-  return matches.length === 1 ? matches[0] : null
+  return unresolved
 }
 
 async function linkRows(content: TosContent, requireAll: boolean) {
-  const resolved = await Promise.all(content.rows.map(async (row) => ({ row, competency: await resolveCompetency(row, content) })))
+  const resolvedByRowId = await resolveVerifiedCompetenciesBatch(content.rows, content)
+  const resolved = content.rows.map((row) => ({ row, competency: resolvedByRowId.get(row.id) ?? null }))
   const missing = resolved.filter((item) => !item.competency).length
   if (requireAll && missing) throw new Error(`${missing} selected competenc${missing === 1 ? 'y is' : 'ies are'} stale or could not be resolved to the verified production curriculum. Reopen the picker before finalizing.`)
   return resolved.flatMap(({ row, competency }) => competency ? [{

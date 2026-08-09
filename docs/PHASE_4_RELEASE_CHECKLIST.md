@@ -1,5 +1,7 @@
 # Phase 4 release checklist
 
+> This checklist remains the regression gate for the TOS subsystem. It is no longer the whole-project stop boundary; see `docs/PHASE_4_3_RELEASE_CHECKLIST.md` for the current authorized release.
+
 - Apply migrations `001` through `012` in order.
 - Deploy the authenticated `tos-template-analyzer` Edge Function using the existing server-side BYOK secrets.
 - Confirm the `document-templates` bucket remains private and its teacher-owned path policies pass.

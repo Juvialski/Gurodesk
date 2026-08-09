@@ -1,5 +1,7 @@
 # GuroDesk 0.5.0 implementation manifest
 
+> Historical subsystem manifest. Phases 4.1–4.3 add assessment files without replacing any item listed here.
+
 - Authoritative base: uploaded Phase 3.7 full-project ZIP, confirmed identical to GitHub main at `9c882baea7948b4d6138daae91b6d5407464d21e` before implementation.
 - Scope delivered: verified curriculum to TOS only.
 - Migration: `supabase/migrations/202608080012_phase4_tos_builder.sql`.

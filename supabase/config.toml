@@ -14,3 +14,6 @@ verify_jwt = true
 
 [functions.tos-template-analyzer]
 verify_jwt = true
+
+[functions.assessment-question-generator]
+verify_jwt = true

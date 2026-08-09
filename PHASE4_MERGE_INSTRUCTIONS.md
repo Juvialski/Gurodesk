@@ -1,5 +1,7 @@
 # Phase 4 merge instructions
 
+> Historical Phase 4-only merge note. For the complete current project, use the delivered root-level Phase 4.3 ZIP and follow `CODEX_HANDOVER.md`.
+
 This package is a complete GuroDesk project rooted at the ZIP top level. It is based on the Phase 3.7 source and preserves all existing curriculum, ILAW, BYOK, multilingual, export, DOCX-template, migration, and validation work.
 
 1. Back up the current project.
