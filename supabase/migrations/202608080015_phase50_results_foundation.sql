@@ -1050,7 +1050,7 @@ begin
         raise exception 'Short-answer responses require explicit normalized exact matching or teacher scoring';
       end if;
       if is_correct is null then raise exception 'Deterministic objective correctness is required'; end if;
-      if earned_points <> case when is_correct then possible_points else 0 end then
+      if earned_points <> (case when is_correct then possible_points else 0 end) then
         raise exception 'Deterministic points must be all-or-nothing';
       end if;
     elsif question_type = 'short_answer' and scoring_source = 'teacher' then
