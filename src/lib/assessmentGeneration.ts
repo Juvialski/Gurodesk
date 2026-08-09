@@ -4,6 +4,7 @@ import type {
   AssessmentRecord,
   QuestionType,
 } from '../types/assessment'
+import type { AssessmentVisual } from '../types/assessmentVisual'
 import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
 import { validateAssessmentFinal } from './assessmentValidation'
 import {
@@ -18,6 +19,7 @@ import {
 } from './assessmentQa'
 import { assessmentRequestScheduler } from './assessmentRequestScheduler'
 import { supabase } from './supabase'
+import { validateAssessmentVisual } from './assessmentVisualValidation'
 
 type UnknownRecord = Record<string, unknown>
 
@@ -27,6 +29,8 @@ export type AssessmentItemCandidate = {
   answer: AssessmentAnswer
   rationale: string
   referencedResources: string[]
+  /** Nullable in the provider contract; omitted preserves a teacher visual, null removes it. */
+  visual?: AssessmentVisual | null
 }
 
 export type AssessmentItemSuggestion = {
@@ -306,7 +310,7 @@ function normalizeAnswer(answer: CandidateInput, type: QuestionType): Assessment
 
 export function validateAssessmentCandidate(value: unknown, questionType?: QuestionType, teacherResources: string[] = []): AssessmentItemCandidate {
   const object = typeof value === 'string' ? parseJsonObject(value) : asObject(value)
-  const allowedKeys = new Set(['questionType', 'prompt', 'answer', 'rationale', 'referencedResources'])
+  const allowedKeys = new Set(['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'])
   if (Object.keys(object).some((key) => !allowedKeys.has(key))) throw new Error('The AI candidate included unsupported fields; item mapping was not changed.')
   const candidateType = clean(object.questionType) as QuestionType
   if (!questionTypes.has(candidateType) || (questionType && candidateType !== questionType)) throw new Error('The AI candidate question type does not match the verified item mapping.')
@@ -317,8 +321,14 @@ export function validateAssessmentCandidate(value: unknown, questionType?: Quest
   const referencedResources = object.referencedResources.map((entry) => clean(entry, 180))
   if (referencedResources.some((entry) => !entry) || !referencedResources.every((entry) => teacherResources.includes(entry))) throw new Error('The AI candidate referenced an unlisted teacher resource.')
   const normalizedAnswer = normalizeAnswer(asObject(object.answer), candidateType)
+  let visual: AssessmentVisual | null | undefined
+  if (object.visual !== undefined && object.visual !== null) {
+    const visualResult = validateAssessmentVisual(object.visual)
+    if (!visualResult.valid) throw new Error(`The AI candidate visual is invalid: ${visualResult.errors.slice(0, 3).join(' ')}`)
+    visual = object.visual as AssessmentVisual
+  } else if (object.visual === null) visual = null
   if ([prompt, rationale, ...answerStrings(normalizedAnswer)].some((entry) => resourceClaimLooksUnverified(entry, teacherResources))) throw new Error('The AI candidate included an unverified resource, device, local fact, URL, or page claim.')
-  return { questionType: candidateType, prompt, answer: normalizedAnswer, rationale, referencedResources }
+  return { questionType: candidateType, prompt, answer: normalizedAnswer, rationale, referencedResources, ...(visual === undefined ? {} : { visual }) }
 }
 
 export const parseAssessmentCandidate = validateAssessmentCandidate
@@ -372,6 +382,7 @@ function historyWithPrevious(item: AssessmentItem, source: 'alternative' | 'repa
     pointsPossible: pointsOf(item),
     points: item.points,
     qaState: value.qaState,
+    visual: item.visual,
   }].slice(-5)
 }
 
@@ -390,6 +401,9 @@ export function applyAssessmentItemCandidate(item: AssessmentItem, candidate: As
     pointsPossible: pointsOf(item),
     points: item.points,
     qaState: 'generated' as const,
+    // A provider omission is the legacy/manual-compatible "leave it alone"
+    // signal.  An explicit null is an accepted replacement with no diagram.
+    visual: validated.visual === undefined ? item.visual : validated.visual === null ? undefined : clone(validated.visual),
     history: historyWithPrevious(item, options.source ?? (options.alternative ? 'alternative' : 'generated')),
   }
   return next
@@ -430,11 +444,41 @@ function candidatePayload(suggestion: AssessmentItemCandidate) {
     answer: suggestion.answer,
     rationale: suggestion.rationale,
     referencedResources: suggestion.referencedResources,
+    visual: suggestion.visual ?? null,
   }
 }
 
 const DEFAULT_GENERATOR_QUEUE_MODEL = 'gemini-3.5-flash-lite'
 const FALLBACK_QUEUE_MODEL = 'gemini-3.1-flash-lite'
+
+const NON_RETRYABLE_AI_CATEGORIES = new Set([
+  'provider_configuration',
+  'provider_authentication',
+  'provider_quota',
+  'provider_blocked',
+  'output_truncated',
+  'empty_response',
+  'invalid_json',
+  'invalid_question_structure',
+  'answer_validation',
+  'resource_validation',
+  'immutable_mapping',
+  'verification_failure',
+])
+
+function providerRequestCount(value: unknown) {
+  const count = Number(value)
+  return Number.isSafeInteger(count) && count >= 1 && count <= 4 ? count : 1
+}
+
+function providerFailureRetryable(category: string, status: number | undefined) {
+  if (category === 'provider_rate_limit') return true
+  if (NON_RETRYABLE_AI_CATEGORIES.has(category)) return false
+  // Treat an unclassified 429 as a quota boundary. This avoids silently
+  // spending two more requests when the provider has already refused one.
+  if (status === 429) return false
+  return [408, 425, 500, 502, 503, 504].includes(Number(status ?? 0))
+}
 
 function oppositeLiteQueueModel(generatorModel?: string) {
   if (generatorModel === DEFAULT_GENERATOR_QUEUE_MODEL) return FALLBACK_QUEUE_MODEL
@@ -445,6 +489,7 @@ function oppositeLiteQueueModel(generatorModel?: string) {
 async function invokeAssessmentAi(body: UnknownRecord, signal?: AbortSignal, model = DEFAULT_GENERATOR_QUEUE_MODEL) {
   const client = supabase
   if (!client) throw new Error('Assessment AI service is unavailable in this workspace.')
+  let totalProviderRequests = 0
   return assessmentRequestScheduler.enqueue(model, async () => {
     const response = await client.functions.invoke('assessment-question-generator', { body, signal })
     if (response.error) {
@@ -467,24 +512,43 @@ async function invokeAssessmentAi(body: UnknownRecord, signal?: AbortSignal, mod
       const retryAfter = context?.headers?.get?.('Retry-After')
       const retryAfterMs = retryAfter && /^\d+(?:\.\d+)?$/.test(retryAfter) ? Number(retryAfter) * 1000 : undefined
       let serverMessage = ''
+      let failureCategory = ''
+      let observedProviderRequests = 1
       try {
         if (typeof context?.json === 'function') {
           const payload = await context.json()
           if (payload && typeof payload === 'object' && !Array.isArray(payload)) {
             const value = payload as UnknownRecord
             serverMessage = typeof value.error === 'string' ? value.error : typeof value.message === 'string' ? value.message : ''
+            failureCategory = typeof value.category === 'string' ? value.category : ''
+            observedProviderRequests = providerRequestCount(value.providerRequestCount)
           }
         }
       } catch {
         // A missing/consumed response body is harmless; fall back below.
       }
-      const message = status === 429
-        ? 'Gemini provider limit reached. Saved assessment work is preserved; generation is paused.'
-        : serverMessage || `${errorValue.message || 'Assessment AI request failed.'}${status ? ` (provider status ${status})` : ''}`
-      throw Object.assign(new Error(message), { status, retryAfterMs, response: context })
+      totalProviderRequests += observedProviderRequests
+      if (observedProviderRequests > 1) assessmentRequestScheduler.recordObservedProviderRequests(model, observedProviderRequests - 1)
+      const message = serverMessage || `${errorValue.message || 'Assessment AI request failed.'}${status ? ` (provider status ${status})` : ''}`
+      throw Object.assign(new Error(message), {
+        status,
+        retryAfterMs,
+        response: context,
+        failureCategory,
+        retryable: providerFailureRetryable(failureCategory, status),
+        providerRequestCount: totalProviderRequests,
+      })
     }
     if (response.data?.error) throw new Error(String(response.data.error))
-    return response.data as UnknownRecord
+    const data = asObject(response.data)
+    const observedProviderRequests = providerRequestCount(data.providerRequestCount)
+    totalProviderRequests += observedProviderRequests
+    if (observedProviderRequests > 1) {
+      const observedModel = typeof data.model === 'string' ? data.model : model
+      assessmentRequestScheduler.recordObservedProviderRequests(observedModel, observedProviderRequests - 1)
+    }
+    data.providerRequestCount = totalProviderRequests
+    return data
   }, { signal })
 }
 
@@ -499,7 +563,7 @@ export async function requestAssessmentVerification(args: { assessment: Assessme
   if (args.demo || !supabase) return { deterministic, verifier: undefined, requestsUsed: 0 }
   const data = await invokeAssessmentAi({ operation: 'verify', assessmentId: args.assessment.id, itemId: args.item.id, questionType: args.item.questionType, ...(args.generatorModel ? { generatorModel: args.generatorModel } : {}), candidate: candidatePayload(args.candidate) }, args.signal, oppositeLiteQueueModel(args.generatorModel))
   const verifier = parseAssessmentVerifierResult(data.verifier ?? data.result ?? data)
-  return { deterministic, verifier, requestsUsed: 1 }
+  return { deterministic, verifier, requestsUsed: providerRequestCount(data.providerRequestCount) }
 }
 
 export async function repairAssessmentItemSuggestion(args: { assessment: AssessmentRecord; item: AssessmentItem; candidate: AssessmentItemCandidate; issues: string[]; repairGuidance?: string[]; demo?: boolean; signal?: AbortSignal }) {
@@ -507,7 +571,7 @@ export async function repairAssessmentItemSuggestion(args: { assessment: Assessm
   const data = await invokeAssessmentAi({ operation: 'repair', assessmentId: args.assessment.id, itemId: args.item.id, questionType: args.item.questionType, candidate: candidatePayload(args.candidate), issues: args.issues.slice(0, 8), repairGuidance: (args.repairGuidance ?? []).slice(0, 8) }, args.signal)
   const approved = Array.isArray(data.approvedResources) ? data.approvedResources.map((entry) => clean(entry, 180)) : []
   const candidate = candidateFromResponse(data, args.item, approved)
-  return { candidate, requestsUsed: 1, approvedResources: approved }
+  return { candidate, requestsUsed: providerRequestCount(data.providerRequestCount), approvedResources: approved }
 }
 
 async function adaptiveReview(assessment: AssessmentRecord, item: AssessmentItem, candidate: AssessmentItemCandidate, demo: boolean, signal?: AbortSignal, baseModel = 'assessment-lite-queue') {
@@ -558,7 +622,7 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
   } else {
     const boundedContext = clean(teacherContext, 1200)
     const data = await invokeAssessmentAi({ assessmentId: assessment.id, itemId: item.id, questionType: item.questionType, alternative, ...(boundedContext ? { teacherContext: boundedContext } : {}) }, signal)
-    baseRequests += 1
+    baseRequests += providerRequestCount(data.providerRequestCount)
     approvedResources = Array.isArray(data.approvedResources) ? data.approvedResources.map((entry) => clean(entry, 180)).filter(Boolean) : []
     candidate = candidateFromResponse(data, item, approvedResources)
     model = String(data.model || 'unknown')
@@ -587,8 +651,11 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
   }
 }
 
-function batchGenerationShouldPause(message: string) {
-  return /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured|rejected the request configuration\s*\(400\)/i.test(message)
+function batchGenerationShouldPause(error: unknown) {
+  const failureCategory = String((error as { failureCategory?: unknown })?.failureCategory ?? '')
+  if (['provider_configuration', 'provider_authentication', 'provider_quota', 'provider_rate_limit', 'unknown_provider_failure'].includes(failureCategory)) return true
+  const message = String((error as { message?: unknown })?.message ?? error)
+  return /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured|rejected the (?:structured )?request configuration/i.test(message)
 }
 
 export async function generateMissingAssessmentItems(options: AssessmentGenerationBatchOptions): Promise<AssessmentGenerationBatchSummary> {
@@ -651,7 +718,7 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
           progress(item.id, 'failed', message)
           // If a provider/credential boundary is exhausted, do not burn a
           // request on every remaining item. The teacher can resume later.
-          if (batchGenerationShouldPause(message)) paused = true
+          if (batchGenerationShouldPause(error)) paused = true
         }
       }
     }

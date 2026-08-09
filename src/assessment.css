@@ -216,3 +216,22 @@
 
 @media (max-width:900px) { .assessment-score-summary { grid-template-columns:repeat(3,minmax(0,1fr)); }.assessment-allowed-types { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 @media (max-width:680px) { .assessment-score-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }.assessment-allowed-types { grid-template-columns:repeat(2,minmax(0,1fr)); }.assessment-distribution-row { grid-template-columns:1fr 1fr; }.assessment-distribution-row > span { grid-column:1/-1; }.assessment-distribution-fields { grid-template-columns:repeat(2,minmax(0,1fr)); }.assessment-matching-columns { grid-template-columns:1fr; }.assessment-fill-blank { grid-template-columns:58px minmax(0,1fr) 42px; }.assessment-fill-blank input[type=number] { grid-column:2; max-width:90px; }.assessment-fill-blank .icon-button { grid-column:3; grid-row:2; }.assessment-subpart-row,.assessment-subpart-row.assessment-subpart-detailed { grid-template-columns:minmax(0,1fr) 78px 42px; }.assessment-subpart-row.assessment-subpart-detailed > input:nth-child(2) { grid-column:1/-1; }.assessment-matching-entry { grid-template-columns:minmax(0,1fr) 36px 36px 40px; }.assessment-matching-map-row { grid-template-columns:1fr 100px; }.assessment-matching-mappings label { grid-template-columns:1fr; gap:4px; }.assessment-matching-controls { align-items:stretch; flex-direction:column; }.assessment-review-actions { justify-content:flex-start; }.assessment-review-distribution { grid-template-columns:minmax(0,1fr) 52px 60px; } }
+
+/* Safe geometry visuals: the SVG owns its fixed palette; CSS only controls
+   responsive sizing and print layout. */
+.assessment-visual-editor { display:grid; gap:10px; margin:0 0 14px; padding:13px; border:1px solid #dfe7ee; border-radius:10px; background:#fbfdff; }
+.assessment-visual-editor legend { padding:0 4px; color:#4e6278; font-size:10px; font-weight:800; }
+.assessment-visual-editor-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.assessment-visual-editor-heading > div { display:grid; gap:3px; }
+.assessment-visual-editor-heading small,.assessment-visual-alt { color:#718395; font-size:9px; line-height:1.45; }
+.assessment-visual-alt { display:grid; gap:5px; color:#4e6278; font-weight:800; }
+.assessment-visual-editor-actions { display:flex; flex-wrap:wrap; gap:7px; }
+.assessment-visual-editor-actions .button { min-height:40px; font-size:9px; }
+.assessment-visual-editor-actions .button.danger { color:#a44842; }
+.assessment-visual-error { color:#a44842; font-size:9px; line-height:1.45; }
+.assessment-diagram { display:block; width:100%; max-width:600px; height:auto; max-height:340px; margin:1px auto 5px; overflow:visible; }
+.assessment-suggestion-visual { max-width:420px; max-height:220px; margin:8px 0 10px; }
+.assessment-document-question-visual { grid-column:2; max-width:330px; max-height:220px; margin:3px 0 10px; }
+
+@media (max-width:680px) { .assessment-visual-editor-heading { align-items:stretch; flex-direction:column; }.assessment-visual-editor-heading .button { width:100%; }.assessment-visual-editor-actions .button { flex:1 1 auto; }.assessment-document-question-visual { max-width:100%; max-height:210px; } }
+@media print { .assessment-diagram { max-width:100%; max-height:70mm; break-inside:avoid; }.assessment-document-question-visual { max-width:72mm; max-height:55mm; margin-top:2mm; margin-bottom:3mm; } }

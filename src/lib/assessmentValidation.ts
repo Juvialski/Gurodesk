@@ -113,6 +113,71 @@ function cleanText(value: unknown) {
   return typeof value === 'string' ? value.normalize('NFKC').trim().replace(/\s+/gu, ' ') : ''
 }
 
+/**
+ * Keep assessmentValidation self-contained for the project's data-URL
+ * validator harness (which loads this module without resolving runtime
+ * imports).  The dedicated assessmentVisualValidation module is the public,
+ * detailed validator; this boundary check mirrors its safety contract so a
+ * malformed visual can never pass assessment finalization.
+ */
+function assessmentVisualErrors(value: unknown): string[] {
+  const errors: string[] = []
+  const root = value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : null
+  if (!root) return ['Visual must be an object.']
+  const rootKeys = new Set(['id', 'kind', 'version', 'width', 'height', 'altText', 'primitives'])
+  Object.keys(root).filter((key) => !rootKeys.has(key)).forEach((key) => errors.push(`Visual property ${key} is not supported.`))
+  // Keep numeric fields strict at finalization too; coercing JSON strings here
+  // would make the final validator disagree with the client/Edge renderers.
+  const width = typeof root.width === 'number' ? root.width : Number.NaN
+  const height = typeof root.height === 'number' ? root.height : Number.NaN
+  const visualId = typeof root.id === 'string' ? root.id.normalize('NFKC').trim() : ''
+  if (!visualId || visualId.length > 80 || /[<>]/u.test(visualId)) errors.push('Visual id must be bounded plain text.')
+  if (root.kind !== 'geometry') errors.push("Visual kind must be 'geometry'.")
+  if (root.version !== 1) errors.push('Visual version must be 1.')
+  if (!Number.isFinite(width) || width < 64 || width > 1600 || !Number.isFinite(height) || height < 64 || height > 1200) errors.push('Visual dimensions must be finite and within the safe canvas bounds.')
+  const alt = typeof root.altText === 'string' ? root.altText.normalize('NFKC').trim() : ''
+  if (!alt || alt.length > 240 || /[<>]/u.test(alt) || /^(image|diagram)$/iu.test(alt)) errors.push('Visual alt text must be useful bounded plain text (not a generic image label).')
+  if (!Array.isArray(root.primitives) || root.primitives.length < 1 || root.primitives.length > 80) errors.push('Visual primitives must contain between 1 and 80 supported primitives.')
+  const types = new Set(['point', 'segment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow', 'dashedSegment'])
+  const colors = new Set(['ink', 'blue', 'red', 'green', 'gold', 'purple', 'gray'])
+  const primitiveKeys: Record<string, string[]> = {
+    point: ['type', 'x', 'y', 'radius', 'color', 'strokeWidth'],
+    segment: ['type', 'x1', 'y1', 'x2', 'y2', 'color', 'strokeWidth'],
+    dashedSegment: ['type', 'x1', 'y1', 'x2', 'y2', 'color', 'strokeWidth'],
+    arrow: ['type', 'x1', 'y1', 'x2', 'y2', 'color', 'strokeWidth'],
+    polygon: ['type', 'points', 'color', 'fill', 'strokeWidth'],
+    circle: ['type', 'cx', 'cy', 'radius', 'color', 'fill', 'strokeWidth'],
+    arc: ['type', 'cx', 'cy', 'radius', 'startAngle', 'endAngle', 'color', 'strokeWidth'],
+    angleArc: ['type', 'vertex', 'radius', 'startAngle', 'endAngle', 'color', 'strokeWidth'],
+    textLabel: ['type', 'x', 'y', 'text', 'color', 'textSize', 'anchor'],
+    tickMark: ['type', 'x1', 'y1', 'x2', 'y2', 'count', 'color', 'strokeWidth'],
+    equalSideMark: ['type', 'x1', 'y1', 'x2', 'y2', 'count', 'color', 'strokeWidth'],
+    parallelMark: ['type', 'x1', 'y1', 'x2', 'y2', 'count', 'color', 'strokeWidth'],
+    perpendicularMark: ['type', 'x', 'y', 'angle', 'size', 'color', 'strokeWidth'],
+  }
+  const finiteInside = (number: unknown, limit: number) => typeof number === 'number' && Number.isFinite(number) && number >= 0 && number <= limit
+  const checkColor = (entry: Record<string, unknown>) => { if (entry.color !== undefined && !colors.has(String(entry.color))) errors.push('Visual elements must use the fixed colour palette.'); if (entry.fill !== undefined && !colors.has(String(entry.fill))) errors.push('Visual fills must use the fixed colour palette.') }
+  const checkLine = (entry: Record<string, unknown>) => { if (!finiteInside(entry.x1, width) || !finiteInside(entry.y1, height) || !finiteInside(entry.x2, width) || !finiteInside(entry.y2, height)) errors.push('Visual line coordinates must be finite and inside the canvas.'); if (entry.x1 === entry.x2 && entry.y1 === entry.y2) errors.push('Visual line elements must have distinct endpoints.') }
+  if (Array.isArray(root.primitives)) root.primitives.forEach((raw, index) => {
+    const entry = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw as Record<string, unknown> : null
+    if (!entry) { errors.push(`Visual element ${index + 1} must be an object.`); return }
+    const type = String(entry.type)
+    if (!types.has(type)) { errors.push(`Visual element ${index + 1} type is unsupported.`); return }
+    Object.keys(entry).filter((key) => !primitiveKeys[type].includes(key)).forEach((key) => errors.push(`Visual primitive property ${key} is not supported.`))
+    checkColor(entry)
+    if (entry.strokeWidth !== undefined && !(typeof entry.strokeWidth === 'number' && Number.isInteger(entry.strokeWidth) && [1, 2, 3].includes(entry.strokeWidth))) errors.push('Visual stroke widths must be the number 1, 2, or 3.')
+    if (['segment', 'dashedSegment', 'arrow', 'tickMark', 'equalSideMark', 'parallelMark'].includes(type)) checkLine(entry)
+    else if (type === 'point') { if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height)) errors.push('Visual point coordinates must be finite and inside the canvas.'); if (entry.radius !== undefined && !(typeof entry.radius === 'number' && Number.isFinite(entry.radius) && entry.radius >= 0.5 && entry.radius <= 40)) errors.push('Visual point radius is outside the safe range.') }
+    else if (type === 'polygon') { if (!Array.isArray(entry.points) || entry.points.length < 3 || entry.points.length > 12) errors.push('Visual polygons must contain 3–12 vertices.'); if (Array.isArray(entry.points)) entry.points.forEach((point) => { const candidate = point && typeof point === 'object' && !Array.isArray(point) ? point as Record<string, unknown> : {}; if (!finiteInside(candidate.x, width) || !finiteInside(candidate.y, height)) errors.push('Visual polygon coordinates must be finite and inside the canvas.') }) }
+    else if (type === 'circle' || type === 'arc') { const cx = entry.cx as number; const cy = entry.cy as number; const radius = entry.radius as number; if (!finiteInside(cx, width) || !finiteInside(cy, height) || typeof radius !== 'number' || !Number.isFinite(radius) || radius < 0.5 || radius > 800 || cx - radius < 0 || cx + radius > width || cy - radius < 0 || cy + radius > height) errors.push('Visual circle/arc geometry must be finite and fit inside the canvas.'); if (type === 'arc' && (typeof entry.startAngle !== 'number' || typeof entry.endAngle !== 'number' || !Number.isFinite(entry.startAngle) || !Number.isFinite(entry.endAngle) || Math.abs(entry.startAngle) > 720 || Math.abs(entry.endAngle) > 720 || Math.abs(entry.endAngle - entry.startAngle) <= 0 || Math.abs(entry.endAngle - entry.startAngle) > 360)) errors.push('Visual arc angles must define a bounded nonzero span.') }
+    else if (type === 'angleArc') { const vertex = entry.vertex && typeof entry.vertex === 'object' && !Array.isArray(entry.vertex) ? entry.vertex as Record<string, unknown> : {}; const radius = entry.radius as number; if (!finiteInside(vertex.x, width) || !finiteInside(vertex.y, height) || typeof radius !== 'number' || !Number.isFinite(radius) || radius < 0.5 || radius > 800 || Number(vertex.x) - radius < 0 || Number(vertex.x) + radius > width || Number(vertex.y) - radius < 0 || Number(vertex.y) + radius > height) errors.push('Visual angle arc geometry must be finite and fit inside the canvas.'); if (typeof entry.startAngle !== 'number' || typeof entry.endAngle !== 'number' || !Number.isFinite(entry.startAngle) || !Number.isFinite(entry.endAngle) || Math.abs(entry.startAngle) > 720 || Math.abs(entry.endAngle) > 720 || Math.abs(entry.endAngle - entry.startAngle) <= 0 || Math.abs(entry.endAngle - entry.startAngle) > 360) errors.push('Visual angle arc angles must define a bounded nonzero span.') }
+    else if (type === 'textLabel') { const label = typeof entry.text === 'string' ? entry.text.normalize('NFKC').trim() : ''; if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height) || !label || label.length > 80 || /[<>]/u.test(label)) errors.push('Visual labels must use bounded plain text and in-canvas coordinates.'); if (entry.textSize !== undefined && !['small', 'medium', 'large'].includes(String(entry.textSize))) errors.push('Visual textSize is unsupported.'); if (entry.anchor !== undefined && !['start', 'middle', 'end'].includes(String(entry.anchor))) errors.push('Visual text anchor is unsupported.') }
+    else if (type === 'perpendicularMark') { if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height) || typeof entry.angle !== 'number' || !Number.isFinite(entry.angle) || (typeof entry.angle === 'number' && Math.abs(entry.angle) > 720) || typeof entry.size !== 'number' || !Number.isFinite(entry.size) || entry.size < 2 || entry.size > 80) errors.push('Visual perpendicular marks must use bounded coordinates and dimensions.'); if (typeof entry.x === 'number' && typeof entry.y === 'number' && typeof entry.angle === 'number' && typeof entry.size === 'number') { const radians = entry.angle * Math.PI / 180; const ux = Math.cos(radians); const uy = Math.sin(radians); const px = -uy; const py = ux; const corners = [{ x: entry.x, y: entry.y }, { x: entry.x + ux * entry.size, y: entry.y + uy * entry.size }, { x: entry.x + (ux + px) * entry.size, y: entry.y + (uy + py) * entry.size }, { x: entry.x + px * entry.size, y: entry.y + py * entry.size }]; if (corners.some((corner) => !finiteInside(corner.x, width) || !finiteInside(corner.y, height))) errors.push('Visual perpendicular marks must fit inside the canvas.') } }
+    if (['tickMark', 'equalSideMark', 'parallelMark'].includes(type) && entry.count !== undefined && !(typeof entry.count === 'number' && Number.isInteger(entry.count) && [1, 2, 3].includes(entry.count))) errors.push('Visual mark counts must be the number 1, 2, or 3.')
+  })
+  return errors
+}
+
 function acceptedAnswersError(accepted: unknown, caseSensitive: unknown, label: string) {
   const errors: string[] = []
   if (!Array.isArray(accepted) || accepted.length < 1) errors.push(`${label} questions require at least one accepted answer.`)
@@ -354,6 +419,7 @@ function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'
     if (mode === 'final' && (!Number.isFinite(points) || points <= 0)) add('points', 'Final questions require positive points.', item)
     if (mode === 'draft' && (!Number.isFinite(points) || points <= 0)) add('points', 'Questions should have positive points before finalization.', item, true)
     answerError(item.answer, item.questionType, item).forEach((message) => add('structured-answer', message, item, mode === 'draft'))
+    if (item.visual !== undefined) assessmentVisualErrors(item.visual).forEach((message) => add('visual', message, item, mode === 'draft'))
   }
 
   return { ready: errors.length === 0 && warnings.length === 0, errors, warnings }

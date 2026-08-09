@@ -18,6 +18,7 @@ async function loadExportRuntime() {
   output = output.replace(/import \{[\s\S]*?\} from 'docx';/, 'const AlignmentType = { CENTER: "center" }; class Document {}; class Packer { static async toBlob() { return new Blob(); } }; class Paragraph {}; class TextRun {};')
   output = output.replace(/import \{ jsPDF \} from 'jspdf';/, 'const jsPDF = class {};')
   output = output.replace(/import \{ downloadBlob \} from '\.\/docxTemplate';/, 'const downloadBlob = () => {};')
+  output = output.replace(/import \{ assessmentVisualSvgMarkup, drawAssessmentVisualPdf \} from '\.\/assessmentVisualExport';/, 'const assessmentVisualSvgMarkup = () => ""; const drawAssessmentVisualPdf = () => {};')
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
 }
 

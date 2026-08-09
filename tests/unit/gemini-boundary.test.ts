@@ -23,13 +23,14 @@ describe('Gemini dependency boundary', () => {
 
   it('keeps high-thinking configuration on Lite models', () => {
     expect(generationConfigFor('gemini-3.5-flash-lite')).toMatchObject({
-      thinkingConfig: { thinkingLevel: 'high' },
+      thinkingConfig: { thinkingLevel: 'HIGH' },
     })
     expect(generationConfigFor('gemini-3.5-flash')).not.toHaveProperty('thinkingConfig')
   })
 
   it('classifies retryable provider responses without making a real request', () => {
-    expect([404, 429, 500, 502, 503, 504].every(isFallbackEligibleStatus)).toBe(true)
+    expect([404, 500, 502, 503, 504].every(isFallbackEligibleStatus)).toBe(true)
+    expect(isFallbackEligibleStatus(429)).toBe(false)
     expect(isFallbackEligibleStatus(401)).toBe(false)
   })
 

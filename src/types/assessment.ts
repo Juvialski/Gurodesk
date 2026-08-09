@@ -1,4 +1,5 @@
 import type { TosContent, TosRecord } from './tos'
+import type { AssessmentVisual } from './assessmentVisual'
 
 export type AssessmentStatus = 'draft' | 'final' | 'archived'
 
@@ -231,6 +232,8 @@ export type AssessmentItem = {
   locked?: boolean
   /** Bounded previous versions for this item only (never a whole-assessment copy). */
   history?: AssessmentItemVersion[]
+  /** Optional teacher-authored geometry/diagram visual, orthogonal to the question type. */
+  visual?: AssessmentVisual
 }
 
 export type AssessmentQaState =
@@ -255,6 +258,7 @@ export type AssessmentItemVersion = {
   pointsPossible: number
   points?: number | null
   qaState?: AssessmentQaState
+  visual?: AssessmentVisual
 }
 
 export type AssessmentQuestionTypeMode = 'auto_balanced' | 'fixed_counts' | 'percentages' | 'manual_per_item'

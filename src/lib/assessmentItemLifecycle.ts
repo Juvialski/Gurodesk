@@ -13,7 +13,7 @@ function versionId() {
   return `item-version-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
 }
 
-export type AssessmentItemEdit = Partial<Pick<AssessmentItem, 'prompt' | 'questionType' | 'answer' | 'rationale' | 'teacherNotes' | 'pointsPossible' | 'points'>>
+export type AssessmentItemEdit = Partial<Pick<AssessmentItem, 'prompt' | 'questionType' | 'answer' | 'rationale' | 'teacherNotes' | 'pointsPossible' | 'points' | 'visual'>>
 
 export function isAssessmentItemLocked(item: AssessmentItem) {
   return item.locked === true || item.qaState === 'locked'
@@ -36,6 +36,7 @@ function snapshot(item: AssessmentItem, source: AssessmentItemVersion['source'])
     pointsPossible: normalizeItemPoints(item),
     points: item.points,
     qaState: item.qaState,
+    visual: item.visual ? clone(item).visual : undefined,
   }
 }
 
@@ -48,6 +49,7 @@ function answerChanged(before: AssessmentItem, after: AssessmentItem) {
   return before.questionType !== after.questionType
     || before.prompt !== after.prompt
     || JSON.stringify(before.answer) !== JSON.stringify(after.answer)
+    || JSON.stringify(before.visual) !== JSON.stringify(after.visual)
     || normalizeItemPoints(before) !== normalizeItemPoints(after)
 }
 
@@ -105,6 +107,7 @@ export function restoreAssessmentItemVersion(item: AssessmentItem, historyId: st
     teacherNotes: prior.teacherNotes,
     pointsPossible: prior.pointsPossible,
     points: prior.points ?? prior.pointsPossible,
+    visual: prior.visual ? clone(prior.visual) : undefined,
     authorshipState: 'teacher_edited' as const,
     qaState: 'answer_needs_recheck' as const,
     locked: false,

@@ -1,9 +1,11 @@
 import { AlignmentType, Document, Packer, Paragraph, TextRun } from 'docx'
 import { jsPDF } from 'jspdf'
 import type { AssessmentAnswer } from '../types/assessment'
+import type { AssessmentVisual } from '../types/assessmentVisual'
 import type { AssessmentExportModel, AssessmentExportQuestion, AssessmentExportQuestionBase, AssessmentStudentExportQuestion } from '../types/assessmentExport'
 import type { ExportPaperSize } from '../types/export'
 import { downloadBlob } from './docxTemplate'
+import { assessmentVisualSvgMarkup, drawAssessmentVisualPdf } from './assessmentVisualExport'
 
 const TEXT = '000000'
 const MUTED = '555555'
@@ -135,7 +137,17 @@ function drawPdfLines(ctx: PdfContext, lines: string[], size = 9.5, gapAfter = 8
   ctx.y += gapAfter
 }
 
-function drawPdfQuestion(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion) { drawPdfLines(ctx, renderQuestionLines(model, question), 9.5, 5) }
+function drawPdfVisual(ctx: PdfContext, visual: AssessmentVisual) {
+  // Keep PDF and print exports on the same validated primitive renderer as the
+  // preview.  The target is scaled uniformly so labels and marks retain their
+  // geometry while staying inside the text-first PDF column.
+  const scale = Math.min(230 / visual.width, 135 / visual.height)
+  if (ctx.y + visual.height * scale + 18 > ctx.bottom) newPdfPage(ctx)
+  drawAssessmentVisualPdf(ctx.doc, visual, { x: ctx.x, y: ctx.y + 2, width: visual.width * scale, height: visual.height * scale })
+  ctx.y += visual.height * scale + 12
+}
+
+function drawPdfQuestion(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion) { if (question.visual) drawPdfVisual(ctx, question.visual); drawPdfLines(ctx, renderQuestionLines(model, question), 9.5, 5) }
 
 export function buildAssessmentPdf(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') {
   const doc = new jsPDF({ unit: 'pt', format: pdfFormat(paperSize) })
@@ -172,10 +184,15 @@ export async function downloadAssessmentDocx(model: AssessmentExportModel, paper
 
 function escapeHtml(value: string) { return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;') }
 
+function printVisualMarkup(visual: AssessmentVisual) {
+  const markup = assessmentVisualSvgMarkup(visual)
+  return markup ? markup.replace('<svg ', '<svg class="assessment-print-visual" ') : ''
+}
+
 function printQuestionMarkup(model: AssessmentExportModel, question: AssessmentExportQuestion) {
   const pointLabel = model.mode === 'student' && question.pointsPossible <= 1 ? '' : `<small>${question.pointsPossible} ${escapeHtml(model.labels.points)}</small>`
   if (model.mode === 'answer_key') {
-    return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3><div class="answer">${escapeHtml(questionAnswer(question))}</div>${'scoringGuide' in question && question.scoringGuide ? `<p class="scoring-guide">${escapeHtml(question.scoringGuide)}</p>` : ''}</section>`
+    return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3>${question.visual ? printVisualMarkup(question.visual) : ''}<div class="answer">${escapeHtml(questionAnswer(question))}</div>${'scoringGuide' in question && question.scoringGuide ? `<p class="scoring-guide">${escapeHtml(question.scoringGuide)}</p>` : ''}</section>`
   }
   if (!('prompt' in question)) return ''
   const choices = choicesFor(question)
@@ -194,7 +211,7 @@ function printQuestionMarkup(model: AssessmentExportModel, question: AssessmentE
     model.mode !== 'student' && 'cognitiveCategory' in question && question.cognitiveCategory ? `<p class="annotation"><b>${escapeHtml(model.labels.cognitiveCategory)}:</b> ${escapeHtml(question.cognitiveCategory.label)}</p>` : '',
     model.mode !== 'student' && 'rationale' in question && question.rationale ? `<p class="annotation"><b>${escapeHtml(model.labels.rationale)}:</b> ${escapeHtml(question.rationale)}</p>` : '',
   ].join('')
-  return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3><p>${escapeHtml(question.prompt)}</p>${subpartMarkup}${choiceMarkup}${blankMarkup}<div class="response-space">${'<div>________________________________________</div>'.repeat(Math.max(0, question.answerSpaceLines))}</div>${annotations}</section>`
+  return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3><p>${escapeHtml(question.prompt)}</p>${question.visual ? printVisualMarkup(question.visual) : ''}${subpartMarkup}${choiceMarkup}${blankMarkup}<div class="response-space">${'<div>________________________________________</div>'.repeat(Math.max(0, question.answerSpaceLines))}</div>${annotations}</section>`
 }
 
 export function assessmentPrintHtml(model: AssessmentExportModel) {
@@ -204,7 +221,7 @@ export function assessmentPrintHtml(model: AssessmentExportModel) {
 }
 
 export function buildAssessmentPrintModel(model: AssessmentExportModel) { return model }
-export function printAssessment(model: AssessmentExportModel) { const html = assessmentPrintHtml(model); const popup = window.open('', '_blank', 'noopener,noreferrer'); if (!popup) throw new Error('The browser blocked the print window. Allow popups to print this assessment.'); popup.document.write(`<!doctype html><html><head><title>${escapeHtml(model.title)}</title><style>body{font-family:Arial,sans-serif;margin:24px}.question-flow{break-inside:avoid;margin:0 0 20px}.response-space{color:#666;line-height:1.8}.metadata{display:flex;gap:12px;flex-wrap:wrap}</style></head><body>${html}</body></html>`); popup.document.close(); popup.focus(); popup.print() }
+export function printAssessment(model: AssessmentExportModel) { const html = assessmentPrintHtml(model); const popup = window.open('', '_blank', 'noopener,noreferrer'); if (!popup) throw new Error('The browser blocked the print window. Allow popups to print this assessment.'); popup.document.write(`<!doctype html><html><head><title>${escapeHtml(model.title)}</title><style>body{font-family:Arial,sans-serif;margin:24px}.question-flow{break-inside:avoid;margin:0 0 20px}.response-space{color:#666;line-height:1.8}.metadata{display:flex;gap:12px;flex-wrap:wrap}.assessment-print-visual{display:block;width:min(100%,330px);max-height:220px;margin:4px 0 10px;break-inside:avoid}</style></head><body>${html}</body></html>`); popup.document.close(); popup.focus(); popup.print() }
 
 // Phase 3.7 custom assessment DOCX template hooks remain intentionally
 // deterministic: assessment content is rendered from saved structured data.

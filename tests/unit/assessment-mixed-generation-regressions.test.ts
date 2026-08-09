@@ -104,15 +104,18 @@ describe('mixed question generation regressions', () => {
       candidateCount: 2,
       responseFormat: { text: { mimeType: 'application/json' } },
       maxOutputTokens: 2200,
+      questionType: 'multiple_choice',
     })
 
     expect(config).not.toHaveProperty('temperature')
     expect(config).not.toHaveProperty('topP')
     expect(config).not.toHaveProperty('topK')
     expect(config).not.toHaveProperty('candidateCount')
-    expect(config.responseFormat).toEqual({ text: { mimeType: 'application/json' } })
-    expect(config.maxOutputTokens).toBe(2200)
-    expect(config.thinkingConfig).toEqual({ thinkingLevel: 'high' })
+    expect(config).not.toHaveProperty('responseFormat')
+    expect(config.responseMimeType).toBe('application/json')
+    expect(config.responseSchema).toBeTruthy()
+    expect(config.maxOutputTokens).toBe(4096)
+    expect(config.thinkingConfig).toEqual({ thinkingLevel: 'HIGH' })
   })
 
   it('accepts valid structured candidates for every supported question type', () => {

@@ -173,7 +173,7 @@ export async function openAssessmentList(page: Page) {
   await expect(page.getByText(/Finalized TOS → teacher-reviewed items/)).toBeVisible()
 }
 
-export async function createFinalizedTos(page: Page, title: string) {
+export async function createFinalizedTos(page: Page, title: string, competencyText?: string | RegExp) {
   await page.goto('/tos/new')
   await expect(page.getByRole('heading', { name: 'New TOS' })).toBeVisible({ timeout: 30_000 })
   await page.getByLabel('TOS title').fill(title)
@@ -190,8 +190,9 @@ export async function createFinalizedTos(page: Page, title: string) {
   const picker = page.getByRole('button', { name: /Choose verified competencies|verified competenc(?:y|ies) selected/ })
   await picker.click()
   const options = page.locator('#tos-competency-options').getByRole('option')
-  await expect(options.first()).toBeVisible({ timeout: 30_000 })
-  await options.first().click()
+  const selectedOption = competencyText ? options.filter({ hasText: competencyText }).first() : options.first()
+  await expect(selectedOption).toBeVisible({ timeout: 30_000 })
+  await selectedOption.click()
   await page.getByRole('button', { name: 'Done' }).click()
 
   // Finalization readiness is a behavioral contract, not a text-copy contract.

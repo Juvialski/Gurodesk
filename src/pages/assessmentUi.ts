@@ -146,6 +146,7 @@ export function appendItemHistory(item: AssessmentItem, source: 'generated' | 'a
     pointsPossible: pointsForItem(item),
     points: item.points,
     qaState: value.qaState,
+    visual: item.visual ? cloneItem(item).visual : undefined,
   }
   return [...history, version].slice(-5)
 }

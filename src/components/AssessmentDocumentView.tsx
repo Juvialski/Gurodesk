@@ -1,5 +1,6 @@
 import type { AssessmentAnswer } from '../types/assessment'
 import type { AssessmentExportModel, AssessmentExportQuestion } from '../types/assessmentExport'
+import { AssessmentDiagram } from './AssessmentDiagram'
 
 function object(value: unknown): Record<string, unknown> { return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {} }
 function array(value: unknown) { return Array.isArray(value) ? value : [] }
@@ -71,6 +72,7 @@ export function AssessmentDocumentView({ model, showCompetency = false, showCogn
           <div className="assessment-document-question-head"><strong>{question.itemNumber}.</strong>{(!isStudent || question.pointsPossible > 1) && <small>{question.pointsPossible} {model.labels.points}</small>}</div>
           {!isAnswerKey && 'prompt' in question && <>
             <p className="assessment-document-prompt">{question.prompt}</p>
+            {question.visual && <AssessmentDiagram visual={question.visual} className="assessment-document-question-visual" />}
             {subparts.length > 0 && <ol className="assessment-document-subparts" type="a">{subparts.map((part) => <li key={`${part.label}-${part.prompt}`}>{part.prompt} <small>({part.pointsPossible} {model.labels.points})</small></li>)}</ol>}
             {(question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') && <ol className="assessment-document-choices" type="A">{choices.map((choice, index) => <li key={typeof choice === 'string' ? `${index}-${choice}` : `${index}-${choice.text}`}>{typeof choice === 'string' ? choice : choice.text}</li>)}</ol>}
             {question.questionType === 'matching' && <div className="assessment-document-matching"><strong>{model.labels.columnA}</strong>{prompts.map((prompt, index) => <div key={typeof prompt === 'string' ? prompt : prompt.text}>_____ {index + 1}. {typeof prompt === 'string' ? prompt : prompt.text}</div>)}<strong>{model.labels.columnB}</strong>{choices.map((choice, index) => <div key={typeof choice === 'string' ? choice : choice.text}>{visibleLabel(index)}. {typeof choice === 'string' ? choice : choice.text}</div>)}</div>}
@@ -78,7 +80,7 @@ export function AssessmentDocumentView({ model, showCompetency = false, showCogn
             {'responseInstructions' in question && question.responseInstructions && <p className="assessment-document-annotation"><strong>{model.labels.instructions}:</strong> {question.responseInstructions}</p>}
             {!isStudent && answer && <p className="assessment-document-annotation"><strong>{model.labels.answer}:</strong> {answerText(answer)}</p>}
           </>}
-          {isAnswerKey && answer && <div className="assessment-document-answer-key"><strong>{answerText(answer)}</strong>{'scoringGuide' in question && question.scoringGuide && <p>{question.scoringGuide}</p>}</div>}
+          {isAnswerKey && <>{question.visual && <AssessmentDiagram visual={question.visual} className="assessment-document-question-visual" />}{answer && <div className="assessment-document-answer-key"><strong>{answerText(answer)}</strong>{'scoringGuide' in question && question.scoringGuide && <p>{question.scoringGuide}</p>}</div>}</>}
           {!isStudent && !isAnswerKey && 'scoringGuide' in question && question.scoringGuide && <p className="assessment-document-annotation"><strong>{model.labels.solution}:</strong> {question.scoringGuide}</p>}
           {!isStudent && !isAnswerKey && showCompetency && 'competency' in question && question.competency && <p className="assessment-document-annotation"><strong>{model.labels.competency}:</strong> {question.competency.code ? `${question.competency.code} · ` : ''}{question.competency.text}</p>}
           {!isStudent && !isAnswerKey && showCognitive && 'cognitiveCategory' in question && question.cognitiveCategory && <p className="assessment-document-annotation"><strong>{model.labels.cognitiveCategory}:</strong> {question.cognitiveCategory.label}</p>}

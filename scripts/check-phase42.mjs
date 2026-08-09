@@ -12,6 +12,7 @@ const assert = (condition, message) => { if (!condition) fail(message) }
 const migration = await read('supabase/migrations/202608080013_phase41_assessment_engine.sql')
 const auditMigration = await read('supabase/migrations/202608080014_phase42_assessment_ai_audit.sql')
 const edge = await read('supabase/functions/assessment-question-generator/index.ts')
+const edgeContract = await read('supabase/functions/_shared/assessment-contract.ts')
 const generation = await read('src/lib/assessmentGeneration.ts')
 const repository = await read('src/lib/assessmentRepository.ts')
 const config = await read('supabase/config.toml')
@@ -113,7 +114,7 @@ assert(migration.includes('Existing assessment item UUIDs are stable and cannot 
 assert(migration.includes("jsonb_typeof(p_answer -> 'caseSensitive') is distinct from 'boolean'"), 'SQL short-answer caseSensitive boolean guard is missing.')
 assert(migration.includes("if new.status = 'archived'") && migration.includes("raise exception 'Archiving cannot modify assessment content or identity'") && migration.includes("if new.status not in ('draft', 'final')"), 'Draft/final archiving must be an unchanged-payload transition, separate from editable save states.')
 assert(edge.includes('Grade level (server-verified)') && edge.includes('Learning area (server-verified)'), 'Generator prompt must include server-derived grade and learning area.')
-assert(edge.includes('namedResourceOrLocalFact') && generation.includes('namedResourceOrLocalFact'), 'Both server and client validators must reject unverified named resources, devices, and local facts.')
+assert(edge.includes('validateAssessmentCandidateContract') && edgeContract.includes('unverifiedResource') && generation.includes('namedResourceOrLocalFact'), 'Both server and client validators must reject unverified named resources, devices, and local facts.')
 
 console.log('✓ Phase 4.1 assessment persistence, immutable snapshots, RPC/RLS/version guards present')
 console.log('✓ Phase 4.2 candidate parser rejects malformed JSON, missing choices, invalid answers, and unlisted resources')

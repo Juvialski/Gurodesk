@@ -37,11 +37,10 @@ for (const required of ['resourcesVerifiedByTeacher', 'pendingSections', 'Quick 
 }
 
 const models = await read('supabase/functions/_shared/ai-models.ts')
-if (!models.includes("thinkingLevel: 'high'")) fail('Flash-Lite high-thinking behavior was lost.')
+if (!models.includes("thinkingLevel: 'HIGH'")) fail('Flash-Lite raw generateContent high-thinking behavior was lost.')
 
 console.log('✓ Phase 3.5 teacher-guided suggestion workflow present')
 console.log('✓ Quick Draft fills only empty planning fields and requires review')
 console.log('✓ specific resources/references stay teacher-entered and verified')
 console.log('✓ reusable teaching setup is RLS-protected and constrains AI suggestions')
 console.log('✓ Flash-Lite high-thinking BYOK behavior retained')
-

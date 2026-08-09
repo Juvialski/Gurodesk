@@ -1,4 +1,5 @@
 import type { AssessmentAnswer, AssessmentCompetencySnapshot, AssessmentCognitiveCategorySnapshot, AssessmentStatus, QuestionType } from './assessment'
+import type { AssessmentVisual } from './assessmentVisual'
 import type { ExportDocumentLanguage, ExportPaperSize } from './export'
 
 export type AssessmentExportMode = 'student' | 'teacher' | 'answer_key'
@@ -76,6 +77,8 @@ export type AssessmentExportQuestionBase = {
   questionType: QuestionType
   answerSpaceLines: number
   pointsPossible: number
+  /** Safe, learner-visible visual independent of answer/mapping metadata. */
+  visual?: AssessmentVisual
   /** Legacy alias retained for prior renderer callers. */
   points?: number | null
   choices?: Array<{ id: string; text: string; label?: string }>
@@ -105,6 +108,7 @@ export type AssessmentAnswerKeyExportQuestion = {
   questionType: QuestionType
   answerSpaceLines: number
   pointsPossible: number
+  visual?: AssessmentVisual
   points?: number | null
   answer: AssessmentAnswer
   scoringGuide?: string

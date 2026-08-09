@@ -7,10 +7,12 @@ import type {
   AssessmentTosSnapshot,
   QuestionType,
 } from '../types/assessment'
+import type { AssessmentVisual } from '../types/assessmentVisual'
 import type { TosContent, TosRecord } from '../types/tos'
 import { createAssessmentBlueprint, duplicateAssessmentBlueprint, normalizeAssessmentBlueprint } from './assessmentBlueprint'
 import { deriveAssessmentTotalPoints, normalizeItemPoints } from './assessmentScoring'
 import { validateAssessmentForFinal } from './assessmentGeneration'
+import { isAssessmentVisual } from './assessmentVisualValidation'
 import { supabase } from './supabase'
 
 const DEMO_ASSESSMENTS_KEY = 'gurodesk.demo.assessmentDocuments.v1'
@@ -208,6 +210,8 @@ function normalizeAnswer(value: unknown, questionType: QuestionType, choices: un
 
 function mapItem(row: DbRow): AssessmentItem {
   const questionType = text(row.question_type, 'multiple_choice') as QuestionType
+  const storedAnswer = asObject(row.answer)
+  const storedVisual = isAssessmentVisual(storedAnswer._visual) ? storedAnswer._visual as AssessmentVisual : undefined
   return {
     id: text(row.id),
     itemNumber: Number(row.item_number),
@@ -244,6 +248,7 @@ function mapItem(row: DbRow): AssessmentItem {
     qaState: text(row.qa_state, 'empty') as AssessmentItem['qaState'],
     locked: row.locked === true,
     history: Array.isArray(row.version_history) ? clone(row.version_history) as AssessmentItem['history'] : Array.isArray(row.qa_history) ? clone(row.qa_history) as AssessmentItem['history'] : [],
+    ...(storedVisual ? { visual: clone(storedVisual) } : {}),
   }
 }
 
@@ -342,7 +347,12 @@ function assessmentContentMirror(record: AssessmentRecord) {
 }
 
 function itemWire(item: AssessmentItem) {
-  const answer = clone(item.answer)
+  const answer = clone(item.answer) as unknown as Record<string, unknown>
+  // The relational assessment_items projection predates visuals.  Keep this
+  // additive, validated reserved key inside its JSON answer payload so the
+  // existing RPC/mirror/version machinery persists it without a migration.
+  delete answer._visual
+  if (item.visual && isAssessmentVisual(item.visual)) answer._visual = clone(item.visual)
   return {
     id: item.id,
     itemNumber: item.itemNumber,

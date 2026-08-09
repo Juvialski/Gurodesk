@@ -142,6 +142,7 @@ function baseQuestion(item: AssessmentItem): AssessmentExportQuestionBase {
     answerSpaceLines: answerSpaceLines(item),
     pointsPossible: pointsForItem(item),
     points: pointsForItem(item),
+    ...(item.visual ? { visual: item.visual } : {}),
     ...(type === 'problem_solving' || type === 'essay' ? { responseInstructions: 'Show your reasoning. The teacher will score the response using the scoring guide.' } : {}),
   }
 }
@@ -171,7 +172,7 @@ function teacherQuestion(item: AssessmentItem, options: AssessmentExportOptions)
 }
 
 function answerKeyQuestion(item: AssessmentItem): AssessmentAnswerKeyExportQuestion {
-  return { itemNumber: item.itemNumber, questionType: questionType(item), answerSpaceLines: 0, pointsPossible: pointsForItem(item), points: pointsForItem(item), answer: item.answer, ...(scoringGuide(item) ? { scoringGuide: scoringGuide(item) } : {}) }
+  return { itemNumber: item.itemNumber, questionType: questionType(item), answerSpaceLines: 0, pointsPossible: pointsForItem(item), points: pointsForItem(item), answer: item.answer, ...(item.visual ? { visual: item.visual } : {}), ...(scoringGuide(item) ? { scoringGuide: scoringGuide(item) } : {}) }
 }
 
 export function buildAssessmentExportModel(assessment: Assessment, options: AssessmentExportOptions): AssessmentExportModel {

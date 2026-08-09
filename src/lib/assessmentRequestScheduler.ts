@@ -11,6 +11,10 @@
 export type AssessmentModelRequestError = Error & {
   status?: number
   retryAfterMs?: number
+  /** Sanitized Edge/provider failure category used to avoid wasteful retries. */
+  failureCategory?: string
+  /** Explicit retry decision from the authenticated Edge boundary. */
+  retryable?: boolean
   response?: { status?: number; headers?: { get?: (name: string) => string | null } }
 }
 
@@ -84,8 +88,12 @@ function statusOf(error: unknown) {
 }
 
 function retryable(error: unknown) {
+  const candidate = error as AssessmentModelRequestError | null
+  if (typeof candidate?.retryable === 'boolean') return candidate.retryable
   const status = statusOf(error)
-  if ([408, 425, 429, 500, 502, 503, 504].includes(status)) return true
+  // A known non-retryable HTTP response must not become retryable merely
+  // because its teacher message contains words such as "try again".
+  if (status > 0) return [408, 425, 429, 500, 502, 503, 504].includes(status)
   const message = String((error as { message?: unknown })?.message ?? error).toLocaleLowerCase('en')
   return /timeout|temporar|network|rate.?limit|quota|gateway|try again/.test(message)
 }
@@ -215,6 +223,17 @@ export class AssessmentRequestScheduler {
       note: 'Provider quota and usage may differ.',
     }) }
     return [...this.usage.values()].map((value) => ({ ...value }))
+  }
+
+  /**
+   * Account for authenticated Edge-side fallback attempts that occur inside
+   * one browser invocation. The first attempt is already counted by `run`;
+   * callers use this only for additional, provider-reported attempts.
+   */
+  recordObservedProviderRequests(model: string, count = 1) {
+    const normalizedModel = model.trim() || 'unknown-model'
+    const boundedCount = Math.max(0, Math.min(4, Math.floor(count)))
+    for (let index = 0; index < boundedCount; index += 1) this.count(normalizedModel)
   }
 
   /** Remove only queued (not currently running) work for a model. */

@@ -20,7 +20,7 @@ const models = await read('supabase/functions/_shared/ai-models.ts')
 for (const model of ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-3.6-flash', 'gemini-3.5-flash']) {
   if (!models.includes(model)) fail(`Missing selectable Gemini model ${model}`)
 }
-if (!models.includes("thinkingLevel: 'high'")) fail('Flash-Lite high-thinking configuration is missing.')
+if (!models.includes("thinkingLevel: 'HIGH'")) fail('Flash-Lite raw generateContent high-thinking configuration is missing.')
 if (!models.includes('fallbackAllowed')) fail('Lite-only fallback guard is missing.')
 
 const settingsFn = await read('supabase/functions/ai-settings/index.ts')
@@ -61,4 +61,3 @@ console.log('✓ Gemini 3.5/3.1 Flash-Lite prioritized with explicit high thinki
 console.log('✓ 3.6/3.5 Flash remain selectable without automatic limited-call fallback')
 console.log('✓ No shared GEMINI_API_KEY dependency remains in lesson AI')
 console.log('✓ Browser never reads credential ciphertext or service-role secret')
-
