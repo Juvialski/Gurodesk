@@ -8,8 +8,8 @@ Phase 5.5 adds behavior-first regression testing around the defects that escaped
 |---|---|---|
 | Existing deterministic validators | `npm run validate:all` | Curriculum, document, assessment, scoring, export, privacy, and source contracts from Phases 1–5.4 |
 | Unit regression tests | `npm run test:unit` | Error extraction, partial-credit totals, item locks/replacement, AI risk routing, targeted repair, malformed JSON, retry ceilings, 429 pacing, and Lite fallback rules |
-| Fresh database | `npm run test:db:fresh` | Real application of migrations 001–021, SQL/function/trigger/policy dependencies, and required final schema |
-| Upgrade database | `npm run test:db:upgrade` | Real 001–014 schema plus existing teacher/TOS/assessment data upgraded through 015–021, including the migration 018 trigger/backfill and migration 020 existing-save regressions |
+| Fresh database | `npm run test:db:fresh` | Real application of migrations 001–022, SQL/function/trigger/policy dependencies, and required final schema |
+| Upgrade database | `npm run test:db:upgrade` | Real 001–014 schema plus existing teacher/TOS/assessment data upgraded through 015–022, including the migration 018 trigger/backfill and migration 020 existing-save regressions |
 | Supabase integration | `npm run test:integration` | Real Auth JWTs, RLS, RPCs, PostgREST relationships, repository reloads, 40-item assessment round trip, result partial credit, analysis, and remediation persistence |
 | Browser E2E | `npm run test:e2e` | Login/dashboard, finalized-TOS assessment creation, editor save/reload/list/reopen, and representative deep-route refreshes |
 | Static CI gate | `npm run test:ci` | Production and test typechecks, all old validators, unit regressions, and a production bundle |
@@ -26,7 +26,7 @@ Install dependencies with `npm ci`. The full release gate requires Docker, a Pos
 3. Read the local API, anon, service-role, and database values from `supabase status -o env`.
 4. Refuse any non-local host or any value containing production ref `hmeybakjxtzmiebtxonc`.
 5. Apply all migrations to a fresh database and run schema behavior assertions.
-6. Reset to migration 014, insert the upgrade fixture, apply 015–021, and run data/trigger/RPC assertions.
+6. Reset to migration 014, insert the upgrade fixture, apply 015–022, and run data/trigger/RPC assertions.
 7. Reset the ordinary project to the final all-migrations state.
 8. Run Supabase integration tests with real local Auth sessions for Teacher A and Teacher B.
 9. Prepare a disposable local E2E teacher and run Playwright Chromium.

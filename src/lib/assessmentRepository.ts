@@ -578,6 +578,7 @@ export async function saveAssessmentDocument(record: AssessmentRecord, demo: boo
   if (normalized.status === 'final') validateAssessmentForFinal(normalized)
   if (!normalized.assignmentId) throw new Error('A teacher-owned assignment is required.')
   if (!normalized.sourceTos.id) throw new Error('The finalized TOS source is required.')
+  assertBlueprintIntegrity({ ...normalized, id: normalized.id || 'temp-id' })
   const { data, error } = await supabase.rpc('save_assessment_document', {
     p_document_id: normalized.id || null,
     p_assignment_id: normalized.assignmentId,

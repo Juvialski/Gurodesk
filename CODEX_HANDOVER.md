@@ -92,7 +92,7 @@ Draft result entry remains local/debounced and batch-persisted rather than savin
 Phase 5.5 adds no teacher-facing feature and no database migration. It converts the production regressions from Phases 5.0–5.4 into executable behavior gates:
 
 - Vitest unit regressions cover error extraction, Render SPA fallback, assessment AI risk routing and one-item repair, malformed provider JSON, scheduler pacing/retry ceilings/429 handling, lock and replacement behavior, partial-credit totals, and Gemini Lite fallback boundaries.
-- The database harness applies the real migrations 001–021 to a fresh database and separately upgrades a data-bearing schema from migration 014 through 021. It asserts final schema behavior, the migration 018 trigger/backfill, preserved IDs/data/points, migration 020 existing-assessment saves, and finalized-assessment immutability.
+- The database harness applies the real migrations 001–022 to a fresh database and separately upgrades a data-bearing schema from migration 014 through 022. It asserts final schema behavior, the migration 018 trigger/backfill, preserved IDs/data/points, migration 020 existing-assessment saves, and finalized-assessment immutability.
 - Supabase integration tests use two real local Auth users and teacher JWTs for RLS, new/existing assessment RPC saves, duplicate/archive behavior, 40-item round trips, explicit PostgREST foreign-key relationships, tamper rejection, lock/unlock behavior, the required `1/1 + 3/5 + 8/10 = 12/16` result path, analysis, remediation, and cross-teacher denial across the major Phase 2–5.4 teacher-owned domains.
 - Playwright covers authenticated dashboard access, finalized-TOS assessment creation, editor save/reload/list/reopen behavior, and representative deep-route refreshes.
 - GitHub Actions runs the static/unit/build gate and a single disposable local Supabase stack for fresh/upgrade migration, integration, and Chromium E2E tests. `npm run test:release` provides the equivalent local release gate.
@@ -107,6 +107,8 @@ Apply all migrations in filename order. New additive/corrective migrations are:
 18. `supabase/migrations/202608090018_phase44_assessment_scoring_qa.sql`
 19. `supabase/migrations/202608090019_phase54_results_compatibility.sql`
 20. `supabase/migrations/202608090020_fix_assessment_save_alias_ambiguity.sql`
+21. `supabase/migrations/202608090021_phase55_explicit_data_api_grants.sql`
+22. `supabase/migrations/202608090022_phase55_integration_guard_fixes.sql`
 
 Migration 017 extends the database question-type enum. Migration 018 adds assessment settings, target points, points, QA/lifecycle metadata, bounded per-item history, strict typed payload validation, and owner-authoritative save/finalize rules. Migration 019 hardens multi-point result snapshots/outcomes, answer shapes, score bounds, batch save relationships, and compatibility defaults. Migration 020 corrects the existing-assessment save alias ambiguity.
 

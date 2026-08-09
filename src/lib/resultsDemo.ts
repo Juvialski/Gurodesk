@@ -166,8 +166,13 @@ export function saveDemoResultSession(batch: ResultSaveBatch, userId: string, st
     const key = `${outcome.participantId}:${outcome.itemId}`
     if (!item || outcomeKeys.has(key)) throw new Error('Demo result outcomes contain a duplicate or unknown item.')
     outcomeKeys.add(key)
-    if (outcome.itemNumber !== item.itemNumber || outcome.possiblePoints !== item.points
-      || !Number.isFinite(outcome.earnedPoints) || outcome.earnedPoints < 0 || outcome.earnedPoints > outcome.possiblePoints) {
+    if (!Number.isFinite(outcome.earnedPoints) || outcome.earnedPoints < 0) {
+      throw new Error('Earned points must be a finite nonnegative number.')
+    }
+    if (outcome.earnedPoints > outcome.possiblePoints) {
+      throw new Error('Earned points cannot exceed possible points.')
+    }
+    if (outcome.itemNumber !== item.itemNumber || outcome.possiblePoints !== item.points) {
       throw new Error('Demo result outcome points do not match the assessment snapshot.')
     }
     const shortMode = batch.session.shortAnswerScoring.itemModes[item.id] ?? batch.session.shortAnswerScoring.defaultMode
