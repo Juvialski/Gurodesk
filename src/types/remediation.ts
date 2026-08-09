@@ -27,6 +27,8 @@ export type RemediationSignal = {
   itemNumbers: number[]
   evidenceValue: number | null
   evidenceLabel: 'percentage_correct' | 'point_facility'
+  /** Human-readable denominator so point-weighted remediation is not mistaken for binary facility. */
+  denominatorLabel: string
   threshold: number
   comparison: 'below' | 'at_or_below'
   participantIds: string[]
@@ -47,6 +49,7 @@ export type RemediationLearnerSignal = {
   curriculumPeriodLabel: string
   evidenceValue: number | null
   evidenceLabel: 'percentage_correct' | 'point_facility'
+  denominatorLabel: string
   threshold: number
   comparison: 'below' | 'at_or_below'
   override: RemediationOverride
@@ -81,6 +84,7 @@ export type RemediationPlanTarget = {
   curriculumPeriodLabel: string
   evidenceValue: number | null
   evidenceLabel: 'percentage_correct' | 'point_facility'
+  denominatorLabel?: string
   itemNumbers: number[]
 }
 

@@ -17,6 +17,14 @@ import type {
   PercentageDistributionBin,
 } from '../types/itemAnalysis'
 
+// Keep analysis deterministic and independently loadable by the repository's
+// lightweight validation harness. Legacy snapshots may only contain `points`;
+// missing denominators safely retain the Phase 5 one-point default.
+function itemPossiblePoints(item: Pick<ResultAssessmentItemSnapshot, 'points' | 'pointsPossible'>): number {
+  const raw = item.pointsPossible ?? item.points ?? 1
+  return typeof raw === 'number' && Number.isFinite(raw) && raw >= 0 ? raw : 1
+}
+
 const DEFAULT_MINIMUM_DISCRIMINATION_SAMPLE_SIZE = 10
 
 type Participant = AssessmentResultSession['learners'][number]
@@ -31,6 +39,7 @@ type ItemMetrics = {
   percentageCorrect: number | null
   earnedPoints: number
   pointsPossibleForAttempted: number
+  pointsPossibleForAll: number
   averageEarnedPoints: number | null
   pointFacility: number | null
   options: ItemAnalysisOption[]
@@ -109,11 +118,13 @@ function computeItemMetrics(
   let omitted = 0
   let earnedPoints = 0
   let pointsPossibleForAttempted = 0
+  let pointsPossibleForAll = 0
   const choices = choiceInfo(item)
   const choiceCounts = new Map(choices.map((choice) => [choice.id, 0]))
   let invalidOptionCount = 0
 
   for (const participant of participants) {
+    pointsPossibleForAll += itemPossiblePoints(item)
     const outcome = outcomeFor(outcomes, participant.participantId, item.id)
     if (!outcome || !answerPresent(outcome.answer)) {
       omitted += 1
@@ -122,7 +133,7 @@ function computeItemMetrics(
     attempted += 1
     const earned = nonNegativeNumber(outcome.earnedPoints)
     earnedPoints += earned
-    pointsPossibleForAttempted += nonNegativeNumber(item.points)
+    pointsPossibleForAttempted += itemPossiblePoints(item)
     if (outcome.isCorrect === true) correct += 1
     else if (outcome.isCorrect === false) incorrect += 1
 
@@ -163,6 +174,7 @@ function computeItemMetrics(
     pointsPossibleForAttempted,
     averageEarnedPoints: percentage(earnedPoints, attempted),
     pointFacility: percentage(earnedPoints, pointsPossibleForAttempted),
+    pointsPossibleForAll,
     options,
     invalidOptionCount,
   }
@@ -192,10 +204,12 @@ function discrimination(
   outcomes: OutcomeMap,
   minimumSampleSize: number,
 ): ItemAnalysisDiscrimination {
-  const partialPoint = item.questionType === 'constructed_response'
+  const partialPoint = item.questionType === 'constructed_response' || item.questionType === 'problem_solving' || item.questionType === 'essay'
+    || item.questionType === 'fill_in_the_blank' || item.questionType === 'matching'
     || participants.some((participant) => {
       const outcome = outcomeFor(outcomes, participant.participantId, item.id)
       return outcome?.isCorrect === null && answerPresent(outcome?.answer ?? null)
+        || Boolean(outcome && outcome.earnedPoints > 0 && outcome.earnedPoints < outcome.possiblePoints)
     })
   const method = partialPoint ? 'item_rest_pearson' : 'point_biserial'
   const itemScores: number[] = []
@@ -209,7 +223,7 @@ function discrimination(
     const itemOutcome = outcomeFor(outcomes, participant.participantId, item.id)
     if (!partialPoint && itemOutcome?.answer !== null && itemOutcome && typeof itemOutcome.isCorrect !== 'boolean') continue
     const itemScore = partialPoint
-      ? percentage(nonNegativeNumber(itemOutcome?.earnedPoints), nonNegativeNumber(item.points)) ?? 0
+      ? percentage(nonNegativeNumber(itemOutcome?.earnedPoints), itemPossiblePoints(item)) ?? 0
       : itemOutcome?.isCorrect === true ? 1 : 0
     const restScore = participantOutcomes
       .filter((outcome) => outcome.itemId !== item.id)
@@ -255,6 +269,17 @@ function toItemAnalysisItem(
   minimumSampleSize: number,
 ): ItemAnalysisItem {
   const item = metrics.item
+  const participantOutcomes = participants
+    .map((participant) => outcomeFor(outcomes, participant.participantId, item.id))
+    .filter((outcome): outcome is ResultItemOutcome => Boolean(outcome && answerPresent(outcome.answer)))
+  const teacherScored = item.questionType === 'constructed_response' || item.questionType === 'problem_solving' || item.questionType === 'essay'
+    || participantOutcomes.some((outcome) => outcome.scoringSource === 'teacher')
+  const componentPartial = item.questionType === 'fill_in_the_blank' && item.answer.type === 'fill_in_the_blank' && item.answer.blanks.length > 1
+    || item.questionType === 'matching' && item.answer.type === 'matching' && item.answer.mappings.length > 1
+  const observedPartial = participantOutcomes.some((outcome) => outcome.earnedPoints > 0 && outcome.earnedPoints < outcome.possiblePoints)
+  const binaryFacilityEligible = !teacherScored && !componentPartial && !observedPartial
+    && itemPossiblePoints(item) === 1 && metrics.percentageCorrect !== null
+  const analysisBasis = teacherScored ? 'teacher_scored_points' : binaryFacilityEligible ? 'binary_facility' : 'normalized_point_achievement'
   return {
     itemId: item.id,
     itemNumber: item.itemNumber,
@@ -268,7 +293,10 @@ function toItemAnalysisItem(
     cognitiveCategoryShortLabel: item.cognitiveCategorySnapshot.shortLabel,
     curriculumPeriodId: item.competencySnapshot.curriculumPeriodId,
     curriculumPeriodLabel: item.competencySnapshot.curriculumPeriodLabel,
-    possiblePoints: nonNegativeNumber(item.points),
+    possiblePoints: itemPossiblePoints(item),
+    analysisBasis,
+    binaryFacility: binaryFacilityEligible ? metrics.percentageCorrect : null,
+    normalizedPointAchievement: percentage(metrics.earnedPoints, metrics.pointsPossibleForAll),
     attempted: metrics.attempted,
     correct: metrics.correct,
     incorrect: metrics.incorrect,
@@ -279,6 +307,7 @@ function toItemAnalysisItem(
     pointsPossibleForAttempted: metrics.pointsPossibleForAttempted,
     averageEarnedPoints: metrics.averageEarnedPoints,
     pointFacility: metrics.pointFacility,
+    pointsPossibleForAll: metrics.pointsPossibleForAll,
     options: metrics.options,
     invalidOptionCount: metrics.invalidOptionCount,
     discrimination: discrimination(item, participants, outcomes, minimumSampleSize),
@@ -328,6 +357,8 @@ function aggregateRows(items: ItemAnalysisItem[], mode: 'competency' | 'cognitiv
         pointsPossibleForAttempted: item.pointsPossibleForAttempted,
         averageEarnedPoints: null,
         pointFacility: null,
+        pointsPossibleForAll: item.pointsPossibleForAll,
+        normalizedPointAchievement: null,
       })
       continue
     }
@@ -339,6 +370,7 @@ function aggregateRows(items: ItemAnalysisItem[], mode: 'competency' | 'cognitiv
     current.omitted += item.omitted
     current.earnedPoints += item.earnedPoints
     current.pointsPossibleForAttempted += item.pointsPossibleForAttempted
+    current.pointsPossibleForAll += item.pointsPossibleForAll
   }
 
   return [...grouped.values()].map((aggregate) => {
@@ -347,6 +379,7 @@ function aggregateRows(items: ItemAnalysisItem[], mode: 'competency' | 'cognitiv
     aggregate.facility = aggregate.percentageCorrect
     aggregate.averageEarnedPoints = percentage(aggregate.earnedPoints, aggregate.attempts)
     aggregate.pointFacility = percentage(aggregate.earnedPoints, aggregate.pointsPossibleForAttempted)
+    aggregate.normalizedPointAchievement = percentage(aggregate.earnedPoints, aggregate.pointsPossibleForAll)
     aggregate.itemNumbers.sort((a, b) => a - b)
     return aggregate
   }).sort((a, b) => {
@@ -465,6 +498,8 @@ const FORMULAS = {
   optionPercentage: 'option percentage = responses choosing the option / all attempted multiple-choice responses; omitted responses are reported separately.',
   distractorSignal: 'an incorrect option is flagged only when it receives zero selections despite at least one attempted response; the signal is advisory and has no DepEd-mandated cutoff.',
   pointFacility: 'point facility = total earned points / total possible points across attempted responses; omitted responses are excluded and the value is null when that denominator is zero.',
+  normalizedPointAchievement: 'normalized point achievement = total earned points / total mapped points for the selected learner rows; this is the point-weighted view and includes omitted responses as zero.',
+  binaryFacility: 'binary facility applies only to correctness-applicable one-point objective items: correct / (correct + incorrect). It is not a substitute for a multi-point score.',
   discrimination: 'point-biserial uses Pearson correlation between binary item score (correct = 1; incorrect or omitted = 0) and rest-of-test earned score excluding the item; partial-point items use normalized item score with item-rest Pearson.',
   smallClassRule: 'Discrimination is shown as insufficient data below the configured sample size (default 10) and is undefined when either score has zero variance; this is not a DepEd threshold.',
 }

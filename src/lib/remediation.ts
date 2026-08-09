@@ -19,7 +19,7 @@ export const DEFAULT_REMEDIATION_THRESHOLD = 0.75
 
 const DEFAULT_THRESHOLD: RemediationThresholdConfig = {
   percentageThreshold: DEFAULT_REMEDIATION_THRESHOLD,
-  basis: 'percentage_correct',
+  basis: 'point_facility',
   comparison: 'below',
 }
 
@@ -32,7 +32,15 @@ function safeThreshold(value: number | undefined) {
 }
 
 function aggregateEvidence(aggregate: ItemAnalysisAggregate, basis: RemediationThresholdConfig['basis']) {
-  return basis === 'point_facility' ? aggregate.pointFacility : aggregate.percentageCorrect
+  return basis === 'point_facility'
+    ? (aggregate.normalizedPointAchievement ?? aggregate.pointFacility)
+    : aggregate.percentageCorrect
+}
+
+function denominatorLabel(basis: RemediationThresholdConfig['basis']) {
+  return basis === 'point_facility'
+    ? 'earned points / possible points for selected learner rows'
+    : 'correct / correctness-applicable attempted responses'
 }
 
 function isBelow(value: number | null, threshold: RemediationThresholdConfig) {
@@ -85,6 +93,8 @@ function sumAggregates(key: string, aggregates: ItemAnalysisAggregate[]): ItemAn
     pointsPossibleForAttempted: 0,
     averageEarnedPoints: null,
     pointFacility: null,
+    pointsPossibleForAll: 0,
+    normalizedPointAchievement: null,
   }
   for (const aggregate of aggregates) {
     result.mappedItems += aggregate.mappedItems
@@ -95,6 +105,7 @@ function sumAggregates(key: string, aggregates: ItemAnalysisAggregate[]): ItemAn
     result.omitted += aggregate.omitted
     result.earnedPoints += aggregate.earnedPoints
     result.pointsPossibleForAttempted += aggregate.pointsPossibleForAttempted
+    result.pointsPossibleForAll += aggregate.pointsPossibleForAll
   }
   const correctnessDenominator = result.correct + result.incorrect
   result.percentageCorrect = correctnessDenominator > 0 ? result.correct / correctnessDenominator : null
@@ -102,6 +113,9 @@ function sumAggregates(key: string, aggregates: ItemAnalysisAggregate[]): ItemAn
   result.averageEarnedPoints = result.attempts > 0 ? result.earnedPoints / result.attempts : null
   result.pointFacility = result.pointsPossibleForAttempted > 0
     ? result.earnedPoints / result.pointsPossibleForAttempted
+    : null
+  result.normalizedPointAchievement = result.pointsPossibleForAll > 0
+    ? result.earnedPoints / result.pointsPossibleForAll
     : null
   result.itemNumbers = [...new Set(result.itemNumbers)].sort((a, b) => a - b)
   return result
@@ -147,6 +161,7 @@ function buildClassSignal(
     itemNumbers: aggregate.itemNumbers,
     evidenceValue,
     evidenceLabel: threshold.basis,
+    denominatorLabel: denominatorLabel(threshold.basis),
     threshold: threshold.percentageThreshold,
     comparison: threshold.comparison,
     participantIds: [...participantIds],
@@ -174,6 +189,7 @@ function buildLearnerSignal(
     curriculumPeriodLabel: aggregate.curriculumPeriodLabel,
     evidenceValue: aggregateEvidence(aggregate, threshold.basis),
     evidenceLabel: threshold.basis,
+    denominatorLabel: denominatorLabel(threshold.basis),
     threshold: threshold.percentageThreshold,
     comparison: threshold.comparison,
     override,
@@ -261,7 +277,7 @@ export function buildRemediationPlanTargets(signals: RemediationSignalResult): R
     curriculumPeriodLabel: signal.curriculumPeriodLabel,
     evidenceValue: signal.evidenceValue,
     evidenceLabel: signal.evidenceLabel,
+    denominatorLabel: signal.denominatorLabel,
     itemNumbers: signal.itemNumbers,
   }))
 }
-

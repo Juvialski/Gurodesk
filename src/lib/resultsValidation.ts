@@ -1,5 +1,5 @@
 import type { AssessmentResultSession, ClassLearner, LearnerItemAnswer, ResultItemOutcome, ResultSaveBatch, ResultValidationIssue, ResultValidationResult } from '../types/results'
-import { calculateResultTotals } from './resultsScoring'
+import { calculateResultTotals, itemPossiblePoints, scoreObjectiveAnswer } from './resultsScoring'
 
 /** Must stay aligned with the transactional Supabase RPC payload bound. */
 const MAX_BULK_OUTCOMES = 10000
@@ -25,6 +25,55 @@ function sameNormalized(left: string, right: string) {
 
 function answerTypeMatches(itemType: string, answer: LearnerItemAnswer) {
   return answer.type === itemType
+}
+
+function finiteNonnegative(value: unknown, fallback = 0) {
+  const parsed = typeof value === 'number' ? value : Number(value)
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback
+}
+
+function object(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === 'object' && !Array.isArray(value))
+}
+
+/** Validate learner-side data before a network request or database RPC. */
+function learnerAnswerShapeValid(item: AssessmentResultSession['assessmentSnapshot']['items'][number], answer: LearnerItemAnswer): string | null {
+  if (!answerTypeMatches(item.questionType, answer)) return 'Learner answer shape must match the immutable question type.'
+  if (answer.type === 'multiple_choice') {
+    if (!object(item.answer) || item.answer.type !== 'multiple_choice' || !item.answer.choices.some((choice) => choice.id === answer.choiceId)) return 'Multiple-choice answer must reference an immutable choice.'
+  } else if (answer.type === 'true_false') {
+    if (typeof answer.value !== 'boolean') return 'True/false response must be boolean.'
+  } else if (answer.type === 'short_answer' || answer.type === 'identification') {
+    if (typeof answer.text !== 'string' || answer.text.length > 3800) return 'Text response is invalid or too long.'
+  } else if (answer.type === 'fill_in_the_blank') {
+    if (!object(answer.blanks) || !object(item.answer) || item.answer.type !== 'fill_in_the_blank') return 'Fill-in-the-blank responses need one keyed value per blank.'
+    const blankIds = new Set(item.answer.blanks.map((blank) => blank.id))
+    for (const [blankId, value] of Object.entries(answer.blanks)) {
+      if (!blankIds.has(blankId) || typeof value !== 'string' || value.length > 1200) return 'Fill-in-the-blank response contains an invalid blank.'
+    }
+  } else if (answer.type === 'numerical_answer') {
+    if (!Number.isFinite(answer.value) || typeof answer.value !== 'number' || (answer.unit !== undefined && (typeof answer.unit !== 'string' || answer.unit.length > 120))) return 'Numerical response must contain a finite number and a short optional unit.'
+  } else if (answer.type === 'problem_solving') {
+    if (answer.solution !== undefined && (typeof answer.solution !== 'string' || answer.solution.length > 3800)) return 'Problem-solving solution text is invalid or too long.'
+    if (answer.finalAnswer !== undefined && typeof answer.finalAnswer !== 'string' && typeof answer.finalAnswer !== 'number') return 'Problem-solving final answer is invalid.'
+  } else if (answer.type === 'matching') {
+    if (!object(answer.matches) || !object(item.answer) || item.answer.type !== 'matching') return 'Matching responses need a prompt-to-choice map.'
+    const promptIds = new Set(item.answer.prompts.map((prompt) => prompt.id))
+    const choiceIds = new Set(item.answer.choices.map((choice) => choice.id))
+    const usedChoices = new Set<string>()
+    for (const [promptId, choiceId] of Object.entries(answer.matches)) {
+      if (!promptIds.has(promptId) || !choiceIds.has(choiceId)) return 'Matching response references an unknown prompt or choice.'
+      if (!item.answer.reusableChoices && usedChoices.has(choiceId)) return 'A matching choice may only be used once unless reusable choices are enabled.'
+      usedChoices.add(choiceId)
+    }
+  } else if (answer.type === 'multiple_select') {
+    if (!Array.isArray(answer.choiceIds) || answer.choiceIds.length < 1 || new Set(answer.choiceIds).size !== answer.choiceIds.length || !object(item.answer) || item.answer.type !== 'multiple_select') return 'Select-all response needs one or more unique choices.'
+    const valid = new Set(item.answer.choices.map((choice) => choice.id))
+    if (answer.choiceIds.some((choiceId) => !valid.has(choiceId))) return 'Select-all response references an unknown choice.'
+  } else if (answer.type === 'constructed_response' || answer.type === 'essay') {
+    if (answer.text !== undefined && (typeof answer.text !== 'string' || answer.text.length > 3800)) return 'Teacher-scored response text is invalid or too long.'
+  }
+  return null
 }
 
 export function validateClassLearners(
@@ -67,6 +116,8 @@ export function validateResultSession(session: AssessmentResultSession): ResultV
   if (!/^\d{4}-\d{2}-\d{2}$/.test(session.administrationDate)) addIssue(errors, 'administration-date', 'Administration date must use YYYY-MM-DD.', 'error')
   if (session.entryMode !== 'answer_sheet' && session.entryMode !== 'item' && session.entryMode !== 'score_only') addIssue(errors, 'entry-mode', 'Result entry mode is invalid.', 'error')
   if (!Number.isSafeInteger(snapshot.totalItems) || snapshot.totalItems < 1 || snapshot.items.length !== snapshot.totalItems) addIssue(errors, 'snapshot-items', 'The immutable assessment snapshot must contain exactly its declared item count.', 'error')
+  const derivedSnapshotPoints = snapshot.items.reduce((sum, item) => sum + itemPossiblePoints(item), 0)
+  if (!Number.isFinite(snapshot.totalPossiblePoints) || snapshot.totalPossiblePoints < 0 || Math.abs(snapshot.totalPossiblePoints - derivedSnapshotPoints) > 0.000001) addIssue(errors, 'snapshot-total-points', `Total possible points must equal the sum of item points (${derivedSnapshotPoints}).`, 'error')
   const itemIds = new Set<string>()
   const itemNumbers = new Set<number>()
   for (const item of snapshot.items) {
@@ -74,7 +125,7 @@ export function validateResultSession(session: AssessmentResultSession): ResultV
     itemIds.add(item.id)
     if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || item.itemNumber > snapshot.totalItems || itemNumbers.has(item.itemNumber)) addIssue(errors, 'snapshot-item-number', 'Snapshot item numbers must be unique whole numbers from 1..N.', 'error', { itemId: item.id, itemNumber: item.itemNumber })
     itemNumbers.add(item.itemNumber)
-    if (!Number.isFinite(item.points) || item.points < 0) addIssue(errors, 'snapshot-points', 'Snapshot points must be finite and nonnegative.', 'error', { itemId: item.id, itemNumber: item.itemNumber })
+    if (!Number.isFinite(itemPossiblePoints(item)) || itemPossiblePoints(item) < 0) addIssue(errors, 'snapshot-points', 'Snapshot points must be finite and nonnegative.', 'error', { itemId: item.id, itemNumber: item.itemNumber })
   }
   const participantIds = new Set<string>()
   for (const participant of session.learners) {
@@ -111,11 +162,26 @@ export function validateResultOutcomes(
       continue
     }
     if (outcome.itemNumber !== item.itemNumber) addIssue(errors, 'outcome-item-number', 'The original item number must remain traceable to the snapshot.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId, itemNumber: outcome.itemNumber })
-    if (!Number.isFinite(outcome.possiblePoints) || outcome.possiblePoints !== item.points) addIssue(errors, 'outcome-points-snapshot', 'Outcome possible points must equal the immutable item snapshot.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
     if (!Number.isFinite(outcome.earnedPoints) || outcome.earnedPoints < 0 || outcome.earnedPoints > outcome.possiblePoints) addIssue(errors, 'earned-points', 'Earned points must be finite and within the item point range.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
-    if (outcome.answer !== null && !answerTypeMatches(item.questionType, outcome.answer)) addIssue(errors, 'answer-type', 'Learner answer shape must match the immutable question type.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
-    if (item.questionType === 'constructed_response' && outcome.isCorrect !== null) addIssue(errors, 'constructed-correctness', 'Constructed responses remain teacher-scored and do not receive deterministic correctness.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
-    if (item.questionType === 'short_answer' && (session.shortAnswerScoring.itemModes[item.id] ?? session.shortAnswerScoring.defaultMode) === 'manual' && outcome.scoringSource !== 'teacher') addIssue(errors, 'short-answer-source', 'Manual short-answer outcomes must remain teacher-scored.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
+    const possible = itemPossiblePoints(item)
+    if (!Number.isFinite(outcome.possiblePoints) || Math.abs(outcome.possiblePoints - possible) > 0.000001) addIssue(errors, 'outcome-points-snapshot', 'Outcome possible points must equal the immutable item snapshot.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
+    if (outcome.answer !== null) {
+      const shapeIssue = learnerAnswerShapeValid(item, outcome.answer)
+      if (shapeIssue) addIssue(errors, 'answer-shape', shapeIssue, 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
+    }
+    const subjective = item.questionType === 'constructed_response' || item.questionType === 'problem_solving' || item.questionType === 'essay'
+      || item.questionType === 'short_answer' && (session.shortAnswerScoring.itemModes[item.id] ?? session.shortAnswerScoring.defaultMode) === 'manual'
+    if (subjective) {
+      if (outcome.scoringSource !== 'teacher') addIssue(errors, 'subjective-source', 'Subjective responses are teacher-scored; AI may not assign a final score.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
+      if (outcome.isCorrect !== null) addIssue(errors, 'subjective-correctness', 'Subjective responses do not receive deterministic correctness.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
+    } else if (outcome.answer !== null) {
+      const mode = item.questionType === 'short_answer' ? (session.shortAnswerScoring.itemModes[item.id] ?? session.shortAnswerScoring.defaultMode) : 'manual'
+      const expected = scoreObjectiveAnswer(item, outcome.answer, mode)
+      if (outcome.scoringSource !== 'deterministic') addIssue(errors, 'objective-source', 'Objective outcomes must use deterministic scoring.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
+      if (expected.isCorrect !== outcome.isCorrect || Math.abs(expected.earnedPoints - outcome.earnedPoints) > 0.000001) addIssue(errors, 'objective-score', 'Objective earned points and correctness must match deterministic scoring.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
+    } else if (outcome.earnedPoints !== 0 || outcome.isCorrect !== null) {
+      addIssue(errors, 'omitted-score', 'An omitted response cannot receive points or correctness.', 'error', { participantId: outcome.participantId, itemId: outcome.itemId })
+    }
   }
   const scoreParticipants = new Set<string>()
   for (const score of session.scoreOnlyOutcomes) {

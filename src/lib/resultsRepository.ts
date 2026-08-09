@@ -22,6 +22,7 @@ import {
   saveDemoClassLearner,
   saveDemoResultSession,
 } from './resultsDemo'
+import { itemPossiblePoints } from './resultsScoring'
 
 type DbRow = Record<string, unknown>
 
@@ -77,6 +78,30 @@ function mapClassLearner(row: DbRow): ClassLearner {
 function normalizeSnapshot(value: unknown): ResultAssessmentSnapshot {
   const source = asObject(value)
   const items = Array.isArray(source.items) ? source.items : []
+  const normalizedItems = items.map((value) => {
+    const item = asObject(value)
+    const pointsPossible = number(item.pointsPossible ?? item.points, 1)
+    return {
+      id: text(item.id),
+      itemNumber: number(item.itemNumber ?? item.item_number),
+      prompt: text(item.prompt),
+      questionType: text(item.questionType ?? item.question_type) as ResultAssessmentItemSnapshot['questionType'],
+      answer: clone(item.answer) as ResultAssessmentItemSnapshot['answer'],
+      pointsPossible,
+      points: pointsPossible,
+      competencySnapshot: clone(asObject(item.competencySnapshot ?? item.competency_snapshot)) as ResultAssessmentItemSnapshot['competencySnapshot'],
+      cognitiveCategorySnapshot: clone(asObject(item.cognitiveCategorySnapshot ?? item.cognitive_category_snapshot)) as ResultAssessmentItemSnapshot['cognitiveCategorySnapshot'],
+      mapping: clone(asObject(item.mapping)) as ResultAssessmentItemSnapshot['mapping'],
+    }
+  })
+  const declaredTotal = number(source.totalPossiblePoints ?? source.total_possible_points, Number.NaN)
+  const derivedTotal = normalizedItems.reduce((sum, item) => sum + itemPossiblePoints(item), 0)
+  // A legacy snapshot may carry a stale total.  Keep the immutable item rows
+  // authoritative instead of displaying a silently conflicting denominator;
+  // final-save validation still rejects a client payload that disagrees.
+  const totalPossiblePoints = Number.isFinite(declaredTotal) && Math.abs(declaredTotal - derivedTotal) < 0.000001
+    ? declaredTotal
+    : derivedTotal
   return {
     assessmentId: text(source.assessmentId ?? source.assessment_id),
     assessmentVersionNumber: number(source.assessmentVersionNumber ?? source.assessment_version_number, 1),
@@ -90,21 +115,8 @@ function normalizeSnapshot(value: unknown): ResultAssessmentSnapshot {
     curriculumPeriodIds: Array.isArray(source.curriculumPeriodIds) ? source.curriculumPeriodIds.map(String) : [],
     curriculumPeriodLabels: Array.isArray(source.curriculumPeriodLabels) ? source.curriculumPeriodLabels.map(String) : [],
     totalItems: number(source.totalItems ?? source.total_items, items.length),
-    totalPossiblePoints: number(source.totalPossiblePoints ?? source.total_possible_points),
-    items: items.map((value) => {
-      const item = asObject(value)
-      return {
-        id: text(item.id),
-        itemNumber: number(item.itemNumber ?? item.item_number),
-        prompt: text(item.prompt),
-        questionType: text(item.questionType ?? item.question_type) as ResultAssessmentItemSnapshot['questionType'],
-        answer: clone(item.answer) as ResultAssessmentItemSnapshot['answer'],
-        points: number(item.points, 1),
-        competencySnapshot: clone(asObject(item.competencySnapshot ?? item.competency_snapshot)) as ResultAssessmentItemSnapshot['competencySnapshot'],
-        cognitiveCategorySnapshot: clone(asObject(item.cognitiveCategorySnapshot ?? item.cognitive_category_snapshot)) as ResultAssessmentItemSnapshot['cognitiveCategorySnapshot'],
-        mapping: clone(asObject(item.mapping)) as ResultAssessmentItemSnapshot['mapping'],
-      }
-    }),
+    totalPossiblePoints,
+    items: normalizedItems,
   }
 }
 
@@ -164,7 +176,13 @@ function mapSessionRow(row: DbRow, participants: DbRow[] = [], outcomes: DbRow[]
     learners: participants.map(mapParticipant),
     itemOutcomes: outcomes.map(mapOutcome),
     scoreOnlyOutcomes: scores.map(mapScoreOnly),
-    shortAnswerScoring: clone(asObject(row.short_answer_scoring)) as AssessmentResultSession['shortAnswerScoring'],
+    shortAnswerScoring: (() => {
+      const config = clone(asObject(row.short_answer_scoring)) as Partial<AssessmentResultSession['shortAnswerScoring']>
+      return {
+        defaultMode: config.defaultMode === 'normalized_exact' ? 'normalized_exact' as const : 'manual' as const,
+        itemModes: config.itemModes && typeof config.itemModes === 'object' ? config.itemModes : {},
+      }
+    })(),
     createdAt: text(row.created_at),
     updatedAt: text(row.updated_at),
     versionNumber: number(row.version_number, 1),
@@ -345,7 +363,8 @@ function emptyDemoSession(input: ResultSessionInput, userId: string, assessment:
     prompt: item.prompt,
     questionType: item.questionType,
     answer: clone(item.answer),
-    points: Number(item.points ?? 1),
+    pointsPossible: Number(item.pointsPossible ?? item.points ?? 1),
+    points: Number(item.pointsPossible ?? item.points ?? 1),
     competencySnapshot: clone(item.competencySnapshot),
     cognitiveCategorySnapshot: clone(item.cognitiveCategorySnapshot),
     mapping: clone(item.mapping),
@@ -363,7 +382,7 @@ function emptyDemoSession(input: ResultSessionInput, userId: string, assessment:
     curriculumPeriodIds: [...assessment.curriculumPeriodIds],
     curriculumPeriodLabels: [...assessment.curriculumPeriodLabels],
     totalItems: items.length,
-    totalPossiblePoints: items.reduce((total, item) => total + item.points, 0),
+    totalPossiblePoints: items.reduce((total, item) => total + itemPossiblePoints(item), 0),
     items,
   }
   const participantSnapshots: ResultLearnerSnapshot[] = learners.map((learner) => ({

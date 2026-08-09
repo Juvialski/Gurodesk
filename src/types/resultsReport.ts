@@ -40,6 +40,9 @@ export type ResultsReportLabels = {
   highest: string
   lowest: string
   total: string
+  possiblePoints: string
+  pointAchievement: string
+  analysisBasis: string
   administrationDate: string
   gradeLevel: string
   learningArea: string
@@ -84,6 +87,7 @@ export type ResultsSummarySection = {
   medianPercentage: number | null
   highestPercentage: number | null
   lowestPercentage: number | null
+  possiblePoints: number
   percentageDistribution: Array<{ label: string; count: number }>
   learners: ResultsLearnerScoreRow[]
 }
@@ -104,6 +108,9 @@ export type ResultsItemAnalysisRow = {
   earnedPoints: number
   possiblePoints: number
   pointFacility: number | null
+  normalizedPointAchievement: number | null
+  pointsPossibleForAll: number
+  analysisBasis: 'binary_facility' | 'normalized_point_achievement' | 'teacher_scored_points'
   discrimination: number | null
   discriminationStatus: string
   options: Array<{ label: string; count: number; percentage: number | null; correct: boolean; distractorSignal: 'unselected' | null }>
@@ -123,6 +130,8 @@ export type ResultsCompetencyRow = {
   facility: number | null
   earnedPoints: number
   pointFacility: number | null
+  normalizedPointAchievement: number | null
+  pointsPossibleForAll: number
 }
 
 export type ResultsCognitiveRow = {
@@ -138,6 +147,8 @@ export type ResultsCognitiveRow = {
   facility: number | null
   earnedPoints: number
   pointFacility: number | null
+  normalizedPointAchievement: number | null
+  pointsPossibleForAll: number
 }
 
 export type ResultsCurriculumPeriodRow = {
@@ -152,6 +163,8 @@ export type ResultsCurriculumPeriodRow = {
   facility: number | null
   earnedPoints: number
   pointFacility: number | null
+  normalizedPointAchievement: number | null
+  pointsPossibleForAll: number
 }
 
 export type ResultsOptionRow = {
@@ -171,6 +184,7 @@ export type ResultsRemediationRow = {
   itemNumbers: number[]
   evidence: number | null
   evidenceLabel: string
+  denominatorLabel: string
   threshold: number
   learnerCount: number
   instructionalMessage: string

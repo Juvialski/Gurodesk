@@ -1,240 +1,141 @@
-# GuroDesk handover — completed through Phase 5.3
+# GuroDesk handover — complete through Phase 5.4
 
-## Stop boundary
+## Release boundary
 
-The authorized implementation run is complete through:
+This release preserves Phases 1–5.3 and completes, in order:
 
-1. Phase 4 TOS hotfixes
-2. Phase 4.1 Assessment Engine Foundation
-3. Phase 4.2 AI Question Generation
-4. Phase 4.3 Student Test / Teacher Copy / Answer Key exports
-5. Phase 5.0 Learner / Results Foundation
-6. Phase 5.1 Results Encoding
-7. Phase 5.2 Deterministic Item Analysis
-8. Phase 5.3 Remediation and Results/Analysis Reports
+1. **Phase 4.4 — Assessment Type Expansion, Scoring Model, and Accuracy-First Adaptive QA**
+2. **Phase 5.4 — Results/Analysis Compatibility, Production Acceptance, and Deployment Readiness**
 
-**Stop here. Do not begin the full grading/class-record system, report-card computation, awards/ranking, student/parent portals, or automated learner grading by AI without explicit approval.** The next recommended work is Phase 5.4 Production Acceptance & Deployment Validation.
+**Stop here.** Do not begin class records, grading sheets, report cards, attendance, a student portal, a curriculum expansion, or another major teacher workflow without explicit authorization.
 
-## Product state
+The uploaded Phase 5.3 ZIP was inspected first and used as the implementation source. GitHub `Juvialski/Gurodesk` was used only for comparison and did not contain a newer implementation. The previously observed connector write failure was HTTP 403, so no repeated write/authentication attempts were made. This complete root-level project is the merge artifact.
 
-GuroDesk remains a Vite/React/TypeScript, mobile-first DepEd-teacher workspace with Supabase Auth, strict teacher-owned RLS, a localStorage demo mode, verified curriculum data, ILAW lesson planning, teacher-owned Gemini BYOK, lesson/TOS custom-template support, and deterministic TOS allocation.
+## Phase 4.4 assessment architecture
 
-The assessment route is now live:
+The finalized TOS remains the allocation authority. Item number, source TOS/version, verified competency, cognitive category, and allocation range are immutable assessment-slot data. Question type and scoring are independent assessment attributes and cannot rewrite that allocation.
 
-- `/assessments`
-- `/assessments/new`
-- `/assessments/:id`
-- `/assessments/:id/print`
+One shared `AssessmentItem` architecture now supports eleven discriminated, structured answer payloads:
 
-## Phase 4 hotfixes
+- Multiple Choice
+- True / False
+- Short Answer
+- Constructed Response
+- Identification
+- Fill in the Blank
+- Numerical Answer
+- Problem Solving / Show Your Solution
+- Matching Type
+- Multiple Select / Select All That Apply
+- Essay / Extended Response
 
-`src/lib/tosRepository.ts` resolves selected competencies in bounded set queries rather than a subject/version/period query chain per row. It preserves canonical UUID matching, Phase 3.5.1 fallback snapshot matching, verified-only filtering, subject/version/period checks, and ambiguous/stale rejection. The final `save_tos_document` RPC remains authoritative.
+The extension points and validators live primarily in `src/types/assessment.ts`, `src/lib/assessmentValidation.ts`, and `src/lib/assessmentScoring.ts`. Objective answers, accepted terms, independent fill blanks, numerical value/tolerance/unit, problem subparts, matching groups/mappings, multiple-select sets, expected elements, and rubrics remain structured data. No answer key is reconstructed by Gemini.
 
-`src/lib/tosPdfPagination.ts` and `src/lib/tosExport.ts` use rendered-height budgets, split oversized rows into continuation segments, repeat table headers, paginate notes, and preserve every wrapped line. The previous capped row height and eight-line slice were removed.
+### Item count and point count
 
-## Phase 4.1 architecture
+Every TOS slot remains one assessment item. Every scored item has a positive `pointsPossible`; total possible points is derived from the item sum. It is not a separately authoritative total. Legacy records without explicit points normalize to one point.
 
-Important files:
+Supported scoring structures include:
 
-- `src/types/assessment.ts`
-- `src/lib/assessmentBlueprint.ts`
-- `src/lib/assessmentFactory.ts`
-- `src/lib/assessmentValidation.ts`
-- `src/lib/assessmentRepository.ts`
-- `src/pages/AssessmentsPage.tsx`
-- `src/pages/AssessmentNewPage.tsx`
-- `src/pages/AssessmentEditorPage.tsx`
-- `src/pages/assessmentUi.ts`
-- `src/assessment.css`
-- `supabase/migrations/202608080013_phase41_assessment_engine.sql`
+- editable type defaults and per-item points;
+- optional target points with an explicit remaining/over-target delta and no silent redistribution;
+- problem-solving subparts whose explicit point sum must equal the item total;
+- per-blank fill scoring whose explicit point sum must equal the item total;
+- matching per-response or group scoring with deterministic reconciliation;
+- all-or-nothing Multiple Select with no negative marking;
+- explicit rubric criteria for Essay/Constructed Response whose point sum must equal the item total; and
+- bounded teacher-awarded partial credit from zero through `pointsPossible`.
 
-Rules that must not be weakened:
+`src/lib/assessmentDistribution.ts` handles Auto/Balanced, fixed counts, percentages, and manual per-item type assignment. Distribution reconciles deterministically to the immutable slot count; disabled types cannot be assigned or generated. Item percentages and point weights are labelled separately.
 
-- Creation requires a finalized TOS owned by the same teacher and assignment.
-- The server stores the source document ID, exact source version, raw source content, and one immutable canonicalized TOS snapshot.
-- Canonicalization resolves Phase 3.5.1 local fallback IDs from the finalized relational TOS projection; it does not permit client-chosen curriculum identity.
-- Exactly one item slot exists for every integer item number `1..N`.
-- Item number, TOS row, canonical competency, cognitive category, allocation range, and snapshots are immutable.
-- Question content is structured, not stored only as formatted document text.
-- Supported types are Multiple Choice, True/False, Short Answer, and Constructed Response.
-- Drafts may be incomplete. Finalization requires complete type-valid answers, positive points, and teacher-reviewed authorship state.
-- Final and archived assessments are immutable; duplication creates a new draft with fresh item IDs.
-- Demo and Supabase persistence use the same domain model.
+### Mobile editor and item lifecycle
 
-## Phase 4.2 architecture
+`src/pages/AssessmentEditorPage.tsx` renders one active type-specific editor rather than every item editor. It provides Previous/Next, direct numbered navigation, completion state, immutable competency/cognitive badges, type and point controls, structured answer editors, notes, and simple QA states.
 
-Important files:
+The editor includes mobile controls for choices, blanks, numerical tolerance/unit, subparts, matching columns/mappings/distractors/reordering/reuse, multiple-select correct sets, expected responses, key points, and rubrics. It also supports single-item Generate/Replace/Alternative/Check Accuracy actions, bounded version history with restore, lock/unlock, and Generate Missing behavior that skips completed, teacher-edited, accepted, and locked items unless the teacher explicitly targets them.
 
-- `src/lib/assessmentGeneration.ts`
-- `supabase/functions/assessment-question-generator/index.ts`
-- `supabase/migrations/202608080014_phase42_assessment_ai_audit.sql`
-- `supabase/functions/_shared/ai-models.ts`
-- `supabase/functions/_shared/gemini.ts`
+Material edits preserve a previous version and mark the item teacher-edited. Answer-sensitive edits require recheck without spending an immediate AI request. Locked items cannot be silently changed by batch generation, verification repair, or restore.
 
-Browser → authenticated `assessment-question-generator` Edge Function → ownership/mapping recheck → decrypt active teacher credential → Gemini → parse/validate JSON → candidate preview.
+### Adaptive Gemini QA
 
-The endpoint receives an assessment/item identity and server-loads the teacher-owned draft and immutable mapping. It does not trust browser-supplied item number, competency, cognitive category, or curriculum identity. Prompts include the verified competency, assigned cognitive level, teacher-selected question type, language preference, and teacher-supplied context/resources only.
+`src/lib/assessmentGeneration.ts`, `src/lib/assessmentQa.ts`, `src/lib/assessmentRequestScheduler.ts`, and the authenticated `assessment-question-generator` Edge Function implement the adaptive flow:
 
-Resource guardrails prohibit invented textbook/module/site/page/device/app/worksheet/school/community details. Learner PII must not be sent. The endpoint returns one validated candidate and never writes it into the assessment automatically.
+1. Run deterministic structural, answer, scoring, allowed-type, and immutable-mapping validation.
+2. Stop after generation for valid low-risk items.
+3. Route higher-risk or explicitly requested items to independent verification, preferring the other Lite model.
+4. Stop on verifier pass.
+5. Repair only the affected item when verification fails, validate again, and stop at a conservative ceiling with teacher review if unresolved.
 
-Model behavior remains:
+Default Gemini behavior remains `gemini-3.5-flash-lite` with high thinking and Lite-only automatic fallback to `gemini-3.1-flash-lite`. The scheduler uses a per-model queue, bounded concurrency, a default ten requests/minute safety target (configurable only up to twelve), cancellation, `Retry-After`/backoff handling, and finite retries. Successful items are persisted even if a later batch item fails or quota pauses generation. Local daily counts are explicitly approximate and never treated as Google quota authority.
 
-- default `gemini-3.5-flash-lite`, high thinking;
-- fallback `gemini-3.1-flash-lite`, high thinking;
-- automatic fallback Lite-only;
-- finite retry/backoff for transient failures; and
-- bounded client batch concurrency with cancellation and per-item partial success.
+The verifier receives only the completed question, immutable mapping context, points, structured proposed answer, and teacher-authorized context. Learner data is excluded. A failed repair never changes item number, competency, cognitive category, type, points, or source TOS mapping.
 
-Authorship states are `empty`, `ai_suggestion`, `teacher_accepted`, `teacher_edited`, and `manual`. Finalization rejects unaccepted suggestions.
+### Final review and exports
 
-## Phase 4.3 architecture
+`src/lib/assessmentFinalReview.ts` separates blocking hard errors from teacher-overridable quality warnings. It checks slot coverage, duplicate numbers, immutable mapping, type payloads, points/component totals, answer-recheck states, matching integrity, exact/near duplicates, duplicate choices, suspicious answer patterns, notation/language warnings, and item/point distributions across types, competencies, and cognitive categories.
 
-Important files:
+Student Copy, Teacher Copy, and Answer Key/Scoring Guide are produced from stored structured data. Student output omits answers, mappings, competency/cognitive metadata, AI/QA state, internal IDs, and technical provenance. Teacher/key output includes type-aware answers, points, solution guidance, per-match/per-blank detail, subparts, key points, and rubric criteria where applicable. Built-in Print, PDF, and DOCX paths are retained.
 
-- `src/types/assessmentExport.ts`
-- `src/lib/assessmentExportModel.ts`
-- `src/lib/assessmentExport.ts`
-- `src/components/AssessmentDocumentView.tsx`
-- `src/pages/AssessmentPrintPreviewPage.tsx`
+## Phase 5.4 results compatibility
 
-All modes are derived from one structured export model:
+Results now store and validate `earnedPoints` against the item's snapshotted `possiblePoints`. Main learner scores are derived as total earned points over total possible points; fully-correct item count is a separate statistic. Deterministically auto-scorable types use the saved structured answers. Problem Solving, Constructed Response, and Essay remain teacher-scored, with partial credit supported. Fill and Matching can earn component partial credit; Multiple Select follows its saved all-or-nothing policy.
 
-- Student Copy: answers, mappings, AI state, notes, and internal IDs are absent by construction.
-- Teacher Copy: structured answer plus optional competency, cognitive category, and rationale.
-- Answer Key: compact item-number-to-answer output derived only from saved structured answers.
+`src/lib/itemAnalysis.ts` retains binary correctness facility for genuinely binary items and labels it separately. Multi-point/component or observed partial-credit work uses mean points and normalized point achievement; it is not misrepresented as binary facility. Competency and cognitive summaries expose item counts while using point-earned/point-possible denominators for score-based achievement, so a one-point item is not weighted like a ten-point essay.
 
-Each mode supports browser Print, PDF, and editable Word `.docx`. Long content wraps and paginates; short MCQ blocks are kept together when practical while long/constructed content may flow naturally. Filipino/English labels follow existing export preferences and authored question text is never translated during export. Printable assessment documents contain no GuroDesk branding.
+Remediation defaults to point-weighted evidence for new plans and preserves the saved basis for legacy plans. Threshold denominators use valid possible points. Optional Gemini remediation remains aggregate-only: verified competency, cognitive categories, counts, and aggregate score distributions are allowed; learner names, IDs, local references, raw answers, per-learner scores, and histories are not sent.
 
-Phase 3.7 custom lesson DOCX and Phase 4 custom TOS XLSX behavior remain intact. Arbitrary custom assessment DOCX repeating blocks are not claimed as supported; the shared export model is the prepared extension point.
+Draft result entry remains local/debounced and batch-persisted rather than saving every keystroke or issuing one network request per cell. Existing one-point assessments, result sessions, item analysis, remediation plans, reports, demo records, and snapshots remain compatible.
 
-## Policy review
+## Database changes and security review
 
-Assessment design was reviewed against the current official source registered in `docs/DEPED_SOURCE_REGISTER.md`:
+Apply all migrations in filename order. New additive/corrective migrations are:
 
-- DepEd Order No. 015, s. 2026
-- official PDF: `https://www.deped.gov.ph/wp-content/uploads/DO_s2026_015r.pdf`
+17. `supabase/migrations/202608090017_phase44_question_type_enum.sql`
+18. `supabase/migrations/202608090018_phase44_assessment_scoring_qa.sql`
+19. `supabase/migrations/202608090019_phase54_results_compatibility.sql`
 
-The implementation distinguishes official rules, product good practice, and school/division conventions. AI drafts questions and may optionally suggest aggregate remediation activities; it does not determine grades, change curriculum allocation, replace professional judgment, or receive learner identity or raw result evidence.
+Migration 017 extends the database question-type enum. Migration 018 adds assessment settings, target points, points, QA/lifecycle metadata, bounded per-item history, strict typed payload validation, and owner-authoritative save/finalize rules. Migration 019 hardens multi-point result snapshots/outcomes, answer shapes, score bounds, batch save relationships, and compatibility defaults.
 
-## Migration order
+The static adversarial review covered migrations 013–019, foreign-key ownership paths, grants, owner-only RLS, immutable finalized records, service-role-only AI audit inserts, private template Storage paths, and `SECURITY DEFINER` functions with explicit safe `search_path` and `auth.uid()` ownership derivation. Browser configuration contains only publishable Supabase values. A repository scan found no committed Gemini key, service-role key, database URL/password, access token, JWT, encryption secret, or private key value.
 
-Apply all migrations in filename order. New migrations are:
+Live two-teacher RLS and migration execution remain staging acceptance requirements because this environment did not provide a PostgreSQL/Supabase migration runner.
 
-13. `202608080013_phase41_assessment_engine.sql`
-14. `202608080014_phase42_assessment_ai_audit.sql`
+## Production deployment
 
-Then deploy `assessment-question-generator`; `supabase/config.toml` requires JWT verification.
+The Vite frontend remains a Render Static Site; Supabase remains the backend. `render.yaml` uses `npm ci && npm run build`, publishes `dist`, and rewrites `/*` to `/index.html`. `public/_redirects` supplies the same SPA fallback for direct refreshes under lessons, TOS, assessments, results, analysis, and remediation routes.
 
-RLS/security invariants:
+Only `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` belong in Render browser variables. Supabase service-role material, database credentials, Gemini keys, credential-encryption keys, and privileged tokens must never be exposed through `VITE_*`.
 
-- assessment owner = authenticated teacher;
-- assignment owner = same teacher;
-- source TOS owner/assignment = same teacher;
-- source must have been finalized;
-- browser sessions have no direct normalized assessment-item writes;
-- final mapping and source snapshots are checked by the security-definer save RPC;
-- audit metadata contains no prompt, answer, generated content, learner data, or secret;
-- service-role and Gemini secrets remain server-only.
+Phone-friendly deployment and acceptance instructions are in:
 
-## Validation
+- `docs/PRODUCTION_DEPLOYMENT.md`
+- `docs/PRODUCTION_SMOKE_TEST.md`
+- `docs/PHASE_5_4_SECURITY_REVIEW.md`
+- `docs/PHASE_5_4_PRODUCTION_ACCEPTANCE.md`
 
-Run every command in `README.md`. New gates are:
+## Validation result
 
-```bash
-npm run validate:phase41
-npm run validate:phase42
-npm run validate:phase43
-```
+On 2026-08-09, one complete retained run passed:
 
-They cover deterministic 1/37/40/43 blueprints, mapping gaps/duplicates/drift, question-type answer validation, final-TOS enforcement, malformed AI output, resource/language guardrails, partial batch failure, Student/Teacher/Answer Key separation, multilingual preservation, and long-flow pagination.
-
-### Final regression result
-
-The completed project passed, in one retained release run:
-
-- curriculum manifest validation;
-- every Phase 2–4 validator listed in `README.md`;
-- `validate:phase41`, `validate:phase42`, and `validate:phase43`;
+- all 23 project validators: curriculum, Phase 2, Phase 3/BYOK/3.5–3.7, Phase 4/4.1–4.4, and Phase 5.0–5.4;
+- all eleven valid typed question fixtures plus invalid-answer/component cases;
+- 32-item/60-point, target-point, partial-credit, legacy one-point, adaptive-QA, scheduler, structured-export, normalized-analysis, remediation-denominator, and production-contract checks;
 - `npm run typecheck`; and
-- `npm run build` (1,996 modules transformed successfully).
+- `npm run build` with 2,027 modules transformed successfully.
 
-The only build diagnostic was Vite's non-fatal existing large-chunk advisory. A source scan found no committed API key, service-role key, JWT, private key, or other credential value. `package.json` and the package-lock root metadata are consistent.
-
-## Known limitations and deployment checks
-
-- Built-in assessment PDF, Word, and Print exports are complete. Arbitrary repeating-question blocks in uploaded custom assessment DOCX masters are deliberately deferred; existing Phase 3.7 lesson DOCX and Phase 4 TOS XLSX templates remain supported.
-- This sandbox had no PostgreSQL/Supabase/Deno migration runner, so migrations `013` and `014` received static security/contract validation but still require the normal staging migration application and cross-teacher RLS smoke test before production.
-- A live Gemini request was not made because it requires a teacher-owned credential and deployed Edge Function. The local deterministic generator, strict JSON validators, malformed/resource-invention rejection, fallback contract, cancellation, retries, and partial-batch preservation were exercised.
-- Final Android/iOS visual acceptance should be completed against the deployed build using the checklist in `docs/PHASE_4_3_RELEASE_CHECKLIST.md`.
-
-## Exact next recommended phase
-
-After deployment and phone acceptance testing, request explicit approval for **Phase 5.4 Production Acceptance & Deployment Validation**. Do not infer scores, grading rules, analytics, or remediation behavior from local conventions, and do not start grading/class-record work without a separate explicit authorization.
-
-## Phase 5 implementation summary
-
-The Phase 5 work is intentionally teacher-owned, privacy-minimized, and deterministic:
-
-- A class learner needs only an internal UUID, owning teacher, assignment/section, display name, optional teacher-local reference, and active/inactive state. LRN and unrelated identity, contact, health, guardian, socioeconomic, and authentication fields are not required.
-- A result session belongs to one finalized assessment, one teacher-owned assignment/section, and one administration date. It snapshots the assessment title, item order, structured answers, possible points, verified competency/cognitive mappings, and curriculum-period traceability. Finalized history therefore does not silently change when a draft assessment, TOS, or curriculum source changes.
-- Objective outcomes are scored by the saved answer key. Exact/normalized matching is conservative and constructed responses remain teacher-scored. Score-only sessions provide totals but explicitly have no item analysis.
-- Persistence is draft-first and batched: the client prepares bounded complete outcome payloads and the database replaces them transactionally rather than writing one network request per answer. Analysis reads bounded session/participant/item data rather than issuing N+1 learner/item requests.
-- Item facility is `correct / attempted` for correctness-applicable responses, with omitted responses separate. Multiple-choice option percentages use the attempted response denominator. Binary objective item-rest correlation is Pearson correlation between item 0/1 and rest-of-test score; partial-point analysis uses normalized item points and is labelled accordingly. Correlation returns an explicit insufficient-data state when `n < 10` or either variable has zero variance.
-- Aggregates are grouped by immutable verified competency, cognitive category, and curriculum period. Class summaries include average, median, high, low, and percentage distribution without public ranking. Learner summaries are available only to the owning teacher.
-- Remediation signals use a teacher-configurable threshold and neutral language such as “Needs additional evidence/practice for Competency X.” The teacher selects or overrides the participant scope, target competencies, activity, schedule, follow-up evidence, and notes. Optional Gemini support receives only aggregate competency context and allowlisted teacher constraints; it receives no names, learner IDs, or answer sheets.
-- Reports include Results Summary, Item Analysis, Competency Performance, and Remediation Plan modes. Teacher-authorized outputs may include names where appropriate, while PDF/DOCX/print documents contain no GuroDesk branding, prompts, AI metadata, technical audit information, or internal IDs. The combined XLSX contains Summary, Learner Scores, Item Analysis, Option Analysis, Competency Analysis, Cognitive Analysis, and Remediation sheets with deterministic values written directly.
-
-## Phase 5 migrations and deployment boundary
-
-Apply migrations in filename order through:
-
-15. `supabase/migrations/202608080015_phase50_results_foundation.sql`
-16. `supabase/migrations/202608080016_phase53_remediation.sql`
-
-Deploy the aggregate-only `remediation-suggester` Edge Function in addition to the existing functions. Security-sensitive SQL must derive ownership from `auth.uid()`, verify the assignment/assessment/result relationship, use safe `search_path` in security-definer functions, and keep learner/result tables under strict teacher-owned RLS. A staging migration runner and live cross-teacher RLS/Edge smoke test were not available in this sandbox; complete them in Phase 5.4.
-
-## Privacy, policy, and deletion boundary
-
-The official policy register is `docs/DEPED_SOURCE_REGISTER.md`. DepEd Order No. 015, s. 2026 is treated as the current official classroom-assessment source. It does not turn GuroDesk's facility labels, correlation minimum, remediation threshold, or spreadsheet layout into national mandates. Those are mathematical definitions or configurable product conventions. Local school/division forms, signatories, and retention practice remain configurable and must be confirmed by the responsible school/division.
-
-Learners referenced by a result session are deactivated rather than destructively removed. Draft result sessions and safe imported drafts may be deleted with their dependent outcomes and draft remediation plans; finalized historical records remain linked and teacher-owned. No statutory retention period is invented by the application; the school must apply its approved privacy, records, and deletion policy.
+The only build diagnostic was Vite's non-fatal existing large-chunk advisory. No validator was removed or weakened.
 
 ## Known limitations
 
-- Custom result/item-analysis XLSX template support is architecture-only: the safe worksheet inspector and field catalog exist, but recurring upload → map → confirm → store → fill compatibility is not claimed.
-- Live Supabase migration application, production RLS isolation, Edge Function deployment, and real Gemini requests were not exercised in the sandbox.
-- Built-in result/report PDF, DOCX, print, and seven-sheet XLSX exports are implemented; arbitrary custom assessment DOCX repeating blocks remain deferred.
-- This release does not contain the full grading/class-record system, report-card calculations, awards/ranking, learner/parent portals, or AI-assigned grades.
+- Live Supabase migration application, cross-teacher RLS probes, deployed Auth redirects, Storage isolation, and real Edge Function/BYOK calls require the staging/production projects.
+- Android route-refresh, slow-network/reconnect, real provider 429/quota behavior, and physical PDF/DOCX/print inspection for every new question type require the production smoke test.
+- The local Gemini request estimate counts GuroDesk-observed requests and cannot know provider-wide usage; an Edge Function's internal Lite fallback can add provider usage not visible as a separate browser invocation. Provider responses remain authoritative.
+- Subjective responses are not automatically graded by AI. Teachers award final partial credit.
+- Arbitrary repeating-question blocks in uploaded custom assessment DOCX masters and full custom result-analysis XLSX filling remain explicit future extension points, not claimed features.
+- The production JavaScript bundle still triggers Vite's large-chunk advisory. It is safe to deploy but route-level code splitting is a later performance improvement.
 
-## Release validation
+## Exact recommended next phase
 
-Run all previous validators plus:
+Request explicit approval for **Phase 5.5 — Controlled Production Rollout and Live Acceptance**. That phase should add no major product domain: apply migrations 017–019 in staging, deploy Edge Functions, run two-teacher adversarial RLS/Storage tests, exercise real teacher BYOK and provider failures, validate Supabase Auth redirects and Render nested-route reloads, inspect every export on Android, then promote the same reviewed commit to production.
 
-```bash
-npm run validate:phase50
-npm run validate:phase51
-npm run validate:phase52
-npm run validate:phase53
-npm run typecheck
-npm run build
-```
-
-The Phase 5 validators cover roster/result/scoring edge cases, small-class and omitted-response analysis, immutable mapping traceability, remediation neutrality, report privacy/branding boundaries, XLSX sheet completeness, long-table pagination helpers, and batch-persistence architecture. See `docs/PHASE_5_RELEASE_CHECKLIST.md` for phone and staging acceptance.
-
-### Phase 5 final regression result
-
-On 2026-08-09, one clean retained release run passed:
-
-- curriculum manifest validation;
-- every Phase 2–4.3 validator listed in `README.md`;
-- `validate:phase50`, `validate:phase51`, `validate:phase52`, and both Phase 5.3 report/security gates;
-- `npm run typecheck`; and
-- `npm run build` (2,021 modules transformed successfully).
-
-The only build diagnostic was Vite's non-fatal large-chunk advisory. The Phase 5.1 gate also statically verifies the phone layout, stacked class rows, and 44–46 px primary answer/navigation targets.
-
-Export QA generated a 40-learner × 50-item fixture and verified all four PDF/DOCX report modes. Rendered PDF and Word pages were visually inspected for wrapping, clipping, and long-table pagination; the Word learner summary was verified at two pages and the item analysis at six pages. The combined XLSX opened successfully with all seven expected sheets, 40 learner rows, 50 item rows, complete option/competency/cognitive/remediation data, and no formula dependency. A report-content scan found no GuroDesk/Gemini/AI metadata or internal UUIDs, and a source scan found no committed API key, service-role key, JWT, or private key value.
-
-Live Android/iOS and staging Supabase acceptance remain Phase 5.4 checks; they are not represented as completed by local static/render validation.
-
-The connected GitHub integration was given one authorized write-capability attempt against `Juvialski/Gurodesk` and returned HTTP 403 (`Resource not accessible by integration`). No further GitHub write or authentication troubleshooting was attempted; use the complete root-level ZIP for the phone/AI Studio merge.
+Do not begin class records, grading sheets, report cards, attendance, a student portal, new curriculum subjects, or another document domain as part of that acceptance phase.

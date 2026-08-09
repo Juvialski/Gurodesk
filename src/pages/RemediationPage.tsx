@@ -56,7 +56,7 @@ export function RemediationPage({ analysis: suppliedAnalysis = null, session: su
   const [loading, setLoading] = useState(!propInjected)
   const [error, setError] = useState('')
   const [threshold, setThreshold] = useState('75')
-  const [basis, setBasis] = useState<'percentage_correct' | 'point_facility'>('percentage_correct')
+  const [basis, setBasis] = useState<'percentage_correct' | 'point_facility'>('point_facility')
   const [comparison, setComparison] = useState<'below' | 'at_or_below'>('below')
   const [scope, setScope] = useState<RemediationScope>(initialPlan?.scope ?? 'whole_class')
   const [selectedParticipantIds, setSelectedParticipantIds] = useState<string[]>(initialPlan?.selectedParticipantIds ?? [])
@@ -108,7 +108,7 @@ export function RemediationPage({ analysis: suppliedAnalysis = null, session: su
   useEffect(() => {
     if (!activePlan) return
     setThreshold(String(normalizedPercent(activePlan.threshold, 75)))
-    setBasis(activePlan.thresholdBasis ?? 'percentage_correct')
+    setBasis(activePlan.thresholdBasis ?? 'point_facility')
     setComparison(activePlan.thresholdComparison ?? 'below')
     setScope(activePlan.scope)
     setSelectedParticipantIds([...activePlan.selectedParticipantIds])

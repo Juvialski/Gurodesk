@@ -5,6 +5,7 @@ import type {
 } from './results'
 
 export type ItemAnalysisMetricStatus = 'available' | 'insufficient_data' | 'undefined'
+export type ItemAnalysisBasis = 'binary_facility' | 'normalized_point_achievement' | 'teacher_scored_points'
 
 export type ItemAnalysisDiscriminationMethod = 'point_biserial' | 'item_rest_pearson'
 
@@ -43,6 +44,10 @@ export type ItemAnalysisItem = {
   curriculumPeriodId: string | null
   curriculumPeriodLabel: string
   possiblePoints: number
+  /** Explicitly separates binary correctness from point-weighted performance. */
+  analysisBasis: ItemAnalysisBasis
+  binaryFacility: number | null
+  normalizedPointAchievement: number | null
   attempted: number
   correct: number
   incorrect: number
@@ -55,6 +60,7 @@ export type ItemAnalysisItem = {
   pointsPossibleForAttempted: number
   averageEarnedPoints: number | null
   pointFacility: number | null
+  pointsPossibleForAll: number
   options: ItemAnalysisOption[]
   invalidOptionCount: number
   discrimination: ItemAnalysisDiscrimination
@@ -95,6 +101,9 @@ export type ItemAnalysisAggregate = {
   pointsPossibleForAttempted: number
   averageEarnedPoints: number | null
   pointFacility: number | null
+  /** Point denominator across all selected learner rows, including omissions. */
+  pointsPossibleForAll: number
+  normalizedPointAchievement: number | null
 }
 
 export type LearnerAnalysisSummary = {
@@ -140,6 +149,8 @@ export type ItemAnalysisFormulaNotes = {
   optionPercentage: string
   distractorSignal: string
   pointFacility: string
+  normalizedPointAchievement: string
+  binaryFacility: string
   discrimination: string
   smallClassRule: string
 }

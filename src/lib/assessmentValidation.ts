@@ -8,10 +8,33 @@ import type {
   AssessmentValidationIssue,
   AssessmentValidationResult,
   QuestionType,
+  AssessmentScoringCriterion,
 } from '../types/assessment'
 
-const QUESTION_TYPES: QuestionType[] = ['multiple_choice', 'true_false', 'short_answer', 'constructed_response']
+function normalizeItemPoints(item: Partial<AssessmentItem>) {
+  const raw: unknown = item.pointsPossible ?? item.points
+  if (raw === null || raw === undefined || raw === '') return 1
+  const value = Number(raw)
+  return Number.isFinite(value) ? value : Number.NaN
+}
+
+function deriveAssessmentTotalPoints(items: readonly Partial<AssessmentItem>[]) {
+  return Math.round(items.reduce((sum, item) => {
+    const points = normalizeItemPoints(item)
+    return sum + (Number.isFinite(points) && points > 0 ? points : 0)
+  }, 0) * 100) / 100
+}
+
+// Keep this module usable by the project's lightweight data-URL validator
+// harness, which intentionally erases type-only imports without resolving
+// runtime modules.
+const QUESTION_TYPES: QuestionType[] = [
+  'multiple_choice', 'true_false', 'short_answer', 'constructed_response',
+  'identification', 'fill_in_the_blank', 'numerical_answer',
+  'problem_solving', 'matching', 'multiple_select', 'essay',
+]
 const AUTHORSHIP_STATES: AssessmentAuthorshipState[] = ['empty', 'ai_suggestion', 'teacher_accepted', 'teacher_edited', 'manual']
+const QA_STATES = ['empty', 'generated', 'verified', 'needs_review', 'teacher_edited', 'answer_needs_recheck', 'locked', 'repair_needed'] as const
 
 /** Central registry keeps question-type validation extensible as new structured unions are added. */
 export const SUPPORTED_ASSESSMENT_QUESTION_TYPES = [...QUESTION_TYPES] as const
@@ -86,11 +109,47 @@ function sourcePlacementStatus(source: AssessmentTosSnapshot) {
   return { numbers, duplicate }
 }
 
+function cleanText(value: unknown) {
+  return typeof value === 'string' ? value.normalize('NFKC').trim().replace(/\s+/gu, ' ') : ''
+}
+
+function acceptedAnswersError(accepted: unknown, caseSensitive: unknown, label: string) {
+  const errors: string[] = []
+  if (!Array.isArray(accepted) || accepted.length < 1) errors.push(`${label} questions require at least one accepted answer.`)
+  const values = (Array.isArray(accepted) ? accepted : []).map((value: unknown) => cleanText(value))
+  if (values.some((value: string) => !value)) errors.push(`${label} accepted answers must be nonblank.`)
+  if (caseSensitive !== undefined && typeof caseSensitive !== 'boolean') errors.push(`${label} case sensitivity must be boolean when provided.`)
+  const unique = new Set(values.map((value: string) => caseSensitive === true ? value : value.toLocaleLowerCase('en')))
+  if (unique.size !== values.length) errors.push(`${label} accepted answers must be unique.`)
+  return errors
+}
+
+function criteriaErrors(criteria: unknown, expectedTotal: number, label: string) {
+  const errors: string[] = []
+  if (criteria === undefined) return errors
+  if (!Array.isArray(criteria)) return [`${label} rubric criteria must be an array.`]
+  const ids = new Set<string>()
+  let total = 0
+  for (const criterion of criteria as unknown[]) {
+    const value = criterion && typeof criterion === 'object' ? criterion as Partial<AssessmentScoringCriterion> : {}
+    const id = cleanText(value.id)
+    const criterionLabel = cleanText(value.label)
+    const points = Number(value.pointsPossible)
+    if (!id || ids.has(id)) errors.push(`${label} rubric criterion IDs must be unique and nonblank.`)
+    if (!criterionLabel) errors.push(`${label} rubric criterion labels must be nonblank.`)
+    if (!Number.isFinite(points) || points <= 0) errors.push(`${label} rubric criterion points must be positive.`)
+    ids.add(id)
+    if (Number.isFinite(points)) total += points
+  }
+  if (Number.isFinite(expectedTotal) && Math.abs(total - expectedTotal) > 0.000001) errors.push(`${label} rubric points must total ${expectedTotal}.`)
+  return errors
+}
+
 function answerError(answer: AssessmentAnswer | undefined, questionType: QuestionType, item: AssessmentItem) {
   const errors: string[] = []
   if (!answer || answer.type !== questionType) return [`The structured answer must match ${questionType}.`]
   if (answer.type === 'multiple_choice') {
-    const choices = answer.choices
+    const choices = Array.isArray(answer.choices) ? answer.choices : []
     // 2–6 choices is a product safety range/good practice for this exporter,
     // not a claim about a nationwide DepEd requirement.
     if (!Array.isArray(choices) || choices.length < 2 || choices.length > 6) errors.push('Multiple-choice questions require 2–6 choices.')
@@ -108,17 +167,109 @@ function answerError(answer: AssessmentAnswer | undefined, questionType: Questio
     if (!correct || !choiceIds.has(correct)) errors.push('The correct multiple-choice option must reference an existing choice ID.')
   } else if (answer.type === 'true_false') {
     if (typeof answer.value !== 'boolean') errors.push('A true/false answer must be a boolean.')
-  } else if (answer.type === 'short_answer') {
-    if (!Array.isArray(answer.acceptedAnswers) || answer.acceptedAnswers.length === 0) errors.push('Short-answer questions require at least one accepted answer.')
-    const values = (answer.acceptedAnswers ?? []).map((value) => typeof value === 'string' ? value.trim() : '')
-    if (values.some((value) => !value)) errors.push('Accepted short answers must be nonblank.')
-    const unique = new Set(values.map((value) => answer.caseSensitive ? value : value.toLocaleLowerCase('en')))
-    if (unique.size !== values.length) errors.push('Accepted short answers must be unique without case differences.')
-    if (answer.caseSensitive !== undefined && typeof answer.caseSensitive !== 'boolean') errors.push('Short-answer case sensitivity must be boolean when provided.')
+  } else if (answer.type === 'short_answer' || answer.type === 'identification') {
+    errors.push(...acceptedAnswersError(answer.acceptedAnswers, answer.caseSensitive, answer.type === 'short_answer' ? 'Short-answer' : 'Identification'))
+  } else if (answer.type === 'fill_in_the_blank') {
+    const blanks = Array.isArray(answer.blanks) ? answer.blanks : []
+    if (!Array.isArray(answer.blanks) || blanks.length < 1) errors.push('Fill-in-the-blank questions require at least one blank.')
+    const ids = new Set<string>()
+    let explicitTotal = 0
+    let hasExplicitPoints = false
+    let explicitPointCount = 0
+    for (const blank of blanks) {
+      const id = cleanText(blank?.id)
+      if (!id || ids.has(id)) errors.push('Fill-in-the-blank IDs must be unique and nonblank.')
+      ids.add(id)
+      errors.push(...acceptedAnswersError(blank?.acceptedAnswers, blank?.caseSensitive, 'Fill-in-the-blank'))
+      if (blank?.pointsPossible !== undefined) {
+        hasExplicitPoints = true
+        explicitPointCount += 1
+        const points = Number(blank.pointsPossible)
+        if (!Number.isFinite(points) || points <= 0) errors.push('Fill-in-the-blank blank points must be positive.')
+        else explicitTotal += points
+      }
+    }
+    if (hasExplicitPoints && explicitPointCount !== blanks.length) errors.push('Fill-in-the-blank points must be provided for every blank or omitted for every blank.')
+    if (hasExplicitPoints && Math.abs(explicitTotal - normalizeItemPoints(item)) > 0.000001) errors.push(`Fill-in-the-blank blank points must total ${normalizeItemPoints(item)}.`)
+  } else if (answer.type === 'numerical_answer') {
+    if (!Number.isFinite(answer.value)) errors.push('Numerical answers require a finite expected number.')
+    if (answer.tolerance !== undefined && (!Number.isFinite(answer.tolerance) || answer.tolerance < 0)) errors.push('Numerical tolerance must be zero or greater.')
+    if (answer.unit !== undefined && typeof answer.unit !== 'string') errors.push('Numerical units must be text when provided.')
+    if (answer.requireUnit !== undefined && typeof answer.requireUnit !== 'boolean') errors.push('Numerical requireUnit must be boolean when provided.')
+    if (answer.requireUnit && !cleanText(answer.unit)) errors.push('A required numerical unit cannot be blank.')
+  } else if (answer.type === 'problem_solving') {
+    if ((typeof answer.finalAnswer !== 'string' && typeof answer.finalAnswer !== 'number') || (typeof answer.finalAnswer === 'string' && !cleanText(answer.finalAnswer))) errors.push('Problem-solving questions require a final answer.')
+    if (!cleanText(answer.solutionOutline)) errors.push('Problem-solving questions require a solution outline.')
+    if (answer.subparts !== undefined) {
+      const subparts = Array.isArray(answer.subparts) ? answer.subparts : []
+      if (!Array.isArray(answer.subparts)) errors.push('Problem-solving subparts must be an array.')
+      const ids = new Set<string>()
+      let total = 0
+      for (const subpart of subparts) {
+        const id = cleanText(subpart?.id)
+        const points = Number(subpart?.pointsPossible)
+        if (!id || ids.has(id)) errors.push('Problem-solving subpart IDs must be unique and nonblank.')
+        if (!cleanText(subpart?.prompt)) errors.push('Problem-solving subparts require a prompt.')
+        if (!Number.isFinite(points) || points <= 0) errors.push('Problem-solving subpart points must be positive.')
+        ids.add(id); if (Number.isFinite(points)) total += points
+        errors.push(...criteriaErrors(subpart?.scoringCriteria, points, 'Problem-solving subpart'))
+      }
+      if (subparts.length && Math.abs(total - normalizeItemPoints(item)) > 0.000001) errors.push(`Problem-solving subpart points must total ${normalizeItemPoints(item)}.`)
+    }
+    errors.push(...criteriaErrors(answer.scoringCriteria, normalizeItemPoints(item), 'Problem-solving'))
+  } else if (answer.type === 'matching') {
+    const prompts = Array.isArray(answer.prompts) ? answer.prompts : []
+    const choices = Array.isArray(answer.choices) ? answer.choices : []
+    const mappings = Array.isArray(answer.mappings) ? answer.mappings : []
+    if (!Array.isArray(answer.prompts) || prompts.length < 1) errors.push('Matching questions require Column A prompts.')
+    if (!Array.isArray(answer.choices) || choices.length < prompts.length) errors.push('Matching questions require enough Column B choices.')
+    const promptIds = new Set<string>(); const choiceIds = new Set<string>(); const choiceTexts = new Set<string>()
+    for (const prompt of prompts) {
+      const id = cleanText(prompt?.id)
+      if (!id || promptIds.has(id) || !cleanText(prompt?.text)) errors.push('Matching prompt IDs and text must be unique and nonblank.')
+      promptIds.add(id)
+    }
+    for (const choice of choices) {
+      const id = cleanText(choice?.id); const text = cleanText(choice?.text)
+      if (!id || choiceIds.has(id) || !text || choiceTexts.has(text.toLocaleLowerCase('en'))) errors.push('Matching choice IDs and text must be unique and nonblank.')
+      choiceIds.add(id); choiceTexts.add(text.toLocaleLowerCase('en'))
+    }
+    if (!Array.isArray(answer.mappings) || mappings.length !== prompts.length) errors.push('Matching mappings must contain exactly one response for every Column A prompt.')
+    const mappedPrompts = new Set<string>(); const mappedChoices = new Set<string>(); let explicitTotal = 0; let hasExplicitPoints = false; let explicitPointCount = 0
+    for (const mapping of mappings) {
+      const promptId = cleanText(mapping?.promptId); const choiceId = cleanText(mapping?.choiceId)
+      if (!promptIds.has(promptId) || !choiceIds.has(choiceId) || mappedPrompts.has(promptId)) errors.push('Matching mappings must reference each valid prompt exactly once.')
+      if (!answer.reusableChoices && mappedChoices.has(choiceId)) errors.push('Matching choices cannot be reused unless reusableChoices is enabled.')
+      mappedPrompts.add(promptId); mappedChoices.add(choiceId)
+      if (mapping?.pointsPossible !== undefined) { hasExplicitPoints = true; explicitPointCount += 1; const points = Number(mapping.pointsPossible); if (!Number.isFinite(points) || points <= 0) errors.push('Matching points must be positive.'); else explicitTotal += points }
+    }
+    if (answer.reusableChoices !== undefined && typeof answer.reusableChoices !== 'boolean') errors.push('Matching reusableChoices must be boolean.')
+    if (answer.pointsPerMatch !== undefined && (!Number.isFinite(answer.pointsPerMatch) || answer.pointsPerMatch <= 0)) errors.push('Matching pointsPerMatch must be positive.')
+    if (answer.groupPointsPossible !== undefined && (!Number.isFinite(answer.groupPointsPossible) || answer.groupPointsPossible <= 0)) errors.push('Matching group points must be positive.')
+    if (hasExplicitPoints && explicitPointCount !== mappings.length) errors.push('Matching points must be provided for every scored match or omitted for every match.')
+    if (hasExplicitPoints && Math.abs(explicitTotal - normalizeItemPoints(item)) > 0.000001) errors.push(`Matching response points must total ${normalizeItemPoints(item)}.`)
+    if (answer.pointsPerMatch !== undefined && Number.isFinite(answer.pointsPerMatch) && answer.pointsPerMatch > 0 && Math.abs(answer.pointsPerMatch * mappings.length - normalizeItemPoints(item)) > 0.000001) errors.push(`Matching pointsPerMatch must total ${normalizeItemPoints(item)} across all responses.`)
+    if (answer.groupPointsPossible !== undefined && Math.abs(answer.groupPointsPossible - normalizeItemPoints(item)) > 0.000001) errors.push(`Matching group points must equal ${normalizeItemPoints(item)}.`)
+  } else if (answer.type === 'multiple_select') {
+    const ids = new Set<string>(); const texts = new Set<string>()
+    if (!Array.isArray(answer.choices) || answer.choices.length < 2) errors.push('Multiple-select questions require at least two choices.')
+    for (const choice of answer.choices ?? []) {
+      const id = cleanText(choice?.id); const text = cleanText(choice?.text)
+      if (!id || ids.has(id) || !text || texts.has(text.toLocaleLowerCase('en'))) errors.push('Multiple-select choice IDs and text must be unique and nonblank.')
+      ids.add(id); texts.add(text.toLocaleLowerCase('en'))
+    }
+    if (!Array.isArray(answer.choiceIds) || answer.choiceIds.length < 1 || new Set(answer.choiceIds).size !== answer.choiceIds.length || answer.choiceIds.some((id) => !ids.has(id))) errors.push('Multiple-select answers must contain one or more existing unique choice IDs.')
+    if (answer.scoringPolicy !== undefined && answer.scoringPolicy !== 'all_or_nothing') errors.push('Multiple-select scoring must use all-or-nothing.')
+  } else if (answer.type === 'essay') {
+    if (!Array.isArray(answer.keyPoints) || answer.keyPoints.length < 1 || answer.keyPoints.some((point) => !cleanText(point))) errors.push('Essay questions require one or more nonblank key points.')
+    if (answer.scoringNotes !== undefined && typeof answer.scoringNotes !== 'string') errors.push('Essay scoring notes must be text when provided.')
+    errors.push(...criteriaErrors(answer.rubric, normalizeItemPoints(item), 'Essay'))
   } else {
     if (typeof answer.expectedResponse !== 'string' || !answer.expectedResponse.trim()) errors.push('Constructed-response questions require a nonblank expected response.')
     if (typeof answer.sampleResponse !== 'string' || !answer.sampleResponse.trim()) errors.push('Constructed-response questions require a nonblank sample response.')
     if (answer.rubricGuidance !== undefined && typeof answer.rubricGuidance !== 'string') errors.push('Constructed-response rubric guidance must be text when provided.')
+    if (answer.expectedElements !== undefined && (!Array.isArray(answer.expectedElements) || answer.expectedElements.some((element) => !cleanText(element)))) errors.push('Constructed-response expected elements must be nonblank text.')
+    errors.push(...criteriaErrors(answer.rubric, normalizeItemPoints(item), 'Constructed-response'))
   }
   return errors
 }
@@ -138,8 +289,31 @@ function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'
   if (!Number.isSafeInteger(sourceTotal) || sourceTotal < 1) add('source-total', 'The source TOS total must be a positive whole number.')
   if (assessment.totalItems !== sourceTotal) add('total-items', 'Assessment totalItems must exactly match the source TOS total.')
   if (assessment.items.length !== sourceTotal) add('item-count', `Assessment must contain exactly ${sourceTotal} item(s).`)
+  const derivedTotal = deriveAssessmentTotalPoints(assessment.items)
+  if (assessment.totalPoints !== undefined && (!Number.isFinite(assessment.totalPoints) || Math.abs(Number(assessment.totalPoints) - derivedTotal) > 0.000001)) {
+    add('total-points', `Assessment totalPoints must equal the derived item-point sum (${derivedTotal}).`)
+  }
   if (!assessment.title.trim()) add('title', 'Assessment title is required.', undefined, true)
   if (!assessment.learningArea.trim()) add('learning-area', 'Learning area is required.', undefined, true)
+
+  const settings = assessment.settings
+  const allowedTypes = new Set(settings?.allowedTypes ?? QUESTION_TYPES)
+  if (settings) {
+    if (!Array.isArray(settings.allowedTypes) || settings.allowedTypes.length < 1) add('allowed-question-types', 'At least one question type must be enabled.')
+    if (!['auto_balanced', 'fixed_counts', 'percentages', 'manual_per_item'].includes(settings.mode)) add('distribution-mode', 'Question-type distribution mode is invalid.')
+    if (settings.targetTotalPoints !== null && settings.targetTotalPoints !== undefined && (!Number.isFinite(Number(settings.targetTotalPoints)) || Number(settings.targetTotalPoints) < 0)) add('target-points', 'Target total points must be nonnegative.')
+    for (const [type, value] of Object.entries(settings.defaultPoints ?? {})) {
+      if (!QUESTION_TYPES.includes(type as QuestionType) || !Number.isFinite(Number(value)) || Number(value) <= 0) add('default-points', `Default points for ${type} must be positive.`)
+    }
+    for (const [type, count] of Object.entries(settings.counts ?? {})) {
+      if (!QUESTION_TYPES.includes(type as QuestionType) || !allowedTypes.has(type as QuestionType)) add('distribution-disabled-type', `Disabled question type ${type} cannot receive a count.`)
+      if (!Number.isSafeInteger(Number(count)) || Number(count) < 0) add('distribution-count', `Question type count for ${type} must be a nonnegative whole number.`)
+    }
+    for (const [type, percentage] of Object.entries(settings.percentages ?? {})) {
+      if (!QUESTION_TYPES.includes(type as QuestionType) || !allowedTypes.has(type as QuestionType)) add('distribution-disabled-type', `Disabled question type ${type} cannot receive a percentage.`)
+      if (!Number.isFinite(Number(percentage)) || Number(percentage) < 0) add('distribution-percentage', `Question type percentage for ${type} must be nonnegative.`)
+    }
+  }
 
   const numbers = new Set<number>()
   for (const item of assessment.items) {
@@ -170,11 +344,15 @@ function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'
     if (!same(item.cognitiveCategorySnapshot, expectedItem.category)) add('cognitive-snapshot', 'The cognitive-category snapshot no longer matches the source TOS allocation.', item)
 
     if (!QUESTION_TYPES.includes(item.questionType)) add('question-type', 'Question type is not supported.', item)
+    if (!allowedTypes.has(item.questionType)) add('disabled-question-type', 'This item uses a question type disabled for the assessment.', item)
     if (!AUTHORSHIP_STATES.includes(item.authorshipState)) add('authorship-state', 'Authorship state must be empty, ai_suggestion, teacher_accepted, teacher_edited, or manual.', item)
+    if (item.qaState !== undefined && !QA_STATES.includes(item.qaState)) add('qa-state', 'Question QA state is invalid.', item)
+    if (item.locked === true && item.qaState !== undefined && item.qaState !== 'locked') add('lock-state', 'Locked items must use the locked QA state.', item)
     if (mode === 'final' && (item.authorshipState === 'empty' || item.authorshipState === 'ai_suggestion')) add('teacher-review', 'Final assessments require teacher_accepted, teacher_edited, or manual authorship state.', item)
     if (!item.prompt.trim()) add('prompt', 'Question prompt is required.', item, true)
-    if (mode === 'final' && (!Number.isFinite(item.points) || (item.points ?? 0) <= 0)) add('points', 'Final questions require positive points.', item)
-    if (mode === 'draft' && (!Number.isFinite(item.points) || (item.points ?? 0) <= 0)) add('points', 'Questions should have positive points before finalization.', item, true)
+    const points = Number(item.pointsPossible ?? item.points)
+    if (mode === 'final' && (!Number.isFinite(points) || points <= 0)) add('points', 'Final questions require positive points.', item)
+    if (mode === 'draft' && (!Number.isFinite(points) || points <= 0)) add('points', 'Questions should have positive points before finalization.', item, true)
     answerError(item.answer, item.questionType, item).forEach((message) => add('structured-answer', message, item, mode === 'draft'))
   }
 

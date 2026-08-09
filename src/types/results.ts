@@ -54,6 +54,8 @@ export type ResultAssessmentItemSnapshot = {
   prompt: string
   questionType: QuestionType
   answer: AssessmentAnswer
+  /** Current snapshots use pointsPossible. `points` remains for Phase 5.0/5.1 records. */
+  pointsPossible?: number
   points: number
   competencySnapshot: AssessmentCompetencySnapshot
   cognitiveCategorySnapshot: AssessmentCognitiveCategorySnapshot
@@ -109,11 +111,59 @@ export type ConstructedResponseLearnerAnswer = {
   text?: string
 }
 
+export type IdentificationLearnerAnswer = {
+  type: 'identification'
+  text: string
+}
+
+export type FillInTheBlankLearnerAnswer = {
+  type: 'fill_in_the_blank'
+  /** One independent response per immutable blank ID. */
+  blanks: Record<string, string>
+}
+
+export type NumericalLearnerAnswer = {
+  type: 'numerical_answer'
+  value: number
+  unit?: string
+}
+
+export type ProblemSolvingLearnerAnswer = {
+  type: 'problem_solving'
+  finalAnswer?: string | number
+  solution?: string
+  /** Optional transcribed subpart responses, keyed by immutable subpart ID. */
+  subpartAnswers?: Record<string, string | number>
+}
+
+export type MatchingLearnerAnswer = {
+  type: 'matching'
+  /** Column-A prompt ID -> selected Column-B choice ID. */
+  matches: Record<string, string>
+}
+
+export type MultipleSelectLearnerAnswer = {
+  type: 'multiple_select'
+  choiceIds: string[]
+}
+
+export type EssayLearnerAnswer = {
+  type: 'essay'
+  text?: string
+}
+
 export type LearnerItemAnswer =
   | MultipleChoiceLearnerAnswer
   | TrueFalseLearnerAnswer
   | ShortAnswerLearnerAnswer
   | ConstructedResponseLearnerAnswer
+  | IdentificationLearnerAnswer
+  | FillInTheBlankLearnerAnswer
+  | NumericalLearnerAnswer
+  | ProblemSolvingLearnerAnswer
+  | MatchingLearnerAnswer
+  | MultipleSelectLearnerAnswer
+  | EssayLearnerAnswer
 
 export type ResultScoringSource = 'deterministic' | 'teacher'
 

@@ -5,86 +5,153 @@ import type {
   AssessmentRecord,
   QuestionType,
 } from '../types/assessment'
+import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
 
 export type AssessmentItemType = QuestionType
+export type AssessmentRecordView = AssessmentRecord & { sourceTosTitle: string }
 
-export type AssessmentRecordView = AssessmentRecord & {
-  sourceTosTitle: string
-}
+type UnknownRecord = Record<string, unknown>
 
-export function normalizeAssessment(record: AssessmentRecord): AssessmentRecordView {
+function record(value: unknown): UnknownRecord { return value && typeof value === 'object' && !Array.isArray(value) ? value as UnknownRecord : {} }
+
+export function normalizeAssessment(recordValue: AssessmentRecord): AssessmentRecordView {
+  const value = recordValue as AssessmentRecord & UnknownRecord
+  const items = Array.isArray(value.items) ? value.items : []
+  const totalItems = Number(value.totalItems || items.length)
+  const totalPoints = items.reduce((sum, item) => sum + pointsForItem(item as AssessmentItem), 0)
   return {
-    ...record,
-    title: record.title || 'Untitled assessment',
-    instructions: record.instructions || '',
-    items: Array.isArray(record.items) ? record.items : [],
-    sourceTosTitle: record.sourceTos?.title || 'Finalized TOS',
+    ...recordValue,
+    title: recordValue.title || 'Untitled assessment',
+    instructions: recordValue.instructions || '',
+    totalItems,
+    totalPoints,
+    items,
+    sourceTosTitle: recordValue.sourceTos?.title || 'Finalized TOS',
   }
 }
 
-export function itemsForRecord(record: AssessmentRecord): AssessmentItem[] {
-  return record.items
+export function itemsForRecord(recordValue: AssessmentRecord): AssessmentItem[] { return recordValue.items }
+
+export function recordWithItems(recordValue: AssessmentRecord, items: AssessmentItem[], status: AssessmentRecord['status'] = recordValue.status, title = recordValue.title, instructions = recordValue.instructions): AssessmentRecord {
+  const totalPoints = items.reduce((sum, item) => sum + pointsForItem(item), 0)
+  return { ...recordValue, status, title, instructions, items, totalPoints }
 }
 
-export function recordWithItems(record: AssessmentRecord, items: AssessmentItem[], status: AssessmentRecord['status'] = record.status, title = record.title, instructions = record.instructions): AssessmentRecord {
-  return { ...record, status, title, instructions, items }
+export function assessmentTitle(recordValue: AssessmentRecord) { return recordValue.title || 'Untitled assessment' }
+
+export function pointsForItem(item: AssessmentItem) {
+  const value = record(item).pointsPossible ?? record(item).points
+  if (value === null || value === undefined || value === '') return 1
+  const points = Number(value)
+  return Number.isFinite(points) ? points : 0
 }
 
-export function assessmentTitle(record: AssessmentRecord) {
-  return record.title || 'Untitled assessment'
+export function assessmentTotalPoints(recordValue: AssessmentRecord) { return recordValue.items.reduce((sum, item) => sum + pointsForItem(item), 0) }
+
+export function assessmentCompletion(recordValue: AssessmentRecord) {
+  const total = Math.max(recordValue.totalItems, recordValue.items.length)
+  const filled = recordValue.items.filter((item) => item.prompt.trim()).length
+  const needsReview = recordValue.items.filter((item) => {
+    const state = record(item).qaState
+    return state === 'needs_review' || state === 'answer_needs_recheck' || state === 'repair_needed'
+  }).length
+  const objectivePoints = recordValue.items.filter((item) => !['constructed_response', 'problem_solving', 'essay'].includes(item.questionType)).reduce((sum, item) => sum + pointsForItem(item), 0)
+  const teacherScoredPoints = recordValue.items.filter((item) => ['constructed_response', 'problem_solving', 'essay'].includes(item.questionType)).reduce((sum, item) => sum + pointsForItem(item), 0)
+  return {
+    filled,
+    total,
+    percent: total ? Math.round((filled / total) * 100) : 0,
+    needsReview,
+    totalPoints: assessmentTotalPoints(recordValue),
+    objectivePoints,
+    teacherScoredPoints,
+  }
 }
 
-export function assessmentCompletion(record: AssessmentRecord) {
-  const total = Math.max(record.totalItems, record.items.length)
-  const filled = record.items.filter((item) => item.prompt.trim()).length
-  return { filled, total, percent: total ? Math.round((filled / total) * 100) : 0 }
-}
-
-export function mappingLabel(item: AssessmentItem) {
-  return [item.competencySnapshot.code, item.competencySnapshot.text].filter(Boolean).join(' · ') || 'TOS mapping preserved'
-}
+export function mappingLabel(item: AssessmentItem) { return [item.competencySnapshot.code, item.competencySnapshot.text].filter(Boolean).join(' · ') || 'TOS mapping preserved' }
 
 export function mappingDetails(item: AssessmentItem) {
-  return [
-    item.cognitiveCategorySnapshot.label || item.cognitiveCategorySnapshot.shortLabel,
-    item.competencySnapshot.sourcePage === null || item.competencySnapshot.sourcePage === undefined ? '' : `Source p. ${item.competencySnapshot.sourcePage}`,
-  ].filter(Boolean).join(' · ') || 'Mapping details preserved in source TOS'
+  return [item.cognitiveCategorySnapshot.label || item.cognitiveCategorySnapshot.shortLabel, item.competencySnapshot.sourcePage === null || item.competencySnapshot.sourcePage === undefined ? '' : `Source p. ${item.competencySnapshot.sourcePage}`].filter(Boolean).join(' · ') || 'Mapping details preserved in source TOS'
 }
 
 export function typeLabel(type: AssessmentItemType) {
-  if (type === 'true_false') return 'True / False'
-  if (type === 'short_answer') return 'Short answer'
-  if (type === 'constructed_response') return 'Constructed response'
-  return 'Multiple choice'
+  const labels: Record<QuestionType, string> = {
+    multiple_choice: 'Multiple choice', true_false: 'True / False', short_answer: 'Short answer', constructed_response: 'Constructed response', identification: 'Identification', fill_in_the_blank: 'Fill in the blank', numerical_answer: 'Numerical answer', problem_solving: 'Problem solving', matching: 'Matching type', multiple_select: 'Multiple select', essay: 'Essay / extended response',
+  }
+  return labels[type] ?? type
 }
 
-export function stateLabel(state: AssessmentAuthorshipState) {
+export function stateLabel(state: AssessmentAuthorshipState | string | undefined) {
   if (state === 'ai_suggestion') return 'AI suggestion'
   if (state === 'teacher_accepted') return 'Accepted'
   if (state === 'teacher_edited') return 'Edited'
   if (state === 'manual') return 'Manual'
+  if (state === 'verified') return 'Verified'
+  if (state === 'needs_review' || state === 'repair_needed' || state === 'answer_needs_recheck') return 'Needs review'
+  if (state === 'locked') return 'Locked'
   return 'Empty'
 }
 
 export function answerForType(type: QuestionType): AssessmentAnswer {
-  if (type === 'true_false') return { type, value: false }
-  if (type === 'short_answer') return { type, acceptedAnswers: [], caseSensitive: false }
-  if (type === 'constructed_response') return { type, expectedResponse: '', sampleResponse: '', rubricGuidance: '' }
-  return { type, choices: [], choiceId: '' }
-}
-
-export function cloneItem(item: AssessmentItem): AssessmentItem {
-  const answer = item.answer.type === 'multiple_choice'
-    ? { ...item.answer, choices: item.answer.choices.map((choice) => ({ ...choice })) }
-    : item.answer.type === 'short_answer'
-      ? { ...item.answer, acceptedAnswers: [...item.answer.acceptedAnswers] }
-      : { ...item.answer }
-  return {
-    ...item,
-    competencySnapshot: { ...item.competencySnapshot },
-    cognitiveCategorySnapshot: { ...item.cognitiveCategorySnapshot },
-    mapping: { ...item.mapping },
-    answer,
+  switch (type) {
+    case 'true_false': return { type, value: false }
+    case 'short_answer': return { type, acceptedAnswers: [], caseSensitive: false }
+    case 'identification': return { type, acceptedAnswers: [], caseSensitive: false }
+    case 'fill_in_the_blank': return { type, blanks: [] }
+    case 'numerical_answer': return { type, value: 0, tolerance: 0, unit: '', requireUnit: false }
+    case 'problem_solving': return { type, finalAnswer: '', solutionOutline: '' }
+    case 'matching': return { type, prompts: [], choices: [], mappings: [], reusableChoices: false }
+    case 'multiple_select': return { type, choices: [], choiceIds: [], scoringPolicy: 'all_or_nothing' }
+    case 'constructed_response': return { type, expectedResponse: '', sampleResponse: '', rubricGuidance: '', rubric: [] }
+    case 'essay': return { type, keyPoints: [], rubric: [] }
+    default: return { type: 'multiple_choice', choices: [], choiceId: '' }
   }
 }
 
+export function cloneItem(item: AssessmentItem): AssessmentItem {
+  const cloned = typeof structuredClone === 'function' ? structuredClone(item) : JSON.parse(JSON.stringify(item)) as AssessmentItem
+  return cloned
+}
+
+export function isLocked(item: AssessmentItem) { return record(item).locked === true || record(item).qaState === 'locked' }
+
+export function allowedQuestionTypes(recordValue: AssessmentRecord): QuestionType[] {
+  const settings = record(recordValue).settings
+  const settingsRecord = record(settings)
+  const rawAllowed = Array.isArray(settingsRecord.allowedTypes) ? settingsRecord.allowedTypes : []
+  const allowed = rawAllowed.filter((value: unknown): value is QuestionType => ASSESSMENT_QUESTION_TYPES.includes(String(value) as QuestionType))
+  return allowed.length ? [...new Set(allowed)] : [...ASSESSMENT_QUESTION_TYPES]
+}
+
+export function defaultPointsForType(recordValue: AssessmentRecord, type: QuestionType) {
+  const defaults = record(record(recordValue).settings).defaultPoints
+  const value = Number(record(defaults)[type])
+  if (Number.isFinite(value) && value > 0) return value
+  return ['constructed_response'].includes(type) ? 5 : type === 'problem_solving' ? 3 : type === 'essay' ? 10 : 1
+}
+
+export function appendItemHistory(item: AssessmentItem, source: 'generated' | 'alternative' | 'teacher_edit' | 'repair' | 'restore') {
+  if (!item.prompt.trim()) return Array.isArray(record(item).history) ? record(item).history as never[] : []
+  const history = Array.isArray(record(item).history) ? record(item).history as never[] : []
+  const value = record(item)
+  const version = {
+    id: `item-version-${Date.now().toString(36)}`,
+    savedAt: new Date().toISOString(),
+    source,
+    prompt: item.prompt,
+    questionType: item.questionType,
+    answer: cloneItem(item).answer,
+    rationale: item.rationale,
+    teacherNotes: item.teacherNotes,
+    pointsPossible: pointsForItem(item),
+    points: item.points,
+    qaState: value.qaState,
+  }
+  return [...history, version].slice(-5)
+}
+
+export function itemSummary(item: AssessmentItem) {
+  const points = pointsForItem(item)
+  const state = String(record(item).qaState ?? item.authorshipState)
+  return { itemNumber: item.itemNumber, type: typeLabel(item.questionType), points, completed: Boolean(item.prompt.trim()), locked: isLocked(item), state: stateLabel(state) }
+}

@@ -53,6 +53,9 @@ const ENGLISH_LABELS: ResultsReportLabels = {
   highest: 'Highest',
   lowest: 'Lowest',
   total: 'Total',
+  possiblePoints: 'Possible points',
+  pointAchievement: 'Normalized point achievement',
+  analysisBasis: 'Analysis basis',
   administrationDate: 'Administration date',
   gradeLevel: 'Grade level',
   learningArea: 'Learning area',
@@ -99,6 +102,9 @@ const FILIPINO_LABELS: ResultsReportLabels = {
   highest: 'Pinakamataas',
   lowest: 'Pinakamababa',
   total: 'Kabuuan',
+  possiblePoints: 'Posibleng puntos',
+  pointAchievement: 'Normalisadong pagganap sa puntos',
+  analysisBasis: 'Batayan ng pagsusuri',
   administrationDate: 'Petsa ng pangangasiwa',
   gradeLevel: 'Baitang',
   learningArea: 'Larangan ng pagkatuto',
@@ -166,6 +172,7 @@ function summaryModel(input: ResultsReportInput, includeLearnerNames: boolean): 
     medianPercentage: numberOrNull(summary.medianPercentage),
     highestPercentage: numberOrNull(summary.highestPercentage),
     lowestPercentage: numberOrNull(summary.lowestPercentage),
+    possiblePoints: input.session.assessmentSnapshot.totalPossiblePoints,
     percentageDistribution: summary.percentageDistribution.map((bin) => ({ label: bin.label, count: bin.count })),
     learners,
   }
@@ -188,6 +195,18 @@ function itemRows(input: ResultsReportInput): ResultsItemAnalysisRow[] {
     earnedPoints: item.earnedPoints,
     possiblePoints: item.possiblePoints,
     pointFacility: numberOrNull(item.pointFacility),
+    normalizedPointAchievement: numberOrNull(item.normalizedPointAchievement),
+    pointsPossibleForAll: item.pointsPossibleForAll ?? item.pointsPossibleForAttempted,
+    // Phase 5.2 report fixtures and persisted exports predate the explicit
+    // basis label. Derive a conservative display label without changing any
+    // stored statistic or pretending partial-credit data is binary.
+    analysisBasis: item.analysisBasis ?? (
+      ['constructed_response', 'problem_solving', 'essay'].includes(item.questionType)
+        ? 'teacher_scored_points'
+        : item.possiblePoints === 1 && item.percentageCorrect !== null
+          ? 'binary_facility'
+          : 'normalized_point_achievement'
+    ),
     discrimination: numberOrNull(item.discrimination.value),
     discriminationStatus: item.discrimination.status === 'available'
       ? 'available'
@@ -229,6 +248,8 @@ function competencyRows(input: ResultsReportInput): ResultsCompetencyRow[] {
     facility: numberOrNull(row.facility),
     earnedPoints: row.earnedPoints,
     pointFacility: numberOrNull(row.pointFacility),
+    normalizedPointAchievement: numberOrNull(row.normalizedPointAchievement),
+    pointsPossibleForAll: row.pointsPossibleForAll,
   }))
 }
 
@@ -246,6 +267,8 @@ function cognitiveRows(input: ResultsReportInput): ResultsCognitiveRow[] {
     facility: numberOrNull(row.facility),
     earnedPoints: row.earnedPoints,
     pointFacility: numberOrNull(row.pointFacility),
+    normalizedPointAchievement: numberOrNull(row.normalizedPointAchievement),
+    pointsPossibleForAll: row.pointsPossibleForAll,
   }))
 }
 
@@ -262,6 +285,8 @@ function curriculumRows(input: ResultsReportInput): ResultsCurriculumPeriodRow[]
     facility: numberOrNull(row.facility),
     earnedPoints: row.earnedPoints,
     pointFacility: numberOrNull(row.pointFacility),
+    normalizedPointAchievement: numberOrNull(row.normalizedPointAchievement),
+    pointsPossibleForAll: row.pointsPossibleForAll,
   }))
 }
 
@@ -294,6 +319,9 @@ function remediationRows(
       // draft-analysis refresh must not silently rewrite it.
       evidenceValue: target.evidenceValue,
       evidenceLabel: target.evidenceLabel,
+      denominatorLabel: target.denominatorLabel ?? (target.evidenceLabel === 'point_facility'
+        ? 'earned points / possible points for selected learner rows'
+        : 'correct / correctness-applicable attempted responses'),
       threshold: persisted?.threshold ?? signalResult?.threshold.percentageThreshold ?? 0.75,
       learnerCount: plan.scope === 'selected_learners'
         ? plan.selectedParticipantIds.length
@@ -308,6 +336,7 @@ function remediationRows(
     itemNumbers: signal.itemNumbers,
     evidenceValue: signal.evidenceValue,
     evidenceLabel: signal.evidenceLabel,
+    denominatorLabel: signal.denominatorLabel,
     threshold: signal.threshold,
     learnerCount: signal.numberOfLearners,
     instructionalMessage: signal.instructionalMessage,
@@ -319,6 +348,7 @@ function remediationRows(
     itemNumbers: [...signal.itemNumbers],
     evidence: numberOrNull(signal.evidenceValue),
     evidenceLabel: signal.evidenceLabel,
+    denominatorLabel: signal.denominatorLabel,
     threshold: signal.threshold,
     learnerCount: signal.learnerCount,
     instructionalMessage: signal.instructionalMessage,

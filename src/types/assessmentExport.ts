@@ -1,4 +1,4 @@
-import type { AssessmentAnswer, AssessmentCompetencySnapshot, AssessmentCognitiveCategorySnapshot, AssessmentStatus } from './assessment'
+import type { AssessmentAnswer, AssessmentCompetencySnapshot, AssessmentCognitiveCategorySnapshot, AssessmentStatus, QuestionType } from './assessment'
 import type { ExportDocumentLanguage, ExportPaperSize } from './export'
 
 export type AssessmentExportMode = 'student' | 'teacher' | 'answer_key'
@@ -41,6 +41,13 @@ export type AssessmentExportLabels = {
   points: string
   choicePrefix: string
   responseLine: string
+  totalItems: string
+  totalPoints: string
+  solution: string
+  rubric: string
+  columnA: string
+  columnB: string
+  tolerance: string
 }
 
 export type AssessmentExportMetadata = {
@@ -56,20 +63,33 @@ export type AssessmentExportMetadata = {
   schoolYear: string
   gradingTerm: string
   curriculumPeriods?: string
+  totalItems?: number
+  totalPoints?: number
 }
 
+/** Public export payload. IDs are intentionally optional and are never used
+ * in student projections. Internal answer IDs may be used only by the
+ * deterministic teacher/answer-key renderer to create visible A/B labels. */
 export type AssessmentExportQuestionBase = {
   itemNumber: number
   prompt: string
-  questionType: 'multiple_choice' | 'true_false' | 'short_answer' | 'constructed_response'
-  choices: Array<{ id: string; text: string }>
+  questionType: QuestionType
   answerSpaceLines: number
+  pointsPossible: number
+  /** Legacy alias retained for prior renderer callers. */
   points?: number | null
+  choices?: Array<{ id: string; text: string; label?: string }>
+  prompts?: Array<{ id: string; text: string; label?: string }>
+  blanks?: Array<{ label: string; answerSpaceLines?: number }>
+  /** Learner-safe problem subparts: no expected answer or internal ID. */
+  subparts?: Array<{ label: string; prompt: string; pointsPossible: number }>
+  responseInstructions?: string
 }
 
-/** Student-safe question shape: no answer, mapping, AI/review state, or IDs. */
-export type AssessmentStudentExportQuestion = Omit<AssessmentExportQuestionBase, 'choices'> & {
-  choices: string[]
+export type AssessmentStudentExportQuestion = Omit<AssessmentExportQuestionBase, 'choices' | 'prompts' | 'blanks'> & {
+  choices?: string[]
+  prompts?: string[]
+  blanks?: Array<{ label: string; answerSpaceLines?: number }>
 }
 
 export type AssessmentTeacherExportQuestion = AssessmentExportQuestionBase & {
@@ -77,15 +97,17 @@ export type AssessmentTeacherExportQuestion = AssessmentExportQuestionBase & {
   competency?: AssessmentCompetencySnapshot
   cognitiveCategory?: AssessmentCognitiveCategorySnapshot
   rationale?: string
+  scoringGuide?: string
 }
 
-/** Compact answer-key entry: item number and the structured answer only. */
 export type AssessmentAnswerKeyExportQuestion = {
   itemNumber: number
-  questionType: AssessmentExportQuestionBase['questionType']
+  questionType: QuestionType
   answerSpaceLines: number
+  pointsPossible: number
   points?: number | null
   answer: AssessmentAnswer
+  scoringGuide?: string
 }
 
 export type AssessmentExportQuestion = AssessmentStudentExportQuestion | AssessmentTeacherExportQuestion | AssessmentAnswerKeyExportQuestion

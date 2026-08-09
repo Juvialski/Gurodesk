@@ -29,7 +29,9 @@
     "validate:phase50": "node scripts/check-phase50.mjs",
     "validate:phase51": "node scripts/check-phase51.mjs",
     "validate:phase52": "node scripts/check-phase52.mjs",
-    "validate:phase53": "node scripts/check-phase53.mjs && node scripts/check-phase53-security.mjs"
+    "validate:phase53": "node scripts/check-phase53.mjs && node scripts/check-phase53-security.mjs",
+    "validate:phase44": "node scripts/check-phase44-domain.mjs && node scripts/check-phase44-ai-editor.mjs",
+    "validate:phase54": "node scripts/check-phase54.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

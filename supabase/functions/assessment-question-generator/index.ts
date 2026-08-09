@@ -1,333 +1,70 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
-import {
-  DEFAULT_FALLBACK_MODEL,
-  DEFAULT_MODEL,
-  fallbackAllowed,
-  isAiModelId,
-  isLiteModel,
-  type AiModelId,
-  type LiteAiModelId,
-} from '../_shared/ai-models.ts'
+import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId } from '../_shared/ai-models.ts'
 import { callGemini, GeminiHttpError, isFallbackEligibleStatus } from '../_shared/gemini.ts'
 
-type QuestionType = 'multiple_choice' | 'true_false' | 'short_answer' | 'constructed_response'
-type Outcome = 'success' | 'rejected' | 'error' | 'cancelled'
-type RequestBody = {
-  assessmentId?: string
-  itemId?: string
-  questionType?: QuestionType
-  alternative?: boolean
-  teacherContext?: string
-}
-type CredentialRow = {
-  api_key_ciphertext: string
-  api_key_iv: string
-  encryption_key_source: EncryptionKeySource
-}
-type SettingsRow = {
-  preferred_model?: string
-  fallback_model?: string
-  fallback_enabled?: boolean
-}
-type PreferenceRow = {
-  language_preference?: string
-  local_language_name?: string
-  typical_class_profile?: string
-  available_technology?: unknown
-  preferred_approaches?: unknown
-  actual_resources?: unknown
-  resource_notes?: string
-}
-type DbRow = Record<string, unknown>
+type QuestionType = 'multiple_choice' | 'true_false' | 'short_answer' | 'constructed_response' | 'identification' | 'fill_in_the_blank' | 'numerical_answer' | 'problem_solving' | 'matching' | 'multiple_select' | 'essay'
+type Operation = 'generate' | 'verify' | 'repair'
+type Row = Record<string, unknown>
+type RequestBody = { operation?: Operation; assessmentId?: string; itemId?: string; questionType?: QuestionType; alternative?: boolean; teacherContext?: string; candidate?: unknown; issues?: unknown; repairGuidance?: unknown; generatorModel?: string }
+type CredentialRow = { api_key_ciphertext: string; api_key_iv: string; encryption_key_source: EncryptionKeySource }
+type SettingsRow = { preferred_model?: string; fallback_model?: string; fallback_enabled?: boolean }
+type PreferenceRow = { language_preference?: string; local_language_name?: string; preferred_approaches?: unknown; actual_resources?: unknown; available_technology?: unknown }
 
-const questionTypes = new Set<QuestionType>(['multiple_choice', 'true_false', 'short_answer', 'constructed_response'])
-const languageOptions = new Set(['Auto', 'English', 'Filipino', 'English + Filipino', 'Mother tongue / local language'])
-const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+const QUESTION_TYPES = new Set<QuestionType>(['multiple_choice', 'true_false', 'short_answer', 'constructed_response', 'identification', 'fill_in_the_blank', 'numerical_answer', 'problem_solving', 'matching', 'multiple_select', 'essay'])
+const LANGUAGE_OPTIONS = new Set(['Auto', 'English', 'Filipino', 'English + Filipino', 'Mother tongue / local language'])
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
-function json(body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-  })
-}
+function json(body: unknown, status = 200) { return new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }) }
+function object(value: unknown): Row { return value && typeof value === 'object' && !Array.isArray(value) ? value as Row : {} }
+function clean(value: unknown, max = 2000) { return typeof value === 'string' ? value.trim().slice(0, max) : '' }
+function list(value: unknown, maxItems = 30, maxLength = 500) { return Array.isArray(value) ? value.map((entry) => clean(entry, maxLength)).filter(Boolean).slice(0, maxItems) : [] }
+function unique(values: string[], caseSensitive = false) { const set = new Set(values.map((value) => caseSensitive ? value : value.toLocaleLowerCase('en'))); return set.size === values.length }
+function stripCodeFence(value: string) { return value.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '').trim() }
+function parseJson(value: string): Row { let parsed: unknown; try { parsed = JSON.parse(stripCodeFence(value)) } catch { throw new Error('The AI response was not valid JSON. Your draft remains unchanged.') }; if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('The AI response did not match the required structured shape. Your draft remains unchanged.'); return parsed as Row }
+function onlyKeys(value: Row, keys: string[]) { return Object.keys(value).every((key) => keys.includes(key)) }
+function answerStrings(value: unknown): string[] { if (typeof value === 'string') return [value]; if (Array.isArray(value)) return value.flatMap(answerStrings); if (value && typeof value === 'object') return Object.values(value as Row).flatMap(answerStrings); return [] }
+function normalizeClaim(value: string) { return value.normalize('NFKC').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').trim() }
+const namedResourceOrLocalFact = /\b(?:textbook|module|worksheet|website|handout|reference|activity\s+sheet|learning\s+material|mobile\s+app|app|software|device|tablet|computer|laptop|projector|aklat|modyul|sanggunian|kagamitang\s+pampagkatuto|aplikasyon|kompyuter|barangay|municipality|province)\b/iu
+function unverifiedResource(value: string, resources: string[]) { const normalized = normalizeClaim(value); const allowed = resources.map((entry) => ({ raw: entry.toLocaleLowerCase('en'), normalized: normalizeClaim(entry) })).filter((entry) => entry.normalized); const urls = value.match(/(?:https?:\/\/|www\.)[^\s)\],]+/gi) ?? []; if (urls.some((url) => !allowed.some((entry) => entry.raw.includes(url.toLocaleLowerCase('en'))))) return true; const pages = value.match(/(?:\bpage\b|\bp\.|\bpahina\b)\s*\d+/gi) ?? []; if (pages.some((page) => !allowed.some((entry) => entry.normalized.includes(normalizeClaim(page))))) return true; return namedResourceOrLocalFact.test(value) && !allowed.some((entry) => normalized.includes(entry.normalized)) }
+function choiceList(value: unknown) { return Array.isArray(value) ? value.map(object) : [] }
+function normalizeChoices(value: Row) { const choices = choiceList(value.choices ?? value.options); const ids = choices.map((entry, index) => clean(entry.id ?? entry.key ?? String.fromCharCode(65 + index), 80)); const texts = choices.map((entry) => clean(entry.text ?? entry.value ?? entry.label, 500)); if (choices.length < 2 || choices.length > 6 || ids.some((entry) => !entry) || texts.some((entry) => !entry) || !unique(ids) || !unique(texts)) throw new Error('Choices must contain 2–6 unique, nonblank options.'); return ids.map((id, index) => ({ id, text: texts[index] })) }
 
-function asObject(value: unknown): DbRow {
-  return value && typeof value === 'object' && !Array.isArray(value) ? value as DbRow : {}
-}
-
-function onlyKeys(value: DbRow, allowed: string[]) {
-  return Object.keys(value).every((key) => allowed.includes(key))
-}
-
-function clean(value: unknown, max = 800) {
-  return typeof value === 'string' ? value.trim().slice(0, max) : ''
+function validateCandidate(value: unknown, questionType: QuestionType, resources: string[], rationaleRequired = true) {
+  const source = object(value)
+  if (!onlyKeys(source, ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources']) || source.questionType !== questionType) throw new Error('The AI response changed the verified question type or returned unsupported fields. Your draft remains unchanged.')
+  const prompt = clean(source.prompt); const rationale = clean(source.rationale, 1600); const referencedResources = list(source.referencedResources, 10, 180)
+  if (prompt.length < 4 || (rationaleRequired && rationale.length < 4) || referencedResources.length !== (Array.isArray(source.referencedResources) ? source.referencedResources.length : -1) || !referencedResources.every((entry) => resources.includes(entry))) throw new Error('The AI response has an invalid prompt, rationale, or teacher-resource reference. Your draft remains unchanged.')
+  const answer = object(source.answer); if (answer.type !== questionType) throw new Error('The AI response answer type does not match the verified question type. Your draft remains unchanged.')
+  let normalized: Row
+  if (questionType === 'multiple_choice') { if (!onlyKeys(answer, ['type', 'choices', 'choiceId'])) throw new Error('Multiple-choice answer shape is invalid.'); const choices = normalizeChoices(answer); const choiceId = clean(answer.choiceId, 80); if (!choices.some((entry) => entry.id === choiceId)) throw new Error('Multiple-choice answer must reference one returned choice.') ; normalized = { type: questionType, choices, choiceId } }
+  else if (questionType === 'true_false') { if (!onlyKeys(answer, ['type', 'value']) || typeof answer.value !== 'boolean') throw new Error('True/False answer shape is invalid.'); normalized = { type: questionType, value: answer.value } }
+  else if (questionType === 'short_answer' || questionType === 'identification') { if (!onlyKeys(answer, ['type', 'acceptedAnswers', 'caseSensitive'])) throw new Error('Accepted-answer shape is invalid.'); const acceptedAnswers = list(answer.acceptedAnswers, 20, 500); if (!acceptedAnswers.length || !unique(acceptedAnswers, answer.caseSensitive === true) || (answer.caseSensitive !== undefined && typeof answer.caseSensitive !== 'boolean')) throw new Error('Accepted answers must be unique and nonblank.'); normalized = { type: questionType, acceptedAnswers, caseSensitive: answer.caseSensitive === true } }
+  else if (questionType === 'fill_in_the_blank') { if (!onlyKeys(answer, ['type', 'blanks'])) throw new Error('Fill-in-the-blank answer shape is invalid.'); const blanks = Array.isArray(answer.blanks) ? answer.blanks.map(object) : []; const ids = blanks.map((entry, index) => clean(entry.id ?? `blank-${index + 1}`, 80)); if (!blanks.length || !unique(ids)) throw new Error('Fill-in-the-blank requires unique blanks.'); normalized = { type: questionType, blanks: blanks.map((entry, index) => { const acceptedAnswers = list(entry.acceptedAnswers, 20, 500); const pointsPossible = entry.pointsPossible === undefined ? undefined : Number(entry.pointsPossible); if (!acceptedAnswers.length || !unique(acceptedAnswers, entry.caseSensitive === true) || (pointsPossible !== undefined && (!Number.isFinite(pointsPossible) || pointsPossible <= 0))) throw new Error('Each blank needs unique answers and optional positive points.'); return { id: ids[index], acceptedAnswers, ...(entry.caseSensitive === undefined ? {} : { caseSensitive: entry.caseSensitive === true }), ...(pointsPossible === undefined ? {} : { pointsPossible }) } }) } }
+  else if (questionType === 'numerical_answer') { if (!onlyKeys(answer, ['type', 'value', 'tolerance', 'unit', 'requireUnit'])) throw new Error('Numerical answer shape is invalid.'); const numeric = Number(answer.value); const tolerance = answer.tolerance === undefined ? undefined : Number(answer.tolerance); if (!Number.isFinite(numeric) || (tolerance !== undefined && (!Number.isFinite(tolerance) || tolerance < 0))) throw new Error('Numerical value and tolerance must be finite. Expressions are never executed.'); normalized = { type: questionType, value: numeric, ...(tolerance === undefined ? {} : { tolerance }), ...(answer.unit ? { unit: clean(answer.unit, 80) } : {}), ...(answer.requireUnit === true ? { requireUnit: true } : {}) } }
+  else if (questionType === 'problem_solving') { if (!onlyKeys(answer, ['type', 'finalAnswer', 'solutionOutline', 'subparts', 'scoringCriteria'])) throw new Error('Problem-solving answer shape is invalid.'); const finalAnswer = typeof answer.finalAnswer === 'number' ? answer.finalAnswer : clean(answer.finalAnswer, 800); const solutionOutline = clean(answer.solutionOutline, 1600); if ((typeof finalAnswer === 'number' ? !Number.isFinite(finalAnswer) : !finalAnswer) || !solutionOutline) throw new Error('Problem-solving answer needs a final answer and method.'); normalized = { type: questionType, finalAnswer, solutionOutline, ...(Array.isArray(answer.subparts) ? { subparts: answer.subparts.slice(0, 12) } : {}), ...(Array.isArray(answer.scoringCriteria) ? { scoringCriteria: answer.scoringCriteria.slice(0, 12) } : {}) } }
+  else if (questionType === 'matching') { if (!onlyKeys(answer, ['type', 'prompts', 'choices', 'mappings', 'reusableChoices', 'pointsPerMatch', 'groupPointsPossible'])) throw new Error('Matching answer shape is invalid.'); const prompts = Array.isArray(answer.prompts) ? answer.prompts.map(object) : []; const choices = Array.isArray(answer.choices) ? answer.choices.map(object) : []; const promptIds = prompts.map((entry, index) => clean(entry.id ?? `prompt-${index + 1}`, 80)); const choiceIds = choices.map((entry, index) => clean(entry.id ?? String.fromCharCode(65 + index), 80)); const mappings = Array.isArray(answer.mappings) ? answer.mappings.map(object) : []; if (!prompts.length || !choices.length || !unique(promptIds) || !unique(choiceIds) || !mappings.length || mappings.some((entry) => !promptIds.includes(clean(entry.promptId, 80)) || !choiceIds.includes(clean(entry.choiceId, 80)))) throw new Error('Matching prompts, choices, and mappings are invalid.'); if (answer.reusableChoices !== true && !unique(mappings.map((entry) => clean(entry.choiceId, 80)))) throw new Error('Matching choices cannot be reused unless enabled.'); normalized = { type: questionType, prompts: prompts.slice(0, 30), choices: choices.slice(0, 30), mappings: mappings.slice(0, 30), ...(answer.reusableChoices === true ? { reusableChoices: true } : {}), ...(answer.pointsPerMatch === undefined ? {} : { pointsPerMatch: Number(answer.pointsPerMatch) }), ...(answer.groupPointsPossible === undefined ? {} : { groupPointsPossible: Number(answer.groupPointsPossible) }) } }
+  else if (questionType === 'multiple_select') { if (!onlyKeys(answer, ['type', 'choices', 'choiceIds', 'scoringPolicy'])) throw new Error('Multiple-select answer shape is invalid.'); const choices = normalizeChoices(answer); const choiceIds = list(answer.choiceIds, 8, 80); if (!choiceIds.length || !unique(choiceIds) || choiceIds.some((entry) => !choices.some((choice) => choice.id === entry)) || (answer.scoringPolicy !== undefined && answer.scoringPolicy !== 'all_or_nothing')) throw new Error('Multiple-select correct IDs or scoring policy are invalid.'); normalized = { type: questionType, choices, choiceIds, scoringPolicy: 'all_or_nothing' } }
+  else if (questionType === 'constructed_response') { if (!onlyKeys(answer, ['type', 'expectedResponse', 'sampleResponse', 'rubricGuidance', 'expectedElements', 'rubric'])) throw new Error('Constructed-response answer shape is invalid.'); if (!clean(answer.expectedResponse, 1600) || !clean(answer.sampleResponse, 1600)) throw new Error('Constructed response needs expected and sample responses.'); normalized = { type: questionType, expectedResponse: clean(answer.expectedResponse, 1600), sampleResponse: clean(answer.sampleResponse, 1600), ...(answer.rubricGuidance ? { rubricGuidance: clean(answer.rubricGuidance, 1600) } : {}), ...(Array.isArray(answer.expectedElements) ? { expectedElements: list(answer.expectedElements, 30, 400) } : {}), ...(Array.isArray(answer.rubric) ? { rubric: answer.rubric.slice(0, 12) } : {}) } }
+  else { if (!onlyKeys(answer, ['type', 'keyPoints', 'rubric', 'expectedResponse', 'scoringNotes'])) throw new Error('Essay answer shape is invalid.'); const keyPoints = list(answer.keyPoints, 30, 500); if (!keyPoints.length) throw new Error('Essay requires key points for teacher scoring.'); normalized = { type: questionType, keyPoints, ...(Array.isArray(answer.rubric) ? { rubric: answer.rubric.slice(0, 12) } : {}), ...(answer.expectedResponse ? { expectedResponse: clean(answer.expectedResponse, 1600) } : {}), ...(answer.scoringNotes ? { scoringNotes: clean(answer.scoringNotes, 1600) } : {}) } }
+  if ([prompt, rationale, ...answerStrings(normalized)].some((entry) => unverifiedResource(entry, resources))) throw new Error('The AI response included an unverified resource, local fact, URL, page, device, or learner detail. Your draft remains unchanged.')
+  return { questionType, prompt, answer: normalized, rationale, referencedResources }
 }
 
-function list(value: unknown, maxItems = 30, maxLength = 180) {
-  if (!Array.isArray(value)) return [] as string[]
-  return value.map((item) => clean(item, maxLength)).filter(Boolean).slice(0, maxItems)
-}
+function resolveSettings(row: SettingsRow | null) { const preferredModel: AiModelId = isAiModelId(row?.preferred_model) ? row!.preferred_model as AiModelId : DEFAULT_MODEL; const fallbackModel: LiteAiModelId = isLiteModel(row?.fallback_model) ? row!.fallback_model as LiteAiModelId : DEFAULT_FALLBACK_MODEL; return { preferredModel, fallbackModel, fallbackEnabled: row?.fallback_enabled ?? true } }
+function languageInstruction(preference: string, localLanguage: string) { const language = LANGUAGE_OPTIONS.has(preference) ? preference : 'Auto'; if (language === 'English') return 'Write in clear natural English.'; if (language === 'Filipino') return 'Write in natural Filipino suitable for a Philippine classroom.'; if (language === 'English + Filipino') return 'Write natural teacher-editable English-Filipino bilingual classroom language.'; if (language === 'Mother tongue / local language' && localLanguage) return `Write in ${localLanguage}; preserve official terms when needed.`; return 'Match the verified competency language without silently translating supplied teacher content.' }
+function buildGenerationPrompt(type: QuestionType, immutable: Row, language: string, teacherContext: string, resources: string[]) { const competency = clean(immutable.competencyText); const cognitive = clean(immutable.cognitiveLabel); const points = Number(immutable.pointsPossible ?? 1); const gradeLevel = clean(immutable.gradeLevel) || 'server-verified grade'; const learningArea = clean(immutable.learningArea) || 'server-verified learning area'; return ['Draft exactly one editable assessment item for a Philippine DepEd teacher. Teacher validation and professional judgment are mandatory.', 'OFFICIAL POLICY BOUNDARY: DepEd Order No. 015, s. 2026 permits teacher use of AI for drafting assessment items/prompts and alternative versions subject to teacher validation, professional judgment, and curriculum alignment. It does not replace professional judgment or determine grades. Official source: https://www.deped.gov.ph/wp-content/uploads/DO_s2026_015r.pdf', 'Never alter the fixed item number, competency, cognitive category, question type, or points.', `Grade level (server-verified): ${gradeLevel}`, `Learning area (server-verified): ${learningArea}`, `Item number (fixed): ${Number(immutable.itemNumber)}`, `Competency (fixed): ${competency}`, `Cognitive category (fixed): ${cognitive}`, `Question type (fixed): ${type}`, `Points possible (fixed): ${points}`, language, `Bounded teacher context: ${teacherContext || 'none'}`, `Teacher-listed resources (mention only exact entries, or none): ${resources.length ? resources.join('; ') : 'none'}`, 'Do not invent resources, citations, devices, local facts, learner details, curriculum codes, or PII. Do not translate existing teacher content unexpectedly.', 'Return JSON only with exactly: questionType, prompt, answer, rationale, referencedResources.', `The answer.type must be "${type}" and must use its structured answer shape.`, 'multiple_choice: choices [{id,text}] plus one choiceId; true_false: value boolean; short_answer/identification: acceptedAnswers array; fill_in_the_blank: blanks [{id,acceptedAnswers,pointsPossible?}]; numerical_answer: finite value, optional tolerance/unit; problem_solving: finalAnswer, solutionOutline, optional subparts; matching: prompts, choices, mappings, optional distractors/reuse; multiple_select: choices, choiceIds, scoringPolicy all_or_nothing; constructed_response: expectedResponse, sampleResponse, optional rubric; essay: keyPoints and optional rubric.', 'Rationale is for teacher review and must not claim official approval.'].join('\n') }
+function buildVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row) { return ['Independently review one finished assessment item. Return strict JSON only.', `Fixed item number: ${Number(immutable.itemNumber)}`, `Fixed competency: ${clean(immutable.competencyText)}`, `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`, `Fixed question type: ${type}`, `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`, `Finished candidate: ${JSON.stringify(candidate)}`, 'Check answer validity, competency alignment, cognitive alignment, ambiguity, factual/math issues, and type-specific structure.', 'Do not require a single best answer for essay, constructed_response, or multiple_select.', 'Return exactly: {"status":"pass"|"needs_repair","answerValid":boolean,"competencyAligned":boolean,"cognitiveAlignment":"good"|"questionable","ambiguityDetected":boolean,"factualOrMathIssue":boolean,"issues":string[],"repairGuidance":string[]}.'] .join('\n') }
+function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, issues: string[], guidance: string[]) { return ['Repair exactly one assessment item. Keep immutable item number, competency, cognitive category, question type, and points unchanged.', `Fixed item number: ${Number(immutable.itemNumber)}`, `Fixed competency: ${clean(immutable.competencyText)}`, `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`, `Fixed question type: ${type}`, `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`, `Current candidate: ${JSON.stringify(candidate)}`, `Verifier issues: ${issues.join(' | ') || 'review the answer and wording'}`, `Repair guidance: ${guidance.join(' | ') || 'return a clear unambiguous self-contained item'}`, 'Return JSON only with exactly questionType, prompt, answer, rationale, referencedResources. Do not invent resources or learner details.'].join('\n') }
 
-function stripCodeFence(value: string) {
-  return value.trim().replace(/^\x60\x60\x60json\s*/i, '').replace(/^\x60\x60\x60\s*/i, '').replace(/\s*\x60\x60\x60$/, '').trim()
-}
-
-function parseJsonObject(value: string): DbRow {
-  let parsed: unknown
-  try {
-    parsed = JSON.parse(stripCodeFence(value))
-  } catch {
-    throw new Error('The AI response was not valid JSON. Your draft remains unchanged.')
-  }
-  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
-    throw new Error('The AI response did not match the required structured shape. Your draft remains unchanged.')
-  }
-  return parsed as DbRow
-}
-
-function uniqueKeys(values: string[], caseSensitive = false) {
-  const seen = new Set<string>()
-  for (const value of values) {
-    const key = caseSensitive ? value : value.toLocaleLowerCase('en')
-    if (seen.has(key)) return false
-    seen.add(key)
-  }
-  return true
-}
-
-function normalizeClaimText(value: string) {
-  return value.normalize('NFKC').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
-}
-
-function obviousUnverifiedClaim(value: string, allowedResources: string[]) {
-  const normalized = normalizeClaimText(value)
-  const allowed = allowedResources.map((resource) => ({ raw: resource.toLocaleLowerCase('en'), normalized: normalizeClaimText(resource) })).filter((resource) => resource.normalized)
-  const urlClaims = value.match(/(?:https?:\/\/|www\.)[^\s)\],]+/gi) ?? []
-  if (urlClaims.some((claim) => !allowed.some((resource) => resource.raw.includes(claim.toLocaleLowerCase('en'))))) return true
-  const pageClaims = value.match(/(?:\bpage\b|\bp\.|\bpahina\b)\s*\d+/gi) ?? []
-  if (pageClaims.some((claim) => !allowed.some((resource) => resource.normalized.includes(normalizeClaimText(claim))))) return true
-  const namedResourceOrLocalFact = /\b(?:textbook|module|worksheet|website|handout|reference|activity\s+sheet|learning\s+material|mobile\s+app|app|software|device|tablet|computer|laptop|projector|aklat|modyul|sanggunian|activity\s+sheet|kagamitang\s+pampagkatuto|aplikasyon|kompyuter|barangay|municipality|province)\b/iu
-  return namedResourceOrLocalFact.test(value) && !allowed.some((resource) => normalized.includes(resource.normalized))
-}
-
-function answerStrings(value: unknown): string[] {
-  if (typeof value === 'string') return [value]
-  if (Array.isArray(value)) return value.flatMap(answerStrings)
-  if (value && typeof value === 'object') return Object.values(value as DbRow).flatMap(answerStrings)
-  return []
-}
-
-function validateCandidate(value: DbRow, questionType: QuestionType, teacherResources: string[]) {
-  const allowedKeys = new Set(['questionType', 'prompt', 'answer', 'rationale', 'referencedResources'])
-  if (Object.keys(value).some((key) => !allowedKeys.has(key))) {
-    throw new Error('The AI response included unsupported fields. Your draft remains unchanged.')
-  }
-  if (value.questionType !== questionType) {
-    throw new Error('The AI response changed the verified question type. Your draft remains unchanged.')
-  }
-  const prompt = clean(value.prompt, 2000)
-  const rationale = clean(value.rationale, 1600)
-  if (prompt.length < 4 || rationale.length < 4) {
-    throw new Error('The AI response needs a non-empty prompt and rationale. Your draft remains unchanged.')
-  }
-  if (!Array.isArray(value.referencedResources) || value.referencedResources.length > 10) {
-    throw new Error('The AI response has an invalid referenced-resources list. Your draft remains unchanged.')
-  }
-  const referencedResources = value.referencedResources.map((item) => clean(item, 180))
-  if (referencedResources.some((item) => !item)) {
-    throw new Error('The AI response has a blank referenced resource. Your draft remains unchanged.')
-  }
-  if (!referencedResources.every((item) => teacherResources.includes(item))) {
-    throw new Error('The AI response referenced a resource that the teacher did not list. Your draft remains unchanged.')
-  }
-  const answer = asObject(value.answer)
-  if (answer.type !== questionType) {
-    throw new Error('The AI response answer type does not match the verified question type. Your draft remains unchanged.')
-  }
-  let normalizedAnswer: DbRow
-  if (questionType === 'multiple_choice') {
-    if (!onlyKeys(answer, ['type', 'choices', 'choiceId'])) {
-      throw new Error('The AI response multiple-choice answer shape is invalid. Your draft remains unchanged.')
-    }
-    const choices = Array.isArray(answer.choices) ? answer.choices.map(asObject) : []
-    if (choices.length < 2 || choices.length > 6) {
-      throw new Error('Multiple-choice drafts require 2–6 choices. Your draft remains unchanged.')
-    }
-    const ids = choices.map((item) => clean(item.id, 80))
-    const texts = choices.map((item) => clean(item.text, 500))
-    if (choices.some((item) => !onlyKeys(item, ['id', 'text']))) {
-      throw new Error('The AI response multiple-choice option shape is invalid. Your draft remains unchanged.')
-    }
-    if (ids.some((item) => !item) || texts.some((item) => !item) || !uniqueKeys(ids) || !uniqueKeys(texts)) {
-      throw new Error('Multiple-choice choices must be nonblank and unique. Your draft remains unchanged.')
-    }
-    const choiceId = clean(answer.choiceId, 80)
-    if (!ids.includes(choiceId)) {
-      throw new Error('The multiple-choice answer must select one returned choice. Your draft remains unchanged.')
-    }
-    normalizedAnswer = { type: 'multiple_choice', choices: choices.map((_, index) => ({ id: ids[index], text: texts[index] })), choiceId }
-  } else if (questionType === 'true_false') {
-    if (!onlyKeys(answer, ['type', 'value'])) {
-      throw new Error('The AI response true/false answer shape is invalid. Your draft remains unchanged.')
-    }
-    if (typeof answer.value !== 'boolean') {
-      throw new Error('True/false drafts require a boolean answer. Your draft remains unchanged.')
-    }
-    normalizedAnswer = { type: 'true_false', value: answer.value }
-  } else if (questionType === 'short_answer') {
-    if (!onlyKeys(answer, ['type', 'acceptedAnswers', 'caseSensitive'])) {
-      throw new Error('The AI response short-answer shape is invalid. Your draft remains unchanged.')
-    }
-    const accepted = Array.isArray(answer.acceptedAnswers) ? answer.acceptedAnswers.map((item) => clean(item, 500)) : []
-    if (!accepted.length || accepted.some((item) => !item) || !uniqueKeys(accepted, answer.caseSensitive === true)) {
-      throw new Error('Short-answer drafts require unique nonblank accepted answers. Your draft remains unchanged.')
-    }
-    if (answer.caseSensitive !== undefined && typeof answer.caseSensitive !== 'boolean') {
-      throw new Error('Short-answer case sensitivity is invalid. Your draft remains unchanged.')
-    }
-    normalizedAnswer = { type: 'short_answer', acceptedAnswers: accepted, caseSensitive: answer.caseSensitive === true }
-  } else {
-    if (!onlyKeys(answer, ['type', 'expectedResponse', 'sampleResponse', 'rubricGuidance'])) {
-      throw new Error('The AI response constructed-response shape is invalid. Your draft remains unchanged.')
-    }
-    if (clean(answer.expectedResponse, 1200).length < 2 || clean(answer.sampleResponse, 1200).length < 2) {
-      throw new Error('Constructed-response drafts require an expected and sample response. Your draft remains unchanged.')
-    }
-    if (answer.rubricGuidance !== undefined && clean(answer.rubricGuidance, 1200).length < 2) {
-      throw new Error('Constructed-response rubric guidance must be meaningful when supplied. Your draft remains unchanged.')
-    }
-    const rubricGuidance = answer.rubricGuidance === undefined ? '' : clean(answer.rubricGuidance, 1200)
-    normalizedAnswer = {
-      type: 'constructed_response',
-      expectedResponse: clean(answer.expectedResponse, 1200),
-      sampleResponse: clean(answer.sampleResponse, 1200),
-      ...(rubricGuidance ? { rubricGuidance } : {}),
-    }
-  }
-  if ([prompt, rationale, ...answerStrings(normalizedAnswer)].some((item) => obviousUnverifiedClaim(item, teacherResources))) {
-    throw new Error('The AI response included an unverified resource, device, local fact, URL, or page claim. Your draft remains unchanged.')
-  }
-  return { questionType, prompt, answer: normalizedAnswer, rationale, referencedResources }
-}
-
-function resolveSettings(row: SettingsRow | null) {
-  const preferredModel: AiModelId = isAiModelId(row?.preferred_model) ? row!.preferred_model as AiModelId : DEFAULT_MODEL
-  const fallbackModel: LiteAiModelId = isLiteModel(row?.fallback_model) ? row!.fallback_model as LiteAiModelId : DEFAULT_FALLBACK_MODEL
-  return { preferredModel, fallbackModel, fallbackEnabled: row?.fallback_enabled ?? true }
-}
-
-function languageInstruction(preference: string, localLanguage: string) {
-  const language = languageOptions.has(preference) ? preference : 'Auto'
-  if (language === 'English') return 'Write the draft in clear natural English.'
-  if (language === 'Filipino') return 'Write the draft in natural Filipino suitable for a Philippine classroom.'
-  if (language === 'English + Filipino') return 'Write natural teacher-editable English-Filipino bilingual classroom language.'
-  if (language === 'Mother tongue / local language' && localLanguage) return 'Write the draft in ' + localLanguage + '; preserve official terms when no confident translation is available.'
-  return 'Match the language of the verified competency and teacher context. Do not translate existing teacher content unexpectedly.'
-}
-
-function buildPrompt(
-  questionType: QuestionType,
-  gradeLevel: string,
-  learningArea: string,
-  competencyText: string,
-  competencyCode: string | null,
-  cognitiveLabel: string,
-  cognitiveShortLabel: string,
-  language: string,
-  teacherContext: string,
-  preferences: PreferenceRow,
-) {
-  const resources = list(preferences.actual_resources)
-  const approaches = list(preferences.preferred_approaches)
-  const technology = list(preferences.available_technology)
-  const resourceText = resources.length ? resources.map((item) => '- ' + item).join('\n') : '- none listed'
-  return [
-    'You are drafting one editable assessment item for a Philippine DepEd teacher. AI may draft content only; the teacher must validate, review, edit, and accept it using professional judgment and curriculum alignment.',
-    '',
-    'OFFICIAL POLICY BOUNDARY: DepEd Order No. 015, s. 2026 permits teacher use of AI for drafting assessment items/prompts and alternative versions, subject to teacher validation, review, professional judgment, and curriculum alignment. It does not permit AI to replace professional judgment, determine grades, bypass curriculum alignment, or evaluate learners without teacher validation. Protect personal information. Official source: https://www.deped.gov.ph/wp-content/uploads/DO_s2026_015r.pdf',
-    'GOOD PRACTICE / SCHOOL CONVENTION: Use clear language, avoid unnecessary named resources, and follow local school conventions only when the teacher verifies them. These are not additional official DepEd rules.',
-    '',
-    'VERIFIED MAPPING (FIXED — NEVER CHANGE OR RELABEL):',
-    '- Competency: ' + competencyText,
-    '- Grade level (server-verified): ' + gradeLevel,
-    '- Learning area (server-verified): ' + learningArea,
-    '- Curriculum code, only if supplied: ' + (competencyCode || 'none supplied'),
-    '- Cognitive category: ' + cognitiveLabel + ' (' + cognitiveShortLabel + ')',
-    '- Question type: ' + questionType,
-    '',
-    language,
-    'Teacher context (bounded; do not repeat personal data): ' + (teacherContext || 'none supplied'),
-    'Teacher-listed actual resources (you may mention only these, and only if useful):',
-    resourceText,
-    'Teacher-preferred approaches: ' + (approaches.length ? approaches.join('; ') : 'none listed'),
-    'Technology availability is feasibility context only: ' + (technology.length ? technology.join('; ') : 'none listed'),
-    '',
-    'Do not invent curriculum codes, standards, citations, textbook/module/page/site/device/app/worksheet/school materials, local facts, or learner details. Do not include learner PII. Do not unexpectedly translate supplied teacher content. Keep the verified competency and cognitive category fixed and reviewable; do not make grading decisions.',
-    '',
-    'Return JSON only, with exactly these top-level keys: questionType, prompt, answer, rationale, referencedResources. questionType must be "' + questionType + '". referencedResources must be an array containing only exact strings from the teacher-listed resource list, or an empty array.',
-    'Answer shape must be exact:',
-    '- multiple_choice: answer={"type":"multiple_choice","choices":[{"id":"A","text":"..."},{"id":"B","text":"..."}],"choiceId":"A"}; include 2–6 unique nonblank choices and select one choiceId.',
-    '- true_false: answer={"type":"true_false","value":true} or false.',
-    '- short_answer: answer={"type":"short_answer","acceptedAnswers":["..."],"caseSensitive":false}; include unique accepted answers.',
-    '- constructed_response: answer={"type":"constructed_response","expectedResponse":"...","sampleResponse":"...","rubricGuidance":"..."}; sampleResponse is a teacher-reviewable example, not a learner result.',
-    'The rationale must explain alignment for teacher review, not claim official approval.',
-  ].join('\n')
-}
-
-async function callWithFallback(apiKey: string, settings: ReturnType<typeof resolveSettings>, prompt: string) {
-  let modelUsed: AiModelId = settings.preferredModel
-  let fallbackUsed = false
-  try {
-    const output = await callGemini(apiKey, settings.preferredModel, prompt, { maxOutputTokens: 1800, temperature: 0.25 })
-    return { output, modelUsed, fallbackUsed }
-  } catch (error) {
-    if (!(error instanceof GeminiHttpError) || !isFallbackEligibleStatus(error.status) || !fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)) throw error
-    modelUsed = settings.fallbackModel
-    fallbackUsed = true
-    const output = await callGemini(apiKey, settings.fallbackModel, prompt, { maxOutputTokens: 1800, temperature: 0.25 })
-    return { output, modelUsed, fallbackUsed }
-  }
-}
-
-type AuditPayload = {
-  userId: string
-  assessmentId: string
-  itemId: string
-  questionType: QuestionType
-  alternative: boolean
-  model: string
-  fallbackUsed: boolean
-  outcome: Outcome
-}
-
-async function audit(admin: ReturnType<typeof createClient>, payload: AuditPayload) {
-  try {
-    await admin.from('assessment_ai_audit_events').insert({
-      user_id: payload.userId,
-      assessment_document_id: payload.assessmentId,
-      assessment_item_id: payload.itemId,
-      question_type: payload.questionType,
-      alternative: payload.alternative,
-      provider: 'google',
-      model: payload.model,
-      fallback_used: payload.fallbackUsed,
-      outcome: payload.outcome,
-    })
-  } catch {
-    // Audit failure must never expose a key or alter the teacher's draft result.
-  }
-}
-
-function errorMessage(error: unknown) {
-  if (error instanceof GeminiHttpError) {
-    if (error.status === 429) return 'Gemini quota is currently unavailable. Your assessment draft remains unchanged; try again later or use the configured Lite fallback.'
-    if (error.status === 401 || error.status === 403) return 'The saved Gemini credential was rejected. Your assessment draft remains unchanged.'
-  }
-  if (error instanceof Error && error.message.includes('Your draft remains unchanged')) return error.message
-  return 'Assessment drafting could not be completed. Your assessment draft remains unchanged.'
-}
+// maxRetries=2 in the client scheduler means at most 3 provider attempts
+// (attempt <= 3) for one queued operation; no endless repair loop is allowed.
+async function callWithLiteFallback(apiKey: string, settings: ReturnType<typeof resolveSettings>, prompt: string) { let modelUsed: AiModelId = settings.preferredModel; let fallbackUsed = false; try { const output = await callGemini(apiKey, settings.preferredModel, prompt, { maxOutputTokens: 2200, temperature: 0.2 }); return { output, modelUsed, fallbackUsed } } catch (error) { if (!(error instanceof GeminiHttpError) || !isFallbackEligibleStatus(error.status) || !fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)) throw error; modelUsed = settings.fallbackModel; fallbackUsed = true; const output = await callGemini(apiKey, settings.fallbackModel, prompt, { maxOutputTokens: 2200, temperature: 0.2 }); return { output, modelUsed, fallbackUsed } } }
+function oppositeLiteModel(settings: ReturnType<typeof resolveSettings>, generatorModel = ''): LiteAiModelId { if (generatorModel === DEFAULT_MODEL) return DEFAULT_FALLBACK_MODEL; if (generatorModel === DEFAULT_FALLBACK_MODEL) return DEFAULT_MODEL; if (isLiteModel(settings.preferredModel)) return settings.preferredModel === DEFAULT_MODEL ? DEFAULT_FALLBACK_MODEL : DEFAULT_MODEL; return DEFAULT_MODEL }
+type AuditPayload = { userId: string; assessmentId: string; itemId: string; questionType: QuestionType; alternative: boolean; model: string; fallbackUsed: boolean; outcome: 'success' | 'rejected' | 'error' | 'cancelled' }
+async function audit(admin: ReturnType<typeof createClient>, payload: AuditPayload) { try { await admin.from('assessment_ai_audit_events').insert({ user_id: payload.userId, assessment_document_id: payload.assessmentId, assessment_item_id: payload.itemId, question_type: payload.questionType, alternative: payload.alternative, provider: 'google', model: payload.model, fallback_used: payload.fallbackUsed, outcome: payload.outcome }) } catch { /* Metadata audit failure never changes teacher work. */ } }
+function errorMessage(error: unknown) { if (error instanceof GeminiHttpError) { if (error.status === 429) return 'Gemini provider limit reached. Your saved assessment work is preserved; generation is paused. Try again later or use the configured Lite fallback.'; if (error.status === 401 || error.status === 403) return 'The saved Gemini credential was rejected. Your assessment draft remains unchanged.' }; if (error instanceof Error && /draft remains unchanged|candidate|answer shape|mapping/.test(error.message)) return error.message; return 'Assessment AI could not complete this request. Your assessment draft remains unchanged.' }
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
@@ -335,99 +72,41 @@ Deno.serve(async (req) => {
   let auditPayload: AuditPayload | null = null
   let candidateValidationStarted = false
   try {
-    const authHeader = req.headers.get('Authorization')
-    if (!authHeader) return json({ error: 'Authentication required.' }, 401)
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')
-    const anonKey = Deno.env.get('SUPABASE_ANON_KEY')
-    const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-    if (!supabaseUrl || !anonKey || !serviceRole) return json({ error: 'Supabase function environment is incomplete.' }, 500)
-    const userClient = createClient(supabaseUrl, anonKey, { global: { headers: { Authorization: authHeader } } })
-    const { data: userData, error: userError } = await userClient.auth.getUser()
-    if (userError || !userData.user) return json({ error: 'Invalid authentication session.' }, 401)
-    const userId = userData.user.id
-    const admin = createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } })
-    const body = await req.json() as RequestBody
-    const keys = Object.keys(body ?? {})
-    if (keys.some((key) => !['assessmentId', 'itemId', 'questionType', 'alternative', 'teacherContext'].includes(key))) return json({ error: 'Only assessment, item, question-type, alternative, and bounded teacher context are accepted.' }, 400)
-    const assessmentId = clean(body.assessmentId, 80)
-    const itemId = clean(body.itemId, 80)
-    const requestedType = body.questionType
-    const alternative = body.alternative === true
-    const teacherContext = clean(body.teacherContext, 1200)
-    if (!uuidPattern.test(assessmentId) || !uuidPattern.test(itemId) || !requestedType || !questionTypes.has(requestedType)) return json({ error: 'A valid assessment, item, and question type are required.' }, 400)
-    const [assessmentResult, metadataResult, itemResult, preferencesResult, settingsResult, credentialResult] = await Promise.all([
-      admin.from('documents').select('id, user_id, assignment_id, status, document_type, structured_content').eq('id', assessmentId).eq('user_id', userId).eq('document_type', 'assessment').maybeSingle(),
-      admin.from('assessment_documents').select('*').eq('document_id', assessmentId).eq('user_id', userId).maybeSingle(),
-      admin.from('assessment_items').select('*').eq('assessment_document_id', assessmentId).eq('id', itemId).maybeSingle(),
-      admin.from('teacher_lesson_preferences').select('*').eq('user_id', userId).maybeSingle(),
-      admin.from('teacher_ai_settings').select('*').eq('user_id', userId).maybeSingle(),
-      admin.from('teacher_ai_credentials').select('api_key_ciphertext, api_key_iv, encryption_key_source').eq('user_id', userId).maybeSingle(),
-    ])
-    if (assessmentResult.error) throw assessmentResult.error
-    if (metadataResult.error) throw metadataResult.error
-    if (itemResult.error) throw itemResult.error
-    if (preferencesResult.error) throw preferencesResult.error
-    if (settingsResult.error) throw settingsResult.error
-    if (credentialResult.error) throw credentialResult.error
+    const authHeader = req.headers.get('Authorization'); if (!authHeader) return json({ error: 'Authentication required.' }, 401)
+    const supabaseUrl = Deno.env.get('SUPABASE_URL'); const anonKey = Deno.env.get('SUPABASE_ANON_KEY'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (!supabaseUrl || !anonKey || !serviceRole) return json({ error: 'Supabase function environment is incomplete.' }, 500)
+    const userClient = createClient(supabaseUrl, anonKey, { global: { headers: { Authorization: authHeader } } }); const { data: userData, error: userError } = await userClient.auth.getUser(); if (userError || !userData.user) return json({ error: 'Invalid authentication session.' }, 401)
+    const userId = userData.user.id; const admin = createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }); const body = await req.json() as RequestBody; const operation: Operation = body.operation === 'verify' || body.operation === 'repair' ? body.operation : 'generate'
+    const allowedBodyKeys = ['operation', 'assessmentId', 'itemId', 'questionType', 'alternative', 'teacherContext', 'candidate', 'issues', 'repairGuidance', 'generatorModel']; if (Object.keys(body ?? {}).some((key) => !allowedBodyKeys.includes(key))) return json({ error: 'Unsupported assessment AI request fields.' }, 400)
+    const assessmentId = clean(body.assessmentId, 80); const itemId = clean(body.itemId, 80); const requestedType = body.questionType; if (!UUID.test(assessmentId) || !UUID.test(itemId) || !requestedType || !QUESTION_TYPES.has(requestedType)) return json({ error: 'A valid assessment, item, and question type are required.' }, 400)
+    const [assessmentResult, metadataResult, itemResult, preferencesResult, settingsResult, credentialResult] = await Promise.all([admin.from('documents').select('id, user_id, assignment_id, status, document_type, structured_content').eq('id', assessmentId).eq('user_id', userId).eq('document_type', 'assessment').maybeSingle(), admin.from('assessment_documents').select('*').eq('document_id', assessmentId).eq('user_id', userId).maybeSingle(), admin.from('assessment_items').select('*').eq('assessment_document_id', assessmentId).eq('id', itemId).maybeSingle(), admin.from('teacher_lesson_preferences').select('*').eq('user_id', userId).maybeSingle(), admin.from('teacher_ai_settings').select('*').eq('user_id', userId).maybeSingle(), admin.from('teacher_ai_credentials').select('api_key_ciphertext, api_key_iv, encryption_key_source').eq('user_id', userId).maybeSingle()])
+    if (assessmentResult.error) throw assessmentResult.error; if (metadataResult.error) throw metadataResult.error; if (itemResult.error) throw itemResult.error; if (preferencesResult.error) throw preferencesResult.error; if (settingsResult.error) throw settingsResult.error; if (credentialResult.error) throw credentialResult.error
     if (!assessmentResult.data || !metadataResult.data || !itemResult.data) return json({ error: 'The assessment item could not be found for this teacher.' }, 404)
     if (assessmentResult.data.status !== 'draft') return json({ error: 'Only draft assessment items can receive editable AI suggestions.' }, 409)
-    const item = itemResult.data as DbRow
-    const metadata = metadataResult.data as DbRow
-    const serverQuestionType = String(item.question_type) as QuestionType
-    if (serverQuestionType !== requestedType) return json({ error: 'The requested question type does not match the saved item mapping.' }, 409)
-    if (!alternative && String(item.authorship_state) !== 'empty') return json({ error: 'This item already has content. Request an explicit alternative to preserve the existing draft.' }, 409)
-    const sourceId = String(metadata.source_tos_document_id)
-    const [sourceResult, tosRowsResult, competencyResult] = await Promise.all([
-      admin.from('documents').select('id, user_id, assignment_id, status, document_type, structured_content').eq('id', sourceId).eq('user_id', userId).eq('document_type', 'tos').maybeSingle(),
-      admin.from('tos_competencies').select('*').eq('document_id', sourceId).order('row_order', { ascending: true }),
-      admin.from('curriculum_competencies').select('id, competency_code, competency_text, source_page, academic_period_id, verification_status').eq('id', String(item.canonical_competency_id)).maybeSingle(),
-    ])
-    if (sourceResult.error) throw sourceResult.error
-    if (tosRowsResult.error) throw tosRowsResult.error
-    if (competencyResult.error) throw competencyResult.error
-    const source = sourceResult.data as DbRow | null
-    const canonical = competencyResult.data as DbRow | null
-    if (!source || !canonical || !['final', 'archived'].includes(String(source.status)) || String(source.assignment_id) !== String(metadata.assignment_id)) return json({ error: 'The finalized TOS source is unavailable for this draft.' }, 409)
-    if (String(canonical.verification_status) !== 'verified' || String(canonical.competency_text) !== String(item.competency_text_snapshot) || String(canonical.competency_code ?? '') !== String(item.competency_code_snapshot ?? '')) return json({ error: 'The saved competency mapping is no longer a verified canonical record.' }, 409)
-    const tosRows = (tosRowsResult.data ?? []) as unknown as DbRow[]
-    const mappedRow = tosRows.find((row) => String(row.row_id) === String(item.tos_row_id) && String(row.competency_id) === String(item.canonical_competency_id) && Number(item.item_number) >= Number(row.item_start) && Number(item.item_number) <= Number(row.item_end))
-    if (!mappedRow) return json({ error: 'The saved item mapping no longer matches the finalized TOS range.' }, 409)
-    const allocations = Array.isArray(mappedRow.cognitive_allocations) ? mappedRow.cognitive_allocations.map(asObject) : []
-    const allocation = allocations.find((value) => String(value.categoryId) === String(item.cognitive_category_id) && Number(value.itemStart) === Number(item.allocation_item_start) && Number(value.itemEnd) === Number(item.allocation_item_end) && Number(item.item_number) === Number(item.allocation_item_start) + Number(item.allocation_index))
-    if (!allocation || String(allocation.label) !== String(item.cognitive_category_label_snapshot)) return json({ error: 'The saved cognitive mapping no longer matches the finalized TOS allocation.' }, 409)
-    const sourceContent = asObject(metadata.source_tos_content_snapshot)
-    const sourceRows = Array.isArray(sourceContent.rows) ? sourceContent.rows.map(asObject) : []
-    const sourceTosRow = sourceRows.find((row) => String(row.id) === String(item.tos_row_id))
-    const sourceCompetency = sourceTosRow ? asObject(sourceTosRow.competency) : {}
-    if (String(sourceCompetency.id) !== String(item.canonical_competency_id) || String(sourceCompetency.text) !== String(item.competency_text_snapshot)) return json({ error: 'The server source snapshot does not match the saved item mapping.' }, 409)
-    const preference = (preferencesResult.data ?? {}) as PreferenceRow
-    const resources = list(preference.actual_resources)
-    const language = languageInstruction(clean(preference.language_preference, 80) || 'Auto', clean(preference.local_language_name, 100))
-    const prompt = buildPrompt(serverQuestionType, clean(sourceContent.gradeLevel, 80), clean(sourceContent.learningArea, 120), String(item.competency_text_snapshot), item.competency_code_snapshot ? String(item.competency_code_snapshot) : null, String(item.cognitive_category_label_snapshot), clean(item.cognitive_category_short_label_snapshot, 40), language, teacherContext, preference)
-    const credential = credentialResult.data as CredentialRow | null
-    if (!credential) return json({ error: 'Connect a Gemini API key in AI settings before drafting assessment items.' }, 400)
-    const settings = resolveSettings((settingsResult.data ?? null) as SettingsRow | null)
-    const apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
-    auditPayload = { userId, assessmentId, itemId, questionType: serverQuestionType, alternative, model: settings.preferredModel, fallbackUsed: false, outcome: 'error' }
-    const generated = await callWithFallback(apiKey, settings, prompt)
-    auditPayload.model = generated.modelUsed
-    auditPayload.fallbackUsed = generated.fallbackUsed
-    candidateValidationStarted = true
-    const parsed = parseJsonObject(generated.output)
-    const candidate = validateCandidate(parsed, serverQuestionType, resources)
-    auditPayload.outcome = 'success'
-    await audit(admin, auditPayload)
-    return json({ assessmentId, itemId, questionType: serverQuestionType, candidate, approvedResources: resources, model: generated.modelUsed, fallbackUsed: generated.fallbackUsed, editable: true })
-  } catch (error) {
-    if (auditPayload) {
-      auditPayload.outcome = candidateValidationStarted ? 'rejected' : 'error'
-      const supabaseUrl = Deno.env.get('SUPABASE_URL')
-      const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-      if (supabaseUrl && serviceRole) {
-        const admin = createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } })
-        await audit(admin, auditPayload)
-      }
+    const item = itemResult.data as Row; const metadata = metadataResult.data as Row; const sourceContent = object(metadata.source_tos_content_snapshot); const serverType = String(item.question_type) as QuestionType; if (serverType !== requestedType) return json({ error: 'The requested question type does not match the saved item.' }, 409); if (item.locked === true || String(item.qa_state) === 'locked') return json({ error: 'This item is locked. Unlock it before requesting AI generation or review.' }, 409)
+    const sourceSettings = object(object(assessmentResult.data.structured_content).settings ?? object(metadata.structured_content).settings); const allowedTypes = Array.isArray(sourceSettings.allowedTypes) ? sourceSettings.allowedTypes.map(String) : []; if (allowedTypes.length && !allowedTypes.includes(serverType)) return json({ error: 'This question type is disabled for the assessment.' }, 409)
+    if (operation === 'generate' && !body.alternative && String(item.authorship_state) !== 'empty') return json({ error: 'This item already has content. Request an explicit alternative to preserve the existing draft.' }, 409)
+    const sourceId = String(metadata.source_tos_document_id); const [sourceResult, tosRowsResult, competencyResult] = await Promise.all([admin.from('documents').select('id, user_id, assignment_id, status, document_type, structured_content').eq('id', sourceId).eq('user_id', userId).eq('document_type', 'tos').maybeSingle(), admin.from('tos_competencies').select('*').eq('document_id', sourceId).order('row_order', { ascending: true }), admin.from('curriculum_competencies').select('id, competency_code, competency_text, source_page, academic_period_id, verification_status').eq('id', String(item.canonical_competency_id)).maybeSingle()]); if (sourceResult.error) throw sourceResult.error; if (tosRowsResult.error) throw tosRowsResult.error; if (competencyResult.error) throw competencyResult.error
+    const source = sourceResult.data as Row | null; const canonical = competencyResult.data as Row | null; if (!source || !canonical || !['final', 'archived'].includes(String(source.status)) || String(source.assignment_id) !== String(metadata.assignment_id)) return json({ error: 'The finalized TOS source is unavailable for this draft.' }, 409); if (String(canonical.verification_status) !== 'verified' || String(canonical.competency_text) !== String(item.competency_text_snapshot) || String(canonical.competency_code ?? '') !== String(item.competency_code_snapshot ?? '')) return json({ error: 'The saved competency mapping is no longer a verified canonical record.' }, 409)
+    const tosRows = (tosRowsResult.data ?? []) as unknown as Row[]; const mappedRow = tosRows.find((row) => String(row.row_id) === String(item.tos_row_id) && String(row.competency_id) === String(item.canonical_competency_id) && Number(item.item_number) >= Number(row.item_start) && Number(item.item_number) <= Number(row.item_end)); if (!mappedRow) return json({ error: 'The saved item mapping no longer matches the finalized TOS range.' }, 409)
+    const allocations = Array.isArray(mappedRow.cognitive_allocations) ? mappedRow.cognitive_allocations.map(object) : []; const allocation = allocations.find((entry) => String(entry.categoryId) === String(item.cognitive_category_id) && Number(entry.itemStart) === Number(item.allocation_item_start) && Number(entry.itemEnd) === Number(item.allocation_item_end) && Number(item.item_number) === Number(item.allocation_item_start) + Number(item.allocation_index)); if (!allocation) return json({ error: 'The saved cognitive mapping no longer matches the finalized TOS allocation.' }, 409)
+    const preference = (preferencesResult.data ?? {}) as PreferenceRow; const resources = list(preference.actual_resources, 30, 180); const language = languageInstruction(clean(preference.language_preference, 80) || 'Auto', clean(preference.local_language_name, 100)); const settings = resolveSettings((settingsResult.data ?? null) as SettingsRow | null); const credential = credentialResult.data as CredentialRow | null; if (!credential) return json({ error: 'Connect a Gemini API key in AI settings before using assessment AI.' }, 400); const apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
+    const assessmentContent = object(assessmentResult.data.structured_content)
+    const metadataContent = object(metadata.structured_content)
+    const gradeLevel = clean(item.grade_level ?? assessmentContent.gradeLevel ?? assessmentContent.grade_level ?? metadataContent.gradeLevel ?? metadataContent.grade_level)
+    const learningArea = clean(item.learning_area ?? assessmentContent.learningArea ?? assessmentContent.learning_area ?? metadataContent.learningArea ?? metadataContent.learning_area)
+    const immutable: Row = { itemNumber: Number(item.item_number), competencyText: String(item.competency_text_snapshot), competencyCode: item.competency_code_snapshot ? String(item.competency_code_snapshot) : null, cognitiveLabel: String(item.cognitive_category_label_snapshot), cognitiveShortLabel: String(item.cognitive_category_short_label_snapshot), pointsPossible: Number(item.points_possible ?? item.points ?? 1), gradeLevel, learningArea }
+    auditPayload = { userId, assessmentId, itemId, questionType: serverType, alternative: body.alternative === true, model: settings.preferredModel, fallbackUsed: false, outcome: 'error' }
+    let responseModel: AiModelId = settings.preferredModel; let fallbackUsed = false
+    if (operation === 'verify') {
+      const approved = validateCandidate(body.candidate, serverType, resources, false); candidateValidationStarted = true; const verifierModel = oppositeLiteModel(settings, clean(body.generatorModel, 120)); const verifierOutput = await callGemini(apiKey, verifierModel, buildVerifierPrompt(serverType, immutable, approved), { maxOutputTokens: 1000, temperature: 0.1 }); responseModel = verifierModel; const verifier = parseJson(verifierOutput); const required = ['status', 'answerValid', 'competencyAligned', 'cognitiveAlignment', 'ambiguityDetected', 'factualOrMathIssue', 'issues', 'repairGuidance']; if (!onlyKeys(verifier, required) || !['pass', 'needs_repair'].includes(String(verifier.status)) || typeof verifier.answerValid !== 'boolean' || typeof verifier.competencyAligned !== 'boolean' || !['good', 'questionable'].includes(String(verifier.cognitiveAlignment)) || typeof verifier.ambiguityDetected !== 'boolean' || typeof verifier.factualOrMathIssue !== 'boolean' || !Array.isArray(verifier.issues) || !Array.isArray(verifier.repairGuidance)) throw new Error('The verifier response did not match the required structured contract.'); auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, verifier: { ...verifier, issues: list(verifier.issues, 12, 500), repairGuidance: list(verifier.repairGuidance, 12, 700) }, model: responseModel, fallbackUsed: false, editable: true })
     }
-    return json({ error: errorMessage(error) }, error instanceof GeminiHttpError && error.status === 429 ? 429 : 400)
+    let candidate: Row
+    if (operation === 'repair') { const current = validateCandidate(body.candidate, serverType, resources, false); candidateValidationStarted = true; const repairSettings = { ...settings, preferredModel: isLiteModel(settings.preferredModel) ? settings.preferredModel : DEFAULT_MODEL, fallbackModel: isLiteModel(settings.preferredModel) && settings.preferredModel !== DEFAULT_MODEL ? DEFAULT_MODEL : DEFAULT_FALLBACK_MODEL }; const output = await callWithLiteFallback(apiKey, repairSettings, buildRepairPrompt(serverType, immutable, current, list(body.issues, 8, 500), list(body.repairGuidance, 8, 700))); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; candidate = validateCandidate(parseJson(output.output), serverType, resources) }
+    else { const teacherContext = clean(body.teacherContext, 1200); const output = await callWithLiteFallback(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources)); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; candidate = validateCandidate(parseJson(output.output), serverType, resources) }
+    candidateValidationStarted = true; auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, candidate, approvedResources: resources, model: responseModel, fallbackUsed, editable: true })
+  } catch (error) {
+    if (auditPayload) { auditPayload.outcome = candidateValidationStarted ? 'rejected' : 'error'; const supabaseUrl = Deno.env.get('SUPABASE_URL'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (supabaseUrl && serviceRole) await audit(createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }), auditPayload) }
+    const providerStatus = error instanceof GeminiHttpError ? error.status : 0
+    return json({ error: errorMessage(error) }, [408, 425, 429, 500, 502, 503, 504].includes(providerStatus) ? providerStatus : 400)
   }
 })

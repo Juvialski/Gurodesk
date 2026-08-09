@@ -8,9 +8,24 @@ import type {
   AssessmentItem,
   AssessmentItemMapping,
   AssessmentTosSnapshot,
+  AssessmentSettings,
   QuestionType,
 } from '../types/assessment'
 import type { TosContent, TosRecord } from '../types/tos'
+
+function normalizeItemPoints(item: Partial<AssessmentItem>) {
+  const raw: unknown = item.pointsPossible ?? item.points
+  if (raw === null || raw === undefined || raw === '') return 1
+  const value = Number(raw)
+  return Number.isFinite(value) ? Math.round(value * 100) / 100 : Number.NaN
+}
+
+function deriveAssessmentTotalPoints(items: readonly Partial<AssessmentItem>[]) {
+  return Math.round(items.reduce((sum, item) => {
+    const points = normalizeItemPoints(item)
+    return sum + (Number.isFinite(points) && points > 0 ? points : 0)
+  }, 0) * 100) / 100
+}
 
 function clone<T>(value: T): T {
   if (typeof structuredClone === 'function') return structuredClone(value)
@@ -69,8 +84,39 @@ function competencySnapshot(row: TosContent['rows'][number]): AssessmentCompeten
 function emptyAnswer(questionType: QuestionType = 'multiple_choice'): AssessmentAnswer {
   if (questionType === 'true_false') return { type: 'true_false', value: false }
   if (questionType === 'short_answer') return { type: 'short_answer', acceptedAnswers: [], caseSensitive: false }
+  if (questionType === 'identification') return { type: 'identification', acceptedAnswers: [], caseSensitive: false }
+  if (questionType === 'fill_in_the_blank') return { type: 'fill_in_the_blank', blanks: [] }
+  if (questionType === 'numerical_answer') return { type: 'numerical_answer', value: 0, tolerance: 0, unit: '', requireUnit: false }
+  if (questionType === 'problem_solving') return { type: 'problem_solving', finalAnswer: '', solutionOutline: '' }
+  if (questionType === 'matching') return { type: 'matching', prompts: [], choices: [], mappings: [], reusableChoices: false }
+  if (questionType === 'multiple_select') return { type: 'multiple_select', choices: [], choiceIds: [], scoringPolicy: 'all_or_nothing' }
+  if (questionType === 'essay') return { type: 'essay', keyPoints: [], rubric: [] }
   if (questionType === 'constructed_response') return { type: 'constructed_response', expectedResponse: '', sampleResponse: '' }
   return { type: 'multiple_choice', choices: [], choiceId: '' }
+}
+
+const DEFAULT_ASSESSMENT_SETTINGS: AssessmentSettings = {
+  schemaVersion: 1,
+  mode: 'auto_balanced',
+  allowedTypes: [
+    'multiple_choice', 'true_false', 'short_answer', 'constructed_response',
+    'identification', 'fill_in_the_blank', 'numerical_answer',
+    'problem_solving', 'matching', 'multiple_select', 'essay',
+  ],
+  defaultPoints: {
+    multiple_choice: 1,
+    true_false: 1,
+    short_answer: 1,
+    constructed_response: 5,
+    identification: 1,
+    fill_in_the_blank: 1,
+    numerical_answer: 1,
+    problem_solving: 3,
+    matching: 1,
+    multiple_select: 1,
+    essay: 10,
+  },
+  targetTotalPoints: null,
 }
 
 function validateAllocationRanges(tos: TosRecord) {
@@ -137,7 +183,11 @@ export function createAssessmentBlueprint(tos: TosRecord, options: AssessmentFac
           authorshipState: 'empty',
           rationale: '',
           teacherNotes: '',
+          pointsPossible: 1,
           points: 1,
+          qaState: 'empty',
+          locked: false,
+          history: [],
         })
       }
     })
@@ -159,6 +209,8 @@ export function createAssessmentBlueprint(tos: TosRecord, options: AssessmentFac
     curriculumPeriodIds: [...content.curriculumPeriodIds],
     curriculumPeriodLabels: [...content.curriculumPeriodLabels],
     totalItems: content.totalItems,
+    totalPoints: items.reduce((sum, item) => sum + item.pointsPossible, 0),
+    settings: clone(DEFAULT_ASSESSMENT_SETTINGS),
     versionNumber: options.versionNumber ?? 1,
     status: 'draft',
     sourceTos: clone(sourceTos),
@@ -176,6 +228,27 @@ function normalizeAnswer(answer: AssessmentAnswer | undefined, questionType: Que
   return clone(answer)
 }
 
+function normalizeSettings(settings: AssessmentSettings | undefined): AssessmentSettings {
+  const source = (settings && typeof settings === 'object' ? settings : {}) as AssessmentSettings
+  const allowed = Array.isArray(source.allowedTypes) && source.allowedTypes.length
+    ? [...new Set(source.allowedTypes)] as QuestionType[]
+    : [...DEFAULT_ASSESSMENT_SETTINGS.allowedTypes]
+  const mode = source.mode === 'fixed_counts' || source.mode === 'percentages' || source.mode === 'manual_per_item'
+    ? source.mode
+    : 'auto_balanced'
+  return {
+    ...clone(DEFAULT_ASSESSMENT_SETTINGS),
+    ...clone(source),
+    schemaVersion: Number(source.schemaVersion ?? 1),
+    mode,
+    allowedTypes: allowed,
+    counts: source.counts ? { ...source.counts } : undefined,
+    percentages: source.percentages ? { ...source.percentages } : undefined,
+    defaultPoints: { ...DEFAULT_ASSESSMENT_SETTINGS.defaultPoints, ...(source.defaultPoints ?? {}) },
+    targetTotalPoints: source.targetTotalPoints === null || source.targetTotalPoints === undefined ? null : Number(source.targetTotalPoints),
+  }
+}
+
 /** Normalize persisted/imported data without changing the immutable source snapshot. */
 export function normalizeAssessmentBlueprint(input: AssessmentBlueprint): AssessmentBlueprint {
   const result = clone(input)
@@ -184,6 +257,7 @@ export function normalizeAssessmentBlueprint(input: AssessmentBlueprint): Assess
   result.curriculumPeriodIds = [...(result.curriculumPeriodIds ?? [])]
   result.curriculumPeriodLabels = [...(result.curriculumPeriodLabels ?? [])]
   result.totalItems = Number(result.totalItems)
+  result.settings = normalizeSettings(result.settings)
   result.items = (result.items ?? []).map((item, index) => ({
     ...item,
     id: item.id || stableId('assessment-item'),
@@ -194,8 +268,13 @@ export function normalizeAssessmentBlueprint(input: AssessmentBlueprint): Assess
     authorshipState: (['empty', 'ai_suggestion', 'teacher_accepted', 'teacher_edited', 'manual'] as AssessmentAuthorshipState[]).includes(item.authorshipState) ? item.authorshipState : 'empty',
     rationale: item.rationale ?? '',
     teacherNotes: item.teacherNotes ?? '',
-    points: item.points ?? 1,
+    pointsPossible: normalizeItemPoints(item),
+    points: item.points === null || item.points === undefined ? normalizeItemPoints(item) : Number(item.points),
+    qaState: (['empty', 'generated', 'verified', 'needs_review', 'teacher_edited', 'answer_needs_recheck', 'locked', 'repair_needed'] as const).includes(item.qaState as never) ? item.qaState : 'empty',
+    locked: item.locked === true,
+    history: Array.isArray(item.history) ? item.history.slice(-5).map((version) => clone(version)) : [],
   })).sort((a, b) => a.itemNumber - b.itemNumber)
+  result.totalPoints = deriveAssessmentTotalPoints(result.items)
   return result
 }
 

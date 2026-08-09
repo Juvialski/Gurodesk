@@ -76,7 +76,7 @@ export function ResultsPrintPreviewPage({ session: suppliedSession = null, analy
     const remediation = buildRemediationSignals(analysis, remediationPlan ? {
       threshold: {
         percentageThreshold: remediationPlan.threshold ?? 0.75,
-        basis: remediationPlan.thresholdBasis ?? 'percentage_correct',
+        basis: remediationPlan.thresholdBasis ?? 'point_facility',
         comparison: remediationPlan.thresholdComparison ?? 'below',
       },
       scope: remediationPlan.scope,
@@ -112,7 +112,7 @@ export function ResultsPrintPreviewPage({ session: suppliedSession = null, analy
             sectionName: session.sectionName,
             includeLearnerNames: true,
             remediation: model.remediation.length > 0 ? buildRemediationSignals(analysis, remediationPlan ? {
-              threshold: { percentageThreshold: remediationPlan.threshold ?? 0.75, basis: remediationPlan.thresholdBasis ?? 'percentage_correct', comparison: remediationPlan.thresholdComparison ?? 'below' },
+              threshold: { percentageThreshold: remediationPlan.threshold ?? 0.75, basis: remediationPlan.thresholdBasis ?? 'point_facility', comparison: remediationPlan.thresholdComparison ?? 'below' },
               scope: remediationPlan.scope,
               participantIds: remediationPlan.scope === 'selected_learners' ? remediationPlan.selectedParticipantIds : undefined,
             } : undefined) : undefined,

@@ -72,6 +72,11 @@ function finiteNonnegative(value: unknown, fallback = 0) {
   return Number.isFinite(number) && number >= 0 ? number : fallback
 }
 
+/** Read both the Phase 5.4 field and the legacy Phase 5.0-5.3 mirror. */
+export function itemPossiblePoints(item: Pick<ResultAssessmentItemSnapshot, 'points' | 'pointsPossible'>): number {
+  return roundScore(finiteNonnegative(item.pointsPossible ?? item.points ?? 1, 1), 6)
+}
+
 function clone<T>(value: T): T {
   if (typeof structuredClone === 'function') return structuredClone(value)
   return JSON.parse(JSON.stringify(value)) as T
@@ -100,8 +105,83 @@ function answerIsObjectiveCorrect(
     const learnerText = normalizeShortAnswer(answer.text, expected.caseSensitive)
     return expected.acceptedAnswers.some((accepted) => normalizeShortAnswer(accepted, expected.caseSensitive) === learnerText)
   }
-  // Constructed responses and malformed type pairs are not objective facts.
-  return item.questionType === 'constructed_response' ? null : false
+  if (item.questionType === 'identification' && expected.type === 'identification' && answer.type === 'identification') {
+    const learnerText = normalizeShortAnswer(answer.text, expected.caseSensitive)
+    return expected.acceptedAnswers.some((accepted) => normalizeShortAnswer(accepted, expected.caseSensitive) === learnerText)
+  }
+  if (item.questionType === 'fill_in_the_blank' && expected.type === 'fill_in_the_blank' && answer.type === 'fill_in_the_blank') {
+    return expected.blanks.length > 0 && expected.blanks.every((blank) => {
+      const learnerText = normalizeShortAnswer(answer.blanks[blank.id] ?? '', blank.caseSensitive)
+      return learnerText.length > 0 && blank.acceptedAnswers.some((accepted) => normalizeShortAnswer(accepted, blank.caseSensitive) === learnerText)
+    })
+  }
+  if (item.questionType === 'numerical_answer' && expected.type === 'numerical_answer' && answer.type === 'numerical_answer') {
+    if (!Number.isFinite(answer.value) || !Number.isFinite(expected.value)) return false
+    const tolerance = finiteNonnegative(expected.tolerance, 0)
+    const unitRequired = expected.requireUnit === true
+    const expectedUnit = normalizeUnit(expected.unit)
+    const learnerUnit = normalizeUnit(answer.unit)
+    if (unitRequired && (!expectedUnit || learnerUnit !== expectedUnit)) return false
+    if (!unitRequired && expectedUnit && learnerUnit && learnerUnit !== expectedUnit) return false
+    return Math.abs(answer.value - expected.value) <= tolerance
+  }
+  if (item.questionType === 'multiple_select' && expected.type === 'multiple_select' && answer.type === 'multiple_select') {
+    const expectedIds = new Set(expected.choiceIds)
+    const learnerIds = new Set(answer.choiceIds)
+    return expectedIds.size > 0 && learnerIds.size === expectedIds.size && [...expectedIds].every((id) => learnerIds.has(id))
+  }
+  if (item.questionType === 'matching' && expected.type === 'matching' && answer.type === 'matching') {
+    const mappings = expected.mappings
+    return mappings.length > 0 && mappings.every((mapping) => answer.matches[mapping.promptId] === mapping.choiceId)
+  }
+  // Constructed, problem-solving, and essay responses are teacher-scored. A
+  // malformed pair is never awarded points automatically.
+  return item.questionType === 'constructed_response' || item.questionType === 'problem_solving' || item.questionType === 'essay' ? null : false
+}
+
+function normalizeUnit(value: unknown) {
+  return typeof value === 'string' ? value.normalize('NFKC').trim().replace(/\s+/gu, ' ').toLocaleLowerCase('en-US') : ''
+}
+
+function scoreFillInTheBlank(item: ResultAssessmentItemSnapshot, answer: LearnerItemAnswer): ObjectiveScore {
+  if (item.answer.type !== 'fill_in_the_blank' || answer.type !== 'fill_in_the_blank') {
+    return { isCorrect: false, earnedPoints: 0, scoringSource: 'deterministic', reason: 'deterministic' }
+  }
+  const blanks = item.answer.blanks
+  if (blanks.length === 0) return { isCorrect: false, earnedPoints: 0, scoringSource: 'deterministic', reason: 'deterministic' }
+  const itemPoints = itemPossiblePoints(item)
+  const explicitPoints = blanks.reduce((sum, blank) => sum + finiteNonnegative(blank.pointsPossible, 0), 0)
+  const fallbackPoints = explicitPoints > 0 ? 0 : itemPoints / blanks.length
+  let earned = 0
+  let allCorrect = true
+  for (const blank of blanks) {
+    const value = normalizeShortAnswer(answer.blanks[blank.id] ?? '', blank.caseSensitive)
+    const correct = value.length > 0 && blank.acceptedAnswers.some((accepted) => normalizeShortAnswer(accepted, blank.caseSensitive) === value)
+    const blankPoints = explicitPoints > 0 ? finiteNonnegative(blank.pointsPossible, 0) : fallbackPoints
+    if (correct) earned += blankPoints
+    else allCorrect = false
+  }
+  return { isCorrect: allCorrect, earnedPoints: roundScore(Math.min(itemPoints, earned), 6), scoringSource: 'deterministic', reason: 'deterministic' }
+}
+
+function scoreMatching(item: ResultAssessmentItemSnapshot, answer: LearnerItemAnswer): ObjectiveScore {
+  if (item.answer.type !== 'matching' || answer.type !== 'matching') {
+    return { isCorrect: false, earnedPoints: 0, scoringSource: 'deterministic', reason: 'deterministic' }
+  }
+  const mappings = item.answer.mappings
+  if (mappings.length === 0) return { isCorrect: false, earnedPoints: 0, scoringSource: 'deterministic', reason: 'deterministic' }
+  const itemPoints = itemPossiblePoints(item)
+  const groupPoints = finiteNonnegative(item.answer.groupPointsPossible, 0)
+  const perMatchFallback = finiteNonnegative(item.answer.pointsPerMatch, 0)
+  const explicitTotal = mappings.reduce((sum, mapping) => sum + finiteNonnegative(mapping.pointsPossible, 0), 0)
+  const fallback = explicitTotal > 0 ? 0 : perMatchFallback > 0 ? perMatchFallback : groupPoints > 0 ? groupPoints / mappings.length : itemPoints / mappings.length
+  let earned = 0
+  for (const mapping of mappings) {
+    const points = explicitTotal > 0 ? finiteNonnegative(mapping.pointsPossible, 0) : fallback
+    if (answer.matches[mapping.promptId] === mapping.choiceId) earned += points
+  }
+  const allCorrect = mappings.every((mapping) => answer.matches[mapping.promptId] === mapping.choiceId)
+  return { isCorrect: allCorrect, earnedPoints: roundScore(Math.min(itemPoints, earned), 6), scoringSource: 'deterministic', reason: 'deterministic' }
 }
 
 export function scoreObjectiveAnswer(
@@ -109,15 +189,17 @@ export function scoreObjectiveAnswer(
   answer: LearnerItemAnswer | null,
   shortAnswerMode: ShortAnswerScoringMode = 'manual',
 ): ObjectiveScore {
-  const points = roundScore(finiteNonnegative(item.points), 6)
+  const points = itemPossiblePoints(item)
   if (!answer) return { isCorrect: null, earnedPoints: 0, scoringSource: 'deterministic', reason: 'omitted' }
 
-  if (item.questionType === 'constructed_response') {
+  if (item.questionType === 'constructed_response' || item.questionType === 'problem_solving' || item.questionType === 'essay') {
     return { isCorrect: null, earnedPoints: 0, scoringSource: 'teacher', reason: 'manual' }
   }
   if (item.questionType === 'short_answer' && shortAnswerMode !== 'normalized_exact') {
     return { isCorrect: null, earnedPoints: 0, scoringSource: 'teacher', reason: 'manual' }
   }
+  if (item.questionType === 'fill_in_the_blank') return scoreFillInTheBlank(item, answer)
+  if (item.questionType === 'matching') return scoreMatching(item, answer)
   const isCorrect = answerIsObjectiveCorrect(item, answer, shortAnswerMode)
   return {
     isCorrect,
@@ -128,18 +210,18 @@ export function scoreObjectiveAnswer(
 }
 
 function teacherPoints(item: ResultAssessmentItemSnapshot, awardedPoints: number | null | undefined) {
-  const possible = finiteNonnegative(item.points)
+  const possible = itemPossiblePoints(item)
   const entered = finiteNonnegative(awardedPoints)
   return roundScore(Math.min(entered, possible), 6)
 }
 
 /** Score one outcome without network access or implicit semantic matching. */
 export function scoreResultItem(input: ScoreItemInput): ResultItemOutcome {
-  const itemPoints = roundScore(finiteNonnegative(input.item.points), 6)
+  const itemPoints = itemPossiblePoints(input.item)
   const answer = input.answer ?? null
   const mode = input.shortAnswerMode ?? 'manual'
   const objective = scoreObjectiveAnswer(input.item, answer, mode)
-  const isTeacherScored = input.item.questionType === 'constructed_response' ||
+  const isTeacherScored = input.item.questionType === 'constructed_response' || input.item.questionType === 'problem_solving' || input.item.questionType === 'essay' ||
     (input.item.questionType === 'short_answer' && mode !== 'normalized_exact')
   // An empty teacher-scored cell is still omitted. The UI may use a typed
   // answer object with no stored response text to record that a paper response
@@ -261,7 +343,8 @@ export function buildResultAssessmentSnapshot(assessment: AssessmentBlueprint): 
       prompt: item.prompt,
       questionType: item.questionType,
       answer: clone(item.answer),
-      points: roundScore(finiteNonnegative(item.points ?? 1), 6),
+      pointsPossible: roundScore(finiteNonnegative(item.pointsPossible ?? item.points ?? 1, 1), 6),
+      points: roundScore(finiteNonnegative(item.pointsPossible ?? item.points ?? 1, 1), 6),
       competencySnapshot: clone(item.competencySnapshot),
       cognitiveCategorySnapshot: clone(item.cognitiveCategorySnapshot),
       mapping: clone(item.mapping),

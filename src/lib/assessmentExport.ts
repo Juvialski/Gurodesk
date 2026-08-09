@@ -1,314 +1,210 @@
-import {
-  AlignmentType,
-  Document,
-  Packer,
-  Paragraph,
-  TextRun,
-} from 'docx'
+import { AlignmentType, Document, Packer, Paragraph, TextRun } from 'docx'
 import { jsPDF } from 'jspdf'
 import type { AssessmentAnswer } from '../types/assessment'
-import type {
-  AssessmentExportModel,
-  AssessmentExportQuestion,
-  AssessmentExportQuestionBase,
-  AssessmentStudentExportQuestion,
-} from '../types/assessmentExport'
+import type { AssessmentExportModel, AssessmentExportQuestion, AssessmentExportQuestionBase, AssessmentStudentExportQuestion } from '../types/assessmentExport'
 import type { ExportPaperSize } from '../types/export'
 import { downloadBlob } from './docxTemplate'
 
 const TEXT = '000000'
 const MUTED = '555555'
 
-function clean(value: string | null | undefined) { return (value ?? '').trim() }
+export type AssessmentLinePage = { lines: string[] }
 
-export type AssessmentLinePage = {
-  lines: string[]
-}
-
-/** Pure helper used by PDF/print flows and tests; flattening pages preserves every line. */
 export function paginateAssessmentLines(lines: string[], maxLines: number): AssessmentLinePage[] {
   if (!Number.isSafeInteger(maxLines) || maxLines < 1) throw new Error('maxLines must be a positive whole number.')
   const pages: AssessmentLinePage[] = []
   for (let start = 0; start < lines.length; start += maxLines) pages.push({ lines: lines.slice(start, start + maxLines) })
   return pages
 }
-
 export const paginateAssessmentText = paginateAssessmentLines
 
-function safeFilename(value: string) {
-  return value.replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 90) || 'assessment'
-}
+function clean(value: string | null | undefined) { return (value ?? '').trim() }
+function object(value: unknown): Record<string, unknown> { return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {} }
+function array(value: unknown) { return Array.isArray(value) ? value : [] }
+function safeFilename(value: string) { return value.replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 90) || 'assessment' }
 
 export function assessmentExportFilename(model: AssessmentExportModel, extension: 'pdf' | 'docx') {
   const suffix = model.mode === 'answer_key' ? ' - Answer Key' : model.mode === 'teacher' ? ' - Teacher Copy' : ''
-  return `${safeFilename(`${model.metadata.gradeLevel} ${model.metadata.learningArea} - ${model.title}${suffix}`)}.${extension}`
+  return `${safeFilename(`${model.metadata.gradeLevel ?? ''} ${model.metadata.learningArea ?? ''} - ${model.title}${suffix}`)}.${extension}`
 }
 
-function isStudentQuestion(question: AssessmentExportQuestion): question is AssessmentStudentExportQuestion {
-  return 'choices' in question && Array.isArray(question.choices) && question.choices.every((choice) => typeof choice === 'string')
-}
+function choiceVisibleLabel(index: number) { return String.fromCharCode(65 + index) }
 
-function answerText(answer: AssessmentAnswer, question: Pick<AssessmentExportQuestionBase, 'choices'> | AssessmentExportQuestion) {
+function answerText(answer: AssessmentAnswer) {
+  const value = answer as unknown as Record<string, unknown>
   if (answer.type === 'multiple_choice') {
-    const choiceIndex = answer.choices.findIndex((item) => item.id === answer.choiceId)
-    const choice = choiceIndex >= 0 ? answer.choices[choiceIndex] : null
-    // Exported documents use visible A/B/C labels; internal choice IDs never
-    // leak into teacher, student, print, or answer-key text.
-    return choice?.text ? `(${String.fromCharCode(65 + choiceIndex)}) ${choice.text}` : ''
+    const choices = array(value.choices).map(object)
+    const index = choices.findIndex((choice) => String(choice.id) === answer.choiceId)
+    const choice = choices[index]
+    return choice ? `${choiceVisibleLabel(index)}. ${String(choice.text ?? '')}` : 'Review choice mapping'
   }
   if (answer.type === 'true_false') return answer.value ? 'True' : 'False'
-  if (answer.type === 'short_answer') return answer.acceptedAnswers.join(' / ')
-  return answer.expectedResponse
-}
-
-function questionAnswer(question: AssessmentExportQuestion) {
-  if ('answer' in question && question.answer) return answerText(question.answer, question)
+  if (answer.type === 'short_answer' || answer.type === 'identification') return array(value.acceptedAnswers).map(String).join(' / ')
+  if (answer.type === 'fill_in_the_blank') return array(value.blanks).map((blank, index) => { const entry = object(blank); const points = Number(entry.pointsPossible); return `${String.fromCharCode(65 + index)}. ${array(entry.acceptedAnswers).map(String).join(' / ')}${Number.isFinite(points) ? ` — ${points} pt${points === 1 ? '' : 's'}` : ''}` }).join(' · ')
+  if (answer.type === 'numerical_answer') return `${String(value.value ?? '')}${value.unit ? ` ${String(value.unit)}` : ''}${value.tolerance !== undefined ? ` (±${String(value.tolerance)})` : ''}`
+  if (answer.type === 'problem_solving') return String(value.finalAnswer ?? '')
+  if (answer.type === 'matching') {
+    const prompts = array(value.prompts).map(object)
+    const choices = array(value.choices).map(object)
+    return array(value.mappings).map((mapping) => {
+      const pair = object(mapping)
+      const p = prompts.findIndex((entry) => String(entry.id) === String(pair.promptId))
+      const c = choices.findIndex((entry) => String(entry.id) === String(pair.choiceId))
+      const points = Number(pair.pointsPossible)
+      return `${p >= 0 ? p + 1 : String(pair.promptId)} → ${c >= 0 ? choiceVisibleLabel(c) : String(pair.choiceId)}${Number.isFinite(points) ? ` — ${points} pt${points === 1 ? '' : 's'}` : ''}`
+    }).join(', ')
+  }
+  if (answer.type === 'multiple_select') {
+    const choices = array(value.choices).map(object)
+    return array(value.choiceIds).map((id) => choiceVisibleLabel(choices.findIndex((choice) => String(choice.id) === String(id)))).filter((label) => label !== '@').join(', ')
+  }
+  if (answer.type === 'constructed_response') return String(value.expectedResponse ?? '')
+  if (answer.type === 'essay') return 'See rubric / scoring guide; there is no single exact response.'
   return ''
 }
 
+function questionAnswer(question: AssessmentExportQuestion) { return 'answer' in question && question.answer ? answerText(question.answer) : '' }
+
 function textMetadata(model: AssessmentExportModel) {
   const { labels, metadata } = model
-  const common: Array<[string, string]> = [
-    [labels.teacher, metadata.teacherName],
-    [labels.school, metadata.schoolName],
-    [labels.gradeLevel, metadata.gradeLevel],
-    [labels.learningArea, metadata.learningArea],
-    [labels.schoolYear, metadata.schoolYear],
-    [labels.gradingTerm, metadata.gradingTerm],
-  ]
+  const common: Array<[string, string]> = [[labels.teacher, metadata.teacherName], [labels.school, metadata.schoolName], [labels.gradeLevel, metadata.gradeLevel], [labels.learningArea, metadata.learningArea], [labels.schoolYear, metadata.schoolYear], [labels.gradingTerm, metadata.gradingTerm]]
   if (model.mode === 'teacher') common.push([labels.curriculumPeriods, metadata.curriculumPeriods ?? ''])
-  if (model.mode !== 'answer_key') {
-    common.push([labels.learnerName, metadata.learnerName || '____________________________'])
-    common.push([labels.section, metadata.section || '____________________________'])
-  }
+  if (model.mode !== 'answer_key') { common.push([labels.learnerName, metadata.learnerName || '____________________________']); common.push([labels.section, metadata.section || '____________________________']) }
+  common.push([labels.totalItems, String(metadata.totalItems ?? model.questions.length)])
+  common.push([labels.totalPoints, String(metadata.totalPoints ?? model.questions.reduce((sum, question) => sum + question.pointsPossible, 0))])
   return common.filter(([, value]) => clean(value))
 }
 
-function questionLabel(model: AssessmentExportModel, question: AssessmentExportQuestion) {
-  const points = question.points && question.points > 0 ? ` (${question.points} ${model.labels.points})` : ''
-  return `${question.itemNumber}.${points}`
-}
+function questionLabel(model: AssessmentExportModel, question: AssessmentExportQuestion) { return model.mode === 'student' && question.pointsPossible <= 1 ? `${question.itemNumber}.` : `${question.itemNumber}. (${question.pointsPossible} ${model.labels.points})` }
 
-function questionChoices(question: AssessmentExportQuestion, labels: AssessmentExportModel['labels']) {
-  if (question.questionType !== 'multiple_choice') return []
-  if (isStudentQuestion(question)) return question.choices
-  if ('choices' in question) return question.choices.map((choice) => choice.text)
-  return []
-}
+function choicesFor(question: AssessmentExportQuestion) { return 'choices' in question && Array.isArray(question.choices) ? question.choices : [] }
+function promptsFor(question: AssessmentExportQuestion) { return 'prompts' in question && Array.isArray(question.prompts) ? question.prompts : [] }
+function subpartsFor(question: AssessmentExportQuestion) { return 'subparts' in question && Array.isArray(question.subparts) ? question.subparts : [] }
 
 function renderQuestionLines(model: AssessmentExportModel, question: AssessmentExportQuestion) {
-  if (model.mode === 'answer_key') return [questionLabel(model, question), `${model.labels.answer}: ${questionAnswer(question)}`]
-  const lines: string[] = [questionLabel(model, question), 'prompt' in question ? question.prompt : '']
-  questionChoices(question, model.labels).forEach((choice, index) => lines.push(`  ${String.fromCharCode(65 + index)}. ${choice}`))
-  const prefix = model.language === 'filipino' ? model.labels.responseLine : model.labels.answer
-  const answerSpaceLines = 'answerSpaceLines' in question ? question.answerSpaceLines : 0
-  for (let index = 0; index < answerSpaceLines; index += 1) lines.push(`${prefix}: ______________________________________________`)
+  if (model.mode === 'answer_key') {
+    const lines = [questionLabel(model, question), `${model.labels.answer}: ${questionAnswer(question)}`]
+    if ('scoringGuide' in question && question.scoringGuide) lines.push(`${model.labels.solution}: ${question.scoringGuide}`)
+    return lines
+  }
+  if (!('prompt' in question)) return []
+  const lines: string[] = [questionLabel(model, question), question.prompt]
+  subpartsFor(question).forEach((part) => lines.push(`  (${part.label}) ${part.prompt} (${part.pointsPossible} ${model.labels.points})`))
+  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') choicesFor(question).forEach((choice, index) => lines.push(`  ${choiceVisibleLabel(index)}. ${typeof choice === 'string' ? choice : choice.text}`))
+  if (question.questionType === 'matching') {
+    if (promptsFor(question).length) lines.push(`${model.labels.columnA}:`)
+    promptsFor(question).forEach((prompt, index) => lines.push(`  _____ ${index + 1}. ${typeof prompt === 'string' ? prompt : prompt.text}`))
+    if (choicesFor(question).length) lines.push(`${model.labels.columnB}: ${choicesFor(question).map((choice, index) => `${choiceVisibleLabel(index)}. ${typeof choice === 'string' ? choice : choice.text}`).join('  ')}`)
+  }
+  const space = question.answerSpaceLines
+  for (let index = 0; index < space; index += 1) lines.push(`${model.labels.responseLine}: ______________________________________________`)
+  if ('responseInstructions' in question && question.responseInstructions) lines.push(question.responseInstructions)
+  if ('answer' in question && question.answer) lines.push(`${model.labels.answer}: ${questionAnswer(question)}`)
+  if ('scoringGuide' in question && question.scoringGuide) lines.push(`${model.labels.solution}: ${question.scoringGuide}`)
   if ('competency' in question && question.competency) lines.push(`${model.labels.competency}: ${question.competency.text}`)
   if ('cognitiveCategory' in question && question.cognitiveCategory) lines.push(`${model.labels.cognitiveCategory}: ${question.cognitiveCategory.label}`)
-  if ('answer' in question && question.answer) lines.push(`${model.labels.answer}: ${questionAnswer(question)}`)
   if ('rationale' in question && question.rationale) lines.push(`${model.labels.rationale}: ${question.rationale}`)
   return lines
 }
 
 function pdfFormat(paper: ExportPaperSize = 'a4'): 'a4' | 'letter' | 'legal' { return paper }
-
-type PdfContext = {
-  doc: jsPDF
-  x: number
-  y: number
-  width: number
-  bottom: number
-  pageHeader: () => void
-}
-
-function pdfContinuationHeader(ctx: PdfContext, model: AssessmentExportModel) {
-  const { doc, x, width } = ctx
-  doc.setTextColor(0, 0, 0)
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.text(`${model.labels.documentTitle} — continued`, x + width / 2, 32, { align: 'center' })
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.text(model.title, x + width / 2, 47, { align: 'center' })
-  ctx.y = 66
-}
+type PdfContext = { doc: jsPDF; x: number; y: number; width: number; bottom: number; pageHeader: (initial?: boolean) => void }
 
 function pdfHeader(ctx: PdfContext, model: AssessmentExportModel, initial = true) {
-  if (!initial) { pdfContinuationHeader(ctx, model); return }
   const { doc, x, width } = ctx
   doc.setTextColor(0, 0, 0)
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text(model.labels.documentTitle, x + width / 2, 34, { align: 'center' })
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text(model.title, x + width / 2, 52, { align: 'center' })
-  let y = 76
-  const metadata = textMetadata(model)
-  const columnWidth = width / 2 - 8
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5)
-  for (let index = 0; index < metadata.length; index += 2) {
-    const row = metadata.slice(index, index + 2)
-    const wrapped = row.map(([label, value]) => doc.splitTextToSize(`${label}: ${value}`, columnWidth) as string[])
-    const rowHeight = Math.max(12, ...wrapped.map((lines) => lines.length * 10))
-    if (y + rowHeight > ctx.bottom) {
-      ctx.doc.addPage()
-      pdfContinuationHeader(ctx, model)
-      y = ctx.y
-    }
-    row.forEach((_, column) => doc.text(wrapped[column], x + column * width / 2, y))
-    y += rowHeight + 2
-  }
-  ctx.y = y + 3
-  if (model.mode === 'answer_key') return
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text(model.labels.instructions, x, ctx.y); ctx.y += 12
-  if (model.instructions) {
-    doc.setFont('helvetica', 'normal'); doc.setFontSize(9)
-    const instructionLines = doc.splitTextToSize(model.instructions, width) as string[]
-    const lineHeight = 11
-    for (const line of instructionLines) {
-      if (ctx.y + lineHeight > ctx.bottom) {
-        ctx.doc.addPage()
-        pdfContinuationHeader(ctx, model)
-      }
-      ctx.doc.text(line, x, ctx.y)
-      ctx.y += lineHeight
-    }
-    ctx.y += 10
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(initial ? 15 : 10); doc.text(initial ? model.labels.documentTitle : `${model.labels.documentTitle} — continued`, x + width / 2, initial ? 34 : 32, { align: 'center' })
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(initial ? 12 : 8); doc.text(model.title, x + width / 2, initial ? 52 : 47, { align: 'center' })
+  ctx.y = initial ? 70 : 66
+  if (initial) {
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5)
+    textMetadata(model).forEach(([label, value], index) => {
+      const row = index % 2 === 0 ? Math.floor(index / 2) : Math.floor(index / 2)
+      const col = index % 2
+      doc.text(`${label}: ${value}`, x + col * (width / 2), ctx.y + row * 12)
+      if (col === 1 || index === textMetadata(model).length - 1) ctx.y += 12
+    })
+    if (model.instructions) { ctx.y += 8; doc.setFont('helvetica', 'bold'); doc.text(model.labels.instructions, x, ctx.y); ctx.y += 12; doc.setFont('helvetica', 'normal'); (doc.splitTextToSize(model.instructions, width) as string[]).forEach((line: string) => { doc.text(line, x, ctx.y); ctx.y += 10 }) }
   }
 }
 
-function newPdfPage(ctx: PdfContext) {
-  ctx.doc.addPage()
-  ctx.pageHeader()
-}
-
-function drawPdfLines(ctx: PdfContext, lines: string[], size = 10, gapAfter = 8) {
-  ctx.doc.setFontSize(size)
-  const lineHeight = size * 1.35
-  for (const line of lines) {
-    if (ctx.y + lineHeight > ctx.bottom) newPdfPage(ctx)
-    ctx.doc.text(line, ctx.x, ctx.y)
-    ctx.y += lineHeight
-  }
+function newPdfPage(ctx: PdfContext) { ctx.doc.addPage(); ctx.pageHeader(false) }
+function drawPdfLines(ctx: PdfContext, lines: string[], size = 9.5, gapAfter = 8) {
+  ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(size); ctx.doc.setTextColor(0, 0, 0)
+  lines.forEach((line) => { const wrapped = ctx.doc.splitTextToSize(line, ctx.width) as string[]; wrapped.forEach((part) => { if (ctx.y + 12 > ctx.bottom) newPdfPage(ctx); ctx.doc.text(part, ctx.x, ctx.y); ctx.y += 11 }); ctx.y += 1 })
   ctx.y += gapAfter
 }
 
-function drawPdfQuestion(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion) {
-  ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setTextColor(0, 0, 0)
-  const wrapped: string[] = []
-  renderQuestionLines(model, question).forEach((line, index) => {
-    ctx.doc.setFontSize(index === 0 ? 10.5 : 10)
-    const split = ctx.doc.splitTextToSize(line, ctx.width) as string[]
-    wrapped.push(...split)
-  })
-  // Keep a short MCQ together when the remaining page has enough room; long
-  // questions naturally continue line-by-line without clipping.
-  const minimumHeight = wrapped.length * 13.5 + 12
-  if (question.questionType === 'multiple_choice' && wrapped.length <= 8 && ctx.y + minimumHeight > ctx.bottom) newPdfPage(ctx)
-  drawPdfLines(ctx, wrapped, 10, 12)
-}
+function drawPdfQuestion(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion) { drawPdfLines(ctx, renderQuestionLines(model, question), 9.5, 5) }
 
 export function buildAssessmentPdf(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') {
-  const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: pdfFormat(paperSize), compress: true })
+  const doc = new jsPDF({ unit: 'pt', format: pdfFormat(paperSize) })
   const margin = 42
   const pageWidth = doc.internal.pageSize.getWidth()
   const pageHeight = doc.internal.pageSize.getHeight()
-  const ctx: PdfContext = {
-    doc,
-    x: margin,
-    y: 0,
-    width: pageWidth - margin * 2,
-    bottom: pageHeight - 42,
-    pageHeader: () => pdfHeader(ctx, model, false),
-  }
+  const ctx: PdfContext = { doc, x: margin, y: 70, width: pageWidth - margin * 2, bottom: pageHeight - margin, pageHeader: () => {} }
+  ctx.pageHeader = (initial = false) => pdfHeader(ctx, model, initial)
   pdfHeader(ctx, model, true)
   model.questions.forEach((question) => drawPdfQuestion(ctx, model, question))
-  const pageCount = doc.getNumberOfPages()
-  for (let page = 1; page <= pageCount; page += 1) {
-    doc.setPage(page); doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(100, 100, 100)
-    doc.text(`Page ${page} of ${pageCount}`, pageWidth - margin, pageHeight - 18, { align: 'right' })
-  }
   return doc
 }
 
-export function downloadAssessmentPdf(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') {
-  buildAssessmentPdf(model, paperSize).save(assessmentExportFilename(model, 'pdf'))
-}
+export function downloadAssessmentPdf(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') { buildAssessmentPdf(model, paperSize).save(assessmentExportFilename(model, 'pdf')) }
 
-function docxPaperSize(paper: ExportPaperSize = 'a4') {
-  if (paper === 'letter') return { width: 12240, height: 15840 }
-  if (paper === 'legal') return { width: 12240, height: 20160 }
-  return { width: 11906, height: 16838 }
-}
-
-function docxText(text: string, options: { bold?: boolean; size?: number; color?: string } = {}) {
-  return new TextRun({ text: text || ' ', bold: options.bold, size: options.size ?? 20, color: options.color ?? TEXT })
-}
-
+function docxPaperSize(paper: ExportPaperSize = 'a4') { return paper === 'letter' ? { width: 12240, height: 15840 } : paper === 'legal' ? { width: 12240, height: 20160 } : { width: 11906, height: 16838 } }
+function docxText(text: string, options: { bold?: boolean; size?: number; color?: string } = {}) { return new TextRun({ text, bold: options.bold, size: options.size ?? 20, color: options.color ?? TEXT }) }
 function docxQuestion(model: AssessmentExportModel, question: AssessmentExportQuestion) {
   const lines = renderQuestionLines(model, question)
-  const keepQuestionTogether = lines.length <= 8 && (!('prompt' in question) || question.prompt.length <= 500)
-  return lines.map((line, index) => new Paragraph({
-    keepLines: true,
-    // Keep short MCQ blocks together when practical. A long authored prompt
-    // must be allowed to flow naturally instead of forcing the whole item to
-    // the next page through a long keepNext chain.
-    keepNext: keepQuestionTogether && index < lines.length - 1,
-    spacing: { before: index === 0 ? 160 : 35, after: index === lines.length - 1 ? 120 : 0 },
-    children: [docxText(line, { bold: index === 0, size: index === 0 ? 21 : 20 })],
-  }))
+  return lines.map((line, index) => new Paragraph({ keepLines: true, keepNext: index < lines.length - 1, spacing: { after: index === 0 ? 45 : 70 }, children: [docxText(line, { bold: index === 0, size: index === 0 ? 20 : 18, color: index === 0 ? TEXT : MUTED })] }))
 }
 
 export async function buildAssessmentDocxBlob(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') {
-  const children: Paragraph[] = [
-    new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 90 }, children: [docxText(model.labels.documentTitle, { bold: true, size: 28 })] }),
-    new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 180 }, children: [docxText(model.title, { bold: true, size: 23 })] }),
-  ]
+  const children: Paragraph[] = [new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, children: [docxText(model.labels.documentTitle, { bold: true, size: 28 })] }), new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, children: [docxText(model.title, { bold: true, size: 24 })] })]
   textMetadata(model).forEach(([label, value]) => children.push(new Paragraph({ keepNext: true, spacing: { after: 30 }, children: [docxText(`${label}: `, { bold: true, size: 18 }), docxText(value, { size: 18 })] })))
-  if (model.mode !== 'answer_key') {
-    children.push(new Paragraph({ keepNext: true, spacing: { before: 180, after: 45 }, children: [docxText(model.labels.instructions, { bold: true, size: 20 })] }))
-    if (model.instructions) {
-      const keepInstructionsTogether = model.instructions.length <= 700 && model.instructions.split(/\r?\n/).length <= 8
-      children.push(new Paragraph({ keepLines: keepInstructionsTogether, keepNext: keepInstructionsTogether, spacing: { after: 100 }, children: [docxText(model.instructions, { size: 20 })] }))
-    }
-  }
+  if (model.instructions) { children.push(new Paragraph({ keepNext: true, spacing: { before: 180, after: 45 }, children: [docxText(model.labels.instructions, { bold: true, size: 20 })] })); children.push(new Paragraph({ keepLines: true, keepNext: true, spacing: { after: 100 }, children: [docxText(model.instructions, { size: 20 })] })) }
   model.questions.forEach((question) => children.push(...docxQuestion(model, question)))
-  const document = new Document({
-    creator: model.metadata.teacherName,
-    title: model.title,
-    description: model.labels.documentTitle,
-    sections: [{ properties: { page: { size: docxPaperSize(paperSize), margin: { top: 900, right: 900, bottom: 900, left: 900 } } }, children }],
-  })
+  const size = docxPaperSize(paperSize)
+  const document = new Document({ sections: [{ properties: { page: { size } }, children }] })
   return Packer.toBlob(document)
 }
 
-export async function downloadAssessmentDocx(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') {
-  downloadBlob(await buildAssessmentDocxBlob(model, paperSize), assessmentExportFilename(model, 'docx'))
-}
+export async function downloadAssessmentDocx(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') { const blob = await buildAssessmentDocxBlob(model, paperSize); downloadBlob(blob, assessmentExportFilename(model, 'docx')) }
 
-function escapeHtml(value: string) {
-  return value.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character] ?? character))
+function escapeHtml(value: string) { return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;') }
+
+function printQuestionMarkup(model: AssessmentExportModel, question: AssessmentExportQuestion) {
+  const pointLabel = model.mode === 'student' && question.pointsPossible <= 1 ? '' : `<small>${question.pointsPossible} ${escapeHtml(model.labels.points)}</small>`
+  if (model.mode === 'answer_key') {
+    return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3><div class="answer">${escapeHtml(questionAnswer(question))}</div>${'scoringGuide' in question && question.scoringGuide ? `<p class="scoring-guide">${escapeHtml(question.scoringGuide)}</p>` : ''}</section>`
+  }
+  if (!('prompt' in question)) return ''
+  const choices = choicesFor(question)
+  const prompts = promptsFor(question)
+  const subparts = subpartsFor(question)
+  const choiceMarkup = question.questionType === 'matching'
+    ? `<div class="matching"><b>${escapeHtml(model.labels.columnA)}</b>${prompts.map((prompt, index) => `<div>_____ ${index + 1}. ${escapeHtml(typeof prompt === 'string' ? prompt : prompt.text)}</div>`).join('')}<b>${escapeHtml(model.labels.columnB)}</b>${choices.map((choice, index) => `<div>${choiceVisibleLabel(index)}. ${escapeHtml(typeof choice === 'string' ? choice : choice.text)}</div>`).join('')}</div>`
+    : choices.length ? `<ol type="A">${choices.map((choice: string | { text: string }) => `<li>${escapeHtml(typeof choice === 'string' ? choice : choice.text)}</li>`).join('')}</ol>` : ''
+  const subpartMarkup = subparts.length ? `<ol type="a" class="subparts">${subparts.map((part) => `<li>${escapeHtml(part.prompt)} <small>(${part.pointsPossible} ${escapeHtml(model.labels.points)})</small></li>`).join('')}</ol>` : ''
+  const blankMarkup = question.questionType === 'fill_in_the_blank' && 'blanks' in question && question.blanks?.length ? `<div class="blank-labels">${question.blanks.map((blank) => `<span>${escapeHtml(blank.label)}.</span>`).join(' ')}</div>` : ''
+  const annotations = [
+    'responseInstructions' in question && question.responseInstructions ? `<p class="annotation"><b>${escapeHtml(model.labels.instructions)}:</b> ${escapeHtml(question.responseInstructions)}</p>` : '',
+    model.mode !== 'student' && 'answer' in question && question.answer ? `<div class="answer">${escapeHtml(questionAnswer(question))}</div>` : '',
+    model.mode !== 'student' && 'scoringGuide' in question && question.scoringGuide ? `<p class="scoring-guide">${escapeHtml(question.scoringGuide)}</p>` : '',
+    model.mode !== 'student' && 'competency' in question && question.competency ? `<p class="annotation"><b>${escapeHtml(model.labels.competency)}:</b> ${escapeHtml(question.competency.text)}</p>` : '',
+    model.mode !== 'student' && 'cognitiveCategory' in question && question.cognitiveCategory ? `<p class="annotation"><b>${escapeHtml(model.labels.cognitiveCategory)}:</b> ${escapeHtml(question.cognitiveCategory.label)}</p>` : '',
+    model.mode !== 'student' && 'rationale' in question && question.rationale ? `<p class="annotation"><b>${escapeHtml(model.labels.rationale)}:</b> ${escapeHtml(question.rationale)}</p>` : '',
+  ].join('')
+  return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3><p>${escapeHtml(question.prompt)}</p>${subpartMarkup}${choiceMarkup}${blankMarkup}<div class="response-space">${'<div>________________________________________</div>'.repeat(Math.max(0, question.answerSpaceLines))}</div>${annotations}</section>`
 }
 
 export function assessmentPrintHtml(model: AssessmentExportModel) {
-  const metadata = textMetadata(model).map(([label, value]) => `<div><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</div>`).join('')
-  const questions = model.questions.map((question) => {
-    const lines = renderQuestionLines(model, question)
-    const [number, ...body] = lines
-    const longFlow = question.questionType === 'constructed_response' || ('prompt' in question && question.prompt.length > 500)
-    const blockClass = longFlow ? 'assessment-question question-flow' : 'assessment-question question-short'
-    return `<section class="${blockClass}"><strong>${escapeHtml(number)}</strong>${body.map((line) => `<div>${escapeHtml(line)}</div>`).join('')}</section>`
-  }).join('')
-  const directions = model.mode === 'answer_key' ? '' : `<h3>${escapeHtml(model.labels.instructions)}</h3><div class="assessment-instructions">${escapeHtml(model.instructions)}</div>`
-  return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(model.title)}</title><style>@page{margin:18mm}body{font-family:Arial,sans-serif;color:#000;line-height:1.35}.assessment-meta{display:grid;grid-template-columns:1fr 1fr;gap:3px 18px}.assessment-question{margin:14px 0}.question-short{break-inside:avoid}.question-flow{break-inside:auto}.assessment-question div{white-space:pre-wrap}.assessment-instructions{margin:14px 0}</style></head><body><h1>${escapeHtml(model.labels.documentTitle)}</h1><h2>${escapeHtml(model.title)}</h2><div class="assessment-meta">${metadata}</div>${directions}${questions}</body></html>`
+  const metadata = textMetadata(model).map(([label, value]) => `<span>${escapeHtml(label)}: ${escapeHtml(value)}</span>`).join('')
+  const questions = model.questions.map((question) => printQuestionMarkup(model, question)).join('')
+  return `<article class="assessment-document assessment-document-${model.mode}"><header><strong>${escapeHtml(model.labels.documentTitle)}</strong><h1>${escapeHtml(model.title)}</h1><div class="metadata">${metadata}</div>${model.instructions ? `<div class="instructions"><b>${escapeHtml(model.labels.instructions)}</b><p>${escapeHtml(model.instructions)}</p></div>` : ''}</header><main>${questions}</main></article>`
 }
 
 export function buildAssessmentPrintModel(model: AssessmentExportModel) { return model }
+export function printAssessment(model: AssessmentExportModel) { const html = assessmentPrintHtml(model); const popup = window.open('', '_blank', 'noopener,noreferrer'); if (!popup) throw new Error('The browser blocked the print window. Allow popups to print this assessment.'); popup.document.write(`<!doctype html><html><head><title>${escapeHtml(model.title)}</title><style>body{font-family:Arial,sans-serif;margin:24px}.question-flow{break-inside:avoid;margin:0 0 20px}.response-space{color:#666;line-height:1.8}.metadata{display:flex;gap:12px;flex-wrap:wrap}</style></head><body>${html}</body></html>`); popup.document.close(); popup.focus(); popup.print() }
 
-export function printAssessment(model: AssessmentExportModel) {
-  if (typeof window === 'undefined') throw new Error('Browser print is only available in a browser context.')
-  const printWindow = window.open('', '_blank')
-  if (!printWindow) throw new Error('The print window could not be opened.')
-  // Keep a usable Window reference for printing, then sever the opener before
-  // writing the locally generated, escaped document HTML.
-  printWindow.opener = null
-  printWindow.document.open(); printWindow.document.write(assessmentPrintHtml(model)); printWindow.document.close()
-  printWindow.focus(); printWindow.print()
-}
-
-// Phase 3.7 custom assessment DOCX template compatibility is intentionally out
-// of scope. These stable structured field/model boundaries are the supported
-// handoff for a future explicitly approved custom-template phase.
+// Phase 3.7 custom assessment DOCX template hooks remain intentionally
+// deterministic: assessment content is rendered from saved structured data.

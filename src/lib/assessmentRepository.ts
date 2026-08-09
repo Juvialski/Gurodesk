@@ -9,6 +9,7 @@ import type {
 } from '../types/assessment'
 import type { TosContent, TosRecord } from '../types/tos'
 import { createAssessmentBlueprint, duplicateAssessmentBlueprint, normalizeAssessmentBlueprint } from './assessmentBlueprint'
+import { deriveAssessmentTotalPoints, normalizeItemPoints } from './assessmentScoring'
 import { validateAssessmentForFinal } from './assessmentGeneration'
 import { supabase } from './supabase'
 
@@ -122,11 +123,86 @@ function normalizeAnswer(value: unknown, questionType: QuestionType, choices: un
       caseSensitive: answer.caseSensitive === true,
     }
   }
+  if (questionType === 'identification') {
+    const values = Array.isArray(answer.acceptedAnswers) ? answer.acceptedAnswers : Array.isArray(answer.accepted) ? answer.accepted : []
+    return { type: 'identification', acceptedAnswers: values.map(String), caseSensitive: answer.caseSensitive === true }
+  }
+  if (questionType === 'fill_in_the_blank') {
+    return {
+      type: 'fill_in_the_blank',
+      blanks: (Array.isArray(answer.blanks) ? answer.blanks : []).map((blank, index) => {
+        const value = asObject(blank)
+        return {
+          id: text(value.id, `blank-${index + 1}`),
+          acceptedAnswers: (Array.isArray(value.acceptedAnswers) ? value.acceptedAnswers : []).map(String),
+          ...(value.caseSensitive !== undefined ? { caseSensitive: value.caseSensitive === true } : {}),
+          ...(value.pointsPossible !== undefined ? { pointsPossible: Number(value.pointsPossible) } : {}),
+        }
+      }),
+    }
+  }
+  if (questionType === 'numerical_answer') {
+    return {
+      type: 'numerical_answer',
+      value: Number(answer.value ?? 0),
+      ...(answer.tolerance !== undefined ? { tolerance: Number(answer.tolerance) } : {}),
+      ...(answer.unit !== undefined ? { unit: String(answer.unit) } : {}),
+      ...(answer.requireUnit !== undefined ? { requireUnit: answer.requireUnit === true } : {}),
+    }
+  }
+  if (questionType === 'problem_solving') {
+    return {
+      type: 'problem_solving',
+      finalAnswer: typeof answer.finalAnswer === 'number' ? answer.finalAnswer : text(answer.finalAnswer),
+      solutionOutline: text(answer.solutionOutline),
+      ...(Array.isArray(answer.subparts) ? { subparts: answer.subparts.map((subpart, index) => {
+        const value = asObject(subpart)
+        return {
+          id: text(value.id, `part-${index + 1}`), prompt: text(value.prompt),
+          ...(value.expectedAnswer !== undefined ? { expectedAnswer: typeof value.expectedAnswer === 'number' ? value.expectedAnswer : String(value.expectedAnswer) } : {}),
+          pointsPossible: Number(value.pointsPossible ?? 1),
+          ...(Array.isArray(value.scoringCriteria) ? { scoringCriteria: value.scoringCriteria as never } : {}),
+        }
+      }) } : {}),
+      ...(Array.isArray(answer.scoringCriteria) ? { scoringCriteria: answer.scoringCriteria as never } : {}),
+    }
+  }
+  if (questionType === 'matching') {
+    return {
+      type: 'matching',
+      prompts: (Array.isArray(answer.prompts) ? answer.prompts : []).map((prompt, index) => { const value = asObject(prompt); return { id: text(value.id, `prompt-${index + 1}`), text: text(value.text) } }),
+      choices: (Array.isArray(answer.choices) ? answer.choices : []).map((choice, index) => { const value = asObject(choice); return { id: text(value.id, `choice-${index + 1}`), text: text(value.text), ...(value.label !== undefined ? { label: String(value.label) } : {}) } }),
+      mappings: (Array.isArray(answer.mappings) ? answer.mappings : []).map((mapping) => { const value = asObject(mapping); return { promptId: text(value.promptId), choiceId: text(value.choiceId), ...(value.pointsPossible !== undefined ? { pointsPossible: Number(value.pointsPossible) } : {}) } }),
+      reusableChoices: answer.reusableChoices === true,
+      ...(answer.pointsPerMatch !== undefined ? { pointsPerMatch: Number(answer.pointsPerMatch) } : {}),
+      ...(answer.groupPointsPossible !== undefined ? { groupPointsPossible: Number(answer.groupPointsPossible) } : {}),
+    }
+  }
+  if (questionType === 'multiple_select') {
+    const sourceChoices = Array.isArray(answer.choices) ? answer.choices : Array.isArray(choices) ? choices : []
+    return {
+      type: 'multiple_select',
+      choices: sourceChoices.map((choice, index) => { const value = asObject(choice); return { id: text(value.id, `choice-${index + 1}`), text: text(value.text) } }),
+      choiceIds: (Array.isArray(answer.choiceIds) ? answer.choiceIds : []).map(String),
+      scoringPolicy: 'all_or_nothing',
+    }
+  }
+  if (questionType === 'essay') {
+    return {
+      type: 'essay',
+      keyPoints: (Array.isArray(answer.keyPoints) ? answer.keyPoints : []).map(String),
+      ...(Array.isArray(answer.rubric) ? { rubric: answer.rubric as never } : {}),
+      ...(answer.expectedResponse !== undefined ? { expectedResponse: String(answer.expectedResponse) } : {}),
+      ...(answer.scoringNotes !== undefined ? { scoringNotes: String(answer.scoringNotes) } : {}),
+    }
+  }
   return {
     type: 'constructed_response',
     expectedResponse: text(answer.expectedResponse ?? answer.expected),
     sampleResponse: text(answer.sampleResponse),
     ...(answer.rubricGuidance ? { rubricGuidance: String(answer.rubricGuidance) } : {}),
+    ...(Array.isArray(answer.expectedElements) ? { expectedElements: answer.expectedElements.map(String) } : {}),
+    ...(Array.isArray(answer.rubric) ? { rubric: answer.rubric as never } : {}),
   }
 }
 
@@ -163,7 +239,11 @@ function mapItem(row: DbRow): AssessmentItem {
     authorshipState: text(row.authorship_state, 'empty') as AssessmentAuthorshipState,
     rationale: text(row.rationale),
     teacherNotes: text(row.teacher_notes),
-    points: row.points === null || row.points === undefined ? 1 : Number(row.points),
+    pointsPossible: row.points_possible === null || row.points_possible === undefined ? normalizeItemPoints({ points: row.points === null || row.points === undefined ? 1 : Number(row.points) }) : Number(row.points_possible),
+    points: row.points === null || row.points === undefined ? (row.points_possible === null || row.points_possible === undefined ? 1 : Number(row.points_possible)) : Number(row.points),
+    qaState: text(row.qa_state, 'empty') as AssessmentItem['qaState'],
+    locked: row.locked === true,
+    history: Array.isArray(row.version_history) ? clone(row.version_history) as AssessmentItem['history'] : Array.isArray(row.qa_history) ? clone(row.qa_history) as AssessmentItem['history'] : [],
   }
 }
 
@@ -192,7 +272,7 @@ function mapAssessmentDocument(
 ): AssessmentRecord {
   const sourceTos = sourceSnapshotFromRow(metadata, document)
   const content = sourceTos.content
-  return {
+  const record: AssessmentRecord = {
     id: text(document.id),
     userId: text(metadata.user_id ?? document.user_id),
     assignmentId: nullableText(metadata.assignment_id ?? document.assignment_id),
@@ -206,6 +286,8 @@ function mapAssessmentDocument(
     curriculumPeriodIds: Array.isArray(content.curriculumPeriodIds) ? content.curriculumPeriodIds.map(String) : [],
     curriculumPeriodLabels: Array.isArray(content.curriculumPeriodLabels) ? content.curriculumPeriodLabels.map(String) : [],
     totalItems: Number(metadata.total_items ?? content.totalItems ?? itemRows.length),
+    totalPoints: deriveAssessmentTotalPoints(itemRows.map(mapItem)),
+    settings: (asObject(metadata.settings ?? metadata.assessment_settings ?? asObject(document.structured_content).settings) as AssessmentRecord['settings']) ?? undefined,
     versionNumber,
     status: text(document.status, 'draft') as AssessmentRecord['status'],
     sourceTos,
@@ -213,6 +295,7 @@ function mapAssessmentDocument(
     createdAt: text(document.created_at),
     updatedAt: text(document.updated_at),
   }
+  return normalizeAssessmentBlueprint(record)
 }
 
 async function versionNumbers(documentIds: string[]) {
@@ -252,6 +335,8 @@ function assessmentContentMirror(record: AssessmentRecord) {
     curriculumPeriodIds: [...record.curriculumPeriodIds],
     curriculumPeriodLabels: [...record.curriculumPeriodLabels],
     totalItems: record.totalItems,
+    totalPoints: deriveAssessmentTotalPoints(record.items),
+    settings: clone(record.settings ?? {}),
     items: record.items.map((item) => itemWire(item)),
   }
 }
@@ -267,10 +352,17 @@ function itemWire(item: AssessmentItem) {
     questionType: item.questionType,
     prompt: item.prompt ?? '',
     answer,
-    points: item.points === null || item.points === undefined ? 1 : Number(item.points),
+    pointsPossible: normalizeItemPoints(item),
+    // Keep the legacy wire column aligned with the canonical value.  Older
+    // RPCs only read `points`; the additive migration mirrors it into
+    // points_possible for those callers.
+    points: normalizeItemPoints(item),
     rationale: item.rationale ?? '',
     teacherNotes: item.teacherNotes ?? '',
     authorshipState: item.authorshipState,
+    qaState: item.qaState ?? 'empty',
+    locked: item.locked === true,
+    history: clone(item.history ?? []).slice(-5),
   }
 }
 

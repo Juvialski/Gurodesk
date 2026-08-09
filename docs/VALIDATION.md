@@ -138,7 +138,15 @@ npm run validate:phase43
 
 Checks that Student Copy is answer/mapping/AI/ID/branding-free, Teacher Copy can include structured answers and optional review context, Answer Key is compact and derived from structured answers, Filipino/authored text is preserved, and long content is not silently omitted. It also verifies the built-in PDF, DOCX, and Print entry points.
 
-The Phase 4.3 boundary above is preserved by the Phase 5 checks below. The current implementation boundary is Phase 5.3; the full grading/class-record system remains out of scope.
+The Phase 4.3 boundary above is preserved by the Phase 4.4 and Phase 5 checks below. The current implementation boundary is Phase 5.4; class records, grading sheets, report cards, attendance, and student portals remain out of scope.
+
+## Phase 4.4 assessment types, scoring, and QA
+
+```bash
+npm run validate:phase44
+```
+
+This runs both the domain/persistence and AI/editor/export gates. It covers all eleven structured question types; disabled-type enforcement; deterministic fixed-count/percentage reconciliation; manual type preservation; independent item/point totals; legacy one-point normalization; target-point reporting; rubric, subpart, fill-blank, and matching point reconciliation; lock/history/edit-recheck behavior; low/high-risk adaptive verification; opposite-Lite selection; targeted repair/retry ceilings; bounded per-model scheduling; partial-batch preservation; final hard/warning review; and structured-answer-only export generation.
 
 ## Phase 5.0 learner / results foundation
 
@@ -203,7 +211,17 @@ Combined XLSX output is checked for complete deterministic values in these sheet
 
 Static review must confirm that no code sends learner names, learner UUIDs, school learner references, full answer sheets, or individual raw response history to Gemini. Supabase tables and result-related exports/templates must be teacher-owned and protected by RLS; security-definer functions must derive ownership from `auth.uid()`, verify related ownership, and set a safe `search_path`.
 
-For a 40-learner × 50-item class, persistence must use local draft state and bounded transactional batch replacement, not an explicit network write loop over cells. Analysis must load bounded session data and avoid N+1 learner/item queries. The sandbox does not substitute for a staging migration, live RLS isolation, Edge Function deployment, or real Gemini smoke test; those are required in the Phase 5.4 Production Acceptance & Deployment Validation phase.
+For a 40-learner × 50-item class, persistence must use local draft state and bounded transactional batch replacement, not an explicit network write loop over cells. Analysis must load bounded session data and avoid N+1 learner/item queries.
+
+## Phase 5.4 results and production acceptance
+
+```bash
+npm run validate:phase54
+```
+
+The gate covers legacy one-point scoring; multi-point and partial-credit outcomes; objective versus teacher scoring; point-derived totals separate from fully-correct item count; point-weighted competency/cognitive analysis; binary versus normalized multi-point labels; remediation denominators; report/export point fields; migration `019` answer-shape/reference/scoring guards; Render static build/SPA rewrite; and browser-safe environment examples.
+
+After all automated gates pass, the release still requires staging migrations, live cross-teacher RLS isolation, deployed Edge Function/BYOK requests, production Auth redirects, Android route refreshes, and physical export inspection. Follow `PRODUCTION_DEPLOYMENT.md` and `PRODUCTION_SMOKE_TEST.md`.
 
 ## Release boundary
 
@@ -214,4 +232,4 @@ npm run typecheck
 npm run build
 ```
 
-Do not weaken an earlier validator to make Phase 5 pass. Do not begin grading/class-record, report-card, awards/ranking, portal, or AI-grading work without explicit authorization.
+Do not weaken an earlier validator to make Phase 4.4/5.4 pass. Stop after Phase 5.4; do not begin grading/class-record, report-card, attendance, awards/ranking, portal, or AI-grading work without explicit authorization.
