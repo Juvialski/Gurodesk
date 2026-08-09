@@ -216,7 +216,7 @@ async function bestEffortLifecycleCleanup(action: () => Promise<void>) {
     // intentionally archive-only in the schema.  Do not turn a passing test
     // into a teardown failure when those lifecycle guards correctly refuse a
     // service-role hard delete; local stacks can be reset between runs.
-    if (/cannot be hard deleted|cannot be deleted|only draft|on delete restrict|foreign key|still referenced|violates|immutable/i.test(message)) return
+    if (/authenticated owner is required|authentication is required|cannot be hard deleted|cannot be deleted|only draft|on delete restrict|foreign key|still referenced|violates|immutable/i.test(message)) return
     throw error
   }
 }

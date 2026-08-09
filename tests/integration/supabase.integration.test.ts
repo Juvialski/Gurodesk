@@ -163,6 +163,8 @@ describe('Phase 5.5 local Supabase integration', () => {
         prompt: 'Edited through the existing-document save path.',
         points: 2,
         pointsPossible: 2,
+        authorshipState: 'manual',
+        qaState: 'answer_needs_recheck',
       } : item),
     }, false)
     expect(savedExisting.id).toBe(draftAssessment.id)
@@ -588,4 +590,5 @@ describe('Phase 5.5 local Supabase integration', () => {
       }
     }
   })
+
 })

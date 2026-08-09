@@ -480,17 +480,23 @@ function assertBlueprintIntegrity(record: AssessmentRecord, existing?: Assessmen
   } as TosRecord)
   const seen = new Set<number>()
   for (const item of record.items) {
-    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || seen.has(item.itemNumber)) {
-      throw new Error('Assessment item numbers must be unique exact integers.')
+    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1) {
+      throw new Error('Assessment item numbering must use positive exact integers.')
+    }
+    if (seen.has(item.itemNumber)) {
+      throw new Error('Assessment item numbering cannot contain duplicates.')
     }
     seen.add(item.itemNumber)
+  }
+  const orderedNumbers = [...seen].sort((a, b) => a - b)
+  if (orderedNumbers.some((number, index) => number !== index + 1)) {
+    throw new Error('Assessment item numbering must be contiguous from 1 with no gaps.')
+  }
+  for (const item of record.items) {
     const canonical = expected.items[item.itemNumber - 1]
     if (!canonical || mappingKey(canonical) !== mappingKey(item)) {
       throw new Error(`Assessment item ${item.itemNumber} no longer matches the finalized TOS mapping.`)
     }
-  }
-  if ([...seen].sort((a, b) => a - b).some((number, index) => number !== index + 1)) {
-    throw new Error('Assessment item numbers must have no gaps.')
   }
   if (requireFinal) validateAssessmentForFinal(record)
 }
