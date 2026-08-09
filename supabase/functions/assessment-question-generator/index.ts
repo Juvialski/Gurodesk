@@ -101,13 +101,18 @@ function answerResponseSchema(type: QuestionType): Row {
 }
 
 function candidateResponseFormat(type: QuestionType) {
+  // Keep the provider schema intentionally shallow. The deep per-question-type
+  // contract is already enforced by answerShapeInstruction() and
+  // validateCandidate() on the server. A shallow envelope avoids provider-side
+  // schema/configuration failures for nested assessment formats while still
+  // requiring valid JSON with the correct top-level discriminator.
   return {
     text: {
       mimeType: 'application/json',
       schema: objectSchema({
         questionType: enumString([type]),
         prompt: stringSchema(),
-        answer: answerResponseSchema(type),
+        answer: { type: 'object' },
         rationale: stringSchema(),
         referencedResources: arraySchema(stringSchema(), { maxItems: 10 }),
       }, ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources']),
