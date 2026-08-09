@@ -135,9 +135,9 @@ assert.doesNotMatch(read('src/components/AssessmentDocumentView.tsx'), /qaState|
 
 const edge = read('supabase/functions/assessment-question-generator/index.ts')
 for (const required of ['operation', "'verify'", "'repair'", 'oppositeLiteModel', 'pointsPossible', 'questionType', 'assessment_ai_audit_events', 'fallbackAllowed', 'isLiteModel']) assert.match(edge, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
-assert.match(edge, /function candidateResponseFormat/, 'assessment generation config has an explicit JSON response contract')
-assert.match(edge, /answer:\s*\{ type: 'object' \}/, 'provider response schema stays shallow while server-side type validation remains authoritative')
-assert.doesNotMatch(edge, /answer:\s*answerResponseSchema\(type\)/, 'provider request must not reintroduce the fragile deep per-type schema')
+assert.match(edge, /responseMimeType:\s*'application\/json'/, 'raw Gemini generateContent requests use the supported JSON MIME configuration')
+assert.doesNotMatch(edge, /responseFormat\s*:/, 'raw v1beta generateContent must not receive the incompatible responseFormat object')
+assert.match(edge, /validateCandidate\(/, 'server-side per-type validation remains authoritative after JSON parsing')
 assert.doesNotMatch(edge, /assessment_ai_audit_events[\s\S]{0,500}(?:prompt|answer)/i)
 
 console.log('Phase 4.4 AI/editor validation passed: typed deterministic QA, adaptive verifier/repair contracts, lock/missing protections, conservative per-model scheduler/retry/cancel behavior, final review hard-error/warning split, student-safe structured exports, and server-owned Lite model/mapping boundaries.')

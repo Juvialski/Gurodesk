@@ -68,83 +68,13 @@ function answerShapeInstruction(type: QuestionType) {
   return 'answer must be {"type":"essay","keyPoints":["...","..."],"scoringNotes":"..."}. keyPoints must be nonempty and should support teacher scoring; do not present one model essay as the only correct response.'
 }
 
-function stringSchema(extra: Row = {}) { return { type: 'string', ...extra } }
-function numberSchema(extra: Row = {}) { return { type: 'number', ...extra } }
-function booleanSchema() { return { type: 'boolean' } }
-function arraySchema(items: Row, extra: Row = {}) { return { type: 'array', items, ...extra } }
-function objectSchema(properties: Row, required: string[], extra: Row = {}) { return { type: 'object', properties, required, additionalProperties: false, ...extra } }
-function enumString(values: string[]) { return stringSchema({ enum: values }) }
-
-function answerResponseSchema(type: QuestionType): Row {
-  const discriminator = enumString([type])
-  const choice = objectSchema({ id: stringSchema(), text: stringSchema() }, ['id', 'text'])
-  if (type === 'multiple_choice') return objectSchema({ type: discriminator, choices: arraySchema(choice, { minItems: 2, maxItems: 6 }), choiceId: stringSchema() }, ['type', 'choices', 'choiceId'])
-  if (type === 'true_false') return objectSchema({ type: discriminator, value: booleanSchema() }, ['type', 'value'])
-  if (type === 'short_answer' || type === 'identification') return objectSchema({ type: discriminator, acceptedAnswers: arraySchema(stringSchema(), { minItems: 1, maxItems: 20 }), caseSensitive: booleanSchema() }, ['type', 'acceptedAnswers'])
-  if (type === 'fill_in_the_blank') {
-    const blank = objectSchema({ id: stringSchema(), acceptedAnswers: arraySchema(stringSchema(), { minItems: 1, maxItems: 20 }), caseSensitive: booleanSchema(), pointsPossible: numberSchema({ minimum: 0.1 }) }, ['id', 'acceptedAnswers'])
-    return objectSchema({ type: discriminator, blanks: arraySchema(blank, { minItems: 1, maxItems: 8 }) }, ['type', 'blanks'])
-  }
-  if (type === 'numerical_answer') return objectSchema({ type: discriminator, value: numberSchema(), tolerance: numberSchema({ minimum: 0 }), unit: stringSchema(), requireUnit: booleanSchema() }, ['type', 'value'])
-  if (type === 'problem_solving') {
-    const subpart = objectSchema({ id: stringSchema(), prompt: stringSchema(), expectedAnswer: { anyOf: [stringSchema(), numberSchema()] }, pointsPossible: numberSchema({ minimum: 0.1 }) }, ['id', 'prompt', 'pointsPossible'])
-    return objectSchema({ type: discriminator, finalAnswer: { anyOf: [stringSchema(), numberSchema()] }, solutionOutline: stringSchema(), subparts: arraySchema(subpart, { maxItems: 8 }) }, ['type', 'finalAnswer', 'solutionOutline'])
-  }
-  if (type === 'matching') {
-    const prompt = objectSchema({ id: stringSchema(), text: stringSchema() }, ['id', 'text'])
-    const mapping = objectSchema({ promptId: stringSchema(), choiceId: stringSchema(), pointsPossible: numberSchema({ minimum: 0.1 }) }, ['promptId', 'choiceId'])
-    return objectSchema({ type: discriminator, prompts: arraySchema(prompt, { minItems: 2, maxItems: 12 }), choices: arraySchema(choice, { minItems: 2, maxItems: 16 }), mappings: arraySchema(mapping, { minItems: 2, maxItems: 12 }), reusableChoices: booleanSchema(), pointsPerMatch: numberSchema({ minimum: 0.1 }), groupPointsPossible: numberSchema({ minimum: 0.1 }) }, ['type', 'prompts', 'choices', 'mappings'])
-  }
-  if (type === 'multiple_select') return objectSchema({ type: discriminator, choices: arraySchema(choice, { minItems: 2, maxItems: 6 }), choiceIds: arraySchema(stringSchema(), { minItems: 1, maxItems: 6 }), scoringPolicy: enumString(['all_or_nothing']) }, ['type', 'choices', 'choiceIds', 'scoringPolicy'])
-  if (type === 'constructed_response') return objectSchema({ type: discriminator, expectedResponse: stringSchema(), sampleResponse: stringSchema(), rubricGuidance: stringSchema(), expectedElements: arraySchema(stringSchema(), { maxItems: 20 }) }, ['type', 'expectedResponse', 'sampleResponse'])
-  return objectSchema({ type: discriminator, keyPoints: arraySchema(stringSchema(), { minItems: 1, maxItems: 20 }), expectedResponse: stringSchema(), scoringNotes: stringSchema() }, ['type', 'keyPoints'])
-}
-
-function candidateResponseFormat(type: QuestionType) {
-  // Keep the provider schema intentionally shallow. The deep per-question-type
-  // contract is already enforced by answerShapeInstruction() and
-  // validateCandidate() on the server. A shallow envelope avoids provider-side
-  // schema/configuration failures for nested assessment formats while still
-  // requiring valid JSON with the correct top-level discriminator.
-  return {
-    text: {
-      mimeType: 'application/json',
-      schema: objectSchema({
-        questionType: enumString([type]),
-        prompt: stringSchema(),
-        answer: { type: 'object' },
-        rationale: stringSchema(),
-        referencedResources: arraySchema(stringSchema(), { maxItems: 10 }),
-      }, ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources']),
-    },
-  }
-}
-
-function verifierResponseFormat() {
-  return {
-    text: {
-      mimeType: 'application/json',
-      schema: objectSchema({
-        status: enumString(['pass', 'needs_repair']),
-        answerValid: booleanSchema(),
-        competencyAligned: booleanSchema(),
-        cognitiveAlignment: enumString(['good', 'questionable']),
-        ambiguityDetected: booleanSchema(),
-        factualOrMathIssue: booleanSchema(),
-        issues: arraySchema(stringSchema(), { maxItems: 12 }),
-        repairGuidance: arraySchema(stringSchema(), { maxItems: 12 }),
-      }, ['status', 'answerValid', 'competencyAligned', 'cognitiveAlignment', 'ambiguityDetected', 'factualOrMathIssue', 'issues', 'repairGuidance']),
-    },
-  }
-}
-
 function buildGenerationPrompt(type: QuestionType, immutable: Row, language: string, teacherContext: string, resources: string[]) { const competency = clean(immutable.competencyText); const cognitive = clean(immutable.cognitiveLabel); const points = Number(immutable.pointsPossible ?? 1); const gradeLevel = clean(immutable.gradeLevel) || 'server-verified grade'; const learningArea = clean(immutable.learningArea) || 'server-verified learning area'; return ['Draft exactly one editable assessment item for a Philippine DepEd teacher. Teacher validation and professional judgment are mandatory.', 'OFFICIAL POLICY BOUNDARY: DepEd Order No. 015, s. 2026 permits teacher use of AI for drafting assessment items/prompts and alternative versions subject to teacher validation, professional judgment, and curriculum alignment. It does not replace professional judgment or determine grades. Official source: https://www.deped.gov.ph/wp-content/uploads/DO_s2026_015r.pdf', 'Never alter the fixed item number, competency, cognitive category, question type, or points.', `Grade level (server-verified): ${gradeLevel}`, `Learning area (server-verified): ${learningArea}`, `Item number (fixed): ${Number(immutable.itemNumber)}`, `Competency (fixed): ${competency}`, `Cognitive category (fixed): ${cognitive}`, `Question type (fixed): ${type}`, `Points possible (fixed): ${points}`, language, `Bounded teacher context: ${teacherContext || 'none'}`, `Teacher-listed resources (mention only exact entries, or none): ${resources.length ? resources.join('; ') : 'none'}`, 'Do not invent resources, citations, devices, local facts, learner details, curriculum codes, or PII. Do not translate existing teacher content unexpectedly.', 'Return one JSON object only with exactly these top-level keys: questionType, prompt, answer, rationale, referencedResources.', `questionType must be exactly "${type}".`, answerShapeInstruction(type), `referencedResources must be ${resources.length ? 'an array containing only exact teacher-listed resource strings actually used' : 'an empty array [] because the teacher supplied no resources'}.`, 'Rationale is for teacher review and must be at least one clear sentence; it must not claim official approval.'].join('\n') }
 function buildVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row) { return ['Independently review one finished assessment item. Return strict JSON only.', `Fixed item number: ${Number(immutable.itemNumber)}`, `Fixed competency: ${clean(immutable.competencyText)}`, `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`, `Fixed question type: ${type}`, `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`, `Finished candidate: ${JSON.stringify(candidate)}`, 'Check answer validity, competency alignment, cognitive alignment, ambiguity, factual/math issues, and type-specific structure.', 'Do not require a single best answer for essay, constructed_response, or multiple_select.', 'Return exactly: {"status":"pass"|"needs_repair","answerValid":boolean,"competencyAligned":boolean,"cognitiveAlignment":"good"|"questionable","ambiguityDetected":boolean,"factualOrMathIssue":boolean,"issues":string[],"repairGuidance":string[]}.'] .join('\n') }
 function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, issues: string[], guidance: string[]) { return ['Repair exactly one assessment item. Keep immutable item number, competency, cognitive category, question type, and points unchanged.', `Fixed item number: ${Number(immutable.itemNumber)}`, `Fixed competency: ${clean(immutable.competencyText)}`, `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`, `Fixed question type: ${type}`, `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`, `Current candidate: ${JSON.stringify(candidate)}`, `Verifier issues: ${issues.join(' | ') || 'review the answer and wording'}`, `Repair guidance: ${guidance.join(' | ') || 'return a clear unambiguous self-contained item'}`, 'Return one JSON object only with exactly questionType, prompt, answer, rationale, referencedResources.', `questionType must remain exactly "${type}".`, answerShapeInstruction(type), 'Do not invent resources or learner details.'].join('\n') }
 
 // maxRetries=2 in the client scheduler means at most 3 provider attempts
 // (attempt <= 3) for one queued operation; no endless repair loop is allowed.
-async function callWithLiteFallback(apiKey: string, settings: ReturnType<typeof resolveSettings>, prompt: string, type: QuestionType) { let modelUsed: AiModelId = settings.preferredModel; let fallbackUsed = false; const config = { maxOutputTokens: 2200, responseFormat: candidateResponseFormat(type) }; try { const output = await callGemini(apiKey, settings.preferredModel, prompt, config); return { output, modelUsed, fallbackUsed } } catch (error) { if (!(error instanceof GeminiHttpError) || !isFallbackEligibleStatus(error.status) || !fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)) throw error; modelUsed = settings.fallbackModel; fallbackUsed = true; const output = await callGemini(apiKey, settings.fallbackModel, prompt, config); return { output, modelUsed, fallbackUsed } } }
+async function callWithLiteFallback(apiKey: string, settings: ReturnType<typeof resolveSettings>, prompt: string) { let modelUsed: AiModelId = settings.preferredModel; let fallbackUsed = false; // Raw v1beta generateContent expects generationConfig.responseMimeType. const config = { maxOutputTokens: 2200, responseMimeType: 'application/json' }; try { const output = await callGemini(apiKey, settings.preferredModel, prompt, config); return { output, modelUsed, fallbackUsed } } catch (error) { if (!(error instanceof GeminiHttpError) || !isFallbackEligibleStatus(error.status) || !fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)) throw error; modelUsed = settings.fallbackModel; fallbackUsed = true; const output = await callGemini(apiKey, settings.fallbackModel, prompt, config); return { output, modelUsed, fallbackUsed } } }
 function oppositeLiteModel(settings: ReturnType<typeof resolveSettings>, generatorModel = ''): LiteAiModelId { if (generatorModel === DEFAULT_MODEL) return DEFAULT_FALLBACK_MODEL; if (generatorModel === DEFAULT_FALLBACK_MODEL) return DEFAULT_MODEL; if (isLiteModel(settings.preferredModel)) return settings.preferredModel === DEFAULT_MODEL ? DEFAULT_FALLBACK_MODEL : DEFAULT_MODEL; return DEFAULT_MODEL }
 type AuditPayload = { userId: string; assessmentId: string; itemId: string; questionType: QuestionType; alternative: boolean; model: string; fallbackUsed: boolean; outcome: 'success' | 'rejected' | 'error' | 'cancelled' }
 async function audit(admin: ReturnType<typeof createClient>, payload: AuditPayload) { try { await admin.from('assessment_ai_audit_events').insert({ user_id: payload.userId, assessment_document_id: payload.assessmentId, assessment_item_id: payload.itemId, question_type: payload.questionType, alternative: payload.alternative, provider: 'google', model: payload.model, fallback_used: payload.fallbackUsed, outcome: payload.outcome }) } catch { /* Metadata audit failure never changes teacher work. */ } }
@@ -191,11 +121,11 @@ Deno.serve(async (req) => {
     auditPayload = { userId, assessmentId, itemId, questionType: serverType, alternative: body.alternative === true, model: settings.preferredModel, fallbackUsed: false, outcome: 'error' }
     let responseModel: AiModelId = settings.preferredModel; let fallbackUsed = false
     if (operation === 'verify') {
-      const approved = validateCandidate(body.candidate, serverType, resources, false); candidateValidationStarted = true; const verifierModel = oppositeLiteModel(settings, clean(body.generatorModel, 120)); const verifierOutput = await callGemini(apiKey, verifierModel, buildVerifierPrompt(serverType, immutable, approved), { maxOutputTokens: 1000, responseFormat: verifierResponseFormat() }); responseModel = verifierModel; const verifier = parseJson(verifierOutput); const required = ['status', 'answerValid', 'competencyAligned', 'cognitiveAlignment', 'ambiguityDetected', 'factualOrMathIssue', 'issues', 'repairGuidance']; if (!onlyKeys(verifier, required) || !['pass', 'needs_repair'].includes(String(verifier.status)) || typeof verifier.answerValid !== 'boolean' || typeof verifier.competencyAligned !== 'boolean' || !['good', 'questionable'].includes(String(verifier.cognitiveAlignment)) || typeof verifier.ambiguityDetected !== 'boolean' || typeof verifier.factualOrMathIssue !== 'boolean' || !Array.isArray(verifier.issues) || !Array.isArray(verifier.repairGuidance)) throw new Error('The verifier response did not match the required structured contract.'); auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, verifier: { ...verifier, issues: list(verifier.issues, 12, 500), repairGuidance: list(verifier.repairGuidance, 12, 700) }, model: responseModel, fallbackUsed: false, editable: true })
+      const approved = validateCandidate(body.candidate, serverType, resources, false); candidateValidationStarted = true; const verifierModel = oppositeLiteModel(settings, clean(body.generatorModel, 120)); const verifierOutput = await callGemini(apiKey, verifierModel, buildVerifierPrompt(serverType, immutable, approved), { maxOutputTokens: 1000, responseMimeType: 'application/json' }); responseModel = verifierModel; const verifier = parseJson(verifierOutput); const required = ['status', 'answerValid', 'competencyAligned', 'cognitiveAlignment', 'ambiguityDetected', 'factualOrMathIssue', 'issues', 'repairGuidance']; if (!onlyKeys(verifier, required) || !['pass', 'needs_repair'].includes(String(verifier.status)) || typeof verifier.answerValid !== 'boolean' || typeof verifier.competencyAligned !== 'boolean' || !['good', 'questionable'].includes(String(verifier.cognitiveAlignment)) || typeof verifier.ambiguityDetected !== 'boolean' || typeof verifier.factualOrMathIssue !== 'boolean' || !Array.isArray(verifier.issues) || !Array.isArray(verifier.repairGuidance)) throw new Error('The verifier response did not match the required structured contract.'); auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, verifier: { ...verifier, issues: list(verifier.issues, 12, 500), repairGuidance: list(verifier.repairGuidance, 12, 700) }, model: responseModel, fallbackUsed: false, editable: true })
     }
     let candidate: Row
-    if (operation === 'repair') { const current = validateCandidate(body.candidate, serverType, resources, false); candidateValidationStarted = true; const repairSettings = { ...settings, preferredModel: isLiteModel(settings.preferredModel) ? settings.preferredModel : DEFAULT_MODEL, fallbackModel: isLiteModel(settings.preferredModel) && settings.preferredModel !== DEFAULT_MODEL ? DEFAULT_MODEL : DEFAULT_FALLBACK_MODEL }; const output = await callWithLiteFallback(apiKey, repairSettings, buildRepairPrompt(serverType, immutable, current, list(body.issues, 8, 500), list(body.repairGuidance, 8, 700)), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; candidate = validateCandidate(parseJson(output.output), serverType, resources) }
-    else { const teacherContext = clean(body.teacherContext, 1200); const output = await callWithLiteFallback(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; candidate = validateCandidate(parseJson(output.output), serverType, resources) }
+    if (operation === 'repair') { const current = validateCandidate(body.candidate, serverType, resources, false); candidateValidationStarted = true; const repairSettings = { ...settings, preferredModel: isLiteModel(settings.preferredModel) ? settings.preferredModel : DEFAULT_MODEL, fallbackModel: isLiteModel(settings.preferredModel) && settings.preferredModel !== DEFAULT_MODEL ? DEFAULT_MODEL : DEFAULT_FALLBACK_MODEL }; const output = await callWithLiteFallback(apiKey, repairSettings, buildRepairPrompt(serverType, immutable, current, list(body.issues, 8, 500), list(body.repairGuidance, 8, 700))); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; candidate = validateCandidate(parseJson(output.output), serverType, resources) }
+    else { const teacherContext = clean(body.teacherContext, 1200); const output = await callWithLiteFallback(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources)); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; candidate = validateCandidate(parseJson(output.output), serverType, resources) }
     candidateValidationStarted = true; auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, candidate, approvedResources: resources, model: responseModel, fallbackUsed, editable: true })
   } catch (error) {
     if (auditPayload) { auditPayload.outcome = candidateValidationStarted ? 'rejected' : 'error'; const supabaseUrl = Deno.env.get('SUPABASE_URL'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (supabaseUrl && serviceRole) await audit(createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }), auditPayload) }
