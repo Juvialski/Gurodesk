@@ -13,7 +13,7 @@ import { reviewAssessmentForFinalization, finalReviewMessages, type AssessmentFi
 import { duplicateAssessmentDocument, loadAssessmentDocument, saveAssessmentDocument } from '../lib/assessmentRepository'
 import type { AssessmentAnswer, AssessmentChoice, AssessmentItem, AssessmentMatchingChoice, AssessmentMatchingMapping, AssessmentMatchingPrompt, AssessmentRecord, AssessmentScoringCriterion, AssessmentSettings, AssessmentSubpart, QuestionType } from '../types/assessment'
 import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
-import { allowedQuestionTypes, answerForType, appendItemHistory, assessmentCompletion, cloneItem, defaultPointsForType, isLocked, mappingDetails, mappingLabel, normalizeAssessment, pointsForItem, recordWithItems, stateLabel, typeLabel } from './assessmentUi'
+import { allowedQuestionTypes, answerForType, appendItemHistory, assessmentCompletion, cloneItem, defaultPointsForType, extractErrorMessage, isLocked, mappingDetails, mappingLabel, normalizeAssessment, pointsForItem, recordWithItems, stateLabel, typeLabel } from './assessmentUi'
 
 type UnknownRecord = Record<string, unknown>
 type SuggestionMap = Record<string, AssessmentItemSuggestion>
@@ -102,7 +102,7 @@ export function AssessmentEditorPage() {
       if (!next) throw new Error('Assessment not found or you do not have access to it.')
       const normalized = normalizeAssessment(next)
       setRecordValue(normalized); recordRef.current = normalized; setTitle(normalized.title === 'Untitled assessment' ? '' : normalized.title); setInstructions(normalized.instructions); setSelectedIndex(0); setSuggestions({}); setError(''); refreshUsageEstimates()
-    }).catch((nextError) => { if (active) setError(nextError instanceof Error ? nextError.message : 'Unable to open the assessment editor.') }).finally(() => { if (active) setLoading(false) })
+    }).catch((nextError) => { if (active) setError(extractErrorMessage(nextError, 'Unable to open the assessment editor.')) }).finally(() => { if (active) setLoading(false) })
     return () => { active = false }
   }, [id, user?.id, isDemo])
 
@@ -164,7 +164,7 @@ export function AssessmentEditorPage() {
       setRecordValue(next)
       setSavedMessage(`Question-type distribution applied deterministically to empty slots. TOS mapping was preserved.${allocation.warnings.length ? ` ${allocation.warnings.join(' ')}` : ''}`)
       setWarningsAccepted(false)
-    } catch (nextError) { setError(nextError instanceof Error ? nextError.message : 'Unable to apply the distribution.') }
+    } catch (nextError) { setError(extractErrorMessage(nextError, 'Unable to apply the distribution.')) }
   }
 
   function updateItem(index: number, updater: (item: AssessmentItem) => AssessmentItem, material = true) {
@@ -188,7 +188,7 @@ export function AssessmentEditorPage() {
     if (!recordValue || !view || readOnly) return null
     const next = recordWithItems(recordValue, view.items, 'draft', title.trim(), instructions)
     setSaving(true); setError('')
-    try { const saved = await saveAssessmentDocument(next, isDemo); recordRef.current = saved; setRecordValue(saved); setTitle(saved.title); setInstructions(saved.instructions); return saved } catch (nextError) { setError(nextError instanceof Error ? nextError.message : 'Unable to save the draft before generation.'); return null } finally { setSaving(false) }
+    try { const saved = await saveAssessmentDocument(next, isDemo); recordRef.current = saved; setRecordValue(saved); setTitle(saved.title); setInstructions(saved.instructions); return saved } catch (nextError) { setError(extractErrorMessage(nextError, 'Unable to save the draft before generation.')); return null } finally { setSaving(false) }
   }
 
   async function save(status: 'draft' | 'final' = 'draft') {
@@ -203,10 +203,10 @@ export function AssessmentEditorPage() {
       if (validation.errors.length > 0) { setError('Resolve the validation issues before finalizing this assessment.'); return }
     }
     setSaving(true); setError('')
-    try { const saved = await saveAssessmentDocument(next, isDemo); recordRef.current = saved; setRecordValue(saved); setTitle(saved.title); setInstructions(saved.instructions); setSavedMessage(status === 'final' ? 'Assessment finalized and locked.' : 'Draft saved.'); if (status === 'final') setReview(reviewAssessmentForFinalization(saved)) } catch (nextError) { setError(nextError instanceof Error ? nextError.message : 'Unable to save this assessment.') } finally { setSaving(false) }
+    try { const saved = await saveAssessmentDocument(next, isDemo); recordRef.current = saved; setRecordValue(saved); setTitle(saved.title); setInstructions(saved.instructions); setSavedMessage(status === 'final' ? 'Assessment finalized and locked.' : 'Draft saved.'); if (status === 'final') setReview(reviewAssessmentForFinalization(saved)) } catch (nextError) { setError(extractErrorMessage(nextError, 'Unable to save this assessment.')) } finally { setSaving(false) }
   }
 
-  async function duplicate() { if (!recordValue) return; setSaving(true); try { const created = await duplicateAssessmentDocument(recordValue, isDemo); navigate(`/assessments/${created.id}`) } catch (nextError) { setError(nextError instanceof Error ? nextError.message : 'Unable to duplicate this assessment.') } finally { setSaving(false) } }
+  async function duplicate() { if (!recordValue) return; setSaving(true); try { const created = await duplicateAssessmentDocument(recordValue, isDemo); navigate(`/assessments/${created.id}`) } catch (nextError) { setError(extractErrorMessage(nextError, 'Unable to duplicate this assessment.')) } finally { setSaving(false) } }
 
   async function generateItem(index: number, alternative = false) {
     if (!recordValue || !view || readOnly) return
@@ -221,7 +221,7 @@ export function AssessmentEditorPage() {
       const suggestion = await generateAssessmentItemSuggestion({ assessment: persisted, item: persistedItem, demo: isDemo, alternative, teacherContext: persisted.instructions, signal: controller.signal })
       setSuggestions((currentSuggestions) => ({ ...currentSuggestions, [item.id]: suggestion }))
       if (suggestion.quotaPaused) setBatchMessage('Generation paused because the provider limit was reached. Your saved work is preserved.')
-    } catch (nextError) { if (!controller?.signal.aborted) setError(nextError instanceof Error ? nextError.message : 'Unable to generate an item suggestion.') } finally { refreshUsageEstimates(); if (controller && controllerRef.current === controller) controllerRef.current = null; setAiWorking('') }
+    } catch (nextError) { if (!controller?.signal.aborted) setError(extractErrorMessage(nextError, 'Unable to generate an item suggestion.')) } finally { refreshUsageEstimates(); if (controller && controllerRef.current === controller) controllerRef.current = null; setAiWorking('') }
   }
 
   async function checkAccuracy(index: number) {
@@ -243,7 +243,7 @@ export function AssessmentEditorPage() {
       recordRef.current = nextRecord
       setRecordValue(nextRecord)
       setSavedMessage(passed ? 'Accuracy check passed.' : 'Accuracy check needs teacher review.')
-    } catch (nextError) { if (!controller?.signal.aborted) setError(nextError instanceof Error ? nextError.message : 'Accuracy check could not be completed.') } finally { refreshUsageEstimates(); if (controller && controllerRef.current === controller) controllerRef.current = null; setAiWorking('') }
+    } catch (nextError) { if (!controller?.signal.aborted) setError(extractErrorMessage(nextError, 'Accuracy check could not be completed.')) } finally { refreshUsageEstimates(); if (controller && controllerRef.current === controller) controllerRef.current = null; setAiWorking('') }
   }
 
   function acceptSuggestion(index: number) {
@@ -298,7 +298,7 @@ export function AssessmentEditorPage() {
           recordRef.current = saved
           setRecordValue(saved)
         } catch (saveError) {
-          setError(`Generated items were kept in this draft locally, but the partial batch save failed: ${saveError instanceof Error ? saveError.message : 'try Save draft again.'}`)
+          setError(`Generated items were kept in this draft locally, but the partial batch save failed: ${extractErrorMessage(saveError, 'try Save draft again.')}`)
         } finally { setSaving(false) }
       }
       refreshUsageEstimates()
@@ -306,7 +306,7 @@ export function AssessmentEditorPage() {
       setBatchMessage(quotaPaused
         ? 'Generation paused because the provider limit was reached. Completed suggestions were saved and remain available for review.'
         : `${summary.succeeded} suggestion${summary.succeeded === 1 ? '' : 's'} ready for review${summary.failed ? ` · ${summary.failed} failed` : ''}.`)
-    } catch (nextError) { refreshUsageEstimates(); if (controller?.signal.aborted) setBatchMessage('Generation cancelled. Completed suggestions remain available for review.'); else setError(nextError instanceof Error ? nextError.message : 'Unable to generate missing items.') } finally { if (controller && batchControllerRef.current === controller) batchControllerRef.current = null; setBatchWorking(false) }
+    } catch (nextError) { refreshUsageEstimates(); if (controller?.signal.aborted) setBatchMessage('Generation cancelled. Completed suggestions remain available for review.'); else setError(extractErrorMessage(nextError, 'Unable to generate missing items.')) } finally { if (controller && batchControllerRef.current === controller) batchControllerRef.current = null; setBatchWorking(false) }
   }
 
   function toggleLock(index: number) { if (!recordValue || !view || readOnly) return; const item = view.items[index]; if (!item) return; const unlocking = isLocked(item); if (!unlocking && !item.prompt.trim()) { setError('Add and review the question before locking this item.'); return } replaceItems(view.items.map((candidate, itemIndex) => itemIndex === index ? { ...candidate, locked: !unlocking, qaState: unlocking ? (candidate.prompt.trim() ? 'needs_review' : 'empty') : 'locked' } : candidate)) }

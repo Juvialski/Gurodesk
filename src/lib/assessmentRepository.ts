@@ -503,7 +503,7 @@ export async function loadAssessmentDocuments(userId: string, demo: boolean): Pr
   }
   const { data, error } = await supabase
     .from('documents')
-    .select('*, assessment_documents(*, assessment_items(*))')
+    .select('*, assessment_documents:assessment_documents!assessment_documents_document_id_fkey(*, assessment_items(*))')
     .eq('user_id', userId)
     .eq('document_type', 'assessment')
     .neq('status', 'archived')
@@ -522,7 +522,7 @@ export async function loadAssessmentDocument(id: string, userId: string, demo: b
   }
   const { data, error } = await supabase
     .from('documents')
-    .select('*, assessment_documents(*, assessment_items(*))')
+    .select('*, assessment_documents:assessment_documents!assessment_documents_document_id_fkey(*, assessment_items(*))')
     .eq('id', id)
     .eq('user_id', userId)
     .eq('document_type', 'assessment')

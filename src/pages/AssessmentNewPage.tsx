@@ -7,6 +7,7 @@ import { useApp } from '../contexts/AppContext'
 import { createAssessmentFromFinalTos } from '../lib/assessmentRepository'
 import { loadTosDocuments } from '../lib/tosRepository'
 import type { TosRecord } from '../types/tos'
+import { extractErrorMessage } from './assessmentUi'
 
 export function AssessmentNewPage() {
   const { user, isDemo } = useApp()
@@ -32,7 +33,7 @@ export function AssessmentNewPage() {
         const requested = finals.find((document) => document.id === (searchParams.get('tos') ?? ''))
         setSelectedId((current) => requested?.id ?? finals.find((document) => document.id === current)?.id ?? finals[0]?.id ?? '')
       })
-      .catch((nextError) => { if (active) setError(nextError instanceof Error ? nextError.message : 'Unable to load finalized TOS documents.') })
+      .catch((nextError) => { if (active) setError(extractErrorMessage(nextError, 'Unable to load finalized TOS documents.')) })
       .finally(() => { if (active) setLoading(false) })
     return () => { active = false }
   }, [user?.id, isDemo, searchParams])
@@ -47,7 +48,7 @@ export function AssessmentNewPage() {
       const created = await createAssessmentFromFinalTos(selected, user.id, isDemo, title.trim() || undefined, instructions.trim() || undefined)
       navigate(`/assessments/${created.id}`)
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : 'Unable to create assessment from this TOS.')
+      setError(extractErrorMessage(nextError, 'Unable to create assessment from this TOS.'))
     } finally {
       setCreating(false)
     }

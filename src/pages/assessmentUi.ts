@@ -155,3 +155,14 @@ export function itemSummary(item: AssessmentItem) {
   const state = String(record(item).qaState ?? item.authorshipState)
   return { itemNumber: item.itemNumber, type: typeLabel(item.questionType), points, completed: Boolean(item.prompt.trim()), locked: isLocked(item), state: stateLabel(state) }
 }
+
+export function extractErrorMessage(err: unknown, fallback: string): string {
+  if (err instanceof Error && err.message) return err.message
+  if (err && typeof err === 'object') {
+    const obj = err as Record<string, unknown>
+    if (typeof obj.message === 'string' && obj.message) return obj.message
+    if (typeof obj.error_description === 'string' && obj.error_description) return obj.error_description
+    if (typeof obj.details === 'string' && obj.details) return obj.details
+  }
+  return fallback
+}

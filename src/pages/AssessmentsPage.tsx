@@ -8,7 +8,7 @@ import { archiveAssessmentDocument, duplicateAssessmentDocument, loadAssessmentD
 import { loadTosDocuments } from '../lib/tosRepository'
 import type { AssessmentRecord } from '../types/assessment'
 import type { TosRecord } from '../types/tos'
-import { assessmentCompletion, normalizeAssessment } from './assessmentUi'
+import { assessmentCompletion, extractErrorMessage, normalizeAssessment } from './assessmentUi'
 
 function displayDate(value: string) {
   if (!value) return 'Not yet saved'
@@ -37,7 +37,7 @@ export function AssessmentsPage() {
       setFinalTos(tosDocuments.filter((document) => document.status === 'final'))
       setError('')
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : 'Unable to load assessments.')
+      setError(extractErrorMessage(nextError, 'Unable to load assessments.'))
     } finally {
       setLoading(false)
     }
@@ -51,7 +51,7 @@ export function AssessmentsPage() {
       const created = await duplicateAssessmentDocument(document, isDemo)
       navigate(`/assessments/${created.id}`)
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : 'Unable to duplicate this assessment.')
+      setError(extractErrorMessage(nextError, 'Unable to duplicate this assessment.'))
     } finally {
       setWorkingId('')
     }
@@ -66,7 +66,7 @@ export function AssessmentsPage() {
       await archiveAssessmentDocument(document.id, user.id, isDemo)
       await refresh()
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : 'Unable to archive this assessment.')
+      setError(extractErrorMessage(nextError, 'Unable to archive this assessment.'))
     } finally {
       setWorkingId('')
     }
