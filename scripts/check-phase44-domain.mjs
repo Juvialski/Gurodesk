@@ -108,6 +108,7 @@ assert.equal(normalized.items[0].pointsPossible, 3)
 assert.equal(normalized.totalPoints, 96)
 
 const migration = read('supabase/migrations/202608090018_phase44_assessment_scoring_qa.sql')
+const migration020 = read('supabase/migrations/202608090020_fix_assessment_save_alias_ambiguity.sql')
 assert.match(migration, /item_number integer;/, 'the save RPC declares its TOS-loop item number')
 assert.match(migration, /security definer\s+set search_path = ''[\s\S]*auth\.uid\(\)/, 'the authoritative save RPC is owner-scoped with a fixed search path')
 assert.match(migration, /if has_explicit and \(missing_explicit > 0/, 'server point validation rejects partially specified component scoring')
@@ -116,4 +117,11 @@ assert.match(migration, /Assessment save payload is too large/, 'assessment save
 assert.match(migration, /Assessment item content exceeds the supported save limit/, 'per-item answer and bounded-history payloads are limited server-side')
 assert.doesNotMatch(migration, /Final assessment has unresolved question review states/, 'optional AI or teacher-review quality states do not become server-side structural blockers')
 
-console.log('Phase 4.4 domain validation passed: all 11 typed payloads, 32 items/60 points, deterministic distribution reconciliation, structured scoring totals, target delta, invalid component totals, lock/history protection, and legacy point normalization.')
+assert.match(migration020, /create or replace function public\.save_assessment_document/, 'migration 020 replaces save_assessment_document')
+assert.match(migration020, /from public\.assessment_items existing_ai/, 'migration 020 uses disambiguated existing_ai table alias')
+assert.match(migration020, /from jsonb_array_elements\(p_items\) incoming_value/, 'migration 020 uses disambiguated incoming_value table alias')
+assert.doesNotMatch(migration020, /from public\.assessment_items existing_item/, 'migration 020 prevents reuse of declared variable existing_item as a table alias')
+assert.doesNotMatch(migration020, /from jsonb_array_elements\(p_items\) incoming_item/, 'migration 020 prevents reuse of declared variable incoming_item as a table alias')
+assert.match(migration020, /security definer[\s\S]*set search_path = ''[\s\S]*auth\.uid\(\)/, 'migration 020 preserves security definer, search_path, and auth.uid()')
+
+console.log('Phase 4.4 domain validation passed: all 11 typed payloads, 32 items/60 points, deterministic distribution reconciliation, structured scoring totals, target delta, invalid component totals, lock/history protection, legacy point normalization, and migration 020 alias ambiguity fix.')
