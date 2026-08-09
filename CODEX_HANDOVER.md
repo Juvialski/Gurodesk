@@ -8,7 +8,7 @@ This release preserves Phases 1–5.4 and completes:
 
 **Stop here.** Do not begin class records, grading sheets, report cards, attendance, a student portal, a curriculum expansion, or another major teacher workflow without explicit authorization.
 
-GitHub `Juvialski/Gurodesk` `main` at commit `022afc55dd0f43f964f5d56df5111fe3c1e2da5a` was verified as the implementation source. The attached ZIP was byte-for-byte identical to that checkout. All existing migrations 001–020 and production behavior were preserved.
+GitHub `Juvialski/Gurodesk` `main` at commit `022afc55dd0f43f964f5d56df5111fe3c1e2da5a` was verified as the implementation source. The attached ZIP was byte-for-byte identical to that checkout. All existing migrations 001–021 and production behavior were preserved.
 
 The first attempted GitHub write for Phase 5.5 returned HTTP 403 (`Resource not accessible by integration`), so no further repository writes were attempted. The root-level Phase 5.5 ZIP is the handoff artifact; importing it onto `main` will trigger the included CI workflow.
 
@@ -92,7 +92,7 @@ Draft result entry remains local/debounced and batch-persisted rather than savin
 Phase 5.5 adds no teacher-facing feature and no database migration. It converts the production regressions from Phases 5.0–5.4 into executable behavior gates:
 
 - Vitest unit regressions cover error extraction, Render SPA fallback, assessment AI risk routing and one-item repair, malformed provider JSON, scheduler pacing/retry ceilings/429 handling, lock and replacement behavior, partial-credit totals, and Gemini Lite fallback boundaries.
-- The database harness applies the real migrations 001–020 to a fresh database and separately upgrades a data-bearing schema from migration 014 through 020. It asserts final schema behavior, the migration 018 trigger/backfill, preserved IDs/data/points, migration 020 existing-assessment saves, and finalized-assessment immutability.
+- The database harness applies the real migrations 001–021 to a fresh database and separately upgrades a data-bearing schema from migration 014 through 021. It asserts final schema behavior, the migration 018 trigger/backfill, preserved IDs/data/points, migration 020 existing-assessment saves, and finalized-assessment immutability.
 - Supabase integration tests use two real local Auth users and teacher JWTs for RLS, new/existing assessment RPC saves, duplicate/archive behavior, 40-item round trips, explicit PostgREST foreign-key relationships, tamper rejection, lock/unlock behavior, the required `1/1 + 3/5 + 8/10 = 12/16` result path, analysis, remediation, and cross-teacher denial across the major Phase 2–5.4 teacher-owned domains.
 - Playwright covers authenticated dashboard access, finalized-TOS assessment creation, editor save/reload/list/reopen behavior, and representative deep-route refreshes.
 - GitHub Actions runs the static/unit/build gate and a single disposable local Supabase stack for fresh/upgrade migration, integration, and Chromium E2E tests. `npm run test:release` provides the equivalent local release gate.

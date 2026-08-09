@@ -33,7 +33,7 @@ Supabase/Postgres.  No package.json wiring is required to invoke this file.
 
 Options:
   --fresh          Apply all migrations and run fresh-schema assertions.
-  --upgrade        Apply 001-014, insert fixture data, apply 015-020, assert.
+  --upgrade        Apply 001-014, insert fixture data, apply 015-021, assert.
   --all            Run both paths (default).
   --db-url URL     Use a disposable local PostgreSQL URL instead of CLI status.
   --start-local    Start local Supabase when it is not already running.
@@ -110,9 +110,11 @@ if [[ ! -d "${MIGRATIONS_DIR}" || ! -f "${FIXTURE_SQL}" || ! -f "${FRESH_ASSERT_
   die "repository migration/test files are incomplete"
 fi
 
+readonly EXPECTED_MIGRATION_COUNT=21
 mapfile -t MIGRATIONS < <(find "${MIGRATIONS_DIR}" -maxdepth 1 -type f -name '*.sql' -print | sort)
-if [[ "${#MIGRATIONS[@]}" -ne 20 ]]; then
-  die "expected exactly 20 migration files, found ${#MIGRATIONS[@]}"
+readonly TOTAL_MIGRATIONS="${#MIGRATIONS[@]}"
+if [[ "${TOTAL_MIGRATIONS}" -ne "${EXPECTED_MIGRATION_COUNT}" ]]; then
+  die "expected exactly ${EXPECTED_MIGRATION_COUNT} migration files, found ${TOTAL_MIGRATIONS}"
 fi
 
 if command -v supabase >/dev/null 2>&1; then
@@ -248,9 +250,9 @@ run_direct_upgrade() {
 }
 
 run_fresh() {
-  echo "db migration harness: fresh path (all 20 migrations)"
+  echo "db migration harness: fresh path (all ${TOTAL_MIGRATIONS} migrations)"
   make_temp_project
-  copy_migrations 20
+  copy_migrations "${TOTAL_MIGRATIONS}"
   if ! run_local_reset; then
     if [[ -z "${DB_URL}" ]]; then
       skip "Supabase CLI/local stack is unavailable and no SUPABASE_DB_URL was supplied"
@@ -263,7 +265,7 @@ run_fresh() {
 }
 
 run_upgrade() {
-  echo "db migration harness: upgrade path (001-014, fixture, 015-020)"
+  echo "db migration harness: upgrade path (001-014, fixture, 015-021)"
   make_temp_project
   copy_migrations 14
   if ! run_local_reset; then

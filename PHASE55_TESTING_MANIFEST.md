@@ -47,4 +47,4 @@
 - `README.md`
 - `CODEX_HANDOVER.md`
 
-No production feature, migration, or RLS policy was added or weakened. Applied migrations 001–020 remain unchanged.
+No production feature, migration, or RLS policy was added or weakened. Applied migrations 001–021 remain unchanged.
