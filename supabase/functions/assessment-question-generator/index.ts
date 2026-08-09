@@ -74,7 +74,36 @@ function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, i
 
 // maxRetries=2 in the client scheduler means at most 3 provider attempts
 // (attempt <= 3) for one queued operation; no endless repair loop is allowed.
-async function callWithLiteFallback(apiKey: string, settings: ReturnType<typeof resolveSettings>, prompt: string) { let modelUsed: AiModelId = settings.preferredModel; let fallbackUsed = false; // Raw v1beta generateContent expects generationConfig.responseMimeType. const config = { maxOutputTokens: 2200, responseMimeType: 'application/json' }; try { const output = await callGemini(apiKey, settings.preferredModel, prompt, config); return { output, modelUsed, fallbackUsed } } catch (error) { if (!(error instanceof GeminiHttpError) || !isFallbackEligibleStatus(error.status) || !fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)) throw error; modelUsed = settings.fallbackModel; fallbackUsed = true; const output = await callGemini(apiKey, settings.fallbackModel, prompt, config); return { output, modelUsed, fallbackUsed } } }
+async function callWithLiteFallback(
+  apiKey: string,
+  settings: ReturnType<typeof resolveSettings>,
+  prompt: string,
+) {
+  let modelUsed: AiModelId = settings.preferredModel
+  let fallbackUsed = false
+
+  // Raw v1beta generateContent expects generationConfig.responseMimeType.
+  const config = {
+    maxOutputTokens: 2200,
+    responseMimeType: 'application/json',
+  }
+
+  try {
+    const output = await callGemini(apiKey, settings.preferredModel, prompt, config)
+    return { output, modelUsed, fallbackUsed }
+  } catch (error) {
+    if (
+      !(error instanceof GeminiHttpError)
+      || !isFallbackEligibleStatus(error.status)
+      || !fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)
+    ) throw error
+
+    modelUsed = settings.fallbackModel
+    fallbackUsed = true
+    const output = await callGemini(apiKey, settings.fallbackModel, prompt, config)
+    return { output, modelUsed, fallbackUsed }
+  }
+}
 function oppositeLiteModel(settings: ReturnType<typeof resolveSettings>, generatorModel = ''): LiteAiModelId { if (generatorModel === DEFAULT_MODEL) return DEFAULT_FALLBACK_MODEL; if (generatorModel === DEFAULT_FALLBACK_MODEL) return DEFAULT_MODEL; if (isLiteModel(settings.preferredModel)) return settings.preferredModel === DEFAULT_MODEL ? DEFAULT_FALLBACK_MODEL : DEFAULT_MODEL; return DEFAULT_MODEL }
 type AuditPayload = { userId: string; assessmentId: string; itemId: string; questionType: QuestionType; alternative: boolean; model: string; fallbackUsed: boolean; outcome: 'success' | 'rejected' | 'error' | 'cancelled' }
 async function audit(admin: ReturnType<typeof createClient>, payload: AuditPayload) { try { await admin.from('assessment_ai_audit_events').insert({ user_id: payload.userId, assessment_document_id: payload.assessmentId, assessment_item_id: payload.itemId, question_type: payload.questionType, alternative: payload.alternative, provider: 'google', model: payload.model, fallback_used: payload.fallbackUsed, outcome: payload.outcome }) } catch { /* Metadata audit failure never changes teacher work. */ } }
