@@ -17,3 +17,6 @@ verify_jwt = true
 
 [functions.assessment-question-generator]
 verify_jwt = true
+
+[functions.remediation-suggester]
+verify_jwt = true

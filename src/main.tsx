@@ -6,6 +6,8 @@ import App from './App'
 import './styles.css'
 import './tos.css'
 import './assessment.css'
+import './results.css'
+import './results-report.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

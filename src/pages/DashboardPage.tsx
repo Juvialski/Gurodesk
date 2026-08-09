@@ -1,4 +1,4 @@
-import { ArrowRight, BookMarked, CalendarCheck2, ClipboardList, FileCheck2, Sparkles, Table2 } from 'lucide-react'
+import { ArrowRight, BookMarked, CalendarCheck2, ChartNoAxesColumnIncreasing, ClipboardList, FileCheck2, Sparkles, Table2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useApp } from '../contexts/AppContext'
 import { PageHeader } from '../components/PageHeader'
@@ -54,7 +54,8 @@ export function DashboardPage() {
       <section className="quick-grid">
         <Link to="/lesson-plans" className="quick-card"><span className="metric-icon blue"><CalendarCheck2 size={19} /></span><div><strong>Lesson Plans</strong><p>Teacher-led ILAW planning with verified competencies, guided AI suggestions, and Word/PDF exports.</p></div><span className="phase-pill live">Live</span></Link>
         <Link to="/tos" className="quick-card"><span className="metric-icon green"><Table2 size={19} /></span><div><strong>TOS Builder</strong><p>Verified competencies, exact item totals, mobile editing, and printable/XLSX exports.</p></div><span className="phase-pill live">Live</span></Link>
-        <Link to="/assessments" className="quick-card"><span className="metric-icon amber"><ClipboardList size={19} /></span><div><strong>Assessments</strong><p>Create teacher-reviewed assessments from finalized TOS. Results, item analysis, and remediation are future.</p></div><span className="phase-pill live">Live</span></Link>
+        <Link to="/assessments" className="quick-card"><span className="metric-icon amber"><ClipboardList size={19} /></span><div><strong>Assessments</strong><p>Create teacher-reviewed assessments from finalized TOS, with student/teacher copies and answer keys.</p></div><span className="phase-pill live">Live</span></Link>
+        <Link to="/results" className="quick-card"><span className="metric-icon slate"><ChartNoAxesColumnIncreasing size={19} /></span><div><strong>Results &amp; analysis</strong><p>Encode responses efficiently, review deterministic item and competency evidence, and prepare remediation reports.</p></div><span className="phase-pill live">Live</span></Link>
       </section>
     </>
   )

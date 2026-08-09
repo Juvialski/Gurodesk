@@ -1,6 +1,7 @@
 import {
   BookMarked,
   CalendarDays,
+  ChartNoAxesColumnIncreasing,
   ClipboardCheck,
   FileBarChart,
   FileText,
@@ -26,6 +27,7 @@ const nav = [
   { to: '/curriculum', label: 'Curriculum', icon: BookMarked },
   { to: '/lesson-plans', label: 'Lesson Plans', icon: CalendarDays },
   { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
+  { to: '/results', label: 'Results', icon: ChartNoAxesColumnIncreasing },
   { to: '/tos', label: 'TOS Builder', icon: TableProperties },
   { to: '/paperwork', label: 'Paperwork', icon: FileBarChart },
   { to: '/files', label: 'My Files', icon: Files },

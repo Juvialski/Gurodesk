@@ -138,4 +138,80 @@ npm run validate:phase43
 
 Checks that Student Copy is answer/mapping/AI/ID/branding-free, Teacher Copy can include structured answers and optional review context, Answer Key is compact and derived from structured answers, Filipino/authored text is preserved, and long content is not silently omitted. It also verifies the built-in PDF, DOCX, and Print entry points.
 
-The absolute implementation boundary after these checks is Phase 4.3. Learner results, grading, item analysis, distractor statistics, learner analytics, and remediation are not part of this release.
+The Phase 4.3 boundary above is preserved by the Phase 5 checks below. The current implementation boundary is Phase 5.3; the full grading/class-record system remains out of scope.
+
+## Phase 5.0 learner / results foundation
+
+Run:
+
+```bash
+npm run validate:phase50
+```
+
+The gate checks:
+
+- empty, one-learner, 40-learner, duplicate-display-name, inactive, and safe-deletion roster cases;
+- assignment/section and authenticated-teacher ownership architecture;
+- finalized-assessment-only result-session creation and immutable assessment/item/mapping traceability;
+- objective and constructed-response outcome shapes, teacher-entered points/feedback, and omitted answers; and
+- no unnecessary learner fields and no learner identity in remediation AI context.
+
+## Phase 5.1 results encoding
+
+Run:
+
+```bash
+npm run validate:phase51
+```
+
+The gate checks answer-sheet, item, and score-only workflows; MCQ, True/False, conservative short-answer, constructed-response, partial-point, and omitted outcomes; raw/possible/percentage totals; import preview/validation boundaries; safe draft state; and batch persistence architecture. Score-only mode must be explicit and must not produce item-analysis rows.
+
+## Phase 5.2 deterministic item analysis
+
+Run:
+
+```bash
+npm run validate:phase52
+```
+
+The engine is deterministic and must not call AI. Its documented formulas are:
+
+- correctness facility: `correct / attempted`, where `attempted = correct + incorrect`; omitted is reported separately;
+- point facility: earned points divided by possible points for applicable answered outcomes;
+- option percentage: option count divided by attempted responses for that item;
+- binary objective item-rest: Pearson correlation between item score `0/1` and each learner's rest-of-test score (the total excluding that item);
+- partial-point item-rest: Pearson correlation between normalized item points and rest-of-test score, labelled as normalized item-rest; and
+- correlation availability: `n >= 10` and nonzero variance for both variables, otherwise return an explicit insufficient-data state.
+
+The gate exercises all-correct, all-incorrect, mixed, omitted, variable choice-count, small-class, competency, cognitive-category, and curriculum-period cases. No facility label, discrimination cutoff, or remediation threshold is presented as a DepEd mandate. Those are mathematical measures or teacher-configurable GuroDesk conventions.
+
+## Phase 5.3 remediation and reports
+
+Run:
+
+```bash
+npm run validate:phase53
+```
+
+The gate checks configurable neutral remediation signals, teacher overrides and participant scope, persisted plan fields, optional aggregate-only AI boundary, and all four report modes. It verifies that PDF/DOCX/Print helpers paginate long tables, that submitted documents contain no GuroDesk branding, prompts, AI metadata, technical audit information, or internal IDs, and that learner names appear only in teacher-authorized result output.
+
+Combined XLSX output is checked for complete deterministic values in these sheets:
+
+`Summary`, `Learner Scores`, `Item Analysis`, `Option Analysis`, `Competency Analysis`, `Cognitive Analysis`, and `Remediation`.
+
+## Privacy, performance, and deployment review
+
+Static review must confirm that no code sends learner names, learner UUIDs, school learner references, full answer sheets, or individual raw response history to Gemini. Supabase tables and result-related exports/templates must be teacher-owned and protected by RLS; security-definer functions must derive ownership from `auth.uid()`, verify related ownership, and set a safe `search_path`.
+
+For a 40-learner × 50-item class, persistence must use local draft state and bounded transactional batch replacement, not an explicit network write loop over cells. Analysis must load bounded session data and avoid N+1 learner/item queries. The sandbox does not substitute for a staging migration, live RLS isolation, Edge Function deployment, or real Gemini smoke test; those are required in the Phase 5.4 Production Acceptance & Deployment Validation phase.
+
+## Release boundary
+
+Run all earlier Phase 1–4.3 validators before the Phase 5 gates, followed by:
+
+```bash
+npm run typecheck
+npm run build
+```
+
+Do not weaken an earlier validator to make Phase 5 pass. Do not begin grading/class-record, report-card, awards/ranking, portal, or AI-grading work without explicit authorization.

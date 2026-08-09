@@ -18,6 +18,12 @@ import { LessonPlansPage } from './pages/LessonPlansPage'
 import { LessonPlanEditorPage } from './pages/LessonPlanEditorPage'
 import { LessonPlanPrintPreviewPage } from './pages/LessonPlanPrintPreviewPage'
 import { OnboardingPage } from './pages/OnboardingPage'
+import { RemediationPage } from './pages/RemediationPage'
+import { ResultAnalysisPage } from './pages/ResultAnalysisPage'
+import { ResultSessionPage } from './pages/ResultSessionPage'
+import { ResultsPage } from './pages/ResultsPage'
+import { ResultsPrintPreviewPage } from './pages/ResultsPrintPreviewPage'
+import { RosterPage } from './pages/RosterPage'
 import { SettingsPage } from './pages/SettingsPage'
 import { TosEditorPage } from './pages/TosEditorPage'
 import { TosListPage } from './pages/TosListPage'
@@ -33,6 +39,7 @@ function WorkspaceRoutes() {
       <Route path="lesson-plans/:id/print" element={<LessonPlanPrintPreviewPage />} />
       <Route path="tos/:id/print" element={<TosPrintPreviewPage />} />
       <Route path="assessments/:id/print" element={<AssessmentPrintPreviewPage />} />
+      <Route path="results/:id/print" element={<ResultsPrintPreviewPage />} />
       <Route element={<AppShell />}>
         <Route index element={<DashboardPage />} />
         <Route path="classes" element={<ClassesPage />} />
@@ -43,6 +50,12 @@ function WorkspaceRoutes() {
         <Route path="assessments" element={<AssessmentsPage />} />
         <Route path="assessments/new" element={<AssessmentNewPage />} />
         <Route path="assessments/:id" element={<AssessmentEditorPage />} />
+        <Route path="results" element={<ResultsPage />} />
+        <Route path="results/roster" element={<RosterPage />} />
+        <Route path="results/roster/:assignmentId/:sectionName" element={<RosterPage />} />
+        <Route path="results/:id" element={<ResultSessionPage />} />
+        <Route path="results/:id/analysis" element={<ResultAnalysisPage />} />
+        <Route path="results/:id/remediation" element={<RemediationPage />} />
         <Route path="tos" element={<TosListPage />} />
         <Route path="tos/new" element={<TosEditorPage />} />
         <Route path="tos/:id" element={<TosEditorPage />} />

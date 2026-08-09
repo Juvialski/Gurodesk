@@ -1,10 +1,10 @@
-# GuroDesk — Phase 4.3 Assessment Workflow
+# GuroDesk — Phase 5.3 Results and Remediation Workflow
 
 GuroDesk is a mobile-first workspace for DepEd teachers. Its operating rule is: **verified curriculum and policy data first, teacher judgment first, and AI only inside an explicit teacher-review workflow.**
 
 ## Current implementation
 
-Phases 1–4 are preserved. The current release adds the authorized Phase 4 hotfixes and Phases 4.1–4.3:
+Phases 1–4.3 are preserved. The current release adds the authorized Phase 5.0–5.3 results and remediation workflow on top of the finalized assessment foundation:
 
 - batched, verified TOS curriculum resolution without per-competency Supabase lookups;
 - lossless, height-aware pagination for long TOS competency text and notes;
@@ -18,8 +18,14 @@ Phases 1–4 are preserved. The current release adds the authorized Phase 4 hotf
 - teacher-controlled Generate, Alternative, Regenerate, Accept, and manual-edit flows;
 - bounded, cancellable Generate Missing Items with finite retry/backoff and partial-success preservation; and
 - Student Copy, Teacher Copy, and deterministic Answer Key output through browser Print, PDF, and editable Word `.docx`.
+- privacy-minimized teacher-owned class learners attached to an assignment/section, with inactive/archive behavior for historical records;
+- finalized assessment result sessions with immutable assessment/item/mapping snapshots and structured learner outcomes;
+- fast answer-sheet, item, and score-only encoding modes with draft-safe local state and batched persistence/import architecture;
+- deterministic scoring, item/option analysis, competency/cognitive/curriculum-period aggregation, class summaries, and teacher-only learner summaries;
+- configurable, neutral remediation signals and editable plans, with optional aggregate-only Gemini activity suggestions that never receive learner identity or raw answers; and
+- Assessment Results Summary, Item Analysis, Competency Performance, and Remediation Plan reports with Print, PDF, DOCX, and combined seven-sheet XLSX output.
 
-This release **stops after Phase 4.3**. It does not encode learner results, calculate grades, perform item analysis, calculate distractor statistics, produce learner analytics, or generate remediation recommendations.
+This release **stops after Phase 5.3**. It does not implement the full grading/class-record system, report-card computation, awards/ranking, student or parent portals, or automated learner grading by AI.
 
 See:
 
@@ -27,6 +33,10 @@ See:
 - `docs/PHASE_4_1_ASSESSMENT_ENGINE.md`
 - `docs/PHASE_4_2_AI_QUESTION_GENERATION.md`
 - `docs/PHASE_4_3_ASSESSMENT_EXPORTS.md`
+- `docs/PHASE_5_ARCHITECTURE.md`
+- `docs/PHASE_5_RELEASE_CHECKLIST.md`
+- `docs/PHASE5_POLICY_PRIVACY_AND_ANALYTICS_BOUNDARIES.md`
+- `docs/PHASE5_RESULT_TEMPLATE_ARCHITECTURE.md`
 - `CODEX_HANDOVER.md`
 
 ## Assessment architecture
@@ -35,11 +45,11 @@ The finalized TOS—not Gemini—is the allocation authority. Application and da
 
 Correct answers are stored as typed data. Student output is built from an answer-free export model; teacher and answer-key output use the saved structured answer and never ask AI to reconstruct it.
 
-Phase 3.7 custom lesson DOCX templates and Phase 4 custom TOS XLSX templates remain intact. Built-in assessment exports are complete. Exact repeating-block support for arbitrary custom assessment DOCX masters is deliberately deferred; the shared assessment export model is the safe extension point.
+Phase 3.7 custom lesson DOCX templates and Phase 4 custom TOS XLSX templates remain intact. Built-in assessment and results exports are complete. Exact repeating-block support for arbitrary custom assessment DOCX masters remains deferred. Custom result/item-analysis XLSX template filling is architecture-only in this release; the shared result export model and explicit worksheet inspector are the safe extension points.
 
 ## Policy boundary
 
-Assessment-design decisions were reviewed against DepEd Order No. 015, s. 2026. GuroDesk distinguishes official requirements from product good practice and school/division conventions in `docs/DEPED_SOURCE_REGISTER.md`. AI supports drafting only; it does not alter curriculum allocation, replace professional judgment, determine grades, or receive learner personally identifiable information.
+Assessment and results decisions were reviewed against the current official DepEd Order No. 015, s. 2026 and official privacy guidance. GuroDesk distinguishes mandatory policy, mathematical/statistical definitions, product defaults, and school/division conventions in `docs/DEPED_SOURCE_REGISTER.md` and `docs/PHASE5_POLICY_PRIVACY_AND_ANALYTICS_BOUNDARIES.md`. Facility, item-rest correlation, and descriptive summaries are deterministic analytical measures—not DepEd grading mandates. AI supports teacher-reviewed drafting only; it does not alter curriculum allocation, assign constructed-response points, determine grades, replace professional judgment, or receive learner personally identifying information.
 
 ## Run locally / AI Studio
 
@@ -68,8 +78,10 @@ Apply in order:
 12. `202608080012_phase4_tos_builder.sql`
 13. `202608080013_phase41_assessment_engine.sql`
 14. `202608080014_phase42_assessment_ai_audit.sql`
+15. `202608080015_phase50_results_foundation.sql`
+16. `202608080016_phase53_remediation.sql`
 
-Deploy all functions listed in `supabase/config.toml`, including `assessment-question-generator`.
+Deploy all functions listed in `supabase/config.toml`, including `assessment-question-generator` and the aggregate-only `remediation-suggester`.
 
 Set browser-safe variables only:
 
@@ -92,6 +104,12 @@ Each signed-in teacher connects a personal key through **Settings → AI Assista
 
 No `GEMINI_API_KEY` or `VITE_GEMINI_API_KEY` is required.
 
+## Learner-data and analysis boundary
+
+The initial learner record is deliberately limited to an internal UUID, owning teacher, assignment/section, display name, optional teacher-local reference, and active state. GuroDesk does not require LRN, birth date, address, contact, guardian, health, disability, socioeconomic, or password data. Learner and result rows are owner-scoped by authenticated teacher and historical participants are snapshotted so later roster or assessment edits cannot silently rewrite finalized results.
+
+Objective answers are compared to the saved structured answer key without AI. Constructed-response points and feedback are teacher-entered. Score-only sessions explicitly return no item analysis. Item facility is `correct / attempted` for correctness-applicable responses; omitted answers remain separate. Item-rest correlation is Pearson correlation between the binary item score and rest-of-test score (or normalized item points for partial-point items), with an explicit insufficient-data result when `n < 10` or either variance is zero. Thresholds for remediation and any qualitative labels are teacher-configurable/product conventions, not national mandates.
+
 ## Validation
 
 ```bash
@@ -112,6 +130,10 @@ npm run validate:phase4
 npm run validate:phase41
 npm run validate:phase42
 npm run validate:phase43
+npm run validate:phase50
+npm run validate:phase51
+npm run validate:phase52
+npm run validate:phase53
 npm run typecheck
 npm run build
 ```
