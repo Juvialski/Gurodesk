@@ -62,7 +62,7 @@ export type AssessmentGenerationBatchOptions = {
   demo: boolean
   onItem?: (item: AssessmentItem) => void | Promise<void>
   onSuggestion?: (item: AssessmentItem, suggestion: AssessmentItemSuggestion) => void | Promise<void>
-  onProgress?: (progress: { completed: number; total: number; itemId: string; status: 'success' | 'failed' | 'skipped' | 'cancelled' }) => void
+  onProgress?: (progress: { completed: number; processed: number; total: number; succeeded: number; failed: number; cancelled: number; remaining: number; itemId: string; status: 'success' | 'failed' | 'skipped' | 'cancelled'; message?: string }) => void
   signal?: AbortSignal
   concurrency?: number
   itemIds?: string[]
@@ -569,6 +569,10 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
   }
 }
 
+function batchGenerationShouldPause(message: string) {
+  return /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured/i.test(message)
+}
+
 export async function generateMissingAssessmentItems(options: AssessmentGenerationBatchOptions): Promise<AssessmentGenerationBatchSummary> {
   const { assessment, demo, onItem, onSuggestion, onProgress, signal } = options
   const generate = options.generate ?? generateAssessmentItemSuggestion
@@ -583,14 +587,29 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
   })
   const summary: AssessmentGenerationBatchSummary = { attempted: 0, succeeded: 0, skipped: assessment.items.length - eligible.length, failed: 0, cancelled: 0, results: [], errors: [] }
   let cursor = 0
-  let completed = 0
-  // Progress describes eligible work only. Protected/completed records are
-  // summarized separately so a mobile progress bar never has a denominator
-  // larger than the number of requests it can actually make.
-  const progress = (itemId: string, status: 'success' | 'failed' | 'skipped' | 'cancelled') => { completed += 1; onProgress?.({ completed, total: eligible.length, itemId, status }) }
+  let processed = 0
+  let paused = false
+  // Progress describes eligible work only. `processed` is intentionally
+  // separate from `succeeded`: a failed provider/validation attempt must never
+  // be displayed as a generated question.
+  const progress = (itemId: string, status: 'success' | 'failed' | 'skipped' | 'cancelled', message?: string) => {
+    processed += 1
+    onProgress?.({
+      completed: processed,
+      processed,
+      total: eligible.length,
+      succeeded: summary.succeeded,
+      failed: summary.failed,
+      cancelled: summary.cancelled,
+      remaining: Math.max(0, eligible.length - processed),
+      itemId,
+      status,
+      ...(message ? { message } : {}),
+    })
+  }
   const worker = async () => {
     while (true) {
-      if (signal?.aborted) return
+      if (signal?.aborted || paused) return
       const index = cursor++
       if (index >= eligible.length) return
       const item = eligible[index]
@@ -609,14 +628,18 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
           progress(item.id, 'cancelled')
         } else {
           summary.failed += 1
-          summary.errors.push({ itemId: item.id, message: String((error as { message?: unknown })?.message ?? error) })
-          progress(item.id, 'failed')
+          const message = String((error as { message?: unknown })?.message ?? error)
+          summary.errors.push({ itemId: item.id, message })
+          progress(item.id, 'failed', message)
+          // If a provider/credential boundary is exhausted, do not burn a
+          // request on every remaining item. The teacher can resume later.
+          if (batchGenerationShouldPause(message)) paused = true
         }
       }
     }
   }
   await Promise.all(Array.from({ length: concurrency }, () => worker()))
-  if (signal?.aborted) {
+  if (signal?.aborted || paused) {
     eligible.slice(Math.min(cursor, eligible.length)).forEach((item) => { summary.cancelled += 1; progress(item.id, 'cancelled') })
   }
   return summary
