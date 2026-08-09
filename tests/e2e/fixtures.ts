@@ -178,6 +178,15 @@ export async function createFinalizedTos(page: Page, title: string) {
   await expect(page.getByRole('heading', { name: 'New TOS' })).toBeVisible({ timeout: 30_000 })
   await page.getByLabel('TOS title').fill(title)
 
+  // School grading term is intentionally independent from the curriculum-guide
+  // period. A new TOS does not auto-select one, so the E2E helper must make the
+  // same explicit choice a teacher makes before finalization.
+  const gradingTermGroup = page.getByRole('group', { name: 'School grading term' })
+  const firstGradingTerm = gradingTermGroup.getByRole('button').first()
+  await expect(firstGradingTerm).toBeVisible({ timeout: 30_000 })
+  await firstGradingTerm.click()
+  await expect(firstGradingTerm).toHaveAttribute('aria-pressed', 'true')
+
   const picker = page.getByRole('button', { name: /Choose verified competencies|verified competenc(?:y|ies) selected/ })
   await picker.click()
   const options = page.locator('#tos-competency-options').getByRole('option')
@@ -185,8 +194,11 @@ export async function createFinalizedTos(page: Page, title: string) {
   await options.first().click()
   await page.getByRole('button', { name: 'Done' }).click()
 
-  await expect(page.getByText('Ready to finalize', { exact: true })).toBeVisible({ timeout: 15_000 })
-  await page.getByRole('button', { name: 'Finalize TOS' }).click()
+  // Finalization readiness is a behavioral contract, not a text-copy contract.
+  // Waiting for the actual action to enable is resilient to harmless UI wording changes.
+  const finalizeButton = page.getByRole('button', { name: 'Finalize TOS' })
+  await expect(finalizeButton).toBeEnabled({ timeout: 15_000 })
+  await finalizeButton.click()
   await expect(page.getByText(/TOS finalized\. Its content and allocations are now locked\./)).toBeVisible({ timeout: 30_000 })
 
   const id = new URL(page.url()).pathname.match(/^\/tos\/([^/]+)$/)?.[1]
