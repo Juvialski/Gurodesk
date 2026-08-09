@@ -448,22 +448,40 @@ async function invokeAssessmentAi(body: UnknownRecord, signal?: AbortSignal, mod
   return assessmentRequestScheduler.enqueue(model, async () => {
     const response = await client.functions.invoke('assessment-question-generator', { body, signal })
     if (response.error) {
-      // Supabase FunctionsHttpError exposes the provider HTTP status through
-      // `context`; retain it so the per-model scheduler can honour 408/429/
-      // transient 5xx responses and Retry-After instead of treating them as a
-      // permanent validation failure.
+      // FunctionsHttpError.context is the Edge Function Response. Read its
+      // structured error body when available so teachers see the real failure
+      // instead of the opaque "non-2xx status" wrapper.
       const errorValue = response.error as unknown as {
         status?: number
         message?: string
-        context?: { status?: number; headers?: { get?: (name: string) => string | null } }
+        context?: {
+          status?: number
+          headers?: { get?: (name: string) => string | null }
+          json?: () => Promise<unknown>
+          text?: () => Promise<string>
+          clone?: () => unknown
+        }
       }
-      const status = errorValue.status ?? errorValue.context?.status
-      const retryAfter = errorValue.context?.headers?.get?.('Retry-After')
+      const context = errorValue.context
+      const status = errorValue.status ?? context?.status
+      const retryAfter = context?.headers?.get?.('Retry-After')
       const retryAfterMs = retryAfter && /^\d+(?:\.\d+)?$/.test(retryAfter) ? Number(retryAfter) * 1000 : undefined
+      let serverMessage = ''
+      try {
+        if (typeof context?.json === 'function') {
+          const payload = await context.json()
+          if (payload && typeof payload === 'object' && !Array.isArray(payload)) {
+            const value = payload as UnknownRecord
+            serverMessage = typeof value.error === 'string' ? value.error : typeof value.message === 'string' ? value.message : ''
+          }
+        }
+      } catch {
+        // A missing/consumed response body is harmless; fall back below.
+      }
       const message = status === 429
         ? 'Gemini provider limit reached. Saved assessment work is preserved; generation is paused.'
-        : `${errorValue.message || 'Assessment AI request failed.'}${status ? ` (provider status ${status})` : ''}`
-      throw Object.assign(new Error(message), { status, retryAfterMs, response: errorValue.context })
+        : serverMessage || `${errorValue.message || 'Assessment AI request failed.'}${status ? ` (provider status ${status})` : ''}`
+      throw Object.assign(new Error(message), { status, retryAfterMs, response: context })
     }
     if (response.data?.error) throw new Error(String(response.data.error))
     return response.data as UnknownRecord
@@ -570,7 +588,7 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
 }
 
 function batchGenerationShouldPause(message: string) {
-  return /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured/i.test(message)
+  return /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured|rejected the request configuration\s*\(400\)/i.test(message)
 }
 
 export async function generateMissingAssessmentItems(options: AssessmentGenerationBatchOptions): Promise<AssessmentGenerationBatchSummary> {

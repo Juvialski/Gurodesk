@@ -9,7 +9,7 @@ import { applyAssessmentItemSuggestion, generateAssessmentItemSuggestion, genera
 import { checkpointAssessmentGenerationFailure, checkpointAssessmentGenerationSuccess, checkpointFailures, clearAssessmentGenerationCheckpoint, createAssessmentGenerationCheckpoint, loadAssessmentGenerationCheckpoint, pauseAssessmentGenerationCheckpoint, pendingAssessmentGenerationItemIds, recoverAssessmentGenerationItems, resumeAssessmentGenerationCheckpoint, saveAssessmentGenerationCheckpoint, type AssessmentGenerationFailure } from '../lib/assessmentGenerationResume'
 import { assessmentUsageEstimate, type AssessmentUsageEstimate } from '../lib/assessmentRequestScheduler'
 import { verifierRequiresRepair } from '../lib/assessmentQa'
-import { allocateQuestionTypes, applyQuestionTypeDistribution } from '../lib/assessmentDistribution'
+import { applyQuestionTypeDistributionToEmptySlots } from '../lib/assessmentDistribution'
 import { reviewAssessmentForFinalization, finalReviewMessages, type AssessmentFinalReview } from '../lib/assessmentFinalReview'
 import { duplicateAssessmentDocument, loadAssessmentDocument, saveAssessmentDocument } from '../lib/assessmentRepository'
 import type { AssessmentAnswer, AssessmentChoice, AssessmentItem, AssessmentMatchingChoice, AssessmentMatchingMapping, AssessmentMatchingPrompt, AssessmentRecord, AssessmentScoringCriterion, AssessmentSettings, AssessmentSubpart, QuestionType } from '../types/assessment'
@@ -194,27 +194,14 @@ export function AssessmentEditorPage() {
   function applyDistribution() {
     if (!recordValue || !view || readOnly || !settings) return
     try {
-      const protectedItem = (item: AssessmentItem) => {
-        const value = object(item)
-        return isLocked(item) || item.prompt.trim().length > 0 || !['empty'].includes(String(value.authorshipState ?? 'empty'))
-      }
-      const planned = applyQuestionTypeDistribution(view.items, settings as unknown as AssessmentSettings)
-      const conflicts = view.items.filter((item, index) => protectedItem(item) && planned[index]?.questionType !== item.questionType)
-      if (conflicts.length) throw new Error(`Distribution would replace ${conflicts.length} completed or protected item${conflicts.length === 1 ? '' : 's'}. Use Manual per item or clear those slots first.`)
-      const allocation = allocateQuestionTypes(view.items.length, settings as unknown as AssessmentSettings)
-      const nextItems = planned.map((item, index) => {
-        const current = view.items[index]
-        const defaultPoints = number(object(settings.defaultPoints)[item.questionType], defaultPointsForType(view, item.questionType))
-        if (item.questionType === current.questionType) {
-          return current.prompt.trim() || current.authorshipState !== 'empty' ? item : { ...item, pointsPossible: defaultPoints, points: defaultPoints }
-        }
-        return { ...item, pointsPossible: defaultPoints, points: defaultPoints, authorshipState: 'empty' as const, qaState: 'empty' as const, rationale: '', teacherNotes: '' }
-      })
-      const next = recordWithItems(recordValue, nextItems, 'draft', title, instructions)
+      const distribution = applyQuestionTypeDistributionToEmptySlots(view.items, settings as unknown as AssessmentSettings)
+      const next = recordWithItems(recordValue, distribution.items, 'draft', title, instructions)
       recordRef.current = next
       setRecordValue(next)
-      setSavedMessage(`Question-type distribution applied deterministically to empty slots. TOS mapping was preserved.${allocation.warnings.length ? ` ${allocation.warnings.join(' ')}` : ''}`)
+      const changed = distribution.changedItemIds.length
+      setSavedMessage(`Question types reconciled across empty slots${changed ? ` · ${changed} slot${changed === 1 ? '' : 's'} changed type` : ''}. Completed and locked questions were preserved.${distribution.warnings.length ? ` ${distribution.warnings.join(' ')}` : ''}`)
       setWarningsAccepted(false)
+      setError('')
     } catch (nextError) { setError(extractErrorMessage(nextError, 'Unable to apply the distribution.')) }
   }
 
@@ -313,6 +300,7 @@ export function AssessmentEditorPage() {
   async function generateMissing(itemIdsOverride?: string[], options: { resumed?: boolean; baseRecord?: AssessmentRecord } = {}) {
     const source = options.baseRecord ?? recordRef.current
     if (!source || source.status !== 'draft' || saving || batchWorking || aiWorking || !user) return
+    let generationSource = source
     const sourceView = normalizeAssessment(source)
     setBatchWorking(true); setBatchMessage(''); setError('')
     if (!options.resumed) { setBatchProgress(EMPTY_BATCH_PROGRESS); setBatchFailures([]) }
@@ -321,7 +309,22 @@ export function AssessmentEditorPage() {
       ? loadAssessmentGenerationCheckpoint(source.id, user.id)
       : null
     try {
-      const persisted = await saveForGeneration(source); if (!persisted) return
+      // In automatic distribution modes the teacher's enabled question types
+      // are applied before generation. Only empty slots are changed; existing,
+      // edited, accepted, and locked questions keep their current format.
+      if (!options.resumed) {
+        const generationSettings = defaultSettings(sourceView) as unknown as AssessmentSettings
+        if (generationSettings.mode !== 'manual_per_item') {
+          const distribution = applyQuestionTypeDistributionToEmptySlots(sourceView.items, generationSettings)
+          generationSource = recordWithItems(source, distribution.items, 'draft', title, instructions)
+          recordRef.current = generationSource
+          setRecordValue(generationSource)
+          if (distribution.changedItemIds.length) {
+            setSavedMessage(`Question types were balanced across ${distribution.changedItemIds.length} empty slot${distribution.changedItemIds.length === 1 ? '' : 's'} before generation. Completed questions were preserved.`)
+          }
+        }
+      }
+      const persisted = await saveForGeneration(generationSource); if (!persisted) return
       const persistedView = normalizeAssessment(persisted)
       const selectedIds = itemIdsOverride?.length ? new Set(itemIdsOverride) : null
       const missingItems = persistedView.items.filter((item) => (!selectedIds || selectedIds.has(item.id)) && !item.prompt.trim() && !isLocked(item) && item.authorshipState !== 'teacher_edited' && item.authorshipState !== 'teacher_accepted' && !suggestions[item.id])

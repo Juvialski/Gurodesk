@@ -163,3 +163,119 @@ export function applyQuestionTypeDistribution(items: readonly AssessmentItem[], 
   if (settings.mode === 'manual_per_item') return items.map((item) => ({ ...item }))
   return items.map((item, index) => ({ ...item, questionType: allocation.types[index], answer: item.questionType === allocation.types[index] ? item.answer : emptyAnswer(allocation.types[index]) }))
 }
+
+export type AssessmentEmptySlotDistribution = {
+  items: AssessmentItem[]
+  targetCounts: Partial<Record<QuestionType, number>>
+  finalCounts: Partial<Record<QuestionType, number>>
+  changedItemIds: string[]
+  warnings: string[]
+}
+
+function protectedForDistribution(item: AssessmentItem) {
+  return Boolean(
+    item.locked
+    || item.qaState === 'locked'
+    || item.prompt.trim()
+    || item.authorshipState !== 'empty',
+  )
+}
+
+function positiveDefaultPoints(settings: AssessmentSettings, type: QuestionType, fallback: number) {
+  const value = Number(settings.defaultPoints?.[type])
+  return Number.isFinite(value) && value > 0 ? value : fallback
+}
+
+/**
+ * Reconcile question types only across still-empty slots. Completed, edited,
+ * accepted, and locked questions keep their format. Empty slots are assigned
+ * against the full-test target distribution, so an already-overrepresented
+ * type (for example legacy MCQs) does not keep receiving new slots.
+ */
+export function applyQuestionTypeDistributionToEmptySlots(
+  items: readonly AssessmentItem[],
+  settings: AssessmentSettings,
+): AssessmentEmptySlotDistribution {
+  const allocation = allocateQuestionTypes(items.length, settings)
+  if (settings.mode === 'manual_per_item') {
+    const finalCounts = items.reduce<Partial<Record<QuestionType, number>>>((counts, item) => {
+      counts[item.questionType] = (counts[item.questionType] ?? 0) + 1
+      return counts
+    }, {})
+    return { items: items.map((item) => ({ ...item })), targetCounts: allocation.counts, finalCounts, changedItemIds: [], warnings: allocation.warnings }
+  }
+
+  const allowed = cleanAllowed(settings)
+  const eligibleIndexes: number[] = []
+  const projected = allowed.reduce<Partial<Record<QuestionType, number>>>((counts, type) => {
+    counts[type] = 0
+    return counts
+  }, {})
+
+  items.forEach((item, index) => {
+    if (protectedForDistribution(item)) {
+      if (allowed.includes(item.questionType)) projected[item.questionType] = (projected[item.questionType] ?? 0) + 1
+    } else {
+      eligibleIndexes.push(index)
+    }
+  })
+
+  const assignments = new Map<number, QuestionType>()
+  for (const index of eligibleIndexes) {
+    const positiveTargetTypes = allowed.filter((type) => Number(allocation.counts[type] ?? 0) > 0)
+    const candidates = positiveTargetTypes.length ? positiveTargetTypes : allowed
+    const withDeficit = candidates.filter((type) => (allocation.counts[type] ?? 0) - (projected[type] ?? 0) > 0)
+    const pool = withDeficit.length ? withDeficit : candidates
+
+    const selected = [...pool].sort((a, b) => {
+      const targetA = Math.max(1, Number(allocation.counts[a] ?? 0))
+      const targetB = Math.max(1, Number(allocation.counts[b] ?? 0))
+      const projectedA = Number(projected[a] ?? 0)
+      const projectedB = Number(projected[b] ?? 0)
+      const deficitA = targetA - projectedA
+      const deficitB = targetB - projectedB
+      if (withDeficit.length && deficitA !== deficitB) return deficitB - deficitA
+      const loadA = projectedA / targetA
+      const loadB = projectedB / targetB
+      if (loadA !== loadB) return loadA - loadB
+      return allowed.indexOf(a) - allowed.indexOf(b)
+    })[0]
+
+    assignments.set(index, selected)
+    projected[selected] = (projected[selected] ?? 0) + 1
+  }
+
+  const changedItemIds: string[] = []
+  const nextItems = items.map((item, index) => {
+    const nextType = assignments.get(index)
+    if (!nextType) return { ...item }
+    const fallbackPoints = Number(item.pointsPossible ?? item.points ?? 1)
+    const points = positiveDefaultPoints(settings, nextType, Number.isFinite(fallbackPoints) && fallbackPoints > 0 ? fallbackPoints : 1)
+    if (nextType === item.questionType) {
+      return { ...item, pointsPossible: points, points }
+    }
+    changedItemIds.push(item.id)
+    return {
+      ...item,
+      questionType: nextType,
+      answer: emptyAnswer(nextType),
+      pointsPossible: points,
+      points,
+      authorshipState: 'empty' as const,
+      qaState: 'empty' as const,
+      rationale: '',
+    }
+  })
+
+  const finalCounts = nextItems.reduce<Partial<Record<QuestionType, number>>>((counts, item) => {
+    counts[item.questionType] = (counts[item.questionType] ?? 0) + 1
+    return counts
+  }, {})
+  const overrepresented = allowed.filter((type) => (finalCounts[type] ?? 0) > (allocation.counts[type] ?? 0))
+  const warnings = [...allocation.warnings]
+  if (overrepresented.length) {
+    warnings.push('Existing completed questions were preserved, so the final type mix may not exactly match the selected target distribution.')
+  }
+
+  return { items: nextItems, targetCounts: allocation.counts, finalCounts, changedItemIds, warnings }
+}
