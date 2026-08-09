@@ -103,6 +103,7 @@ Apply in order:
 18. `202608090018_phase44_assessment_scoring_qa.sql`
 19. `202608090019_phase54_results_compatibility.sql`
 20. `202608090020_fix_assessment_save_alias_ambiguity.sql`
+21. `202608090021_phase55_explicit_data_api_grants.sql`
 
 Deploy all functions listed in `supabase/config.toml`, including `assessment-question-generator` and the aggregate-only `remediation-suggester`.
 

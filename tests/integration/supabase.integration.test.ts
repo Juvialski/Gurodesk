@@ -1,4 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { createClient } from '@supabase/supabase-js'
 import { supabase as applicationSupabase } from '../../src/lib/supabase'
 import {
   archiveAssessmentDocument,
@@ -560,6 +561,31 @@ describe('Phase 5.5 local Supabase integration', () => {
       const own = await teacherA.client.from(target.table).select(target.column).eq(target.column, target.value)
       expect(own.error, `Teacher A own read of ${target.table}`).toBeNull()
       expect(own.data, `Teacher A must read own ${target.table}`).toHaveLength(1)
+    }
+  })
+
+  it('enforces zero-trust for unauthenticated (anon) requests and protects private tables', async () => {
+    const anonClient = createClient(harness.config.url, harness.config.anonKey, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    })
+
+    const privateTables = [
+      'teacher_assignments',
+      'documents',
+      'profiles',
+      'teacher_ai_credentials',
+      'class_learners',
+      'result_sessions',
+      'remediation_plans',
+    ] as const
+
+    for (const table of privateTables) {
+      const response = await anonClient.from(table).select('*')
+      if (response.error) {
+        expect(response.error.message).toBeTruthy()
+      } else {
+        expect(response.data).toEqual([])
+      }
     }
   })
 })
