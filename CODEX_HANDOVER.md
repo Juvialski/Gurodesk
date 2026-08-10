@@ -173,5 +173,13 @@ Key invariants:
 
 Release gate: migrations 001–026, static/unit/build, fresh/upgrade DB assertions, two-teacher integration/RLS, and Chromium E2E must pass in GitHub Actions. The previously failing assessment-flow E2E was hardened by scoping the `final` status assertion to the TOS card created by that test; GitHub Actions remains the authority for confirming the fix.
 
+Assessment generation production invariant (2026-08-10):
+- Raw `v1beta:generateContent` keeps `responseMimeType: application/json` and `responseSchema`; do not reintroduce `responseFormat`.
+- The provider-side assessment schema is intentionally **shallow**: fixed `questionType`, top-level text fields, `answer: OBJECT`, and nullable `visual: OBJECT`.
+- The exact 11 answer contracts and safe visual primitive contract remain authoritative in `assessment-contract.ts` / visual validation after JSON parsing.
+- Do not wire the deep `answerSchemas[type]` or full visual primitive schema back into `responseSchemaForQuestionType`; that previously destabilized real Gemini generation.
+- `extractGeminiText()` must exclude any Gemini response part marked `thought: true` before joining final text for JSON parsing.
+- Gemini Lite high-thinking policy remains unchanged and this fix adds no extra provider call.
+
 25. `supabase/migrations/202608100025_phase6_custom_hybrid_curricula.sql`
 26. `supabase/migrations/202608100026_phase6_publish_curriculum_subject_id_hotfix.sql`

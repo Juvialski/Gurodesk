@@ -294,17 +294,25 @@ const answerSchemas: Record<AssessmentQuestionType, GeminiSchema> = {
   ),
 }
 
-/** Return a fresh, type-specific schema for one assessment candidate. */
+/**
+ * Return the provider-side schema for one assessment candidate.
+ *
+ * Keep this envelope deliberately shallow. Gemini structured output is used to
+ * guarantee a JSON object and the fixed question-type discriminator, while the
+ * authoritative per-question answer and visual contracts are enforced by the
+ * Edge validator after parsing. Deeply nesting all answer variants plus the
+ * full visual primitive schema in every request previously caused unreliable
+ * provider generation, especially after visual support was added.
+ */
 export function responseSchemaForQuestionType(type: AssessmentQuestionType): GeminiSchema {
-  const answer = answerSchemas[type]
   return objectSchema(
     {
       questionType: { type: 'STRING', enum: [type] },
       prompt: { type: 'STRING' },
-      answer,
+      answer: { type: 'OBJECT' },
       rationale: { type: 'STRING' },
       referencedResources: stringArray(0, 10),
-      visual: visualSchema,
+      visual: { type: 'OBJECT', nullable: true },
     },
     ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'],
     ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'],

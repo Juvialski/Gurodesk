@@ -116,8 +116,16 @@ export function extractGeminiText(result: unknown): GeminiTextResult {
     : undefined
   if (!Array.isArray(parts)) throw new GeminiResponseError('EMPTY_OR_MISSING_TEXT', 'Gemini returned no assessment text.')
   const text = parts
-    .map((part) => part && typeof part === 'object' && !Array.isArray(part) ? (part as Record<string, unknown>).text : '')
-    .filter((part): part is string => typeof part === 'string')
+    .map((part) => {
+      if (!part || typeof part !== 'object' || Array.isArray(part)) return ''
+      const value = part as Record<string, unknown>
+      // Gemini thinking responses can contain text parts marked `thought:true`.
+      // Those summaries are not part of the final structured answer and must
+      // never be concatenated with JSON before parsing.
+      if (value.thought === true) return ''
+      return typeof value.text === 'string' ? value.text : ''
+    })
+    .filter((part): part is string => typeof part === 'string' && part.length > 0)
     .join('')
     .trim()
   if (!text) throw new GeminiResponseError('EMPTY_OR_MISSING_TEXT', 'Gemini returned empty assessment text.')

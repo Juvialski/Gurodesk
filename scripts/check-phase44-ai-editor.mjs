@@ -140,5 +140,11 @@ assert.match(edge, /responseMimeType:\s*'application\/json'/, 'raw Gemini genera
 assert.doesNotMatch(edge, /responseFormat\s*:/, 'raw v1beta generateContent must not receive the incompatible responseFormat object')
 assert.match(edge, /validateCandidate\(/, 'server-side per-type validation remains authoritative after JSON parsing')
 assert.doesNotMatch(edge, /assessment_ai_audit_events[\s\S]{0,500}(?:prompt|answer)/i)
+const providerModels = read('supabase/functions/_shared/ai-models.ts')
+const geminiBoundary = read('supabase/functions/_shared/gemini.ts')
+assert.match(providerModels, /responseSchemaForQuestionType[\s\S]{0,900}answer:\s*\{\s*type:\s*'OBJECT'\s*\}/, 'provider assessment answer schema must stay shallow; Edge validation owns the deep per-type contract')
+assert.match(providerModels, /responseSchemaForQuestionType[\s\S]{0,900}visual:\s*\{\s*type:\s*'OBJECT',\s*nullable:\s*true\s*\}/, 'provider assessment visual schema must stay shallow; safe SVG validation remains server-side')
+assert.doesNotMatch(providerModels, /responseSchemaForQuestionType[\s\S]{0,250}const answer = answerSchemas\[type\]/, 'fragile deep per-type provider schema must not be reintroduced')
+assert.match(geminiBoundary, /value\.thought === true/, 'Gemini response extraction must exclude thought-summary text before structured JSON parsing')
 
 console.log('Phase 4.4 AI/editor validation passed: typed deterministic QA, adaptive verifier/repair contracts, lock/missing protections, conservative per-model scheduler/retry/cancel behavior, final review hard-error/warning split, student-safe structured exports, and server-owned Lite model/mapping boundaries.')

@@ -45,7 +45,10 @@ describe('raw Gemini assessment contract', () => {
       expect(schema.type).toBe('OBJECT')
       expect(schema.required).toContain('visual')
       expect(schema.properties?.questionType?.enum).toEqual([type])
-      expect(schema.properties?.answer).toBeTruthy()
+      expect(schema.properties?.answer).toEqual({ type: 'OBJECT' })
+      expect(schema.properties?.visual).toEqual({ type: 'OBJECT', nullable: true })
+      expect(schema.properties?.answer?.properties).toBeUndefined()
+      expect(schema.properties?.visual?.properties).toBeUndefined()
       expect(maxOutputTokensForQuestionType(type)).toBeGreaterThanOrEqual(4096)
       expect(maxOutputTokensForQuestionType(type)).toBeLessThanOrEqual(12288)
     }
@@ -77,6 +80,7 @@ describe('raw Gemini assessment contract', () => {
     expect(() => extractGeminiText({ candidates: [{ finishReason: 'SAFETY', content: { parts: [] } }] })).toThrow(/safety/u)
     expect(() => extractGeminiText({ candidates: [{ finishReason: 'STOP', content: { parts: [] } }] })).toThrow(/text/u)
     expect(() => extractGeminiText({ candidates: [{ content: { parts: [{ text: '{}' }] } }] })).toThrow(/finish reason/u)
+    expect(extractGeminiText({ candidates: [{ finishReason: 'STOP', content: { parts: [{ thought: true, text: 'Internal summary that is not JSON.' }, { text: '{\"ok\":true}' }] } }] }).text).toBe('{\"ok\":true}')
     expect(() => parseGeminiJson('{not-json')).toThrow(/malformed/u)
   })
 
