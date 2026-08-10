@@ -4,6 +4,8 @@ import fs from 'node:fs'
 const read = (file) => fs.readFileSync(file, 'utf8')
 const page = read('src/pages/AssessmentEditorPage.tsx')
 const auto = read('src/lib/assessmentAutoPrepare.ts')
+const edge = read('supabase/functions/assessment-question-generator/index.ts')
+const assessmentCss = read('src/assessment.css')
 
 assert.match(page, /Generate & prepare paper/, 'assessment generation exposes one main paper-preparation action')
 assert.match(page, /runAutomaticPaperPreparation/, 'Generate & prepare paper continues into automated QA')
@@ -17,5 +19,11 @@ assert.doesNotMatch(auto, /AUTO_REPAIRABLE_AUTHORSHIP[^\n]*teacher_edited/, 'tea
 assert.doesNotMatch(auto, /AUTO_REPAIRABLE_AUTHORSHIP[^\n]*manual/, 'manual content is not silently overwritten')
 assert.match(auto, /providerPaused/, 'provider/quota boundaries pause rather than burn requests')
 assert.match(auto, /reviewAssessmentForFinalization/, 'each repair pass reruns deterministic final QA')
+assert.match(auto, /await args\.onCheckpoint\?\.\(working\)[\s\S]{0,900}generateItem/, 'blocked AI rows are persisted unlocked before the Edge Function is asked to regenerate them')
+assert.match(auto, /blockerRepairContext/, 'Gemini regeneration receives the actual deterministic blocker reasons')
+assert.match(auto, /repairFailures/, 'non-provider repair failures are surfaced instead of being swallowed')
+assert.match(edge, /AUTOMATIC REPAIR REQUIREMENTS/, 'the Edge prompt treats blocker-specific automatic repair requirements as mandatory')
+assert.match(assessmentCss, /@media \(max-width:900px\)[\s\S]{0,1200}\.assessment-editor-context \{ grid-template-columns:1fr;/, 'Source TOS context stacks instead of squeezing the title at tablet widths')
+assert.match(assessmentCss, /@media \(max-width:900px\)[\s\S]{0,1500}\.assessment-context-actions \.button \{ width:100%; white-space:normal;/, 'paper-preparation action wraps instead of forcing a narrow Source TOS column')
 
 console.log('Assessment automatic paper-preparation validation passed: one click generates missing items, retries AI-owned structural blockers within a strict cap, preserves teacher edits, respects provider boundaries, and finalizes only after deterministic QA passes.')

@@ -91,4 +91,72 @@ describe('one-click assessment paper preparation', () => {
     expect(result.providerPaused).toBe(false)
     expect(result.review.hardErrors.filter((issue) => issue.code !== 'teacher-review')).toEqual([])
   })
+
+  it('persists a locked AI blocker as unlocked before requesting the server-side replacement', async () => {
+    const first = generatedItem('item-1', 1, 'Which value is equal to 2 + 2?', 'teacher_accepted')
+    const duplicate = { ...generatedItem('item-2', 2, 'Which value is equal to 2 + 2?', 'teacher_accepted'), locked: true, qaState: 'locked' as const }
+    const record = mappedRecord([first, duplicate])
+    const replacementCandidate = cloneCandidate('multiple_choice')
+    replacementCandidate.prompt = 'Which value is equal to 8 - 3?'
+    replacementCandidate.answer = {
+      type: 'multiple_choice',
+      choices: [{ id: 'A', text: '4' }, { id: 'B', text: '5' }, { id: 'C', text: '6' }],
+      choiceId: 'B',
+    }
+    replacementCandidate.rationale = 'Five is the correct difference.'
+    let persistedUnlocked = false
+    let repairContext = ''
+    const onCheckpoint = vi.fn(async (checkpoint: AssessmentRecord) => {
+      const item = checkpoint.items.find((candidate) => candidate.id === 'item-2')
+      if (item && item.locked !== true && item.qaState !== 'locked') persistedUnlocked = true
+    })
+    const generateItem = vi.fn(async (args: Parameters<NonNullable<Parameters<typeof autoPrepareAssessmentPaper>[0]['generateItem']>>[0]) => {
+      if (!persistedUnlocked) throw new Error('This item is locked. Unlock it before requesting AI generation or review.')
+      repairContext = args.teacherContext ?? ''
+      return {
+        assessmentId: record.id,
+        itemId: 'item-2',
+        questionType: 'multiple_choice' as const,
+        candidate: replacementCandidate,
+        model: 'test-model',
+        fallbackUsed: false,
+        editable: true,
+        qaState: 'verified' as const,
+      }
+    })
+
+    const result = await autoPrepareAssessmentPaper({
+      assessment: record,
+      demo: true,
+      maxRounds: 3,
+      generateItem,
+      onCheckpoint,
+      generateMissing: vi.fn(async () => ({ attempted: 0, succeeded: 0, skipped: 2, failed: 0, cancelled: 0, results: [], errors: [] })),
+    })
+
+    expect(persistedUnlocked).toBe(true)
+    expect(generateItem).toHaveBeenCalledTimes(1)
+    expect(repairContext).toMatch(/AUTOMATIC REPAIR REQUIREMENTS/u)
+    expect(repairContext).toMatch(/duplicate/u)
+    expect(result.repairFailures).toEqual([])
+    expect(result.review.hardErrors.filter((issue) => issue.code !== 'teacher-review')).toEqual([])
+  })
+
+  it('does not swallow non-provider repair failures', async () => {
+    const first = generatedItem('item-1', 1, 'Which value is equal to 2 + 2?')
+    const duplicate = generatedItem('item-2', 2, 'Which value is equal to 2 + 2?')
+    const record = mappedRecord([first, duplicate])
+    const result = await autoPrepareAssessmentPaper({
+      assessment: record,
+      demo: true,
+      maxRounds: 1,
+      generateItem: vi.fn(async () => { throw new Error('server still considers item locked') }),
+      onCheckpoint: vi.fn(async () => undefined),
+      generateMissing: vi.fn(async () => ({ attempted: 0, succeeded: 0, skipped: 2, failed: 0, cancelled: 0, results: [], errors: [] })),
+    })
+
+    expect(result.regenerated).toBe(0)
+    expect(result.repairFailures).toEqual([expect.objectContaining({ itemId: 'item-2', message: 'server still considers item locked' })])
+  })
+
 })

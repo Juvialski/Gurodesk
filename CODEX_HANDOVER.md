@@ -258,6 +258,11 @@ Preserve this behavior in later assessment and curriculum work. Migration count 
 - Matching `reusableChoices=false` is canonicalized by omission; do not reinsert an explicit false during repository load.
 - The Phase 4.4 validator checks `unlockAssessmentItem`, not the old ad-hoc `qaState: unlocking` marker.
 
-## 2026-08-10 — One-click assessment auto-prepare
+## 2026-08-10 — Auto-prepare persisted-unlock root fix
 
-`Generate & prepare paper` now runs a bounded pipeline: generate empty slots → deterministic final QA → regenerate AI-owned blockers → recheck → auto-accept/lock/finalize when structurally ready. Manual/teacher-edited items are never overwritten automatically. Provider/quota boundaries pause safely with saved work preserved. `scripts/check-assessment-auto-prepare.mjs` guards these invariants. Phase 4.3's data-URL export validator also stubs the new export helper imports so CI can evaluate the current architecture.
+- Fixed automatic blocker regeneration: AI-owned blocked rows are now persisted **unlocked before** the hosted assessment Edge Function is called. The previous local-only unlock caused the server to reject every regeneration as locked while the UI appeared to retry.
+- Blocker-specific Final Review reasons are now sent to Gemini as mandatory automatic-repair requirements; recurring visual blockers escalate on later bounded passes to a self-contained non-visual replacement where appropriate.
+- Non-provider repair failures are surfaced instead of swallowed.
+- Automatic preparation uses at most 3 full QA/repair passes and never auto-overwrites teacher-authored/teacher-edited items.
+- Fixed Source TOS header compression on tablet/narrow desktop widths by stacking context/progress/action regions.
+- No migration, TOS mapping, scoring, results, curriculum, or Gemini JSON-MIME wire-contract change.

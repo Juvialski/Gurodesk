@@ -384,13 +384,16 @@ export function AssessmentEditorPage() {
   }
 
   async function runAutomaticPaperPreparation(start: AssessmentRecord, controller: AbortController) {
+    setReview(null)
+    setReviewOpen(false)
+    setWarningsAccepted(false)
     setBatchMessage('Generated drafts saved. Running automatic QA and Gemini blocker repair…')
     const prepared = await autoPrepareAssessmentPaper({
       assessment: normalizeAssessment(start),
       demo: isDemo,
       teacherContext: instructions,
       signal: controller.signal,
-      maxRounds: 2,
+      maxRounds: 3,
       onProgress: (progress) => {
         setBatchMessage(progress.message)
       },
@@ -420,7 +423,8 @@ export function AssessmentEditorPage() {
       const manualItems = prepared.unresolvedItemIds.map((itemId) => normalizeAssessment(savedPrepared).items.find((item) => item.id === itemId)?.itemNumber).filter((value): value is number => value !== undefined)
       setReview(prepared.review)
       setReviewOpen(true)
-      setBatchMessage(`Automatic preparation completed ${prepared.rounds} QA pass${prepared.rounds === 1 ? '' : 'es'} but ${structuralErrors.length + emptyItems.length} blocker${structuralErrors.length + emptyItems.length === 1 ? '' : 's'} remain${affected.length ? ` in Item${affected.length === 1 ? '' : 's'} ${affected.join(', ')}` : ''}. ${manualItems.length ? 'Teacher-authored/edited blockers are never overwritten automatically.' : 'Run Generate & prepare paper again for another bounded retry if needed.'}`)
+      const repairFailureNote = prepared.repairFailures.length ? ` Repair request failures: ${prepared.repairFailures.map((failure) => `Item ${failure.itemNumber}: ${failure.message}`).join(' | ')}` : ''
+      setBatchMessage(`Automatic preparation completed ${prepared.rounds} QA pass${prepared.rounds === 1 ? '' : 'es'} but ${structuralErrors.length + emptyItems.length} blocker${structuralErrors.length + emptyItems.length === 1 ? '' : 's'} remain${affected.length ? ` in Item${affected.length === 1 ? '' : 's'} ${affected.join(', ')}` : ''}. ${manualItems.length ? 'Teacher-authored/edited blockers are protected and need teacher editing.' : 'AI-owned blockers reached the bounded repair limit.'}${repairFailureNote}`)
       return
     }
 
