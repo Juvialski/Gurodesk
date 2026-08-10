@@ -3,6 +3,7 @@ import {
   ASSESSMENT_QUESTION_TYPES,
   generationConfigFor,
   maxOutputTokensForQuestionType,
+  responseJsonSchemaForQuestionType,
   responseSchemaForQuestionType,
 } from '../../supabase/functions/_shared/ai-models'
 import {
@@ -45,16 +46,27 @@ describe('raw Gemini assessment contract', () => {
       expect(schema.type).toBe('OBJECT')
       expect(schema.required).toContain('visual')
       expect(schema.properties?.questionType?.enum).toEqual([type])
-      expect(schema.properties?.answer).toEqual({ type: 'OBJECT' })
-      expect(schema.properties?.visual).toEqual({ type: 'OBJECT', nullable: true })
-      expect(schema.properties?.answer?.properties).toBeUndefined()
-      expect(schema.properties?.visual?.properties).toBeUndefined()
+      expect(schema.properties?.answer?.type).toBe('OBJECT')
+      expect(schema.properties?.answer?.properties?.type?.enum).toEqual([type])
+      expect(schema.properties?.visual?.type).toBe('OBJECT')
+      expect(schema.properties?.visual?.nullable).toBe(true)
+      expect(schema.properties?.visual?.properties?.kind?.enum).toEqual(['geometry'])
       expect(maxOutputTokensForQuestionType(type)).toBeGreaterThanOrEqual(4096)
       expect(maxOutputTokensForQuestionType(type)).toBeLessThanOrEqual(12288)
     }
   })
 
-  it('does not forward responseFormat, deprecated sampling, or unknown config fields', () => {
+  it('builds the current JSON-Schema envelope without open empty objects', () => {
+    for (const type of ASSESSMENT_QUESTION_TYPES) {
+      const schema = responseJsonSchemaForQuestionType(type)
+      expect(schema.type).toBe('object')
+      expect(schema.properties?.answer?.properties?.type?.enum).toEqual([type])
+      expect(schema.properties?.answer?.additionalProperties).toBe(true)
+      expect(schema.properties?.visual?.anyOf).toHaveLength(2)
+    }
+  })
+
+  it('uses current responseFormat for Gemini 3.5 Flash-Lite and strips deprecated config fields', () => {
     const config = generationConfigFor('gemini-3.5-flash-lite', {
       questionType: 'essay',
       responseFormat: { text: { mimeType: 'application/json' } },
@@ -64,14 +76,24 @@ describe('raw Gemini assessment contract', () => {
       sdkPrivateField: 'must not cross the boundary',
       maxOutputTokens: 10,
     })
-    expect(config).not.toHaveProperty('responseFormat')
+    expect(config).toHaveProperty('responseFormat.text.mimeType', 'application/json')
+    expect(config).toHaveProperty('responseFormat.text.schema.properties.answer.properties.type.enum', ['essay'])
+    expect(config).not.toHaveProperty('responseMimeType')
+    expect(config).not.toHaveProperty('responseSchema')
     expect(config).not.toHaveProperty('temperature')
     expect(config).not.toHaveProperty('topP')
     expect(config).not.toHaveProperty('candidateCount')
     expect(config).not.toHaveProperty('sdkPrivateField')
     expect(config.maxOutputTokens).toBe(12288)
-    expect(config.responseMimeType).toBe('application/json')
     expect(config.thinkingConfig).toEqual({ thinkingLevel: 'HIGH' })
+  })
+
+  it('keeps Gemini 3.1 Flash-Lite on a valid non-empty legacy responseSchema fallback', () => {
+    const config = generationConfigFor('gemini-3.1-flash-lite', { questionType: 'multiple_choice' })
+    expect(config.responseMimeType).toBe('application/json')
+    expect(config.responseSchema).toBeTruthy()
+    expect(config).not.toHaveProperty('responseFormat')
+    expect((config.responseSchema as { properties?: Record<string, { properties?: unknown }> }).properties?.answer?.properties).toBeTruthy()
   })
 
   it('checks finishReason before returning text', () => {
@@ -91,9 +113,12 @@ describe('raw Gemini assessment contract', () => {
     const [, request] = fetchMock.mock.calls[0] as [string, RequestInit]
     const body = JSON.parse(String(request.body))
     expect(String(body.contents[0].parts[0].text)).toBe('fixture')
-    expect(body.generationConfig.responseMimeType).toBe('application/json')
-    expect(body.generationConfig.responseSchema.required).toContain('visual')
-    expect(body.generationConfig).not.toHaveProperty('responseFormat')
+    expect(body.generationConfig.responseFormat.text.mimeType).toBe('application/json')
+    expect(body.generationConfig.responseFormat.text.schema.required).toContain('visual')
+    expect(body.generationConfig).not.toHaveProperty('responseMimeType')
+    expect(body.generationConfig).not.toHaveProperty('responseSchema')
+    expect(request.headers).toMatchObject({ 'x-goog-api-key': 'secret-key' })
+    expect(String(fetchMock.mock.calls[0][0])).not.toContain('?key=')
   })
 
   it('requires the nullable visual field and rejects unsupported nested fields', () => {

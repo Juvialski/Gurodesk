@@ -24,10 +24,14 @@ describe('assessment AI request contract regressions', () => {
     })).resolves.toBe('{"ok":true}')
 
     const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit]
-    expect(url).toContain('/v1beta/models/gemini-3.5-flash-lite:generateContent?key=')
+    expect(url).toContain('/v1beta/models/gemini-3.5-flash-lite:generateContent')
+    expect(url).not.toContain('?key=')
+    expect(init.headers).toMatchObject({ 'x-goog-api-key': 'teacher-secret-key' })
     const payload = JSON.parse(String(init.body)) as Record<string, unknown>
     expect(payload.contents).toEqual([{ role: 'user', parts: [{ text: 'fixed prompt' }] }])
     expect(payload).not.toHaveProperty('prompt')
+    // No questionType was supplied in this low-level boundary fixture, so the
+    // explicit legacy MIME override remains valid for non-assessment callers.
     expect(payload).toHaveProperty('generationConfig.responseMimeType', 'application/json')
     expect(payload.generationConfig).not.toHaveProperty('temperature')
     expect(payload.generationConfig).not.toHaveProperty('topP')

@@ -304,19 +304,95 @@ const answerSchemas: Record<AssessmentQuestionType, GeminiSchema> = {
  * full visual primitive schema in every request previously caused unreliable
  * provider generation, especially after visual support was added.
  */
+/**
+ * Legacy generateContent responseSchema used by the older Lite fallback.
+ * Keep it shallow, but never use an empty OBJECT schema: Gemini's Schema
+ * validator requires OBJECT properties to be non-empty.
+ */
 export function responseSchemaForQuestionType(type: AssessmentQuestionType): GeminiSchema {
   return objectSchema(
     {
       questionType: { type: 'STRING', enum: [type] },
       prompt: { type: 'STRING' },
-      answer: { type: 'OBJECT' },
+      answer: objectSchema(
+        { type: { type: 'STRING', enum: [type] } },
+        ['type'],
+      ),
       rationale: { type: 'STRING' },
       referencedResources: stringArray(0, 10),
-      visual: { type: 'OBJECT', nullable: true },
+      visual: {
+        type: 'OBJECT',
+        nullable: true,
+        properties: {
+          kind: { type: 'STRING', enum: ['geometry'] },
+          version: { type: 'INTEGER', enum: [1] },
+        },
+        required: ['kind', 'version'],
+        propertyOrdering: ['kind', 'version'],
+      },
     },
     ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'],
     ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'],
   )
+}
+
+/** Current JSON-Schema dialect used inside generationConfig.responseFormat. */
+export type GeminiJsonSchema = {
+  type?: string | string[]
+  enum?: Array<string | number | boolean>
+  properties?: Record<string, GeminiJsonSchema>
+  required?: string[]
+  items?: GeminiJsonSchema
+  anyOf?: GeminiJsonSchema[]
+  additionalProperties?: boolean | GeminiJsonSchema
+  minItems?: number
+  maxItems?: number
+}
+
+/**
+ * Current Gemini 3.5 Flash-Lite structured-output contract. The provider only
+ * owns the top-level envelope and discriminators; validateAssessmentCandidate
+ * remains authoritative for the full answer and safe-visual structures.
+ */
+export function responseJsonSchemaForQuestionType(type: AssessmentQuestionType): GeminiJsonSchema {
+  return {
+    type: 'object',
+    properties: {
+      questionType: { type: 'string', enum: [type] },
+      prompt: { type: 'string' },
+      answer: {
+        type: 'object',
+        properties: { type: { type: 'string', enum: [type] } },
+        required: ['type'],
+        additionalProperties: true,
+      },
+      rationale: { type: 'string' },
+      referencedResources: { type: 'array', minItems: 0, maxItems: 10, items: { type: 'string' } },
+      visual: {
+        anyOf: [
+          { type: 'null' },
+          {
+            type: 'object',
+            properties: {
+              kind: { type: 'string', enum: ['geometry'] },
+              version: { type: 'integer', enum: [1] },
+            },
+            required: ['kind', 'version'],
+            additionalProperties: true,
+          },
+        ],
+      },
+    },
+    required: ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'],
+    additionalProperties: false,
+  }
+}
+
+function usesCurrentResponseFormat(model: AiModelId) {
+  // Gemini 3.5 Flash-Lite (July 2026 GA) uses the current responseFormat JSON
+  // schema contract. Keep 3.1 Flash-Lite on the legacy responseSchema path as
+  // a deliberately different compatibility fallback.
+  return model === 'gemini-3.5-flash-lite' || model === 'gemini-3.6-flash'
 }
 
 /** Schema used by the explicit verifier operation, not by normal generation. */
@@ -397,8 +473,17 @@ export function generationConfigFor(model: AiModelId, overrides: Record<string, 
   }
 
   if (questionType) {
-    base.responseMimeType = 'application/json'
-    base.responseSchema = responseSchemaForQuestionType(questionType)
+    if (usesCurrentResponseFormat(model)) {
+      base.responseFormat = {
+        text: {
+          mimeType: 'application/json',
+          schema: responseJsonSchemaForQuestionType(questionType),
+        },
+      }
+    } else {
+      base.responseMimeType = 'application/json'
+      base.responseSchema = responseSchemaForQuestionType(questionType)
+    }
   } else if (typeof requestedResponseMimeType === 'string' && requestedResponseMimeType.trim()) {
     base.responseMimeType = requestedResponseMimeType
     if (requestedResponseSchema && typeof requestedResponseSchema === 'object') base.responseSchema = requestedResponseSchema

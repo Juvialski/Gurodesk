@@ -108,6 +108,8 @@ function errorMessage(error: unknown) {
     if (error.status === 429) return 'Gemini provider limit reached. Your saved assessment work is preserved; generation is paused. Try again later.'
     if (error.status === 401 || error.status === 403) return 'The saved Gemini credential was rejected. Your assessment draft remains unchanged.'
     if (error.status === 400) return 'Gemini rejected the structured request configuration. Your draft remains unchanged; please try again.'
+    if (error.status === 404) return 'The selected Gemini model is not available for this API key. Your draft remains unchanged.'
+    if ([500, 502, 503, 504].includes(error.status)) return 'Gemini is temporarily unavailable. Your assessment draft remains unchanged; please try again shortly.'
   }
   if (error instanceof Error && /draft remains unchanged|candidate|answer shape|mapping|choices|accepted answers|fill-in|numerical|problem-solving|matching|multiple-select|constructed response|essay|resource|visual|unsupported fields|immutable/i.test(error.message)) return error.message
   return 'Assessment AI could not complete this request. Your assessment draft remains unchanged.'
@@ -180,8 +182,17 @@ Deno.serve(async (req) => {
     candidateValidationStarted = true; auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, candidate, approvedResources: resources, model: responseModel, fallbackUsed, providerRequestCount, editable: true })
   } catch (error) {
     if (auditPayload) { auditPayload.outcome = candidateValidationStarted ? 'rejected' : 'error'; const supabaseUrl = Deno.env.get('SUPABASE_URL'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (supabaseUrl && serviceRole) await audit(createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }), auditPayload) }
+    // Safe operational diagnostic only: never log prompts, candidates, API keys,
+    // ciphertext, or raw provider bodies.
+    console.error('assessment-question-generator failure', {
+      name: error instanceof Error ? error.name : 'UnknownError',
+      category: errorCategory(error),
+      providerStatus: error instanceof GeminiHttpError ? error.status : undefined,
+      finishReason: error instanceof GeminiResponseError ? error.finishReason : undefined,
+    })
     const providerStatus = error instanceof GeminiHttpError ? error.status : 0
-    const body: Row = { error: errorMessage(error), category: errorCategory(error) }
+    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-10-response-format-v1' }
+    if (providerStatus) body.providerStatus = providerStatus
     if (error instanceof GeminiResponseError && error.finishReason) body.finishReason = error.finishReason
     if ((error instanceof GeminiHttpError || error instanceof GeminiResponseError) && error.providerRequestCount) body.providerRequestCount = error.providerRequestCount
     return json(body, [408, 425, 429, 500, 502, 503, 504].includes(providerStatus) ? providerStatus : 400)
