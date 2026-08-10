@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { CurriculumCatalogBrowser } from '../components/CurriculumCatalogBrowser'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
@@ -116,30 +117,14 @@ export function CurriculumPage() {
       .filter((group) => group.competencies.length > 0)
   }, [bundle, selectedCompetencies])
 
-  if (!assignments.length) {
-    return (
-      <>
-        <PageHeader
-          eyebrow="DepEd knowledge"
-          title="Curriculum Navigator"
-          description="Verified curriculum records are filtered through your teaching assignments."
-        />
-        <EmptyState
-          icon={BookMarked}
-          title="Add a teaching assignment first"
-          description="Go to My Classes and add the grade level and learning area you teach. GuroDesk will use that assignment to resolve the applicable curriculum version."
-        />
-      </>
-    )
-  }
 
   return (
     <>
       <PageHeader
-        eyebrow="DepEd knowledge · Phase 2"
+        eyebrow="DepEd knowledge · Phase 6"
         title="Curriculum Navigator"
-        description="Browse verified competencies by school year, teaching assignment, curriculum version, and the source guide's own sequence."
-        actions={
+        description="Browse the national DepEd curriculum catalog and open source-verified competency packs by school year, teaching assignment, curriculum version, and guide sequence."
+        actions={assignments.length ? (
           <label className="compact-select curriculum-assignment-select">
             <span>Teaching assignment</span>
             <select value={assignmentId} onChange={(event) => setAssignmentId(event.target.value)}>
@@ -150,8 +135,21 @@ export function CurriculumPage() {
               ))}
             </select>
           </label>
-        }
+        ) : undefined}
       />
+
+      <CurriculumCatalogBrowser
+        initialGradeLevel={assignment?.gradeLevel ?? 'Grade 7'}
+        initialSchoolYear={assignment?.schoolYear ?? '2026-2027'}
+      />
+
+      {!assignments.length && (
+        <EmptyState
+          icon={BookMarked}
+          title="Add a teaching assignment to use verified competencies"
+          description="The national catalog is available above. Add a grade level and learning area in My Classes when you want GuroDesk to resolve an executable, source-verified competency pack for lesson planning and assessment."
+        />
+      )}
 
       {calendar && (
         <div className="calendar-context panel">

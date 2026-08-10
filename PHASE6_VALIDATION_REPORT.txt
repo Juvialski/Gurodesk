@@ -1,0 +1,30 @@
+GuroDesk Phase 6 validation report
+Date: 2026-08-10
+
+BASELINE CHECKPOINT (incoming Work ZIP)
+- Work reported npm run test:ci: PASS
+- Work reported application/tests/E2E TypeScript: PASS
+- Work reported static validators: 25/25 PASS at its checkpoint
+- Work reported unit tests: 172/172 PASS
+- Work reported npm run build: PASS
+- Work reported ZIP integrity: PASS
+- Work could not execute local-Supabase-dependent integration/migration/Chromium E2E in that environment.
+
+PHASE 6 CHECKS EXECUTED HERE
+PASS - scripts/check-phase6-curriculum.mjs
+PASS - scripts/validate-curriculum.mjs data/curriculum/*.json
+PASS - scripts/generate-all-curriculum-sql.mjs (generated the existing 52-competency Grade 7 Mathematics seed)
+PASS - strict TypeScript semantic check for src/data/curriculumCatalog.ts
+PASS - strict TypeScript semantic check for src/lib/curriculumResolution.ts
+PASS - TypeScript syntax diagnostics for all 147 non-declaration TS/TSX source/test files (0 syntax errors)
+PASS - runtime curriculum catalog assertions across K-12, rollout transitions, aliases, SSHS, and DepEd-source host allowlist
+PASS - runtime concurrent curriculum-version resolution assertions
+PASS - CSS brace/structure sanity check
+PASS - baseline preservation check: no file from the incoming Work ZIP was removed
+PASS - existing validators through Phase 3.7 before dependency-requiring validators
+
+ENVIRONMENT LIMITATION
+npm ci cannot complete here because the OpenAI execution environment's internal npm mirror returns 404 for yallist@3.1.1. Validators beginning with Phase 4 require local npm packages such as TypeScript/PizZip/esbuild, so the full post-Phase-6 npm test/build gate must run in the configured GitHub Actions environment after import.
+
+RELEASE RULE
+Do not bypass GitHub Actions. Require the normal static/unit/build job and local Supabase integration/E2E job to be green before accepting deployment.

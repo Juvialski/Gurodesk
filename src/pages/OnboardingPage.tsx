@@ -1,7 +1,8 @@
 import { ArrowRight, BookOpen, Check, Plus, School, Trash2, UserRound } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useApp } from '../contexts/AppContext'
-import { GRADE_LEVELS, LEARNING_AREAS, POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
+import { GRADE_LEVELS, POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
+import { curriculumCatalogGroups, findCurriculumCatalogEntry, learningAreasForGrade } from '../data/curriculumCatalog'
 import type { Profile } from '../types/app'
 import { Brand } from '../components/Brand'
 
@@ -38,6 +39,26 @@ export function OnboardingPage() {
     [draft.sectionsText],
   )
 
+  const learningAreas = useMemo(
+    () => learningAreasForGrade(draft.gradeLevel, form.schoolYear),
+    [draft.gradeLevel, form.schoolYear],
+  )
+  const learningAreaGroups = useMemo(
+    () => curriculumCatalogGroups(draft.gradeLevel, form.schoolYear),
+    [draft.gradeLevel, form.schoolYear],
+  )
+  const selectedCatalogEntry = useMemo(
+    () => findCurriculumCatalogEntry(draft.gradeLevel, draft.learningArea, form.schoolYear),
+    [draft.gradeLevel, draft.learningArea, form.schoolYear],
+  )
+
+  useEffect(() => {
+    if (!learningAreas.length) return
+    if (!learningAreas.includes(draft.learningArea)) {
+      setDraft((current) => ({ ...current, learningArea: learningAreas[0] }))
+    }
+  }, [draft.learningArea, learningAreas])
+
   async function saveIdentity() {
     if (!form.fullName.trim() || !form.schoolName.trim()) {
       setLocalError('Name and school are required to continue.')
@@ -54,6 +75,10 @@ export function OnboardingPage() {
   }
 
   async function addAssignment() {
+    if (!selectedCatalogEntry) {
+      setLocalError('Choose a source-catalogued learning area for this grade and school year.')
+      return
+    }
     if (!user || sections.length === 0) {
       setLocalError('Add at least one section. Separate multiple sections with commas.')
       return
@@ -123,9 +148,15 @@ export function OnboardingPage() {
               <div className="assignment-builder">
                 <div className="form-grid three">
                   <label>Grade level<select value={draft.gradeLevel} onChange={(e) => setDraft({ ...draft, gradeLevel: e.target.value })}>{GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}</select></label>
-                  <label>Learning area<select value={draft.learningArea} onChange={(e) => setDraft({ ...draft, learningArea: e.target.value })}>{LEARNING_AREAS.map((item) => <option key={item}>{item}</option>)}</select></label>
+                  <label>Learning area<select value={draft.learningArea} onChange={(e) => setDraft({ ...draft, learningArea: e.target.value })} disabled={!learningAreaGroups.length}>{learningAreaGroups.map(({ group, entries }) => <optgroup key={group} label={group}>{entries.map((entry) => <option key={entry.id} value={entry.learningArea}>{entry.displayName}</option>)}</optgroup>)}</select></label>
                   <label>Sections<input value={draft.sectionsText} onChange={(e) => setDraft({ ...draft, sectionsText: e.target.value })} placeholder="Rizal, Mabini" /></label>
                 </div>
+                {selectedCatalogEntry && (
+                  <div className={`curriculum-assignment-note ${selectedCatalogEntry.status === 'verified_competencies' ? 'verified' : selectedCatalogEntry.status === 'transitional' ? 'transition' : 'catalogued'}`}>
+                    <strong>{selectedCatalogEntry.status === 'verified_competencies' ? 'Verified competency pack ready.' : selectedCatalogEntry.status === 'transitional' ? 'Transitional curriculum selection.' : 'Official curriculum offering catalogued.'}</strong>
+                    <span>{selectedCatalogEntry.notes}</span>
+                  </div>
+                )}
                 <button className="button secondary" onClick={() => void addAssignment()} disabled={busy}><Plus size={17} /> Add assignment</button>
               </div>
 

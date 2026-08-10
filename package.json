@@ -45,7 +45,9 @@
     "test:e2e:prepare": "node scripts/prepare-e2e-user.mjs",
     "test:e2e": "playwright test",
     "test:ci": "npm run typecheck && npm run typecheck:tests && npm run typecheck:e2e && npm run validate:all && npm run test:unit && npm run build:bundle",
-    "test:release": "bash scripts/test-release.sh"
+    "test:release": "bash scripts/test-release.sh",
+    "curriculum:generate:all": "node scripts/generate-all-curriculum-sql.mjs data/curriculum supabase/seeds/generated",
+    "validate:phase6": "node scripts/check-phase6-curriculum.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

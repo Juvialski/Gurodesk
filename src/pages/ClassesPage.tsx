@@ -1,7 +1,8 @@
 import { Plus, School, Trash2 } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useApp } from '../contexts/AppContext'
-import { GRADE_LEVELS, LEARNING_AREAS } from '../data/constants'
+import { GRADE_LEVELS } from '../data/constants'
+import { curriculumCatalogGroups, findCurriculumCatalogEntry, learningAreasForGrade } from '../data/curriculumCatalog'
 import { PageHeader } from '../components/PageHeader'
 
 export function ClassesPage() {
@@ -11,16 +12,29 @@ export function ClassesPage() {
   const [learningArea, setLearningArea] = useState('Mathematics')
   const [sectionsText, setSectionsText] = useState('')
   const [message, setMessage] = useState<string | null>(null)
+  const schoolYear = profile?.schoolYear ?? '2026-2027'
+  const learningAreas = useMemo(() => learningAreasForGrade(gradeLevel, schoolYear), [gradeLevel, schoolYear])
+  const learningAreaGroups = useMemo(() => curriculumCatalogGroups(gradeLevel, schoolYear), [gradeLevel, schoolYear])
+  const selectedCatalogEntry = useMemo(() => findCurriculumCatalogEntry(gradeLevel, learningArea, schoolYear), [gradeLevel, learningArea, schoolYear])
   const sections = useMemo(() => sectionsText.split(',').map((x) => x.trim()).filter(Boolean), [sectionsText])
 
+  useEffect(() => {
+    if (!learningAreas.length) return
+    if (!learningAreas.includes(learningArea)) setLearningArea(learningAreas[0])
+  }, [learningArea, learningAreas])
+
   async function add() {
+    if (!selectedCatalogEntry) {
+      setMessage('Choose a source-catalogued learning area for this grade and school year.')
+      return
+    }
     if (!user || sections.length === 0) {
       setMessage('Add at least one section.')
       return
     }
     await createAssignment({
       userId: user.id,
-      schoolYear: profile?.schoolYear ?? '2026-2027',
+      schoolYear,
       gradeLevel,
       learningArea,
       sections,
@@ -44,9 +58,15 @@ export function ClassesPage() {
         <div className="panel inline-form-panel">
           <div className="form-grid three">
             <label>Grade level<select value={gradeLevel} onChange={(e) => setGradeLevel(e.target.value)}>{GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}</select></label>
-            <label>Learning area<select value={learningArea} onChange={(e) => setLearningArea(e.target.value)}>{LEARNING_AREAS.map((item) => <option key={item}>{item}</option>)}</select></label>
+            <label>Learning area<select value={learningArea} onChange={(e) => setLearningArea(e.target.value)} disabled={!learningAreaGroups.length}>{learningAreaGroups.map(({ group, entries }) => <optgroup key={group} label={group}>{entries.map((entry) => <option key={entry.id} value={entry.learningArea}>{entry.displayName}</option>)}</optgroup>)}</select></label>
             <label>Sections<input value={sectionsText} onChange={(e) => setSectionsText(e.target.value)} placeholder="Rizal, Mabini" /></label>
           </div>
+          {selectedCatalogEntry && (
+            <div className={`curriculum-assignment-note ${selectedCatalogEntry.status === 'verified_competencies' ? 'verified' : selectedCatalogEntry.status === 'transitional' ? 'transition' : 'catalogued'}`}>
+              <strong>{selectedCatalogEntry.status === 'verified_competencies' ? 'Verified competency pack ready.' : selectedCatalogEntry.status === 'transitional' ? 'Transitional curriculum selection.' : 'Official curriculum offering catalogued.'}</strong>
+              <span>{selectedCatalogEntry.notes}</span>
+            </div>
+          )}
           {message && <div className="form-message error">{message}</div>}
           <div className="inline-actions"><button className="button ghost" onClick={() => setOpen(false)}>Cancel</button><button className="button secondary" onClick={() => void add()}>Save assignment</button></div>
         </div>

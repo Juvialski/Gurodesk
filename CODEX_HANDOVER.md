@@ -154,3 +154,22 @@ The Playwright runner also discovered all eight intended setup/browser tests. Th
 ## Release stop
 
 Phase 5.5 is the authorized stopping point. Run the short `docs/PRODUCTION_SMOKE_TEST.md` checklist after the normal deployment, but do not begin class records, grading sheets, report cards, attendance, a student portal, new curriculum subjects, or another document domain without explicit authorization.
+
+
+## Phase 6 national curriculum coverage handover — 2026-08-10
+
+Phase 6 was explicitly authorized after the Phase 5.5 + assessment generation/visual checkpoint. The uploaded `gurodesk-generation-visual-final.zip` is the baseline for this work and is newer than GitHub `main` commit `b30cd6084b011523b717c2242e1525d0486e5449`. Preserve all assessment generation/visual files from that ZIP.
+
+Implemented in Phase 6:
+
+- `src/data/curriculumCatalog.ts` is a source-grounded national offering catalog with rollout/status/provenance metadata, not a synthetic competency database.
+- Current SY 2026-2027 catalog choices exist for every Kindergarten–Grade 12 level. Revised K to 10 rollout is school-year aware (Phase 1 K/1/4/7; Phase 2 2/3/5/8; Phase 3 6/9/10), with legacy transition records for pre-rollout selections.
+- Strengthened SHS Grade 11 core, Academic electives, and TechPro electives are catalogued from the official DepEd SSHS program page. Separately published new Grade 12 pilot guides and the non-pilot legacy Grade 12 transition are kept distinct.
+- Onboarding and My Classes use grade/school-year-aware catalog groups. A teacher can create an assignment only when a source-catalogued entry exists, and the UI explains whether exact verified competencies are ready, catalogued only, or transitional.
+- Curriculum Navigator includes a searchable national catalog even without an assignment. It explicitly distinguishes a catalogued guide/family from an executable verified competency pack.
+- `loadCurriculumNavigator()` no longer assumes one applicability row per grade/year. It evaluates all applicable full/pilot/transitional/legacy versions, matches the teacher's selected subject and aliases, prefers the catalog curriculum code, then loads only verified competencies. Zero verified rows remain unavailable to lesson/TOS flows.
+- The existing Grade 7 Mathematics 52-competency manifest remains the only bundled `verified_competencies` pack and its local verified fallback is preserved.
+- `scripts/generate-all-curriculum-sql.mjs` batch-generates seeds only for manifests explicitly marked verified; `scripts/check-phase6-curriculum.mjs` is included in `validate:all`.
+- No Phase 6 database migration was needed. Catalog metadata remains application metadata; exact packs continue through the existing normalized curriculum tables.
+
+Do not claim that all 245 catalog entries contain exact competencies. `official_guide_catalogued`, `official_family_catalogued`, and `transitional` are deliberate source-integrity states. Add exact competencies only from reviewed official DepEd material with provenance/page metadata. Never use model memory to fill official competency text.

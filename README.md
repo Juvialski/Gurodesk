@@ -1,10 +1,10 @@
-# GuroDesk — Phase 5.5 Automated Integration and Regression Harness
+# GuroDesk — Phase 6 National Curriculum Catalog and Release-Quality Assessment Platform
 
 GuroDesk is a mobile-first workspace for DepEd teachers. Its operating rule is: **verified curriculum and policy data first, teacher judgment first, and AI only inside an explicit teacher-review workflow.**
 
 ## Current implementation
 
-Phases 1–5.4 are preserved. This release adds the Phase 5.5 behavior-first test harness without adding a teacher-facing product feature:
+Phases 1–5.5 and the assessment generation/visual reliability work are preserved. Phase 6 adds a source-grounded national curriculum catalog, grade-aware teacher setup, rollout-aware curriculum resolution, and a scalable verified-pack import pipeline while retaining the existing release harness:
 
 - batched, verified TOS curriculum resolution without per-competency Supabase lookups;
 - lossless, height-aware pagination for long TOS competency text and notes;
@@ -36,7 +36,17 @@ Phases 1–5.4 are preserved. This release adds the Phase 5.5 behavior-first tes
 - a focused Playwright suite for login, TOS-to-assessment creation, save/reload/list behavior, and deep routes; and
 - GitHub Actions plus a single local-only `npm run test:release` quality gate.
 
-This release **stops after Phase 5.5**. It does not implement class records, grading sheets, report cards, attendance, awards/ranking, student/parent portals, or automated subjective grading by AI.
+This release **stops after the Phase 6 curriculum coverage foundation**. It does not fabricate unverified curriculum competencies, and it does not implement class records, grading sheets, report cards, attendance, awards/ranking, student/parent portals, or automated subjective grading by AI.
+
+## Phase 6 curriculum coverage
+
+GuroDesk now carries a national, school-year-aware curriculum catalog across Kindergarten through Grade 12. Current Revised K to 10 rollout families and Strengthened Senior High School core/elective offerings are visible in Curriculum Navigator and drive grade-aware learning-area choices in onboarding and My Classes. Transitional records keep historical/legacy selections distinguishable rather than silently remapping them.
+
+Catalog breadth is intentionally separate from executable competency coverage. Only exact source-reviewed manifests may drive lesson plans, TOS, assessment mapping, and downstream analytics. Grade 7 Mathematics remains the currently bundled fully verified competency pack; every other catalog entry clearly reports its coverage state and official DepEd provenance instead of inventing competencies.
+
+The repository curriculum resolver now considers multiple applicable versions for a grade/school year and prefers the catalog-matching version that actually contains the selected subject. This supports phased/pilot/legacy coexistence such as Grade 12 without assuming that the first applicability row is always correct.
+
+Future verified packs are additive: place reviewed manifests in `data/curriculum/`, run `npm run curriculum:validate`, and generate all verified SQL seeds with `npm run curriculum:generate:all`. See `docs/PHASE_6_CURRICULUM_COVERAGE.md`.
 
 See:
 
@@ -46,6 +56,7 @@ See:
 - `docs/PHASE_4_3_ASSESSMENT_EXPORTS.md`
 - `docs/PHASE_4_4_ASSESSMENT_SCORING_QA.md`
 - `docs/PHASE_5_ARCHITECTURE.md`
+- `docs/PHASE_6_CURRICULUM_COVERAGE.md`
 - `docs/PHASE_5_4_PRODUCTION_ACCEPTANCE.md`
 - `docs/PHASE_5_RELEASE_CHECKLIST.md`
 - `docs/PHASE5_POLICY_PRIVACY_AND_ANALYTICS_BOUNDARIES.md`
