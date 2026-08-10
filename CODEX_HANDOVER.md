@@ -184,3 +184,8 @@ Assessment generation production invariant (2026-08-10):
 
 25. `supabase/migrations/202608100025_phase6_custom_hybrid_curricula.sql`
 26. `supabase/migrations/202608100026_phase6_publish_curriculum_subject_id_hotfix.sql`
+
+## Assessment generation provider regression hotfix — 2026-08-10
+
+After the Phase 6 CI-green checkpoint, a provider-contract experiment reintroduced `generationConfig.responseFormat` for Gemini 3.5 Flash-Lite and production returned the previously known structured-request HTTP 400 failure. The current source restores the production-proven raw `generateContent` boundary: normal generation/repair use `responseMimeType: application/json` only, with no `responseFormat` and no provider schema. Exact 11-type answer/visual validation remains server-side. Do not reintroduce `responseFormat` into the raw assessment generation request. See `README_ASSESSMENT_JSON_MIME_RESTORE.md`.
+

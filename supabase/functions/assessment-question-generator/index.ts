@@ -63,8 +63,9 @@ async function callWithLiteFallback(
   let fallbackUsed = false
   let providerRequestCount = 0
 
-  // Raw v1beta generateContent uses responseMimeType + responseSchema. The
-  // model/type-specific budget is selected in generationConfigFor().
+  // Raw v1beta generateContent normal generation uses JSON MIME mode only.
+  // Exact question-type/visual validation happens server-side after parsing;
+  // the model/type-specific budget is selected in generationConfigFor().
   const config = { questionType, responseMimeType: 'application/json' }
 
   try {
@@ -191,7 +192,7 @@ Deno.serve(async (req) => {
       finishReason: error instanceof GeminiResponseError ? error.finishReason : undefined,
     })
     const providerStatus = error instanceof GeminiHttpError ? error.status : 0
-    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-10-response-format-v1' }
+    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-10-json-mime-only-v2' }
     if (providerStatus) body.providerStatus = providerStatus
     if (error instanceof GeminiResponseError && error.finishReason) body.finishReason = error.finishReason
     if ((error instanceof GeminiHttpError || error instanceof GeminiResponseError) && error.providerRequestCount) body.providerRequestCount = error.providerRequestCount

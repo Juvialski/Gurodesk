@@ -3,8 +3,6 @@ import {
   ASSESSMENT_QUESTION_TYPES,
   generationConfigFor,
   maxOutputTokensForQuestionType,
-  responseJsonSchemaForQuestionType,
-  responseSchemaForQuestionType,
 } from '../../supabase/functions/_shared/ai-models'
 import {
   callGemini,
@@ -40,60 +38,36 @@ const base = {
 }
 
 describe('raw Gemini assessment contract', () => {
-  it('builds a schema and bounded output budget for every question type', () => {
+  it('uses JSON MIME-only mode for every normal assessment question type', () => {
     for (const type of ASSESSMENT_QUESTION_TYPES) {
-      const schema = responseSchemaForQuestionType(type)
-      expect(schema.type).toBe('OBJECT')
-      expect(schema.required).toContain('visual')
-      expect(schema.properties?.questionType?.enum).toEqual([type])
-      expect(schema.properties?.answer?.type).toBe('OBJECT')
-      expect(schema.properties?.answer?.properties?.type?.enum).toEqual([type])
-      expect(schema.properties?.visual?.type).toBe('OBJECT')
-      expect(schema.properties?.visual?.nullable).toBe(true)
-      expect(schema.properties?.visual?.properties?.kind?.enum).toEqual(['geometry'])
-      expect(maxOutputTokensForQuestionType(type)).toBeGreaterThanOrEqual(4096)
-      expect(maxOutputTokensForQuestionType(type)).toBeLessThanOrEqual(12288)
+      const config = generationConfigFor('gemini-3.5-flash-lite', {
+        questionType: type,
+        responseFormat: { text: { mimeType: 'application/json' } },
+        responseSchema: { type: 'OBJECT' },
+        temperature: 0.2,
+        topP: 0.9,
+        candidateCount: 2,
+        sdkPrivateField: 'must not cross the boundary',
+        maxOutputTokens: 10,
+      })
+      expect(config.responseMimeType).toBe('application/json')
+      expect(config).not.toHaveProperty('responseFormat')
+      expect(config).not.toHaveProperty('responseSchema')
+      expect(config).not.toHaveProperty('temperature')
+      expect(config).not.toHaveProperty('topP')
+      expect(config).not.toHaveProperty('candidateCount')
+      expect(config).not.toHaveProperty('sdkPrivateField')
+      expect(config.maxOutputTokens).toBe(maxOutputTokensForQuestionType(type))
+      expect(config.thinkingConfig).toEqual({ thinkingLevel: 'HIGH' })
     }
   })
 
-  it('builds the current JSON-Schema envelope without open empty objects', () => {
-    for (const type of ASSESSMENT_QUESTION_TYPES) {
-      const schema = responseJsonSchemaForQuestionType(type)
-      expect(schema.type).toBe('object')
-      expect(schema.properties?.answer?.properties?.type?.enum).toEqual([type])
-      expect(schema.properties?.answer?.additionalProperties).toBe(true)
-      expect(schema.properties?.visual?.anyOf).toHaveLength(2)
-    }
-  })
-
-  it('uses current responseFormat for Gemini 3.5 Flash-Lite and strips deprecated config fields', () => {
-    const config = generationConfigFor('gemini-3.5-flash-lite', {
-      questionType: 'essay',
-      responseFormat: { text: { mimeType: 'application/json' } },
-      temperature: 0.2,
-      topP: 0.9,
-      candidateCount: 2,
-      sdkPrivateField: 'must not cross the boundary',
-      maxOutputTokens: 10,
-    })
-    expect(config).toHaveProperty('responseFormat.text.mimeType', 'application/json')
-    expect(config).toHaveProperty('responseFormat.text.schema.properties.answer.properties.type.enum', ['essay'])
-    expect(config).not.toHaveProperty('responseMimeType')
-    expect(config).not.toHaveProperty('responseSchema')
-    expect(config).not.toHaveProperty('temperature')
-    expect(config).not.toHaveProperty('topP')
-    expect(config).not.toHaveProperty('candidateCount')
-    expect(config).not.toHaveProperty('sdkPrivateField')
-    expect(config.maxOutputTokens).toBe(12288)
-    expect(config.thinkingConfig).toEqual({ thinkingLevel: 'HIGH' })
-  })
-
-  it('keeps Gemini 3.1 Flash-Lite on a valid non-empty legacy responseSchema fallback', () => {
+  it('uses the same JSON MIME-only boundary for the 3.1 Lite fallback', () => {
     const config = generationConfigFor('gemini-3.1-flash-lite', { questionType: 'multiple_choice' })
     expect(config.responseMimeType).toBe('application/json')
-    expect(config.responseSchema).toBeTruthy()
     expect(config).not.toHaveProperty('responseFormat')
-    expect((config.responseSchema as { properties?: Record<string, { properties?: unknown }> }).properties?.answer?.properties).toBeTruthy()
+    expect(config).not.toHaveProperty('responseSchema')
+    expect(config.thinkingConfig).toEqual({ thinkingLevel: 'HIGH' })
   })
 
   it('checks finishReason before returning text', () => {
@@ -113,9 +87,8 @@ describe('raw Gemini assessment contract', () => {
     const [, request] = fetchMock.mock.calls[0] as [string, RequestInit]
     const body = JSON.parse(String(request.body))
     expect(String(body.contents[0].parts[0].text)).toBe('fixture')
-    expect(body.generationConfig.responseFormat.text.mimeType).toBe('application/json')
-    expect(body.generationConfig.responseFormat.text.schema.required).toContain('visual')
-    expect(body.generationConfig).not.toHaveProperty('responseMimeType')
+    expect(body.generationConfig.responseMimeType).toBe('application/json')
+    expect(body.generationConfig).not.toHaveProperty('responseFormat')
     expect(body.generationConfig).not.toHaveProperty('responseSchema')
     expect(request.headers).toMatchObject({ 'x-goog-api-key': 'secret-key' })
     expect(String(fetchMock.mock.calls[0][0])).not.toContain('?key=')

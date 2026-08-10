@@ -388,13 +388,6 @@ export function responseJsonSchemaForQuestionType(type: AssessmentQuestionType):
   }
 }
 
-function usesCurrentResponseFormat(model: AiModelId) {
-  // Gemini 3.5 Flash-Lite (July 2026 GA) uses the current responseFormat JSON
-  // schema contract. Keep 3.1 Flash-Lite on the legacy responseSchema path as
-  // a deliberately different compatibility fallback.
-  return model === 'gemini-3.5-flash-lite' || model === 'gemini-3.6-flash'
-}
-
 /** Schema used by the explicit verifier operation, not by normal generation. */
 export const verifierResponseSchema: GeminiSchema = objectSchema(
   {
@@ -473,17 +466,13 @@ export function generationConfigFor(model: AiModelId, overrides: Record<string, 
   }
 
   if (questionType) {
-    if (usesCurrentResponseFormat(model)) {
-      base.responseFormat = {
-        text: {
-          mimeType: 'application/json',
-          schema: responseJsonSchemaForQuestionType(questionType),
-        },
-      }
-    } else {
-      base.responseMimeType = 'application/json'
-      base.responseSchema = responseSchemaForQuestionType(questionType)
-    }
+    // IMPORTANT: normal assessment generation/repair uses raw v1beta
+    // generateContent. The production-proven contract is JSON MIME mode only.
+    // Do not attach responseFormat or responseSchema here: both have caused
+    // provider-side INVALID_ARGUMENT/HTTP 400 failures as the assessment
+    // answer + visual contract evolved. The prompt defines the exact shape and
+    // validateAssessmentCandidate remains authoritative after JSON parsing.
+    base.responseMimeType = 'application/json'
   } else if (typeof requestedResponseMimeType === 'string' && requestedResponseMimeType.trim()) {
     base.responseMimeType = requestedResponseMimeType
     if (requestedResponseSchema && typeof requestedResponseSchema === 'object') base.responseSchema = requestedResponseSchema
