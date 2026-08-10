@@ -32,22 +32,33 @@ function tikzFrameDocument(visual: AssessmentVisual, source: string, token: stri
     settled = true;
     parent.postMessage({ type: 'gurodesk-tikz-render', token, state }, '*');
   }
-  function inspect() {
+  let readyTimer = 0;
+  function usableSvg() {
     const svg = document.querySelector('svg');
-    if (svg) {
-      svg.setAttribute('role', 'img');
-      svg.setAttribute('aria-label', ${JSON.stringify(visual.altText)});
-      svg.style.width = '100%';
-      svg.style.height = '100%';
-      svg.style.maxWidth = '100%';
-      svg.style.maxHeight = '100%';
-      finish('ready');
-      return true;
-    }
-    return false;
+    if (!svg || !svg.isConnected || !svg.querySelector('path,polyline,polygon,line,circle,ellipse,text,g')) return null;
+    return svg;
+  }
+  function inspect() {
+    const svg = usableSvg();
+    if (!svg) return false;
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', ${JSON.stringify(visual.altText)});
+    svg.style.width = '100%';
+    svg.style.height = '100%';
+    svg.style.maxWidth = '100%';
+    svg.style.maxHeight = '100%';
+    window.clearTimeout(readyTimer);
+    // TikZJax can briefly insert an intermediate SVG while it is still
+    // replacing the compiled output. Only report ready after the rendered SVG
+    // remains present for a short stability window.
+    readyTimer = window.setTimeout(() => {
+      const stable = usableSvg();
+      if (stable === svg) finish('ready');
+    }, 350);
+    return true;
   }
   new MutationObserver(inspect).observe(document.documentElement, { childList: true, subtree: true });
-  window.addEventListener('load', () => { inspect(); setTimeout(() => { if (!inspect()) finish('error'); }, 12000); });
+  window.addEventListener('load', () => { inspect(); setTimeout(() => { if (!usableSvg()) finish('error'); }, 12000); });
   window.addEventListener('error', () => finish('error'));
 })();
 </script>
@@ -81,7 +92,10 @@ export function AssessmentTikzDiagram({ visual, className = '', fallback }: { vi
   }, [token])
 
   return <div className={`assessment-tikz-shell ${className}`.trim()} data-renderer={state === 'ready' ? 'tikz' : 'svg-fallback'}>
-    {state !== 'ready' && <div className="assessment-tikz-fallback">{fallback}</div>}
+    {/* Keep the deterministic renderer mounted underneath TikZ permanently.
+        This prevents a transient/blank TikZ iframe from making the diagram
+        disappear after the fallback was already visible. */}
+    <div className="assessment-tikz-fallback" aria-hidden={state === 'ready'}>{fallback}</div>
     {source && state !== 'error' && <iframe
       className={`assessment-tikz-frame${state === 'ready' ? ' is-ready' : ''}`}
       title={visual.altText}

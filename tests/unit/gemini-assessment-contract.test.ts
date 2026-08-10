@@ -101,6 +101,36 @@ describe('raw Gemini assessment contract', () => {
     expect(() => validateAssessmentCandidate({ ...base, visual: undefined }, 'true_false', [])).toThrow()
   })
 
+  it('removes answer-leaking fill-in examples and replaces model alt text with neutral observational text', () => {
+    const candidate = {
+      questionType: 'fill_in_the_blank' as const,
+      prompt: 'Classify the polygon (e.g., irregular non-convex pentagon): _____.',
+      answer: { type: 'fill_in_the_blank' as const, blanks: [{ id: 'blank-1', acceptedAnswers: ['irregular non-convex'] }] },
+      rationale: 'The figure is classified by its visible properties.',
+      referencedResources: [],
+      visual: {
+        id: 'polygon-classification', kind: 'geometry', version: 1, width: 320, height: 200,
+        altText: 'An irregular non-convex pentagon with five sides and an inward-pointing vertex.',
+        primitives: [{ type: 'polygon', points: [{ x: 40, y: 40 }, { x: 260, y: 40 }, { x: 180, y: 95 }, { x: 260, y: 160 }, { x: 40, y: 160 }], color: 'ink' }],
+      },
+    }
+    const normalized = validateAssessmentCandidate(candidate, 'fill_in_the_blank', [])
+    expect(normalized.prompt).toBe('Classify the polygon: _____.')
+    expect((normalized.visual as { altText: string }).altText).toBe('A polygon outline with 5 vertices.')
+    expect((normalized.visual as { altText: string }).altText.toLocaleLowerCase('en')).not.toContain('irregular')
+    expect((normalized.visual as { altText: string }).altText.toLocaleLowerCase('en')).not.toContain('non-convex')
+  })
+
+  it('rejects a direct accepted-answer hint that remains in the learner prompt', () => {
+    const candidate = {
+      ...VALID_ASSESSMENT_CANDIDATES.fill_in_the_blank,
+      prompt: 'The correct classification is irregular non-convex. Write irregular non-convex in the blank: _____.',
+      answer: { type: 'fill_in_the_blank' as const, blanks: [{ id: 'blank-1', acceptedAnswers: ['irregular non-convex'] }] },
+      visual: null,
+    }
+    expect(() => validateAssessmentCandidate(candidate, 'fill_in_the_blank', [])).toThrow(/revealed an accepted answer/u)
+  })
+
   it('accepts the strict wire shape for every supported answer type', () => {
     for (const type of ASSESSMENT_QUESTION_TYPES) {
       const candidate = { ...VALID_ASSESSMENT_CANDIDATES[type], visual: null }

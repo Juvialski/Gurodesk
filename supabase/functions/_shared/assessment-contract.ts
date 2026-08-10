@@ -136,6 +136,68 @@ function answerStrings(value: unknown): string[] {
   return []
 }
 
+function semanticText(value: string) {
+  return value.normalize('NFKC').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').replace(/\s+/gu, ' ').trim()
+}
+
+function directAnswerTerms(answer: Row, questionType: QuestionType) {
+  const values: string[] = []
+  if (questionType === 'short_answer' || questionType === 'identification') {
+    if (Array.isArray(answer.acceptedAnswers)) values.push(...answer.acceptedAnswers.filter((entry): entry is string => typeof entry === 'string'))
+  } else if (questionType === 'fill_in_the_blank' && Array.isArray(answer.blanks)) {
+    for (const rawBlank of answer.blanks) {
+      const blank = object(rawBlank)
+      if (blank && Array.isArray(blank.acceptedAnswers)) values.push(...blank.acceptedAnswers.filter((entry): entry is string => typeof entry === 'string'))
+    }
+  } else if (questionType === 'multiple_choice' && Array.isArray(answer.choices) && typeof answer.choiceId === 'string') {
+    const selected = answer.choices.map(object).find((choice) => choice?.id === answer.choiceId)
+    if (selected && typeof selected.text === 'string') values.push(selected.text)
+  } else if (questionType === 'multiple_select' && Array.isArray(answer.choices) && Array.isArray(answer.choiceIds)) {
+    const correct = new Set(answer.choiceIds.filter((entry): entry is string => typeof entry === 'string'))
+    for (const choice of answer.choices.map(object)) if (choice && typeof choice.id === 'string' && correct.has(choice.id) && typeof choice.text === 'string') values.push(choice.text)
+  } else if (questionType === 'problem_solving' && typeof answer.finalAnswer === 'string') values.push(answer.finalAnswer)
+  return [...new Set(values.map(semanticText).filter((entry) => entry.length >= 3))]
+}
+
+function containsAnswerTerm(value: string, terms: string[]) {
+  const normalized = ` ${semanticText(value)} `
+  return terms.some((term) => normalized.includes(` ${term} `))
+}
+
+function stripAnswerLeakingParentheticals(value: string, terms: string[]) {
+  return value.replace(/\([^()]{1,240}\)/gu, (group) => containsAnswerTerm(group, terms) ? '' : group).replace(/\s{2,}/gu, ' ').replace(/\s+([,.;:!?])/gu, '$1').trim()
+}
+
+/**
+ * AI alt text is normalized to an observational description owned by GuroDesk.
+ * It deliberately does not repeat model-supplied classifications or solutions.
+ */
+function neutralVisualAltText(value: unknown) {
+  const visual = object(value)
+  const primitives = visual && Array.isArray(visual.primitives) ? visual.primitives.map(object).filter((entry): entry is Row => Boolean(entry)) : []
+  const axes = primitives.filter((entry) => entry.type === 'cartesianAxes').length
+  const plots = primitives.filter((entry) => entry.type === 'cartesianPlot').length
+  if (axes) return plots ? 'A Cartesian coordinate graph with plotted data and labeled axes.' : 'A Cartesian coordinate plane with labeled axes.'
+  const polygons = primitives.filter((entry) => entry.type === 'polygon')
+  const circles = primitives.filter((entry) => entry.type === 'circle').length
+  const segments = primitives.filter((entry) => entry.type === 'segment' || entry.type === 'dashedSegment').length
+  const angleMarks = primitives.filter((entry) => entry.type === 'angleArc').length
+  const congruenceMarks = primitives.filter((entry) => entry.type === 'equalSideMark' || entry.type === 'tickMark').length
+  const relationMarks = primitives.filter((entry) => entry.type === 'parallelMark' || entry.type === 'perpendicularMark').length
+  const parts: string[] = []
+  if (polygons.length === 1) {
+    const points = Array.isArray(polygons[0].points) ? polygons[0].points.length : 0
+    parts.push(points >= 3 ? `A polygon outline with ${points} vertices.` : 'A polygon outline.')
+  } else if (polygons.length > 1) parts.push(`A geometry diagram with ${polygons.length} polygon outlines.`)
+  else if (circles) parts.push(circles === 1 ? 'A geometry diagram containing a circle.' : `A geometry diagram containing ${circles} circles.`)
+  else parts.push('A geometry diagram with mathematical line work and labels.')
+  if (segments) parts.push('Line segments are shown.')
+  if (angleMarks) parts.push('Angle markings are shown.')
+  if (congruenceMarks) parts.push('Congruence markings are shown.')
+  if (relationMarks) parts.push('Parallel or perpendicular markings are shown.')
+  return parts.join(' ').slice(0, 240)
+}
+
 function normalizeAnswer(answer: unknown, questionType: QuestionType): Row {
   const source = object(answer)
   if (!source) throw new AssessmentContractError('The AI response answer shape is invalid.')
@@ -330,15 +392,24 @@ export function validateAssessmentCandidate(
   if (typeof candidateType !== 'string' || !QUESTION_TYPES.has(candidateType as QuestionType) || (questionType && candidateType !== questionType)) throw new AssessmentContractError('The AI response question type does not match the verified item mapping.')
   const resolvedType = candidateType as QuestionType
   checkImmutableContext(source, resolvedType, immutableContext)
-  const prompt = text(source.prompt, 'Assessment prompt', 2000)
+  let prompt = text(source.prompt, 'Assessment prompt', 2000)
   const rationale = source.rationale === undefined && !rationaleRequired ? '' : text(source.rationale, 'Assessment rationale', 1600, rationaleRequired)
   const references = stringList(source.referencedResources, 'Referenced resources', 10, 180, { unique: true })
   if (!references.every((entry) => teacherResources.includes(entry))) throw new AssessmentContractError('The AI response referenced an unlisted teacher resource.', 'RESOURCE_INVALID')
-  const visual = source.visual === null ? null : source.visual
-  const visualResult = validateAssessmentVisual(visual)
+  const rawVisual = source.visual === null ? null : source.visual
+  const visualResult = validateAssessmentVisual(rawVisual)
   if (!visualResult.valid) throw new AssessmentContractError('The AI response visual was invalid.', 'VISUAL_INVALID')
   const answer = normalizeAnswer(source.answer, resolvedType)
   assertReconciledPoints(answer, resolvedType, immutableContext)
+  const answerTerms = directAnswerTerms(answer, resolvedType)
+  // Models sometimes place the correct fill/identification answer inside a
+  // parenthetical example. Remove that redundant hint deterministically, then
+  // reject any remaining direct answer leak rather than showing it to learners.
+  if (answerTerms.length && (resolvedType === 'fill_in_the_blank' || resolvedType === 'short_answer' || resolvedType === 'identification')) {
+    prompt = stripAnswerLeakingParentheticals(prompt, answerTerms)
+    if (containsAnswerTerm(prompt, answerTerms)) throw new AssessmentContractError('The AI response prompt revealed an accepted answer.', 'SEMANTIC_INVALID')
+  }
+  const visual = rawVisual === null ? null : { ...(rawVisual as Row), altText: neutralVisualAltText(rawVisual) }
   if (resolvedType === 'fill_in_the_blank') {
     const markerCount = (prompt.match(/(?:_{3,}|…{3,}|\[\s*blank(?:[- ]?\d+)?\s*\])/giu) ?? []).length
     const blankCount = Array.isArray(answer.blanks) ? answer.blanks.length : 0

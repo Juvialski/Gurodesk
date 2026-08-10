@@ -203,3 +203,17 @@ The assessment visual pipeline is now math-first without allowing model-supplied
 Regression guard: `scripts/check-assessment-math-visuals.mjs` runs automatically under `validate:all` because the validator harness executes every `check-*.mjs` script. Preserve this guard when extending visuals.
 
 No database migration was added. Migration count remains 26.
+
+## Assessment visual answer-leak + TikZ stability hotfix — 2026-08-10
+
+Production testing of the TikZ-first visual build exposed two follow-up issues:
+- Gemini could place the accepted answer/classification in a fill-in-the-blank prompt example and in `visual.altText`.
+- TikZJax could briefly render an SVG, report ready, then replace/remove that transient node, leaving the editor blank after the deterministic SVG fallback had been unmounted.
+
+Current invariants:
+- AI-generated `visual.altText` is never trusted verbatim. After the visual DSL validates, GuroDesk replaces it with a neutral observational accessibility description derived from the safe primitives. It must not state the requested classification, accepted answer, solution, or conclusion.
+- Generated fill-in-the-blank, short-answer, and identification prompts may not reveal their accepted answer. A parenthetical example containing the answer is removed deterministically; a remaining direct answer hint causes candidate rejection.
+- `AssessmentTikzDiagram` keeps the deterministic SVG renderer mounted underneath the TikZ iframe at all times. TikZ readiness requires a stable compiled SVG after a short settling window. A transient/blank TikZJax render therefore cannot make the diagram disappear.
+- The TikZ-first security model is unchanged: Gemini supplies structured visual data only; GuroDesk owns TikZ generation; no model-supplied executable TikZ/SVG/HTML/JS is allowed.
+
+No database migration was added. Migration count remains 26.
