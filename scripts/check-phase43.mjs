@@ -8,7 +8,9 @@ const read = (file) => fs.readFileSync(path.join(root, file), 'utf8')
 
 async function loadModel() {
   const source = read('src/lib/assessmentExportModel.ts')
-  const output = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
+  let output = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
+  output = output.replace(/import \{ normalizeAssessmentMathText \} from '\.\/assessmentMathText';/, 'const normalizeAssessmentMathText = (value) => String(value ?? "");')
+  output = output.replace(/import \{ recommendedAssessmentResponseLines \} from '\.\/assessmentExportPresentation';/, 'const recommendedAssessmentResponseLines = () => 1;')
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
 }
 
@@ -19,6 +21,8 @@ async function loadExportRuntime() {
   output = output.replace(/import \{ jsPDF \} from 'jspdf';/, 'const jsPDF = class {};')
   output = output.replace(/import \{ downloadBlob \} from '\.\/docxTemplate';/, 'const downloadBlob = () => {};')
   output = output.replace(/import \{ assessmentVisualSvgMarkup, drawAssessmentVisualPdf \} from '\.\/assessmentVisualExport';/, 'const assessmentVisualSvgMarkup = () => ""; const drawAssessmentVisualPdf = () => {};')
+  output = output.replace(/import \{ normalizeAssessmentMathText \} from '\.\/assessmentMathText';/, 'const normalizeAssessmentMathText = (value) => String(value ?? "");')
+  output = output.replace(/import \{[\s\S]*?\} from '\.\/assessmentExportPresentation';/, 'const assessmentQuestionKeepTogether = () => true; const assessmentQuestionTypeLabel = (type) => String(type); const assessmentResponseKind = () => "lines"; const assessmentSectionTitle = (type) => String(type); const assessmentUsesContiguousTypeSections = () => false; const assessmentVisualScale = () => 1; const recommendedAssessmentResponseLines = () => 1;')
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
 }
 

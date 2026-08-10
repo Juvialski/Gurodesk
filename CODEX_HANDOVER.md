@@ -258,22 +258,6 @@ Preserve this behavior in later assessment and curriculum work. Migration count 
 - Matching `reusableChoices=false` is canonicalized by omission; do not reinsert an explicit false during repository load.
 - The Phase 4.4 validator checks `unlockAssessmentItem`, not the old ad-hoc `qaState: unlocking` marker.
 
-## Assessment export + deterministic Final QA hardening — 2026-08-10
+## 2026-08-10 — One-click assessment auto-prepare
 
-Production review of a completed 40-item Grade 7 Mathematics assessment exposed export-only and deterministic QA defects that were not visible from ordinary type/unit checks: first-page metadata overlap, question/diagram detachment across pages, raw TeX-like notation in learner output, generic response lines, undersized Cartesian work areas, missing/contradictory required visuals, and repeated evidence.
-
-Current invariants:
-
-- `src/lib/assessmentExportPresentation.ts` is the shared renderer-neutral presentation policy for section labels, type-specific response controls, response-space sizing, visual scale, and keep-together behavior.
-- PDF pagination is question-aware. Short/structured items stay together; long response items keep the number/stem/visual/subparts/choices together and may continue only in the writing area. Section headings cannot be orphaned from their first question core.
-- Contiguous grouped assessment types render as Part I/II/... sections. Legacy assessments that revisit an earlier type do not receive misleading repeated section headings.
-- `src/lib/assessmentMathText.ts` normalizes only a bounded historical TeX-like subset for export/preview. Persisted teacher content is unchanged. Do not replace this with arbitrary TeX execution.
-- Student paper formatting is question-type specific (A/B/C/D, True/False boxes, Matching columns, Multiple Select boxes, inline Fill-in-the-Blank, Numerical Answer/Unit, point-aware writing areas). Do not restore generic repeated `Response:` rows.
-- Required visual dependencies and deterministic structured-geometry contradictions are Final Review invariants. Named angle/explicit labels referenced by a visual-dependent prompt must exist in the structured visual.
-- Exact/effectively duplicate evidence is blocking; ordinary similarity and evidence concentration remain teacher-overridable warnings. No additional Gemini call is used for this review.
-- Print/export continues to use deterministic structured SVG/TikZ-derived geometry. The Gemini/TikZ security boundary and production JSON-MIME provider contract are unchanged.
-- No database migration was added; migration count remains 26.
-
-Regression guard: `scripts/check-assessment-export-qa.mjs` plus `tests/unit/assessment-export-hardening.test.ts` and the updated assessment export E2E. Preserve these when changing assessment paper/export behavior.
-
-Local visual acceptance: a synthetic 40-item, all-11-type grouped paper was rendered to A4 and Letter through the shared print presentation and every page inspected. Raw `$...$`/`\\angle`/`\\circ` and generic `Response:` leakage checks were clean. Complete npm/Vitest/Vite/Chromium execution remains a GitHub Actions release gate because the ChatGPT npm mirror cannot install the existing lockfile dependency tree.
+`Generate & prepare paper` now runs a bounded pipeline: generate empty slots → deterministic final QA → regenerate AI-owned blockers → recheck → auto-accept/lock/finalize when structurally ready. Manual/teacher-edited items are never overwritten automatically. Provider/quota boundaries pause safely with saved work preserved. `scripts/check-assessment-auto-prepare.mjs` guards these invariants. Phase 4.3's data-URL export validator also stubs the new export helper imports so CI can evaluate the current architecture.
