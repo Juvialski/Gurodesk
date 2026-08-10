@@ -1,59 +1,44 @@
 import { describe, expect, it } from 'vitest'
-import { resolveCurriculumSubjectVersion } from '../../src/lib/curriculumResolution'
+import { resolveCurriculumVersion, subjectNamesMatch } from '../../src/lib/curriculumResolution'
 
-describe('curriculum subject/version resolution', () => {
-  const applicability = [
-    { versionId: 'legacy', priority: 10 },
-    { versionId: 'pilot', priority: 20 },
-  ]
-  const versions = [
-    { id: 'legacy', code: 'K12-SHS-LEGACY' },
-    { id: 'pilot', code: 'STRENGTHENED-SHS-2026' },
-  ]
-
-  it('prefers the source-catalogued curriculum code when the same subject exists in concurrent versions', () => {
-    const resolution = resolveCurriculumSubjectVersion(
-      applicability,
-      versions,
-      [
-        { versionId: 'legacy', name: 'General Mathematics', value: 'legacy-math' },
-        { versionId: 'pilot', name: 'General Mathematics', value: 'pilot-math' },
-      ],
-      ['General Mathematics'],
-      'STRENGTHENED-SHS-2026',
-    )
-
-    expect(resolution).toEqual({ versionId: 'pilot', subject: 'pilot-math' })
+describe('curriculum version resolution', () => {
+  it('matches official aliases without fuzzy guessing', () => {
+    expect(subjectNamesMatch('TLE', 'Technology and Livelihood Education', ['TLE'])).toBe(true)
+    expect(subjectNamesMatch('Science', 'Mathematics', ['Math'])).toBe(false)
   })
 
-  it('uses applicability priority when no catalog code distinguishes the matches', () => {
-    const resolution = resolveCurriculumSubjectVersion(
-      applicability,
-      versions,
-      [
-        { versionId: 'pilot', name: 'Subject', value: 'pilot' },
-        { versionId: 'legacy', name: 'Subject', value: 'legacy' },
+  it('prefers the catalog curriculum code when overlapping versions contain the subject', () => {
+    const result = resolveCurriculumVersion({
+      versions: [
+        { id: 'legacy', code: 'K12-LEGACY-TRANSITION', priority: 1, note: 'legacy' },
+        { id: 'revised', code: 'REVISED-K10-MATATAG', priority: 5, note: 'revised' },
       ],
-      ['Subject'],
-    )
-
-    expect(resolution).toEqual({ versionId: 'legacy', subject: 'legacy' })
+      subjects: [
+        { id: 's1', curriculumVersionId: 'legacy', gradeLevel: 'Grade 8', name: 'Mathematics' },
+        { id: 's2', curriculumVersionId: 'revised', gradeLevel: 'Grade 8', name: 'Mathematics' },
+      ],
+      gradeLevel: 'Grade 8',
+      learningArea: 'Mathematics',
+      preferredCurriculumCode: 'REVISED-K10-MATATAG',
+    })
+    expect(result?.version.id).toBe('revised')
+    expect(result?.subject.id).toBe('s2')
   })
 
-  it('supports accepted aliases and returns the top applicable version when a subject pack is not loaded', () => {
-    expect(resolveCurriculumSubjectVersion(
-      applicability,
-      versions,
-      [{ versionId: 'pilot', name: 'TLE', value: 'tle-row' }],
-      ['Technology and Livelihood Education', 'TLE'],
-      'STRENGTHENED-SHS-2026',
-    )).toEqual({ versionId: 'pilot', subject: 'tle-row' })
-
-    expect(resolveCurriculumSubjectVersion(
-      applicability,
-      versions,
-      [],
-      ['Missing Subject'],
-    )).toEqual({ versionId: 'legacy', subject: null })
+  it('falls back to priority when no catalog code matches', () => {
+    const result = resolveCurriculumVersion({
+      versions: [
+        { id: 'a', code: 'A', priority: 4, note: null },
+        { id: 'b', code: 'B', priority: 2, note: null },
+      ],
+      subjects: [
+        { id: 'sa', curriculumVersionId: 'a', gradeLevel: 'Grade 12', name: 'General Mathematics' },
+        { id: 'sb', curriculumVersionId: 'b', gradeLevel: 'Grade 12', name: 'General Mathematics' },
+      ],
+      gradeLevel: 'Grade 12',
+      learningArea: 'General Mathematics',
+      preferredCurriculumCode: 'MISSING',
+    })
+    expect(result?.version.id).toBe('b')
   })
 })

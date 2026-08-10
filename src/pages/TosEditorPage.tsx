@@ -77,7 +77,7 @@ export function TosEditorPage() {
     if (!assignment) return
     let active = true
     Promise.all([
-      loadCurriculumNavigator(assignment.schoolYear, assignment.gradeLevel, assignment.learningArea, isDemo),
+      loadCurriculumNavigator(assignment.schoolYear, assignment.gradeLevel, assignment.learningArea, isDemo, assignment.curriculumVersionId),
       loadSchoolYearCalendar(assignment.schoolYear, isDemo),
     ]).then(async ([nextBundle, nextCalendar]) => {
       if (!active) return

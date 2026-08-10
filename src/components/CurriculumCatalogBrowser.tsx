@@ -1,146 +1,83 @@
-import { BookOpenCheck, CheckCircle2, ExternalLink, LibraryBig, Search, ShieldCheck } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
-import { GRADE_LEVELS, SCHOOL_YEARS } from '../data/constants'
+import { BookOpenCheck, ExternalLink, Filter, Search, ShieldCheck } from 'lucide-react'
+import { useMemo, useState } from 'react'
 import {
   CURRICULUM_CATALOG_STATS,
   curriculumCatalogGroups,
+  curriculumEntriesForGrade,
   type CurriculumCatalogEntry,
-  type CurriculumCatalogStatus,
 } from '../data/curriculumCatalog'
+import { GRADE_LEVELS, SCHOOL_YEARS } from '../data/constants'
 
-const STATUS_LABELS: Record<CurriculumCatalogStatus, string> = {
-  verified_competencies: 'Verified competencies loaded',
-  official_guide_catalogued: 'Official guide catalogued',
-  official_family_catalogued: 'Official curriculum family catalogued',
-  transitional: 'Transitional curriculum',
+type Props = {
+  initialSchoolYear?: string | null
+  initialGradeLevel?: string | null
+  highlightedLearningArea?: string | null
 }
 
-function sourceStatusClass(status: CurriculumCatalogStatus) {
-  if (status === 'verified_competencies') return 'verified'
-  if (status === 'transitional') return 'transition'
-  return 'catalogued'
+function statusLabel(entry: CurriculumCatalogEntry) {
+  if (entry.status === 'verified_competencies') return 'Competencies verified'
+  if (entry.status === 'transitional') return 'Transition catalog'
+  if (entry.status === 'official_guide_catalogued') return 'Official guide catalogued'
+  return 'Official family catalogued'
 }
 
-function CurriculumCatalogItem({ entry }: { entry: CurriculumCatalogEntry }) {
-  return (
-    <article className="curriculum-catalog-item">
-      <div className="curriculum-catalog-item-copy">
-        <div className="curriculum-catalog-item-title">
-          <strong>{entry.displayName}</strong>
-          <span className={`catalog-status ${sourceStatusClass(entry.status)}`}>
-            {entry.status === 'verified_competencies' ? <CheckCircle2 size={12} /> : <ShieldCheck size={12} />}
-            {STATUS_LABELS[entry.status]}
-          </span>
-        </div>
-        <small>{entry.curriculumName}</small>
-        <p>{entry.notes}</p>
-      </div>
-      <a href={entry.sourceUrl} target="_blank" rel="noreferrer" className="catalog-source-link">
-        Official DepEd source <ExternalLink size={13} />
-      </a>
-    </article>
-  )
-}
-
-export function CurriculumCatalogBrowser({
-  initialGradeLevel = 'Grade 7',
-  initialSchoolYear = '2026-2027',
-}: {
-  initialGradeLevel?: string
-  initialSchoolYear?: string
-}) {
-  const [gradeLevel, setGradeLevel] = useState(initialGradeLevel)
-  const [schoolYear, setSchoolYear] = useState(initialSchoolYear)
+export function CurriculumCatalogBrowser({ initialSchoolYear, initialGradeLevel, highlightedLearningArea }: Props) {
+  const [schoolYear, setSchoolYear] = useState(initialSchoolYear && SCHOOL_YEARS.includes(initialSchoolYear) ? initialSchoolYear : '2026-2027')
+  const [gradeLevel, setGradeLevel] = useState(initialGradeLevel && GRADE_LEVELS.includes(initialGradeLevel) ? initialGradeLevel : 'Grade 7')
   const [query, setQuery] = useState('')
-
-  useEffect(() => {
-    if (GRADE_LEVELS.includes(initialGradeLevel)) setGradeLevel(initialGradeLevel)
-  }, [initialGradeLevel])
-
-  useEffect(() => {
-    if (SCHOOL_YEARS.includes(initialSchoolYear)) setSchoolYear(initialSchoolYear)
-  }, [initialSchoolYear])
-
-  const allGroups = useMemo(() => curriculumCatalogGroups(gradeLevel, schoolYear), [gradeLevel, schoolYear])
-  const totalCount = allGroups.reduce((sum, group) => sum + group.entries.length, 0)
-  const groups = useMemo(() => {
+  const [group, setGroup] = useState('all')
+  const groups = useMemo(() => curriculumCatalogGroups(gradeLevel, schoolYear), [gradeLevel, schoolYear])
+  const entries = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase('en')
-    if (!needle) return allGroups
-    return allGroups
-      .map((group) => ({
-        ...group,
-        entries: group.entries.filter((entry) => [entry.displayName, entry.learningArea, entry.curriculumName, entry.group]
-          .some((value) => value.toLocaleLowerCase('en').includes(needle))),
-      }))
-      .filter((group) => group.entries.length > 0)
-  }, [allGroups, query])
-  const count = groups.reduce((sum, group) => sum + group.entries.length, 0)
+    return curriculumEntriesForGrade(gradeLevel, schoolYear).filter((entry) => {
+      if (group !== 'all' && entry.group !== group) return false
+      if (!needle) return true
+      return [entry.learningArea, entry.displayName, entry.group, entry.curriculumName, entry.notes]
+        .some((value) => value.toLocaleLowerCase('en').includes(needle))
+    })
+  }, [gradeLevel, group, query, schoolYear])
 
   return (
-    <section className="panel curriculum-catalog-panel" aria-labelledby="national-curriculum-catalog-title">
-      <header className="curriculum-catalog-header">
-        <div className="curriculum-catalog-heading">
-          <span className="summary-icon blue"><LibraryBig size={20} /></span>
-          <div>
-            <span className="eyebrow">National curriculum catalog · Phase 6</span>
-            <h2 id="national-curriculum-catalog-title">DepEd curriculum coverage</h2>
-            <p>
-              Browse current catalogued curriculum offerings across K–12. A catalogued guide is not treated as an executable competency pack until its exact competencies are source-verified.
-            </p>
-          </div>
+    <section className="panel national-curriculum-catalog" aria-labelledby="national-curriculum-catalog-title">
+      <header className="catalog-heading">
+        <div>
+          <span className="eyebrow">Official curriculum catalog</span>
+          <h2 id="national-curriculum-catalog-title">DepEd curriculum coverage</h2>
+          <p>Browse source-grounded official offerings separately from competency-level imports. Only a verified competency pack can directly ground lesson plans, TOS, and assessments.</p>
         </div>
-        <div className="curriculum-catalog-stats" aria-label="Curriculum catalog coverage summary">
+        <div className="catalog-stat-strip" aria-label="Curriculum catalog summary">
+          <span><strong>{GRADE_LEVELS.length}</strong><small>grade levels</small></span>
           <span><strong>{CURRICULUM_CATALOG_STATS.entries}</strong><small>catalog entries</small></span>
           <span><strong>{CURRICULUM_CATALOG_STATS.verifiedCompetencyPacks}</strong><small>verified packs</small></span>
         </div>
       </header>
 
-      <div className="curriculum-catalog-controls">
-        <label className="compact-select">
-          <span>School year</span>
-          <select value={schoolYear} onChange={(event) => setSchoolYear(event.target.value)}>
-            {SCHOOL_YEARS.map((item) => <option key={item}>{item}</option>)}
-          </select>
-        </label>
-        <label className="compact-select">
-          <span>Grade level</span>
-          <select value={gradeLevel} onChange={(event) => setGradeLevel(event.target.value)}>
-            {GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}
-          </select>
-        </label>
-        <div className="catalog-selection-summary">
-          <BookOpenCheck size={17} />
-          <span><strong>{query ? `${count} of ${totalCount}` : count}</strong> catalogued offering{count === 1 ? '' : 's'} for {gradeLevel} · {schoolYear}</span>
-        </div>
-        <label className="catalog-search-field">
-          <span>Find subject or elective</span>
-          <div><Search size={15} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search this grade's catalog" /></div>
-        </label>
+      <div className="catalog-controls">
+        <label className="compact-select"><span>School year</span><select value={schoolYear} onChange={(event) => { setSchoolYear(event.target.value); setGroup('all') }}>{SCHOOL_YEARS.map((item) => <option key={item}>{item}</option>)}</select></label>
+        <label className="compact-select"><span>Grade level</span><select value={gradeLevel} onChange={(event) => { setGradeLevel(event.target.value); setGroup('all') }}>{GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}</select></label>
+        <label className="compact-select"><span><Filter size={11} /> Group</span><select value={group} onChange={(event) => setGroup(event.target.value)}><option value="all">All groups</option>{groups.map((item) => <option key={item.group} value={item.group}>{item.group}</option>)}</select></label>
+        <label className="curriculum-search catalog-search"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search subjects" aria-label="Search official curriculum catalog" /></label>
       </div>
 
-      {groups.length ? (
-        <div className="curriculum-catalog-groups">
-          {groups.map(({ group, entries }, index) => (
-            <details className="curriculum-catalog-group" key={group} open={index === 0}>
-              <summary>
-                <span>{group}</span>
-                <small>{entries.length} offering{entries.length === 1 ? '' : 's'}</small>
-              </summary>
-              <div className="curriculum-catalog-list">
-                {entries.map((entry) => <CurriculumCatalogItem key={entry.id} entry={entry} />)}
-              </div>
-            </details>
-          ))}
-        </div>
-      ) : (
-        <div className="curriculum-catalog-empty">
-          <ShieldCheck size={18} />
-          <div>
-            <strong>{query ? 'No catalogued offering matches this search.' : 'No revised/current catalog entry is registered for this historical selection.'}</strong>
-            <p>{query ? 'Try a subject name, elective title, or curriculum cluster.' : 'GuroDesk does not infer a curriculum version from memory. Existing legacy assignments remain usable while a verified transition source is registered.'}</p>
-          </div>
-        </div>
-      )}
+      <div className="catalog-integrity-note"><ShieldCheck size={15} /><span><strong>Source integrity:</strong> catalogued means GuroDesk has a source-grounded official offering/rollout record. It does not mean the official competency text has already been transcribed. Pending subjects remain unavailable to competency-grounded workflows until a verified pack is imported.</span></div>
+
+      <div className="catalog-entry-grid">
+        {entries.map((entry) => {
+          const highlighted = gradeLevel === initialGradeLevel && schoolYear === initialSchoolYear && entry.learningArea === highlightedLearningArea
+          return (
+            <article className={`catalog-entry ${highlighted ? 'highlighted' : ''}`} key={entry.id}>
+              <span className={`catalog-status ${entry.status === 'verified_competencies' ? 'verified' : entry.status === 'transitional' ? 'transition' : 'pending'}`}>
+                {entry.status === 'verified_competencies' ? <BookOpenCheck size={12} /> : <ShieldCheck size={12} />}{statusLabel(entry)}
+              </span>
+              <h3>{entry.displayName}</h3>
+              <p>{entry.curriculumName}</p>
+              <div className="catalog-entry-meta"><span>{entry.group}</span><span>{schoolYear}</span></div>
+              <a href={entry.sourceUrl} target="_blank" rel="noreferrer" className="source-link">Official DepEd reference <ExternalLink size={12} /></a>
+            </article>
+          )
+        })}
+      </div>
+      {!entries.length && <div className="mini-curriculum-empty">No official catalog entries match this grade, school year, and filter.</div>}
     </section>
   )
 }

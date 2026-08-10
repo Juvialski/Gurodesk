@@ -97,6 +97,8 @@ export const demoStore = {
         learningArea: 'Mathematics',
         sections: ['Rizal', 'Bonifacio', 'Mabini'],
         isActive: true,
+        curriculumSourceKind: 'official',
+        curriculumVersionId: null,
       },
       {
         id: crypto.randomUUID(),
@@ -106,6 +108,8 @@ export const demoStore = {
         learningArea: 'Mathematics',
         sections: ['Newton'],
         isActive: true,
+        curriculumSourceKind: 'official',
+        curriculumVersionId: null,
       },
     ]
     this.saveProfile(profile)

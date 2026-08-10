@@ -112,7 +112,7 @@ export function LessonPlanEditorPage() {
     if (!assignment) return
     let cancelled = false
     Promise.all([
-      loadCurriculumNavigator(assignment.schoolYear, assignment.gradeLevel, assignment.learningArea, isDemo),
+      loadCurriculumNavigator(assignment.schoolYear, assignment.gradeLevel, assignment.learningArea, isDemo, assignment.curriculumVersionId),
       loadSchoolYearCalendar(assignment.schoolYear, isDemo),
     ]).then(([nextBundle, nextCalendar]) => {
       if (cancelled) return

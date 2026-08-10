@@ -1,5 +1,6 @@
 import { ArrowRight, BookOpen, Check, Plus, School, Trash2, UserRound } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useApp } from '../contexts/AppContext'
 import { GRADE_LEVELS, POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
 import { curriculumCatalogGroups, findCurriculumCatalogEntry, learningAreasForGrade } from '../data/curriculumCatalog'
@@ -13,6 +14,7 @@ type DraftAssignment = {
 }
 
 export function OnboardingPage() {
+  const navigate = useNavigate()
   const { user, profile, assignments, updateProfile, createAssignment, removeAssignment } = useApp()
   const [step, setStep] = useState(1)
   const [busy, setBusy] = useState(false)
@@ -34,30 +36,18 @@ export function OnboardingPage() {
     sectionsText: '',
   })
 
+  const officialAreas = useMemo(() => learningAreasForGrade(draft.gradeLevel, form.schoolYear), [draft.gradeLevel, form.schoolYear])
+  const officialGroups = useMemo(() => curriculumCatalogGroups(draft.gradeLevel, form.schoolYear), [draft.gradeLevel, form.schoolYear])
+  const selectedOfficialEntry = findCurriculumCatalogEntry(draft.gradeLevel, draft.learningArea, form.schoolYear)
   const sections = useMemo(
     () => draft.sectionsText.split(',').map((value) => value.trim()).filter(Boolean),
     [draft.sectionsText],
   )
 
-  const learningAreas = useMemo(
-    () => learningAreasForGrade(draft.gradeLevel, form.schoolYear),
-    [draft.gradeLevel, form.schoolYear],
-  )
-  const learningAreaGroups = useMemo(
-    () => curriculumCatalogGroups(draft.gradeLevel, form.schoolYear),
-    [draft.gradeLevel, form.schoolYear],
-  )
-  const selectedCatalogEntry = useMemo(
-    () => findCurriculumCatalogEntry(draft.gradeLevel, draft.learningArea, form.schoolYear),
-    [draft.gradeLevel, draft.learningArea, form.schoolYear],
-  )
-
   useEffect(() => {
-    if (!learningAreas.length) return
-    if (!learningAreas.includes(draft.learningArea)) {
-      setDraft((current) => ({ ...current, learningArea: learningAreas[0] }))
-    }
-  }, [draft.learningArea, learningAreas])
+    if (!officialAreas.length) return
+    if (!officialAreas.includes(draft.learningArea)) setDraft((current) => ({ ...current, learningArea: officialAreas[0] }))
+  }, [draft.learningArea, officialAreas])
 
   async function saveIdentity() {
     if (!form.fullName.trim() || !form.schoolName.trim()) {
@@ -75,8 +65,8 @@ export function OnboardingPage() {
   }
 
   async function addAssignment() {
-    if (!selectedCatalogEntry) {
-      setLocalError('Choose a source-catalogued learning area for this grade and school year.')
+    if (!selectedOfficialEntry) {
+      setLocalError('Choose a source-catalogued official learning area for this grade and school year.')
       return
     }
     if (!user || sections.length === 0) {
@@ -92,6 +82,8 @@ export function OnboardingPage() {
         learningArea: draft.learningArea,
         sections,
         isActive: true,
+        curriculumSourceKind: 'official',
+        curriculumVersionId: null,
       })
       setDraft((current) => ({ ...current, sectionsText: '' }))
       setLocalError(null)
@@ -101,13 +93,19 @@ export function OnboardingPage() {
   }
 
   async function finish() {
-    if (assignments.length === 0) {
-      setLocalError('Add at least one teaching assignment first.')
-      return
-    }
     setBusy(true)
     try {
       await updateProfile({ ...form, onboardingCompleted: true })
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  async function finishWithPrivateCurriculum() {
+    setBusy(true)
+    try {
+      await updateProfile({ ...form, onboardingCompleted: true })
+      navigate('/curriculum', { replace: true })
     } finally {
       setBusy(false)
     }
@@ -144,20 +142,20 @@ export function OnboardingPage() {
             </>
           ) : (
             <>
-              <div className="section-title"><span className="title-icon"><School size={20} /></span><div><h2>Your teaching load</h2><p>Add each grade and learning area once; include all sections taught under it.</p></div></div>
+              <div className="section-title"><span className="title-icon"><School size={20} /></span><div><h2>Your teaching load</h2><p>Add official DepEd assignments now, or finish setup without one and import your private-school curriculum from Curriculum Navigator first.</p></div></div>
               <div className="assignment-builder">
                 <div className="form-grid three">
                   <label>Grade level<select value={draft.gradeLevel} onChange={(e) => setDraft({ ...draft, gradeLevel: e.target.value })}>{GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}</select></label>
-                  <label>Learning area<select value={draft.learningArea} onChange={(e) => setDraft({ ...draft, learningArea: e.target.value })} disabled={!learningAreaGroups.length}>{learningAreaGroups.map(({ group, entries }) => <optgroup key={group} label={group}>{entries.map((entry) => <option key={entry.id} value={entry.learningArea}>{entry.displayName}</option>)}</optgroup>)}</select></label>
+                  <label>Learning area<select value={draft.learningArea} onChange={(e) => setDraft({ ...draft, learningArea: e.target.value })} disabled={!officialGroups.length}>{officialGroups.map(({ group, entries }) => <optgroup key={group} label={group}>{entries.map((entry) => <option key={entry.id} value={entry.learningArea}>{entry.displayName}</option>)}</optgroup>)}</select></label>
                   <label>Sections<input value={draft.sectionsText} onChange={(e) => setDraft({ ...draft, sectionsText: e.target.value })} placeholder="Rizal, Mabini" /></label>
                 </div>
-                {selectedCatalogEntry && (
-                  <div className={`curriculum-assignment-note ${selectedCatalogEntry.status === 'verified_competencies' ? 'verified' : selectedCatalogEntry.status === 'transitional' ? 'transition' : 'catalogued'}`}>
-                    <strong>{selectedCatalogEntry.status === 'verified_competencies' ? 'Verified competency pack ready.' : selectedCatalogEntry.status === 'transitional' ? 'Transitional curriculum selection.' : 'Official curriculum offering catalogued.'}</strong>
-                    <span>{selectedCatalogEntry.notes}</span>
-                  </div>
-                )}
-                <button className="button secondary" onClick={() => void addAssignment()} disabled={busy}><Plus size={17} /> Add assignment</button>
+                <button className="button secondary" onClick={() => void addAssignment()} disabled={busy || !selectedOfficialEntry}><Plus size={17} /> Add assignment</button>
+              </div>
+              {selectedOfficialEntry && <div className="custom-curriculum-assignment-help"><BookOpen size={15} /><span>{selectedOfficialEntry.status === 'verified_competencies' ? 'Verified competency pack ready.' : selectedOfficialEntry.status === 'transitional' ? 'Official transition offering catalogued; exact competencies remain source-gated.' : 'Official curriculum offering catalogued; exact competencies remain source-gated until imported.'}</span></div>}
+
+              <div className="private-curriculum-onboarding">
+                <div><strong>Private school or school-developed curriculum?</strong><span>Skip the official assignment for now. Upload, paste, or manually create your school curriculum, review it, then attach the approved version to your class.</span></div>
+                <button className="button secondary" onClick={() => void finishWithPrivateCurriculum()} disabled={busy}>Set up school curriculum <ArrowRight size={16} /></button>
               </div>
 
               <div className="assignment-list compact-list">
@@ -169,7 +167,7 @@ export function OnboardingPage() {
                 ))}
               </div>
               {localError && <div className="form-message error">{localError}</div>}
-              <div className="form-footer"><button className="button ghost" onClick={() => setStep(1)}>Back</button><button className="button primary" onClick={() => void finish()} disabled={busy}>Open workspace <ArrowRight size={17} /></button></div>
+              <div className="form-footer"><button className="button ghost" onClick={() => setStep(1)}>Back</button><button className="button primary" onClick={() => void finish()} disabled={busy}>{assignments.length ? 'Open workspace' : 'Skip classes for now'} <ArrowRight size={17} /></button></div>
             </>
           )}
         </section>

@@ -1,10 +1,10 @@
-# GuroDesk — Phase 6 National Curriculum Catalog and Release-Quality Assessment Platform
+# GuroDesk — Phase 6 Universal Curriculum + Release-Quality Assessment Platform
 
 GuroDesk is a mobile-first workspace for DepEd teachers. Its operating rule is: **verified curriculum and policy data first, teacher judgment first, and AI only inside an explicit teacher-review workflow.**
 
 ## Current implementation
 
-Phases 1–5.5 and the assessment generation/visual reliability work are preserved. Phase 6 adds a source-grounded national curriculum catalog, grade-aware teacher setup, rollout-aware curriculum resolution, and a scalable verified-pack import pipeline while retaining the existing release harness:
+Phases 1–5.5 and the assessment-generation/visual reliability checkpoint are preserved. Phase 6 adds a universal curriculum layer while retaining the existing release harness:
 
 - batched, verified TOS curriculum resolution without per-competency Supabase lookups;
 - lossless, height-aware pagination for long TOS competency text and notes;
@@ -29,24 +29,14 @@ Phases 1–5.5 and the assessment generation/visual reliability work are preserv
 - clearly labelled binary facility versus normalized multi-point achievement, with item-count and point-based competency/cognitive views;
 - configurable, neutral remediation signals and editable plans, with optional aggregate-only Gemini activity suggestions that never receive learner identity or raw answers; and
 - Assessment Results Summary, Item Analysis, Competency Performance, and Remediation Plan reports with Print, PDF, DOCX, and combined seven-sheet XLSX output; and
-- Render static-site SPA rewrites, browser-safe environment guidance, additive migrations through `022`, production security notes, and a phone-first smoke-test checklist;
+- Render static-site SPA rewrites, browser-safe environment guidance, additive migrations through `025`, production security notes, and a phone-first smoke-test checklist;
 - Vitest unit regressions for scoring, locks, error handling, AI orchestration, retry/429 behavior, and Gemini boundaries;
-- real fresh and data-bearing upgrade migration paths through migration 022;
+- real fresh and data-bearing upgrade migration paths through migration 025;
 - local Supabase Auth/JWT, RLS, RPC, PostgREST relationship, repository round-trip, partial-credit, analysis, and remediation integration tests;
 - a focused Playwright suite for login, TOS-to-assessment creation, save/reload/list behavior, and deep routes; and
 - GitHub Actions plus a single local-only `npm run test:release` quality gate.
 
-This release **stops after the Phase 6 curriculum coverage foundation**. It does not fabricate unverified curriculum competencies, and it does not implement class records, grading sheets, report cards, attendance, awards/ranking, student/parent portals, or automated subjective grading by AI.
-
-## Phase 6 curriculum coverage
-
-GuroDesk now carries a national, school-year-aware curriculum catalog across Kindergarten through Grade 12. Current Revised K to 10 rollout families and Strengthened Senior High School core/elective offerings are visible in Curriculum Navigator and drive grade-aware learning-area choices in onboarding and My Classes. Transitional records keep historical/legacy selections distinguishable rather than silently remapping them.
-
-Catalog breadth is intentionally separate from executable competency coverage. Only exact source-reviewed manifests may drive lesson plans, TOS, assessment mapping, and downstream analytics. Grade 7 Mathematics remains the currently bundled fully verified competency pack; every other catalog entry clearly reports its coverage state and official DepEd provenance instead of inventing competencies.
-
-The repository curriculum resolver now considers multiple applicable versions for a grade/school year and prefers the catalog-matching version that actually contains the selected subject. This supports phased/pilot/legacy coexistence such as Grade 12 without assuming that the first applicability row is always correct.
-
-Future verified packs are additive: place reviewed manifests in `data/curriculum/`, run `npm run curriculum:validate`, and generate all verified SQL seeds with `npm run curriculum:generate:all`. See `docs/PHASE_6_CURRICULUM_COVERAGE.md`.
+This release stops after the **Phase 6 universal curriculum** scope. It does not fabricate official competencies, add school-wide organization sharing, implement class records/report cards/attendance/student portals, or automate subjective grading.
 
 See:
 
@@ -56,7 +46,6 @@ See:
 - `docs/PHASE_4_3_ASSESSMENT_EXPORTS.md`
 - `docs/PHASE_4_4_ASSESSMENT_SCORING_QA.md`
 - `docs/PHASE_5_ARCHITECTURE.md`
-- `docs/PHASE_6_CURRICULUM_COVERAGE.md`
 - `docs/PHASE_5_4_PRODUCTION_ACCEPTANCE.md`
 - `docs/PHASE_5_RELEASE_CHECKLIST.md`
 - `docs/PHASE5_POLICY_PRIVACY_AND_ANALYTICS_BOUNDARIES.md`
@@ -66,6 +55,18 @@ See:
 - `docs/TESTING.md`
 - `PHASE55_TESTING_MANIFEST.md`
 - `CODEX_HANDOVER.md`
+
+## Phase 6 universal curriculum
+
+GuroDesk now treats curriculum source as a first-class teaching-assignment choice: **Official DepEd**, **My / School Curriculum**, or **DepEd + School Enrichment**. Private-school teachers can upload PDF/DOCX/XLSX/CSV/TXT/Markdown, paste curriculum text, or create a curriculum manually. Gemini analysis uses the teacher's own saved key and produces a draft only; teacher review and explicit approval are required before normalized curriculum rows become usable.
+
+Teacher-owned curriculum files are stored privately, normalized curriculum versions are owner-scoped by RLS, and official shared curriculum rows remain immutable. Hybrid publication deterministically inherits an official base and records `base_competency_id`/provenance for inherited competencies before adding school-specific enrichment. Custom/hybrid assignments pin an exact curriculum version; database guards prevent lesson-plan or TOS competency links from crossing curriculum sources or versions. Approved revisions supersede older versions without rewriting historical documents.
+
+The national curriculum catalog remains deliberately separate from exact competency coverage. A source-catalogued subject is not presented as a verified competency pack until its detailed manifest has been reviewed. The bundled Grade 7 Mathematics pack remains the current detailed verified national pack.
+
+Phase 6 reuses the existing teacher BYOK model policy unchanged. Custom curriculum analysis is draft-only and uses the same authenticated Gemini boundary as other teacher-reviewed AI features.
+
+See `docs/PHASE_6_CURRICULUM_COVERAGE.md`, `docs/PHASE_6_UNIVERSAL_CURRICULUM.md`, and `PHASE6_UNIVERSAL_IMPLEMENTATION_MANIFEST.md`.
 
 ## Assessment architecture
 
@@ -116,6 +117,9 @@ Apply in order:
 20. `202608090020_fix_assessment_save_alias_ambiguity.sql`
 21. `202608090021_phase55_explicit_data_api_grants.sql`
 22. `202608090022_phase55_integration_guard_fixes.sql`
+23. `202608090023_restore_assessment_save_rpc.sql`
+24. `202608090024_fix_remediation_child_guard.sql`
+25. `202608100025_phase6_custom_hybrid_curricula.sql`
 
 Deploy all functions listed in `supabase/config.toml`, including `assessment-question-generator` and the aggregate-only `remediation-suggester`.
 
@@ -132,10 +136,9 @@ Never expose a service-role key, credential-encryption material, or Gemini API k
 
 Each signed-in teacher connects a personal key through **Settings → AI Assistant**. The encrypted credential is decrypted only inside authenticated Edge Functions and never returned to the browser.
 
-- Primary: `gemini-3.5-flash-lite`, high thinking
-- Automatic fallback: `gemini-3.1-flash-lite`, high thinking
-- Automatic fallback remains Lite-only
-- Flash models remain manual selections and are not automatically consumed
+- Preferred Lite priority remains `gemini-3.5-flash-lite` → `gemini-3.1-flash-lite` under the existing product policy.
+- Lite models retain the existing high-thinking configuration.
+- Flash models remain explicit teacher selections and are never silently consumed as Lite fallback.
 - Provider quota guidance is descriptive, never a hard-coded guarantee
 
 No `GEMINI_API_KEY` or `VITE_GEMINI_API_KEY` is required.

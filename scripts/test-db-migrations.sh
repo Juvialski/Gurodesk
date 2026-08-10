@@ -33,7 +33,7 @@ Supabase/Postgres.  No package.json wiring is required to invoke this file.
 
 Options:
   --fresh          Apply all migrations and run fresh-schema assertions.
-  --upgrade        Apply 001-014, insert fixture data, apply 015-023, assert.
+  --upgrade        Apply 001-014, insert fixture data, apply 015-025, assert.
   --all            Run both paths (default).
   --db-url URL     Use a disposable local PostgreSQL URL instead of CLI status.
   --start-local    Start local Supabase when it is not already running.
@@ -110,7 +110,7 @@ if [[ ! -d "${MIGRATIONS_DIR}" || ! -f "${FIXTURE_SQL}" || ! -f "${FRESH_ASSERT_
   die "repository migration/test files are incomplete"
 fi
 
-readonly EXPECTED_MIGRATION_COUNT=24
+readonly EXPECTED_MIGRATION_COUNT=25
 mapfile -t MIGRATIONS < <(find "${MIGRATIONS_DIR}" -maxdepth 1 -type f -name '*.sql' -print | sort)
 readonly TOTAL_MIGRATIONS="${#MIGRATIONS[@]}"
 if [[ "${TOTAL_MIGRATIONS}" -ne "${EXPECTED_MIGRATION_COUNT}" ]]; then
@@ -265,7 +265,7 @@ run_fresh() {
 }
 
 run_upgrade() {
-  echo "db migration harness: upgrade path (001-014, fixture, 015-024)"
+  echo "db migration harness: upgrade path (001-014, fixture, 015-025)"
   make_temp_project
   copy_migrations 14
   if ! run_local_reset; then

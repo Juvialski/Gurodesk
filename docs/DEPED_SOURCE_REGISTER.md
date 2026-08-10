@@ -91,26 +91,3 @@ Learner, outcome, result-session, remediation, report, and template data must be
 ## Source-integrity rule
 
 A DepEd webpage, curriculum guide, order, memorandum, or advisory may be registered as a source without immediately becoming executable application logic. Policy/curriculum facts must be reviewed and transformed deliberately before the app treats them as authoritative structured rules.
-
-## Phase 6 national curriculum catalog sources
-
-### Revised K to 10 / MATATAG
-
-- Official Phase 1 curriculum guide landing page: `https://www.deped.gov.ph/matatagcurriculumk147/`
-- Phase 1 explicitly publishes Kindergarten; Grade 1 Language, Makabansa, Reading and Literacy, Mathematics, and GMRC; Grade 4/7 learning-area guides; and EPP/TLE coverage extending through Grade 10.
-- Revised-curriculum rollout is modeled by school year rather than assuming every grade changed in SY 2024-2025. Phase 2 covers Grades 2, 3, 5, and 8; Phase 3 covers Grades 6, 9, and 10.
-- Official DepEd Phase 2 rollout reference used by the catalog for Grades 2, 3, 5, and 8: `https://camiguin.deped.gov.ph/download/dm-no-0255-s-2025-rollout-training-of-the-revised-k-12-matatag-curriculum-phase-2-for-teachers-in-grades-235-8/`
-- Official DepEd Phase 3 rollout reference used by the catalog for Grades 6, 9, and 10: `https://region2.deped.gov.ph/regional-memorandum-no-163-s-2026-conduct-of-the-training-on-revised-grades-6-9-and-10-curriculum/`
-- Phase 2/3 rollout references establish official implementation family/grade coverage; they are deliberately marked `official_family_catalogued` until an exact official subject guide is individually registered and transcribed.
-- Historical pre-rollout assignment choices use the official DepEd Learning Resource Portal only as transitional catalog/provenance coverage. They do not become verified competency packs unless an exact manifest is separately reviewed.
-
-### Strengthened Senior High School
-
-- Official curriculum-guide landing page: `https://www.deped.gov.ph/strengthened-shs-program/`
-- The official page currently publishes six named core guides, Academic electives by cluster, TechPro electives by cluster, and a separate section of new Grade 12 curriculum guides.
-- DepEd states that all Grade 11 learners use Strengthened SHS beginning SY 2026-2027. Grade 12 learners in non-pilot schools continue the existing SHS curriculum in SY 2026-2027; Grade 12 Strengthened SHS follows the current pilot implementation and the separately published new Grade 12 guides.
-- GuroDesk therefore keeps Grade 11 full-implementation offerings, Grade 12 pilot/new-guide offerings, and the non-pilot Grade 12 legacy transition distinguishable in the catalog.
-
-### Catalog versus executable curriculum
-
-A curriculum offering can be registered in the Phase 6 catalog before its competencies are imported. Catalog entries support grade-aware teacher setup and source discovery. TOS, lesson planning, and assessment competency selection continue to require verified rows from the normalized curriculum tables (or the exact Grade 7 Mathematics bundled manifest fallback). This prevents catalog breadth from turning into invented curriculum content.

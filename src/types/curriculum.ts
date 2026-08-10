@@ -2,7 +2,7 @@ export type SourceVerificationStatus = 'pending' | 'verified' | 'rejected' | 'su
 
 export type SourceDocument = {
   id: string
-  sourceType: 'curriculum_guide' | 'deped_order' | 'memorandum' | 'advisory' | 'other'
+  sourceType: 'curriculum_guide' | 'school_curriculum' | 'deped_order' | 'memorandum' | 'advisory' | 'other'
   title: string
   issuanceCode: string | null
   sourceUrl: string | null
@@ -19,6 +19,10 @@ export type CurriculumVersionSummary = {
   effectiveToSchoolYear: string | null
   status: 'draft' | 'active' | 'superseded'
   implementationNotes?: string | null
+  originKind?: 'official' | 'custom' | 'hybrid'
+  organizationName?: string | null
+  revisionNumber?: number
+  baseCurriculumVersionId?: string | null
 }
 
 export type CurriculumPeriod = {
@@ -46,6 +50,8 @@ export type CurriculumCompetency = {
   academicPeriodId: string | null
   sourcePage: number | null
   verificationStatus: 'pending' | 'verified' | 'rejected'
+  provenanceKind?: 'official' | 'custom' | 'inherited'
+  baseCompetencyId?: string | null
 }
 
 export type CurriculumDomain = {

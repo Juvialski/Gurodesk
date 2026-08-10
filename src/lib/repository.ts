@@ -1,6 +1,6 @@
 import { getDemoCurriculumBundle } from '../data/demoCurriculum'
 import { findCurriculumCatalogEntry } from '../data/curriculumCatalog'
-import { resolveCurriculumSubjectVersion } from './curriculumResolution'
+import { resolveCurriculumVersion } from './curriculumResolution'
 import type { Profile, TeacherAssignment } from '../types/app'
 import type { AiCredentialSaveResult, AiCredentialStatus, AiSettingsUpdate } from '../types/ai'
 import type { LessonAiSupportRequest, LessonAiSupportResponse, LessonPlanRecord } from '../types/lessonPlan'
@@ -46,6 +46,8 @@ function mapAssignment(row: Record<string, unknown>): TeacherAssignment {
     learningArea: String(row.learning_area),
     sections: Array.isArray(row.section_names) ? row.section_names.map(String) : [],
     isActive: Boolean(row.is_active),
+    curriculumSourceKind: row.curriculum_source_kind === 'custom' || row.curriculum_source_kind === 'hybrid' ? String(row.curriculum_source_kind) as TeacherAssignment['curriculumSourceKind'] : 'official',
+    curriculumVersionId: row.curriculum_version_id ? String(row.curriculum_version_id) : null,
   }
 }
 
@@ -123,6 +125,8 @@ export async function addTeacherAssignment(
       learning_area: assignment.learningArea,
       section_names: assignment.sections,
       is_active: assignment.isActive,
+      curriculum_source_kind: assignment.curriculumSourceKind,
+      curriculum_version_id: assignment.curriculumVersionId,
     })
     .select('*')
     .single()
@@ -152,6 +156,10 @@ function mapCurriculumVersion(row: Record<string, unknown>): CurriculumVersionSu
     effectiveToSchoolYear: row.effective_to_school_year ? String(row.effective_to_school_year) : null,
     status: String(row.status) as CurriculumVersionSummary['status'],
     implementationNotes: row.implementation_notes ? String(row.implementation_notes) : null,
+    originKind: row.origin_kind ? String(row.origin_kind) as CurriculumVersionSummary['originKind'] : 'official',
+    organizationName: row.organization_name ? String(row.organization_name) : null,
+    revisionNumber: Number(row.revision_number ?? 1),
+    baseCurriculumVersionId: row.base_curriculum_version_id ? String(row.base_curriculum_version_id) : null,
   }
 }
 
@@ -216,6 +224,8 @@ function mapCurriculumCompetency(row: Record<string, unknown>): CurriculumCompet
     academicPeriodId: row.academic_period_id ? String(row.academic_period_id) : null,
     sourcePage: row.source_page === null || row.source_page === undefined ? null : Number(row.source_page),
     verificationStatus: String(row.verification_status) as CurriculumCompetency['verificationStatus'],
+    provenanceKind: row.provenance_kind ? String(row.provenance_kind) as CurriculumCompetency['provenanceKind'] : 'official',
+    baseCompetencyId: row.base_competency_id ? String(row.base_competency_id) : null,
   }
 }
 
@@ -224,21 +234,13 @@ export async function loadCurriculumNavigator(
   gradeLevel: string,
   learningArea: string,
   demo: boolean,
+  curriculumVersionId: string | null = null,
 ): Promise<CurriculumNavigatorBundle> {
   if (demo || !supabase) return getDemoCurriculumBundle(schoolYear, gradeLevel, learningArea)
 
-  const catalogEntry = findCurriculumCatalogEntry(gradeLevel, learningArea, schoolYear)
-  const catalogCoverageNote = catalogEntry
-    ? `${catalogEntry.displayName} is present in GuroDesk's official DepEd curriculum catalog for ${schoolYear}. ${catalogEntry.notes}`
-    : null
-
-  // The canonical local manifest is the exact verified source used to generate the
-  // production seed. It is a safe read-only fallback if the production knowledge
-  // query temporarily returns no rows (for example while migrations/indexes settle).
-  // We never invent curriculum content here.
   const localVerifiedFallback = getDemoCurriculumBundle(schoolYear, gradeLevel, learningArea)
   const fallback = (reason: string): CurriculumNavigatorBundle | null =>
-    localVerifiedFallback.available
+    !curriculumVersionId && localVerifiedFallback.available
       ? {
           ...localVerifiedFallback,
           schoolYear,
@@ -248,141 +250,131 @@ export async function loadCurriculumNavigator(
         }
       : null
 
-  const unavailable = (
-    coverageNote: string,
-    version: CurriculumVersionSummary | null = null,
-    subject: CurriculumSubject | null = null,
-    periods: CurriculumPeriod[] = [],
-    domains: CurriculumDomain[] = [],
-    standards: CurriculumStandard[] = [],
-    source: SourceDocument | null = null,
-  ): CurriculumNavigatorBundle => ({
-    available: false,
-    schoolYear,
-    gradeLevel,
-    learningArea,
-    version,
-    subject,
-    periods,
-    domains,
-    standards,
-    competencies: [],
-    source,
-    coverageNote,
-  })
+  const catalogEntry = !curriculumVersionId ? findCurriculumCatalogEntry(gradeLevel, learningArea, schoolYear) : null
+  let versionId = curriculumVersionId
+  let resolvedSubjectId: string | null = null
+  let applicabilityNote: string | null = null
 
-  const { data: applicabilityRows, error: applicabilityError } = await supabase
-    .from('curriculum_applicability')
-    .select('curriculum_version_id, implementation_status, priority, notes')
-    .eq('school_year', schoolYear)
-    .eq('grade_level', gradeLevel)
-    .in('implementation_status', ['full', 'transitional', 'pilot', 'legacy'])
-    .order('priority', { ascending: true })
-    .limit(20)
-
-  if (applicabilityError) {
-    const local = fallback('the Supabase applicability lookup failed')
-    if (local) return local
-    throw applicabilityError
-  }
-
-  const applicabilityCandidates = (applicabilityRows ?? []) as unknown as Record<string, unknown>[]
-  if (!applicabilityCandidates.length) {
-    const local = fallback('Supabase returned no applicability row for this assignment')
-    if (local) return local
-    return unavailable(
-      catalogCoverageNote
-        ?? 'No verified curriculum applicability record is loaded for this teaching assignment and school year yet.',
-    )
-  }
-
-  // A school year/grade may legitimately have more than one applicable curriculum
-  // during phased rollout (for example pilot + legacy Grade 12). Do not take the
-  // first applicability row globally. Resolve the version that actually contains
-  // the teacher's selected source-catalogued learning area.
-  const versionIds = [...new Set(applicabilityCandidates.map((row) => String(row.curriculum_version_id)).filter(Boolean))]
-  const [versionsResult, subjectsResult] = await Promise.all([
-    supabase.from('curriculum_versions').select('*').in('id', versionIds),
-    supabase
-      .from('curriculum_subjects')
-      .select('*')
-      .in('curriculum_version_id', versionIds)
+  if (!versionId) {
+    const { data: applicabilityRows, error: applicabilityError } = await supabase
+      .from('curriculum_applicability')
+      .select('curriculum_version_id, implementation_status, priority, notes')
+      .eq('school_year', schoolYear)
       .eq('grade_level', gradeLevel)
-      .limit(1000),
-  ])
+      .in('implementation_status', ['full', 'transitional', 'pilot', 'legacy'])
+      .order('priority', { ascending: true })
+      .limit(20)
 
-  if (versionsResult.error || subjectsResult.error) {
-    const local = fallback('the Supabase curriculum version/subject lookup failed')
-    if (local) return local
+    if (applicabilityError) {
+      const local = fallback('the Supabase applicability lookup failed')
+      if (local) return local
+      throw applicabilityError
+    }
+
+    const candidates = applicabilityRows ?? []
+    if (!candidates.length) {
+      const local = fallback('Supabase returned no applicability row for this assignment')
+      if (local) return local
+      return {
+        available: false, schoolYear, gradeLevel, learningArea, version: null, subject: null,
+        periods: [], domains: [], standards: [], competencies: [], source: null,
+        coverageNote: catalogEntry
+          ? `${catalogEntry.curriculumName} is source-catalogued for this assignment, but its exact verified competency pack is not loaded yet.`
+          : 'No source-grounded curriculum applicability record is loaded for this teaching assignment and school year yet.',
+      }
+    }
+
+    const candidateIds = [...new Set(candidates.map((row) => String((row as Record<string, unknown>).curriculum_version_id)))]
+    const [versionsResult, subjectsResult] = await Promise.all([
+      supabase.from('curriculum_versions').select('id, code').in('id', candidateIds),
+      supabase.from('curriculum_subjects').select('id, curriculum_version_id, grade_level, name').in('curriculum_version_id', candidateIds).eq('grade_level', gradeLevel),
+    ])
     if (versionsResult.error) throw versionsResult.error
-    throw subjectsResult.error
+    if (subjectsResult.error) throw subjectsResult.error
+
+    const candidateById = new Map(candidates.map((raw, index) => {
+      const row = raw as Record<string, unknown>
+      return [String(row.curriculum_version_id), {
+        priority: Number(row.priority ?? index + 1),
+        note: row.notes ? String(row.notes) : null,
+      }]
+    }))
+    const resolved = resolveCurriculumVersion({
+      versions: (versionsResult.data ?? []).map((raw) => {
+        const row = raw as Record<string, unknown>
+        const meta = candidateById.get(String(row.id)) ?? { priority: 999, note: null }
+        return { id: String(row.id), code: String(row.code ?? ''), priority: meta.priority, note: meta.note }
+      }),
+      subjects: (subjectsResult.data ?? []).map((raw) => {
+        const row = raw as Record<string, unknown>
+        return { id: String(row.id), curriculumVersionId: String(row.curriculum_version_id), gradeLevel: String(row.grade_level), name: String(row.name) }
+      }),
+      gradeLevel,
+      learningArea,
+      aliases: catalogEntry?.aliases ?? [],
+      preferredCurriculumCode: catalogEntry?.curriculumCode ?? null,
+    })
+
+    if (!resolved) {
+      const local = fallback('no applicable curriculum version contains this learning area')
+      if (local) return local
+      return {
+        available: false, schoolYear, gradeLevel, learningArea, version: null, subject: null,
+        periods: [], domains: [], standards: [], competencies: [], source: null,
+        coverageNote: catalogEntry
+          ? `${catalogEntry.curriculumName} is catalogued, but GuroDesk has not loaded its verified ${learningArea} competency pack yet.`
+          : 'Applicable curriculum versions are loaded, but none contains this learning area yet.',
+      }
+    }
+    versionId = resolved.version.id
+    resolvedSubjectId = resolved.subject.id
+    applicabilityNote = resolved.version.note
   }
 
-  const versionRows = (versionsResult.data ?? []).map((row) => row as Record<string, unknown>)
-  const subjectRows = (subjectsResult.data ?? []).map((row) => row as Record<string, unknown>)
-  const acceptedSubjectNames = new Set(
-    [learningArea, catalogEntry?.learningArea, ...(catalogEntry?.aliases ?? [])]
-      .filter((value): value is string => Boolean(value))
-      .map((value) => value.trim().toLocaleLowerCase('en')),
-  )
-  const applicabilityByVersion = new Map(
-    applicabilityCandidates.map((row) => [String(row.curriculum_version_id), row]),
-  )
-  const versionById = new Map(versionRows.map((row) => [String(row.id), row]))
-  const resolution = resolveCurriculumSubjectVersion(
-    applicabilityCandidates.map((row) => ({
-      versionId: String(row.curriculum_version_id),
-      priority: Number(row.priority ?? 100),
-    })),
-    versionRows.map((row) => ({ id: String(row.id), code: String(row.code ?? '') })),
-    subjectRows.map((row) => ({
-      versionId: String(row.curriculum_version_id),
-      name: String(row.name ?? ''),
-      value: row,
-    })),
-    acceptedSubjectNames,
-    catalogEntry?.curriculumCode,
-  )
-
-  const subjectRow = resolution.subject
-  const selectedVersionId = resolution.versionId ?? String(applicabilityCandidates[0].curriculum_version_id)
-  const selectedVersionRow = versionById.get(selectedVersionId)
-  if (!selectedVersionRow) {
-    const local = fallback('Supabase returned no curriculum version row for the applicable assignment')
+  if (!versionId) throw new Error('Curriculum version resolution did not return a version.')
+  const versionResult = await supabase.from('curriculum_versions').select('*').eq('id', versionId).single()
+  if (versionResult.error) {
+    const local = fallback('the Supabase curriculum version lookup failed')
     if (local) return local
-    return unavailable(catalogCoverageNote ?? 'The applicable curriculum version has not been fully registered yet.')
+    throw versionResult.error
   }
 
-  const version = mapCurriculumVersion(selectedVersionRow)
-  const applicability = applicabilityByVersion.get(selectedVersionId) ?? applicabilityCandidates[0]
+  let subjectRows: Array<Record<string, unknown>> = []
+  if (resolvedSubjectId) {
+    const result = await supabase.from('curriculum_subjects').select('*').eq('id', resolvedSubjectId).limit(1)
+    if (result.error) throw result.error
+    subjectRows = (result.data ?? []) as Array<Record<string, unknown>>
+  } else {
+    const result = await supabase.from('curriculum_subjects').select('*').eq('curriculum_version_id', versionId).eq('grade_level', gradeLevel)
+    if (result.error) throw result.error
+    const aliases = catalogEntry?.aliases ?? []
+    const exactNames = new Set([learningArea, ...aliases].map((value) => value.trim().toLocaleLowerCase('en')))
+    subjectRows = ((result.data ?? []) as Array<Record<string, unknown>>).filter((row) => exactNames.has(String(row.name).trim().toLocaleLowerCase('en'))).slice(0, 1)
+  }
+
+  const subjectRow = subjectRows[0]
   if (!subjectRow) {
     const local = fallback('Supabase returned no verified subject row for this assignment')
     if (local) return local
-    return unavailable(
-      catalogCoverageNote
-        ?? 'The applicable curriculum version is known, but this learning area has not been imported and verified yet.',
-      version,
-    )
+    return {
+      available: false, schoolYear, gradeLevel, learningArea,
+      version: mapCurriculumVersion(versionResult.data as Record<string, unknown>),
+      subject: null, periods: [], domains: [], standards: [], competencies: [], source: null,
+      coverageNote: curriculumVersionId
+        ? 'The selected private curriculum no longer contains this grade level and learning area.'
+        : catalogEntry
+          ? `${catalogEntry.curriculumName} is catalogued, but the exact verified ${learningArea} subject pack is not loaded yet.`
+          : 'The applicable curriculum version is known, but this learning area has not been imported and verified yet.',
+    }
   }
 
   const subjectId = String(subjectRow.id)
   const [periodsResult, domainsResult, standardsResult, competenciesResult] = await Promise.all([
-    supabase
-      .from('academic_periods')
-      .select('*')
-      .eq('curriculum_version_id', selectedVersionId)
-      .eq('subject_id', subjectId)
-      .order('sequence', { ascending: true }),
+    supabase.from('academic_periods').select('*').eq('curriculum_version_id', versionId).eq('subject_id', subjectId).order('sequence', { ascending: true }),
     supabase.from('curriculum_domains').select('*').eq('subject_id', subjectId).order('sort_order'),
     supabase.from('curriculum_standards').select('*').eq('subject_id', subjectId).order('sort_order'),
-    supabase
-      .from('curriculum_competencies')
-      .select('*')
-      .eq('subject_id', subjectId)
-      .eq('verification_status', 'verified')
-      .order('sort_order'),
+    supabase.from('curriculum_competencies').select('*').eq('subject_id', subjectId).eq('verification_status', 'verified').order('sort_order'),
   ])
-
   if (periodsResult.error || domainsResult.error || standardsResult.error || competenciesResult.error) {
     const local = fallback('one of the Supabase verified curriculum queries failed')
     if (local) return local
@@ -392,10 +384,20 @@ export async function loadCurriculumNavigator(
     throw competenciesResult.error
   }
 
-  const periods = (periodsResult.data ?? []).map((row) => mapCurriculumPeriod(row as Record<string, unknown>))
-  const domains = (domainsResult.data ?? []).map((row) => mapCurriculumDomain(row as Record<string, unknown>))
-  const standards = (standardsResult.data ?? []).map((row) => mapCurriculumStandard(row as Record<string, unknown>))
-  const subject = mapCurriculumSubject(subjectRow)
+  if ((competenciesResult.data ?? []).length === 0) {
+    const local = fallback('Supabase returned zero verified competency rows')
+    if (local) return local
+    return {
+      available: false, schoolYear, gradeLevel, learningArea,
+      version: mapCurriculumVersion(versionResult.data as Record<string, unknown>),
+      subject: mapCurriculumSubject(subjectRow), periods: [], domains: [], standards: [], competencies: [], source: null,
+      coverageNote: curriculumVersionId
+        ? 'This private curriculum version is approved, but it contains no approved competencies yet. Add competencies in Curriculum Navigator before using it downstream.'
+        : catalogEntry
+          ? `${catalogEntry.curriculumName} is source-catalogued, but its exact verified ${learningArea} competency rows are not loaded yet.`
+          : 'This curriculum subject exists but has no verified competency rows.',
+    }
+  }
 
   const sourceId = subjectRow.source_document_id ? String(subjectRow.source_document_id) : null
   let source: SourceDocument | null = null
@@ -404,37 +406,18 @@ export async function loadCurriculumNavigator(
     if (sourceResult.error) throw sourceResult.error
     source = mapSourceDocument(sourceResult.data as Record<string, unknown>)
   }
-
-  // A subject row without verified competencies is catalog/provenance coverage, not
-  // executable curriculum coverage. Never expose it as available to TOS/lesson flows.
-  if ((competenciesResult.data ?? []).length === 0) {
-    const local = fallback('Supabase returned zero verified competency rows')
-    if (local) return local
-    return unavailable(
-      catalogCoverageNote
-        ?? 'The curriculum subject is registered, but no source-verified competency pack is loaded yet. GuroDesk will not invent competencies.',
-      version,
-      subject,
-      periods,
-      domains,
-      standards,
-      source,
-    )
-  }
-
+  const version = mapCurriculumVersion(versionResult.data as Record<string, unknown>)
   return {
-    available: true,
-    schoolYear,
-    gradeLevel,
-    learningArea,
-    version,
-    subject,
-    periods,
-    domains,
-    standards,
+    available: true, schoolYear, gradeLevel, learningArea, version,
+    subject: mapCurriculumSubject(subjectRow),
+    periods: (periodsResult.data ?? []).map((row) => mapCurriculumPeriod(row as Record<string, unknown>)),
+    domains: (domainsResult.data ?? []).map((row) => mapCurriculumDomain(row as Record<string, unknown>)),
+    standards: (standardsResult.data ?? []).map((row) => mapCurriculumStandard(row as Record<string, unknown>)),
     competencies: (competenciesResult.data ?? []).map((row) => mapCurriculumCompetency(row as Record<string, unknown>)),
     source,
-    coverageNote: applicability.notes ? String(applicability.notes) : null,
+    coverageNote: curriculumVersionId
+      ? `${version.originKind === 'hybrid' ? 'School hybrid curriculum' : 'Teacher/school custom curriculum'} · teacher-approved private source.`
+      : applicabilityNote,
   }
 }
 

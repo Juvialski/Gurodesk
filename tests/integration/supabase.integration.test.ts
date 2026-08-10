@@ -151,6 +151,284 @@ describe('Phase 5.5 local Supabase integration', () => {
     await useApplicationTeacher(teacherA)
   })
 
+  it('publishes a teacher-private custom curriculum and enforces owner isolation', async () => {
+    const teacherA = harness.teachers[0]
+    const teacherB = harness.teachers[1]
+    const importId = crypto.randomUUID()
+    const review = {
+      schemaVersion: 1,
+      curriculumMode: 'custom',
+      title: 'Phase 6 Private School Mathematics',
+      organizationName: 'Phase 6 Example Academy',
+      schoolYear: '2026-2027',
+      gradeLevel: 'Grade 7',
+      learningArea: 'Mathematics',
+      periods: [{ key: 'q1', label: 'Quarter 1', sequence: 1, periodType: 'quarter' }],
+      domains: [{ key: 'geometry', code: 'GEO', name: 'Geometry', sortOrder: 0 }],
+      standards: [],
+      competencies: [{
+        competencyCode: 'SCH-G7-GEO-01',
+        competencyText: 'Classify polygons used in a school design context.',
+        periodKey: 'q1',
+        domainKey: 'geometry',
+        sortOrder: 0,
+        sourcePage: null,
+      }],
+      warnings: [],
+    }
+
+    const { error: insertError } = await teacherA.client.from('custom_curriculum_imports').insert({
+      id: importId,
+      user_id: teacherA.id,
+      status: 'analyzed',
+      source_kind: 'manual',
+      curriculum_mode: 'custom',
+      title: review.title,
+      organization_name: review.organizationName,
+      school_year: review.schoolYear,
+      grade_level: review.gradeLevel,
+      learning_area: review.learningArea,
+      source_hash: `phase6-${importId}`,
+      analysis_json: review,
+      review_json: review,
+    })
+    expect(insertError).toBeNull()
+
+    const { data: publishedVersionId, error: publishError } = await teacherA.client.rpc('publish_custom_curriculum', {
+      p_import_id: importId,
+      p_review_json: review,
+    })
+    expect(publishError).toBeNull()
+    expect(typeof publishedVersionId).toBe('string')
+
+    const { data: ownVersion, error: ownVersionError } = await teacherA.client
+      .from('curriculum_versions')
+      .select('id,origin_kind,owner_user_id,approval_status')
+      .eq('id', publishedVersionId)
+      .single()
+    expect(ownVersionError).toBeNull()
+    expect(ownVersion).toMatchObject({ origin_kind: 'custom', owner_user_id: teacherA.id, approval_status: 'approved' })
+
+    const { data: ownCompetencies, error: competencyError } = await teacherA.client
+      .from('curriculum_competencies')
+      .select('id,competency_code,competency_text,source_page,provenance_kind')
+      .eq('provenance_kind', 'custom')
+      .eq('competency_text', review.competencies[0].competencyText)
+    expect(competencyError).toBeNull()
+    expect(ownCompetencies).toHaveLength(1)
+
+    const { data: hiddenVersion, error: hiddenVersionError } = await teacherB.client
+      .from('curriculum_versions')
+      .select('id')
+      .eq('id', publishedVersionId)
+      .maybeSingle()
+    expect(hiddenVersionError).toBeNull()
+    expect(hiddenVersion).toBeNull()
+
+    const { data: hiddenImport, error: hiddenImportError } = await teacherB.client
+      .from('custom_curriculum_imports')
+      .select('id')
+      .eq('id', importId)
+      .maybeSingle()
+    expect(hiddenImportError).toBeNull()
+    expect(hiddenImport).toBeNull()
+
+    const { data: privateAssignment, error: assignmentError } = await teacherA.client.from('teacher_assignments').insert({
+      user_id: teacherA.id,
+      school_year: '2026-2027',
+      grade_level: 'Grade 7',
+      learning_area: 'Mathematics',
+      section_names: ['Private-A'],
+      is_active: true,
+      curriculum_source_kind: 'custom',
+      curriculum_version_id: publishedVersionId,
+    }).select('id,curriculum_source_kind,curriculum_version_id').single()
+    expect(assignmentError).toBeNull()
+    expect(privateAssignment?.curriculum_source_kind).toBe('custom')
+    expect(privateAssignment?.curriculum_version_id).toBe(publishedVersionId)
+
+    // A custom assignment must accept its own reviewed competency and reject an
+    // official competency from another curriculum version even when grade and
+    // learning-area labels match. This exercises the shared downstream guard
+    // used by both lesson-plan and TOS competency links.
+    const { data: lessonDocument, error: lessonDocumentError } = await teacherA.client.from('documents').insert({
+      user_id: teacherA.id,
+      assignment_id: privateAssignment?.id,
+      document_type: 'lesson_plan',
+      title: 'Phase 6 private curriculum link guard',
+      school_year: '2026-2027',
+      status: 'draft',
+      structured_content: {},
+    }).select('id').single()
+    expect(lessonDocumentError).toBeNull()
+    expect(lessonDocument?.id).toBeTruthy()
+
+    const customCompetency = ownCompetencies?.[0]
+    expect(customCompetency?.id).toBeTruthy()
+    const { error: ownLinkError } = await teacherA.client.from('lesson_plan_competencies').insert({
+      document_id: lessonDocument?.id,
+      competency_id: customCompetency?.id,
+      competency_text_snapshot: customCompetency?.competency_text,
+      competency_code_snapshot: customCompetency?.competency_code,
+      source_page_snapshot: customCompetency?.source_page,
+    })
+    expect(ownLinkError).toBeNull()
+
+    const { error: crossCurriculumLinkError } = await teacherA.client.from('lesson_plan_competencies').insert({
+      document_id: lessonDocument?.id,
+      competency_id: curriculum.competency.id,
+      competency_text_snapshot: curriculum.competency.competency_text,
+      competency_code_snapshot: curriculum.competency.competency_code,
+      source_page_snapshot: curriculum.competency.source_page,
+    })
+    expect(crossCurriculumLinkError).toBeTruthy()
+    expect(crossCurriculumLinkError?.message).toMatch(/curriculum version selected|assignment/i)
+
+    const { error: crossOwnerAssignmentError } = await teacherB.client.from('teacher_assignments').insert({
+      user_id: teacherB.id,
+      school_year: '2026-2027',
+      grade_level: 'Grade 7',
+      learning_area: 'Mathematics',
+      section_names: ['Private-B'],
+      is_active: true,
+      curriculum_source_kind: 'custom',
+      curriculum_version_id: publishedVersionId,
+    })
+    expect(crossOwnerAssignmentError).toBeTruthy()
+  })
+
+  it('publishes an official-base hybrid curriculum without mutating DepEd rows', async () => {
+    const teacherA = harness.teachers[0]
+    const teacherB = harness.teachers[1]
+    const importId = crypto.randomUUID()
+    const review = {
+      schemaVersion: 1,
+      curriculumMode: 'hybrid',
+      title: 'Phase 6 DepEd + School Mathematics',
+      organizationName: 'Phase 6 Example Academy',
+      schoolYear: '2026-2027',
+      gradeLevel: 'Grade 7',
+      learningArea: 'Mathematics',
+      periods: [{ key: 'base-q1', label: curriculum.period.label, sequence: 1, periodType: 'quarter' }],
+      domains: [{ key: 'school-enrichment', code: 'ENR', name: 'School Enrichment', sortOrder: 999 }],
+      standards: [],
+      competencies: [{
+        competencyCode: 'SCH-G7-ENR-01',
+        competencyText: 'Apply polygon classification in a school-designed enrichment task.',
+        periodKey: 'base-q1',
+        domainKey: 'school-enrichment',
+        sortOrder: 999,
+        sourcePage: null,
+      }],
+      warnings: [],
+    }
+
+    const { error: insertError } = await teacherA.client.from('custom_curriculum_imports').insert({
+      id: importId,
+      user_id: teacherA.id,
+      status: 'analyzed',
+      source_kind: 'manual',
+      curriculum_mode: 'hybrid',
+      base_curriculum_version_id: curriculum.version.id,
+      title: review.title,
+      organization_name: review.organizationName,
+      school_year: review.schoolYear,
+      grade_level: review.gradeLevel,
+      learning_area: review.learningArea,
+      source_hash: `phase6-hybrid-${importId}`,
+      analysis_json: review,
+      review_json: review,
+    })
+    expect(insertError).toBeNull()
+
+    const { data: publishedVersionId, error: publishError } = await teacherA.client.rpc('publish_custom_curriculum', {
+      p_import_id: importId,
+      p_review_json: review,
+    })
+    expect(publishError).toBeNull()
+    expect(typeof publishedVersionId).toBe('string')
+
+    const { data: hybridVersion, error: versionError } = await teacherA.client
+      .from('curriculum_versions')
+      .select('id,origin_kind,owner_user_id,base_curriculum_version_id,approval_status')
+      .eq('id', publishedVersionId)
+      .single()
+    expect(versionError).toBeNull()
+    expect(hybridVersion).toMatchObject({
+      origin_kind: 'hybrid',
+      owner_user_id: teacherA.id,
+      base_curriculum_version_id: curriculum.version.id,
+      approval_status: 'approved',
+    })
+
+    const { data: hybridSubject, error: subjectError } = await teacherA.client
+      .from('curriculum_subjects')
+      .select('id')
+      .eq('curriculum_version_id', publishedVersionId)
+      .eq('grade_level', 'Grade 7')
+      .eq('name', 'Mathematics')
+      .single()
+    expect(subjectError).toBeNull()
+
+    const { data: inherited, error: inheritedError } = await teacherA.client
+      .from('curriculum_competencies')
+      .select('base_competency_id,provenance_kind,competency_text')
+      .eq('subject_id', hybridSubject?.id)
+      .eq('base_competency_id', curriculum.competency.id)
+      .single()
+    expect(inheritedError).toBeNull()
+    expect(inherited).toMatchObject({
+      base_competency_id: curriculum.competency.id,
+      provenance_kind: 'inherited',
+      competency_text: curriculum.competency.competency_text,
+    })
+
+    const { data: enrichment, error: enrichmentError } = await teacherA.client
+      .from('curriculum_competencies')
+      .select('base_competency_id,provenance_kind,competency_text')
+      .eq('subject_id', hybridSubject?.id)
+      .eq('competency_text', review.competencies[0].competencyText)
+      .single()
+    expect(enrichmentError).toBeNull()
+    expect(enrichment).toMatchObject({ base_competency_id: null, provenance_kind: 'custom' })
+
+    // Publishing a hybrid must not mutate the canonical official competency.
+    const { data: officialAfter, error: officialError } = await teacherA.client
+      .from('curriculum_competencies')
+      .select('id,base_competency_id,provenance_kind,competency_text')
+      .eq('id', curriculum.competency.id)
+      .single()
+    expect(officialError).toBeNull()
+    expect(officialAfter).toMatchObject({
+      id: curriculum.competency.id,
+      base_competency_id: null,
+      provenance_kind: 'official',
+      competency_text: curriculum.competency.competency_text,
+    })
+
+    const { data: hiddenHybrid, error: hiddenHybridError } = await teacherB.client
+      .from('curriculum_versions')
+      .select('id')
+      .eq('id', publishedVersionId)
+      .maybeSingle()
+    expect(hiddenHybridError).toBeNull()
+    expect(hiddenHybrid).toBeNull()
+
+    const { data: hybridAssignment, error: assignmentError } = await teacherA.client.from('teacher_assignments').insert({
+      user_id: teacherA.id,
+      school_year: '2026-2027',
+      grade_level: 'Grade 7',
+      learning_area: 'Mathematics',
+      section_names: ['Hybrid-A'],
+      is_active: true,
+      curriculum_source_kind: 'hybrid',
+      curriculum_version_id: publishedVersionId,
+    }).select('id,curriculum_source_kind,curriculum_version_id').single()
+    expect(assignmentError).toBeNull()
+    expect(hybridAssignment?.curriculum_source_kind).toBe('hybrid')
+    expect(hybridAssignment?.curriculum_version_id).toBe(publishedVersionId)
+  })
+
   it('performs new and existing assessment saves through the transactional RPC', async () => {
     const teacher = harness.teachers[0]
     await useApplicationTeacher(teacher)

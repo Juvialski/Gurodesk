@@ -1,3 +1,5 @@
+import type { CurriculumSourceKind } from './customCurriculum'
+
 export type BackendMode = 'supabase' | 'demo'
 
 export type Profile = {
@@ -20,6 +22,8 @@ export type TeacherAssignment = {
   learningArea: string
   sections: string[]
   isActive: boolean
+  curriculumSourceKind: CurriculumSourceKind
+  curriculumVersionId: string | null
 }
 
 export type AcademicPeriodType = 'term' | 'quarter' | 'semester' | 'year'

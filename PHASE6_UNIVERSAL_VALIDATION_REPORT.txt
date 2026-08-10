@@ -1,0 +1,66 @@
+GuroDesk Phase 6 Universal Curriculum validation report
+Date: 2026-08-10
+
+BASELINE
+- Preserves the assessment generation + validated geometry/SVG checkpoint from gurodesk-generation-visual-final.zip.
+- Preserves the Phase 6 national curriculum catalog/resolver work.
+- Adds one new migration only: 202608100025_phase6_custom_hybrid_curricula.sql.
+- Expected migration count: 25.
+
+IMPLEMENTED / STATICALLY VERIFIED
+PASS - private/custom/hybrid curriculum source model
+PASS - PDF/DOCX/XLSX/CSV/TXT/Markdown upload/paste/manual import paths
+PASS - AI extraction remains draft-only and uses existing teacher BYOK credential boundary
+PASS - explicit teacher review/approval before canonical publication
+PASS - private custom-curricula Storage bucket and owner-scoped Storage RLS
+PASS - owner-only custom_curriculum_imports RLS
+PASS - official curriculum rows stay shared/immutable; private rows are owner-scoped
+PASS - guarded publish_custom_curriculum(uuid,jsonb) RPC
+PASS - guarded archive_custom_curriculum(uuid) RPC
+PASS - hybrid inheritance retains immutable base_competency_id provenance
+PASS - class assignments persist official/custom/hybrid source kind and pinned private version
+PASS - lesson-plan/TOS competency-link guards prevent cross-source/version mixing
+PASS - private-school onboarding has a direct path to Curriculum Navigator
+PASS - Curriculum Navigator exposes custom/private curriculum management without requiring an official assignment
+PASS - migration harness expects 25 migrations and upgrade range 015-025
+PASS - curriculum-import-analyzer registered in supabase/config.toml
+PASS - Phase 6 national curriculum validator
+PASS - Phase 6 custom/hybrid curriculum validator
+PASS - existing BYOK validator; existing 3.5/3.1 Lite policy unchanged
+PASS - bash syntax for scripts/test-db-migrations.sh
+PASS - TypeScript syntax/transpile diagnostics across 168 TS/TSX source/test/function files
+PASS - Playwright assessment-flow regression validator scopes the `final` status assertion to the TOS card created by that test
+
+EXISTING VALIDATOR RUN IN THIS ENVIRONMENT
+PASS - curriculum manifest validator (52 verified Grade 7 Mathematics competencies)
+PASS - BYOK
+PASS - Phase 2
+PASS - Phase 3
+PASS - Phase 3.5
+PASS - Phase 3.5.1
+PASS - Phase 3.5.2
+PASS - Phase 3.5.3
+PASS - Phase 3.6
+PASS - Phase 3.6.1
+PASS - Phase 3.6.2
+PASS - Phase 3.6.3
+PASS - Phase 3.7
+STOPPED at Phase 4 because this execution environment does not contain the npm package tree (first missing runtime dependency: pizzip). The local npm mirror previously returned 404 for yallist@3.1.1, so a clean npm ci / full Vite/Vitest run could not be completed here.
+
+GITHUB ACTIONS RELEASE GATE REQUIRED
+The configured GitHub runner must run:
+- npm run test:ci
+- fresh migrations 001-025
+- upgrade migrations 001-014 fixture -> 015-025
+- local two-teacher Supabase/RLS/integration suite
+- Chromium E2E
+
+LATEST E2E REGRESSION FIX
+The previously reported assessment-flow failure occurred in a suite where multiple finalized TOS records can coexist. The test previously used a page-global exact `final` locator. It now first locates the TOS card containing the unique test title and asserts `final` inside that card. This removes strict-locator ambiguity without weakening the product behavior being tested. GitHub Actions remains authoritative confirmation.
+
+DELIBERATE LIMITATIONS
+- Custom curricula are private to one teacher account. School/organization-wide sharing is not introduced yet.
+- Custom curriculum AI import is one-time/adaptive draft extraction; the teacher must review and publish.
+- No AI-generated official DepEd competencies are allowed.
+- Hybrid mode requires an available verified official base curriculum for the selected assignment.
+- No real Gemini requests are made by automated tests.

@@ -1,4 +1,4 @@
--- Behavioral assertions for the 001-014 -> 015-021 upgrade path.
+-- Behavioral assertions for the 001-014 -> 015-025 upgrade path.
 \set ON_ERROR_STOP on
 
 select set_config('request.jwt.claim.sub', '11111111-1111-4111-8111-111111111111', false);
@@ -225,6 +225,45 @@ begin
      or public.result_item_is_correct(item_value, valid_answer, '{}'::jsonb) is not true
      or public.result_item_earned_points(item_value, valid_answer, '{}'::jsonb) <> 3 then
     raise exception 'Upgrade assertion: migration 019 result scoring/reference behavior failed';
+  end if;
+end;
+$$;
+
+
+-- Phase 6 universal curriculum schema assertions.
+do $$
+begin
+  if to_regclass('public.custom_curriculum_imports') is null then
+    raise exception 'Upgrade assertion: custom_curriculum_imports is missing';
+  end if;
+  if not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'curriculum_versions' and column_name = 'origin_kind'
+  ) or not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'curriculum_versions' and column_name = 'owner_user_id'
+  ) or not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'curriculum_competencies' and column_name = 'provenance_kind'
+  ) or not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'teacher_assignments' and column_name = 'curriculum_source_kind'
+  ) then
+    raise exception 'Upgrade assertion: universal curriculum ownership/provenance columns are incomplete';
+  end if;
+  if to_regprocedure('public.publish_custom_curriculum(uuid,jsonb)') is null
+     or to_regprocedure('public.archive_custom_curriculum(uuid)') is null then
+    raise exception 'Upgrade assertion: custom curriculum RPCs are missing';
+  end if;
+  if to_regprocedure('public.guard_assignment_curriculum_competency_link()') is null then
+    raise exception 'Upgrade assertion: downstream assignment curriculum competency guard is missing';
+  end if;
+  if not exists (select 1 from pg_trigger where tgname = 'lesson_plan_assignment_curriculum_guard' and not tgisinternal)
+     or not exists (select 1 from pg_trigger where tgname = 'tos_assignment_curriculum_guard' and not tgisinternal) then
+    raise exception 'Upgrade assertion: lesson/TOS assignment curriculum guard triggers are missing';
+  end if;
+  if not exists (select 1 from storage.buckets where id = 'custom-curricula' and public is false) then
+    raise exception 'Upgrade assertion: private custom-curricula Storage bucket is missing';
   end if;
 end;
 $$;

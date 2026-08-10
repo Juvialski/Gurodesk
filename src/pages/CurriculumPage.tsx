@@ -14,6 +14,7 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CurriculumCatalogBrowser } from '../components/CurriculumCatalogBrowser'
+import { CustomCurriculumPanel } from '../components/CustomCurriculumPanel'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
@@ -21,7 +22,7 @@ import { loadCurriculumNavigator, loadSchoolYearCalendar } from '../lib/reposito
 import type { CurriculumNavigatorBundle, SchoolYearCalendar } from '../types/curriculum'
 
 export function CurriculumPage() {
-  const { assignments, isDemo } = useApp()
+  const { assignments, isDemo, user, profile, refreshWorkspace } = useApp()
   const [assignmentId, setAssignmentId] = useState(assignments[0]?.id ?? '')
   const [bundle, setBundle] = useState<CurriculumNavigatorBundle | null>(null)
   const [calendar, setCalendar] = useState<SchoolYearCalendar | null>(null)
@@ -60,6 +61,7 @@ export function CurriculumPage() {
         assignment.gradeLevel,
         assignment.learningArea,
         isDemo,
+        assignment.curriculumVersionId,
       ),
       loadSchoolYearCalendar(assignment.schoolYear, isDemo),
     ])
@@ -117,39 +119,71 @@ export function CurriculumPage() {
       .filter((group) => group.competencies.length > 0)
   }, [bundle, selectedCompetencies])
 
+  if (!assignments.length) {
+    return (
+      <>
+        <PageHeader
+          eyebrow="Universal curriculum"
+          title="Curriculum Navigator"
+          description="Use verified DepEd records or bring a private-school curriculum into the same lesson, TOS, assessment, and results workflow."
+        />
+        <CurriculumCatalogBrowser
+          initialSchoolYear={profile?.schoolYear ?? '2026-2027'}
+          initialGradeLevel="Grade 7"
+        />
+        {user && <CustomCurriculumPanel
+          userId={user.id}
+          isDemo={isDemo}
+          schoolName={profile?.schoolName ?? ''}
+          defaultSchoolYear={profile?.schoolYear ?? '2026-2027'}
+          onPublished={refreshWorkspace}
+        />}
+        <EmptyState
+          icon={BookMarked}
+          title="Add a teaching assignment when your curriculum is ready"
+          description="Official DepEd users can add a class immediately. Private-school teachers can first upload, paste, or manually build a curriculum above, approve it, then select that private version in My Classes."
+        />
+      </>
+    )
+  }
 
   return (
     <>
       <PageHeader
-        eyebrow="DepEd knowledge · Phase 6"
+        eyebrow="Universal curriculum · Phase 6"
         title="Curriculum Navigator"
-        description="Browse the national DepEd curriculum catalog and open source-verified competency packs by school year, teaching assignment, curriculum version, and guide sequence."
-        actions={assignments.length ? (
+        description="Browse the exact curriculum attached to each class: verified DepEd, teacher-approved school custom, or DepEd + school enrichment."
+        actions={
           <label className="compact-select curriculum-assignment-select">
             <span>Teaching assignment</span>
             <select value={assignmentId} onChange={(event) => setAssignmentId(event.target.value)}>
               {assignments.map((item) => (
                 <option key={item.id} value={item.id}>
-                  {item.gradeLevel} · {item.learningArea}
+                  {item.gradeLevel} · {item.learningArea}{item.curriculumSourceKind === 'official' ? '' : item.curriculumSourceKind === 'hybrid' ? ' · Hybrid' : ' · School'}
                 </option>
               ))}
             </select>
           </label>
-        ) : undefined}
+        }
       />
 
       <CurriculumCatalogBrowser
-        initialGradeLevel={assignment?.gradeLevel ?? 'Grade 7'}
-        initialSchoolYear={assignment?.schoolYear ?? '2026-2027'}
+        initialSchoolYear={assignment?.schoolYear ?? profile?.schoolYear ?? '2026-2027'}
+        initialGradeLevel={assignment?.gradeLevel}
+        highlightedLearningArea={assignment?.curriculumSourceKind === 'official' ? assignment.learningArea : null}
       />
 
-      {!assignments.length && (
-        <EmptyState
-          icon={BookMarked}
-          title="Add a teaching assignment to use verified competencies"
-          description="The national catalog is available above. Add a grade level and learning area in My Classes when you want GuroDesk to resolve an executable, source-verified competency pack for lesson planning and assessment."
-        />
-      )}
+      {user && <CustomCurriculumPanel
+        userId={user.id}
+        isDemo={isDemo}
+        schoolName={profile?.schoolName ?? ''}
+        defaultSchoolYear={assignment?.schoolYear ?? profile?.schoolYear ?? '2026-2027'}
+        defaultGradeLevel={assignment?.gradeLevel}
+        defaultLearningArea={assignment?.learningArea}
+        baseCurriculumVersionId={assignment?.curriculumSourceKind === 'official' ? bundle?.version?.id ?? null : bundle?.version?.baseCurriculumVersionId ?? null}
+        baseCurriculumLabel={assignment?.curriculumSourceKind === 'official' ? bundle?.version?.name ?? null : null}
+        onPublished={refreshWorkspace}
+      />}
 
       {calendar && (
         <div className="calendar-context panel">
@@ -211,12 +245,12 @@ export function CurriculumPage() {
             <div className="panel curriculum-version-card source-card">
               <span className="summary-icon amber"><ShieldCheck size={20} /></span>
               <div>
-                <small>Official source</small>
-                <strong>{bundle.source?.title ?? 'Verified DepEd source'}</strong>
-                <p>{bundle.source?.verificationStatus === 'verified' ? 'Source provenance verified' : 'Source metadata available'}</p>
+                <small>{bundle.version.originKind === 'official' ? 'Official source' : 'Private curriculum source'}</small>
+                <strong>{bundle.source?.title ?? (bundle.version.originKind === 'official' ? 'Verified DepEd source' : 'Teacher-approved school source')}</strong>
+                <p>{bundle.version.originKind === 'official' ? (bundle.source?.verificationStatus === 'verified' ? 'Official source provenance verified' : 'Source metadata available') : `${bundle.version.organizationName ?? 'Teacher/school'} · revision ${bundle.version.revisionNumber ?? 1}`}</p>
                 {bundle.source?.sourceUrl && (
                   <a className="source-link" href={bundle.source.sourceUrl} target="_blank" rel="noreferrer">
-                    Open DepEd source <ExternalLink size={13} />
+                    Open source <ExternalLink size={13} />
                   </a>
                 )}
               </div>
@@ -288,7 +322,7 @@ export function CurriculumPage() {
                           <span className="competency-text">{competency.competencyText}</span>
                           <span className="competency-meta">
                             {competency.competencyCode && <span>{competency.competencyCode}</span>}
-                            <span><CheckCircle2 size={12} /> Verified</span>
+                            <span><CheckCircle2 size={12} /> {competency.provenanceKind === 'custom' ? 'School-approved' : competency.provenanceKind === 'inherited' ? 'Inherited verified base' : 'Verified'}</span>
                             {competency.sourcePage && <span>Source p. {competency.sourcePage}</span>}
                           </span>
                         </span>
@@ -321,9 +355,9 @@ export function CurriculumPage() {
                   <>
                     <div className="selected-competency-preview">
                       <p>{selectedCompetency.competencyText}</p>
-                      <small>Verified source{selectedCompetency.sourcePage ? ` · page ${selectedCompetency.sourcePage}` : ''}</small>
+                      <small>{selectedCompetency.provenanceKind === 'custom' ? 'Teacher-approved school source' : selectedCompetency.provenanceKind === 'inherited' ? 'Inherited verified base source' : 'Verified source'}{selectedCompetency.sourcePage ? ` · page ${selectedCompetency.sourcePage}` : ''}</small>
                     </div>
-                    <p>GuroDesk will pass this exact verified competency into the teacher-led ILAW planner. Gemini is limited to permitted text-support tasks after the teacher makes the core instructional decisions.</p>
+                    <p>GuroDesk will pass this exact approved competency into the teacher-led ILAW planner. Gemini is limited to permitted text-support tasks after the teacher makes the core instructional decisions.</p>
                   </>
                 ) : (
                   <p>Select any competency in the list. GuroDesk will preserve that selection as the grounding target for lesson and assessment creation.</p>

@@ -134,7 +134,7 @@ assert.doesNotMatch(exportSource, /Gemini|gemini|fetch\(|GuroDesk/)
 assert.doesNotMatch(read('src/components/AssessmentDocumentView.tsx'), /qaState|authorshipState|teacherNotes|internal/i)
 
 const edge = read('supabase/functions/assessment-question-generator/index.ts')
-for (const required of ['operation', "'verify'", "'repair'", 'oppositeLiteModel', 'pointsPossible', 'questionType', 'assessment_ai_audit_events', 'fallbackAllowed', 'isLiteModel']) assert.match(edge, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
+for (const required of ['operation', "'verify'", "'repair'", 'oppositeLiteModel', 'pointsPossible', 'questionType', 'assessment_ai_audit_events', 'callGeminiWithDiscoveredFallback', 'isLiteModel']) assert.match(edge, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
 assert.match(edge, /responseMimeType:\s*'application\/json'/, 'raw Gemini generateContent requests use the supported JSON MIME configuration')
 assert.doesNotMatch(edge, /responseFormat\s*:/, 'raw v1beta generateContent must not receive the incompatible responseFormat object')
 assert.match(edge, /validateCandidate\(/, 'server-side per-type validation remains authoritative after JSON parsing')

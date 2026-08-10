@@ -12,8 +12,10 @@ test('creates an assessment from a finalized TOS and preserves edits across relo
   // Finalization should make the source visible in the ordinary TOS list,
   // which is the same list consumed by AssessmentNewPage.
   await appPage.goto('/tos')
-  await expect(appPage.getByRole('heading', { name: tosTitle })).toBeVisible()
-  await expect(appPage.getByText('final', { exact: true })).toBeVisible()
+  const tosCard = appPage.locator('article.tos-list-card').filter({ hasText: tosTitle })
+  await expect(tosCard).toHaveCount(1)
+  await expect(tosCard.getByRole('heading', { name: tosTitle })).toBeVisible()
+  await expect(tosCard.getByText('final', { exact: true })).toBeVisible()
 
   await appPage.goto(`/assessments/new?tos=${finalizedTos.id}`)
   await expect(appPage.getByRole('heading', { name: 'New assessment' })).toBeVisible()

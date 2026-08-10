@@ -16,8 +16,6 @@ export const GRADE_LEVELS = [
   'Grade 12',
 ]
 
-// Learning-area choices are grade-aware and sourced from curriculumCatalog.ts.
-// Keep this compatibility list for legacy assignments that may already contain an older label.
 export const LEARNING_AREAS = [
   'Mathematics',
   'English',
@@ -25,10 +23,10 @@ export const LEARNING_AREAS = [
   'Science',
   'Araling Panlipunan',
   'MAPEH',
-  'TLE',
-  'EPP',
-  'GMRC',
-  'Values Education',
+  'Technology and Livelihood Education',
+  'Values Education / GMRC',
+  'Edukasyong Pantahanan at Pangkabuhayan',
+  'Senior High School Core / Track Subject',
   'Other',
 ]
 

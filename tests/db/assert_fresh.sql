@@ -61,4 +61,43 @@ begin
 end;
 $$;
 
+
+-- Phase 6 universal curriculum schema assertions.
+do $$
+begin
+  if to_regclass('public.custom_curriculum_imports') is null then
+    raise exception 'Fresh assertion: custom_curriculum_imports is missing';
+  end if;
+  if not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'curriculum_versions' and column_name = 'origin_kind'
+  ) or not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'curriculum_versions' and column_name = 'owner_user_id'
+  ) or not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'curriculum_competencies' and column_name = 'provenance_kind'
+  ) or not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'teacher_assignments' and column_name = 'curriculum_source_kind'
+  ) then
+    raise exception 'Fresh assertion: universal curriculum ownership/provenance columns are incomplete';
+  end if;
+  if to_regprocedure('public.publish_custom_curriculum(uuid,jsonb)') is null
+     or to_regprocedure('public.archive_custom_curriculum(uuid)') is null then
+    raise exception 'Fresh assertion: custom curriculum RPCs are missing';
+  end if;
+  if to_regprocedure('public.guard_assignment_curriculum_competency_link()') is null then
+    raise exception 'Fresh assertion: downstream assignment curriculum competency guard is missing';
+  end if;
+  if not exists (select 1 from pg_trigger where tgname = 'lesson_plan_assignment_curriculum_guard' and not tgisinternal)
+     or not exists (select 1 from pg_trigger where tgname = 'tos_assignment_curriculum_guard' and not tgisinternal) then
+    raise exception 'Fresh assertion: lesson/TOS assignment curriculum guard triggers are missing';
+  end if;
+  if not exists (select 1 from storage.buckets where id = 'custom-curricula' and public is false) then
+    raise exception 'Fresh assertion: private custom-curricula Storage bucket is missing';
+  end if;
+end;
+$$;
+
 select 'fresh migration application: ok' as result;
