@@ -1,3 +1,6 @@
+> **SUPERSEDED — historical troubleshooting note.**
+> Do not implement the `responseFormat`/provider-schema path described below. Production subsequently reproduced the HTTP 400 regression. The current source of truth is `README_ASSESSMENT_JSON_MIME_RESTORE.md`: normal generation/repair uses `responseMimeType: application/json` only.
+
 # Assessment provider contract hotfix — 2026-08-10
 
 Production retest after the shallow-schema correction still failed for every assessment type.

@@ -90,9 +90,25 @@ export const REGULAR_HEXAGON_VISUAL: AssessmentVisual = {
   ],
 }
 
+
+/** A Cartesian graph fixture that exercises the TikZ-first math renderer. */
+export const CARTESIAN_LINEAR_GRAPH_VISUAL: AssessmentVisual = {
+  id: 'visual-cartesian-linear',
+  kind: 'geometry',
+  version: 1,
+  width: 360,
+  height: 240,
+  altText: 'A Cartesian coordinate plane showing the line y equals 2x plus 1.',
+  primitives: [
+    { type: 'cartesianAxes', axisId: 'axes-1', x: 42, y: 28, width: 276, height: 184, xMin: -5, xMax: 5, yMin: -5, yMax: 5, xTick: 1, yTick: 1, showGrid: true, xLabel: 'x', yLabel: 'y', color: 'ink', strokeWidth: 1 },
+    { type: 'cartesianPlot', axisId: 'axes-1', points: [{ x: -3, y: -5 }, { x: -2, y: -3 }, { x: -1, y: -1 }, { x: 0, y: 1 }, { x: 1, y: 3 }, { x: 2, y: 5 }], showPoints: false, color: 'blue', strokeWidth: 2 },
+  ],
+}
+
 export const ASSESSMENT_VISUAL_FIXTURES = {
   irregularConcavePentagon: IRREGULAR_CONCAVE_PENTAGON_VISUAL,
   marksAndLabels: ASSESSMENT_VISUAL_MARKS_FIXTURE,
   convexQuadrilateral: CONVEX_QUADRILATERAL_VISUAL,
   regularHexagon: REGULAR_HEXAGON_VISUAL,
+  cartesianLinearGraph: CARTESIAN_LINEAR_GRAPH_VISUAL,
 } as const

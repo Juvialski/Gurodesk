@@ -1,3 +1,5 @@
+> **Historical note.** Provider-side assessment schemas were later removed from normal generation after further live regressions. Current normal generation uses JSON MIME mode only and authoritative server-side validation; see `README_ASSESSMENT_JSON_MIME_RESTORE.md`.
+
 # GuroDesk non-MCQ generation + CI static validator correction
 
 This correction follows the production retest where Multiple Choice and True/False generated successfully but other formats still failed individually.

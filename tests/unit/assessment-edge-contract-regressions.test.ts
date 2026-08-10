@@ -19,6 +19,18 @@ describe('Edge assessment candidate contract regressions', () => {
     expect(result.visual).toBeNull()
   })
 
+  it('deduplicates equivalent fill-in-the-blank accepted answers instead of rejecting the generated item', () => {
+    const candidate = {
+      ...edgeCandidate('fill_in_the_blank'),
+      answer: {
+        type: 'fill_in_the_blank',
+        blanks: [{ id: 'blank-1', acceptedAnswers: ['Hexagon', 'hexagon.', '  HEXAGON!  '], caseSensitive: false }],
+      },
+    }
+    const result = validateEdgeCandidate(candidate, 'fill_in_the_blank', [])
+    expect(result.answer).toMatchObject({ type: 'fill_in_the_blank', blanks: [{ id: 'blank-1', acceptedAnswers: ['Hexagon'] }] })
+  })
+
   it.each(ASSESSMENT_QUESTION_TYPES)('rejects malformed JSON for %s', (questionType) => {
     expect(() => validateEdgeCandidate('{"questionType":', questionType)).toThrowError(AssessmentContractError)
   })

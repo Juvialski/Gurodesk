@@ -2,8 +2,9 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement } from 'react'
 import { describe, expect, it } from 'vitest'
 import { AssessmentDiagram } from '../../src/components/AssessmentDiagram'
-import { ASSESSMENT_VISUAL_FIXTURES, IRREGULAR_CONCAVE_PENTAGON_VISUAL } from '../../src/lib/assessmentVisualFixtures'
+import { ASSESSMENT_VISUAL_FIXTURES, CARTESIAN_LINEAR_GRAPH_VISUAL, IRREGULAR_CONCAVE_PENTAGON_VISUAL } from '../../src/lib/assessmentVisualFixtures'
 import { assessmentVisualSvgMarkup } from '../../src/lib/assessmentVisualExport'
+import { assessmentVisualTikzSource, escapeTikzText } from '../../src/lib/assessmentTikz'
 import { validateAssessmentVisual } from '../../src/lib/assessmentVisualValidation'
 import { buildAssessmentAnswerKeyExportModel, buildAssessmentStudentExportModel, buildAssessmentTeacherExportModel } from '../../src/lib/assessmentExportModel'
 import type { AssessmentVisual } from '../../src/types/assessmentVisual'
@@ -16,6 +17,25 @@ describe('safe assessment visuals', () => {
     expect(ASSESSMENT_VISUAL_FIXTURES.convexQuadrilateral.altText).toContain('convex')
     expect(ASSESSMENT_VISUAL_FIXTURES.regularHexagon.altText).toContain('regular')
     expect(ASSESSMENT_VISUAL_FIXTURES.convexQuadrilateral.primitives.some((primitive) => primitive.type === 'textLabel' && primitive.text.includes('='))).toBe(true)
+  })
+
+  it('translates only validated visual data into TikZ and supports Cartesian graphs', () => {
+    const source = assessmentVisualTikzSource(CARTESIAN_LINEAR_GRAPH_VISUAL)
+    expect(source).toContain('\\begin{tikzpicture}')
+    expect(source).toContain('\\draw[->')
+    expect(source).toContain('line width=0.8pt')
+    expect(source).toContain('--')
+    expect(source).not.toContain('\\usepackage')
+    expect(source).not.toContain('\\input')
+    expect(assessmentVisualSvgMarkup(CARTESIAN_LINEAR_GRAPH_VISUAL)).toContain('data-axis-id="axes-1"')
+    expect(escapeTikzText('x_1 & 50%')).toBe('x\\_1 \\& 50\\%')
+  })
+
+  it('rejects Cartesian plots with missing axes or points outside the declared bounds', () => {
+    const orphan = { ...CARTESIAN_LINEAR_GRAPH_VISUAL, primitives: [{ type: 'cartesianPlot', axisId: 'missing', points: [{ x: 0, y: 0 }, { x: 1, y: 1 }] }] } as unknown as AssessmentVisual
+    expect(validateAssessmentVisual(orphan).valid).toBe(false)
+    const outOfBounds = { ...CARTESIAN_LINEAR_GRAPH_VISUAL, primitives: CARTESIAN_LINEAR_GRAPH_VISUAL.primitives.map((primitive) => primitive.type === 'cartesianPlot' ? { ...primitive, points: [...primitive.points, { x: 7, y: 1 }] } : primitive) } as AssessmentVisual
+    expect(validateAssessmentVisual(outOfBounds).errors.some((message) => message.includes('Cartesian bounds'))).toBe(true)
   })
 
   it('rejects generic/missing alt text, unknown keys, unsafe coordinates, primitives, labels, and style fields', () => {

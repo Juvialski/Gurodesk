@@ -174,13 +174,12 @@ Key invariants:
 Release gate: migrations 001–026, static/unit/build, fresh/upgrade DB assertions, two-teacher integration/RLS, and Chromium E2E must pass in GitHub Actions. The previously failing assessment-flow E2E was hardened by scoping the `final` status assertion to the TOS card created by that test; GitHub Actions remains the authority for confirming the fix.
 
 Assessment generation production invariant (2026-08-10):
-- Assessment generation uses the current documented `responseFormat.text` JSON-Schema contract for Gemini 3.5 Flash-Lite, while Gemini 3.1 Flash-Lite intentionally retains the legacy `responseMimeType` + `responseSchema` compatibility path. Do not collapse the two paths without a live provider regression test.
-- The provider-side assessment schema is intentionally **shallow**: fixed `questionType`, top-level text fields, `answer: OBJECT`, and nullable `visual: OBJECT`.
-- The exact 11 answer contracts and safe visual primitive contract remain authoritative in `assessment-contract.ts` / visual validation after JSON parsing.
-- Do not wire the deep `answerSchemas[type]` or full visual primitive schema back into `responseSchemaForQuestionType`; that previously destabilized real Gemini generation.
-- CI uses a disposable local Supabase stack and does not itself deploy hosted Edge Functions. After any assessment-generator change, verify production `assessment-question-generator` is deployed from the same `main` commit; a green Render deploy updates only the frontend.
-- `extractGeminiText()` must exclude any Gemini response part marked `thought: true` before joining final text for JSON parsing.
-- Gemini Lite high-thinking policy remains unchanged and this fix adds no extra provider call.
+- Normal assessment generation/repair uses the production-proven raw Gemini `generateContent` boundary with `generationConfig.responseMimeType = "application/json"` only.
+- Do **not** attach `responseFormat` or provider `responseSchema` to normal question generation. Both caused live provider regressions during this release cycle; exact 11-type answer/visual validation remains authoritative after JSON parsing in the server contract.
+- The explicit verifier operation is separate and may keep its small fixed schema.
+- `extractGeminiText()` must exclude any response part marked `thought: true` before joining final JSON text.
+- Gemini Lite HIGH-thinking policy and the 3.5/3.1 Lite fallback remain unchanged; no routine extra provider call was added.
+- CI uses a disposable local Supabase stack and does not itself deploy hosted Edge Functions. After an assessment-generator change, verify the production `assessment-question-generator` deploys from the same `main` commit as the frontend.
 
 25. `supabase/migrations/202608100025_phase6_custom_hybrid_curricula.sql`
 26. `supabase/migrations/202608100026_phase6_publish_curriculum_subject_id_hotfix.sql`
@@ -189,3 +188,18 @@ Assessment generation production invariant (2026-08-10):
 
 After the Phase 6 CI-green checkpoint, a provider-contract experiment reintroduced `generationConfig.responseFormat` for Gemini 3.5 Flash-Lite and production returned the previously known structured-request HTTP 400 failure. The current source restores the production-proven raw `generateContent` boundary: normal generation/repair use `responseMimeType: application/json` only, with no `responseFormat` and no provider schema. Exact 11-type answer/visual validation remains server-side. Do not reintroduce `responseFormat` into the raw assessment generation request. See `README_ASSESSMENT_JSON_MIME_RESTORE.md`.
 
+
+
+## TikZ-first math visuals + generated-answer normalization — 2026-08-10
+
+The assessment visual pipeline is now math-first without allowing model-supplied executable markup:
+- Gemini returns only the bounded validated assessment visual data model; it must never return TikZ, SVG, HTML, JavaScript, raster data, or an executable formula string.
+- GuroDesk deterministically translates a validated visual into TikZ in `src/lib/assessmentTikz.ts`. All model-supplied labels are TeX-escaped before compilation.
+- Browser preview compiles that GuroDesk-authored TikZ in the sandboxed `AssessmentTikzDiagram` runtime. The existing deterministic React/SVG renderer remains the loading/offline/export fallback; print/PDF remain deterministic and do not depend on executing model code.
+- Cartesian graphs are represented by `cartesianAxes` plus one or more `cartesianPlot` primitives. Plot data is sampled numeric `(x,y)` points bounded by a referenced axis; GuroDesk never evaluates a model-supplied function/formula string.
+- Geometry TikZ uses restrained textbook line styling and opaque label backing to keep labels readable when model coordinates approach a segment or angle ray.
+- Generated short-answer/identification/fill-in-the-blank accepted-answer arrays are normalized before acceptance. Equivalent capitalization and terminal-punctuation variants are deduplicated rather than rejecting an otherwise valid suggestion. Final stored assessment validation remains strict.
+
+Regression guard: `scripts/check-assessment-math-visuals.mjs` runs automatically under `validate:all` because the validator harness executes every `check-*.mjs` script. Preserve this guard when extending visuals.
+
+No database migration was added. Migration count remains 26.

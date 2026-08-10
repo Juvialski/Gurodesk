@@ -151,6 +151,41 @@ export type AssessmentVisualArrow = {
   strokeWidth?: AssessmentVisualStrokeWidth
 }
 
+
+export type AssessmentVisualCartesianAxes = {
+  type: 'cartesianAxes'
+  /** Stable identifier used by cartesianPlot primitives in the same visual. */
+  axisId: string
+  /** Plot rectangle in the visual canvas. */
+  x: number
+  y: number
+  width: number
+  height: number
+  /** Mathematical bounds. Zero must lie inside both ranges. */
+  xMin: number
+  xMax: number
+  yMin: number
+  yMax: number
+  xTick?: number
+  yTick?: number
+  showGrid?: boolean
+  xLabel?: string
+  yLabel?: string
+  color?: AssessmentVisualColor
+  strokeWidth?: AssessmentVisualStrokeWidth
+}
+
+export type AssessmentVisualCartesianPlot = {
+  type: 'cartesianPlot'
+  axisId: string
+  /** Sampled mathematical coordinates; GuroDesk never evaluates arbitrary formulas. */
+  points: Array<{ x: number; y: number }>
+  showPoints?: boolean
+  dashed?: boolean
+  color?: AssessmentVisualColor
+  strokeWidth?: AssessmentVisualStrokeWidth
+}
+
 export type AssessmentVisualElement =
   | AssessmentVisualPoint
   | AssessmentVisualSegment
@@ -165,6 +200,8 @@ export type AssessmentVisualElement =
   | AssessmentVisualPerpendicularMark
   | AssessmentVisualArrow
   | AssessmentVisualDashedSegment
+  | AssessmentVisualCartesianAxes
+  | AssessmentVisualCartesianPlot
 
 export type AssessmentVisual = {
   /** Stable visual identity within the assessment item. */
@@ -191,6 +228,8 @@ export const ASSESSMENT_VISUAL_TYPES: readonly AssessmentVisualElement['type'][]
   'perpendicularMark',
   'arrow',
   'dashedSegment',
+  'cartesianAxes',
+  'cartesianPlot',
 ] as const
 
 /** The only colours a visual renderer may use. */

@@ -61,6 +61,25 @@ function stringList(value: unknown, label: string, maxItems: number, maxLength: 
   return result
 }
 
+function acceptedAnswerKey(value: string, caseSensitive: boolean) {
+  const normalized = value.normalize('NFKC').trim().replace(/[.,;:!?]+$/u, '').trim()
+  return caseSensitive ? normalized : normalized.toLocaleLowerCase('en')
+}
+
+function uniqueAcceptedAnswers(value: unknown, label: string, caseSensitive: boolean) {
+  const entries = stringList(value, label, 20, 500, { minItems: 1, unique: false })
+  const seen = new Set<string>()
+  const result: string[] = []
+  for (const entry of entries) {
+    const key = acceptedAnswerKey(entry, caseSensitive)
+    if (!key || seen.has(key)) continue
+    seen.add(key)
+    result.push(entry)
+  }
+  if (!result.length) throw new AssessmentContractError(`${label} must contain at least one nonblank answer.`)
+  return result
+}
+
 function id(value: unknown, fallback: string, label: string) {
   const candidate = value === undefined ? fallback : text(value, label, 80)
   if (!candidate || /[\u0000-\u001F<>]/u.test(candidate)) throw new AssessmentContractError(`${label} is invalid.`)
@@ -135,8 +154,8 @@ function normalizeAnswer(answer: unknown, questionType: QuestionType): Row {
   }
   if (questionType === 'short_answer' || questionType === 'identification') {
     onlyKeys(source, ['type', 'acceptedAnswers', 'caseSensitive'], 'Accepted-answer shape')
-    const acceptedAnswers = stringList(source.acceptedAnswers, 'Accepted answers', 20, 500, { minItems: 1 })
     const caseSensitive = source.caseSensitive === undefined ? false : boolean(source.caseSensitive, 'Case sensitivity')
+    const acceptedAnswers = uniqueAcceptedAnswers(source.acceptedAnswers, 'Accepted answers', caseSensitive)
     return { type: questionType, acceptedAnswers, caseSensitive }
   }
   if (questionType === 'fill_in_the_blank') {
@@ -146,9 +165,10 @@ function normalizeAnswer(answer: unknown, questionType: QuestionType): Row {
       const candidate = object(entry)
       if (!candidate) throw new AssessmentContractError('Fill-in-the-blank blank shape is invalid.')
       onlyKeys(candidate, ['id', 'acceptedAnswers', 'caseSensitive', 'pointsPossible'], 'Fill-in-the-blank blank')
-      const acceptedAnswers = stringList(candidate.acceptedAnswers, 'Blank accepted answers', 20, 500, { minItems: 1 })
+      const caseSensitive = has(candidate, 'caseSensitive') ? boolean(candidate.caseSensitive, 'Blank case sensitivity') : false
+      const acceptedAnswers = uniqueAcceptedAnswers(candidate.acceptedAnswers, 'Blank accepted answers', caseSensitive)
       const normalized: Row = { id: id(candidate.id, `blank-${index + 1}`, 'Blank id'), acceptedAnswers }
-      if (has(candidate, 'caseSensitive')) normalized.caseSensitive = boolean(candidate.caseSensitive, 'Blank case sensitivity')
+      if (has(candidate, 'caseSensitive')) normalized.caseSensitive = caseSensitive
       if (has(candidate, 'pointsPossible')) normalized.pointsPossible = finiteNumber(candidate.pointsPossible, 'Blank points', 0.000001)
       return normalized
     })

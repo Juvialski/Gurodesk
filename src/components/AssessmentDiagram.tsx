@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react'
 import { ASSESSMENT_VISUAL_FIXTURES } from '../lib/assessmentVisualFixtures'
+import { AssessmentTikzDiagram } from './AssessmentTikzDiagram'
 import { validateAssessmentVisual } from '../lib/assessmentVisualValidation'
 import type {
   AssessmentVisual,
   AssessmentVisualColor,
   AssessmentVisualElement,
+  AssessmentVisualCartesianAxes,
 } from '../types/assessmentVisual'
 import { ASSESSMENT_VISUAL_PALETTE } from '../types/assessmentVisual'
 
@@ -71,6 +73,49 @@ function markLines(element: { x1: number; y1: number; x2: number; y2: number; co
   return lines
 }
 
+
+function cartesianMap(axis: AssessmentVisualCartesianAxes, x: number, y: number) {
+  return {
+    x: axis.x + ((x - axis.xMin) / (axis.xMax - axis.xMin)) * axis.width,
+    y: axis.y + axis.height - ((y - axis.yMin) / (axis.yMax - axis.yMin)) * axis.height,
+  }
+}
+
+function cartesianTicks(minimum: number, maximum: number, step: number) {
+  const values: number[] = []
+  const safeStep = Math.max(Math.abs(step), 1e-6)
+  const start = Math.ceil(minimum / safeStep) * safeStep
+  for (let value = start, count = 0; value <= maximum + safeStep * 1e-8 && count < 80; value += safeStep, count += 1) {
+    values.push(Math.abs(value) < safeStep * 1e-8 ? 0 : Math.round(value * 1e9) / 1e9)
+  }
+  return values
+}
+
+function renderCartesianAxes(axis: AssessmentVisualCartesianAxes, index: number) {
+  const stroke = color(axis.color)
+  const strokeWidth = width(axis.strokeWidth)
+  const origin = cartesianMap(axis, 0, 0)
+  const left = cartesianMap(axis, axis.xMin, 0)
+  const right = cartesianMap(axis, axis.xMax, 0)
+  const bottom = cartesianMap(axis, 0, axis.yMin)
+  const top = cartesianMap(axis, 0, axis.yMax)
+  const xTick = axis.xTick ?? 1
+  const yTick = axis.yTick ?? 1
+  return <g key={index} data-axis-id={axis.axisId} fill="none">
+    {axis.showGrid && cartesianTicks(axis.xMin, axis.xMax, xTick).filter((entry) => entry !== 0).map((entry) => { const a = cartesianMap(axis, entry, axis.yMin); const b = cartesianMap(axis, entry, axis.yMax); return <line key={`gx-${entry}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#d7dde5" strokeWidth={0.7} /> })}
+    {axis.showGrid && cartesianTicks(axis.yMin, axis.yMax, yTick).filter((entry) => entry !== 0).map((entry) => { const a = cartesianMap(axis, axis.xMin, entry); const b = cartesianMap(axis, axis.xMax, entry); return <line key={`gy-${entry}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#d7dde5" strokeWidth={0.7} /> })}
+    <line x1={left.x} y1={left.y} x2={right.x} y2={right.y} stroke={stroke} strokeWidth={strokeWidth} />
+    <polyline points={`${right.x - 8},${right.y - 4} ${right.x},${right.y} ${right.x - 8},${right.y + 4}`} stroke={stroke} strokeWidth={strokeWidth} />
+    <line x1={bottom.x} y1={bottom.y} x2={top.x} y2={top.y} stroke={stroke} strokeWidth={strokeWidth} />
+    <polyline points={`${top.x - 4},${top.y + 8} ${top.x},${top.y} ${top.x + 4},${top.y + 8}`} stroke={stroke} strokeWidth={strokeWidth} />
+    {cartesianTicks(axis.xMin, axis.xMax, xTick).filter((entry) => entry !== 0).map((entry) => { const p = cartesianMap(axis, entry, 0); return <g key={`xt-${entry}`}><line x1={p.x} y1={p.y - 3} x2={p.x} y2={p.y + 3} stroke={stroke} strokeWidth={0.7} /><text x={p.x} y={p.y + 15} textAnchor="middle" fontSize={10} fill={stroke}>{entry}</text></g> })}
+    {cartesianTicks(axis.yMin, axis.yMax, yTick).filter((entry) => entry !== 0).map((entry) => { const p = cartesianMap(axis, 0, entry); return <g key={`yt-${entry}`}><line x1={p.x - 3} y1={p.y} x2={p.x + 3} y2={p.y} stroke={stroke} strokeWidth={0.7} /><text x={p.x - 7} y={p.y + 3} textAnchor="end" fontSize={10} fill={stroke}>{entry}</text></g> })}
+    <text x={origin.x - 6} y={origin.y + 13} textAnchor="end" fontSize={10} fill={stroke}>0</text>
+    {axis.xLabel && <text x={right.x - 2} y={right.y - 8} textAnchor="start" fontSize={12} fill={stroke}>{axis.xLabel}</text>}
+    {axis.yLabel && <text x={top.x + 8} y={top.y + 4} textAnchor="start" fontSize={12} fill={stroke}>{axis.yLabel}</text>}
+  </g>
+}
+
 function linesForElement(element: AssessmentVisualElement, index: number): ReactNode {
   const stroke = color(element.color)
   const strokeWidth = strokeWidthFor(element)
@@ -80,7 +125,7 @@ function linesForElement(element: AssessmentVisualElement, index: number): React
   return null
 }
 
-function renderElement(element: AssessmentVisualElement, index: number) {
+function renderElement(element: AssessmentVisualElement, index: number, axes: Map<string, AssessmentVisualCartesianAxes>) {
   const stroke = color(element.color)
   const strokeWidth = strokeWidthFor(element)
   const common = { stroke, strokeWidth, vectorEffect: 'non-scaling-stroke' as const }
@@ -116,17 +161,36 @@ function renderElement(element: AssessmentVisualElement, index: number) {
     case 'equalSideMark':
     case 'parallelMark':
       return linesForElement(element, index)
+    case 'cartesianAxes':
+      return renderCartesianAxes(element, index)
+    case 'cartesianPlot': {
+      const axis = axes.get(element.axisId)
+      if (!axis) return null
+      const points = element.points.map((entry) => cartesianMap(axis, entry.x, entry.y))
+      return <g key={index} fill="none" stroke={stroke} strokeWidth={strokeWidth} strokeDasharray={element.dashed ? '7 5' : undefined} strokeLinecap="round" strokeLinejoin="round">
+        <polyline points={points.map(pointString).join(' ')} />
+        {element.showPoints && points.map((entry, pointIndex) => <circle key={pointIndex} cx={entry.x} cy={entry.y} r={3} fill={stroke} stroke="none" />)}
+      </g>
+    }
     default:
       return null
   }
 }
 
-export function AssessmentDiagram({ visual, className = '' }: { visual?: AssessmentVisual; className?: string }) {
+export function AssessmentSvgDiagram({ visual, className = '' }: { visual?: AssessmentVisual; className?: string }) {
   if (!visual || !validateAssessmentVisual(visual).valid) return null
+  const axes = new Map<string, AssessmentVisualCartesianAxes>()
+  visual.primitives.forEach((element) => { if (element.type === 'cartesianAxes') axes.set(element.axisId, element) })
   return <svg className={`assessment-diagram ${className}`.trim()} viewBox={`0 0 ${visual.width} ${visual.height}`} role="img" aria-label={visual.altText} preserveAspectRatio="xMidYMid meet">
     <title>{visual.altText}</title>
-    {visual.primitives.map(renderElement)}
+    {visual.primitives.map((element, index) => renderElement(element, index, axes))}
   </svg>
+}
+
+export function AssessmentDiagram({ visual, className = '' }: { visual?: AssessmentVisual; className?: string }) {
+  if (!visual || !validateAssessmentVisual(visual).valid) return null
+  const fallback = <AssessmentSvgDiagram visual={visual} />
+  return <AssessmentTikzDiagram visual={visual} className={className} fallback={fallback} />
 }
 
 function appendElement(visual: AssessmentVisual, element: AssessmentVisualElement): AssessmentVisual {
@@ -136,21 +200,23 @@ function appendElement(visual: AssessmentVisual, element: AssessmentVisualElemen
 
 export function AssessmentVisualEditor({ visual, disabled = false, onChange }: { visual?: AssessmentVisual; disabled?: boolean; onChange: (visual: AssessmentVisual | undefined) => void }) {
   const validation = visual ? validateAssessmentVisual(visual) : null
-  if (!visual) return <div className="assessment-visual-editor" data-testid="assessment-visual-editor"><div className="assessment-visual-editor-heading"><div><span className="assessment-field-label">Geometry visual</span><small>Add a safe, print-friendly diagram that is independent of the question type.</small></div><button className="button secondary" type="button" disabled={disabled} onClick={() => onChange(ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon)}>Add diagram</button></div></div>
+  if (!visual) return <div className="assessment-visual-editor" data-testid="assessment-visual-editor"><div className="assessment-visual-editor-heading"><div><span className="assessment-field-label">Math visual</span><small>Add a safe, print-friendly TikZ-backed diagram or Cartesian graph.</small></div><button className="button secondary" type="button" disabled={disabled} onClick={() => onChange(ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon)}>Add diagram</button></div></div>
   const addPoint = () => onChange(appendElement(visual, { type: 'point', x: visual.width / 2, y: visual.height / 2, color: 'red', radius: 4 }))
   const addLabel = () => onChange(appendElement(visual, { type: 'textLabel', x: visual.width / 2, y: Math.max(18, visual.height / 2 - 14), text: 'A', color: 'ink', textSize: 'medium', anchor: 'middle' }))
-  const addPolygon = () => onChange(appendElement(visual, { type: 'polygon', points: [{ x: 70, y: 55 }, { x: visual.width - 70, y: 55 }, { x: visual.width / 2, y: visual.height / 2 }, { x: visual.width - 70, y: visual.height - 55 }, { x: 70, y: visual.height - 55 }], color: 'blue', fill: 'blue', strokeWidth: 2 }))
+  const addPolygon = () => onChange(appendElement(visual, { type: 'polygon', points: [{ x: 70, y: 55 }, { x: visual.width - 70, y: 55 }, { x: visual.width / 2, y: visual.height / 2 }, { x: visual.width - 70, y: visual.height - 55 }, { x: 70, y: visual.height - 55 }], color: 'ink', strokeWidth: 2 }))
+  const replaceWithGraph = () => onChange({ ...ASSESSMENT_VISUAL_FIXTURES.cartesianLinearGraph, id: visual.id, altText: visual.altText || ASSESSMENT_VISUAL_FIXTURES.cartesianLinearGraph.altText })
   return <fieldset className="assessment-visual-editor" data-testid="assessment-visual-editor">
-    <legend>Geometry visual</legend>
+    <legend>Math visual</legend>
     <AssessmentDiagram visual={visual} />
     <label className="assessment-visual-alt">Useful alt text<input disabled={disabled} value={visual.altText} onChange={(event) => onChange({ ...visual, altText: event.target.value })} maxLength={240} /></label>
     <div className="assessment-visual-editor-actions">
       <button className="button ghost" type="button" disabled={disabled || visual.primitives.length >= 80} onClick={addPolygon}>Add polygon</button>
       <button className="button ghost" type="button" disabled={disabled || visual.primitives.length >= 80} onClick={addPoint}>Add point</button>
       <button className="button ghost" type="button" disabled={disabled || visual.primitives.length >= 80} onClick={addLabel}>Add label</button>
+      <button className="button ghost" type="button" disabled={disabled} onClick={replaceWithGraph}>Use Cartesian graph</button>
       <button className="button ghost danger" type="button" disabled={disabled} onClick={() => onChange(undefined)}>Remove diagram</button>
     </div>
     {validation && !validation.valid && <small className="assessment-visual-error">{validation.errors.join(' ')}</small>}
-    <small className="assessment-field-help">The canvas, colours, marks, and text are fixed to a safe print palette; diagrams never accept raw SVG, HTML, CSS, scripts, or TikZ.</small>
+    <small className="assessment-field-help">Math visuals are compiled from GuroDesk's validated visual data into deterministic TikZ. Gemini never supplies executable TikZ/SVG/HTML; the built-in SVG/PDF renderer remains the offline/export fallback.</small>
   </fieldset>
 }

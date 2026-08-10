@@ -138,7 +138,7 @@ function assessmentVisualErrors(value: unknown): string[] {
   const alt = typeof root.altText === 'string' ? root.altText.normalize('NFKC').trim() : ''
   if (!alt || alt.length > 240 || /[<>]/u.test(alt) || /^(image|diagram)$/iu.test(alt)) errors.push('Visual alt text must be useful bounded plain text (not a generic image label).')
   if (!Array.isArray(root.primitives) || root.primitives.length < 1 || root.primitives.length > 80) errors.push('Visual primitives must contain between 1 and 80 supported primitives.')
-  const types = new Set(['point', 'segment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow', 'dashedSegment'])
+  const types = new Set(['point', 'segment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow', 'dashedSegment', 'cartesianAxes', 'cartesianPlot'])
   const colors = new Set(['ink', 'blue', 'red', 'green', 'gold', 'purple', 'gray'])
   const primitiveKeys: Record<string, string[]> = {
     point: ['type', 'x', 'y', 'radius', 'color', 'strokeWidth'],
@@ -154,6 +154,8 @@ function assessmentVisualErrors(value: unknown): string[] {
     equalSideMark: ['type', 'x1', 'y1', 'x2', 'y2', 'count', 'color', 'strokeWidth'],
     parallelMark: ['type', 'x1', 'y1', 'x2', 'y2', 'count', 'color', 'strokeWidth'],
     perpendicularMark: ['type', 'x', 'y', 'angle', 'size', 'color', 'strokeWidth'],
+    cartesianAxes: ['type', 'axisId', 'x', 'y', 'width', 'height', 'xMin', 'xMax', 'yMin', 'yMax', 'xTick', 'yTick', 'showGrid', 'xLabel', 'yLabel', 'color', 'strokeWidth'],
+    cartesianPlot: ['type', 'axisId', 'points', 'showPoints', 'dashed', 'color', 'strokeWidth'],
   }
   const finiteInside = (number: unknown, limit: number) => typeof number === 'number' && Number.isFinite(number) && number >= 0 && number <= limit
   const checkColor = (entry: Record<string, unknown>) => { if (entry.color !== undefined && !colors.has(String(entry.color))) errors.push('Visual elements must use the fixed colour palette.'); if (entry.fill !== undefined && !colors.has(String(entry.fill))) errors.push('Visual fills must use the fixed colour palette.') }
@@ -173,8 +175,48 @@ function assessmentVisualErrors(value: unknown): string[] {
     else if (type === 'angleArc') { const vertex = entry.vertex && typeof entry.vertex === 'object' && !Array.isArray(entry.vertex) ? entry.vertex as Record<string, unknown> : {}; const radius = entry.radius as number; if (!finiteInside(vertex.x, width) || !finiteInside(vertex.y, height) || typeof radius !== 'number' || !Number.isFinite(radius) || radius < 0.5 || radius > 800 || Number(vertex.x) - radius < 0 || Number(vertex.x) + radius > width || Number(vertex.y) - radius < 0 || Number(vertex.y) + radius > height) errors.push('Visual angle arc geometry must be finite and fit inside the canvas.'); if (typeof entry.startAngle !== 'number' || typeof entry.endAngle !== 'number' || !Number.isFinite(entry.startAngle) || !Number.isFinite(entry.endAngle) || Math.abs(entry.startAngle) > 720 || Math.abs(entry.endAngle) > 720 || Math.abs(entry.endAngle - entry.startAngle) <= 0 || Math.abs(entry.endAngle - entry.startAngle) > 360) errors.push('Visual angle arc angles must define a bounded nonzero span.') }
     else if (type === 'textLabel') { const label = typeof entry.text === 'string' ? entry.text.normalize('NFKC').trim() : ''; if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height) || !label || label.length > 80 || /[<>]/u.test(label)) errors.push('Visual labels must use bounded plain text and in-canvas coordinates.'); if (entry.textSize !== undefined && !['small', 'medium', 'large'].includes(String(entry.textSize))) errors.push('Visual textSize is unsupported.'); if (entry.anchor !== undefined && !['start', 'middle', 'end'].includes(String(entry.anchor))) errors.push('Visual text anchor is unsupported.') }
     else if (type === 'perpendicularMark') { if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height) || typeof entry.angle !== 'number' || !Number.isFinite(entry.angle) || (typeof entry.angle === 'number' && Math.abs(entry.angle) > 720) || typeof entry.size !== 'number' || !Number.isFinite(entry.size) || entry.size < 2 || entry.size > 80) errors.push('Visual perpendicular marks must use bounded coordinates and dimensions.'); if (typeof entry.x === 'number' && typeof entry.y === 'number' && typeof entry.angle === 'number' && typeof entry.size === 'number') { const radians = entry.angle * Math.PI / 180; const ux = Math.cos(radians); const uy = Math.sin(radians); const px = -uy; const py = ux; const corners = [{ x: entry.x, y: entry.y }, { x: entry.x + ux * entry.size, y: entry.y + uy * entry.size }, { x: entry.x + (ux + px) * entry.size, y: entry.y + (uy + py) * entry.size }, { x: entry.x + px * entry.size, y: entry.y + py * entry.size }]; if (corners.some((corner) => !finiteInside(corner.x, width) || !finiteInside(corner.y, height))) errors.push('Visual perpendicular marks must fit inside the canvas.') } }
+    else if (type === 'cartesianAxes') {
+      const numeric = (value: unknown, min = -10000, max = 10000) => typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max
+      const axisId = typeof entry.axisId === 'string' ? entry.axisId.normalize('NFKC').trim() : ''
+      if (!axisId || axisId.length > 80 || /[<>]/u.test(axisId)) errors.push('Cartesian axis IDs must be bounded plain text.')
+      if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height) || !numeric(entry.width, 80, width) || !numeric(entry.height, 80, height) || Number(entry.x) + Number(entry.width) > width || Number(entry.y) + Number(entry.height) > height) errors.push('Cartesian plot rectangles must fit inside the visual canvas.')
+      if (![entry.xMin, entry.xMax, entry.yMin, entry.yMax].every((value) => numeric(value))) errors.push('Cartesian mathematical bounds must be finite and bounded.')
+      if (typeof entry.xMin === 'number' && typeof entry.xMax === 'number' && !(entry.xMin < 0 && entry.xMax > 0 && entry.xMin < entry.xMax)) errors.push('Cartesian x bounds must straddle zero and increase.')
+      if (typeof entry.yMin === 'number' && typeof entry.yMax === 'number' && !(entry.yMin < 0 && entry.yMax > 0 && entry.yMin < entry.yMax)) errors.push('Cartesian y bounds must straddle zero and increase.')
+      if (entry.xTick !== undefined && !numeric(entry.xTick, 0.000001, 10000)) errors.push('Cartesian x tick spacing must be positive.')
+      if (entry.yTick !== undefined && !numeric(entry.yTick, 0.000001, 10000)) errors.push('Cartesian y tick spacing must be positive.')
+      if (entry.showGrid !== undefined && typeof entry.showGrid !== 'boolean') errors.push('Cartesian showGrid must be boolean.')
+      for (const label of [entry.xLabel, entry.yLabel]) if (label !== undefined && (typeof label !== 'string' || !label.normalize('NFKC').trim() || label.length > 40 || /[<>]/u.test(label))) errors.push('Cartesian axis labels must be bounded plain text.')
+    }
+    else if (type === 'cartesianPlot') {
+      const axisId = typeof entry.axisId === 'string' ? entry.axisId.normalize('NFKC').trim() : ''
+      if (!axisId || axisId.length > 80 || /[<>]/u.test(axisId)) errors.push('Cartesian plots need a valid axis ID.')
+      if (!Array.isArray(entry.points) || entry.points.length < 2 || entry.points.length > 160) errors.push('Cartesian plots must contain 2–160 sampled points.')
+      if (Array.isArray(entry.points)) entry.points.forEach((point) => { const candidate = point && typeof point === 'object' && !Array.isArray(point) ? point as Record<string, unknown> : {}; if (Object.keys(candidate).some((key) => !['x', 'y'].includes(key)) || typeof candidate.x !== 'number' || !Number.isFinite(candidate.x) || Math.abs(candidate.x) > 10000 || typeof candidate.y !== 'number' || !Number.isFinite(candidate.y) || Math.abs(candidate.y) > 10000) errors.push('Cartesian sampled points must use finite bounded x/y coordinates only.') })
+      if (entry.showPoints !== undefined && typeof entry.showPoints !== 'boolean') errors.push('Cartesian showPoints must be boolean.')
+      if (entry.dashed !== undefined && typeof entry.dashed !== 'boolean') errors.push('Cartesian dashed must be boolean.')
+    }
     if (['tickMark', 'equalSideMark', 'parallelMark'].includes(type) && entry.count !== undefined && !(typeof entry.count === 'number' && Number.isInteger(entry.count) && [1, 2, 3].includes(entry.count))) errors.push('Visual mark counts must be the number 1, 2, or 3.')
   })
+  if (Array.isArray(root.primitives)) {
+    const axes = new Map<string, Record<string, unknown>>()
+    root.primitives.forEach((raw, index) => {
+      const entry = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw as Record<string, unknown> : null
+      if (!entry || entry.type !== 'cartesianAxes' || typeof entry.axisId !== 'string') return
+      const key = entry.axisId.normalize('NFKC').trim()
+      if (axes.has(key)) errors.push(`Cartesian axis ID at element ${index + 1} must be unique.`)
+      else axes.set(key, entry)
+    })
+    root.primitives.forEach((raw, index) => {
+      const entry = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw as Record<string, unknown> : null
+      if (!entry || entry.type !== 'cartesianPlot' || typeof entry.axisId !== 'string') return
+      const axis = axes.get(entry.axisId.normalize('NFKC').trim())
+      if (!axis) { errors.push(`Cartesian plot at element ${index + 1} must reference existing axes.`); return }
+      if (!Array.isArray(entry.points) || typeof axis.xMin !== 'number' || typeof axis.xMax !== 'number' || typeof axis.yMin !== 'number' || typeof axis.yMax !== 'number') return
+      const xMin = axis.xMin; const xMax = axis.xMax; const yMin = axis.yMin; const yMax = axis.yMax
+      if (entry.points.some((rawPoint) => { const point = rawPoint && typeof rawPoint === 'object' && !Array.isArray(rawPoint) ? rawPoint as Record<string, unknown> : {}; return typeof point.x === 'number' && typeof point.y === 'number' && (point.x < xMin || point.x > xMax || point.y < yMin || point.y > yMax) })) errors.push(`Cartesian plot at element ${index + 1} must stay inside the referenced bounds.`)
+    })
+  }
   return errors
 }
 

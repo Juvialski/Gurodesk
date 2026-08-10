@@ -74,7 +74,7 @@ function primitive(value: unknown, width: number, height: number, index: number,
   const candidate = object(value)
   if (!candidate) { errors.push(`${path} must be an object.`); return }
   const type = candidate.type
-  const allowedTypes = ['point', 'segment', 'dashedSegment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow']
+  const allowedTypes = ['point', 'segment', 'dashedSegment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow', 'cartesianAxes', 'cartesianPlot']
   if (typeof type !== 'string' || !allowedTypes.includes(type)) { errors.push(`${path}.type is unsupported.`); return }
   switch (type) {
     case 'point':
@@ -132,6 +132,33 @@ function primitive(value: unknown, width: number, height: number, index: number,
       if (!bounded(candidate.x, 0, width) || !bounded(candidate.y, 0, height)) errors.push(`${path}.coordinates are invalid.`)
       if (!bounded(candidate.angle, -720, 720) || !bounded(candidate.size, 2, 80)) errors.push(`${path} dimensions are invalid.`)
       common(candidate, path, errors); return
+    case 'cartesianAxes':
+      unexpected(candidate, ['type', 'axisId', 'x', 'y', 'width', 'height', 'xMin', 'xMax', 'yMin', 'yMax', 'xTick', 'yTick', 'showGrid', 'xLabel', 'yLabel', 'color', 'strokeWidth'], path, errors)
+      if (!plainText(candidate.axisId, 80)) errors.push(`${path}.axisId is invalid.`)
+      if (!bounded(candidate.x, 0, width) || !bounded(candidate.y, 0, height) || !bounded(candidate.width, 80, width) || !bounded(candidate.height, 80, height)) errors.push(`${path} plot rectangle is invalid.`)
+      if (finite(candidate.x) && finite(candidate.y) && finite(candidate.width) && finite(candidate.height) && (candidate.x + candidate.width > width || candidate.y + candidate.height > height)) errors.push(`${path} plot rectangle exceeds the visual canvas.`)
+      if (![candidate.xMin, candidate.xMax, candidate.yMin, candidate.yMax].every((entry) => bounded(entry, -10000, 10000))) errors.push(`${path} mathematical bounds are invalid.`)
+      if (finite(candidate.xMin) && finite(candidate.xMax) && !(candidate.xMin < 0 && candidate.xMax > 0 && candidate.xMin < candidate.xMax)) errors.push(`${path} x bounds must straddle zero.`)
+      if (finite(candidate.yMin) && finite(candidate.yMax) && !(candidate.yMin < 0 && candidate.yMax > 0 && candidate.yMin < candidate.yMax)) errors.push(`${path} y bounds must straddle zero.`)
+      if (has(candidate, 'xTick') && !bounded(candidate.xTick, 0.000001, 10000)) errors.push(`${path}.xTick is invalid.`)
+      if (has(candidate, 'yTick') && !bounded(candidate.yTick, 0.000001, 10000)) errors.push(`${path}.yTick is invalid.`)
+      if (has(candidate, 'showGrid') && typeof candidate.showGrid !== 'boolean') errors.push(`${path}.showGrid must be boolean.`)
+      if (has(candidate, 'xLabel') && !plainText(candidate.xLabel, 40)) errors.push(`${path}.xLabel is invalid.`)
+      if (has(candidate, 'yLabel') && !plainText(candidate.yLabel, 40)) errors.push(`${path}.yLabel is invalid.`)
+      common(candidate, path, errors); return
+    case 'cartesianPlot':
+      unexpected(candidate, ['type', 'axisId', 'points', 'showPoints', 'dashed', 'color', 'strokeWidth'], path, errors)
+      if (!plainText(candidate.axisId, 80)) errors.push(`${path}.axisId is invalid.`)
+      if (!Array.isArray(candidate.points) || candidate.points.length < 2 || candidate.points.length > 160) errors.push(`${path}.points count is invalid.`)
+      if (Array.isArray(candidate.points)) candidate.points.forEach((entry, pointIndex) => {
+        const plotPoint = object(entry)
+        if (!plotPoint) { errors.push(`${path}.points[${pointIndex}] must be an object.`); return }
+        unexpected(plotPoint, ['x', 'y'], `${path}.points[${pointIndex}]`, errors)
+        if (!bounded(plotPoint.x, -10000, 10000) || !bounded(plotPoint.y, -10000, 10000)) errors.push(`${path}.points[${pointIndex}] coordinates are invalid.`)
+      })
+      if (has(candidate, 'showPoints') && typeof candidate.showPoints !== 'boolean') errors.push(`${path}.showPoints must be boolean.`)
+      if (has(candidate, 'dashed') && typeof candidate.dashed !== 'boolean') errors.push(`${path}.dashed must be boolean.`)
+      common(candidate, path, errors); return
     default: return
   }
 }
@@ -151,7 +178,32 @@ export function validateAssessmentVisual(value: unknown): AssessmentVisualValida
   if (!bounded(candidate.height, ASSESSMENT_VISUAL_LIMITS.minHeight, ASSESSMENT_VISUAL_LIMITS.maxHeight)) errors.push('visual.height is invalid.')
   if (!plainText(candidate.altText, ASSESSMENT_VISUAL_LIMITS.maxAltTextLength)) errors.push('visual.altText is invalid.')
   if (!Array.isArray(candidate.primitives) || candidate.primitives.length < 1 || candidate.primitives.length > ASSESSMENT_VISUAL_LIMITS.maxPrimitives) errors.push('visual.primitives count is invalid.')
-  if (Array.isArray(candidate.primitives) && finite(candidate.width) && finite(candidate.height)) candidate.primitives.forEach((entry, index) => primitive(entry, candidate.width as number, candidate.height as number, index, errors))
+  if (Array.isArray(candidate.primitives) && finite(candidate.width) && finite(candidate.height)) {
+    candidate.primitives.forEach((entry, index) => primitive(entry, candidate.width as number, candidate.height as number, index, errors))
+    const axes = new Map<string, Row>()
+    candidate.primitives.forEach((entry, index) => {
+      const value = object(entry)
+      if (!value || value.type !== 'cartesianAxes' || typeof value.axisId !== 'string') return
+      const key = value.axisId.normalize('NFKC').trim()
+      if (axes.has(key)) errors.push(`visual.primitives[${index}].axisId must be unique.`)
+      else axes.set(key, value)
+    })
+    candidate.primitives.forEach((entry, index) => {
+      const value = object(entry)
+      if (!value || value.type !== 'cartesianPlot' || typeof value.axisId !== 'string') return
+      const axis = axes.get(value.axisId.normalize('NFKC').trim())
+      if (!axis) { errors.push(`visual.primitives[${index}].axisId does not reference Cartesian axes.`); return }
+      if (!Array.isArray(value.points) || !finite(axis.xMin) || !finite(axis.xMax) || !finite(axis.yMin) || !finite(axis.yMax)) return
+      for (const rawPoint of value.points) {
+        const pointValue = object(rawPoint)
+        if (!pointValue || !finite(pointValue.x) || !finite(pointValue.y)) continue
+        if (pointValue.x < axis.xMin || pointValue.x > axis.xMax || pointValue.y < axis.yMin || pointValue.y > axis.yMax) {
+          errors.push(`visual.primitives[${index}] points exceed the referenced Cartesian bounds.`)
+          break
+        }
+      }
+    })
+  }
   return { valid: errors.length === 0, errors }
 }
 

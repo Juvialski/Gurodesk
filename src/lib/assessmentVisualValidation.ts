@@ -106,6 +106,39 @@ function commonVisualElement(value: UnknownRecord, path: string, errors: string[
   optionalStrokeWidth(value, path, errors)
 }
 
+function finiteMathCoordinate(value: unknown) {
+  return bounded(value, -10000, 10000)
+}
+
+function cartesianAxesElement(candidate: UnknownRecord, width: number, height: number, path: string, errors: string[]) {
+  unexpectedKeys(candidate, ['type', 'axisId', 'x', 'y', 'width', 'height', 'xMin', 'xMax', 'yMin', 'yMax', 'xTick', 'yTick', 'showGrid', 'xLabel', 'yLabel', 'color', 'strokeWidth'], path, errors)
+  if (!plainText(candidate.axisId, 80)) errors.push(`${path}.axisId must be bounded plain text.`)
+  if (!bounded(candidate.x, 0, width) || !bounded(candidate.y, 0, height) || !bounded(candidate.width, 80, width) || !bounded(candidate.height, 80, height)) errors.push(`${path} plot rectangle must be finite and inside the visual canvas.`)
+  if (finite(candidate.x) && finite(candidate.y) && finite(candidate.width) && finite(candidate.height) && ((candidate.x as number) + (candidate.width as number) > width || (candidate.y as number) + (candidate.height as number) > height)) errors.push(`${path} plot rectangle must fit inside the visual canvas.`)
+  if (![candidate.xMin, candidate.xMax, candidate.yMin, candidate.yMax].every(finiteMathCoordinate)) errors.push(`${path} mathematical bounds must be finite and between -10000 and 10000.`)
+  if (finite(candidate.xMin) && finite(candidate.xMax) && !((candidate.xMin as number) < 0 && (candidate.xMax as number) > 0 && (candidate.xMin as number) < (candidate.xMax as number))) errors.push(`${path} x bounds must straddle zero and be increasing.`)
+  if (finite(candidate.yMin) && finite(candidate.yMax) && !((candidate.yMin as number) < 0 && (candidate.yMax as number) > 0 && (candidate.yMin as number) < (candidate.yMax as number))) errors.push(`${path} y bounds must straddle zero and be increasing.`)
+  for (const tickKey of ['xTick', 'yTick'] as const) if (hasOwn(candidate, tickKey) && !bounded(candidate[tickKey], 0.000001, 10000)) errors.push(`${path}.${tickKey} must be a positive finite number.`)
+  if (hasOwn(candidate, 'showGrid') && typeof candidate.showGrid !== 'boolean') errors.push(`${path}.showGrid must be boolean.`)
+  for (const labelKey of ['xLabel', 'yLabel'] as const) if (hasOwn(candidate, labelKey) && !plainText(candidate[labelKey], 40)) errors.push(`${path}.${labelKey} must be bounded plain text.`)
+  commonVisualElement(candidate, path, errors)
+}
+
+function cartesianPlotElement(candidate: UnknownRecord, path: string, errors: string[]) {
+  unexpectedKeys(candidate, ['type', 'axisId', 'points', 'showPoints', 'dashed', 'color', 'strokeWidth'], path, errors)
+  if (!plainText(candidate.axisId, 80)) errors.push(`${path}.axisId must be bounded plain text.`)
+  if (!Array.isArray(candidate.points) || candidate.points.length < 2 || candidate.points.length > 160) errors.push(`${path}.points must contain 2–160 sampled coordinates.`)
+  if (Array.isArray(candidate.points)) candidate.points.forEach((entry, pointIndex) => {
+    const pointValue = object(entry)
+    if (!pointValue) { errors.push(`${path}.points[${pointIndex}] must be an object.`); return }
+    unexpectedKeys(pointValue, ['x', 'y'], `${path}.points[${pointIndex}]`, errors)
+    if (!finiteMathCoordinate(pointValue.x) || !finiteMathCoordinate(pointValue.y)) errors.push(`${path}.points[${pointIndex}] must contain finite mathematical coordinates.`)
+  })
+  if (hasOwn(candidate, 'showPoints') && typeof candidate.showPoints !== 'boolean') errors.push(`${path}.showPoints must be boolean.`)
+  if (hasOwn(candidate, 'dashed') && typeof candidate.dashed !== 'boolean') errors.push(`${path}.dashed must be boolean.`)
+  commonVisualElement(candidate, path, errors)
+}
+
 function visualElement(value: unknown, width: number, height: number, index: number, errors: string[]) {
   const path = `primitives[${index}]`
   const candidate = object(value)
@@ -193,6 +226,12 @@ function visualElement(value: unknown, width: number, height: number, index: num
       }
       commonVisualElement(candidate, path, errors)
       return
+    case 'cartesianAxes':
+      cartesianAxesElement(candidate, width, height, path, errors)
+      return
+    case 'cartesianPlot':
+      cartesianPlotElement(candidate, path, errors)
+      return
     default:
       return
   }
@@ -216,7 +255,32 @@ export function validateAssessmentVisual(value: unknown): AssessmentVisualValida
   if (!bounded(candidate.height, ASSESSMENT_VISUAL_LIMITS.minHeight, ASSESSMENT_VISUAL_LIMITS.maxHeight)) errors.push(`visual.height must be between ${ASSESSMENT_VISUAL_LIMITS.minHeight} and ${ASSESSMENT_VISUAL_LIMITS.maxHeight}.`)
   if (!plainText(candidate.altText, ASSESSMENT_VISUAL_LIMITS.maxAltTextLength) || /^(image|diagram)$/iu.test(typeof candidate.altText === 'string' ? candidate.altText.normalize('NFKC').trim() : '')) errors.push('visual.altText must be bounded, useful plain text (not a generic image label).')
   if (!Array.isArray(candidate.primitives) || candidate.primitives.length < 1 || candidate.primitives.length > ASSESSMENT_VISUAL_LIMITS.maxElements) errors.push(`visual.primitives must contain 1–${ASSESSMENT_VISUAL_LIMITS.maxElements} primitives.`)
-  if (Array.isArray(candidate.primitives) && finite(candidate.width) && finite(candidate.height)) candidate.primitives.forEach((entry, index) => visualElement(entry, candidate.width as number, candidate.height as number, index, errors))
+  if (Array.isArray(candidate.primitives) && finite(candidate.width) && finite(candidate.height)) {
+    candidate.primitives.forEach((entry, index) => visualElement(entry, candidate.width as number, candidate.height as number, index, errors))
+    const axes = new Map<string, UnknownRecord>()
+    candidate.primitives.forEach((entry, index) => {
+      const primitive = object(entry)
+      if (!primitive || primitive.type !== 'cartesianAxes' || typeof primitive.axisId !== 'string') return
+      const key = primitive.axisId.normalize('NFKC').trim()
+      if (axes.has(key)) errors.push(`primitives[${index}].axisId must be unique.`)
+      else axes.set(key, primitive)
+    })
+    candidate.primitives.forEach((entry, index) => {
+      const primitive = object(entry)
+      if (!primitive || primitive.type !== 'cartesianPlot' || typeof primitive.axisId !== 'string') return
+      const axis = axes.get(primitive.axisId.normalize('NFKC').trim())
+      if (!axis) { errors.push(`primitives[${index}].axisId must reference a cartesianAxes primitive.`); return }
+      if (!Array.isArray(primitive.points) || !finite(axis.xMin) || !finite(axis.xMax) || !finite(axis.yMin) || !finite(axis.yMax)) return
+      for (const rawPoint of primitive.points) {
+        const pointValue = object(rawPoint)
+        if (!pointValue || !finite(pointValue.x) || !finite(pointValue.y)) continue
+        if ((pointValue.x as number) < (axis.xMin as number) || (pointValue.x as number) > (axis.xMax as number) || (pointValue.y as number) < (axis.yMin as number) || (pointValue.y as number) > (axis.yMax as number)) {
+          errors.push(`primitives[${index}] sampled points must stay inside the referenced Cartesian bounds.`)
+          break
+        }
+      }
+    })
+  }
   return { valid: errors.length === 0, errors }
 }
 

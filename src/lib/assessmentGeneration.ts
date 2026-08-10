@@ -119,6 +119,21 @@ function list(value: unknown, max = 30, itemMax = 800) {
   return value.map((entry) => clean(entry, itemMax)).filter(Boolean).slice(0, max)
 }
 
+function acceptedAnswerKey(value: string, caseSensitive = false) {
+  const normalized = value.normalize('NFKC').trim().replace(/[.,;:!?]+$/u, '').trim()
+  return caseSensitive ? normalized : normalized.toLocaleLowerCase('en')
+}
+
+function dedupeAcceptedAnswers(values: string[], caseSensitive = false) {
+  const seen = new Set<string>()
+  return values.filter((value) => {
+    const key = acceptedAnswerKey(value, caseSensitive)
+    if (!key || seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
 function stripCodeFence(value: string) {
   return value.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '').trim()
 }
@@ -230,10 +245,10 @@ function normalizeAnswer(answer: CandidateInput, type: QuestionType): Assessment
   }
   if (type === 'short_answer' || type === 'identification') {
     if (!onlyKeys(answer, ['type', 'acceptedAnswers', 'caseSensitive'])) throw new Error('Accepted-answer shape is invalid.')
-    const acceptedAnswers = list(answer.acceptedAnswers, 20, 500)
     const caseSensitive = answer.caseSensitive === true
     if (answer.caseSensitive !== undefined && typeof answer.caseSensitive !== 'boolean') throw new Error('Case sensitivity must be boolean.')
-    if (!acceptedAnswers.length || !unique(acceptedAnswers, caseSensitive)) throw new Error('Accepted answers must be unique and nonblank.')
+    const acceptedAnswers = dedupeAcceptedAnswers(list(answer.acceptedAnswers, 20, 500), caseSensitive)
+    if (!acceptedAnswers.length) throw new Error('Accepted answers must be nonblank.')
     return { type, acceptedAnswers, caseSensitive }
   }
   if (type === 'fill_in_the_blank') {
@@ -242,9 +257,9 @@ function normalizeAnswer(answer: CandidateInput, type: QuestionType): Assessment
     const ids = blanks.map((blank, index) => clean(blank.id ?? blank.blankId, 80) || `blank-${index + 1}`)
     if (!blanks.length || !unique(ids)) throw new Error('Fill-in-the-blank requires unique blanks.')
     const normalized = blanks.map((blank, index) => {
-      const acceptedAnswers = list(blank.acceptedAnswers ?? blank.accepted, 20, 500)
+      const acceptedAnswers = dedupeAcceptedAnswers(list(blank.acceptedAnswers ?? blank.accepted, 20, 500), blank.caseSensitive === true)
       const pointsPossible = blank.pointsPossible === undefined ? undefined : Number(blank.pointsPossible)
-      if (!acceptedAnswers.length || !unique(acceptedAnswers, blank.caseSensitive === true)) throw new Error('Each blank requires unique accepted answers.')
+      if (!acceptedAnswers.length) throw new Error('Each blank requires at least one nonblank accepted answer.')
       if (pointsPossible !== undefined && (!Number.isFinite(pointsPossible) || pointsPossible <= 0)) throw new Error('Blank points must be positive.')
       return { id: ids[index], acceptedAnswers, ...(blank.caseSensitive !== undefined ? { caseSensitive: blank.caseSensitive === true } : {}), ...(pointsPossible === undefined ? {} : { pointsPossible }) }
     })
