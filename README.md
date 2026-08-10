@@ -21,7 +21,7 @@ Phases 1–5.5 and the assessment-generation/visual reliability checkpoint are p
 - bounded, cancellable Generate Missing Items with finite retry/backoff, persistent partial success, locked-item protection, and approximate local usage awareness;
 - deterministic validation before AI, transparent risk routing, opposite-Lite independent verification when warranted, targeted single-item repair only after failure, and a conservative retry ceiling;
 - bounded per-item history, restore/lock/unlock, material-edit answer recheck, and final hard-error versus teacher-overridable warning review;
-- type-aware Student Copy, Teacher Copy, and deterministic Answer Key/Scoring Guide through browser Print, PDF, and editable Word `.docx`;
+- type-aware Student Copy, Teacher Copy, and deterministic Answer Key/Scoring Guide through browser Print, secondary PDF, and a primary editable Word `.docx` path with native tables/response areas and embedded vector assessment diagrams;
 - privacy-minimized teacher-owned class learners attached to an assignment/section, with inactive/archive behavior for historical records;
 - finalized assessment result sessions with immutable assessment/item/mapping snapshots and structured learner outcomes;
 - fast answer-sheet, item, and score-only encoding modes with draft-safe local state and batched persistence/import architecture;
@@ -76,6 +76,10 @@ Correct answers, accepted answers, blank mappings, numerical tolerances, matchin
 
 Every TOS slot remains one item even when it carries multiple points or structured subparts. `totalItems` is the immutable TOS slot count; total possible points is always derived from the item point sum. Rubric, subpart, blank, and matching component totals must reconcile before finalization.
 
+Assessment question text/answers and mathematical visuals now cross Gemini in **separate authenticated requests**. The question pass returns only the typed question plus `visualRequirement`/`visualIntent`; when needed, a dedicated visual operation receives the finished question/structured answer and returns only the bounded `AssessmentVisual` JSON DSL. Gemini never returns executable TikZ/SVG/HTML/code. GuroDesk validates the DSL and deterministically owns TikZ/SVG/PDF/DOCX rendering. A visual-only QA blocker receives at most one automatic visual-only retry and never forces regeneration of an otherwise valid question.
+
+Automatic question-type modes require contiguous grouped sections at finalization. Existing teacher-authored work is not silently reordered; a teacher can reapply distribution to empty slots or explicitly use Manual per item when a custom order is intentional.
+
 Phase 3.7 custom lesson DOCX templates and Phase 4 custom TOS XLSX templates remain intact. Built-in assessment and results exports are complete. Exact repeating-block support for arbitrary custom assessment DOCX masters remains deferred. Custom result/item-analysis XLSX template filling is architecture-only in this release; the shared result export model and explicit worksheet inspector are the safe extension points.
 
 ## Policy boundary
@@ -120,6 +124,7 @@ Apply in order:
 23. `202608090023_restore_assessment_save_rpc.sql`
 24. `202608090024_fix_remediation_child_guard.sql`
 25. `202608100025_phase6_custom_hybrid_curricula.sql`
+26. `202608100026_phase6_publish_curriculum_subject_id_hotfix.sql`
 
 Deploy all functions listed in `supabase/config.toml`, including `assessment-question-generator` and the aggregate-only `remediation-suggester`.
 

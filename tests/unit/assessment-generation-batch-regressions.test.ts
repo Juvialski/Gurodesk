@@ -156,6 +156,52 @@ describe('assessment generation batch accounting and resume regressions', () => 
     expect(pendingAssessmentGenerationItemIds(resumed)).toEqual(['batch-item-3'])
   })
 
+  it('checkpoints validated question content before the separate visual/provider work completes', async () => {
+    const source = assessmentRecord(items(1))
+    const events: string[] = []
+    const generate = vi.fn(async ({ item, onQuestionReady }: { item: typeof source.items[number]; onQuestionReady?: (suggestion: AssessmentItemSuggestion) => void | Promise<void> }) => {
+      const suggestion = suggestionFor(item.id)
+      events.push('question-provider-done')
+      await onQuestionReady?.(suggestion)
+      events.push('visual-provider-done')
+      return suggestion
+    })
+
+    const summary = await generateMissingAssessmentItems({
+      assessment: source,
+      demo: false,
+      concurrency: 1,
+      generate,
+      onQuestionReady: (item) => {
+        events.push(`checkpoint:${item.id}`)
+        expect(item.prompt).toBeTruthy()
+      },
+      onSuggestion: () => events.push('final-suggestion'),
+    })
+
+    expect(summary.succeeded).toBe(1)
+    expect(events).toEqual(['question-provider-done', 'checkpoint:batch-item-1', 'visual-provider-done', 'final-suggestion'])
+  })
+
+  it('preserves a generated question and pauses remaining work when its separate visual pass hits quota', async () => {
+    const source = assessmentRecord(items(3))
+    const generate = vi.fn(async ({ item }: { item: typeof source.items[number] }) => ({ ...suggestionFor(item.id), quotaPaused: item.id === 'batch-item-1' }))
+
+    const summary = await generateMissingAssessmentItems({
+      assessment: source,
+      demo: false,
+      concurrency: 1,
+      generate,
+    })
+
+    expect(generate).toHaveBeenCalledTimes(1)
+    expect(summary.succeeded).toBe(1)
+    expect(summary.failed).toBe(0)
+    expect(summary.providerPaused).toBe(true)
+    expect(summary.cancelled).toBe(2)
+    expect(summary.results[0].id).toBe('batch-item-1')
+  })
+
   it('does not burn the remainder of a batch after an exhausted quota boundary', async () => {
     const source = assessmentRecord(items(4))
     const statuses: string[] = []

@@ -1,6 +1,7 @@
 import type { Assessment, AssessmentAnswer, AssessmentItem, QuestionType } from '../types/assessment'
 import { normalizeAssessmentMathText } from './assessmentMathText'
 import { recommendedAssessmentResponseLines } from './assessmentExportPresentation'
+import { neutralAssessmentVisualAltText } from './assessmentVisualValidation'
 import type {
   AssessmentAnswerKeyExportQuestion,
   AssessmentExportLabels,
@@ -146,6 +147,7 @@ function baseQuestion(item: AssessmentItem): AssessmentExportQuestionBase {
 
 function studentQuestion(item: AssessmentItem): AssessmentStudentExportQuestion {
   const base = baseQuestion(item)
+  const learnerVisual = base.visual ? { ...base.visual, altText: neutralAssessmentVisualAltText(base.visual) } : undefined
   // The base projection always supplies these presentation arrays; choices: base.choices.map is intentionally deterministic.
   return {
     ...base,
@@ -153,6 +155,7 @@ function studentQuestion(item: AssessmentItem): AssessmentStudentExportQuestion 
     prompts: base.prompts ? base.prompts.map((prompt) => prompt.text) : undefined,
     // Blank labels are presentation-only and contain no answer or internal ID.
     blanks: base.blanks?.map((blank) => ({ ...blank })),
+    ...(learnerVisual ? { visual: learnerVisual } : {}),
   }
 }
 

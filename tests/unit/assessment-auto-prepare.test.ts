@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { assessmentAutomationBlockers, autoPrepareAssessmentPaper } from '../../src/lib/assessmentAutoPrepare'
 import type { AssessmentItemSuggestion } from '../../src/lib/assessmentGeneration'
+import { IRREGULAR_CONCAVE_PENTAGON_VISUAL } from '../../src/lib/assessmentVisualFixtures'
 import type { AssessmentItem, AssessmentRecord } from '../../src/types/assessment'
 import { assessmentItem, assessmentRecord } from './fixtures'
 import { cloneCandidate } from './assessmentContractFixtures'
@@ -110,7 +111,7 @@ describe('one-click assessment paper preparation', () => {
       const item = checkpoint.items.find((candidate) => candidate.id === 'item-2')
       if (item && item.locked !== true && item.qaState !== 'locked') persistedUnlocked = true
     })
-    const generateItem = vi.fn(async (args: Parameters<NonNullable<Parameters<typeof autoPrepareAssessmentPaper>[0]['generateItem']>>[0]) => {
+    const generateItem = vi.fn(async (args: Parameters<NonNullable<Parameters<typeof autoPrepareAssessmentPaper>[0]['generateItem']>>[0]): Promise<AssessmentItemSuggestion> => {
       if (!persistedUnlocked) throw new Error('This item is locked. Unlock it before requesting AI generation or review.')
       repairContext = args.teacherContext ?? ''
       return {
@@ -140,6 +141,34 @@ describe('one-click assessment paper preparation', () => {
     expect(repairContext).toMatch(/duplicate/u)
     expect(result.repairFailures).toEqual([])
     expect(result.review.hardErrors.filter((issue) => issue.code !== 'teacher-review')).toEqual([])
+  })
+
+  it('repairs a visual-only blocker without regenerating the question or answer', async () => {
+    const base = cloneCandidate('multiple_choice')
+    const prompt = 'Examine the polygon shown in the visual. Which option names the number of sides?'
+    const item = generatedItem('item-1', 1, prompt)
+    item.answer = base.answer
+    item.visual = undefined
+    const record = mappedRecord([item])
+    const originalAnswer = structuredClone(item.answer)
+    const generateItem = vi.fn(async () => { throw new Error('full question generation must not run for a visual-only blocker') })
+    const generateVisual = vi.fn(async () => ({ visual: IRREGULAR_CONCAVE_PENTAGON_VISUAL, model: 'test-visual-model', fallbackUsed: false, requestsUsed: 1 }))
+
+    const result = await autoPrepareAssessmentPaper({
+      assessment: record,
+      demo: true,
+      maxRounds: 1,
+      generateItem,
+      generateVisual,
+      onCheckpoint: vi.fn(async () => undefined),
+      generateMissing: vi.fn(async () => ({ attempted: 0, succeeded: 0, skipped: 1, failed: 0, cancelled: 0, results: [], errors: [] })),
+    })
+
+    expect(generateVisual).toHaveBeenCalledTimes(1)
+    expect(generateItem).not.toHaveBeenCalled()
+    expect(result.assessment.items[0].prompt).toBe(prompt)
+    expect(result.assessment.items[0].answer).toEqual(originalAnswer)
+    expect(result.assessment.items[0].visual).toEqual(IRREGULAR_CONCAVE_PENTAGON_VISUAL)
   })
 
   it('does not swallow non-provider repair failures', async () => {

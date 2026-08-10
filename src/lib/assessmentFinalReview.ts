@@ -3,6 +3,7 @@ import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
 import { classifyAssessmentRisk, objectiveQuestionType, teacherScoredQuestionType, validateAssessmentItemDeterministic, type AssessmentQaIssue } from './assessmentQa'
 import { assessmentDuplicateLevel, assessmentSimilarityConcentration, assessmentVisualSemanticFindings } from './assessmentFinalQa'
 import { hasUnsupportedAssessmentMathMarkup } from './assessmentMathText'
+import { assessmentQuestionTypesAreContiguous } from './assessmentExportPresentation'
 
 type UnknownRecord = Record<string, unknown>
 function record(value: unknown): UnknownRecord { return value && typeof value === 'object' && !Array.isArray(value) ? value as UnknownRecord : {} }
@@ -131,6 +132,11 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
       const key = `tf-${String(answer.value)}`; answerPatterns[key] = (answerPatterns[key] ?? 0) + 1; patternEligibleItems += 1
     }
   })
+  const distributionMode = String(assessmentSettings.mode ?? 'auto_balanced')
+  if (distributionMode !== 'manual_per_item' && !assessmentQuestionTypesAreContiguous(assessment.items)) {
+    add(hardErrors, 'question-type-sections', 'Automatic question-type modes require contiguous grouped test sections. Reapply the distribution to empty slots or switch to Manual per item before finalization.')
+  }
+
   for (let leftIndex = 0; leftIndex < assessment.items.length; leftIndex += 1) {
     for (let rightIndex = leftIndex + 1; rightIndex < assessment.items.length; rightIndex += 1) {
       const left = assessment.items[leftIndex]; const right = assessment.items[rightIndex]

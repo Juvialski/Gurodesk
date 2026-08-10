@@ -54,9 +54,21 @@ describe('assessment question-generator request boundary', () => {
   const source = readFileSync(new URL('../../supabase/functions/assessment-question-generator/index.ts', import.meta.url), 'utf8')
 
   it('keeps the edge request allow-list explicit and rejects unknown browser fields', () => {
-    expect(source).toMatch(/const allowedBodyKeys = \['operation', 'assessmentId', 'itemId', 'questionType', 'alternative', 'teacherContext', 'candidate', 'issues', 'repairGuidance', 'generatorModel'\]/u)
+    expect(source).toMatch(/const allowedBodyKeys = \['operation', 'assessmentId', 'itemId', 'questionType', 'alternative', 'teacherContext', 'candidate', 'issues', 'repairGuidance', 'generatorModel', 'visualIntent'\]/u)
     expect(source).toMatch(/Object\.keys\(body \?\? \{\}\)\.some\(\(key\) => !allowedBodyKeys\.includes\(key\)\)/u)
     expect(source).toMatch(/Unsupported assessment AI request fields/u)
+  })
+
+
+
+  it('keeps question generation and mathematical visual generation in separate provider operations', () => {
+    expect(source).toMatch(/type Operation = 'generate' \| 'verify' \| 'repair' \| 'visual'/u)
+    expect(source).toMatch(/visualRequirement, visualIntent/u)
+    expect(source).toMatch(/Do not return visual geometry/u)
+    expect(source).toMatch(/function buildVisualPrompt/u)
+    expect(source).toMatch(/operation === 'visual'/u)
+    expect(source).toMatch(/Never return TikZ, TeX commands, SVG, HTML, JavaScript/u)
+    expect(source).toMatch(/validateAssessmentVisual/u)
   })
 
   it('keeps question type, item identity, mapping, and points server-owned', () => {

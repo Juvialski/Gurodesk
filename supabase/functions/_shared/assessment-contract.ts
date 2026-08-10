@@ -164,6 +164,17 @@ function containsAnswerTerm(value: string, terms: string[]) {
   return terms.some((term) => normalized.includes(` ${term} `))
 }
 
+function visualTextRevealsAnswer(value: unknown, terms: string[]) {
+  if (!terms.length) return false
+  const visual = object(value)
+  if (!visual || !Array.isArray(visual.primitives)) return false
+  return visual.primitives.map(object).some((primitive) =>
+    primitive?.type === 'textLabel'
+    && typeof primitive.text === 'string'
+    && containsAnswerTerm(primitive.text, terms),
+  )
+}
+
 function stripAnswerLeakingParentheticals(value: string, terms: string[]) {
   return value.replace(/\([^()]{1,240}\)/gu, (group) => containsAnswerTerm(group, terms) ? '' : group).replace(/\s{2,}/gu, ' ').replace(/\s+([,.;:!?])/gu, '$1').trim()
 }
@@ -386,8 +397,8 @@ export function validateAssessmentCandidate(
 ) {
   const source = typeof value === 'string' ? parseJsonObject(value) : object(value)
   if (!source) throw new AssessmentContractError('The AI response did not match the required structured shape.')
-  onlyKeys(source, ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'], 'The AI response')
-  requiredKeys(source, ['questionType', 'prompt', 'answer', 'referencedResources', 'visual'], 'The AI response')
+  onlyKeys(source, ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent', 'visual'], 'The AI response')
+  requiredKeys(source, ['questionType', 'prompt', 'answer', 'referencedResources'], 'The AI response')
   const candidateType = source.questionType
   if (typeof candidateType !== 'string' || !QUESTION_TYPES.has(candidateType as QuestionType) || (questionType && candidateType !== questionType)) throw new AssessmentContractError('The AI response question type does not match the verified item mapping.')
   const resolvedType = candidateType as QuestionType
@@ -396,7 +407,13 @@ export function validateAssessmentCandidate(
   const rationale = source.rationale === undefined && !rationaleRequired ? '' : text(source.rationale, 'Assessment rationale', 1600, rationaleRequired)
   const references = stringList(source.referencedResources, 'Referenced resources', 10, 180, { unique: true })
   if (!references.every((entry) => teacherResources.includes(entry))) throw new AssessmentContractError('The AI response referenced an unlisted teacher resource.', 'RESOURCE_INVALID')
-  const rawVisual = source.visual === null ? null : source.visual
+  const visualRequirement = source.visualRequirement === undefined
+    ? (source.visual && source.visual !== null ? 'required' : 'none')
+    : text(source.visualRequirement, 'Visual requirement', 20)
+  if (!['none', 'helpful', 'required'].includes(visualRequirement)) throw new AssessmentContractError('Visual requirement must be none, helpful, or required.', 'VISUAL_INVALID')
+  const visualIntent = source.visualIntent === undefined ? '' : text(source.visualIntent, 'Visual intent', 500, false)
+  if (visualRequirement !== 'none' && !visualIntent) throw new AssessmentContractError('Helpful or required visuals need a concise visual intent.', 'VISUAL_INVALID')
+  const rawVisual = source.visual === null || source.visual === undefined ? null : source.visual
   const visualResult = validateAssessmentVisual(rawVisual)
   // A malformed optional diagram must not waste an otherwise valid assessment
   // item. Drop only the visual and let deterministic browser QA flag a prompt
@@ -412,6 +429,14 @@ export function validateAssessmentCandidate(
   if (answerTerms.length && (resolvedType === 'fill_in_the_blank' || resolvedType === 'short_answer' || resolvedType === 'identification')) {
     prompt = stripAnswerLeakingParentheticals(prompt, answerTerms)
     if (containsAnswerTerm(prompt, answerTerms)) throw new AssessmentContractError('The AI response prompt revealed an accepted answer.', 'SEMANTIC_INVALID')
+    // A model-generated diagram is learner-facing just like the stem. Reject a
+    // text label that spells out an accepted answer instead of relying on alt
+    // text sanitization alone. Keep the check intentionally scoped to answer
+    // types with concise accepted terms so ordinary numeric/axis labels are not
+    // mistaken for leaks in calculation-heavy questions.
+    if (safeRawVisual !== null && visualTextRevealsAnswer(safeRawVisual, answerTerms)) {
+      throw new AssessmentContractError('The AI response visual revealed an accepted answer in a text label.', 'VISUAL_INVALID')
+    }
   }
   const visual = safeRawVisual === null ? null : { ...(safeRawVisual as Row), altText: neutralVisualAltText(safeRawVisual) }
   if (resolvedType === 'fill_in_the_blank') {
@@ -422,7 +447,7 @@ export function validateAssessmentCandidate(
   const piiPattern = /(?:\bLRN\b\s*[:#-]?\s*\d{6,}|\b(?:phone|mobile|contact|telephone)\b\D{0,16}\d{7,13}|(?:\+63|09)\d{9}\b|\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)/iu
   if ([prompt, rationale, ...answerStrings(answer)].some((entry) => piiPattern.test(entry))) throw new AssessmentContractError('The AI response included learner personal information.', 'SEMANTIC_INVALID')
   if ([prompt, rationale, ...answerStrings(answer)].some((entry) => unverifiedResource(entry, teacherResources))) throw new AssessmentContractError('The AI response included an unverified resource, local fact, URL, page, device, or learner detail.', 'RESOURCE_INVALID')
-  return { questionType: resolvedType, prompt, answer, rationale, referencedResources: references, visual }
+  return { questionType: resolvedType, prompt, answer, rationale, referencedResources: references, visualRequirement, visualIntent, visual }
 }
 
 function parseJsonObject(value: string): Row {

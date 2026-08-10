@@ -17,6 +17,8 @@ export type AssessmentVisualColor =
   | 'gray'
 
 export type AssessmentVisualStrokeWidth = 1 | 2 | 3
+
+export type AssessmentVisualRequirement = 'none' | 'helpful' | 'required'
 export type AssessmentVisualTextSize = 'small' | 'medium' | 'large'
 export type AssessmentVisualTextAnchor = 'start' | 'middle' | 'end'
 

@@ -11,6 +11,7 @@ async function loadModel() {
   let output = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
   output = output.replace(/import \{ normalizeAssessmentMathText \} from '\.\/assessmentMathText';/, 'const normalizeAssessmentMathText = (value) => String(value ?? "");')
   output = output.replace(/import \{ recommendedAssessmentResponseLines \} from '\.\/assessmentExportPresentation';/, 'const recommendedAssessmentResponseLines = () => 1;')
+  output = output.replace(/import \{ neutralAssessmentVisualAltText \} from '\.\/assessmentVisualValidation';/, 'const neutralAssessmentVisualAltText = (visual) => ({ ...visual, altText: \"A diagram.\" });')
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
 }
 

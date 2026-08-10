@@ -4,11 +4,12 @@ import { decryptCredential, type EncryptionKeySource } from '../_shared/credenti
 import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId, type AssessmentQuestionType, verifierResponseSchema } from '../_shared/ai-models.ts'
 import { AssessmentContractError, validateAssessmentCandidate as validateAssessmentCandidateContract, type ImmutableAssessmentContext } from '../_shared/assessment-contract.ts'
 import { callGemini, GeminiHttpError, GeminiResponseError, isFallbackEligibleStatus, parseGeminiJson } from '../_shared/gemini.ts'
+import { validateAssessmentVisual } from '../_shared/assessment-visual.ts'
 
 type QuestionType = AssessmentQuestionType
-type Operation = 'generate' | 'verify' | 'repair'
+type Operation = 'generate' | 'verify' | 'repair' | 'visual'
 type Row = Record<string, unknown>
-type RequestBody = { operation?: Operation; assessmentId?: string; itemId?: string; questionType?: QuestionType; alternative?: boolean; teacherContext?: string; candidate?: unknown; issues?: unknown; repairGuidance?: unknown; generatorModel?: string }
+type RequestBody = { operation?: Operation; assessmentId?: string; itemId?: string; questionType?: QuestionType; alternative?: boolean; teacherContext?: string; candidate?: unknown; issues?: unknown; repairGuidance?: unknown; generatorModel?: string; visualIntent?: string }
 type CredentialRow = { api_key_ciphertext: string; api_key_iv: string; encryption_key_source: EncryptionKeySource }
 type SettingsRow = { preferred_model?: string; fallback_model?: string; fallback_enabled?: boolean }
 type PreferenceRow = { language_preference?: string; local_language_name?: string; preferred_approaches?: unknown; actual_resources?: unknown; available_technology?: unknown }
@@ -47,9 +48,97 @@ function rawAnswerShapeInstruction(type: QuestionType) {
 const scoringGuidance = 'Optional blank, subpart, mapping, or rubric point fields must be omitted (or use empty arrays) unless every component point value is supplied and sums exactly to the fixed item points; never copy an illustrative value such as 1 when the fixed points differ.'
 function answerShapeInstruction(type: QuestionType) { return `${rawAnswerShapeInstruction(type)} ${scoringGuidance}` }
 
-function buildGenerationPrompt(type: QuestionType, immutable: Row, language: string, teacherContext: string, resources: string[]) { const competency = clean(immutable.competencyText); const cognitive = clean(immutable.cognitiveLabel); const points = Number(immutable.pointsPossible ?? 1); const gradeLevel = clean(immutable.gradeLevel) || 'server-verified grade'; const learningArea = clean(immutable.learningArea) || 'server-verified learning area'; return ['Draft exactly one editable assessment item for a Philippine DepEd teacher. Teacher validation and professional judgment are mandatory.', 'OFFICIAL POLICY BOUNDARY: DepEd Order No. 015, s. 2026 permits teacher use of AI for drafting assessment items/prompts and alternative versions subject to teacher validation, professional judgment, and curriculum alignment. It does not replace professional judgment or determine grades. Official source: https://www.deped.gov.ph/wp-content/uploads/DO_s2026_015r.pdf', 'Never alter the fixed item number, competency, cognitive category, question type, or points.', `Grade level (server-verified): ${gradeLevel}`, `Learning area (server-verified): ${learningArea}`, `Item number (fixed): ${Number(immutable.itemNumber)}`, `Competency (fixed): ${competency}`, `Cognitive category (fixed): ${cognitive}`, `Question type (fixed): ${type}`, `Points possible (fixed): ${points}`, language, `Bounded teacher context: ${teacherContext || 'none'}`, 'If the bounded teacher context contains AUTOMATIC REPAIR REQUIREMENTS, treat every listed repair requirement as mandatory for this replacement while preserving all fixed TOS fields.', `Teacher-listed resources (mention only exact entries, or none): ${resources.length ? resources.join('; ') : 'none'}`, 'Do not invent resources, citations, devices, local facts, learner details, curriculum codes, or PII. Do not translate existing teacher content unexpectedly.', 'Return one JSON object only with exactly these top-level keys: questionType, prompt, answer, rationale, referencedResources, visual.', `questionType must be exactly "${type}".`, answerShapeInstruction(type), `referencedResources must be ${resources.length ? 'an array containing only exact teacher-listed resource strings actually used' : 'an empty array [] because the teacher supplied no resources'}.`, 'visual is required and must be null unless a geometry/diagram materially improves the item. If present it must be {"id":"...","kind":"geometry","version":1,"width":number,"height":number,"altText":"...","primitives":[...]}; use only bounded safe geometry primitives, never SVG, HTML, scripts, arbitrary colours, or raster data. altText must describe only observable features and must never state the classification, accepted answer, solution, or conclusion the learner is supposed to determine. Do not put the correct answer in a parenthetical example or hint inside the prompt.', 'For ordinary geometry use clean textbook primitives such as polygon, segment, angleArc, equalSideMark, perpendicularMark, and textLabel. Prefer ink/gray lines with no fill unless fill is mathematically meaningful. Keep labels outside lines and angle arcs so text never overlaps geometry. For coordinate graphs, use one cartesianAxes primitive plus one or more cartesianPlot primitives instead of manually drawing axes: cartesianAxes example {"type":"cartesianAxes","axisId":"axes-1","x":40,"y":30,"width":280,"height":180,"xMin":-5,"xMax":5,"yMin":-5,"yMax":5,"xTick":1,"yTick":1,"showGrid":true,"xLabel":"x","yLabel":"y"}; cartesianPlot example {"type":"cartesianPlot","axisId":"axes-1","points":[{"x":-2,"y":-3},{"x":0,"y":1},{"x":2,"y":5}]}. Cartesian plots must supply sampled numeric points only; never return formula/code strings. GuroDesk converts validated primitives to TikZ itself; never return TikZ, SVG, HTML, scripts, raster data, or arbitrary colours.', 'Rationale is for teacher review and must be at least one clear sentence; it must not claim official approval.'].join('\n') }
-function buildVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row) { return ['Independently review one finished assessment item. Return strict JSON only.', `Fixed item number: ${Number(immutable.itemNumber)}`, `Fixed competency: ${clean(immutable.competencyText)}`, `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`, `Fixed question type: ${type}`, `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`, `Finished candidate: ${JSON.stringify(candidate)}`, 'Check answer validity, competency alignment, cognitive alignment, ambiguity, factual/math issues, and type-specific structure.', 'Do not require a single best answer for essay, constructed_response, or multiple_select.', 'Return exactly: {"status":"pass"|"needs_repair","answerValid":boolean,"competencyAligned":boolean,"cognitiveAlignment":"good"|"questionable","ambiguityDetected":boolean,"factualOrMathIssue":boolean,"issues":string[],"repairGuidance":string[]}.'] .join('\n') }
-function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, issues: string[], guidance: string[]) { return ['Repair exactly one assessment item. Keep immutable item number, competency, cognitive category, question type, and points unchanged.', `Fixed item number: ${Number(immutable.itemNumber)}`, `Fixed competency: ${clean(immutable.competencyText)}`, `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`, `Fixed question type: ${type}`, `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`, `Current candidate: ${JSON.stringify(candidate)}`, `Verifier issues: ${issues.join(' | ') || 'review the answer and wording'}`, `Repair guidance: ${guidance.join(' | ') || 'return a clear unambiguous self-contained item'}`, 'Return one JSON object only with exactly questionType, prompt, answer, rationale, referencedResources, visual.', `questionType must remain exactly "${type}".`, answerShapeInstruction(type), 'Preserve a valid visual unchanged when one exists; otherwise return visual:null. Do not invent resources or learner details.'].join('\n') }
+function buildGenerationPrompt(type: QuestionType, immutable: Row, language: string, teacherContext: string, resources: string[]) {
+  const competency = clean(immutable.competencyText)
+  const cognitive = clean(immutable.cognitiveLabel)
+  const points = Number(immutable.pointsPossible ?? 1)
+  const gradeLevel = clean(immutable.gradeLevel) || 'server-verified grade'
+  const learningArea = clean(immutable.learningArea) || 'server-verified learning area'
+  return [
+    'Draft exactly one editable assessment item for a Philippine DepEd teacher. Teacher validation and professional judgment are mandatory.',
+    'OFFICIAL POLICY BOUNDARY: AI may draft assessment content only subject to teacher validation, professional judgment, and curriculum alignment. It does not determine grades or replace teacher judgment.',
+    'Never alter the fixed item number, competency, cognitive category, question type, or points.',
+    `Grade level (server-verified): ${gradeLevel}`,
+    `Learning area (server-verified): ${learningArea}`,
+    `Item number (fixed): ${Number(immutable.itemNumber)}`,
+    `Competency (fixed): ${competency}`,
+    `Cognitive category (fixed): ${cognitive}`,
+    `Question type (fixed): ${type}`,
+    `Points possible (fixed): ${points}`,
+    language,
+    `Bounded teacher context: ${teacherContext || 'none'}`,
+    'If the bounded teacher context contains AUTOMATIC REPAIR REQUIREMENTS, treat every listed repair requirement as mandatory while preserving all fixed TOS fields.',
+    `Teacher-listed resources (mention only exact entries, or none): ${resources.length ? resources.join('; ') : 'none'}`,
+    'Do not invent resources, citations, devices, local facts, learner details, curriculum codes, or PII. Do not translate existing teacher content unexpectedly.',
+    'Return one JSON object only with exactly these top-level keys: questionType, prompt, answer, rationale, referencedResources, visualRequirement, visualIntent.',
+    `questionType must be exactly "${type}".`,
+    answerShapeInstruction(type),
+    `referencedResources must be ${resources.length ? 'an array containing only exact teacher-listed resource strings actually used' : 'an empty array [] because the teacher supplied no resources'}.`,
+    'visualRequirement must be exactly "none", "helpful", or "required". Use "required" only when the learner genuinely cannot answer the finished prompt without a diagram/graph. Use "helpful" only when a diagram improves readability but the prompt remains fully solvable without it. Otherwise use "none".',
+    'visualIntent must be an empty string when visualRequirement is "none"; otherwise give a concise observable description of the diagram/graph needed. Do not include the correct answer or conclusion in visualIntent.',
+    'Do not return visual geometry, TikZ, SVG, HTML, scripts, raster data, formula code, or coordinates in this question-generation response. GuroDesk requests the visual separately after the question contract is valid.',
+    'Rationale is for teacher review and must be at least one clear sentence; it must not claim official approval.',
+  ].join('\n')
+}
+
+function buildVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row) {
+  return [
+    'Independently review one finished assessment item. Return strict JSON only.',
+    `Fixed item number: ${Number(immutable.itemNumber)}`,
+    `Fixed competency: ${clean(immutable.competencyText)}`,
+    `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
+    `Fixed question type: ${type}`,
+    `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
+    `Finished candidate: ${JSON.stringify(candidate)}`,
+    'Check answer validity, competency alignment, cognitive alignment, ambiguity, factual/math issues, and type-specific structure. Treat visualRequirement/visualIntent as planning metadata; the actual visual is validated separately.',
+    'Do not require a single best answer for essay, constructed_response, or multiple_select.',
+    'Return exactly: {"status":"pass"|"needs_repair","answerValid":boolean,"competencyAligned":boolean,"cognitiveAlignment":"good"|"questionable","ambiguityDetected":boolean,"factualOrMathIssue":boolean,"issues":string[],"repairGuidance":string[]}.',
+  ].join('\n')
+}
+
+function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, issues: string[], guidance: string[]) {
+  return [
+    'Repair exactly one assessment item. Keep immutable item number, competency, cognitive category, question type, and points unchanged.',
+    `Fixed item number: ${Number(immutable.itemNumber)}`,
+    `Fixed competency: ${clean(immutable.competencyText)}`,
+    `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
+    `Fixed question type: ${type}`,
+    `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
+    `Current candidate: ${JSON.stringify(candidate)}`,
+    `Verifier issues: ${issues.join(' | ') || 'review the answer and wording'}`,
+    `Repair guidance: ${guidance.join(' | ') || 'return a clear unambiguous self-contained item'}`,
+    'Return one JSON object only with exactly questionType, prompt, answer, rationale, referencedResources, visualRequirement, visualIntent.',
+    `questionType must remain exactly "${type}".`,
+    answerShapeInstruction(type),
+    'Do not return the diagram itself. Preserve or revise only visualRequirement and visualIntent; the dedicated visual request handles geometry separately.',
+    'Do not invent resources or learner details.',
+  ].join('\n')
+}
+
+function buildVisualPrompt(type: QuestionType, immutable: Row, candidate: Row, visualIntent: string, issues: string[]) {
+  const requirement = clean(candidate.visualRequirement, 20) || 'required'
+  return [
+    'Design exactly one safe, print-friendly mathematical assessment visual for an already-valid question. Return strict JSON only.',
+    'This is a dedicated visual pass. Do not rewrite the learner prompt, answer, rationale, item number, competency, cognitive category, question type, or points.',
+    `Fixed item number: ${Number(immutable.itemNumber)}`,
+    `Fixed competency: ${clean(immutable.competencyText)}`,
+    `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
+    `Fixed question type: ${type}`,
+    `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
+    `Learner prompt: ${clean(candidate.prompt, 2000)}`,
+    `Structured answer (teacher-only context; never reveal it in labels/alt text): ${JSON.stringify(candidate.answer)}`,
+    `Visual requirement: ${requirement}`,
+    `Visual intent: ${visualIntent || clean(candidate.visualIntent, 500)}`,
+    ...(issues.length ? [`Previous deterministic visual issues to repair: ${issues.join(' | ')}`] : []),
+    'Return exactly one AssessmentVisual JSON object with keys id, kind, version, width, height, altText, primitives.',
+    'kind must be "geometry" and version must be 1. Keep the canvas compact and readable for A4/Letter Word and PDF export.',
+    'Use only the bounded primitive types supported by GuroDesk: point, segment, polygon, circle, arc, angleArc, textLabel, tickMark, equalSideMark, parallelMark, perpendicularMark, arrow, dashedSegment, cartesianAxes, cartesianPlot.',
+    'For coordinate graphs use cartesianAxes plus cartesianPlot sampled numeric points. Never return a formula/expression/code field and never ask GuroDesk to evaluate model-supplied math code.',
+    'Use restrained textbook geometry. Keep labels outside lines/angle arcs, avoid overlap, and include only observable labels needed by the question.',
+    'altText must describe only observable features of the diagram and must not reveal the classification, accepted answer, final value, method, or conclusion the learner is supposed to determine.',
+    'Never return TikZ, TeX commands, SVG, HTML, JavaScript, scripts, URLs, raster/base64 data, arbitrary colours, or executable content. GuroDesk deterministically translates validated JSON to TikZ/SVG itself.',
+  ].join('\n')
+}
 
 // maxRetries=2 in the client scheduler means at most 3 provider attempts
 // (attempt <= 3) for one queued operation; no endless repair loop is allowed.
@@ -58,6 +147,7 @@ async function callWithLiteFallback(
   settings: ReturnType<typeof resolveSettings>,
   prompt: string,
   questionType: QuestionType,
+  maxOutputTokens?: number,
 ) {
   let modelUsed: AiModelId = settings.preferredModel
   let fallbackUsed = false
@@ -66,7 +156,9 @@ async function callWithLiteFallback(
   // Raw v1beta generateContent normal generation uses JSON MIME mode only.
   // Exact question-type/visual validation happens server-side after parsing;
   // the model/type-specific budget is selected in generationConfigFor().
-  const config = { questionType, responseMimeType: 'application/json' }
+  const config = maxOutputTokens
+    ? { responseMimeType: 'application/json', maxOutputTokens }
+    : { questionType, responseMimeType: 'application/json' }
 
   try {
     providerRequestCount += 1
@@ -151,8 +243,8 @@ Deno.serve(async (req) => {
     const authHeader = req.headers.get('Authorization'); if (!authHeader) return json({ error: 'Authentication required.' }, 401)
     const supabaseUrl = Deno.env.get('SUPABASE_URL'); const anonKey = Deno.env.get('SUPABASE_ANON_KEY'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (!supabaseUrl || !anonKey || !serviceRole) return json({ error: 'Supabase function environment is incomplete.' }, 500)
     const userClient = createClient(supabaseUrl, anonKey, { global: { headers: { Authorization: authHeader } } }); const { data: userData, error: userError } = await userClient.auth.getUser(); if (userError || !userData.user) return json({ error: 'Invalid authentication session.' }, 401)
-    const userId = userData.user.id; const admin = createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }); const body = await req.json() as RequestBody; const operation: Operation = body.operation === 'verify' || body.operation === 'repair' ? body.operation : 'generate'
-    const allowedBodyKeys = ['operation', 'assessmentId', 'itemId', 'questionType', 'alternative', 'teacherContext', 'candidate', 'issues', 'repairGuidance', 'generatorModel']; if (Object.keys(body ?? {}).some((key) => !allowedBodyKeys.includes(key))) return json({ error: 'Unsupported assessment AI request fields.' }, 400)
+    const userId = userData.user.id; const admin = createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }); const body = await req.json() as RequestBody; const operation: Operation = body.operation === 'verify' || body.operation === 'repair' || body.operation === 'visual' ? body.operation : 'generate'
+    const allowedBodyKeys = ['operation', 'assessmentId', 'itemId', 'questionType', 'alternative', 'teacherContext', 'candidate', 'issues', 'repairGuidance', 'generatorModel', 'visualIntent']; if (Object.keys(body ?? {}).some((key) => !allowedBodyKeys.includes(key))) return json({ error: 'Unsupported assessment AI request fields.' }, 400)
     const assessmentId = clean(body.assessmentId, 80); const itemId = clean(body.itemId, 80); const requestedType = body.questionType; if (!UUID.test(assessmentId) || !UUID.test(itemId) || !requestedType || !QUESTION_TYPES.has(requestedType)) return json({ error: 'A valid assessment, item, and question type are required.' }, 400)
     const [assessmentResult, metadataResult, itemResult, preferencesResult, settingsResult, credentialResult] = await Promise.all([admin.from('documents').select('id, user_id, assignment_id, status, document_type, structured_content').eq('id', assessmentId).eq('user_id', userId).eq('document_type', 'assessment').maybeSingle(), admin.from('assessment_documents').select('*').eq('document_id', assessmentId).eq('user_id', userId).maybeSingle(), admin.from('assessment_items').select('*').eq('assessment_document_id', assessmentId).eq('id', itemId).maybeSingle(), admin.from('teacher_lesson_preferences').select('*').eq('user_id', userId).maybeSingle(), admin.from('teacher_ai_settings').select('*').eq('user_id', userId).maybeSingle(), admin.from('teacher_ai_credentials').select('api_key_ciphertext, api_key_iv, encryption_key_source').eq('user_id', userId).maybeSingle()])
     if (assessmentResult.error) throw assessmentResult.error; if (metadataResult.error) throw metadataResult.error; if (itemResult.error) throw itemResult.error; if (preferencesResult.error) throw preferencesResult.error; if (settingsResult.error) throw settingsResult.error; if (credentialResult.error) throw credentialResult.error
@@ -173,6 +265,30 @@ Deno.serve(async (req) => {
     const immutable: Row = { itemNumber: Number(item.item_number), competencyText: String(item.competency_text_snapshot), competencyCode: item.competency_code_snapshot ? String(item.competency_code_snapshot) : null, cognitiveLabel: String(item.cognitive_category_label_snapshot), cognitiveShortLabel: String(item.cognitive_category_short_label_snapshot), pointsPossible: Number(item.points_possible ?? item.points ?? 1), gradeLevel, learningArea }
     auditPayload = { userId, assessmentId, itemId, questionType: serverType, alternative: body.alternative === true, model: settings.preferredModel, fallbackUsed: false, outcome: 'error' }
     let responseModel: AiModelId = settings.preferredModel; let fallbackUsed = false
+    if (operation === 'visual') {
+      candidateValidationStarted = true
+      const approved = validateCandidate(body.candidate, serverType, resources, false, immutable)
+      const requirement = clean(approved.visualRequirement, 20) || 'none'
+      if (requirement === 'none') {
+        auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload)
+        return json({ assessmentId, itemId, questionType: serverType, visual: null, model: responseModel, fallbackUsed: false, providerRequestCount: 0 })
+      }
+      const visualIntent = clean(body.visualIntent, 500) || clean(approved.visualIntent, 500)
+      if (!visualIntent) return json({ error: 'A visual request needs a concise visual intent.' }, 400)
+      // Visual JSON has its own bounded budget regardless of question type.
+      // This avoids starving coordinate/geometry diagrams on short-answer types
+      // while preventing an essay slot from inheriting the full 12k budget.
+      const visualOutput = await callWithLiteFallback(apiKey, settings, buildVisualPrompt(serverType, immutable, approved, visualIntent, list(body.issues, 8, 500)), serverType, 8192)
+      responseModel = visualOutput.modelUsed; fallbackUsed = visualOutput.fallbackUsed
+      const parsedVisual = parseJson(visualOutput.output)
+      const rawVisual = Object.prototype.hasOwnProperty.call(parsedVisual, 'visual') ? parsedVisual.visual : parsedVisual
+      const visualCheck = validateAssessmentVisual(rawVisual)
+      if (!visualCheck.valid) throw new AssessmentContractError(`The dedicated visual response was invalid. ${visualCheck.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
+      // Re-run the shared candidate contract with the returned diagram so answer-leaking alt text is neutralized at the same boundary as legacy visuals.
+      const combined = validateCandidate({ ...approved, visual: rawVisual }, serverType, resources, false, immutable)
+      auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload)
+      return json({ assessmentId, itemId, questionType: serverType, visual: combined.visual ?? null, model: responseModel, fallbackUsed, providerRequestCount: visualOutput.providerRequestCount })
+    }
     if (operation === 'verify') {
       candidateValidationStarted = true; const approved = validateCandidate(body.candidate, serverType, resources, false, immutable); const verifierModel = oppositeLiteModel(settings, clean(body.generatorModel, 120)); const verifierOutput = await callGemini(apiKey, verifierModel, buildVerifierPrompt(serverType, immutable, approved), { maxOutputTokens: 4096, responseMimeType: 'application/json', responseSchema: verifierResponseSchema }); responseModel = verifierModel; const verifier = parseJson(verifierOutput); const required = ['status', 'answerValid', 'competencyAligned', 'cognitiveAlignment', 'ambiguityDetected', 'factualOrMathIssue', 'issues', 'repairGuidance']; if (!onlyKeys(verifier, required) || !['pass', 'needs_repair'].includes(String(verifier.status)) || typeof verifier.answerValid !== 'boolean' || typeof verifier.competencyAligned !== 'boolean' || !['good', 'questionable'].includes(String(verifier.cognitiveAlignment)) || typeof verifier.ambiguityDetected !== 'boolean' || typeof verifier.factualOrMathIssue !== 'boolean' || !Array.isArray(verifier.issues) || !Array.isArray(verifier.repairGuidance)) throw new Error('The verifier response did not match the required structured contract.'); auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, verifier: { ...verifier, issues: list(verifier.issues, 12, 500), repairGuidance: list(verifier.repairGuidance, 12, 700) }, model: responseModel, fallbackUsed: false, providerRequestCount: 1, editable: true })
     }

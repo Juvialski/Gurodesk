@@ -11,7 +11,9 @@ Run this short checklist on an Android phone after the automated CI workflow is 
 ## One real BYOK check
 
 - [ ] Connect the teacher's own Gemini key in Settings and run one low-risk assessment suggestion.
-- [ ] Confirm the suggestion is editable, the saved draft survives refresh, and no learner identity is sent.
+- [ ] Generate one item that genuinely needs a geometry/graph visual. Confirm the question is saved first, then the separate visual request attaches a valid diagram without rewriting the question or answer.
+- [ ] Confirm the suggestion is editable, the saved question/visual survive refresh, and no learner identity is sent.
+- [ ] If the provider can safely be rate-limited in staging, confirm a visual-request pause preserves the already-generated question instead of discarding it.
 - [ ] Remove or rotate the smoke-test key if it was created only for acceptance.
 
 ## Critical production round trip
@@ -22,7 +24,10 @@ Run this short checklist on an Android phone after the automated CI workflow is 
 
 ## Physical output and mobile behavior
 
-- [ ] Download one student assessment and one results export; inspect pagination, Unicode/Filipino text, and absence of internal/AI metadata.
+- [ ] Use the primary **Download Word (.docx)** assessment action and open the file in Microsoft Word. Confirm question text remains editable, grouped Parts are readable, Matching uses aligned columns, and every generated diagram appears as an embedded visual rather than a `[Diagram: ...]` placeholder.
+- [ ] Inspect the Student Copy for answer/rationale/scoring-guide leakage, including visual labels and alt text.
+- [ ] Export the same assessment to PDF as the secondary path and inspect pagination, Unicode/Filipino text, diagrams, and absence of internal/AI metadata.
+- [ ] Download one results export and inspect its existing layout.
 - [ ] Confirm the assessment navigator, learner picker, Save controls, and downloads work without horizontal overflow.
 
 Do not repeat migration, RLS, PostgREST, malformed-response, 429, or deep-route matrix testing manually; those belong to the automated Phase 5.5 harness.

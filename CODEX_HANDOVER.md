@@ -266,3 +266,26 @@ Preserve this behavior in later assessment and curriculum work. Migration count 
 - Automatic preparation uses at most 3 full QA/repair passes and never auto-overwrites teacher-authored/teacher-edited items.
 - Fixed Source TOS header compression on tablet/narrow desktop widths by stacking context/progress/action regions.
 - No migration, TOS mapping, scoring, results, curriculum, or Gemini JSON-MIME wire-contract change.
+
+
+## Assessment visual split + Word-first export stabilization — 2026-08-10
+
+Current assessment release invariants after the auto-prepare root fix:
+
+- Normal `generate` / `repair` operations return only the typed question, structured answer, rationale/resources, and `visualRequirement` + `visualIntent`. They do **not** return diagram geometry.
+- `assessment-question-generator` exposes a separate authenticated `visual` operation. Only when the finished question requests a helpful/required diagram does the browser make that second provider request. The validated question is first written to the resumable local generation checkpoint, so a refresh/quota interruption during visual work does not discard the paid-for question.
+- The visual operation receives the immutable item context plus the finished learner prompt and structured answer, then returns only the existing bounded `AssessmentVisual` JSON DSL. Model-supplied TikZ, SVG, HTML, JavaScript, arbitrary formula/code strings, URLs, raster/base64 data, and executable content remain prohibited.
+- GuroDesk remains the sole TikZ/SVG author: server/client visual validation runs before deterministic `assessmentVisualTikzSource()` / `assessmentVisualSvgMarkup()` rendering.
+- Visual-only Final Review blockers use one dedicated visual-only automatic retry. The existing question text and structured answer are preserved. Mixed/non-visual blockers may still use the bounded full-question repair path.
+- A provider boundary reached after a question succeeds (for example during its separate visual/verifier pass) preserves that successful question and pauses the remaining generation batch rather than burning more requests.
+- Automatic distribution modes require contiguous question-type sections before finalization. Manual per-item mode remains the explicit escape hatch for a teacher-chosen custom order; no teacher-authored item is silently reordered.
+- Assessment Word `.docx` is now the primary download action. Word content stays native/editable: administrative/school header, learner/test metadata table, grouped Part headings, native matching tables, type-specific response areas, and teacher/key annotations.
+- Valid assessment diagrams are embedded in Word as deterministic SVG `ImageRun`s with a PNG compatibility fallback. The old `[Diagram: ...]` placeholder is no longer used for a valid visual. PDF remains available as a secondary deterministic path.
+- Student export never trusts stored/model visual alt text: it derives neutral accessibility text from observable geometry only, and deterministic Final Review blocks learner-facing visual labels/alt text that reveal concise accepted answers.
+- No database migration was added. Migration count remains 26. The modified hosted `assessment-question-generator` Edge Function must be deployed from the same release commit as the frontend.
+
+CI baseline fixes included in this checkpoint:
+- `tests/unit/assessment-auto-prepare.test.ts` gives the mocked generator an explicit `Promise<AssessmentItemSuggestion>` return type so literal `editable: true` is not widened to `boolean`.
+- `tests/e2e/assessment-flow.spec.ts` scopes the Source TOS title assertion to the visible `.assessment-editor-context`, avoiding the hidden duplicate title locator that failed Chromium.
+
+Static release guards cover the separated visual operation, one-retry visual-only repair ceiling, successful-question provider pause, contiguous-section finalization, Word SVG embedding, native Word matching/info tables, and Word-first preview action.

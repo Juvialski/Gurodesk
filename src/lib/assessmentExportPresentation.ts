@@ -31,19 +31,21 @@ const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI'
 
 export function assessmentQuestionTypeLabel(type: QuestionType) { return TYPE_LABELS[type] }
 
-export function assessmentUsesContiguousTypeSections(questions: Array<Pick<AssessmentExportQuestion, 'questionType'>>) {
-  if (questions.length < 2) return false
+export function assessmentQuestionTypesAreContiguous(questions: Array<Pick<AssessmentExportQuestion, 'questionType'>>) {
   const closed = new Set<QuestionType>()
   let current: QuestionType | null = null
-  let distinct = 0
   for (const question of questions) {
     if (question.questionType === current) continue
     if (current) closed.add(current)
     if (closed.has(question.questionType)) return false
     current = question.questionType
-    distinct += 1
   }
-  return distinct > 1
+  return true
+}
+
+export function assessmentUsesContiguousTypeSections(questions: Array<Pick<AssessmentExportQuestion, 'questionType'>>) {
+  if (questions.length < 2 || !assessmentQuestionTypesAreContiguous(questions)) return false
+  return new Set(questions.map((question) => question.questionType)).size > 1
 }
 
 export function assessmentSectionTitle(type: QuestionType, sectionIndex: number) {

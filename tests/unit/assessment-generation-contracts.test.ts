@@ -43,6 +43,15 @@ describe('assessment AI candidate contract regressions', () => {
     expect(() => validateAssessmentCandidate({ ...candidate, answer }, questionType, [])).toThrow(/unsupported|shape/u)
   })
 
+  it('accepts visual intent without geometry in the question pass and requires intent when a visual is requested', () => {
+    const base = cloneCandidate('multiple_choice')
+    const requested = validateAssessmentCandidate({ ...base, visualRequirement: 'required', visualIntent: 'Show a clean triangle with the labelled measures referenced by the prompt.' }, 'multiple_choice', [])
+    expect(requested.visualRequirement).toBe('required')
+    expect(requested.visualIntent).toMatch(/triangle/u)
+    expect(requested.visual).toBeUndefined()
+    expect(() => validateAssessmentCandidate({ ...base, visualRequirement: 'required', visualIntent: '' }, 'multiple_choice', [])).toThrow(/visual intent/u)
+  })
+
   it('rejects unsupported top-level fields instead of silently accepting model metadata', () => {
     expect(() => validateAssessmentCandidate({ ...cloneCandidate('multiple_choice'), model: 'gemini', itemNumber: 1 }, 'multiple_choice', [])).toThrow(/unsupported fields/u)
   })

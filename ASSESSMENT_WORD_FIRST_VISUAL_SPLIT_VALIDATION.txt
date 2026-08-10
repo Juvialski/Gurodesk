@@ -1,0 +1,51 @@
+GuroDesk assessment visual split + Word-first validation report
+Date: 2026-08-10
+
+BASELINE
+- Working source: gurodesk-phase6-auto-prepare-rootfix.zip, matching the latest a7f5422 assessment auto-prepare root-fix line used for this handoff.
+- GitHub write access through the connected app returned HTTP 403, so this checkpoint is delivered as a root-level full-project ZIP rather than a pushed branch.
+
+IMPLEMENTED
+- Fixed confirmed static CI regression in tests/unit/assessment-auto-prepare.test.ts by preserving AssessmentItemSuggestion.editable as literal true in the mocked generator return type.
+- Fixed confirmed Chromium E2E regression by scoping the Source TOS title assertion to the visible assessment editor context.
+- Enforced contiguous grouped question-type sections for automatic distribution modes before finalization; manual-per-item remains the teacher-controlled escape hatch.
+- Split question generation and visual generation into distinct authenticated operations/provider requests.
+- Checkpoints a validated generated question locally before the optional visual provider request starts, so refresh/quota interruption does not discard the paid-for question.
+- Visual generation returns only bounded AssessmentVisual JSON. Gemini never returns executable TikZ/SVG/HTML/JavaScript/formula code; GuroDesk remains the sole deterministic TikZ/SVG author.
+- Visual-only blockers use one bounded visual-only retry and never rewrite an otherwise valid question or structured answer.
+- Provider pauses after a successful question preserve that question and stop remaining batch work cleanly.
+- Student visual accessibility text is derived from observable geometry instead of trusting stored/model alt text; deterministic Final Review blocks concise accepted-answer leaks in visual labels/accessibility text.
+- Word .docx is the primary assessment download, using native editable Word paragraphs/tables/response areas and grouped Parts.
+- Valid diagrams are embedded as deterministic SVG with a PNG compatibility fallback; the old valid-visual [Diagram: ...] placeholder is removed.
+- PDF remains as the secondary deterministic export path.
+- README migration list corrected to include migration 026.
+
+DATABASE / BACKEND
+- No database migration added. Migration count remains 26.
+- No new Edge Function directory was added. Existing assessment-question-generator now handles a separate operation=visual and MUST be redeployed from the same source revision as the frontend.
+
+VALIDATION COMPLETED IN THIS WORKSPACE
+- 26 dependency-free scripts/check-*.mjs validators: PASS
+- 4 retained validators: NOT RUNNABLE HERE ONLY because required packages are unavailable in this runtime:
+  * scripts/check-phase4.mjs (pizzip)
+  * scripts/check-phase42.mjs (esbuild)
+  * scripts/check-phase44-ai-editor.mjs (esbuild)
+  * scripts/check-phase53.mjs (pizzip)
+- Validator failures: 0
+- Modified/targeted TS/TSX syntax parse via TypeScript transpileModule: 21/21 PASS
+- git diff --check: PASS
+- Focused assessment auto-prepare/export/math-visual validators: PASS
+- Phase 4.3 isolation validator was updated for the new learner-safe visual helper and passes.
+
+FULL DEPENDENCY-BASED GATE LIMITATION
+- npm ci cannot complete in this execution environment because the configured package mirror returns HTTP 404 for yallist@3.1.1.
+- Because project node_modules cannot be installed here, do NOT treat this report as a substitute for GitHub Actions TypeScript/Vitest/build/Playwright/Supabase execution.
+- The user-provided failing GitHub run showed the Supabase integration suite at 11/11 pass and Chromium at 8/9 before this checkpoint; the one failing E2E locator and the separate static typing error were both corrected here.
+
+REQUIRED RELEASE CHECK AFTER IMPORT/PUSH
+1. Run the normal GitHub Actions CI on the imported checkpoint.
+2. Require Static checks (type, unit, build) green.
+3. Require local Supabase fresh/upgrade/integration green.
+4. Require Chromium E2E green.
+5. Deploy frontend and assessment-question-generator from the same green revision.
+6. Production-smoke a real visual-required assessment and open the primary .docx in Microsoft Word to confirm editable content, embedded diagrams, grouped Parts, and Student Copy answer/alt-text safety.

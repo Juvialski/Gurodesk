@@ -292,3 +292,31 @@ export function assertAssessmentVisual(value: unknown): asserts value is Assessm
   const result = validateAssessmentVisual(value)
   if (!result.valid) throw new Error(`Invalid assessment visual: ${result.errors.join(' ')}`)
 }
+
+
+/**
+ * Build learner-safe accessibility text from validated visual structure only.
+ * This intentionally ignores author/model supplied classification language so
+ * student preview, SVG, and DOCX accessibility metadata cannot reveal answers.
+ */
+export function neutralAssessmentVisualAltText(visual: AssessmentVisual) {
+  const axes = visual.primitives.filter((entry) => entry.type === 'cartesianAxes').length
+  const plots = visual.primitives.filter((entry) => entry.type === 'cartesianPlot').length
+  if (axes) return plots ? 'A Cartesian coordinate graph with plotted data and labeled axes.' : 'A Cartesian coordinate plane with labeled axes.'
+  const polygons = visual.primitives.filter((entry) => entry.type === 'polygon')
+  const circles = visual.primitives.filter((entry) => entry.type === 'circle').length
+  const segments = visual.primitives.filter((entry) => entry.type === 'segment' || entry.type === 'dashedSegment').length
+  const angleMarks = visual.primitives.filter((entry) => entry.type === 'angleArc').length
+  const congruenceMarks = visual.primitives.filter((entry) => entry.type === 'equalSideMark' || entry.type === 'tickMark').length
+  const relationMarks = visual.primitives.filter((entry) => entry.type === 'parallelMark' || entry.type === 'perpendicularMark').length
+  const parts: string[] = []
+  if (polygons.length === 1) parts.push(polygons[0].points.length >= 3 ? `A polygon outline with ${polygons[0].points.length} vertices.` : 'A polygon outline.')
+  else if (polygons.length > 1) parts.push(`A geometry diagram with ${polygons.length} polygon outlines.`)
+  else if (circles) parts.push(circles === 1 ? 'A geometry diagram containing a circle.' : `A geometry diagram containing ${circles} circles.`)
+  else parts.push('A geometry diagram with mathematical line work and labels.')
+  if (segments) parts.push('Line segments are shown.')
+  if (angleMarks) parts.push('Angle markings are shown.')
+  if (congruenceMarks) parts.push('Congruence markings are shown.')
+  if (relationMarks) parts.push('Parallel or perpendicular markings are shown.')
+  return parts.join(' ').slice(0, ASSESSMENT_VISUAL_LIMITS.maxAltTextLength)
+}

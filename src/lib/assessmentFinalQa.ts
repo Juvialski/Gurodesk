@@ -116,6 +116,28 @@ function labelTexts(visual: AssessmentVisual) {
   return visual.primitives.filter((primitive): primitive is AssessmentVisualTextLabel => primitive.type === 'textLabel').map((label) => clean(label.text).toLocaleLowerCase('en'))
 }
 
+function semanticAnswerText(value: string) {
+  return clean(value).toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').replace(/\s+/gu, ' ').trim()
+}
+
+function conciseAcceptedAnswerTerms(item: AssessmentItem) {
+  const answer = record(item.answer)
+  const values: string[] = []
+  if (item.questionType === 'short_answer' || item.questionType === 'identification') {
+    values.push(...array(answer.acceptedAnswers).filter((entry): entry is string => typeof entry === 'string'))
+  } else if (item.questionType === 'fill_in_the_blank') {
+    for (const rawBlank of array(answer.blanks)) values.push(...array(record(rawBlank).acceptedAnswers).filter((entry): entry is string => typeof entry === 'string'))
+  }
+  return [...new Set(values.map(semanticAnswerText).filter((value) => value.length >= 3))]
+}
+
+function learnerVisualContainsAnswer(item: AssessmentItem, visual: AssessmentVisual) {
+  const terms = conciseAcceptedAnswerTerms(item)
+  if (!terms.length) return false
+  const learnerFacing = [visual.altText, ...labelTexts(visual)].map((value) => ` ${semanticAnswerText(value)} `)
+  return terms.some((term) => learnerFacing.some((value) => value.includes(` ${term} `)))
+}
+
 export function assessmentVisualSemanticFindings(item: AssessmentItem): QaFinding[] {
   const findings: QaFinding[] = []
   const visual = item.visual
@@ -125,6 +147,9 @@ export function assessmentVisualSemanticFindings(item: AssessmentItem): QaFindin
   if (!validation.valid) {
     findings.push({ code: 'invalid-export-visual', message: 'The attached visual is invalid and cannot be trusted in student export.', severity: promptRequiresAssessmentVisual(item.prompt) ? 'error' : 'warning' })
     return findings
+  }
+  if (learnerVisualContainsAnswer(item, visual)) {
+    findings.push({ code: 'visual-answer-leak', message: 'The learner-facing diagram label or accessibility text reveals an accepted answer.', severity: 'error' })
   }
   const poly = polygon(visual)
   if (poly) {

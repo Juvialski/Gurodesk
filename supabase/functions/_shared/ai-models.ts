@@ -313,9 +313,9 @@ const answerSchemas: Record<AssessmentQuestionType, GeminiSchema> = {
  *
  * Keep this envelope deliberately shallow. Gemini structured output is used to
  * guarantee a JSON object and the fixed question-type discriminator, while the
- * authoritative per-question answer and visual contracts are enforced by the
+ * authoritative per-question answer contract is enforced by the
  * Edge validator after parsing. Deeply nesting all answer variants plus the
- * full visual primitive schema in every request previously caused unreliable
+ * full visual primitive schema in a question request previously caused unreliable
  * provider generation, especially after visual support was added.
  */
 /**
@@ -334,19 +334,11 @@ export function responseSchemaForQuestionType(type: AssessmentQuestionType): Gem
       ),
       rationale: { type: 'STRING' },
       referencedResources: stringArray(0, 10),
-      visual: {
-        type: 'OBJECT',
-        nullable: true,
-        properties: {
-          kind: { type: 'STRING', enum: ['geometry'] },
-          version: { type: 'INTEGER', enum: [1] },
-        },
-        required: ['kind', 'version'],
-        propertyOrdering: ['kind', 'version'],
-      },
+      visualRequirement: { type: 'STRING', enum: ['none', 'helpful', 'required'] },
+      visualIntent: { type: 'STRING' },
     },
-    ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'],
-    ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'],
+    ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent'],
+    ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent'],
   )
 }
 
@@ -366,7 +358,7 @@ export type GeminiJsonSchema = {
 /**
  * Current Gemini 3.5 Flash-Lite structured-output contract. The provider only
  * owns the top-level envelope and discriminators; validateAssessmentCandidate
- * remains authoritative for the full answer and safe-visual structures.
+ * remains authoritative for the full answer contract; visual geometry is generated only by the separate visual operation.
  */
 export function responseJsonSchemaForQuestionType(type: AssessmentQuestionType): GeminiJsonSchema {
   return {
@@ -382,22 +374,10 @@ export function responseJsonSchemaForQuestionType(type: AssessmentQuestionType):
       },
       rationale: { type: 'string' },
       referencedResources: { type: 'array', minItems: 0, maxItems: 10, items: { type: 'string' } },
-      visual: {
-        anyOf: [
-          { type: 'null' },
-          {
-            type: 'object',
-            properties: {
-              kind: { type: 'string', enum: ['geometry'] },
-              version: { type: 'integer', enum: [1] },
-            },
-            required: ['kind', 'version'],
-            additionalProperties: true,
-          },
-        ],
-      },
+      visualRequirement: { type: 'string', enum: ['none', 'helpful', 'required'] },
+      visualIntent: { type: 'string' },
     },
-    required: ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'],
+    required: ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent'],
     additionalProperties: false,
   }
 }

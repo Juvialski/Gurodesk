@@ -1,10 +1,13 @@
+import PizZip from 'pizzip'
 import { describe, expect, it } from 'vitest'
 import { assessmentDuplicateLevel, assessmentSimilarityConcentration, assessmentVisualSemanticFindings, promptRequiresAssessmentVisual } from '../../src/lib/assessmentFinalQa'
 import { normalizeAssessmentMathText, hasUnsupportedAssessmentMathMarkup } from '../../src/lib/assessmentMathText'
-import { assessmentResponseKind, assessmentSectionTitle, assessmentUsesContiguousTypeSections, recommendedAssessmentResponseLines } from '../../src/lib/assessmentExportPresentation'
+import { assessmentQuestionTypesAreContiguous, assessmentResponseKind, assessmentSectionTitle, assessmentUsesContiguousTypeSections, recommendedAssessmentResponseLines } from '../../src/lib/assessmentExportPresentation'
+import { buildAssessmentDocxBlob } from '../../src/lib/assessmentExport'
+import { buildAssessmentExportModel } from '../../src/lib/assessmentExportModel'
 import { ASSESSMENT_VISUAL_FIXTURES } from '../../src/lib/assessmentVisualFixtures'
 import type { AssessmentExportQuestion } from '../../src/types/assessmentExport'
-import { assessmentItem } from './fixtures'
+import { assessmentItem, assessmentRecord } from './fixtures'
 
 function exportQuestion(questionType: AssessmentExportQuestion['questionType'], overrides: Partial<AssessmentExportQuestion> = {}): AssessmentExportQuestion {
   return {
@@ -25,6 +28,38 @@ describe('assessment export presentation hardening', () => {
     expect(hasUnsupportedAssessmentMathMarkup('Use $\\unknown{q}$ here')).toBe(true)
   })
 
+  it('builds Word as a native editable paper and embeds vector assessment diagrams', async () => {
+    const visualItem = assessmentItem('multiple_choice', {
+      id: 'word-visual', itemNumber: 1, prompt: 'Examine the polygon shown. How many sides does it have?',
+      answer: { type: 'multiple_choice', choices: [{ id: 'A', text: '4' }, { id: 'B', text: '5' }, { id: 'C', text: '6' }], choiceId: 'B' },
+      visual: ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon,
+      authorshipState: 'teacher_accepted', qaState: 'locked', locked: true,
+    })
+    const matchingItem = assessmentItem('matching', {
+      id: 'word-matching', itemNumber: 2, prompt: 'Match each term with its description.', pointsPossible: 2, points: 2,
+      answer: { type: 'matching', prompts: [{ id: 'p1', text: 'Triangle' }, { id: 'p2', text: 'Quadrilateral' }], choices: [{ id: 'A', text: 'Three sides' }, { id: 'B', text: 'Four sides' }], mappings: [{ promptId: 'p1', choiceId: 'A' }, { promptId: 'p2', choiceId: 'B' }] },
+      authorshipState: 'teacher_accepted', qaState: 'locked', locked: true,
+    })
+    const assessment = assessmentRecord([visualItem, matchingItem])
+    assessment.status = 'final'
+    assessment.settings = { ...assessment.settings!, allowedTypes: ['multiple_choice', 'matching'] }
+    const model = buildAssessmentExportModel(assessment, { mode: 'student', teacherName: 'Teacher Test', schoolName: 'Sample School', region: 'Region III', division: 'Sample Division' })
+    expect(model.questions[0].visual?.altText).toBe('A polygon outline with 5 vertices.')
+    expect(model.questions[0].visual?.altText.toLocaleLowerCase('en')).not.toContain('irregular')
+    expect(model.questions[0].visual?.altText.toLocaleLowerCase('en')).not.toContain('concave')
+    const blob = await buildAssessmentDocxBlob(model, 'a4')
+    const zip = new PizZip(await blob.arrayBuffer())
+    const names = Object.keys(zip.files)
+    expect(names.some((name) => /word\/media\/.*\.svg$/u.test(name))).toBe(true)
+    const documentXml = zip.file('word/document.xml')?.asText() ?? ''
+    expect(documentXml).toContain('Republic of the Philippines')
+    expect(documentXml).toContain('Department of Education')
+    expect(documentXml).toContain('Part I - Multiple Choice')
+    expect(documentXml).toContain('Part II - Matching Type')
+    expect(documentXml).toContain('Sample School')
+    expect(documentXml).not.toContain('[Diagram:')
+  })
+
   it('uses type-specific student response controls and point-aware writing space', () => {
     expect(assessmentResponseKind(exportQuestion('true_false'))).toBe('true_false')
     expect(assessmentResponseKind(exportQuestion('fill_in_the_blank', { prompt: 'A hexagon has ____ sides.', blanks: [{ label: 'A' }] }))).toBe('fill_inline')
@@ -34,6 +69,8 @@ describe('assessment export presentation hardening', () => {
     expect(assessmentSectionTitle('multiple_choice', 0)).toBe('Part I - Multiple Choice')
     expect(assessmentUsesContiguousTypeSections([exportQuestion('multiple_choice'), exportQuestion('multiple_choice'), exportQuestion('true_false')])).toBe(true)
     expect(assessmentUsesContiguousTypeSections([exportQuestion('multiple_choice'), exportQuestion('true_false'), exportQuestion('multiple_choice')])).toBe(false)
+    expect(assessmentQuestionTypesAreContiguous([exportQuestion('multiple_choice'), exportQuestion('multiple_choice')])).toBe(true)
+    expect(assessmentQuestionTypesAreContiguous([exportQuestion('multiple_choice'), exportQuestion('true_false'), exportQuestion('multiple_choice')])).toBe(false)
   })
 })
 
@@ -57,6 +94,23 @@ describe('deterministic final assessment QA hardening', () => {
       visual: ASSESSMENT_VISUAL_FIXTURES.regularHexagon,
     })
     expect(assessmentVisualSemanticFindings(missingLabels).some((issue) => issue.code === 'visual-label-mismatch' && issue.severity === 'error')).toBe(true)
+  })
+
+  it('blocks accepted answers leaked through visual labels or accessibility text', () => {
+    const baseVisual = ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon
+    const leak = assessmentItem('identification', {
+      prompt: 'Name the polygon shown in the diagram.',
+      answer: { type: 'identification', acceptedAnswers: ['pentagon'], caseSensitive: false },
+      visual: {
+        ...baseVisual,
+        altText: 'A five-sided polygon outline with labeled vertices.',
+        primitives: [...baseVisual.primitives, { type: 'textLabel', x: 160, y: 18, text: 'Pentagon', textSize: 'medium', anchor: 'middle' }],
+      },
+    })
+    expect(assessmentVisualSemanticFindings(leak)).toContainEqual(expect.objectContaining({ code: 'visual-answer-leak', severity: 'error' }))
+
+    const altLeak = { ...leak, visual: { ...leak.visual!, altText: 'A pentagon outline.', primitives: baseVisual.primitives } }
+    expect(assessmentVisualSemanticFindings(altLeak)).toContainEqual(expect.objectContaining({ code: 'visual-answer-leak', severity: 'error' }))
   })
 
   it('distinguishes exact/strong duplicates from ordinary topic similarity', () => {

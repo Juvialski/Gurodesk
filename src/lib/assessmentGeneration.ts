@@ -4,7 +4,7 @@ import type {
   AssessmentRecord,
   QuestionType,
 } from '../types/assessment'
-import type { AssessmentVisual } from '../types/assessmentVisual'
+import type { AssessmentVisual, AssessmentVisualRequirement } from '../types/assessmentVisual'
 import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
 import { validateAssessmentFinal } from './assessmentValidation'
 import {
@@ -29,7 +29,10 @@ export type AssessmentItemCandidate = {
   answer: AssessmentAnswer
   rationale: string
   referencedResources: string[]
-  /** Nullable in the provider contract; omitted preserves a teacher visual, null removes it. */
+  /** Visual intent is decided with the question, but the diagram itself is generated in a separate provider request. */
+  visualRequirement?: AssessmentVisualRequirement
+  visualIntent?: string
+  /** Compatibility field populated only after the dedicated visual pass (or by legacy/manual callers). */
   visual?: AssessmentVisual | null
 }
 
@@ -48,6 +51,10 @@ export type AssessmentItemSuggestion = {
   verifier?: AssessmentVerifierResult
   repairAttempted?: boolean
   requestsUsed?: number
+  visualRequestsUsed?: number
+  visualRequirement?: AssessmentVisualRequirement
+  visualIntent?: string
+  visualError?: string
   quotaPaused?: boolean
 }
 
@@ -59,18 +66,23 @@ export type AssessmentGenerationBatchSummary = {
   cancelled: number
   results: AssessmentItem[]
   errors: Array<{ itemId: string; message: string }>
+  /** A successful item may still have hit a provider boundary during its optional visual/review pass. */
+  providerPaused?: boolean
 }
 
 export type AssessmentGenerationBatchOptions = {
   assessment: AssessmentRecord
   demo: boolean
+  /** Called after the question JSON is validated but before any separate visual request.
+   * It is intended for a lightweight resumable checkpoint, not a database save. */
+  onQuestionReady?: (item: AssessmentItem, suggestion: AssessmentItemSuggestion) => void | Promise<void>
   onItem?: (item: AssessmentItem) => void | Promise<void>
   onSuggestion?: (item: AssessmentItem, suggestion: AssessmentItemSuggestion) => void | Promise<void>
   onProgress?: (progress: { completed: number; processed: number; total: number; succeeded: number; failed: number; cancelled: number; remaining: number; itemId: string; status: 'success' | 'failed' | 'skipped' | 'cancelled'; message?: string }) => void
   signal?: AbortSignal
   concurrency?: number
   itemIds?: string[]
-  generate?: (args: { assessment: AssessmentRecord; item: AssessmentItem; demo: boolean; signal?: AbortSignal }) => Promise<AssessmentItemSuggestion>
+  generate?: (args: { assessment: AssessmentRecord; item: AssessmentItem; demo: boolean; signal?: AbortSignal; onQuestionReady?: (suggestion: AssessmentItemSuggestion) => void | Promise<void> }) => Promise<AssessmentItemSuggestion>
 }
 
 type CandidateInput = UnknownRecord
@@ -325,7 +337,7 @@ function normalizeAnswer(answer: CandidateInput, type: QuestionType): Assessment
 
 export function validateAssessmentCandidate(value: unknown, questionType?: QuestionType, teacherResources: string[] = []): AssessmentItemCandidate {
   const object = typeof value === 'string' ? parseJsonObject(value) : asObject(value)
-  const allowedKeys = new Set(['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visual'])
+  const allowedKeys = new Set(['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent', 'visual'])
   if (Object.keys(object).some((key) => !allowedKeys.has(key))) throw new Error('The AI candidate included unsupported fields; item mapping was not changed.')
   const candidateType = clean(object.questionType) as QuestionType
   if (!questionTypes.has(candidateType) || (questionType && candidateType !== questionType)) throw new Error('The AI candidate question type does not match the verified item mapping.')
@@ -336,6 +348,10 @@ export function validateAssessmentCandidate(value: unknown, questionType?: Quest
   const referencedResources = object.referencedResources.map((entry) => clean(entry, 180))
   if (referencedResources.some((entry) => !entry) || !referencedResources.every((entry) => teacherResources.includes(entry))) throw new Error('The AI candidate referenced an unlisted teacher resource.')
   const normalizedAnswer = normalizeAnswer(asObject(object.answer), candidateType)
+  const visualRequirement = object.visualRequirement === undefined ? (object.visual ? 'required' : 'none') : clean(object.visualRequirement, 20) as AssessmentVisualRequirement
+  if (!['none', 'helpful', 'required'].includes(visualRequirement)) throw new Error('The AI candidate visual requirement is invalid.')
+  const visualIntent = object.visualIntent === undefined ? '' : clean(object.visualIntent, 500)
+  if (visualRequirement !== 'none' && !visualIntent) throw new Error('A helpful or required visual needs a concise visual intent.')
   let visual: AssessmentVisual | null | undefined
   if (object.visual !== undefined && object.visual !== null) {
     const visualResult = validateAssessmentVisual(object.visual)
@@ -343,7 +359,7 @@ export function validateAssessmentCandidate(value: unknown, questionType?: Quest
     visual = object.visual as AssessmentVisual
   } else if (object.visual === null) visual = null
   if ([prompt, rationale, ...answerStrings(normalizedAnswer)].some((entry) => resourceClaimLooksUnverified(entry, teacherResources))) throw new Error('The AI candidate included an unverified resource, device, local fact, URL, or page claim.')
-  return { questionType: candidateType, prompt, answer: normalizedAnswer, rationale, referencedResources, ...(visual === undefined ? {} : { visual }) }
+  return { questionType: candidateType, prompt, answer: normalizedAnswer, rationale, referencedResources, visualRequirement, visualIntent, ...(visual === undefined ? {} : { visual }) }
 }
 
 export const parseAssessmentCandidate = validateAssessmentCandidate
@@ -467,16 +483,16 @@ function demoCandidate(item: AssessmentItem): AssessmentItemCandidate {
   const cognitive = item.cognitiveCategorySnapshot.label || 'the verified cognitive category'
   const prefix = `Teacher-review draft for ${competency} (${cognitive}).`
   const type = item.questionType
-  if (type === 'true_false') return { questionType: type, prompt: `${prefix} Decide whether this statement is accurate after checking the lesson content.`, answer: { type, value: true }, rationale: 'Demo-local preview only; the teacher must verify the statement and answer.', referencedResources: [] }
-  if (type === 'short_answer' || type === 'identification') return { questionType: type, prompt: `${prefix} State one accurate response in your own words.`, answer: { type, acceptedAnswers: ['Teacher-verified response'], caseSensitive: false }, rationale: 'Demo-local preview only; replace the placeholder with a teacher-verified answer.', referencedResources: [] }
-  if (type === 'fill_in_the_blank') return { questionType: type, prompt: `${prefix} Complete the blank with the teacher-verified term.`, answer: { type, blanks: [{ id: 'blank-1', acceptedAnswers: ['Teacher-verified term'], pointsPossible: pointsOf(item) }] }, rationale: 'Demo-local preview only; the teacher must verify the blank answer.', referencedResources: [] }
-  if (type === 'numerical_answer') return { questionType: type, prompt: `${prefix} Calculate the requested value.`, answer: { type, value: 0, tolerance: 0 }, rationale: 'Demo-local preview only; the teacher must enter and verify the numeric answer.', referencedResources: [] }
-  if (type === 'problem_solving') return { questionType: type, prompt: `${prefix} Solve the problem and show your solution.`, answer: { type, finalAnswer: 'Teacher-verified final answer', solutionOutline: 'Teacher-verified method and key steps.' }, rationale: 'Demo-local preview only; the teacher must verify the solution and scoring.', referencedResources: [] }
-  if (type === 'matching') return { questionType: type, prompt: `${prefix} Match each prompt with its best answer.`, answer: { type, prompts: [{ id: 'prompt-1', text: 'Teacher-verified prompt' }], choices: [{ id: 'A', text: 'Teacher-verified choice' }], mappings: [{ promptId: 'prompt-1', choiceId: 'A' }] }, rationale: 'Demo-local preview only; the teacher must verify every mapping.', referencedResources: [] }
-  if (type === 'multiple_select') return { questionType: type, prompt: `${prefix} Select all correct answers.`, answer: { type, choices: [{ id: 'A', text: 'Teacher-verified choice A' }, { id: 'B', text: 'Teacher-verified choice B' }], choiceIds: ['A'], scoringPolicy: 'all_or_nothing' }, rationale: 'Demo-local preview only; the teacher must verify the complete correct set.', referencedResources: [] }
-  if (type === 'constructed_response') return { questionType: type, prompt: `${prefix} Explain your reasoning and show the key evidence.`, answer: { type, expectedResponse: 'Teacher-verified expected response.', sampleResponse: 'Teacher-verified sample response.', rubricGuidance: 'Teacher-verified criteria for alignment, reasoning, and evidence.' }, rationale: 'Demo-local preview only; the teacher must replace placeholders and validate response criteria.', referencedResources: [] }
-  if (type === 'essay') return { questionType: type, prompt: `${prefix} Write an extended response using evidence and reasoning.`, answer: { type, keyPoints: ['Teacher-verified key point'], rubric: [] }, rationale: 'Demo-local preview only; the teacher must replace placeholders and score with professional judgment.', referencedResources: [] }
-  return { questionType: 'multiple_choice', prompt: `${prefix} Which option best demonstrates the verified competency?`, answer: { type: 'multiple_choice', choices: [{ id: 'A', text: 'Teacher-verified option A' }, { id: 'B', text: 'Teacher-verified option B' }], choiceId: 'A' }, rationale: 'Demo-local preview only; the teacher must replace the placeholder and verify the answer.', referencedResources: [] }
+  if (type === 'true_false') return { questionType: type, prompt: `${prefix} Decide whether this statement is accurate after checking the lesson content.`, answer: { type, value: true }, rationale: 'Demo-local preview only; the teacher must verify the statement and answer.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  if (type === 'short_answer' || type === 'identification') return { questionType: type, prompt: `${prefix} State one accurate response in your own words.`, answer: { type, acceptedAnswers: ['Teacher-verified response'], caseSensitive: false }, rationale: 'Demo-local preview only; replace the placeholder with a teacher-verified answer.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  if (type === 'fill_in_the_blank') return { questionType: type, prompt: `${prefix} Complete the blank with the teacher-verified term.`, answer: { type, blanks: [{ id: 'blank-1', acceptedAnswers: ['Teacher-verified term'], pointsPossible: pointsOf(item) }] }, rationale: 'Demo-local preview only; the teacher must verify the blank answer.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  if (type === 'numerical_answer') return { questionType: type, prompt: `${prefix} Calculate the requested value.`, answer: { type, value: 0, tolerance: 0 }, rationale: 'Demo-local preview only; the teacher must enter and verify the numeric answer.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  if (type === 'problem_solving') return { questionType: type, prompt: `${prefix} Solve the problem and show your solution.`, answer: { type, finalAnswer: 'Teacher-verified final answer', solutionOutline: 'Teacher-verified method and key steps.' }, rationale: 'Demo-local preview only; the teacher must verify the solution and scoring.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  if (type === 'matching') return { questionType: type, prompt: `${prefix} Match each prompt with its best answer.`, answer: { type, prompts: [{ id: 'prompt-1', text: 'Teacher-verified prompt' }], choices: [{ id: 'A', text: 'Teacher-verified choice' }], mappings: [{ promptId: 'prompt-1', choiceId: 'A' }] }, rationale: 'Demo-local preview only; the teacher must verify every mapping.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  if (type === 'multiple_select') return { questionType: type, prompt: `${prefix} Select all correct answers.`, answer: { type, choices: [{ id: 'A', text: 'Teacher-verified choice A' }, { id: 'B', text: 'Teacher-verified choice B' }], choiceIds: ['A'], scoringPolicy: 'all_or_nothing' }, rationale: 'Demo-local preview only; the teacher must verify the complete correct set.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  if (type === 'constructed_response') return { questionType: type, prompt: `${prefix} Explain your reasoning and show the key evidence.`, answer: { type, expectedResponse: 'Teacher-verified expected response.', sampleResponse: 'Teacher-verified sample response.', rubricGuidance: 'Teacher-verified criteria for alignment, reasoning, and evidence.' }, rationale: 'Demo-local preview only; the teacher must replace placeholders and validate response criteria.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  if (type === 'essay') return { questionType: type, prompt: `${prefix} Write an extended response using evidence and reasoning.`, answer: { type, keyPoints: ['Teacher-verified key point'], rubric: [] }, rationale: 'Demo-local preview only; the teacher must replace placeholders and score with professional judgment.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
+  return { questionType: 'multiple_choice', prompt: `${prefix} Which option best demonstrates the verified competency?`, answer: { type: 'multiple_choice', choices: [{ id: 'A', text: 'Teacher-verified option A' }, { id: 'B', text: 'Teacher-verified option B' }], choiceId: 'A' }, rationale: 'Demo-local preview only; the teacher must replace the placeholder and verify the answer.', referencedResources: [], visualRequirement: 'none', visualIntent: '' }
 }
 
 function candidatePayload(suggestion: AssessmentItemCandidate) {
@@ -488,7 +504,9 @@ function candidatePayload(suggestion: AssessmentItemCandidate) {
     answer: suggestion.answer,
     rationale: suggestion.rationale,
     referencedResources: suggestion.referencedResources,
-    visual: suggestion.visual ?? null,
+    visualRequirement: suggestion.visualRequirement ?? (suggestion.visual ? 'required' : 'none'),
+    visualIntent: suggestion.visualIntent ?? '',
+    ...(suggestion.visual === undefined ? {} : { visual: suggestion.visual }),
   }
 }
 
@@ -610,6 +628,49 @@ function itemWithCandidate(item: AssessmentItem, candidate: AssessmentItemCandid
   }
 }
 
+export type AssessmentVisualGenerationResult = {
+  visual?: AssessmentVisual
+  model: string
+  fallbackUsed: boolean
+  requestsUsed: number
+}
+
+/** Dedicated provider pass for diagrams. Question generation never supplies executable
+ * markup or geometry; this request receives an already-validated question candidate
+ * and may return only the bounded AssessmentVisual data DSL. */
+export async function generateAssessmentVisualSuggestion(args: {
+  assessment: AssessmentRecord
+  item: AssessmentItem
+  candidate: AssessmentItemCandidate
+  visualIntent?: string
+  issues?: string[]
+  demo?: boolean
+  signal?: AbortSignal
+}): Promise<AssessmentVisualGenerationResult> {
+  const requirement = args.candidate.visualRequirement ?? (args.candidate.visual ? 'required' : 'none')
+  if (requirement === 'none') return { model: 'none', fallbackUsed: false, requestsUsed: 0 }
+  if (args.demo || !supabase) {
+    return { ...(args.candidate.visual ? { visual: clone(args.candidate.visual) } : {}), model: 'demo-local-preview', fallbackUsed: false, requestsUsed: 0 }
+  }
+  const visualIntent = clean(args.visualIntent ?? args.candidate.visualIntent, 500)
+  if (!visualIntent) throw new Error('A helpful or required visual needs a concise visual intent before generation.')
+  const candidateWithoutVisual: AssessmentItemCandidate = { ...args.candidate, visual: undefined, visualRequirement: requirement, visualIntent }
+  const data = await invokeAssessmentAi({
+    operation: 'visual',
+    assessmentId: args.assessment.id,
+    itemId: args.item.id,
+    questionType: args.item.questionType,
+    candidate: candidatePayload(candidateWithoutVisual),
+    visualIntent,
+    issues: (args.issues ?? []).slice(0, 8),
+  }, args.signal)
+  const raw = data.visual
+  if (raw === null || raw === undefined) return { model: String(data.model || 'unknown'), fallbackUsed: data.fallbackUsed === true, requestsUsed: providerRequestCount(data.providerRequestCount) }
+  const result = validateAssessmentVisual(raw)
+  if (!result.valid) throw new Error(`The dedicated AI visual is invalid: ${result.errors.slice(0, 3).join(' ')}`)
+  return { visual: clone(raw as AssessmentVisual), model: String(data.model || 'unknown'), fallbackUsed: data.fallbackUsed === true, requestsUsed: providerRequestCount(data.providerRequestCount) }
+}
+
 export async function requestAssessmentVerification(args: { assessment: AssessmentRecord; item: AssessmentItem; candidate: AssessmentItemCandidate; generatorModel?: string; demo?: boolean; signal?: AbortSignal }) {
   const deterministic = validateAssessmentItemDeterministic(itemWithCandidate(args.item, args.candidate), { allowedTypes: allowedTypesFor(args.assessment) })
   if (!deterministic.valid) return { deterministic, verifier: undefined, requestsUsed: 0 }
@@ -623,7 +684,15 @@ export async function repairAssessmentItemSuggestion(args: { assessment: Assessm
   if (args.demo || !supabase) return { candidate: args.candidate, requestsUsed: 0 }
   const data = await invokeAssessmentAi({ operation: 'repair', assessmentId: args.assessment.id, itemId: args.item.id, questionType: args.item.questionType, candidate: candidatePayload(args.candidate), issues: args.issues.slice(0, 8), repairGuidance: (args.repairGuidance ?? []).slice(0, 8) }, args.signal)
   const approved = Array.isArray(data.approvedResources) ? data.approvedResources.map((entry) => clean(entry, 180)) : []
-  const candidate = candidateFromResponse(data, args.item, approved)
+  let candidate = candidateFromResponse(data, args.item, approved)
+  // Repair responses intentionally do not carry geometry. Reuse the already
+  // validated visual only when the repaired question kept the same visual plan;
+  // otherwise leave it absent so the dedicated visual pass regenerates it.
+  if (args.candidate.visual
+    && candidate.visualRequirement === args.candidate.visualRequirement
+    && candidate.visualIntent === args.candidate.visualIntent) {
+    candidate = { ...candidate, visual: clone(args.candidate.visual) }
+  }
   return { candidate, requestsUsed: providerRequestCount(data.providerRequestCount), approvedResources: approved }
 }
 
@@ -658,7 +727,7 @@ function allowedTypesFor(assessment: AssessmentRecord) {
   return allowed?.length ? allowed : undefined
 }
 
-export async function generateAssessmentItemSuggestion(args: { assessment: AssessmentRecord; item: AssessmentItem; demo: boolean; alternative?: boolean; teacherContext?: string; signal?: AbortSignal }): Promise<AssessmentItemSuggestion> {
+export async function generateAssessmentItemSuggestion(args: { assessment: AssessmentRecord; item: AssessmentItem; demo: boolean; alternative?: boolean; teacherContext?: string; signal?: AbortSignal; onQuestionReady?: (suggestion: AssessmentItemSuggestion) => void | Promise<void> }): Promise<AssessmentItemSuggestion> {
   const { assessment, item, demo, alternative = false, teacherContext = '', signal } = args
   const itemValue = itemRecord(item)
   if (signal?.aborted) throw new DOMException('Generation cancelled.', 'AbortError')
@@ -681,10 +750,68 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
     model = String(data.model || 'unknown')
     fallbackUsed = data.fallbackUsed === true
   }
+
+  // The first provider request owns only question content. Expose that validated
+  // result before starting the independent visual call so batch generation can
+  // checkpoint it locally. If the browser is refreshed during diagram work, the
+  // teacher can recover the paid-for question instead of generating it again.
+  await args.onQuestionReady?.({
+    assessmentId: assessment.id,
+    itemId: item.id,
+    questionType: item.questionType,
+    candidate,
+    approvedResources,
+    model,
+    fallbackUsed,
+    editable: true,
+    qaState: 'generated',
+    requestsUsed: baseRequests,
+    visualRequirement: candidate.visualRequirement,
+    visualIntent: candidate.visualIntent,
+    quotaPaused: false,
+  })
+
+  let visualRequestsUsed = 0
+  let visualError = ''
+  const initialVisualRequirement = candidate.visualRequirement ?? 'none'
+  if (initialVisualRequirement === 'none') {
+    // An explicit null clears any stale diagram when replacing a prior question.
+    candidate = { ...candidate, visual: null }
+  } else {
+    try {
+      const visualResult = await generateAssessmentVisualSuggestion({ assessment, item, candidate, visualIntent: candidate.visualIntent, demo, signal })
+      visualRequestsUsed += visualResult.requestsUsed
+      candidate = { ...candidate, visual: visualResult.visual ?? null }
+    } catch (visualFailure) {
+      visualError = String((visualFailure as { message?: unknown })?.message ?? visualFailure)
+      candidate = { ...candidate, visual: null }
+      if (batchGenerationShouldPause(visualFailure)) quotaPaused = true
+    }
+  }
+
   const review = await adaptiveReview(assessment, item, candidate, demo, signal, model)
-  const mergedCandidate = review.candidate
-  const state = review.state
-  quotaPaused = Boolean((review as { quotaPaused?: boolean }).quotaPaused)
+  let mergedCandidate = review.candidate
+  let reviewDeterministic = review.deterministic
+  let reviewState = review.state
+
+  // A verifier repair may legitimately rewrite visual intent. Regenerate only the
+  // diagram, never the repaired question, and only when the repaired item asks for one.
+  if (review.repairAttempted && (mergedCandidate.visualRequirement ?? 'none') !== 'none' && !mergedCandidate.visual) {
+    try {
+      const repairedVisual = await generateAssessmentVisualSuggestion({ assessment, item, candidate: mergedCandidate, visualIntent: mergedCandidate.visualIntent, demo, signal })
+      visualRequestsUsed += repairedVisual.requestsUsed
+      mergedCandidate = { ...mergedCandidate, visual: repairedVisual.visual ?? null }
+      const deterministic = validateAssessmentItemDeterministic(itemWithCandidate(item, mergedCandidate), { allowedTypes: allowedTypesFor(assessment) })
+      reviewDeterministic = deterministic
+      reviewState = stateForAssessmentItem(itemWithCandidate(item, mergedCandidate), deterministic)
+    } catch (visualFailure) {
+      visualError = String((visualFailure as { message?: unknown })?.message ?? visualFailure)
+      if (batchGenerationShouldPause(visualFailure)) quotaPaused = true
+    }
+  }
+
+  const state = reviewState
+  quotaPaused = quotaPaused || Boolean((review as { quotaPaused?: boolean }).quotaPaused)
   return {
     assessmentId: assessment.id,
     itemId: item.id,
@@ -695,11 +822,15 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
     fallbackUsed,
     editable: true,
     qaState: state,
-    deterministicQa: review.deterministic,
+    deterministicQa: reviewDeterministic,
     risk: review.risk,
     verifier: review.verifier,
     repairAttempted: review.repairAttempted,
-    requestsUsed: baseRequests + review.requestsUsed,
+    requestsUsed: baseRequests + visualRequestsUsed + review.requestsUsed,
+    visualRequestsUsed,
+    visualRequirement: mergedCandidate.visualRequirement,
+    visualIntent: mergedCandidate.visualIntent,
+    ...(visualError ? { visualError } : {}),
     quotaPaused,
   }
 }
@@ -723,7 +854,7 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
     if (item.authorshipState === 'teacher_edited' || item.authorshipState === 'teacher_accepted') return false
     return !hasExistingAssessmentContent(item)
   })
-  const summary: AssessmentGenerationBatchSummary = { attempted: 0, succeeded: 0, skipped: assessment.items.length - eligible.length, failed: 0, cancelled: 0, results: [], errors: [] }
+  const summary: AssessmentGenerationBatchSummary = { attempted: 0, succeeded: 0, skipped: assessment.items.length - eligible.length, failed: 0, cancelled: 0, results: [], errors: [], providerPaused: false }
   let cursor = 0
   let processed = 0
   let paused = false
@@ -753,13 +884,27 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
       const item = eligible[index]
       summary.attempted += 1
       try {
-        const suggestion = await generate({ assessment, item, demo, signal })
+        const suggestion = await generate({
+          assessment, item, demo, signal,
+          onQuestionReady: options.onQuestionReady
+            ? async (questionSuggestion) => {
+              const questionItem = applyAssessmentItemSuggestion(item, questionSuggestion, { source: 'generated' })
+              await options.onQuestionReady?.(questionItem, questionSuggestion)
+            }
+            : undefined,
+        })
         const applied = applyAssessmentItemSuggestion(item, suggestion, { source: 'generated' })
         summary.results.push(applied)
         summary.succeeded += 1
         await onItem?.(applied)
         await onSuggestion?.(applied, suggestion)
         progress(item.id, 'success')
+        // Preserve the successfully generated question, then stop scheduling
+        // more work when a later visual/verifier request hit a provider boundary.
+        if (suggestion.quotaPaused) {
+          summary.providerPaused = true
+          paused = true
+        }
       } catch (error) {
         if (signal?.aborted || (error instanceof DOMException && error.name === 'AbortError')) {
           summary.cancelled += 1

@@ -1,4 +1,4 @@
-import { AlignmentType, Document, Packer, Paragraph, TextRun } from 'docx'
+import { AlignmentType, BorderStyle, Document, ImageRun, Packer, Paragraph, Table, TableCell, TableLayoutType, TableRow, TextRun, WidthType } from 'docx'
 import { jsPDF } from 'jspdf'
 import type { AssessmentAnswer, QuestionType } from '../types/assessment'
 import type { AssessmentVisual } from '../types/assessmentVisual'
@@ -380,54 +380,238 @@ export function buildAssessmentPdf(model: AssessmentExportModel, paperSize: Expo
 export function downloadAssessmentPdf(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') { buildAssessmentPdf(model, paperSize).save(assessmentExportFilename(model, 'pdf')) }
 
 function docxPaperSize(paper: ExportPaperSize = 'a4') { return paper === 'letter' ? { width: 12240, height: 15840 } : paper === 'legal' ? { width: 12240, height: 20160 } : { width: 11906, height: 16838 } }
-function docxText(text: string, options: { bold?: boolean; size?: number; color?: string } = {}) { return new TextRun({ text: normalizedText(text), bold: options.bold, size: options.size ?? 20, color: options.color ?? TEXT }) }
+function docxText(text: string, options: { bold?: boolean; size?: number; color?: string; italics?: boolean } = {}) { return new TextRun({ text: normalizedText(text), bold: options.bold, italics: options.italics, size: options.size ?? 20, color: options.color ?? TEXT }) }
 
-function docxQuestion(model: AssessmentExportModel, question: AssessmentExportQuestion) {
-  const children: Paragraph[] = []
+const DOCX_BORDER = '777777'
+const DOCX_LIGHT_BORDER = 'B7BEC7'
+const TRANSPARENT_PNG_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='
+
+function docxTableBorders(color = DOCX_BORDER, size = 5) {
+  return {
+    top: { style: BorderStyle.SINGLE, size, color },
+    bottom: { style: BorderStyle.SINGLE, size, color },
+    left: { style: BorderStyle.SINGLE, size, color },
+    right: { style: BorderStyle.SINGLE, size, color },
+    insideHorizontal: { style: BorderStyle.SINGLE, size, color },
+    insideVertical: { style: BorderStyle.SINGLE, size, color },
+  }
+}
+
+function docxCell(text: string, options: { bold?: boolean; width?: number; align?: (typeof AlignmentType)[keyof typeof AlignmentType]; muted?: boolean } = {}) {
+  return new TableCell({
+    ...(options.width ? { width: { size: options.width, type: WidthType.PERCENTAGE } } : {}),
+    margins: { top: 70, bottom: 70, left: 100, right: 100 },
+    children: [new Paragraph({ alignment: options.align, children: [docxText(text || ' ', { bold: options.bold, size: 18, color: options.muted ? MUTED : TEXT })] })],
+  })
+}
+
+function docxLabelValueCell(label: string, value: string, width = 50) {
+  return new TableCell({
+    width: { size: width, type: WidthType.PERCENTAGE },
+    margins: { top: 75, bottom: 75, left: 105, right: 105 },
+    children: [new Paragraph({ children: [docxText(`${label}: `, { bold: true, size: 18 }), docxText(value || '____________________', { size: 18 })] })],
+  })
+}
+
+function wordScoreLabel(model: AssessmentExportModel) { return model.language === 'filipino' ? 'Iskor' : 'Score' }
+function wordRepublicLabel(model: AssessmentExportModel) { return model.language === 'filipino' ? 'Republika ng Pilipinas' : 'Republic of the Philippines' }
+function wordDepartmentLabel(model: AssessmentExportModel) { return model.language === 'filipino' ? 'Kagawaran ng Edukasyon' : 'Department of Education' }
+
+function docxIdentityHeader(model: AssessmentExportModel): Paragraph[] {
+  const rows = [
+    wordRepublicLabel(model),
+    wordDepartmentLabel(model),
+    model.metadata.region,
+    model.metadata.division,
+    model.metadata.schoolName,
+  ].filter((value) => clean(value))
+  return rows.map((value, index) => new Paragraph({
+    alignment: AlignmentType.CENTER,
+    keepNext: true,
+    spacing: { after: index === rows.length - 1 ? 90 : 20 },
+    children: [docxText(value, { bold: index === 1 || index === rows.length - 1, size: index === 1 ? 20 : 17 })],
+  }))
+}
+
+function docxAssessmentInfoTable(model: AssessmentExportModel) {
+  const totalPoints = String(model.metadata.totalPoints ?? model.questions.reduce((sum, question) => sum + question.pointsPossible, 0))
+  const totalItems = String(model.metadata.totalItems ?? model.questions.length)
+  const rows: TableRow[] = []
+  if (model.mode !== 'answer_key') {
+    rows.push(new TableRow({ children: [
+      docxLabelValueCell(model.labels.learnerName, model.metadata.learnerName || '', 58),
+      docxLabelValueCell(model.labels.section, model.metadata.section || '', 42),
+    ] }))
+  } else {
+    rows.push(new TableRow({ children: [
+      docxLabelValueCell(model.labels.teacher, model.metadata.teacherName, 58),
+      docxLabelValueCell(model.labels.school, model.metadata.schoolName, 42),
+    ] }))
+  }
+  rows.push(new TableRow({ children: [
+    docxLabelValueCell(model.labels.gradeLevel, model.metadata.gradeLevel, 50),
+    docxLabelValueCell(model.labels.learningArea, model.metadata.learningArea, 50),
+  ] }))
+  rows.push(new TableRow({ children: [
+    docxLabelValueCell(model.labels.gradingTerm, model.metadata.gradingTerm, 50),
+    docxLabelValueCell(model.labels.schoolYear, model.metadata.schoolYear, 50),
+  ] }))
+  rows.push(new TableRow({ children: [
+    docxLabelValueCell(model.labels.totalItems, totalItems, 34),
+    docxLabelValueCell(model.labels.totalPoints, totalPoints, 33),
+    docxLabelValueCell(wordScoreLabel(model), model.mode === 'student' ? `________ / ${totalPoints}` : totalPoints, 33),
+  ] }))
+  return new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, layout: TableLayoutType.FIXED, borders: docxTableBorders(DOCX_LIGHT_BORDER, 4), rows })
+}
+
+function docxSectionHeading(text: string) {
+  return new Paragraph({
+    keepNext: true,
+    spacing: { before: 200, after: 90 },
+    border: { bottom: { style: BorderStyle.SINGLE, size: 7, color: TEXT, space: 4 } },
+    children: [docxText(text, { bold: true, size: 21 })],
+  })
+}
+
+function pngFallbackBytes() {
+  const binary = atob(TRANSPARENT_PNG_BASE64)
+  return Uint8Array.from(binary, (character) => character.charCodeAt(0))
+}
+
+async function svgPngFallback(svg: string, width: number, height: number) {
+  if (typeof document === 'undefined' || typeof Image === 'undefined' || typeof URL === 'undefined') return pngFallbackBytes()
+  const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  try {
+    const image = new Image()
+    const loaded = new Promise<void>((resolve, reject) => { image.onload = () => resolve(); image.onerror = () => reject(new Error('Unable to rasterize assessment SVG fallback.')) })
+    image.src = url
+    await loaded
+    const scale = 2
+    const canvas = document.createElement('canvas')
+    canvas.width = Math.max(1, Math.round(width * scale))
+    canvas.height = Math.max(1, Math.round(height * scale))
+    const context = canvas.getContext('2d')
+    if (!context) return pngFallbackBytes()
+    context.fillStyle = '#ffffff'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    context.scale(scale, scale)
+    context.drawImage(image, 0, 0, width, height)
+    const png = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'))
+    return png ? new Uint8Array(await png.arrayBuffer()) : pngFallbackBytes()
+  } catch {
+    return pngFallbackBytes()
+  } finally {
+    URL.revokeObjectURL(url)
+  }
+}
+
+function docxVisualDimensions(question: AssessmentExportQuestion, visual: AssessmentVisual) {
+  const scaleKind = assessmentVisualScale(question)
+  const maxWidth = scaleKind === 'cartesian' ? 440 : scaleKind === 'large' ? 390 : 350
+  const maxHeight = scaleKind === 'cartesian' ? 285 : scaleKind === 'large' ? 250 : 220
+  const scale = Math.min(maxWidth / visual.width, maxHeight / visual.height, 1)
+  return { width: Math.max(1, Math.round(visual.width * scale)), height: Math.max(1, Math.round(visual.height * scale)) }
+}
+
+async function docxVisualParagraph(question: AssessmentExportQuestion, visual: AssessmentVisual) {
+  const svg = assessmentVisualSvgMarkup(visual)
+  if (!svg) return new Paragraph({ spacing: { after: 70 }, children: [docxText(`[Diagram unavailable: ${visual.altText}]`, { size: 16, color: MUTED })] })
+  const dimensions = docxVisualDimensions(question, visual)
+  const fallback = await svgPngFallback(svg, dimensions.width, dimensions.height)
+  return new Paragraph({
+    alignment: AlignmentType.CENTER,
+    keepNext: true,
+    spacing: { before: 45, after: 90 },
+    children: [new ImageRun({
+      type: 'svg',
+      data: new TextEncoder().encode(svg),
+      fallback: { type: 'png', data: fallback },
+      transformation: dimensions,
+      altText: { title: 'Assessment diagram', description: visual.altText, name: visual.id },
+    })],
+  })
+}
+
+function docxMatchingTable(model: AssessmentExportModel, question: AssessmentExportQuestion) {
+  const prompts = promptsFor(question)
+  const choices = choicesFor(question)
+  const rows: TableRow[] = [new TableRow({ children: [docxCell(model.labels.columnA, { bold: true, width: 54, align: AlignmentType.CENTER }), docxCell(model.labels.columnB, { bold: true, width: 46, align: AlignmentType.CENTER })] })]
+  const count = Math.max(prompts.length, choices.length)
+  for (let index = 0; index < count; index += 1) {
+    const prompt = prompts[index]
+    const choice = choices[index]
+    const promptText = prompt ? `_____ ${index + 1}. ${typeof prompt === 'string' ? prompt : prompt.text}` : ' '
+    const choiceTextValue = choice ? `${visibleLabel(index)}. ${choiceText(choice)}` : ' '
+    rows.push(new TableRow({ children: [docxCell(promptText, { width: 54 }), docxCell(choiceTextValue, { width: 46 })] }))
+  }
+  return new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, layout: TableLayoutType.FIXED, borders: docxTableBorders(DOCX_LIGHT_BORDER, 3), rows })
+}
+
+async function docxQuestion(model: AssessmentExportModel, question: AssessmentExportQuestion): Promise<Array<Paragraph | Table>> {
+  const children: Array<Paragraph | Table> = []
   if (model.mode === 'answer_key') {
-    children.push(new Paragraph({ keepNext: true, children: [docxText(`${question.itemNumber}. ${model.labels.answer}: `, { bold: true, size: 19 }), docxText(questionAnswer(question), { size: 19 })] }))
-    if ('scoringGuide' in question && question.scoringGuide) children.push(new Paragraph({ spacing: { after: 100 }, children: [docxText(`${model.labels.solution}: ${question.scoringGuide}`, { size: 17, color: MUTED })] }))
+    children.push(new Paragraph({ keepNext: Boolean(question.visual), spacing: { before: 70, after: 35 }, children: [docxText(`${question.itemNumber}. ${model.labels.answer}: `, { bold: true, size: 19 }), docxText(questionAnswer(question), { size: 19 })] }))
+    if (question.visual) children.push(await docxVisualParagraph(question, question.visual))
+    if ('scoringGuide' in question && question.scoringGuide) children.push(new Paragraph({ spacing: { after: 110 }, children: [docxText(`${model.labels.solution}: ${question.scoringGuide}`, { size: 17, color: MUTED })] }))
     return children
   }
   if (!('prompt' in question)) return children
-  children.push(new Paragraph({ keepNext: true, spacing: { after: 45 }, children: [docxText(`${question.itemNumber}. `, { bold: true, size: 20 }), docxText(question.prompt, { size: 20 }), ...((model.mode !== 'student' || question.pointsPossible > 1) ? [docxText(` (${question.pointsPossible} ${model.labels.points})`, { size: 16, color: MUTED })] : [])] }))
-  if (question.visual) children.push(new Paragraph({ keepNext: true, spacing: { after: 70 }, children: [docxText(`[Diagram: ${question.visual.altText}]`, { size: 17, color: MUTED })] }))
-  subpartsFor(question).forEach((part) => children.push(new Paragraph({ keepNext: true, children: [docxText(`(${part.label}) ${part.prompt} (${part.pointsPossible} ${model.labels.points})`, { size: 18 })] })))
-  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') choicesFor(question).forEach((choice, index) => children.push(new Paragraph({ keepNext: true, children: [docxText(`${question.questionType === 'multiple_select' ? '☐ ' : ''}${visibleLabel(index)}. ${choiceText(choice)}`, { size: 18 })] })))
-  if (question.questionType === 'matching') {
-    children.push(new Paragraph({ keepNext: true, children: [docxText(model.labels.columnA, { bold: true, size: 18 }), docxText('    '), docxText(model.labels.columnB, { bold: true, size: 18 })] }))
-    const prompts = promptsFor(question); const choices = choicesFor(question); const rows = Math.max(prompts.length, choices.length)
-    for (let index = 0; index < rows; index += 1) {
-      const prompt = prompts[index]; const choice = choices[index]
-      const promptText = prompt ? `_____ ${index + 1}. ${typeof prompt === 'string' ? prompt : prompt.text}` : ''
-      const choiceLine = choice ? `${visibleLabel(index)}. ${choiceText(choice)}` : ''
-      children.push(new Paragraph({ keepNext: index < rows - 1, children: [docxText(promptText, { size: 17 }), docxText('        '), docxText(choiceLine, { size: 17 })] }))
-    }
-  }
+  children.push(new Paragraph({
+    keepNext: assessmentQuestionKeepTogether(question),
+    keepLines: true,
+    spacing: { before: 65, after: 45 },
+    children: [docxText(`${question.itemNumber}. `, { bold: true, size: 20 }), docxText(question.prompt, { size: 20 }), ...((model.mode !== 'student' || question.pointsPossible > 1) ? [docxText(` (${question.pointsPossible} ${model.labels.points})`, { size: 16, color: MUTED })] : [])],
+  }))
+  if (question.visual) children.push(await docxVisualParagraph(question, question.visual))
+  subpartsFor(question).forEach((part) => children.push(new Paragraph({ keepNext: true, keepLines: true, spacing: { after: 30 }, children: [docxText(`(${part.label}) ${part.prompt} (${part.pointsPossible} ${model.labels.points})`, { size: 18 })] })))
+  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') choicesFor(question).forEach((choice, index) => children.push(new Paragraph({ keepNext: index < choicesFor(question).length - 1, spacing: { after: 28 }, indent: { left: 260 }, children: [docxText(`${question.questionType === 'multiple_select' ? '☐ ' : ''}${visibleLabel(index)}. ${choiceText(choice)}`, { size: 18 })] })))
+  if (question.questionType === 'matching') children.push(docxMatchingTable(model, question))
   const kind = assessmentResponseKind(question)
-  if (kind === 'true_false') children.push(new Paragraph({ children: [docxText('☐ True      ☐ False', { size: 18 })] }))
-  else if (kind === 'numerical') children.push(new Paragraph({ children: [docxText('Answer: ____________________    Unit: __________', { size: 18 })] }))
-  else if (kind === 'single_line') children.push(new Paragraph({ children: [docxText('______________________________________________', { size: 18 })] }))
-  else if (kind === 'fill_structured') blanksFor(question).forEach((blank) => children.push(new Paragraph({ children: [docxText(`${model.labels.answer} ${blank.label}: ____________________________________`, { size: 18 })] })))
+  if (kind === 'true_false') children.push(new Paragraph({ spacing: { before: 45, after: 70 }, children: [docxText('☐ True      ☐ False', { size: 18 })] }))
+  else if (kind === 'numerical') children.push(new Paragraph({ spacing: { before: 45, after: 70 }, children: [docxText(`${model.labels.answer}: ____________________    ${model.language === 'filipino' ? 'Yunit' : 'Unit'}: __________`, { size: 18 })] }))
+  else if (kind === 'single_line') children.push(new Paragraph({ spacing: { before: 45, after: 70 }, border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: '777777', space: 2 } }, children: [docxText(' ', { size: 18 })] }))
+  else if (kind === 'fill_structured') blanksFor(question).forEach((blank) => children.push(new Paragraph({ spacing: { before: 35, after: 55 }, children: [docxText(`${model.labels.answer} ${blank.label}: ____________________________________`, { size: 18 })] })))
   else if (kind === 'extended') {
-    if ('responseInstructions' in question && question.responseInstructions) children.push(new Paragraph({ children: [docxText(question.responseInstructions, { size: 17, color: MUTED })] }))
-    for (let index = 0; index < recommendedAssessmentResponseLines(question); index += 1) children.push(new Paragraph({ children: [docxText('____________________________________________________________', { size: 18 })] }))
+    if ('responseInstructions' in question && question.responseInstructions) children.push(new Paragraph({ spacing: { before: 35, after: 50 }, children: [docxText(question.responseInstructions, { size: 17, color: MUTED, italics: true })] }))
+    for (let index = 0; index < recommendedAssessmentResponseLines(question); index += 1) children.push(new Paragraph({ spacing: { after: 85 }, border: { bottom: { style: BorderStyle.SINGLE, size: 3, color: '8D939A', space: 2 } }, children: [docxText(' ', { size: 17 })] }))
   }
+  if (model.mode !== 'student' && 'answer' in question && question.answer) children.push(new Paragraph({ spacing: { before: 55, after: 25 }, children: [docxText(`${model.labels.answer}: `, { bold: true, size: 17 }), docxText(questionAnswer(question), { size: 17 })] }))
+  if (model.mode !== 'student' && 'scoringGuide' in question && question.scoringGuide) children.push(new Paragraph({ spacing: { after: 35 }, children: [docxText(`${model.labels.solution}: ${question.scoringGuide}`, { size: 16, color: MUTED })] }))
+  if (model.mode !== 'student' && 'competency' in question && question.competency) children.push(new Paragraph({ spacing: { after: 25 }, children: [docxText(`${model.labels.competency}: `, { bold: true, size: 15, color: MUTED }), docxText(question.competency.text, { size: 15, color: MUTED })] }))
+  if (model.mode !== 'student' && 'cognitiveCategory' in question && question.cognitiveCategory) children.push(new Paragraph({ spacing: { after: 25 }, children: [docxText(`${model.labels.cognitiveCategory}: ${question.cognitiveCategory.label}`, { size: 15, color: MUTED })] }))
+  if (model.mode !== 'student' && 'rationale' in question && question.rationale) children.push(new Paragraph({ spacing: { after: 80 }, children: [docxText(`${model.labels.rationale}: ${question.rationale}`, { size: 15, color: MUTED })] }))
   return children
 }
 
 export async function buildAssessmentDocxBlob(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') {
-  const children: Paragraph[] = [new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, children: [docxText(model.labels.documentTitle, { bold: true, size: 28 })] }), new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, children: [docxText(model.title, { bold: true, size: 24 })] })]
-  textMetadata(model).forEach(([label, value]) => children.push(new Paragraph({ keepNext: true, spacing: { after: 30 }, children: [docxText(`${label}: `, { bold: true, size: 18 }), docxText(value, { size: 18 })] })))
-  if (model.instructions) { children.push(new Paragraph({ keepNext: true, spacing: { before: 180, after: 45 }, children: [docxText(model.labels.instructions, { bold: true, size: 20 })] })); children.push(new Paragraph({ keepLines: true, keepNext: true, spacing: { after: 100 }, children: [docxText(model.instructions, { size: 20 })] })) }
+  const children: Array<Paragraph | Table> = [
+    ...docxIdentityHeader(model),
+    new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, spacing: { before: 35, after: 35 }, children: [docxText(model.labels.documentTitle, { bold: true, size: 27 })] }),
+    new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, spacing: { after: 120 }, children: [docxText(model.title, { bold: true, size: 23 })] }),
+    docxAssessmentInfoTable(model),
+  ]
+  if (model.instructions) {
+    children.push(new Paragraph({ keepNext: true, spacing: { before: 170, after: 40 }, children: [docxText(`${model.labels.instructions}:`, { bold: true, size: 19 })] }))
+    children.push(new Paragraph({ keepLines: true, spacing: { after: 110 }, children: [docxText(model.instructions, { size: 19 })] }))
+  }
   const showSections = model.mode !== 'answer_key' && assessmentUsesContiguousTypeSections(model.questions)
-  let priorType: QuestionType | null = null; let sectionIndex = -1
-  model.questions.forEach((question) => {
-    if (showSections && question.questionType !== priorType) { sectionIndex += 1; children.push(new Paragraph({ keepNext: true, spacing: { before: 160, after: 90 }, children: [docxText(assessmentSectionTitle(question.questionType, sectionIndex), { bold: true, size: 21 })] })); priorType = question.questionType }
-    children.push(...docxQuestion(model, question))
-  })
+  let priorType: QuestionType | null = null
+  let sectionIndex = -1
+  for (const question of model.questions) {
+    if (showSections && question.questionType !== priorType) {
+      sectionIndex += 1
+      children.push(docxSectionHeading(assessmentSectionTitle(question.questionType, sectionIndex)))
+      priorType = question.questionType
+    }
+    children.push(...await docxQuestion(model, question))
+  }
   const size = docxPaperSize(paperSize)
-  const document = new Document({ sections: [{ properties: { page: { size } }, children }] })
+  const document = new Document({
+    creator: model.metadata.teacherName || undefined,
+    title: `${model.title}${model.mode === 'answer_key' ? ' - Answer Key' : model.mode === 'teacher' ? ' - Teacher Copy' : ''}`,
+    sections: [{ properties: { page: { size, margin: { top: 720, right: 720, bottom: 720, left: 720 } } }, children }],
+  })
   return Packer.toBlob(document)
 }
 

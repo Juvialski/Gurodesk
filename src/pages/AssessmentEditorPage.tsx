@@ -504,6 +504,16 @@ export function AssessmentEditorPage() {
             setBatchFailures(checkpointFailures(checkpoint))
           }
         },
+        onQuestionReady: (item) => {
+          // The question-generation request completed before the independent
+          // visual request. Store that valid question in the local resumable
+          // checkpoint immediately, without adding a Supabase write per item.
+          // A refresh during diagram generation can therefore recover it.
+          if (checkpoint) {
+            checkpoint = checkpointAssessmentGenerationSuccess(checkpoint, item)
+            saveAssessmentGenerationCheckpoint(checkpoint)
+          }
+        },
         onSuggestion: (item, suggestion) => {
           // Commit every successful result to the in-memory draft AND the
           // resumable local checkpoint immediately. A refresh can therefore
@@ -546,7 +556,7 @@ export function AssessmentEditorPage() {
         } finally { setSaving(false) }
       }
       refreshUsageEstimates()
-      const quotaPaused = summary.errors.some((entry) => /429|quota|rate.?limit|provider limit/i.test(entry.message))
+      const quotaPaused = summary.providerPaused === true || summary.errors.some((entry) => /429|quota|rate.?limit|provider limit/i.test(entry.message))
       if (checkpoint) {
         if (summary.failed || summary.cancelled || quotaPaused) {
           checkpoint = pauseAssessmentGenerationCheckpoint(checkpoint)

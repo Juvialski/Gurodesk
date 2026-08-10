@@ -1,5 +1,5 @@
 import type { AssessmentItem, AssessmentRecord } from '../types/assessment'
-import { applyAssessmentItemSuggestion, generateAssessmentItemSuggestion, generateMissingAssessmentItems } from './assessmentGeneration'
+import { applyAssessmentItemSuggestion, generateAssessmentItemSuggestion, generateAssessmentVisualSuggestion, generateMissingAssessmentItems, type AssessmentItemCandidate } from './assessmentGeneration'
 import { unlockAssessmentItem } from './assessmentItemLifecycle'
 import { reviewAssessmentForFinalization, type AssessmentFinalReview } from './assessmentFinalReview'
 
@@ -39,6 +39,26 @@ function blockerIssuesForItem(review: AssessmentFinalReview, itemId: string) {
   return structuralHardErrors(review).filter((issue) => issue.itemId === itemId)
 }
 
+function visualOnlyBlockerIssues(review: AssessmentFinalReview, itemId: string) {
+  const issues = blockerIssuesForItem(review, itemId)
+  if (!issues.length) return []
+  const visualIssues = issues.filter((issue) => /visual|diagram|figure|graph|polygon|cartesian/i.test(`${issue.code} ${issue.message}`))
+  return visualIssues.length === issues.length ? visualIssues : []
+}
+
+function candidateForVisualRepair(item: AssessmentItem, issues: Array<{ code: string; message: string }>): AssessmentItemCandidate {
+  const issueSummary = issues.map((issue) => `${issue.code}: ${issue.message}`).join(' | ').slice(0, 360)
+  return {
+    questionType: item.questionType,
+    prompt: item.prompt,
+    answer: item.answer,
+    rationale: item.rationale ?? '',
+    referencedResources: [],
+    visualRequirement: 'required',
+    visualIntent: `Create only the diagram needed by the existing learner prompt. Repair these deterministic issues: ${issueSummary}`.slice(0, 500),
+  }
+}
+
 function duplicatePeerContext(assessment: AssessmentRecord, messages: string[]) {
   const numbers = [...new Set(messages.flatMap((message) => [...message.matchAll(/Item\s+(\d+)/giu)].map((match) => Number(match[1]))))]
   return numbers.flatMap((itemNumber) => {
@@ -51,15 +71,11 @@ function blockerRepairContext(assessment: AssessmentRecord, itemId: string, teac
   const review = reviewAssessmentForFinalization(assessment)
   const issues = blockerIssuesForItem(review, itemId)
   const messages = issues.map((issue) => `${issue.code}: ${issue.message}`)
-  const visualIssue = issues.some((issue) => /visual|diagram|figure|graph|polygon|convex|regular/i.test(`${issue.code} ${issue.message}`))
   const duplicateIssue = issues.some((issue) => /duplicate/i.test(issue.code))
   return [
     teacherContext.trim(),
     'AUTOMATIC REPAIR REQUIREMENTS (must be satisfied in this replacement):',
     ...messages.slice(0, 6).map((message) => `- ${message}`),
-    ...(visualIssue ? [round >= 2
-      ? '- A previous visual repair did not clear QA. Prefer a self-contained text-only replacement with visual:null when the competency can be assessed without a figure. In that case, remove every visual/diagram/figure/graph reference from the learner prompt. If a visual is essential, replace it completely and make its geometry agree exactly with every claim in the prompt.'
-      : '- If the learner prompt refers to a visual, attach a valid structured visual that agrees exactly with the prompt. If a visual is not necessary, rewrite the prompt so it is fully self-contained and contains no visual/diagram/figure/graph reference.'] : []),
     ...(duplicateIssue ? ['- Make this item materially different in wording, scenario, and evidence from nearby items while preserving the fixed competency, cognitive category, question type, and points.'] : []),
     ...duplicatePeerContext(assessment, messages),
   ].filter(Boolean).join('\n').slice(0, 1200)
@@ -105,16 +121,19 @@ export async function autoPrepareAssessmentPaper(args: {
   onProgress?: (progress: AssessmentAutoPrepareProgress) => void
   generateMissing?: typeof generateMissingAssessmentItems
   generateItem?: typeof generateAssessmentItemSuggestion
+  generateVisual?: typeof generateAssessmentVisualSuggestion
 }): Promise<AssessmentAutoPrepareResult> {
   const maxRounds = Math.max(1, Math.min(3, Math.floor(args.maxRounds ?? 3)))
   const generateMissing = args.generateMissing ?? generateMissingAssessmentItems
   const generateItem = args.generateItem ?? generateAssessmentItemSuggestion
+  const generateVisual = args.generateVisual ?? generateAssessmentVisualSuggestion
   let working = args.assessment
   let generated = 0
   let regenerated = 0
   let providerPaused = false
   let completedRounds = 0
   const repairFailures: Array<{ itemId: string; itemNumber: number; message: string }> = []
+  const visualRepairAttempted = new Set<string>()
 
   for (let round = 1; round <= maxRounds; round += 1) {
     completedRounds = round
@@ -135,7 +154,7 @@ export async function autoPrepareAssessmentPaper(args: {
           args.onProgress?.({ phase: 'generate', round, itemId: item.id, itemNumber: item.itemNumber, message: `Generated Item ${item.itemNumber}.` })
         },
       })
-      if (summary.errors.some((entry) => /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured|rejected the (?:structured )?request configuration/i.test(entry.message))) {
+      if (summary.providerPaused || summary.errors.some((entry) => /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured|rejected the (?:structured )?request configuration/i.test(entry.message))) {
         providerPaused = true
       }
       await args.onCheckpoint?.(working)
@@ -181,19 +200,37 @@ export async function autoPrepareAssessmentPaper(args: {
       if (!current) continue
       const repairContext = blockerRepairContext(working, itemId, args.teacherContext ?? working.instructions, round)
       try {
-        const suggestion = await generateItem({
-          assessment: working,
-          item: current,
-          demo: args.demo,
-          alternative: true,
-          teacherContext: repairContext,
-          signal: args.signal,
-        })
-        const replacement = applyAssessmentItemSuggestion(current, suggestion, { alternative: true, source: 'repair' })
-        working = replaceItem(working, replacement)
-        regenerated += 1
-        for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === itemId) repairFailures.splice(index, 1)
-        args.onProgress?.({ phase: 'repair', round, itemId, itemNumber: current.itemNumber, message: `Regenerated blocked Item ${current.itemNumber}.` })
+        const visualIssues = visualOnlyBlockerIssues(blockers.review, itemId)
+        if (visualIssues.length) {
+          if (visualRepairAttempted.has(itemId)) {
+            const message = 'Dedicated visual repair already reached its one automatic retry limit; the question was preserved unchanged.'
+            repairFailures.push({ itemId, itemNumber: current.itemNumber, message })
+            args.onProgress?.({ phase: 'repair', round, itemId, itemNumber: current.itemNumber, message: `Item ${current.itemNumber} visual still needs review; the question was not regenerated.` })
+            continue
+          }
+          visualRepairAttempted.add(itemId)
+          const candidate = candidateForVisualRepair(current, visualIssues)
+          const visualResult = await generateVisual({ assessment: working, item: current, candidate, visualIntent: candidate.visualIntent, issues: visualIssues.map((issue) => `${issue.code}: ${issue.message}`), demo: args.demo, signal: args.signal })
+          if (!visualResult.visual) throw new Error('Dedicated visual generation returned no usable diagram.')
+          working = replaceItem(working, { ...current, visual: visualResult.visual, locked: false, qaState: 'generated' })
+          regenerated += 1
+          for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === itemId) repairFailures.splice(index, 1)
+          args.onProgress?.({ phase: 'repair', round, itemId, itemNumber: current.itemNumber, message: `Repaired only the visual for Item ${current.itemNumber}; question text and answer were preserved.` })
+        } else {
+          const suggestion = await generateItem({
+            assessment: working,
+            item: current,
+            demo: args.demo,
+            alternative: true,
+            teacherContext: repairContext,
+            signal: args.signal,
+          })
+          const replacement = applyAssessmentItemSuggestion(current, suggestion, { alternative: true, source: 'repair' })
+          working = replaceItem(working, replacement)
+          regenerated += 1
+          for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === itemId) repairFailures.splice(index, 1)
+          args.onProgress?.({ phase: 'repair', round, itemId, itemNumber: current.itemNumber, message: `Regenerated blocked Item ${current.itemNumber}.` })
+        }
       } catch (error) {
         if (providerBoundary(error)) {
           providerPaused = true

@@ -121,6 +121,25 @@ describe('raw Gemini assessment contract', () => {
     expect((normalized.visual as { altText: string }).altText.toLocaleLowerCase('en')).not.toContain('non-convex')
   })
 
+  it('rejects an accepted answer revealed by a learner-facing visual text label', () => {
+    const candidate = {
+      ...VALID_ASSESSMENT_CANDIDATES.identification,
+      prompt: 'Name the polygon shown in the diagram.',
+      answer: { type: 'identification' as const, acceptedAnswers: ['pentagon'], caseSensitive: false },
+      visualRequirement: 'required' as const,
+      visualIntent: 'Show an unlabeled five-sided polygon for classification.',
+      visual: {
+        id: 'answer-leak-visual', kind: 'geometry', version: 1, width: 320, height: 200,
+        altText: 'A five-sided polygon outline.',
+        primitives: [
+          { type: 'polygon', points: [{ x: 40, y: 40 }, { x: 260, y: 40 }, { x: 285, y: 125 }, { x: 160, y: 175 }, { x: 35, y: 125 }], color: 'ink' },
+          { type: 'textLabel', x: 160, y: 20, text: 'Pentagon', textSize: 'medium', anchor: 'middle' },
+        ],
+      },
+    }
+    expect(() => validateAssessmentCandidate(candidate, 'identification', [])).toThrow(/visual revealed an accepted answer/u)
+  })
+
   it('rejects a direct accepted-answer hint that remains in the learner prompt', () => {
     const candidate = {
       ...VALID_ASSESSMENT_CANDIDATES.fill_in_the_blank,
