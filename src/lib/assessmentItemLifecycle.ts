@@ -85,6 +85,35 @@ export function markAssessmentItemNeedsReview(item: AssessmentItem, state: Exclu
   return { ...clone(item), qaState: state }
 }
 
+
+function visibleBlankMarkers(prompt: string) {
+  return prompt.match(/_{3,}/gu) ?? []
+}
+
+/**
+ * Recover the structured answer shell for legacy/saved fill-in-the-blank items
+ * when the learner prompt contains exactly one visible blank marker but the
+ * structured `answer.blanks` array was lost. Prefer the newest bounded history
+ * version with one valid blank so old generated answers are not discarded.
+ * Never guesses a missing accepted answer from rationale/prompt text.
+ */
+export function recoverSingleFillBlankStructure(item: AssessmentItem) {
+  if (item.questionType !== 'fill_in_the_blank' || item.answer.type !== 'fill_in_the_blank') return clone(item)
+  if (item.answer.blanks.length > 0 || visibleBlankMarkers(item.prompt).length !== 1) return clone(item)
+
+  const prior = [...(item.history ?? [])].reverse().find((version) =>
+    version.questionType === 'fill_in_the_blank'
+    && version.answer.type === 'fill_in_the_blank'
+    && version.answer.blanks.length === 1
+    && version.answer.blanks[0].acceptedAnswers.some((answer) => answer.trim().length > 0),
+  )
+  const recoveredBlank = prior && prior.answer.type === 'fill_in_the_blank'
+    ? clone(prior.answer.blanks[0])
+    : { id: 'blank-1', acceptedAnswers: [] as string[] }
+
+  return { ...clone(item), answer: { type: 'fill_in_the_blank' as const, blanks: [recoveredBlank] } }
+}
+
 export function lockAssessmentItem(item: AssessmentItem) {
   return { ...clone(item), locked: true, qaState: 'locked' as const }
 }

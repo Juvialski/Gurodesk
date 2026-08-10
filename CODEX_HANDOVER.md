@@ -240,3 +240,13 @@ After production testing showed that per-item acceptance/verification/locking ma
 - Final-review duplicate messages are grouped with item numbers instead of rendered as a wall of repeated lines.
 - `gemini-assessment-contract.test.ts` was corrected to match the deliberate invalid-optional-visual degradation behavior.
 - No database migration; migration count remains 26.
+
+## Assessment unlock + legacy single-blank recovery hotfix — 2026-08-10
+
+After the one-click assessment finalization workflow, production testing exposed two state-recovery issues:
+
+- Explicitly unlocking a previously accepted item was only a local state toggle, so a later save/reload could restore the stale persisted lock. `AssessmentEditorPage` now saves lock/unlock immediately and uses the shared lifecycle helpers.
+- Older generated fill-in-the-blank items could contain a visible `____` marker while their structured `answer.blanks` array was missing. For exactly one visible blank marker, GuroDesk now restores the newest valid single-blank answer from bounded item history; without prior answer data it creates an empty blank shell and requires teacher input. It never guesses answers from rationale text. Multi-blank prompts remain strict.
+- Whole-assessment verification now leaves structurally blocked questions unlocked for immediate repair instead of leaving them trapped in a locked state.
+
+Preserve this behavior in later assessment and curriculum work. Migration count remains 26; no database migration was required.

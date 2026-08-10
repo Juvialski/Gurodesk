@@ -16,6 +16,7 @@ const clientGeneration = read('src/lib/assessmentGeneration.ts')
 const edgeContract = read('supabase/functions/_shared/assessment-contract.ts')
 const generator = read('supabase/functions/assessment-question-generator/index.ts')
 const finalReview = read('src/lib/assessmentFinalReview.ts')
+const lifecycle = read('src/lib/assessmentItemLifecycle.ts')
 
 for (const primitive of ['cartesianAxes', 'cartesianPlot']) assert.match(types, new RegExp(`type: '${primitive}'`), `${primitive} must remain part of the safe visual DSL`)
 assert.match(types, /points:\s*Array<\{ x: number; y: number \}>/, 'Cartesian plots use bounded sampled numeric points')
@@ -56,6 +57,12 @@ assert.match(editor, /acknowledgedWarningCodes/, 'whole-assessment approval ackn
 assert.match(editor, /Accept & lock/, 'individual suggestion approval remains available as an optional one-step action')
 assert.match(finalReview, /groupedReviewMessages/, 'final-review duplicate messages are grouped instead of shown as a wall of repeated text')
 assert.doesNotMatch(editor, /Lock accepted item/, 'obsolete second lock step is removed from the AI suggestion workflow')
+assert.match(editor, /async function toggleLock/, 'lock/unlock is persisted instead of being a temporary client-only toggle')
+assert.match(editor, /saveAssessmentDocument\(next, isDemo\)/, 'explicit unlock is saved immediately so reload cannot restore a stale lock')
+assert.match(editor, /return unlockAssessmentItem\(repairedItem\)/, 'structurally blocked whole-assessment items remain unlocked for immediate repair')
+assert.match(lifecycle, /recoverSingleFillBlankStructure/, 'legacy single-blank prompts can recover a lost structured blank shell')
+assert.match(lifecycle, /visibleBlankMarkers\(item\.prompt\)\.length !== 1/, 'automatic blank recovery is limited to exactly one visible blank marker')
+assert.match(lifecycle, /\[\.\.\.\(item\.history \?\? \[\]\)\]\.reverse\(\)/, 'single-blank recovery prefers bounded prior item history and never guesses from rationale text')
 
 assert.match(edgeContract, /safeRawVisual\s*=\s*visualResult\.valid\s*\?\s*rawVisual\s*:\s*null/, 'an invalid optional AI visual is dropped instead of wasting the whole generated item')
 assert.match(qa, /missing-visual/, 'visual-dependent prompts remain flagged when an invalid optional visual was dropped')
@@ -66,4 +73,4 @@ assert.match(generator, /never return TikZ/i, 'Gemini must never return executab
 assert.match(generator, /genuinely distinct/i, 'fill-in-the-blank prompt discourages duplicate accepted answers')
 assert.match(generator, /altText must describe only observable features/i, 'Gemini is explicitly prohibited from putting classifications/solutions in visual alt text')
 
-console.log('Assessment math visual/workflow validation passed: TikZ remains editor-first with inline SVG export fallback, invalid optional visuals degrade safely, generated answers are deduplicated, and one teacher action can accept, verify, lock, and finalize all structurally valid items.')
+console.log('Assessment math visual/workflow validation passed: TikZ remains editor-first with inline SVG export fallback, invalid optional visuals degrade safely, generated answers are deduplicated, explicit unlocks persist, legacy single blanks recover safely, and one teacher action can accept, verify, lock, and finalize all structurally valid items.')

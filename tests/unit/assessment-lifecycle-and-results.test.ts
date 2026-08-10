@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   editAssessmentItem,
   lockAssessmentItem,
+  recoverSingleFillBlankStructure,
   replaceAssessmentItem,
   unlockAssessmentItem,
 } from '../../src/lib/assessmentItemLifecycle'
@@ -32,6 +33,49 @@ describe('per-item replacement and lock protection', () => {
     expect(edited.prompt).toBe('Changed safely')
     expect(edited.locked).toBe(false)
     expect(edited.qaState).toBe('answer_needs_recheck')
+  })
+
+
+  it('recovers one lost structured blank from the newest valid item history', () => {
+    const source = assessmentItem('fill_in_the_blank', {
+      prompt: 'If one complementary angle is 42 degrees, the other angle is ____ degrees.',
+      answer: { type: 'fill_in_the_blank', blanks: [] },
+      locked: true,
+      qaState: 'locked',
+      history: [{
+        id: 'prior-fill',
+        savedAt: '2026-08-10T00:00:00.000Z',
+        source: 'generated',
+        prompt: 'If one complementary angle is 42 degrees, the other angle is ____ degrees.',
+        questionType: 'fill_in_the_blank',
+        answer: { type: 'fill_in_the_blank', blanks: [{ id: 'blank-1', acceptedAnswers: ['48'] }] },
+        rationale: 'Complementary angles total 90 degrees.',
+        teacherNotes: '',
+        pointsPossible: 1,
+        points: 1,
+        qaState: 'generated',
+      }],
+    })
+
+    const recovered = recoverSingleFillBlankStructure(source)
+    expect(recovered.answer).toEqual({ type: 'fill_in_the_blank', blanks: [{ id: 'blank-1', acceptedAnswers: ['48'] }] })
+    const unlocked = unlockAssessmentItem(recovered)
+    expect(unlocked.locked).toBe(false)
+    expect(unlocked.qaState).toBe('needs_review')
+  })
+
+  it('creates only a blank shell for one visible marker when no prior answer exists, and does not guess multi-blank structure', () => {
+    const one = assessmentItem('fill_in_the_blank', {
+      prompt: 'The missing value is ____.',
+      answer: { type: 'fill_in_the_blank', blanks: [] },
+    })
+    expect(recoverSingleFillBlankStructure(one).answer).toEqual({ type: 'fill_in_the_blank', blanks: [{ id: 'blank-1', acceptedAnswers: [] }] })
+
+    const many = assessmentItem('fill_in_the_blank', {
+      prompt: 'The values are ____ and ____.',
+      answer: { type: 'fill_in_the_blank', blanks: [] },
+    })
+    expect(recoverSingleFillBlankStructure(many).answer).toEqual({ type: 'fill_in_the_blank', blanks: [] })
   })
 })
 

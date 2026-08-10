@@ -7,6 +7,7 @@ import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
 import * as assessmentValidation from '../lib/assessmentValidation'
 import { acceptAssessmentItemSuggestion, generateAssessmentItemSuggestion, generateMissingAssessmentItems, requestAssessmentVerification, teacherVerifyAndLockAssessmentItem, type AssessmentItemSuggestion } from '../lib/assessmentGeneration'
+import { lockAssessmentItem, recoverSingleFillBlankStructure, unlockAssessmentItem } from '../lib/assessmentItemLifecycle'
 import { checkpointAssessmentGenerationFailure, checkpointAssessmentGenerationSuccess, checkpointFailures, clearAssessmentGenerationCheckpoint, createAssessmentGenerationCheckpoint, loadAssessmentGenerationCheckpoint, pauseAssessmentGenerationCheckpoint, pendingAssessmentGenerationItemIds, recoverAssessmentGenerationItems, resumeAssessmentGenerationCheckpoint, saveAssessmentGenerationCheckpoint, type AssessmentGenerationFailure } from '../lib/assessmentGenerationResume'
 import { assessmentUsageEstimate, type AssessmentUsageEstimate } from '../lib/assessmentRequestScheduler'
 import { validateAssessmentItemDeterministic, verifierRequiresRepair } from '../lib/assessmentQa'
@@ -211,7 +212,8 @@ export function AssessmentEditorPage() {
     if (!recordValue || !view || readOnly) return
     const item = view.items[index]
     if (!item || isLocked(item)) return
-    const next = updater(cloneItem(item))
+    let next = updater(cloneItem(item))
+    next = recoverSingleFillBlankStructure(next)
     const answerChanged = JSON.stringify(item.answer) !== JSON.stringify(next.answer) || item.questionType !== next.questionType || item.prompt !== next.prompt || JSON.stringify(item.visual) !== JSON.stringify(next.visual)
     const scoringChanged = pointsForItem(item) !== pointsForItem(next)
     if (!next.prompt.trim()) { next.authorshipState = 'empty'; next.qaState = 'empty' }
@@ -307,8 +309,9 @@ export function AssessmentEditorPage() {
       const structurallyBlocked = new Set<number>()
       const nextItems = source.items.map((item) => {
         if (!item.prompt.trim()) return item
+        const repairedItem = recoverSingleFillBlankStructure(item)
         try {
-          const candidate = teacherVerifyAndLockAssessmentItem(item, suggestions[item.id])
+          const candidate = teacherVerifyAndLockAssessmentItem(repairedItem, suggestions[item.id])
           const qa = validateAssessmentItemDeterministic(candidate, {
             allowedTypes: allowedTypes.length ? allowedTypes : undefined,
             expectedItemNumber: item.itemNumber,
@@ -317,13 +320,13 @@ export function AssessmentEditorPage() {
           })
           if (!qa.valid) {
             structurallyBlocked.add(item.itemNumber)
-            return item
+            return unlockAssessmentItem(repairedItem)
           }
           acceptedIds.add(item.id)
           return candidate
         } catch {
           structurallyBlocked.add(item.itemNumber)
-          return item
+          return unlockAssessmentItem(repairedItem)
         }
       })
 
@@ -508,7 +511,32 @@ export function AssessmentEditorPage() {
     batchControllerRef.current?.abort()
   }
 
-  function toggleLock(index: number) { if (!recordValue || !view || readOnly) return; const item = view.items[index]; if (!item) return; const unlocking = isLocked(item); if (!unlocking && !item.prompt.trim()) { setError('Add and review the question before locking this item.'); return } replaceItems(view.items.map((candidate, itemIndex) => itemIndex === index ? { ...candidate, locked: !unlocking, qaState: unlocking ? (candidate.prompt.trim() ? 'needs_review' : 'empty') : 'locked' } : candidate)) }
+  async function toggleLock(index: number) {
+    if (!recordValue || !view || readOnly || saving) return
+    const source = normalizeAssessment(recordRef.current ?? recordValue)
+    const item = source.items[index]
+    if (!item) return
+    const unlocking = isLocked(item)
+    if (!unlocking && !item.prompt.trim()) { setError('Add and review the question before locking this item.'); return }
+
+    const repaired = unlocking ? recoverSingleFillBlankStructure(item) : item
+    const changed = unlocking ? unlockAssessmentItem(repaired) : lockAssessmentItem(repaired)
+    const next = recordWithItems(source, source.items.map((candidate, itemIndex) => itemIndex === index ? changed : candidate), 'draft', title.trim(), instructions)
+    setSaving(true); setError('')
+    try {
+      const saved = await saveAssessmentDocument(next, isDemo)
+      recordRef.current = saved
+      setRecordValue(saved)
+      setTitle(saved.title)
+      setInstructions(saved.instructions)
+      setWarningsAccepted(false)
+      setSavedMessage(unlocking ? 'Item unlocked and saved. You can edit it now.' : 'Item locked and saved.')
+    } catch (nextError) {
+      setError(extractErrorMessage(nextError, unlocking ? 'Unable to persist the item unlock.' : 'Unable to persist the item lock.'))
+    } finally {
+      setSaving(false)
+    }
+  }
   function restoreHistory(index: number, historyIndex: number) { if (!recordValue || !view || readOnly) return; const item = view.items[index]; const history = array(object(item).history); const version = object(history[historyIndex]); if (!version || isLocked(item)) return; const restored: AssessmentItem = { ...item, prompt: text(version.prompt), questionType: (version.questionType as QuestionType) || item.questionType, answer: version.answer as AssessmentAnswer, rationale: text(version.rationale), teacherNotes: text(version.teacherNotes), pointsPossible: number(version.pointsPossible, pointsForItem(item)), points: version.points === null ? null : number(version.points, pointsForItem(item)), visual: version.visual as AssessmentItem['visual'], authorshipState: 'teacher_edited', qaState: 'answer_needs_recheck', locked: false, history: appendItemHistory(item, 'restore') as never }; replaceItems(view.items.map((candidate, itemIndex) => itemIndex === index ? restored : candidate)); setWarningsAccepted(false) }
 
   if (loading) return <div className="loading-screen"><span className="loader" /><strong>Opening assessment editor…</strong></div>
@@ -532,7 +560,7 @@ export function AssessmentEditorPage() {
       <main className="assessment-editor-main"><section className="panel assessment-item-card"><div className="assessment-item-card-heading"><div><span className="assessment-item-number">{current?.itemNumber}</span><div><span className={`assessment-state-chip ${String(object(current).qaState ?? current?.authorshipState)}`}>{current && stateLabel(String(object(current).qaState ?? current.authorshipState))}</span><h2>Question {current?.itemNumber}</h2></div></div><div className="assessment-item-nav-actions"><button className="icon-button" type="button" disabled={selectedIndex <= 0} onClick={() => selectIndex(selectedIndex - 1)} aria-label="Previous item"><ChevronLeft size={19} /></button><button className="icon-button" type="button" disabled={selectedIndex >= view.items.length - 1} onClick={() => selectIndex(selectedIndex + 1)} aria-label="Next item"><ChevronRight size={19} /></button></div></div>
         {current && <><div className="assessment-mapping-card"><div><small>Immutable TOS mapping</small><div className="assessment-mapping-badges"><span>{current.competencySnapshot.code || 'Competency'}</span><span>{current.cognitiveCategorySnapshot.shortLabel || current.cognitiveCategorySnapshot.label || 'Cognitive category'}</span></div><strong>{mappingLabel(current)}</strong><span>{mappingDetails(current)}</span></div><span className="assessment-mapping-lock"><ShieldCheck size={14} /> Locked by TOS</span></div><div className="assessment-type-picker" role="radiogroup" aria-label="Question type"><span className="assessment-field-label">Question type</span><div>{TYPE_OPTIONS.filter((option) => allowedTypes.includes(option.value) || option.value === current.questionType).map((option) => <button key={option.value} type="button" role="radio" aria-checked={current.questionType === option.value} className={current.questionType === option.value ? 'selected' : ''} disabled={readOnly || isLocked(current)} onClick={() => updateItem(selectedIndex, (item) => ({ ...item, questionType: option.value, answer: option.value === item.questionType ? item.answer : answerForType(option.value), pointsPossible: option.value === item.questionType ? pointsForItem(item) : defaultPointsForType(view, option.value), points: option.value === item.questionType ? item.points : defaultPointsForType(view, option.value) }))}><strong>{typeLabel(option.value)}</strong><small>{option.hint}</small></button>)}</div></div><label className="assessment-question-field">Question / prompt<textarea rows={5} disabled={readOnly || isLocked(current)} value={current.prompt} onChange={(event) => updateItem(selectedIndex, (item) => ({ ...item, prompt: event.target.value }))} placeholder="Write the question learners should answer." /></label><AssessmentVisualEditor visual={current.visual} disabled={readOnly || isLocked(current)} onChange={(visual) => updateItem(selectedIndex, (item) => ({ ...item, visual }))} /><TypeEditor item={current} readOnly={readOnly || isLocked(current)} onChange={(updater) => updateItem(selectedIndex, updater)} /><CommonFields item={current} readOnly={readOnly || isLocked(current)} onChange={(updater) => updateItem(selectedIndex, updater)} /><label className="assessment-question-field">Teacher notes <small>Private planning note; not shown in student preview.</small><textarea rows={3} disabled={readOnly || isLocked(current)} value={current.teacherNotes ?? ''} onChange={(event) => updateItem(selectedIndex, (item) => ({ ...item, teacherNotes: event.target.value }))} placeholder="Optional note for your review" /></label><HistoryPanel item={current} readOnly={readOnly || isLocked(current)} onRestore={(historyIndex) => restoreHistory(selectedIndex, historyIndex)} /></>}
       </section>
-      {!readOnly && current && <section className="panel assessment-ai-card"><div className="assessment-ai-heading"><div><span className="eyebrow">Teacher-controlled assistance</span><h2>Question actions</h2><p>Accepting an AI suggestion also locks it in one step. Unlock only when you want to edit an accepted item again.</p></div><Sparkles size={22} /></div><div className="assessment-ai-actions"><button className="button secondary" type="button" disabled={Boolean(aiWorking) || batchWorking || saving || isLocked(current)} onClick={() => void generateItem(selectedIndex, Boolean(current.prompt.trim()))}><WandSparkles size={15} /> {aiWorking === current.id ? 'Working…' : current.prompt ? 'Generate alternative' : 'Generate question'}</button>{current.prompt && <button className="button ghost" type="button" disabled={Boolean(aiWorking) || batchWorking || saving || isLocked(current)} onClick={() => void checkAccuracy(selectedIndex)}><ShieldCheck size={15} /> Check accuracy</button>}{isLocked(current) ? <button className="button ghost" type="button" disabled={saving} onClick={() => toggleLock(selectedIndex)}><Lock size={15} /> Unlock item</button> : !suggestions[current.id] && current.prompt.trim() ? <button className="button ghost" type="button" disabled={saving} onClick={() => toggleLock(selectedIndex)}><Lock size={15} /> Lock item</button> : null}</div>{isDemo && <p className="assessment-demo-note"><Info size={14} /> Local demo preview; signed-in workspaces use the teacher's configured Gemini service.</p>}{suggestions[current.id] && <SuggestionPreview suggestion={suggestions[current.id]} onAccept={() => acceptSuggestion(selectedIndex)} />}</section>}
+      {!readOnly && current && <section className="panel assessment-ai-card"><div className="assessment-ai-heading"><div><span className="eyebrow">Teacher-controlled assistance</span><h2>Question actions</h2><p>Accepting an AI suggestion also locks it in one step. Unlock only when you want to edit an accepted item again.</p></div><Sparkles size={22} /></div><div className="assessment-ai-actions"><button className="button secondary" type="button" disabled={Boolean(aiWorking) || batchWorking || saving || isLocked(current)} onClick={() => void generateItem(selectedIndex, Boolean(current.prompt.trim()))}><WandSparkles size={15} /> {aiWorking === current.id ? 'Working…' : current.prompt ? 'Generate alternative' : 'Generate question'}</button>{current.prompt && <button className="button ghost" type="button" disabled={Boolean(aiWorking) || batchWorking || saving || isLocked(current)} onClick={() => void checkAccuracy(selectedIndex)}><ShieldCheck size={15} /> Check accuracy</button>}{isLocked(current) ? <button className="button ghost" type="button" disabled={saving} onClick={() => void toggleLock(selectedIndex)}><Lock size={15} /> Unlock item</button> : !suggestions[current.id] && current.prompt.trim() ? <button className="button ghost" type="button" disabled={saving} onClick={() => void toggleLock(selectedIndex)}><Lock size={15} /> Lock item</button> : null}</div>{isDemo && <p className="assessment-demo-note"><Info size={14} /> Local demo preview; signed-in workspaces use the teacher's configured Gemini service.</p>}{suggestions[current.id] && <SuggestionPreview suggestion={suggestions[current.id]} onAccept={() => acceptSuggestion(selectedIndex)} />}</section>}
       <div className="assessment-prev-next"><button className="button ghost" type="button" disabled={selectedIndex <= 0} onClick={() => selectIndex(selectedIndex - 1)}><ChevronLeft size={16} /> Previous</button><span>Item {current?.itemNumber} of {view.items.length}</span><button className="button ghost" type="button" disabled={selectedIndex >= view.items.length - 1} onClick={() => selectIndex(selectedIndex + 1)}>Next <ChevronRight size={16} /></button></div></main></div>
     {!readOnly && <div className="assessment-sticky-actions"><button className="button secondary" type="button" disabled={saving || Boolean(aiWorking) || batchWorking} onClick={() => void save('draft')}><Save size={16} /> {saving ? 'Saving…' : 'Save draft'}</button><button className="button primary" type="button" disabled={saving || Boolean(aiWorking) || batchWorking} onClick={() => void acceptVerifyAndFinalizeAll()}><ClipboardCheck size={16} /> {saving ? 'Verifying…' : 'Accept, verify & finalize all'}</button></div>}
     {review && reviewMessages && <section className={`panel assessment-validation ${review.ready ? 'ready' : 'needs-attention'}`}><div className="assessment-validation-summary"><div><strong>{review.ready ? 'Teacher verification complete' : 'Only structural fixes remain'}</strong><span>{reviewMessages.errors.length} blocker{reviewMessages.errors.length === 1 ? '' : 's'} · {reviewMessages.warnings.length} grouped warning{reviewMessages.warnings.length === 1 ? '' : 's'} · {review.metrics.itemCount} items · {review.metrics.totalPoints} points</span></div><div className="assessment-review-actions"><button className="button ghost" type="button" onClick={() => setReviewOpen((value) => !value)} aria-expanded={reviewOpen}>{reviewOpen ? 'Hide details' : 'Show details'}</button></div></div>{reviewOpen && <div className="assessment-validation-details"><div className="assessment-review-distribution"><strong>Question type</strong><strong>Items</strong><strong>Points</strong>{TYPE_OPTIONS.filter((option) => review.metrics.typeCounts[option.value]).map((option) => <div className="assessment-review-distribution-row" key={`review-${option.value}`}><span>{typeLabel(option.value)}</span><span>{review.metrics.typeCounts[option.value] ?? 0}</span><span>{review.metrics.typePoints[option.value] ?? 0}</span></div>)}</div>{reviewMessages.errors.map((message, index) => <p className="error" key={`error-${index}-${message}`}><CircleAlert size={14} /> {message}</p>)}{reviewMessages.warnings.map((message, index) => <p className="warning" key={`warning-${index}-${message}`}><Info size={14} /> {message}</p>)}</div>}</section>}
