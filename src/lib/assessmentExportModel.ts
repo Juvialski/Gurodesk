@@ -1,4 +1,6 @@
 import type { Assessment, AssessmentAnswer, AssessmentItem, QuestionType } from '../types/assessment'
+import { normalizeAssessmentMathText } from './assessmentMathText'
+import { recommendedAssessmentResponseLines } from './assessmentExportPresentation'
 import type {
   AssessmentAnswerKeyExportQuestion,
   AssessmentExportLabels,
@@ -52,7 +54,7 @@ function choicesFor(item: AssessmentItem) {
   const choices = array(answer.choices ?? answer.options)
   return choices.map((choice, index) => {
     const value = object(choice)
-    return { id: clean(String(value.id ?? value.key ?? String.fromCharCode(65 + index))), text: clean(String(value.text ?? value.value ?? value.label)), ...(value.label ? { label: clean(String(value.label)) } : {}) }
+    return { id: clean(String(value.id ?? value.key ?? String.fromCharCode(65 + index))), text: normalizeAssessmentMathText(clean(String(value.text ?? value.value ?? value.label))), ...(value.label ? { label: clean(String(value.label)) } : {}) }
   }).filter((choice) => choice.text)
 }
 
@@ -60,7 +62,7 @@ function promptsFor(item: AssessmentItem) {
   const answer = answerOf(item)
   return array(answer.prompts ?? answer.columnA).map((entry, index) => {
     const value = object(entry)
-    return { id: clean(String(value.id ?? value.key ?? `prompt-${index + 1}`)), text: clean(String(value.text ?? value.value)) }
+    return { id: clean(String(value.id ?? value.key ?? `prompt-${index + 1}`)), text: normalizeAssessmentMathText(clean(String(value.text ?? value.value))) }
   }).filter((entry) => entry.text)
 }
 
@@ -76,7 +78,7 @@ function subpartsFor(item: AssessmentItem) {
     const points = Number(part.pointsPossible ?? part.points)
     return {
       label: String.fromCharCode(97 + index),
-      prompt: clean(String(part.prompt ?? '')),
+      prompt: normalizeAssessmentMathText(clean(String(part.prompt ?? ''))),
       pointsPossible: Number.isFinite(points) && points > 0 ? points : 0,
     }
   }).filter((part) => part.prompt)
@@ -84,14 +86,9 @@ function subpartsFor(item: AssessmentItem) {
 
 function answerSpaceLines(item: AssessmentItem) {
   const type = questionType(item)
-  if (type === 'multiple_choice' || type === 'multiple_select') return 0
-  if (type === 'true_false' || type === 'numerical_answer' || type === 'identification') return 1
-  if (type === 'short_answer') return 2
-  if (type === 'fill_in_the_blank') return Math.max(1, blanksFor(item).length)
-  if (type === 'matching') return 0
-  if (type === 'essay') return 12
-  if (type === 'problem_solving' || type === 'constructed_response') return 8
-  return 3
+  if (type === 'multiple_choice' || type === 'multiple_select' || type === 'matching') return 0
+  if (type === 'fill_in_the_blank') return Math.max(0, blanksFor(item).length)
+  return 1
 }
 
 function scoringGuide(item: AssessmentItem) {
@@ -133,13 +130,13 @@ function baseQuestion(item: AssessmentItem): AssessmentExportQuestionBase {
   const type = questionType(item)
   return {
     itemNumber: item.itemNumber,
-    prompt: item.prompt,
+    prompt: normalizeAssessmentMathText(item.prompt),
     questionType: type,
     choices: choicesFor(item),
     prompts: promptsFor(item),
     blanks: blanksFor(item),
     subparts: subpartsFor(item),
-    answerSpaceLines: answerSpaceLines(item),
+    answerSpaceLines: recommendedAssessmentResponseLines({ questionType: type, pointsPossible: pointsForItem(item), answerSpaceLines: answerSpaceLines(item) }),
     pointsPossible: pointsForItem(item),
     points: pointsForItem(item),
     ...(item.visual ? { visual: item.visual } : {}),
@@ -166,13 +163,13 @@ function teacherQuestion(item: AssessmentItem, options: AssessmentExportOptions)
     ...(includeAnswer ? { answer: item.answer } : {}),
     ...(options.includeCompetency ? { competency: item.competencySnapshot } : {}),
     ...(options.includeCognitiveCategory ? { cognitiveCategory: item.cognitiveCategorySnapshot } : {}),
-    ...(options.includeRationale && item.rationale?.trim() ? { rationale: item.rationale } : {}),
-    ...(scoringGuide(item) ? { scoringGuide: scoringGuide(item) } : {}),
+    ...(options.includeRationale && item.rationale?.trim() ? { rationale: normalizeAssessmentMathText(item.rationale) } : {}),
+    ...(scoringGuide(item) ? { scoringGuide: normalizeAssessmentMathText(scoringGuide(item)) } : {}),
   }
 }
 
 function answerKeyQuestion(item: AssessmentItem): AssessmentAnswerKeyExportQuestion {
-  return { itemNumber: item.itemNumber, questionType: questionType(item), answerSpaceLines: 0, pointsPossible: pointsForItem(item), points: pointsForItem(item), answer: item.answer, ...(item.visual ? { visual: item.visual } : {}), ...(scoringGuide(item) ? { scoringGuide: scoringGuide(item) } : {}) }
+  return { itemNumber: item.itemNumber, questionType: questionType(item), answerSpaceLines: 0, pointsPossible: pointsForItem(item), points: pointsForItem(item), answer: item.answer, ...(item.visual ? { visual: item.visual } : {}), ...(scoringGuide(item) ? { scoringGuide: normalizeAssessmentMathText(scoringGuide(item)) } : {}) }
 }
 
 export function buildAssessmentExportModel(assessment: Assessment, options: AssessmentExportOptions): AssessmentExportModel {

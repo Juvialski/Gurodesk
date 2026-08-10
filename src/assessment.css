@@ -247,3 +247,39 @@
 .assessment-tikz-frame.is-ready { opacity:1; }
 @media (max-width:680px) { .assessment-tikz-shell.assessment-document-question-visual { max-width:100%; min-height:100px; } }
 @media print { .assessment-tikz-shell { max-width:100%; break-inside:avoid; }.assessment-tikz-frame { display:none !important; }.assessment-tikz-fallback { display:block !important; } }
+
+/* Assessment export/preview hardening: type-specific paper layout and grouped sections. */
+.assessment-document-section-heading { margin:22px 0 12px; padding:0 0 6px; border-bottom:1px solid #aeb9c4; color:#203d58; font-size:12px; line-height:1.3; break-after:avoid; }
+.assessment-document-question-wrapper { break-inside:auto; }
+.assessment-document-question.assessment-question-keep { break-inside:avoid; }
+.assessment-document-question.assessment-question-flow { break-inside:auto; }
+.assessment-document-checkbox { display:inline-block; width:10px; height:10px; margin:0 6px 0 1px; border:1px solid #222; vertical-align:-1px; }
+.assessment-document-true-false,.assessment-document-numerical,.assessment-document-response-instructions { grid-column:2; }
+.assessment-document-true-false { margin:7px 0 10px; color:#273848; font-size:10px; word-spacing:3px; }
+.assessment-document-numerical { display:flex; gap:28px; flex-wrap:wrap; margin:7px 0 10px; color:#394b5b; font-size:9.5px; }
+.assessment-document-response-instructions { margin:5px 0 7px; color:#65717d; font-size:8.5px; line-height:1.45; }
+.assessment-document-matching-grid { grid-column:2; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px; margin:7px 0 10px; padding:9px 10px; border:1px solid #e4e7ea; background:#fbfcfd; color:#394b5b; font-size:9px; line-height:1.45; break-inside:avoid; }
+.assessment-document-matching-grid > div { display:grid; align-content:start; gap:5px; }
+.assessment-document-matching-grid strong { color:#1f3e5a; font-size:9px; }
+.assessment-document-choices .assessment-document-checkbox { margin-left:-2px; }
+.assessment-document-question-visual-cartesian { width:min(100%,480px); max-width:480px; max-height:320px; }
+@media (max-width:680px) { .assessment-document-matching-grid { grid-template-columns:1fr; gap:12px; }.assessment-document-question-visual-cartesian { max-width:100%; max-height:300px; } }
+@media print {
+  .assessment-document-section-heading { margin-top:5mm; margin-bottom:3mm; padding-bottom:1.5mm; break-after:avoid; }
+  .assessment-document-question.assessment-question-keep { break-inside:avoid; }
+  .assessment-document-question.assessment-question-flow { break-inside:auto; }
+  .assessment-document-matching-grid { break-inside:avoid; }
+  .assessment-document-question-visual-cartesian { width:120mm; max-width:120mm; max-height:85mm; }
+}
+/* Keep the number/stem/diagram/choices together. Long-response answer space may
+   continue on the following page, but the visual can never detach from its stem. */
+.assessment-document-question-core { display:contents; }
+@media print {
+  .assessment-document-question-core { display:grid; grid-template-columns:34px minmax(0,1fr); break-inside:avoid; }
+}
+@media print {
+  .assessment-document-question-core { grid-column:1 / -1; }
+}
+.assessment-document-choices { display:grid; gap:4px; margin-left:0; }
+.assessment-document-choice-row { display:flex; align-items:flex-start; gap:5px; }
+.assessment-document-choice-label { flex:0 0 16px; font-weight:600; }

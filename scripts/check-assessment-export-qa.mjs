@@ -1,0 +1,30 @@
+import { readFileSync } from 'node:fs'
+import assert from 'node:assert/strict'
+
+const read = (path) => readFileSync(path, 'utf8')
+const exportSource = read('src/lib/assessmentExport.ts')
+const modelSource = read('src/lib/assessmentExportModel.ts')
+const viewSource = read('src/components/AssessmentDocumentView.tsx')
+const reviewSource = read('src/lib/assessmentFinalReview.ts')
+const qaSource = read('src/lib/assessmentFinalQa.ts')
+const mathSource = read('src/lib/assessmentMathText.ts')
+
+assert.match(exportSource, /assessmentSectionTitle/, 'PDF/DOCX/print use grouped question-type sections')
+assert.match(exportSource, /assessmentQuestionKeepTogether/, 'PDF uses question-aware keep-together planning')
+assert.match(exportSource, /drawPdfMatching/, 'PDF has dedicated two-column matching layout')
+assert.match(exportSource, /drawPdfResponse/, 'PDF has type-specific response layout')
+assert.match(exportSource, /drawPdfVisual\(ctx, question, question\.visual/, 'PDF draws visuals after the question stem')
+assert.match(modelSource, /normalizeAssessmentMathText\(item\.prompt\)/, 'export model normalizes bounded math markup without changing persisted content')
+assert.match(viewSource, /assessment-document-matching-grid/, 'print preview uses a real matching grid')
+assert.match(viewSource, /assessment-document-true-false/, 'print preview uses explicit True\/False controls')
+assert.match(exportSource, /question-core/, 'print HTML keeps each long-response stem and visual together before answer-space pagination')
+assert.match(viewSource, /assessment-document-question-core/, 'preview print DOM keeps the question stem and visual in one printable core')
+assert.match(reviewSource, /assessmentVisualSemanticFindings/, 'final review blocks missing or contradictory required visuals')
+assert.match(reviewSource, /assessmentDuplicateLevel/, 'final review has deterministic duplicate classification')
+assert.match(reviewSource, /assessmentSimilarityConcentration/, 'final review warns about concentrated repeated evidence')
+assert.match(qaSource, /required-visual-missing/, 'visual-dependent questions cannot finalize without a visual')
+assert.match(qaSource, /visual-side-count-mismatch/, 'structured polygon properties are compared with prompt claims')
+assert.match(mathSource, /normalizeAssessmentMathText/, 'math text normalization is explicit and deterministic')
+assert.doesNotMatch(exportSource, /Response:\s*________________________________/u, 'PDF no longer repeats generic Response labels on every writing line')
+
+console.log('Assessment export/final-QA hardening validation passed: grouped sections, question-aware pagination, type-specific paper controls, bounded math normalization, visual consistency, and duplicate/concentration review.')

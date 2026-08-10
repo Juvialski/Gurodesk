@@ -170,6 +170,11 @@ describe('assessment export model and renderer regressions', () => {
     expect(html).toContain('<svg class="assessment-print-visual"')
     expect(html).toContain('stroke-dasharray="7 5"')
     expect(html).toContain('<polyline')
+    expect(html).toContain('assessment-section-heading')
+    expect(html).toContain('question-core')
+    expect(html).toContain('matching-grid')
+    expect(html).toContain('true-false')
+    expect(html).not.toContain('Response: __________________________________')
   })
 
   it('builds nonempty PDF and DOCX output through the dedicated export path', async () => {

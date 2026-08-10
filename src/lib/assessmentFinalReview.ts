@@ -1,6 +1,8 @@
 import type { AssessmentRecord, AssessmentItem, QuestionType } from '../types/assessment'
 import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
 import { classifyAssessmentRisk, objectiveQuestionType, teacherScoredQuestionType, validateAssessmentItemDeterministic, type AssessmentQaIssue } from './assessmentQa'
+import { assessmentDuplicateLevel, assessmentSimilarityConcentration, assessmentVisualSemanticFindings } from './assessmentFinalQa'
+import { hasUnsupportedAssessmentMathMarkup } from './assessmentMathText'
 
 type UnknownRecord = Record<string, unknown>
 function record(value: unknown): UnknownRecord { return value && typeof value === 'object' && !Array.isArray(value) ? value as UnknownRecord : {} }
@@ -51,15 +53,6 @@ function add(target: AssessmentFinalReviewIssue[], code: string, message: string
   target.push({ code, message, severity: overridable ? 'warning' : 'error', itemId: item?.id, itemNumber: item?.itemNumber, overridable })
 }
 
-function normalizedPrompt(item: AssessmentItem) { return clean(item.prompt).normalize('NFKC').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').trim() }
-function promptTokens(item: AssessmentItem) { return new Set(normalizedPrompt(item).split(/\s+/u).filter((token) => token.length > 2)) }
-function nearDuplicate(left: AssessmentItem, right: AssessmentItem) {
-  const leftTokens = promptTokens(left); const rightTokens = promptTokens(right)
-  if (leftTokens.size < 5 || rightTokens.size < 5) return false
-  const intersection = [...leftTokens].filter((token) => rightTokens.has(token)).length
-  const union = new Set([...leftTokens, ...rightTokens]).size
-  return union > 0 && intersection / union >= 0.82
-}
 function malformedNotation(prompt: string) {
   const pairs: Array<[string, string]> = [['(', ')'], ['[', ']'], ['{', '}']]
   return pairs.some(([open, close]) => prompt.split(open).length !== prompt.split(close).length)
@@ -76,8 +69,6 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
   const expected = Number(assessment.totalItems)
   const source = sourceMappings(assessment)
   const numbers = new Set<number>()
-  const prompts = new Map<string, AssessmentItem>()
-  const priorPromptItems: AssessmentItem[] = []
   const typeCounts: Partial<Record<QuestionType, number>> = {}
   const typePoints: Partial<Record<QuestionType, number>> = {}
   const competencyItemCounts: Record<string, number> = {}
@@ -126,12 +117,9 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
     }
     if (itemRecord.locked === true && !item.prompt.trim()) add(hardErrors, 'locked-empty', 'A locked item cannot be empty.', item)
     if (item.authorshipState === 'empty' || item.authorshipState === 'ai_suggestion') add(hardErrors, 'teacher-review', 'Teacher must accept or edit each generated item before finalization.', item)
-    const promptKey = normalizedPrompt(item)
-    if (promptKey && prompts.has(promptKey)) add(warnings, 'duplicate-prompt', 'This prompt duplicates another item; review for accidental repetition.', item, true)
-    else if (promptKey && priorPromptItems.some((prior) => nearDuplicate(prior, item))) add(warnings, 'near-duplicate-prompt', 'This prompt is very similar to another item; confirm that it assesses distinct evidence.', item, true)
-    if (promptKey) prompts.set(promptKey, item)
-    if (promptKey) priorPromptItems.push(item)
     if (malformedNotation(item.prompt)) add(warnings, 'malformed-notation', 'Prompt punctuation may contain an unmatched bracket or parenthesis.', item, true)
+    if (hasUnsupportedAssessmentMathMarkup(item.prompt)) add(warnings, 'unsupported-math-markup', 'Prompt contains math markup that may not render cleanly in PDF/Word export; simplify or review the notation.', item, true)
+    assessmentVisualSemanticFindings(item).forEach((finding) => add(finding.severity === 'error' ? hardErrors : warnings, finding.code, finding.message, item, finding.severity === 'warning'))
     const risk = classifyAssessmentRisk(item)
     if (risk.verifyRecommended || itemRecord.qaState === 'answer_needs_recheck') suspiciousItemIds.push(item.id)
     const answer = record(item.answer)
@@ -143,6 +131,17 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
       const key = `tf-${String(answer.value)}`; answerPatterns[key] = (answerPatterns[key] ?? 0) + 1; patternEligibleItems += 1
     }
   })
+  for (let leftIndex = 0; leftIndex < assessment.items.length; leftIndex += 1) {
+    for (let rightIndex = leftIndex + 1; rightIndex < assessment.items.length; rightIndex += 1) {
+      const left = assessment.items[leftIndex]; const right = assessment.items[rightIndex]
+      const level = assessmentDuplicateLevel(left, right)
+      if (level === 'exact') add(hardErrors, 'duplicate-prompt', `This prompt duplicates Item ${left.itemNumber}; replace one item before finalization.`, right)
+      else if (level === 'strong') add(hardErrors, 'strong-duplicate-prompt', `This item is effectively the same evidence as Item ${left.itemNumber}; replace or materially differentiate one item.`, right)
+      else if (level === 'similar') add(warnings, 'near-duplicate-prompt', `This prompt is similar to Item ${left.itemNumber}; confirm that it assesses distinct evidence.`, right, true)
+    }
+  }
+  const concentration = assessmentSimilarityConcentration(assessment.items)
+  if (concentration) add(warnings, 'evidence-concentration', `${concentration.points} point(s) (${Math.round(concentration.share * 100)}%) are concentrated in a closely related question cluster: Items ${concentration.itemNumbers.join(', ')}. Confirm that this weighting matches the intended evidence.`, undefined, true)
   for (let itemNumber = 1; itemNumber <= expected; itemNumber += 1) if (!numbers.has(itemNumber)) add(hardErrors, 'missing-slot', `Item ${itemNumber} from the finalized TOS is missing.`)
   if (assessment.items.length !== expected) add(hardErrors, 'item-count', `Assessment must contain exactly ${expected} item(s).`)
   const dominantPattern = Math.max(0, ...Object.values(answerPatterns))

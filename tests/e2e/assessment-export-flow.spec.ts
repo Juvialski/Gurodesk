@@ -6,7 +6,8 @@ test('saves an assessment, reloads it, and keeps preview/export geometry usable 
   const runId = `${Date.now()}`
   const tos = await createFinalizedTos(appPage, `E2E export TOS ${runId}`, /Classify polygons according to the number of sides.*regular or irregular.*convex or non-convex/i)
   const title = `E2E export assessment ${runId}`
-  const promptText = `E2E export prompt ${runId}`
+  const promptText = `E2E export prompt ${runId}: Find $\\angle ABC$ when $x=70^\\circ$.`
+  const renderedPromptText = `E2E export prompt ${runId}: Find ∠ABC when x=70°.`
 
   await appPage.goto(`/assessments/new?tos=${tos.id}`)
   await expect(appPage.getByRole('heading', { name: 'New assessment' })).toBeVisible()
@@ -29,7 +30,9 @@ test('saves an assessment, reloads it, and keeps preview/export geometry usable 
   await appPage.goto(`/assessments/${assessmentId}/print`)
   await expect(appPage.getByText('Assessment preview', { exact: true })).toBeVisible({ timeout: 30_000 })
   await expect(appPage.getByRole('tab', { name: 'Student' })).toHaveAttribute('aria-selected', 'true')
-  await expect(appPage.getByText(promptText, { exact: true })).toBeVisible()
+  await expect(appPage.getByText(renderedPromptText, { exact: true })).toBeVisible()
+  await expect(appPage.locator('.assessment-print-stage')).not.toContainText('\\angle')
+  await expect(appPage.locator('.assessment-print-stage')).not.toContainText('$')
   const previewDiagram = appPage.locator('.assessment-print-stage svg.assessment-document-question-visual').first()
   await expect(previewDiagram).toBeVisible()
   await expect(previewDiagram).toHaveAttribute('viewBox', '0 0 360 240')

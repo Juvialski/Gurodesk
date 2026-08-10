@@ -1,14 +1,26 @@
 import { AlignmentType, Document, Packer, Paragraph, TextRun } from 'docx'
 import { jsPDF } from 'jspdf'
-import type { AssessmentAnswer } from '../types/assessment'
+import type { AssessmentAnswer, QuestionType } from '../types/assessment'
 import type { AssessmentVisual } from '../types/assessmentVisual'
-import type { AssessmentExportModel, AssessmentExportQuestion, AssessmentExportQuestionBase, AssessmentStudentExportQuestion } from '../types/assessmentExport'
+import type { AssessmentExportModel, AssessmentExportQuestion } from '../types/assessmentExport'
 import type { ExportPaperSize } from '../types/export'
 import { downloadBlob } from './docxTemplate'
+import { normalizeAssessmentMathText } from './assessmentMathText'
+import {
+  assessmentQuestionKeepTogether,
+  assessmentQuestionTypeLabel,
+  assessmentResponseKind,
+  assessmentSectionTitle,
+  assessmentUsesContiguousTypeSections,
+  assessmentVisualScale,
+  recommendedAssessmentResponseLines,
+} from './assessmentExportPresentation'
 import { assessmentVisualSvgMarkup, drawAssessmentVisualPdf } from './assessmentVisualExport'
 
 const TEXT = '000000'
 const MUTED = '555555'
+const PDF_LINE = 11
+const PDF_QUESTION_GAP = 9
 
 export type AssessmentLinePage = { lines: string[] }
 
@@ -24,13 +36,33 @@ function clean(value: string | null | undefined) { return (value ?? '').trim() }
 function object(value: unknown): Record<string, unknown> { return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {} }
 function array(value: unknown) { return Array.isArray(value) ? value : [] }
 function safeFilename(value: string) { return value.replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 90) || 'assessment' }
+function visibleLabel(index: number) { return String.fromCharCode(65 + index) }
+function normalizedText(value: string) { return normalizeAssessmentMathText(value) }
+
+/** Built-in jsPDF Helvetica is WinAnsi, not a full Unicode math font. */
+function pdfSafeText(value: string) {
+  return normalizedText(value)
+    .replace(/∠/gu, 'angle ')
+    .replace(/∥/gu, ' parallel ')
+    .replace(/⊥/gu, ' perpendicular ')
+    .replace(/≤/gu, ' <= ')
+    .replace(/≥/gu, ' >= ')
+    .replace(/≠/gu, ' != ')
+    .replace(/≈/gu, ' approx. ')
+    .replace(/∞/gu, 'infinity')
+    .replace(/√/gu, 'sqrt')
+    .replace(/×/gu, ' x ')
+    .replace(/÷/gu, ' / ')
+    .replace(/±/gu, '+/-')
+    .replace(/²/gu, '^2')
+    .replace(/³/gu, '^3')
+    .replace(/[–—]/gu, '-')
+}
 
 export function assessmentExportFilename(model: AssessmentExportModel, extension: 'pdf' | 'docx') {
   const suffix = model.mode === 'answer_key' ? ' - Answer Key' : model.mode === 'teacher' ? ' - Teacher Copy' : ''
   return `${safeFilename(`${model.metadata.gradeLevel ?? ''} ${model.metadata.learningArea ?? ''} - ${model.title}${suffix}`)}.${extension}`
 }
-
-function choiceVisibleLabel(index: number) { return String.fromCharCode(65 + index) }
 
 function answerText(answer: AssessmentAnswer) {
   const value = answer as unknown as Record<string, unknown>
@@ -38,13 +70,13 @@ function answerText(answer: AssessmentAnswer) {
     const choices = array(value.choices).map(object)
     const index = choices.findIndex((choice) => String(choice.id) === answer.choiceId)
     const choice = choices[index]
-    return choice ? `${choiceVisibleLabel(index)}. ${String(choice.text ?? '')}` : 'Review choice mapping'
+    return choice ? `${visibleLabel(index)}. ${normalizedText(String(choice.text ?? ''))}` : 'Review choice mapping'
   }
   if (answer.type === 'true_false') return answer.value ? 'True' : 'False'
-  if (answer.type === 'short_answer' || answer.type === 'identification') return array(value.acceptedAnswers).map(String).join(' / ')
-  if (answer.type === 'fill_in_the_blank') return array(value.blanks).map((blank, index) => { const entry = object(blank); const points = Number(entry.pointsPossible); return `${String.fromCharCode(65 + index)}. ${array(entry.acceptedAnswers).map(String).join(' / ')}${Number.isFinite(points) ? ` — ${points} pt${points === 1 ? '' : 's'}` : ''}` }).join(' · ')
-  if (answer.type === 'numerical_answer') return `${String(value.value ?? '')}${value.unit ? ` ${String(value.unit)}` : ''}${value.tolerance !== undefined ? ` (±${String(value.tolerance)})` : ''}`
-  if (answer.type === 'problem_solving') return String(value.finalAnswer ?? '')
+  if (answer.type === 'short_answer' || answer.type === 'identification') return array(value.acceptedAnswers).map((entry) => normalizedText(String(entry))).join(' / ')
+  if (answer.type === 'fill_in_the_blank') return array(value.blanks).map((blank, index) => { const entry = object(blank); const points = Number(entry.pointsPossible); return `${visibleLabel(index)}. ${array(entry.acceptedAnswers).map((answerValue) => normalizedText(String(answerValue))).join(' / ')}${Number.isFinite(points) ? ` - ${points} pt${points === 1 ? '' : 's'}` : ''}` }).join(' | ')
+  if (answer.type === 'numerical_answer') return `${String(value.value ?? '')}${value.unit ? ` ${normalizedText(String(value.unit))}` : ''}${value.tolerance !== undefined ? ` (+/-${String(value.tolerance)})` : ''}`
+  if (answer.type === 'problem_solving') return normalizedText(String(value.finalAnswer ?? ''))
   if (answer.type === 'matching') {
     const prompts = array(value.prompts).map(object)
     const choices = array(value.choices).map(object)
@@ -53,14 +85,14 @@ function answerText(answer: AssessmentAnswer) {
       const p = prompts.findIndex((entry) => String(entry.id) === String(pair.promptId))
       const c = choices.findIndex((entry) => String(entry.id) === String(pair.choiceId))
       const points = Number(pair.pointsPossible)
-      return `${p >= 0 ? p + 1 : String(pair.promptId)} → ${c >= 0 ? choiceVisibleLabel(c) : String(pair.choiceId)}${Number.isFinite(points) ? ` — ${points} pt${points === 1 ? '' : 's'}` : ''}`
+      return `${p >= 0 ? p + 1 : String(pair.promptId)} -> ${c >= 0 ? visibleLabel(c) : String(pair.choiceId)}${Number.isFinite(points) ? ` - ${points} pt${points === 1 ? '' : 's'}` : ''}`
     }).join(', ')
   }
   if (answer.type === 'multiple_select') {
     const choices = array(value.choices).map(object)
-    return array(value.choiceIds).map((id) => choiceVisibleLabel(choices.findIndex((choice) => String(choice.id) === String(id)))).filter((label) => label !== '@').join(', ')
+    return array(value.choiceIds).map((id) => { const index = choices.findIndex((choice) => String(choice.id) === String(id)); return index >= 0 ? visibleLabel(index) : '' }).filter(Boolean).join(', ')
   }
-  if (answer.type === 'constructed_response') return String(value.expectedResponse ?? '')
+  if (answer.type === 'constructed_response') return normalizedText(String(value.expectedResponse ?? ''))
   if (answer.type === 'essay') return 'See rubric / scoring guide; there is no single exact response.'
   return ''
 }
@@ -77,104 +109,323 @@ function textMetadata(model: AssessmentExportModel) {
   return common.filter(([, value]) => clean(value))
 }
 
-function questionLabel(model: AssessmentExportModel, question: AssessmentExportQuestion) { return model.mode === 'student' && question.pointsPossible <= 1 ? `${question.itemNumber}.` : `${question.itemNumber}. (${question.pointsPossible} ${model.labels.points})` }
-
 function choicesFor(question: AssessmentExportQuestion) { return 'choices' in question && Array.isArray(question.choices) ? question.choices : [] }
 function promptsFor(question: AssessmentExportQuestion) { return 'prompts' in question && Array.isArray(question.prompts) ? question.prompts : [] }
+function blanksFor(question: AssessmentExportQuestion) { return 'blanks' in question && Array.isArray(question.blanks) ? question.blanks : [] }
 function subpartsFor(question: AssessmentExportQuestion) { return 'subparts' in question && Array.isArray(question.subparts) ? question.subparts : [] }
-
-function renderQuestionLines(model: AssessmentExportModel, question: AssessmentExportQuestion) {
-  if (model.mode === 'answer_key') {
-    const lines = [questionLabel(model, question), `${model.labels.answer}: ${questionAnswer(question)}`]
-    if ('scoringGuide' in question && question.scoringGuide) lines.push(`${model.labels.solution}: ${question.scoringGuide}`)
-    return lines
-  }
-  if (!('prompt' in question)) return []
-  const lines: string[] = [questionLabel(model, question), question.prompt]
-  subpartsFor(question).forEach((part) => lines.push(`  (${part.label}) ${part.prompt} (${part.pointsPossible} ${model.labels.points})`))
-  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') choicesFor(question).forEach((choice, index) => lines.push(`  ${choiceVisibleLabel(index)}. ${typeof choice === 'string' ? choice : choice.text}`))
-  if (question.questionType === 'matching') {
-    if (promptsFor(question).length) lines.push(`${model.labels.columnA}:`)
-    promptsFor(question).forEach((prompt, index) => lines.push(`  _____ ${index + 1}. ${typeof prompt === 'string' ? prompt : prompt.text}`))
-    if (choicesFor(question).length) lines.push(`${model.labels.columnB}: ${choicesFor(question).map((choice, index) => `${choiceVisibleLabel(index)}. ${typeof choice === 'string' ? choice : choice.text}`).join('  ')}`)
-  }
-  const space = question.answerSpaceLines
-  for (let index = 0; index < space; index += 1) lines.push(`${model.labels.responseLine}: ______________________________________________`)
-  if ('responseInstructions' in question && question.responseInstructions) lines.push(question.responseInstructions)
-  if ('answer' in question && question.answer) lines.push(`${model.labels.answer}: ${questionAnswer(question)}`)
-  if ('scoringGuide' in question && question.scoringGuide) lines.push(`${model.labels.solution}: ${question.scoringGuide}`)
-  if ('competency' in question && question.competency) lines.push(`${model.labels.competency}: ${question.competency.text}`)
-  if ('cognitiveCategory' in question && question.cognitiveCategory) lines.push(`${model.labels.cognitiveCategory}: ${question.cognitiveCategory.label}`)
-  if ('rationale' in question && question.rationale) lines.push(`${model.labels.rationale}: ${question.rationale}`)
-  return lines
-}
+function choiceText(choice: string | { text: string }) { return normalizedText(typeof choice === 'string' ? choice : choice.text) }
 
 function pdfFormat(paper: ExportPaperSize = 'a4'): 'a4' | 'letter' | 'legal' { return paper }
 type PdfContext = { doc: jsPDF; x: number; y: number; width: number; bottom: number; pageHeader: (initial?: boolean) => void }
 
+function wrappedPdfLines(doc: jsPDF, value: string, width: number, size = 9.5) {
+  doc.setFontSize(size)
+  return doc.splitTextToSize(pdfSafeText(value), width) as string[]
+}
+
+function pdfTextHeight(doc: jsPDF, value: string, width: number, size = 9.5, lineHeight = PDF_LINE) {
+  return Math.max(1, wrappedPdfLines(doc, value, width, size).length) * lineHeight
+}
+
 function pdfHeader(ctx: PdfContext, model: AssessmentExportModel, initial = true) {
   const { doc, x, width } = ctx
   doc.setTextColor(0, 0, 0)
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(initial ? 15 : 10); doc.text(initial ? model.labels.documentTitle : `${model.labels.documentTitle} — continued`, x + width / 2, initial ? 34 : 32, { align: 'center' })
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(initial ? 12 : 8); doc.text(model.title, x + width / 2, initial ? 52 : 47, { align: 'center' })
-  ctx.y = initial ? 70 : 66
-  if (initial) {
-    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5)
-    textMetadata(model).forEach(([label, value], index) => {
-      const row = index % 2 === 0 ? Math.floor(index / 2) : Math.floor(index / 2)
-      const col = index % 2
-      doc.text(`${label}: ${value}`, x + col * (width / 2), ctx.y + row * 12)
-      if (col === 1 || index === textMetadata(model).length - 1) ctx.y += 12
-    })
-    if (model.instructions) { ctx.y += 8; doc.setFont('helvetica', 'bold'); doc.text(model.labels.instructions, x, ctx.y); ctx.y += 12; doc.setFont('helvetica', 'normal'); (doc.splitTextToSize(model.instructions, width) as string[]).forEach((line: string) => { doc.text(line, x, ctx.y); ctx.y += 10 }) }
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(initial ? 15 : 10)
+  doc.text(pdfSafeText(initial ? model.labels.documentTitle : `${model.labels.documentTitle} - continued`), x + width / 2, initial ? 34 : 30, { align: 'center' })
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(initial ? 12 : 8)
+  doc.text(pdfSafeText(model.title), x + width / 2, initial ? 51 : 44, { align: 'center' })
+  ctx.y = initial ? 69 : 60
+  if (!initial) return
+
+  const metadata = textMetadata(model)
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5)
+  const columnGap = 14
+  const columnWidth = (width - columnGap) / 2
+  for (let index = 0; index < metadata.length; index += 2) {
+    const left = metadata[index]
+    const right = metadata[index + 1]
+    const leftLines = wrappedPdfLines(doc, `${left[0]}: ${left[1]}`, columnWidth, 8.5)
+    const rightLines = right ? wrappedPdfLines(doc, `${right[0]}: ${right[1]}`, columnWidth, 8.5) : []
+    const rowLines = Math.max(leftLines.length, rightLines.length, 1)
+    leftLines.forEach((line, lineIndex) => doc.text(line, x, ctx.y + lineIndex * 10))
+    rightLines.forEach((line, lineIndex) => doc.text(line, x + columnWidth + columnGap, ctx.y + lineIndex * 10))
+    ctx.y += rowLines * 10 + 3
   }
+  if (model.instructions) {
+    ctx.y += 3
+    doc.setFont('helvetica', 'bold'); doc.text(pdfSafeText(model.labels.instructions), x, ctx.y); ctx.y += 11
+    doc.setFont('helvetica', 'normal')
+    const instructionLines = wrappedPdfLines(doc, model.instructions, width, 8.5)
+    instructionLines.forEach((line) => { doc.text(line, x, ctx.y); ctx.y += 10 })
+  }
+  ctx.y += 11
 }
 
 function newPdfPage(ctx: PdfContext) { ctx.doc.addPage(); ctx.pageHeader(false) }
-function drawPdfLines(ctx: PdfContext, lines: string[], size = 9.5, gapAfter = 8) {
-  ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(size); ctx.doc.setTextColor(0, 0, 0)
-  lines.forEach((line) => { const wrapped = ctx.doc.splitTextToSize(line, ctx.width) as string[]; wrapped.forEach((part) => { if (ctx.y + 12 > ctx.bottom) newPdfPage(ctx); ctx.doc.text(part, ctx.x, ctx.y); ctx.y += 11 }); ctx.y += 1 })
-  ctx.y += gapAfter
+function ensurePdfSpace(ctx: PdfContext, height: number) { if (ctx.y + height > ctx.bottom) newPdfPage(ctx) }
+
+function drawWrappedPdfText(ctx: PdfContext, value: string, x: number, width: number, options: { size?: number; bold?: boolean; lineHeight?: number; after?: number } = {}) {
+  const size = options.size ?? 9.5
+  const lineHeight = options.lineHeight ?? PDF_LINE
+  ctx.doc.setFont('helvetica', options.bold ? 'bold' : 'normal'); ctx.doc.setFontSize(size); ctx.doc.setTextColor(0, 0, 0)
+  const lines = wrappedPdfLines(ctx.doc, value, width, size)
+  lines.forEach((line) => { if (ctx.y + lineHeight > ctx.bottom) newPdfPage(ctx); ctx.doc.text(line, x, ctx.y); ctx.y += lineHeight })
+  ctx.y += options.after ?? 0
 }
 
-function drawPdfVisual(ctx: PdfContext, visual: AssessmentVisual) {
-  // Keep PDF and print exports on the same validated primitive renderer as the
-  // preview.  The target is scaled uniformly so labels and marks retain their
-  // geometry while staying inside the text-first PDF column.
-  const scale = Math.min(230 / visual.width, 135 / visual.height)
-  if (ctx.y + visual.height * scale + 18 > ctx.bottom) newPdfPage(ctx)
-  drawAssessmentVisualPdf(ctx.doc, visual, { x: ctx.x, y: ctx.y + 2, width: visual.width * scale, height: visual.height * scale })
-  ctx.y += visual.height * scale + 12
+function visualDimensions(ctx: PdfContext, question: AssessmentExportQuestion, visual: AssessmentVisual) {
+  const scaleKind = assessmentVisualScale(question)
+  const maxWidth = scaleKind === 'cartesian' ? Math.min(ctx.width * 0.76, 350) : scaleKind === 'large' ? Math.min(ctx.width * 0.64, 300) : Math.min(ctx.width * 0.56, 255)
+  const maxHeight = scaleKind === 'cartesian' ? 235 : scaleKind === 'large' ? 185 : 155
+  const scale = Math.min(maxWidth / visual.width, maxHeight / visual.height)
+  return { width: visual.width * scale, height: visual.height * scale }
 }
 
-function drawPdfQuestion(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion) { if (question.visual) drawPdfVisual(ctx, question.visual); drawPdfLines(ctx, renderQuestionLines(model, question), 9.5, 5) }
+function drawPdfVisual(ctx: PdfContext, question: AssessmentExportQuestion, visual: AssessmentVisual, contentX: number) {
+  const dimensions = visualDimensions(ctx, question, visual)
+  ensurePdfSpace(ctx, dimensions.height + 12)
+  const x = contentX + Math.max(0, (ctx.width - (contentX - ctx.x) - dimensions.width) / 2)
+  drawAssessmentVisualPdf(ctx.doc, visual, { x, y: ctx.y + 1, width: dimensions.width, height: dimensions.height })
+  ctx.y += dimensions.height + 9
+}
+
+function pdfQuestionLabel(model: AssessmentExportModel, question: AssessmentExportQuestion) {
+  return model.mode === 'student' && question.pointsPossible <= 1 ? `${question.itemNumber}.` : `${question.itemNumber}. (${question.pointsPossible} ${model.labels.points})`
+}
+
+function estimatePdfVisualHeight(ctx: PdfContext, question: AssessmentExportQuestion) {
+  return question.visual ? visualDimensions(ctx, question, question.visual).height + 9 : 0
+}
+
+function estimatePdfMatchingHeight(ctx: PdfContext, question: AssessmentExportQuestion, contentWidth: number) {
+  const prompts = promptsFor(question); const choices = choicesFor(question)
+  const half = (contentWidth - 18) / 2
+  const left = prompts.reduce((sum, prompt, index) => sum + pdfTextHeight(ctx.doc, `${index + 1}. ${typeof prompt === 'string' ? prompt : prompt.text}`, half - 10, 8.7, 10) + 2, 15)
+  const right = choices.reduce((sum, choice, index) => sum + pdfTextHeight(ctx.doc, `${visibleLabel(index)}. ${choiceText(choice)}`, half - 10, 8.7, 10) + 2, 15)
+  return Math.max(left, right) + 7
+}
+
+function estimatePdfQuestionCoreHeight(ctx: PdfContext, question: AssessmentExportQuestion) {
+  if (!('prompt' in question)) return 0
+  const contentWidth = ctx.width - 28
+  let height = 15 + pdfTextHeight(ctx.doc, question.prompt, contentWidth, 9.5) + 5 + estimatePdfVisualHeight(ctx, question)
+  height += subpartsFor(question).reduce((sum, part) => sum + pdfTextHeight(ctx.doc, `(${part.label}) ${part.prompt}`, contentWidth - 12, 9, 10) + 2, 0)
+  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') height += choicesFor(question).reduce((sum, choice, index) => sum + pdfTextHeight(ctx.doc, `${visibleLabel(index)}. ${choiceText(choice)}`, contentWidth - 18, 9, 10) + 2, 0) + 3
+  if (question.questionType === 'matching') height += estimatePdfMatchingHeight(ctx, question, contentWidth)
+  return height
+}
+
+function estimatePdfQuestionHeight(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion) {
+  if (model.mode === 'answer_key') return 35 + estimatePdfVisualHeight(ctx, question) + pdfTextHeight(ctx.doc, questionAnswer(question), ctx.width - 26, 9, 10)
+  if (!('prompt' in question)) return 0
+  const contentWidth = ctx.width - 28
+  let height = estimatePdfQuestionCoreHeight(ctx, question)
+  const responseKind = assessmentResponseKind(question)
+  if (responseKind === 'true_false') height += 25
+  else if (responseKind === 'single_line' || responseKind === 'numerical') height += 25
+  else if (responseKind === 'fill_structured') height += Math.max(1, blanksFor(question).length) * 22
+  else if (responseKind === 'extended') height += recommendedAssessmentResponseLines(question) * 18 + 10
+  if ('responseInstructions' in question && question.responseInstructions) height += pdfTextHeight(ctx.doc, question.responseInstructions, contentWidth, 8.2, 10) + 4
+  return height + PDF_QUESTION_GAP
+}
+
+function drawPdfSectionHeader(ctx: PdfContext, type: QuestionType, sectionIndex: number, firstQuestionCoreHeight = 0) {
+  // A section heading should never be orphaned at the bottom of a page.
+  ensurePdfSpace(ctx, 31 + Math.min(Math.max(firstQuestionCoreHeight, 24), 150))
+  ctx.doc.setFont('helvetica', 'bold'); ctx.doc.setFontSize(10); ctx.doc.setTextColor(35, 58, 82)
+  ctx.doc.text(pdfSafeText(assessmentSectionTitle(type, sectionIndex)), ctx.x, ctx.y)
+  ctx.y += 5
+  ctx.doc.setDrawColor(160, 174, 188); ctx.doc.setLineWidth(0.6); ctx.doc.line(ctx.x, ctx.y, ctx.x + ctx.width, ctx.y)
+  ctx.y += 12
+  ctx.doc.setTextColor(0, 0, 0)
+}
+
+function drawPdfQuestionHead(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion, contentX: number) {
+  ctx.doc.setFont('helvetica', 'bold'); ctx.doc.setFontSize(9.5); ctx.doc.setTextColor(0, 0, 0)
+  ctx.doc.text(pdfSafeText(pdfQuestionLabel(model, question)), ctx.x, ctx.y)
+  if ('prompt' in question) drawWrappedPdfText(ctx, question.prompt, contentX, ctx.width - (contentX - ctx.x), { size: 9.5, after: 4 })
+  else ctx.y += 12
+}
+
+function drawPdfChoiceList(ctx: PdfContext, question: AssessmentExportQuestion, contentX: number, contentWidth: number) {
+  const square = question.questionType === 'multiple_select'
+  choicesFor(question).forEach((choice, index) => {
+    const label = `${visibleLabel(index)}. ${choiceText(choice)}`
+    const lines = wrappedPdfLines(ctx.doc, label, contentWidth - (square ? 18 : 6), 9)
+    ensurePdfSpace(ctx, lines.length * 10 + 2)
+    if (square) { ctx.doc.rect(contentX, ctx.y - 7, 7, 7); lines.forEach((line, lineIndex) => ctx.doc.text(pdfSafeText(line), contentX + 13, ctx.y + lineIndex * 10)) }
+    else lines.forEach((line, lineIndex) => ctx.doc.text(pdfSafeText(line), contentX + 4, ctx.y + lineIndex * 10))
+    ctx.y += lines.length * 10 + 2
+  })
+  ctx.y += 3
+}
+
+function drawPdfMatching(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion, contentX: number, contentWidth: number) {
+  const prompts = promptsFor(question); const choices = choicesFor(question)
+  const gap = 18; const half = (contentWidth - gap) / 2; const startY = ctx.y
+  const drawColumn = (x: number, heading: string, entries: string[]) => {
+    let y = startY
+    ctx.doc.setFont('helvetica', 'bold'); ctx.doc.setFontSize(8.7); ctx.doc.text(pdfSafeText(heading), x, y); y += 12
+    ctx.doc.setFont('helvetica', 'normal')
+    entries.forEach((entry) => {
+      const lines = wrappedPdfLines(ctx.doc, entry, half - 8, 8.7)
+      lines.forEach((line) => { ctx.doc.text(pdfSafeText(line), x, y); y += 10 })
+      y += 2
+    })
+    return y
+  }
+  const leftEntries = prompts.map((prompt, index) => `_____ ${index + 1}. ${typeof prompt === 'string' ? prompt : prompt.text}`)
+  const rightEntries = choices.map((choice, index) => `${visibleLabel(index)}. ${choiceText(choice)}`)
+  const leftBottom = drawColumn(contentX, model.labels.columnA, leftEntries)
+  const rightBottom = drawColumn(contentX + half + gap, model.labels.columnB, rightEntries)
+  ctx.y = Math.max(leftBottom, rightBottom) + 5
+}
+
+function drawHorizontalAnswerLines(ctx: PdfContext, x: number, width: number, count: number, label?: string) {
+  if (label) { ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(8.5); ctx.doc.text(pdfSafeText(label), x, ctx.y); ctx.y += 8 }
+  for (let index = 0; index < count; index += 1) {
+    if (ctx.y + 17 > ctx.bottom) newPdfPage(ctx)
+    ctx.doc.setDrawColor(125, 132, 140); ctx.doc.setLineWidth(0.45); ctx.doc.line(x, ctx.y + 7, x + width, ctx.y + 7); ctx.y += 17
+  }
+}
+
+function drawPdfResponse(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion, contentX: number, contentWidth: number) {
+  const kind = assessmentResponseKind(question)
+  if (kind === 'none' || kind === 'fill_inline' || kind === 'matching') return
+  if (kind === 'true_false') {
+    ensurePdfSpace(ctx, 24); ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(9)
+    ctx.doc.rect(contentX, ctx.y - 7, 8, 8); ctx.doc.text('True', contentX + 13, ctx.y)
+    ctx.doc.rect(contentX + 70, ctx.y - 7, 8, 8); ctx.doc.text('False', contentX + 83, ctx.y); ctx.y += 20; return
+  }
+  if (kind === 'numerical') {
+    ensurePdfSpace(ctx, 27); ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(8.8)
+    ctx.doc.text('Answer:', contentX, ctx.y); ctx.doc.line(contentX + 40, ctx.y + 2, contentX + contentWidth * 0.58, ctx.y + 2)
+    ctx.doc.text('Unit:', contentX + contentWidth * 0.64, ctx.y); ctx.doc.line(contentX + contentWidth * 0.72, ctx.y + 2, contentX + contentWidth, ctx.y + 2); ctx.y += 22; return
+  }
+  if (kind === 'fill_structured') {
+    const blanks = blanksFor(question)
+    ;(blanks.length ? blanks : [{ label: 'A' }]).forEach((blank) => drawHorizontalAnswerLines(ctx, contentX, contentWidth, 1, `${model.labels.answer} ${blank.label}:`)); return
+  }
+  if (kind === 'single_line') { drawHorizontalAnswerLines(ctx, contentX, contentWidth, 1); return }
+  if (kind === 'extended') {
+    if ('responseInstructions' in question && question.responseInstructions) drawWrappedPdfText(ctx, question.responseInstructions, contentX, contentWidth, { size: 8.2, after: 4 })
+    drawHorizontalAnswerLines(ctx, contentX, contentWidth, recommendedAssessmentResponseLines(question)); return
+  }
+}
+
+function drawPdfTeacherAnnotations(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion, contentX: number, contentWidth: number) {
+  if (model.mode === 'student' || model.mode === 'answer_key') return
+  const annotations: Array<[string, string]> = []
+  if ('answer' in question && question.answer) annotations.push([model.labels.answer, questionAnswer(question)])
+  if ('scoringGuide' in question && question.scoringGuide) annotations.push([model.labels.solution, question.scoringGuide])
+  if ('competency' in question && question.competency) annotations.push([model.labels.competency, question.competency.text])
+  if ('cognitiveCategory' in question && question.cognitiveCategory) annotations.push([model.labels.cognitiveCategory, question.cognitiveCategory.label])
+  if ('rationale' in question && question.rationale) annotations.push([model.labels.rationale, question.rationale])
+  annotations.forEach(([label, value]) => drawWrappedPdfText(ctx, `${label}: ${value}`, contentX, contentWidth, { size: 8.1, lineHeight: 9.5, after: 2 }))
+}
+
+function drawPdfAnswerKeyQuestion(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion) {
+  const contentX = ctx.x + 26; const contentWidth = ctx.width - 26
+  ensurePdfSpace(ctx, estimatePdfQuestionHeight(ctx, model, question))
+  ctx.doc.setFont('helvetica', 'bold'); ctx.doc.setFontSize(9.2); ctx.doc.text(`${question.itemNumber}.`, ctx.x, ctx.y)
+  drawWrappedPdfText(ctx, `${model.labels.answer}: ${questionAnswer(question)}`, contentX, contentWidth, { size: 9.2, after: 3 })
+  if (question.visual) drawPdfVisual(ctx, question, question.visual, contentX)
+  if ('scoringGuide' in question && question.scoringGuide) drawWrappedPdfText(ctx, `${model.labels.solution}: ${question.scoringGuide}`, contentX, contentWidth, { size: 8.4, lineHeight: 10, after: 4 })
+  ctx.y += PDF_QUESTION_GAP
+}
+
+function drawPdfQuestion(ctx: PdfContext, model: AssessmentExportModel, question: AssessmentExportQuestion) {
+  if (model.mode === 'answer_key') { drawPdfAnswerKeyQuestion(ctx, model, question); return }
+  if (!('prompt' in question)) return
+  const contentX = ctx.x + 28; const contentWidth = ctx.width - 28
+  const estimated = estimatePdfQuestionHeight(ctx, model, question)
+  if (assessmentQuestionKeepTogether(question)) ensurePdfSpace(ctx, Math.min(estimated, ctx.bottom - 60))
+  else {
+    // Long-response items may continue only in the writing area. Keep the
+    // number, stem, visual, subparts, and any structured choices together.
+    const coreHeight = estimatePdfQuestionCoreHeight(ctx, question)
+    ensurePdfSpace(ctx, Math.min(coreHeight, ctx.bottom - 60))
+  }
+  drawPdfQuestionHead(ctx, model, question, contentX)
+  if (question.visual) drawPdfVisual(ctx, question, question.visual, contentX)
+  subpartsFor(question).forEach((part) => drawWrappedPdfText(ctx, `(${part.label}) ${part.prompt} (${part.pointsPossible} ${model.labels.points})`, contentX + 9, contentWidth - 9, { size: 9, lineHeight: 10, after: 2 }))
+  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') drawPdfChoiceList(ctx, question, contentX, contentWidth)
+  if (question.questionType === 'matching') drawPdfMatching(ctx, model, question, contentX, contentWidth)
+  drawPdfResponse(ctx, model, question, contentX, contentWidth)
+  if (assessmentResponseKind(question) !== 'extended' && 'responseInstructions' in question && question.responseInstructions) drawWrappedPdfText(ctx, question.responseInstructions, contentX, contentWidth, { size: 8.2, after: 3 })
+  drawPdfTeacherAnnotations(ctx, model, question, contentX, contentWidth)
+  ctx.y += PDF_QUESTION_GAP
+}
 
 export function buildAssessmentPdf(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') {
   const doc = new jsPDF({ unit: 'pt', format: pdfFormat(paperSize) })
   const margin = 42
-  const pageWidth = doc.internal.pageSize.getWidth()
-  const pageHeight = doc.internal.pageSize.getHeight()
+  const pageWidth = doc.internal.pageSize.getWidth(); const pageHeight = doc.internal.pageSize.getHeight()
   const ctx: PdfContext = { doc, x: margin, y: 70, width: pageWidth - margin * 2, bottom: pageHeight - margin, pageHeader: () => {} }
   ctx.pageHeader = (initial = false) => pdfHeader(ctx, model, initial)
   pdfHeader(ctx, model, true)
-  model.questions.forEach((question) => drawPdfQuestion(ctx, model, question))
+  const showSections = model.mode !== 'answer_key' && assessmentUsesContiguousTypeSections(model.questions)
+  let priorType: QuestionType | null = null; let sectionIndex = -1
+  model.questions.forEach((question) => {
+    if (showSections && question.questionType !== priorType) {
+      sectionIndex += 1
+      drawPdfSectionHeader(ctx, question.questionType, sectionIndex, estimatePdfQuestionCoreHeight(ctx, question))
+      priorType = question.questionType
+    }
+    drawPdfQuestion(ctx, model, question)
+  })
   return doc
 }
 
 export function downloadAssessmentPdf(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') { buildAssessmentPdf(model, paperSize).save(assessmentExportFilename(model, 'pdf')) }
 
 function docxPaperSize(paper: ExportPaperSize = 'a4') { return paper === 'letter' ? { width: 12240, height: 15840 } : paper === 'legal' ? { width: 12240, height: 20160 } : { width: 11906, height: 16838 } }
-function docxText(text: string, options: { bold?: boolean; size?: number; color?: string } = {}) { return new TextRun({ text, bold: options.bold, size: options.size ?? 20, color: options.color ?? TEXT }) }
+function docxText(text: string, options: { bold?: boolean; size?: number; color?: string } = {}) { return new TextRun({ text: normalizedText(text), bold: options.bold, size: options.size ?? 20, color: options.color ?? TEXT }) }
+
 function docxQuestion(model: AssessmentExportModel, question: AssessmentExportQuestion) {
-  const lines = renderQuestionLines(model, question)
-  return lines.map((line, index) => new Paragraph({ keepLines: true, keepNext: index < lines.length - 1, spacing: { after: index === 0 ? 45 : 70 }, children: [docxText(line, { bold: index === 0, size: index === 0 ? 20 : 18, color: index === 0 ? TEXT : MUTED })] }))
+  const children: Paragraph[] = []
+  if (model.mode === 'answer_key') {
+    children.push(new Paragraph({ keepNext: true, children: [docxText(`${question.itemNumber}. ${model.labels.answer}: `, { bold: true, size: 19 }), docxText(questionAnswer(question), { size: 19 })] }))
+    if ('scoringGuide' in question && question.scoringGuide) children.push(new Paragraph({ spacing: { after: 100 }, children: [docxText(`${model.labels.solution}: ${question.scoringGuide}`, { size: 17, color: MUTED })] }))
+    return children
+  }
+  if (!('prompt' in question)) return children
+  children.push(new Paragraph({ keepNext: true, spacing: { after: 45 }, children: [docxText(`${question.itemNumber}. `, { bold: true, size: 20 }), docxText(question.prompt, { size: 20 }), ...((model.mode !== 'student' || question.pointsPossible > 1) ? [docxText(` (${question.pointsPossible} ${model.labels.points})`, { size: 16, color: MUTED })] : [])] }))
+  if (question.visual) children.push(new Paragraph({ keepNext: true, spacing: { after: 70 }, children: [docxText(`[Diagram: ${question.visual.altText}]`, { size: 17, color: MUTED })] }))
+  subpartsFor(question).forEach((part) => children.push(new Paragraph({ keepNext: true, children: [docxText(`(${part.label}) ${part.prompt} (${part.pointsPossible} ${model.labels.points})`, { size: 18 })] })))
+  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') choicesFor(question).forEach((choice, index) => children.push(new Paragraph({ keepNext: true, children: [docxText(`${question.questionType === 'multiple_select' ? '☐ ' : ''}${visibleLabel(index)}. ${choiceText(choice)}`, { size: 18 })] })))
+  if (question.questionType === 'matching') {
+    children.push(new Paragraph({ keepNext: true, children: [docxText(model.labels.columnA, { bold: true, size: 18 }), docxText('    '), docxText(model.labels.columnB, { bold: true, size: 18 })] }))
+    const prompts = promptsFor(question); const choices = choicesFor(question); const rows = Math.max(prompts.length, choices.length)
+    for (let index = 0; index < rows; index += 1) {
+      const prompt = prompts[index]; const choice = choices[index]
+      const promptText = prompt ? `_____ ${index + 1}. ${typeof prompt === 'string' ? prompt : prompt.text}` : ''
+      const choiceLine = choice ? `${visibleLabel(index)}. ${choiceText(choice)}` : ''
+      children.push(new Paragraph({ keepNext: index < rows - 1, children: [docxText(promptText, { size: 17 }), docxText('        '), docxText(choiceLine, { size: 17 })] }))
+    }
+  }
+  const kind = assessmentResponseKind(question)
+  if (kind === 'true_false') children.push(new Paragraph({ children: [docxText('☐ True      ☐ False', { size: 18 })] }))
+  else if (kind === 'numerical') children.push(new Paragraph({ children: [docxText('Answer: ____________________    Unit: __________', { size: 18 })] }))
+  else if (kind === 'single_line') children.push(new Paragraph({ children: [docxText('______________________________________________', { size: 18 })] }))
+  else if (kind === 'fill_structured') blanksFor(question).forEach((blank) => children.push(new Paragraph({ children: [docxText(`${model.labels.answer} ${blank.label}: ____________________________________`, { size: 18 })] })))
+  else if (kind === 'extended') {
+    if ('responseInstructions' in question && question.responseInstructions) children.push(new Paragraph({ children: [docxText(question.responseInstructions, { size: 17, color: MUTED })] }))
+    for (let index = 0; index < recommendedAssessmentResponseLines(question); index += 1) children.push(new Paragraph({ children: [docxText('____________________________________________________________', { size: 18 })] }))
+  }
+  return children
 }
 
 export async function buildAssessmentDocxBlob(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') {
   const children: Paragraph[] = [new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, children: [docxText(model.labels.documentTitle, { bold: true, size: 28 })] }), new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, children: [docxText(model.title, { bold: true, size: 24 })] })]
   textMetadata(model).forEach(([label, value]) => children.push(new Paragraph({ keepNext: true, spacing: { after: 30 }, children: [docxText(`${label}: `, { bold: true, size: 18 }), docxText(value, { size: 18 })] })))
   if (model.instructions) { children.push(new Paragraph({ keepNext: true, spacing: { before: 180, after: 45 }, children: [docxText(model.labels.instructions, { bold: true, size: 20 })] })); children.push(new Paragraph({ keepLines: true, keepNext: true, spacing: { after: 100 }, children: [docxText(model.instructions, { size: 20 })] })) }
-  model.questions.forEach((question) => children.push(...docxQuestion(model, question)))
+  const showSections = model.mode !== 'answer_key' && assessmentUsesContiguousTypeSections(model.questions)
+  let priorType: QuestionType | null = null; let sectionIndex = -1
+  model.questions.forEach((question) => {
+    if (showSections && question.questionType !== priorType) { sectionIndex += 1; children.push(new Paragraph({ keepNext: true, spacing: { before: 160, after: 90 }, children: [docxText(assessmentSectionTitle(question.questionType, sectionIndex), { bold: true, size: 21 })] })); priorType = question.questionType }
+    children.push(...docxQuestion(model, question))
+  })
   const size = docxPaperSize(paperSize)
   const document = new Document({ sections: [{ properties: { page: { size } }, children }] })
   return Packer.toBlob(document)
@@ -182,46 +433,56 @@ export async function buildAssessmentDocxBlob(model: AssessmentExportModel, pape
 
 export async function downloadAssessmentDocx(model: AssessmentExportModel, paperSize: ExportPaperSize = 'a4') { const blob = await buildAssessmentDocxBlob(model, paperSize); downloadBlob(blob, assessmentExportFilename(model, 'docx')) }
 
-function escapeHtml(value: string) { return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;') }
-
-function printVisualMarkup(visual: AssessmentVisual) {
-  const markup = assessmentVisualSvgMarkup(visual)
-  return markup ? markup.replace('<svg ', '<svg class="assessment-print-visual" ') : ''
-}
+function escapeHtml(value: string) { return normalizedText(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;') }
+function printVisualMarkup(visual: AssessmentVisual) { const markup = assessmentVisualSvgMarkup(visual); return markup ? markup.replace('<svg ', '<svg class="assessment-print-visual" ') : '' }
 
 function printQuestionMarkup(model: AssessmentExportModel, question: AssessmentExportQuestion) {
   const pointLabel = model.mode === 'student' && question.pointsPossible <= 1 ? '' : `<small>${question.pointsPossible} ${escapeHtml(model.labels.points)}</small>`
-  if (model.mode === 'answer_key') {
-    return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3>${question.visual ? printVisualMarkup(question.visual) : ''}<div class="answer">${escapeHtml(questionAnswer(question))}</div>${'scoringGuide' in question && question.scoringGuide ? `<p class="scoring-guide">${escapeHtml(question.scoringGuide)}</p>` : ''}</section>`
-  }
+  if (model.mode === 'answer_key') return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3><div class="answer">${escapeHtml(questionAnswer(question))}</div>${question.visual ? printVisualMarkup(question.visual) : ''}${'scoringGuide' in question && question.scoringGuide ? `<p class="scoring-guide">${escapeHtml(question.scoringGuide)}</p>` : ''}</section>`
   if (!('prompt' in question)) return ''
-  const choices = choicesFor(question)
-  const prompts = promptsFor(question)
-  const subparts = subpartsFor(question)
+  const choices = choicesFor(question); const prompts = promptsFor(question); const subparts = subpartsFor(question)
   const choiceMarkup = question.questionType === 'matching'
-    ? `<div class="matching"><b>${escapeHtml(model.labels.columnA)}</b>${prompts.map((prompt, index) => `<div>_____ ${index + 1}. ${escapeHtml(typeof prompt === 'string' ? prompt : prompt.text)}</div>`).join('')}<b>${escapeHtml(model.labels.columnB)}</b>${choices.map((choice, index) => `<div>${choiceVisibleLabel(index)}. ${escapeHtml(typeof choice === 'string' ? choice : choice.text)}</div>`).join('')}</div>`
-    : choices.length ? `<ol type="A">${choices.map((choice: string | { text: string }) => `<li>${escapeHtml(typeof choice === 'string' ? choice : choice.text)}</li>`).join('')}</ol>` : ''
+    ? `<div class="matching-grid"><div><b>${escapeHtml(model.labels.columnA)}</b>${prompts.map((prompt, index) => `<div>_____ ${index + 1}. ${escapeHtml(typeof prompt === 'string' ? prompt : prompt.text)}</div>`).join('')}</div><div><b>${escapeHtml(model.labels.columnB)}</b>${choices.map((choice, index) => `<div>${visibleLabel(index)}. ${escapeHtml(choiceText(choice))}</div>`).join('')}</div></div>`
+    : (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') ? `<div class="choice-list">${choices.map((choice, index) => `<div class="choice-row">${escapeHtml(visibleLabel(index))}. ${question.questionType === 'multiple_select' ? '<span class="check-box"></span>' : ''}${escapeHtml(choiceText(choice))}</div>`).join('')}</div>` : ''
   const subpartMarkup = subparts.length ? `<ol type="a" class="subparts">${subparts.map((part) => `<li>${escapeHtml(part.prompt)} <small>(${part.pointsPossible} ${escapeHtml(model.labels.points)})</small></li>`).join('')}</ol>` : ''
-  const blankMarkup = question.questionType === 'fill_in_the_blank' && 'blanks' in question && question.blanks?.length ? `<div class="blank-labels">${question.blanks.map((blank) => `<span>${escapeHtml(blank.label)}.</span>`).join(' ')}</div>` : ''
+  const kind = assessmentResponseKind(question)
+  let responseMarkup = ''
+  if (kind === 'true_false') responseMarkup = '<div class="true-false"><span class="check-box"></span> True <span class="check-box"></span> False</div>'
+  else if (kind === 'numerical') responseMarkup = '<div class="numeric-response">Answer: ____________________ &nbsp;&nbsp; Unit: __________</div>'
+  else if (kind === 'single_line') responseMarkup = '<div class="response-lines"><div>______________________________________________</div></div>'
+  else if (kind === 'fill_structured') responseMarkup = `<div class="response-lines">${(blanksFor(question).length ? blanksFor(question) : [{ label: 'A' }]).map((blank) => `<div>${escapeHtml(model.labels.answer)} ${escapeHtml(blank.label)}: ____________________________________</div>`).join('')}</div>`
+  else if (kind === 'extended') responseMarkup = `<div class="response-lines">${'<div>__________________________________________________________</div>'.repeat(recommendedAssessmentResponseLines(question))}</div>`
   const annotations = [
-    'responseInstructions' in question && question.responseInstructions ? `<p class="annotation"><b>${escapeHtml(model.labels.instructions)}:</b> ${escapeHtml(question.responseInstructions)}</p>` : '',
+    kind === 'extended' && 'responseInstructions' in question && question.responseInstructions ? `<p class="annotation">${escapeHtml(question.responseInstructions)}</p>` : '',
     model.mode !== 'student' && 'answer' in question && question.answer ? `<div class="answer">${escapeHtml(questionAnswer(question))}</div>` : '',
     model.mode !== 'student' && 'scoringGuide' in question && question.scoringGuide ? `<p class="scoring-guide">${escapeHtml(question.scoringGuide)}</p>` : '',
     model.mode !== 'student' && 'competency' in question && question.competency ? `<p class="annotation"><b>${escapeHtml(model.labels.competency)}:</b> ${escapeHtml(question.competency.text)}</p>` : '',
     model.mode !== 'student' && 'cognitiveCategory' in question && question.cognitiveCategory ? `<p class="annotation"><b>${escapeHtml(model.labels.cognitiveCategory)}:</b> ${escapeHtml(question.cognitiveCategory.label)}</p>` : '',
     model.mode !== 'student' && 'rationale' in question && question.rationale ? `<p class="annotation"><b>${escapeHtml(model.labels.rationale)}:</b> ${escapeHtml(question.rationale)}</p>` : '',
   ].join('')
-  return `<section class="question-flow assessment-question-${question.questionType}"><h3>${question.itemNumber}. ${pointLabel}</h3><p>${escapeHtml(question.prompt)}</p>${question.visual ? printVisualMarkup(question.visual) : ''}${subpartMarkup}${choiceMarkup}${blankMarkup}<div class="response-space">${'<div>________________________________________</div>'.repeat(Math.max(0, question.answerSpaceLines))}</div>${annotations}</section>`
+  const coreMarkup = `<div class="question-core"><h3>${question.itemNumber}. ${pointLabel}</h3><p>${escapeHtml(question.prompt)}</p>${question.visual ? printVisualMarkup(question.visual) : ''}${subpartMarkup}${choiceMarkup}</div>`
+  return `<section class="question-flow assessment-question-${question.questionType}">${coreMarkup}${responseMarkup}${annotations}</section>`
 }
 
 export function assessmentPrintHtml(model: AssessmentExportModel) {
   const metadata = textMetadata(model).map(([label, value]) => `<span>${escapeHtml(label)}: ${escapeHtml(value)}</span>`).join('')
-  const questions = model.questions.map((question) => printQuestionMarkup(model, question)).join('')
+  const showSections = model.mode !== 'answer_key' && assessmentUsesContiguousTypeSections(model.questions)
+  let priorType: QuestionType | null = null; let sectionIndex = -1
+  const questions = model.questions.map((question) => {
+    let heading = ''
+    if (showSections && question.questionType !== priorType) { sectionIndex += 1; heading = `<h2 class="assessment-section-heading">${escapeHtml(assessmentSectionTitle(question.questionType, sectionIndex))}</h2>`; priorType = question.questionType }
+    return `${heading}${printQuestionMarkup(model, question)}`
+  }).join('')
   return `<article class="assessment-document assessment-document-${model.mode}"><header><strong>${escapeHtml(model.labels.documentTitle)}</strong><h1>${escapeHtml(model.title)}</h1><div class="metadata">${metadata}</div>${model.instructions ? `<div class="instructions"><b>${escapeHtml(model.labels.instructions)}</b><p>${escapeHtml(model.instructions)}</p></div>` : ''}</header><main>${questions}</main></article>`
 }
 
 export function buildAssessmentPrintModel(model: AssessmentExportModel) { return model }
-export function printAssessment(model: AssessmentExportModel) { const html = assessmentPrintHtml(model); const popup = window.open('', '_blank', 'noopener,noreferrer'); if (!popup) throw new Error('The browser blocked the print window. Allow popups to print this assessment.'); popup.document.write(`<!doctype html><html><head><title>${escapeHtml(model.title)}</title><style>body{font-family:Arial,sans-serif;margin:24px}.question-flow{break-inside:avoid;margin:0 0 20px}.response-space{color:#666;line-height:1.8}.metadata{display:flex;gap:12px;flex-wrap:wrap}.assessment-print-visual{display:block;width:min(100%,330px);max-height:220px;margin:4px 0 10px;break-inside:avoid}</style></head><body>${html}</body></html>`); popup.document.close(); popup.focus(); popup.print() }
+export function printAssessment(model: AssessmentExportModel) {
+  const html = assessmentPrintHtml(model); const popup = window.open('', '_blank', 'noopener,noreferrer')
+  if (!popup) throw new Error('The browser blocked the print window. Allow popups to print this assessment.')
+  popup.document.write(`<!doctype html><html><head><title>${escapeHtml(model.title)}</title><style>body{font-family:Arial,sans-serif;margin:24px}.assessment-section-heading{break-after:avoid;margin:20px 0 10px;border-bottom:1px solid #9aa7b4;padding-bottom:5px;font-size:14px}.question-flow{margin:0 0 20px}.question-core{break-inside:avoid}.assessment-question-multiple_choice,.assessment-question-true_false,.assessment-question-short_answer,.assessment-question-identification,.assessment-question-fill_in_the_blank,.assessment-question-numerical_answer,.assessment-question-matching,.assessment-question-multiple_select{break-inside:avoid}.response-lines{color:#666;line-height:1.8}.metadata{display:flex;gap:12px;flex-wrap:wrap}.assessment-print-visual{display:block;width:min(100%,330px);max-height:220px;margin:6px auto 10px;break-inside:avoid}.assessment-question-problem_solving .assessment-print-visual,.assessment-question-constructed_response .assessment-print-visual,.assessment-question-essay .assessment-print-visual{max-width:380px}.matching-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.matching-grid>div{display:grid;gap:4px}.check-box{display:inline-block;width:10px;height:10px;border:1px solid #333;margin:0 5px 0 0;vertical-align:middle}.true-false,.numeric-response{margin:8px 0 10px}.choice-list{display:grid;gap:3px;margin:5px 0 7px;line-height:1.45}.choice-row{padding-left:3px}@media print{.question-flow{orphans:3;widows:3}.assessment-section-heading{break-after:avoid}.assessment-question-constructed_response,.assessment-question-problem_solving,.assessment-question-essay{break-inside:auto}}</style></head><body>${html}</body></html>`)
+  popup.document.close(); popup.focus(); popup.print()
+}
 
 // Phase 3.7 custom assessment DOCX template hooks remain intentionally
 // deterministic: assessment content is rendered from saved structured data.
