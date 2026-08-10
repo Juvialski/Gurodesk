@@ -83,6 +83,22 @@ describe('mixed question generation regressions', () => {
     expect(result.finalCounts.essay).toBeGreaterThanOrEqual(3)
     expect(result.items.filter((entry) => entry.questionType === 'essay').every((entry) => entry.pointsPossible === 10)).toBe(true)
     expect(result.items.filter((entry) => entry.questionType === 'problem_solving').every((entry) => entry.pointsPossible === 3)).toBe(true)
+
+    // Fresh assessments are laid out like a conventional test paper: each
+    // enabled question type occupies one contiguous section in UI order.
+    expect(result.items.map((entry) => entry.questionType)).toEqual([
+      ...Array(4).fill('multiple_choice'),
+      ...Array(4).fill('true_false'),
+      ...Array(4).fill('short_answer'),
+      ...Array(4).fill('constructed_response'),
+      ...Array(4).fill('identification'),
+      ...Array(4).fill('fill_in_the_blank'),
+      ...Array(4).fill('numerical_answer'),
+      ...Array(3).fill('problem_solving'),
+      ...Array(3).fill('matching'),
+      ...Array(3).fill('multiple_select'),
+      ...Array(3).fill('essay'),
+    ])
   })
 
   it('preserves 16 completed MCQs and assigns the remaining empty slots to other enabled types first', () => {

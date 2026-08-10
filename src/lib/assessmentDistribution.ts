@@ -17,8 +17,12 @@ export type AssessmentTypeAllocation = {
 }
 
 function cleanAllowed(settings: Pick<AssessmentSettings, 'allowedTypes'>) {
-  const allowed = [...new Set((settings.allowedTypes ?? []).filter((type): type is QuestionType => ASSESSMENT_QUESTION_TYPES.includes(type)))]
-  return allowed.length ? allowed : ['multiple_choice' as QuestionType]
+  const selected = new Set((settings.allowedTypes ?? []).filter((type): type is QuestionType => ASSESSMENT_QUESTION_TYPES.includes(type)))
+  // Section order follows the fixed assessment UI order even if a teacher
+  // temporarily disables and later re-enables a type. Checkbox interaction
+  // order must never reshuffle the printed test sections.
+  const allowed = ASSESSMENT_QUESTION_TYPES.filter((type) => selected.has(type))
+  return allowed.length ? [...allowed] : ['multiple_choice' as QuestionType]
 }
 
 function countObject(types: readonly QuestionType[], counts: readonly number[]) {
@@ -220,30 +224,27 @@ export function applyQuestionTypeDistributionToEmptySlots(
     }
   })
 
+  // Test papers are normally organized into contiguous sections by question
+  // type (all MCQs together, then all True/False, and so on), not round-robin.
+  // Preserve completed/protected items, then allocate the still-empty slots
+  // proportionally to the remaining target deficits and assign those slots in
+  // the same stable UI/declaration order as `allowed`. A fresh assessment
+  // therefore exactly follows allocation.types as contiguous blocks.
+  const deficitWeights = allowed.map((type) => Math.max(0, Number(allocation.counts[type] ?? 0) - Number(projected[type] ?? 0)))
+  const remainingCounts = deficitWeights.some((value) => value > 0)
+    ? largestRemainder(eligibleIndexes.length, deficitWeights)
+    : largestRemainder(eligibleIndexes.length, allowed.map(() => 1))
+  const groupedTypes: QuestionType[] = []
+  allowed.forEach((type, typeIndex) => {
+    for (let offset = 0; offset < (remainingCounts[typeIndex] ?? 0); offset += 1) groupedTypes.push(type)
+  })
+
   const assignments = new Map<number, QuestionType>()
-  for (const index of eligibleIndexes) {
-    const positiveTargetTypes = allowed.filter((type) => Number(allocation.counts[type] ?? 0) > 0)
-    const candidates = positiveTargetTypes.length ? positiveTargetTypes : allowed
-    const withDeficit = candidates.filter((type) => (allocation.counts[type] ?? 0) - (projected[type] ?? 0) > 0)
-    const pool = withDeficit.length ? withDeficit : candidates
-
-    const selected = [...pool].sort((a, b) => {
-      const targetA = Math.max(1, Number(allocation.counts[a] ?? 0))
-      const targetB = Math.max(1, Number(allocation.counts[b] ?? 0))
-      const projectedA = Number(projected[a] ?? 0)
-      const projectedB = Number(projected[b] ?? 0)
-      const deficitA = targetA - projectedA
-      const deficitB = targetB - projectedB
-      if (withDeficit.length && deficitA !== deficitB) return deficitB - deficitA
-      const loadA = projectedA / targetA
-      const loadB = projectedB / targetB
-      if (loadA !== loadB) return loadA - loadB
-      return allowed.indexOf(a) - allowed.indexOf(b)
-    })[0]
-
+  eligibleIndexes.forEach((index, assignmentIndex) => {
+    const selected = groupedTypes[assignmentIndex] ?? allowed[allowed.length - 1]
     assignments.set(index, selected)
     projected[selected] = (projected[selected] ?? 0) + 1
-  }
+  })
 
   const changedItemIds: string[] = []
   const nextItems = items.map((item, index) => {

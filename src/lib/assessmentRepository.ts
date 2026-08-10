@@ -175,7 +175,11 @@ function normalizeAnswer(value: unknown, questionType: QuestionType, choices: un
       prompts: (Array.isArray(answer.prompts) ? answer.prompts : []).map((prompt, index) => { const value = asObject(prompt); return { id: text(value.id, `prompt-${index + 1}`), text: text(value.text) } }),
       choices: (Array.isArray(answer.choices) ? answer.choices : []).map((choice, index) => { const value = asObject(choice); return { id: text(value.id, `choice-${index + 1}`), text: text(value.text), ...(value.label !== undefined ? { label: String(value.label) } : {}) } }),
       mappings: (Array.isArray(answer.mappings) ? answer.mappings : []).map((mapping) => { const value = asObject(mapping); return { promptId: text(value.promptId), choiceId: text(value.choiceId), ...(value.pointsPossible !== undefined ? { pointsPossible: Number(value.pointsPossible) } : {}) } }),
-      reusableChoices: answer.reusableChoices === true,
+      // Preserve the canonical generated wire shape: false is represented by
+      // absence. Re-introducing `reusableChoices:false` during a reload makes
+      // an otherwise unchanged locked Matching item JSON-distinct on the next
+      // full assessment save, which correctly trips the database lock guard.
+      ...(answer.reusableChoices === true ? { reusableChoices: true } : {}),
       ...(answer.pointsPerMatch !== undefined ? { pointsPerMatch: Number(answer.pointsPerMatch) } : {}),
       ...(answer.groupPointsPossible !== undefined ? { groupPointsPossible: Number(answer.groupPointsPossible) } : {}),
     }

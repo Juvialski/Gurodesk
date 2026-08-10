@@ -250,3 +250,10 @@ After the one-click assessment finalization workflow, production testing exposed
 - Whole-assessment verification now leaves structurally blocked questions unlocked for immediate repair instead of leaving them trapped in a locked state.
 
 Preserve this behavior in later assessment and curriculum work. Migration count remains 26; no database migration was required.
+
+## Assessment grouped-section + locked-save hotfix — 2026-08-10
+
+- Auto/Balanced question types are contiguous sections in fixed UI order; do not reintroduce round-robin/random slot assignment.
+- Locked completed items must be skipped by generation and must round-trip byte/JSON-semantically unchanged during a full assessment save.
+- Matching `reusableChoices=false` is canonicalized by omission; do not reinsert an explicit false during repository load.
+- The Phase 4.4 validator checks `unlockAssessmentItem`, not the old ad-hoc `qaState: unlocking` marker.

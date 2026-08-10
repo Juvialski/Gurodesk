@@ -63,6 +63,11 @@ describe('assessment generation batch accounting and resume regressions', () => 
     expect(result.finalCounts.multiple_choice).toBe(16)
     expect(Object.values(result.finalCounts).reduce((sum, value) => sum + (value ?? 0), 0)).toBe(40)
     expect(result.targetCounts).toMatchObject({ multiple_choice: 4, true_false: 4, short_answer: 4 })
+    const remainingTypes = result.items.slice(16).map((item) => item.questionType)
+    // Even when earlier completed items overrepresent one type, remaining empty
+    // slots stay grouped by type rather than alternating round-robin.
+    const transitions = remainingTypes.reduce((count, type, index) => count + (index > 0 && type !== remainingTypes[index - 1] ? 1 : 0), 0)
+    expect(transitions).toBeLessThanOrEqual(ASSESSMENT_QUESTION_TYPES.length - 2)
   })
 
   it('reports eligible counts separately from skipped, generated, failed, and cancelled work', async () => {
