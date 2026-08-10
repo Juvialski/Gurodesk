@@ -9,6 +9,9 @@ const types = read('src/types/assessmentVisual.ts')
 const tikz = read('src/lib/assessmentTikz.ts')
 const renderer = read('src/components/AssessmentTikzDiagram.tsx')
 const diagram = read('src/components/AssessmentDiagram.tsx')
+const documentView = read('src/components/AssessmentDocumentView.tsx')
+const editor = read('src/pages/AssessmentEditorPage.tsx')
+const qa = read('src/lib/assessmentQa.ts')
 const clientGeneration = read('src/lib/assessmentGeneration.ts')
 const edgeContract = read('supabase/functions/_shared/assessment-contract.ts')
 const generator = read('supabase/functions/assessment-question-generator/index.ts')
@@ -38,10 +41,25 @@ assert.match(edgeContract, /neutralVisualAltText/, 'AI visual alt text is rewrit
 assert.match(edgeContract, /stripAnswerLeakingParentheticals/, 'answer-bearing parenthetical examples are removed from learner prompts')
 assert.match(edgeContract, /revealed an accepted answer/, 'remaining direct accepted-answer hints are rejected')
 
+
+assert.match(documentView, /AssessmentSvgDiagram/, 'print/export document keeps deterministic inline SVG geometry for browser/Playwright/PDF compatibility')
+assert.doesNotMatch(documentView, /<AssessmentDiagram visual=\{question\.visual\}/, 'print/export route must not depend on iframe TikZ compilation')
+
+assert.match(clientGeneration, /acceptAssessmentItemSuggestion/, 'teacher acceptance has a single reusable accept-and-lock path')
+assert.match(clientGeneration, /locked:\s*true/, 'accepted AI suggestions lock in the same teacher action')
+assert.match(clientGeneration, /suggestionReadyForBulkAcceptance/, 'ready generated items support one explicit bulk approval action')
+assert.match(clientGeneration, /itemWithCandidate/, 'deterministic QA evaluates the candidate visual together with its prompt and answer')
+assert.match(editor, /Accept ready & lock/, 'editor exposes bulk accept-and-lock for ready generated items')
+assert.match(editor, /Accept & lock/, 'individual suggestion approval is one action')
+assert.doesNotMatch(editor, /Lock accepted item/, 'obsolete second lock step is removed from the AI suggestion workflow')
+
+assert.match(edgeContract, /safeRawVisual\s*=\s*visualResult\.valid\s*\?\s*rawVisual\s*:\s*null/, 'an invalid optional AI visual is dropped instead of wasting the whole generated item')
+assert.match(qa, /missing-visual/, 'visual-dependent prompts remain flagged when an invalid optional visual was dropped')
+
 assert.match(generator, /cartesianAxes/, 'Gemini prompt teaches the safe Cartesian primitive')
 assert.match(generator, /cartesianPlot/, 'Gemini prompt teaches sampled Cartesian plots')
 assert.match(generator, /never return TikZ/i, 'Gemini must never return executable TikZ')
 assert.match(generator, /genuinely distinct/i, 'fill-in-the-blank prompt discourages duplicate accepted answers')
 assert.match(generator, /altText must describe only observable features/i, 'Gemini is explicitly prohibited from putting classifications/solutions in visual alt text')
 
-console.log('Assessment math visual validation passed: generated answers are deduplicated, math visuals remain a validated data DSL, Cartesian plots use sampled points, and GuroDesk deterministically compiles the safe model to TikZ with SVG fallback.')
+console.log('Assessment math visual/workflow validation passed: TikZ remains editor-first with inline SVG export fallback, invalid optional visuals degrade safely, generated answers are deduplicated, and AI approval supports one-step or bulk accept-and-lock.')

@@ -398,7 +398,11 @@ export function validateAssessmentCandidate(
   if (!references.every((entry) => teacherResources.includes(entry))) throw new AssessmentContractError('The AI response referenced an unlisted teacher resource.', 'RESOURCE_INVALID')
   const rawVisual = source.visual === null ? null : source.visual
   const visualResult = validateAssessmentVisual(rawVisual)
-  if (!visualResult.valid) throw new AssessmentContractError('The AI response visual was invalid.', 'VISUAL_INVALID')
+  // A malformed optional diagram must not waste an otherwise valid assessment
+  // item. Drop only the visual and let deterministic browser QA flag a prompt
+  // that still depends on a missing figure. This keeps batch generation moving
+  // while preventing unsafe/invalid primitives from reaching any renderer.
+  const safeRawVisual = visualResult.valid ? rawVisual : null
   const answer = normalizeAnswer(source.answer, resolvedType)
   assertReconciledPoints(answer, resolvedType, immutableContext)
   const answerTerms = directAnswerTerms(answer, resolvedType)
@@ -409,7 +413,7 @@ export function validateAssessmentCandidate(
     prompt = stripAnswerLeakingParentheticals(prompt, answerTerms)
     if (containsAnswerTerm(prompt, answerTerms)) throw new AssessmentContractError('The AI response prompt revealed an accepted answer.', 'SEMANTIC_INVALID')
   }
-  const visual = rawVisual === null ? null : { ...(rawVisual as Row), altText: neutralVisualAltText(rawVisual) }
+  const visual = safeRawVisual === null ? null : { ...(safeRawVisual as Row), altText: neutralVisualAltText(safeRawVisual) }
   if (resolvedType === 'fill_in_the_blank') {
     const markerCount = (prompt.match(/(?:_{3,}|…{3,}|\[\s*blank(?:[- ]?\d+)?\s*\])/giu) ?? []).length
     const blankCount = Array.isArray(answer.blanks) ? answer.blanks.length : 0

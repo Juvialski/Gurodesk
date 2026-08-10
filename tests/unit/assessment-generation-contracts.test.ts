@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { applyAssessmentItemCandidate, validateAssessmentCandidate } from '../../src/lib/assessmentGeneration'
+import { acceptAssessmentItemSuggestion, applyAssessmentItemCandidate, suggestionReadyForBulkAcceptance, validateAssessmentCandidate, type AssessmentItemSuggestion } from '../../src/lib/assessmentGeneration'
 import { IRREGULAR_CONCAVE_PENTAGON_VISUAL } from '../../src/lib/assessmentVisualFixtures'
+import { validateAssessmentItemDeterministic } from '../../src/lib/assessmentQa'
 import { ASSESSMENT_QUESTION_TYPES, type QuestionType } from '../../src/types/assessment'
 import { assessmentItem } from './fixtures'
 import { cloneCandidate, VALID_ASSESSMENT_CANDIDATES } from './assessmentContractFixtures'
@@ -91,6 +92,33 @@ describe('assessment AI candidate contract regressions', () => {
     const alternative = applyAssessmentItemCandidate(authored, candidate, { alternative: true })
     expect(alternative.prompt).toBe(candidate.prompt)
     expect(alternative.history?.at(-1)?.prompt).toBe(authored.prompt)
+  })
+
+  it('accepts and locks an AI suggestion in one teacher action and limits bulk acceptance to ready items', () => {
+    const source = assessmentItem('true_false', { prompt: '', authorshipState: 'empty', qaState: 'empty', locked: false })
+    const candidate = cloneCandidate('true_false')
+    const suggestion: AssessmentItemSuggestion = {
+      assessmentId: 'assessment-1', itemId: source.id, questionType: 'true_false', candidate,
+      model: 'gemini-3.5-flash-lite', fallbackUsed: false, editable: true, qaState: 'generated',
+      deterministicQa: { valid: true, errors: [], warnings: [] },
+    }
+    expect(suggestionReadyForBulkAcceptance(suggestion)).toBe(true)
+    const accepted = acceptAssessmentItemSuggestion(source, suggestion)
+    expect(accepted.authorshipState).toBe('teacher_accepted')
+    expect(accepted.locked).toBe(true)
+    expect(accepted.qaState).toBe('locked')
+    expect(suggestionReadyForBulkAcceptance({ ...suggestion, qaState: 'needs_review' })).toBe(false)
+  })
+
+  it('marks a visual-dependent prompt for review when an invalid provider visual was dropped', () => {
+    const item = assessmentItem('true_false', {
+      prompt: 'Examine the figure shown in the visual and decide whether the statement is true.',
+      answer: { type: 'true_false', value: true },
+      visual: undefined,
+    })
+    const qa = validateAssessmentItemDeterministic(item)
+    expect(qa.valid).toBe(false)
+    expect(qa.errors.some((entry) => entry.code === 'missing-visual')).toBe(true)
   })
 
   it('preserves a visual only when the provider omits it and removes it on explicit null', () => {

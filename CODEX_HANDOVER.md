@@ -217,3 +217,13 @@ Current invariants:
 - The TikZ-first security model is unchanged: Gemini supplies structured visual data only; GuroDesk owns TikZ generation; no model-supplied executable TikZ/SVG/HTML/JS is allowed.
 
 No database migration was added. Migration count remains 26.
+
+## Assessment accept/export reliability hotfix — 2026-08-10
+
+After the TikZ visual rollout, Chromium E2E exposed that the print route no longer contained the deterministic inline `svg.assessment-document-question-visual` expected by the export contract. The print/export document now intentionally uses `AssessmentSvgDiagram`; editor/suggestion visuals remain TikZ-first with SVG fallback.
+
+Generation workflow was also simplified: individual `Accept` is now `Accept & lock`, and the editor offers one `Accept ready & lock (N)` action for batch-generated suggestions that passed deterministic QA and were not flagged for review. The bulk action saves once after approval. Flagged items remain manual-review items; generation itself never silently counts as teacher approval.
+
+Invalid optional provider visuals are now dropped instead of failing the entire generated item. A prompt that refers to a missing dropped visual is deterministically flagged `missing-visual` / `needs_review`, keeping it out of the bulk-ready approval path.
+
+No schema change. Migration count remains 26.

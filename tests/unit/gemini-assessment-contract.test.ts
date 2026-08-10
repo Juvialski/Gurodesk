@@ -94,9 +94,9 @@ describe('raw Gemini assessment contract', () => {
     expect(String(fetchMock.mock.calls[0][0])).not.toContain('?key=')
   })
 
-  it('requires the nullable visual field and rejects unsupported nested fields', () => {
+  it('requires the nullable visual field, drops invalid optional visuals, and rejects unsupported answer fields', () => {
     expect(validateAssessmentCandidate(base, 'true_false', [])).toMatchObject({ visual: null })
-    expect(() => validateAssessmentCandidate({ ...base, visual: { ...visual, primitives: [{ ...visual.primitives[0], fill: 'not-a-palette-colour' }] } }, 'true_false', [])).toThrow(/visual/u)
+    expect(validateAssessmentCandidate({ ...base, visual: { ...visual, primitives: [{ ...visual.primitives[0], fill: 'not-a-palette-colour' }] } }, 'true_false', []).visual).toBeNull()
     expect(() => validateAssessmentCandidate({ ...base, answer: { ...base.answer, unsupported: true } }, 'true_false', [])).toThrow(/unsupported/u)
     expect(() => validateAssessmentCandidate({ ...base, visual: undefined }, 'true_false', [])).toThrow()
   })

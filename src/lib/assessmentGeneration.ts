@@ -433,6 +433,21 @@ export function applyAssessmentItemSuggestion(item: AssessmentItem, suggestion: 
   return { ...applied, qaState: qaState as AssessmentItem['qaState'] }
 }
 
+/** Teacher approval is one action: accepting an AI suggestion also locks the
+ * accepted item. Unlock remains explicit when a teacher wants to edit it later. */
+export function acceptAssessmentItemSuggestion(item: AssessmentItem, suggestion: AssessmentItemSuggestion) {
+  const applied = applyAssessmentItemSuggestion(item, suggestion, { alternative: true, source: suggestion.repairAttempted ? 'repair' : 'generated' })
+  return { ...applied, authorshipState: 'teacher_accepted' as const, locked: true, qaState: 'locked' as const }
+}
+
+/** Bulk approval is intentionally limited to candidates that passed local
+ * deterministic QA and were not flagged for teacher review/repair. The teacher
+ * still makes one explicit approval action for the ready subset. */
+export function suggestionReadyForBulkAcceptance(suggestion: AssessmentItemSuggestion) {
+  if (suggestion.deterministicQa?.valid === false) return false
+  return !['needs_review', 'repair_needed', 'answer_needs_recheck'].includes(String(suggestion.qaState ?? 'generated'))
+}
+
 function demoCandidate(item: AssessmentItem): AssessmentItemCandidate {
   const competency = item.competencySnapshot.text || 'the verified competency'
   const cognitive = item.cognitiveCategorySnapshot.label || 'the verified cognitive category'
@@ -572,8 +587,17 @@ function candidateFromResponse(data: UnknownRecord, item: AssessmentItem, approv
   return validateAssessmentCandidate(raw, item.questionType, approvedResources)
 }
 
+function itemWithCandidate(item: AssessmentItem, candidate: AssessmentItemCandidate) {
+  return {
+    ...item,
+    prompt: candidate.prompt,
+    answer: candidate.answer,
+    visual: candidate.visual === undefined ? item.visual : candidate.visual === null ? undefined : candidate.visual,
+  }
+}
+
 export async function requestAssessmentVerification(args: { assessment: AssessmentRecord; item: AssessmentItem; candidate: AssessmentItemCandidate; generatorModel?: string; demo?: boolean; signal?: AbortSignal }) {
-  const deterministic = validateAssessmentItemDeterministic({ ...args.item, prompt: args.candidate.prompt, answer: args.candidate.answer }, { allowedTypes: allowedTypesFor(args.assessment) })
+  const deterministic = validateAssessmentItemDeterministic(itemWithCandidate(args.item, args.candidate), { allowedTypes: allowedTypesFor(args.assessment) })
   if (!deterministic.valid) return { deterministic, verifier: undefined, requestsUsed: 0 }
   if (args.demo || !supabase) return { deterministic, verifier: undefined, requestsUsed: 0 }
   const data = await invokeAssessmentAi({ operation: 'verify', assessmentId: args.assessment.id, itemId: args.item.id, questionType: args.item.questionType, ...(args.generatorModel ? { generatorModel: args.generatorModel } : {}), candidate: candidatePayload(args.candidate) }, args.signal, oppositeLiteQueueModel(args.generatorModel))
@@ -590,10 +614,10 @@ export async function repairAssessmentItemSuggestion(args: { assessment: Assessm
 }
 
 async function adaptiveReview(assessment: AssessmentRecord, item: AssessmentItem, candidate: AssessmentItemCandidate, demo: boolean, signal?: AbortSignal, baseModel = 'assessment-lite-queue') {
-  const deterministic = validateAssessmentItemDeterministic({ ...item, prompt: candidate.prompt, answer: candidate.answer }, { allowedTypes: allowedTypesFor(assessment) })
-  if (!deterministic.valid) return { candidate, deterministic, risk: classifyAssessmentRisk({ ...item, prompt: candidate.prompt, answer: candidate.answer }), requestsUsed: 0, state: 'needs_review', repairAttempted: false } as const
-  const risk = classifyAssessmentRisk({ ...item, prompt: candidate.prompt, answer: candidate.answer })
-  if (!risk.verifyRecommended || demo || !supabase) return { candidate, deterministic, risk, requestsUsed: 0, state: stateForAssessmentItem({ ...item, prompt: candidate.prompt, answer: candidate.answer }, deterministic), repairAttempted: false } as const
+  const deterministic = validateAssessmentItemDeterministic(itemWithCandidate(item, candidate), { allowedTypes: allowedTypesFor(assessment) })
+  if (!deterministic.valid) return { candidate, deterministic, risk: classifyAssessmentRisk(itemWithCandidate(item, candidate)), requestsUsed: 0, state: 'needs_review', repairAttempted: false } as const
+  const risk = classifyAssessmentRisk(itemWithCandidate(item, candidate))
+  if (!risk.verifyRecommended || demo || !supabase) return { candidate, deterministic, risk, requestsUsed: 0, state: stateForAssessmentItem(itemWithCandidate(item, candidate), deterministic), repairAttempted: false } as const
   let verifier: AssessmentVerifierResult | undefined
   let requestsUsed = 0
   try {
@@ -603,9 +627,9 @@ async function adaptiveReview(assessment: AssessmentRecord, item: AssessmentItem
     if (!verifier || !verifierRequiresRepair(verifier)) return { candidate, deterministic, risk, verifier, requestsUsed, state: 'verified' as const, repairAttempted: false }
     const repaired = await repairAssessmentItemSuggestion({ assessment, item, candidate, issues: verifier.issues, repairGuidance: verifier.repairGuidance, demo, signal })
     requestsUsed += repaired.requestsUsed
-    const repairedDeterministic = validateAssessmentItemDeterministic({ ...item, prompt: repaired.candidate.prompt, answer: repaired.candidate.answer }, { allowedTypes: allowedTypesFor(assessment) })
+    const repairedDeterministic = validateAssessmentItemDeterministic(itemWithCandidate(item, repaired.candidate), { allowedTypes: allowedTypesFor(assessment) })
     if (!repairedDeterministic.valid) return { candidate: repaired.candidate, deterministic: repairedDeterministic, risk, verifier, requestsUsed, state: 'needs_review' as const, repairAttempted: true }
-    return { candidate: repaired.candidate, deterministic: repairedDeterministic, risk: classifyAssessmentRisk({ ...item, prompt: repaired.candidate.prompt, answer: repaired.candidate.answer }), verifier, requestsUsed, state: 'needs_review' as const, repairAttempted: true }
+    return { candidate: repaired.candidate, deterministic: repairedDeterministic, risk: classifyAssessmentRisk(itemWithCandidate(item, repaired.candidate)), verifier, requestsUsed, state: 'needs_review' as const, repairAttempted: true }
   } catch (error) {
     // Review unavailability is a warning, not a reason to lose a valid draft.
     const message = String((error as { message?: unknown })?.message ?? error).toLocaleLowerCase('en')

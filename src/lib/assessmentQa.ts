@@ -93,6 +93,10 @@ function promptOf(item: unknown) {
   return stringValue(record(item).prompt ?? record(item).question)
 }
 
+function promptRequiresAttachedVisual(value: string) {
+  return /\b(?:shown|displayed|illustrated|depicted)\s+(?:in|on)\s+(?:the\s+)?(?:visual|diagram|figure|graph)\b|\b(?:visual|diagram|figure|graph)\s+(?:shown|below|above)\b/iu.test(value)
+}
+
 function pointsOf(item: unknown) {
   const value = record(item).pointsPossible ?? record(item).points ?? record(item).pointValue
   if (value === null || value === undefined || value === '') return 1
@@ -186,7 +190,9 @@ export function validateAssessmentItemDeterministic(item: unknown, options: {
 
   if (!type || !ASSESSMENT_QUESTION_TYPES.includes(type as AssessmentQuestionTypeName)) add(errors, 'question-type', 'Question type is missing or unsupported.')
   if (options.allowedTypes && type && !options.allowedTypes.includes(type)) add(errors, 'disabled-question-type', 'The question type is disabled for this assessment.')
-  if (!promptOf(item)) add(errors, 'prompt', 'Question prompt is required.')
+  const prompt = promptOf(item)
+  if (!prompt) add(errors, 'prompt', 'Question prompt is required.')
+  if (prompt && promptRequiresAttachedVisual(prompt) && !record(value.visual).kind) add(errors, 'missing-visual', 'The question refers to a visual, but no valid visual is attached. Regenerate the item or add a diagram before accepting it.')
   const points = pointsOf(item)
   if (!Number.isFinite(points) || points <= 0) add(errors, 'points', 'Points possible must be a positive finite number.')
   if (options.expectedItemNumber !== undefined && numberValue(value.itemNumber, -1) !== options.expectedItemNumber) add(errors, 'item-number', 'Item number does not match the immutable TOS slot.')
