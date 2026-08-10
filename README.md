@@ -29,9 +29,9 @@ Phases 1–5.5 and the assessment-generation/visual reliability checkpoint are p
 - clearly labelled binary facility versus normalized multi-point achievement, with item-count and point-based competency/cognitive views;
 - configurable, neutral remediation signals and editable plans, with optional aggregate-only Gemini activity suggestions that never receive learner identity or raw answers; and
 - Assessment Results Summary, Item Analysis, Competency Performance, and Remediation Plan reports with Print, PDF, DOCX, and combined seven-sheet XLSX output; and
-- Render static-site SPA rewrites, browser-safe environment guidance, additive migrations through `025`, production security notes, and a phone-first smoke-test checklist;
+- Render static-site SPA rewrites, browser-safe environment guidance, additive migrations through `026`, production security notes, and a phone-first smoke-test checklist;
 - Vitest unit regressions for scoring, locks, error handling, AI orchestration, retry/429 behavior, and Gemini boundaries;
-- real fresh and data-bearing upgrade migration paths through migration 025;
+- real fresh and data-bearing upgrade migration paths through migration 026;
 - local Supabase Auth/JWT, RLS, RPC, PostgREST relationship, repository round-trip, partial-credit, analysis, and remediation integration tests;
 - a focused Playwright suite for login, TOS-to-assessment creation, save/reload/list behavior, and deep routes; and
 - GitHub Actions plus a single local-only `npm run test:release` quality gate.

@@ -4,6 +4,7 @@ const read = (path) => readFileSync(path, 'utf8')
 const assert = (condition, message) => { if (!condition) throw new Error(message) }
 
 const migration = read('supabase/migrations/202608100025_phase6_custom_hybrid_curricula.sql')
+const publicationHotfix = read('supabase/migrations/202608100026_phase6_publish_curriculum_subject_id_hotfix.sql')
 const edge = read('supabase/functions/curriculum-import-analyzer/index.ts')
 const panel = read('src/components/CustomCurriculumPanel.tsx')
 const classes = read('src/pages/ClassesPage.tsx')
@@ -21,6 +22,9 @@ assert(migration.includes("public = false"), 'Custom curriculum bucket must rema
 assert(migration.includes('(storage.foldername(name))[1] = (select auth.uid())::text'), 'Storage RLS must isolate curriculum uploads by teacher.')
 assert(migration.includes("storage_path text check (storage_path is null or storage_path like user_id::text || '/%')"), 'Import rows must constrain stored file paths to the owning teacher folder.')
 assert(migration.includes('create or replace function public.publish_custom_curriculum'), 'Guarded curriculum publication RPC is missing.')
+assert(publicationHotfix.includes('published_subject_id uuid := gen_random_uuid()'), 'Migration 026 must remove the ambiguous publish RPC subject_id variable.')
+assert(publicationHotfix.includes('where ap.subject_id = published_subject_id') && publicationHotfix.includes('where cd.subject_id = published_subject_id'), 'Migration 026 must qualify publication lookups against the renamed subject UUID variable.')
+assert(!publicationHotfix.includes('callGeminiWithDiscoveredFallback') && !publicationHotfix.includes('gemini-2.5'), 'Migration 026 must remain a database-only hotfix and must not reintroduce model discovery.')
 assert(migration.includes('base_competency_id'), 'Hybrid curricula must preserve immutable base competency provenance.')
 assert(migration.includes("'inherited'"), 'Hybrid inherited competency provenance is missing.')
 assert(migration.includes("base.origin_kind = 'official'") && migration.includes('base.owner_user_id is null'), 'Hybrid base must be an official shared curriculum, never another teacher private version.')

@@ -28,7 +28,10 @@ This build is based on `gurodesk-generation-visual-final.zip` and preserves ever
 ### Migration
 - `202608100025_phase6_custom_hybrid_curricula.sql`
 
-Migration harness count: 25.
+Migration harness count: 26.
+
+Post-release hotfix migration:
+- `202608100026_phase6_publish_curriculum_subject_id_hotfix.sql` fixes PostgreSQL SQLSTATE 42702 in `publish_custom_curriculum` without rewriting migration 025.
 
 ## Deliberate boundaries
 - AI cannot publish a curriculum automatically.

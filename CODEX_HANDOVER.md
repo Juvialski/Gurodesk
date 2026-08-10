@@ -158,7 +158,7 @@ Phase 6 universal curriculum is the current stopping point. Run the normal relea
 
 ## Phase 6 universal curriculum handover — 2026-08-10
 
-The current source of truth extends the assessment-generation/visual checkpoint and Phase 6 national catalog with teacher-owned custom/hybrid curriculum support. Preserve migration 025 and all related files.
+The current source of truth extends the assessment-generation/visual checkpoint and Phase 6 national catalog with teacher-owned custom/hybrid curriculum support. Preserve migrations 025 and 026 and all related files. Migration 026 is a database-only hotfix for the Phase 6 publication RPC; it is not the abandoned Gemini model-discovery experiment.
 
 Key invariants:
 - `teacher_assignments.curriculum_source_kind` is `official|custom|hybrid`; custom/hybrid assignments pin `curriculum_version_id`.
@@ -171,6 +171,7 @@ Key invariants:
 - Curriculum catalog breadth is not equivalent to verified competency coverage; never synthesize official DepEd competency text from model memory.
 - Custom curriculum analysis reuses the existing teacher BYOK model policy unchanged. No new provider model IDs or automatic model-discovery behavior were introduced by Phase 6.
 
-Release gate: migrations 001–025, static/unit/build, fresh/upgrade DB assertions, two-teacher integration/RLS, and Chromium E2E must pass in GitHub Actions. The previously failing assessment-flow E2E was hardened by scoping the `final` status assertion to the TOS card created by that test; GitHub Actions remains the authority for confirming the fix.
+Release gate: migrations 001–026, static/unit/build, fresh/upgrade DB assertions, two-teacher integration/RLS, and Chromium E2E must pass in GitHub Actions. The previously failing assessment-flow E2E was hardened by scoping the `final` status assertion to the TOS card created by that test; GitHub Actions remains the authority for confirming the fix.
 
 25. `supabase/migrations/202608100025_phase6_custom_hybrid_curricula.sql`
+26. `supabase/migrations/202608100026_phase6_publish_curriculum_subject_id_hotfix.sql`

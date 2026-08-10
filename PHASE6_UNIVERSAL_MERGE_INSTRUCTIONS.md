@@ -5,7 +5,7 @@ Use the supplied full root-level ZIP as the complete current GuroDesk project.
 1. Replace the AI Studio project contents with the ZIP contents exactly.
 2. Do not ask AI Studio to rewrite, simplify, or regenerate the implementation.
 3. Push to `Juvialski/Gurodesk` `main`.
-4. Allow the existing GitHub Actions release workflow to run migrations 001–025 against its disposable local Supabase stack.
+4. Allow the existing GitHub Actions release workflow to run migrations 001–026 against its disposable local Supabase stack.
 5. Require both the static/unit/build job and the local-Supabase integration/E2E job to be green before accepting deployment.
 6. Let the configured Supabase/Render integrations deploy only after the green release gate.
 

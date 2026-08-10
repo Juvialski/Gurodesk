@@ -4,8 +4,9 @@ Date: 2026-08-10
 BASELINE
 - Preserves the assessment generation + validated geometry/SVG checkpoint from gurodesk-generation-visual-final.zip.
 - Preserves the Phase 6 national curriculum catalog/resolver work.
-- Adds one new migration only: 202608100025_phase6_custom_hybrid_curricula.sql.
-- Expected migration count: 25.
+- Phase 6 architecture migration: 202608100025_phase6_custom_hybrid_curricula.sql.
+- Additive CI/database hotfix: 202608100026_phase6_publish_curriculum_subject_id_hotfix.sql.
+- Expected migration count: 26.
 
 IMPLEMENTED / STATICALLY VERIFIED
 PASS - private/custom/hybrid curriculum source model
@@ -22,7 +23,7 @@ PASS - class assignments persist official/custom/hybrid source kind and pinned p
 PASS - lesson-plan/TOS competency-link guards prevent cross-source/version mixing
 PASS - private-school onboarding has a direct path to Curriculum Navigator
 PASS - Curriculum Navigator exposes custom/private curriculum management without requiring an official assignment
-PASS - migration harness expects 25 migrations and upgrade range 015-025
+PASS - migration harness expects 26 migrations and upgrade range 015-026
 PASS - curriculum-import-analyzer registered in supabase/config.toml
 PASS - Phase 6 national curriculum validator
 PASS - Phase 6 custom/hybrid curriculum validator
@@ -50,10 +51,16 @@ STOPPED at Phase 4 because this execution environment does not contain the npm p
 GITHUB ACTIONS RELEASE GATE REQUIRED
 The configured GitHub runner must run:
 - npm run test:ci
-- fresh migrations 001-025
-- upgrade migrations 001-014 fixture -> 015-025
+- fresh migrations 001-026
+- upgrade migrations 001-014 fixture -> 015-026
 - local two-teacher Supabase/RLS/integration suite
 - Chromium E2E
+
+POST-PUSH CI HOTFIX
+- Render build passed after the typed curriculum-period fallback fix.
+- Phase 4.2/4.4 validators were corrected to validate the shipped callWithLiteFallback path and reject the abandoned model-discovery helper.
+- Migration 026 replaces publish_custom_curriculum with identical logic except the local subject UUID is renamed to published_subject_id, eliminating PostgreSQL SQLSTATE 42702 ambiguity without rewriting migration 025.
+- Full GitHub Actions remains the release authority after this hotfix is pushed.
 
 LATEST E2E REGRESSION FIX
 The previously reported assessment-flow failure occurred in a suite where multiple finalized TOS records can coexist. The test previously used a page-global exact `final` locator. It now first locates the TOS card containing the unique test title and asserts `final` inside that card. This removes strict-locator ambiguity without weakening the product behavior being tested. GitHub Actions remains authoritative confirmation.
