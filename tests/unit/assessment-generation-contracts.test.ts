@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { acceptAssessmentItemSuggestion, applyAssessmentItemCandidate, suggestionReadyForBulkAcceptance, validateAssessmentCandidate, type AssessmentItemSuggestion } from '../../src/lib/assessmentGeneration'
+import { acceptAssessmentItemSuggestion, applyAssessmentItemCandidate, suggestionReadyForBulkAcceptance, teacherVerifyAndLockAssessmentItem, validateAssessmentCandidate, type AssessmentItemSuggestion } from '../../src/lib/assessmentGeneration'
 import { IRREGULAR_CONCAVE_PENTAGON_VISUAL } from '../../src/lib/assessmentVisualFixtures'
 import { validateAssessmentItemDeterministic } from '../../src/lib/assessmentQa'
 import { ASSESSMENT_QUESTION_TYPES, type QuestionType } from '../../src/types/assessment'
@@ -108,6 +108,20 @@ describe('assessment AI candidate contract regressions', () => {
     expect(accepted.locked).toBe(true)
     expect(accepted.qaState).toBe('locked')
     expect(suggestionReadyForBulkAcceptance({ ...suggestion, qaState: 'needs_review' })).toBe(false)
+  })
+
+  it('supports one explicit teacher verify-and-lock action for persisted generated items', () => {
+    const source = assessmentItem('true_false', {
+      prompt: 'A square has four equal sides.',
+      answer: { type: 'true_false', value: true },
+      authorshipState: 'ai_suggestion',
+      qaState: 'needs_review',
+      locked: false,
+    })
+    const accepted = teacherVerifyAndLockAssessmentItem(source)
+    expect(accepted.authorshipState).toBe('teacher_accepted')
+    expect(accepted.qaState).toBe('locked')
+    expect(accepted.locked).toBe(true)
   })
 
   it('marks a visual-dependent prompt for review when an invalid provider visual was dropped', () => {

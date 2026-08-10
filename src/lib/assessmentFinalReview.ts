@@ -160,8 +160,24 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
   return { ready: hardErrors.length === 0 && unacknowledgedWarnings.length === 0, canFinalize: hardErrors.length === 0, acknowledgedWarningCodes, hardErrors, warnings, suspiciousItemIds: [...new Set(suspiciousItemIds)], metrics: { itemCount: assessment.items.length, expectedItemCount: expected, totalPoints, objectivePoints, teacherScoredPoints, completedItems, needsReviewItems, typeCounts, typePoints, competencyItemCounts, competencyPoints, cognitiveItemCounts, cognitivePoints } }
 }
 
+function groupedReviewMessages(entries: AssessmentFinalReviewIssue[]) {
+  const groups = new Map<string, number[]>()
+  entries.forEach((entry) => {
+    const numbers = groups.get(entry.message) ?? []
+    if (entry.itemNumber !== undefined) numbers.push(entry.itemNumber)
+    groups.set(entry.message, numbers)
+  })
+  return [...groups.entries()].map(([message, itemNumbers]) => {
+    const uniqueNumbers = [...new Set(itemNumbers)].sort((left, right) => left - right)
+    if (!uniqueNumbers.length) return message
+    const shown = uniqueNumbers.slice(0, 12).join(', ')
+    const remainder = uniqueNumbers.length > 12 ? ` +${uniqueNumbers.length - 12} more` : ''
+    return `${message} (Item${uniqueNumbers.length === 1 ? '' : 's'} ${shown}${remainder})`
+  })
+}
+
 export function finalReviewMessages(review: AssessmentFinalReview) {
-  return { errors: review.hardErrors.map((entry) => entry.message), warnings: review.warnings.map((entry) => entry.message) }
+  return { errors: groupedReviewMessages(review.hardErrors), warnings: groupedReviewMessages(review.warnings) }
 }
 
 export function appendOptionalAiReviewWarning(review: AssessmentFinalReview, message = 'Optional AI quality review was unavailable. Teacher review remains authoritative; this does not block finalization.') {

@@ -440,6 +440,20 @@ export function acceptAssessmentItemSuggestion(item: AssessmentItem, suggestion:
   return { ...applied, authorshipState: 'teacher_accepted' as const, locked: true, qaState: 'locked' as const }
 }
 
+/** One explicit teacher verification action can also approve a persisted
+ * generated item after a refresh, when its transient suggestion object is no
+ * longer available. This does not bypass structural QA; callers must run the
+ * deterministic validator before persisting/finalizing the result. */
+export function teacherVerifyAndLockAssessmentItem(item: AssessmentItem, suggestion?: AssessmentItemSuggestion) {
+  const applied = suggestion
+    ? applyAssessmentItemSuggestion(item, suggestion, { alternative: true, source: suggestion.repairAttempted ? 'repair' : 'generated' })
+    : item
+  const authorshipState = applied.authorshipState === 'empty' || applied.authorshipState === 'ai_suggestion'
+    ? 'teacher_accepted' as const
+    : applied.authorshipState
+  return { ...applied, authorshipState, locked: true, qaState: 'locked' as const }
+}
+
 /** Bulk approval is intentionally limited to candidates that passed local
  * deterministic QA and were not flagged for teacher review/repair. The teacher
  * still makes one explicit approval action for the ready subset. */

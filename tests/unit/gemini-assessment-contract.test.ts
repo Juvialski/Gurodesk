@@ -94,11 +94,11 @@ describe('raw Gemini assessment contract', () => {
     expect(String(fetchMock.mock.calls[0][0])).not.toContain('?key=')
   })
 
-  it('requires the nullable visual field, drops invalid optional visuals, and rejects unsupported answer fields', () => {
+  it('normalizes missing/invalid optional visuals to null and rejects unsupported answer fields', () => {
     expect(validateAssessmentCandidate(base, 'true_false', [])).toMatchObject({ visual: null })
     expect(validateAssessmentCandidate({ ...base, visual: { ...visual, primitives: [{ ...visual.primitives[0], fill: 'not-a-palette-colour' }] } }, 'true_false', []).visual).toBeNull()
     expect(() => validateAssessmentCandidate({ ...base, answer: { ...base.answer, unsupported: true } }, 'true_false', [])).toThrow(/unsupported/u)
-    expect(() => validateAssessmentCandidate({ ...base, visual: undefined }, 'true_false', [])).toThrow()
+    expect(validateAssessmentCandidate({ ...base, visual: undefined }, 'true_false', []).visual).toBeNull()
   })
 
   it('removes answer-leaking fill-in examples and replaces model alt text with neutral observational text', () => {

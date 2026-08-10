@@ -227,3 +227,16 @@ Generation workflow was also simplified: individual `Accept` is now `Accept & lo
 Invalid optional provider visuals are now dropped instead of failing the entire generated item. A prompt that refers to a missing dropped visual is deterministically flagged `missing-visual` / `needs_review`, keeping it out of the bulk-ready approval path.
 
 No schema change. Migration count remains 26.
+
+## Assessment one-action teacher verification hotfix — 2026-08-10
+
+After production testing showed that per-item acceptance/verification/locking made a 40-item generated assessment impractical, the assessment editor was simplified.
+
+- Primary draft action is now `Accept, verify & finalize all`.
+- One explicit teacher click applies pending suggestions, runs deterministic structural QA, teacher-accepts and locks every structurally valid completed item, acknowledges non-blocking review warnings, saves, and finalizes when no structural errors remain.
+- No routine per-item Gemini verification calls are added by this action.
+- Persisted generated items can be teacher-approved after refresh even when their transient suggestion object is gone.
+- Genuine broken answer structures remain blockers and are never silently approved.
+- Final-review duplicate messages are grouped with item numbers instead of rendered as a wall of repeated lines.
+- `gemini-assessment-contract.test.ts` was corrected to match the deliberate invalid-optional-visual degradation behavior.
+- No database migration; migration count remains 26.

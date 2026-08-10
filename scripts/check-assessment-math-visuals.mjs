@@ -15,6 +15,7 @@ const qa = read('src/lib/assessmentQa.ts')
 const clientGeneration = read('src/lib/assessmentGeneration.ts')
 const edgeContract = read('supabase/functions/_shared/assessment-contract.ts')
 const generator = read('supabase/functions/assessment-question-generator/index.ts')
+const finalReview = read('src/lib/assessmentFinalReview.ts')
 
 for (const primitive of ['cartesianAxes', 'cartesianPlot']) assert.match(types, new RegExp(`type: '${primitive}'`), `${primitive} must remain part of the safe visual DSL`)
 assert.match(types, /points:\s*Array<\{ x: number; y: number \}>/, 'Cartesian plots use bounded sampled numeric points')
@@ -47,10 +48,13 @@ assert.doesNotMatch(documentView, /<AssessmentDiagram visual=\{question\.visual\
 
 assert.match(clientGeneration, /acceptAssessmentItemSuggestion/, 'teacher acceptance has a single reusable accept-and-lock path')
 assert.match(clientGeneration, /locked:\s*true/, 'accepted AI suggestions lock in the same teacher action')
-assert.match(clientGeneration, /suggestionReadyForBulkAcceptance/, 'ready generated items support one explicit bulk approval action')
+assert.match(clientGeneration, /teacherVerifyAndLockAssessmentItem/, 'persisted generated items support one explicit teacher verify-and-lock action after refresh')
 assert.match(clientGeneration, /itemWithCandidate/, 'deterministic QA evaluates the candidate visual together with its prompt and answer')
-assert.match(editor, /Accept ready & lock/, 'editor exposes bulk accept-and-lock for ready generated items')
-assert.match(editor, /Accept & lock/, 'individual suggestion approval is one action')
+assert.match(editor, /Accept, verify & finalize all/, 'editor exposes one primary teacher action for whole-assessment approval')
+assert.match(editor, /validateAssessmentItemDeterministic/, 'whole-assessment approval still blocks structurally invalid items')
+assert.match(editor, /acknowledgedWarningCodes/, 'whole-assessment approval acknowledges non-blocking quality warnings in the same teacher action')
+assert.match(editor, /Accept & lock/, 'individual suggestion approval remains available as an optional one-step action')
+assert.match(finalReview, /groupedReviewMessages/, 'final-review duplicate messages are grouped instead of shown as a wall of repeated text')
 assert.doesNotMatch(editor, /Lock accepted item/, 'obsolete second lock step is removed from the AI suggestion workflow')
 
 assert.match(edgeContract, /safeRawVisual\s*=\s*visualResult\.valid\s*\?\s*rawVisual\s*:\s*null/, 'an invalid optional AI visual is dropped instead of wasting the whole generated item')
@@ -62,4 +66,4 @@ assert.match(generator, /never return TikZ/i, 'Gemini must never return executab
 assert.match(generator, /genuinely distinct/i, 'fill-in-the-blank prompt discourages duplicate accepted answers')
 assert.match(generator, /altText must describe only observable features/i, 'Gemini is explicitly prohibited from putting classifications/solutions in visual alt text')
 
-console.log('Assessment math visual/workflow validation passed: TikZ remains editor-first with inline SVG export fallback, invalid optional visuals degrade safely, generated answers are deduplicated, and AI approval supports one-step or bulk accept-and-lock.')
+console.log('Assessment math visual/workflow validation passed: TikZ remains editor-first with inline SVG export fallback, invalid optional visuals degrade safely, generated answers are deduplicated, and one teacher action can accept, verify, lock, and finalize all structurally valid items.')
