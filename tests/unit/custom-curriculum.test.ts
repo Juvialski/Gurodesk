@@ -46,6 +46,11 @@ describe('custom curriculum review model', () => {
     expect(validateCustomCurriculumReview(review)).toEqual([])
   })
 
+  it('uses a typed year fallback when no valid periods are provided', () => {
+    const review = normalizeCustomCurriculumReview({ periods: [] })
+    expect(review.periods).toEqual([{ key: 'year', label: 'Year', sequence: 1, periodType: 'year' }])
+  })
+
   it('drops unknown period/domain references rather than trusting malformed AI links', () => {
     const review = normalizeCustomCurriculumReview({
       curriculumMode: 'hybrid',

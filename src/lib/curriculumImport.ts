@@ -128,7 +128,9 @@ export function normalizeCustomCurriculumReview(value: unknown, fallback: Partia
     const periodType = (['term', 'quarter', 'semester', 'year'] as const).includes(rawType as 'term') ? rawType as CustomCurriculumPeriodDraft['periodType'] : 'quarter'
     return [{ key: asString(item.key, 80) || compactKey(label, `period-${index + 1}`), label, sequence: Math.max(1, Math.min(50, Number(item.sequence) || index + 1)), periodType }]
   })
-  const safePeriods = periods.length ? periods : [{ key: 'year', label: 'Year', sequence: 1, periodType: 'year' }]
+  const safePeriods: CustomCurriculumPeriodDraft[] = periods.length
+    ? periods
+    : [{ key: 'year', label: 'Year', sequence: 1, periodType: 'year' }]
 
   const domainsRaw = Array.isArray(root.domains) ? root.domains.slice(0, 120) : fallback.domains ?? []
   const domains: CustomCurriculumDomainDraft[] = domainsRaw.flatMap((raw, index) => {
