@@ -1,0 +1,429 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-6-araling-panlipunan",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Araling Panlipunan CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Araling%20Panlipunan%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "sha256": "7b643c05dbac653b229416aa19d3d14d1f2b7baadb93c64a66c762e45ef91490",
+    "byteSize": 3220970,
+    "pageCount": 76,
+    "pagesUsed": {
+      "from": 32,
+      "to": 39
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 6",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 6",
+    "code": "ARALING-PANLIPUNAN6",
+    "name": "Araling Panlipunan",
+    "description": "Official Grade 6 Araling Panlipunan competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 32,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 34,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 37,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 39,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "A. Katipunan",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Himagsikang Pilipino",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Pagpapatuloy ng Himagsikang Pilipino (1897-1898)",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "C. Deklarasyon ng Kasarinlan at Pagkakatatag ng Unang Republika",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "D. Kabayanihang Pilipino laban sa mga Espanyol",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "A. Konsepto ng Imperyalismo",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "B. Imperyalismong Amerikano",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Pagpapaigting ng Kapangyarihang Amerikano",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Pagsusumikap ng mga Pilipino tungo sa Pagtatatag ng Nagsasariling Pamahalaan",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Pamahalaang Komonwelt",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "C. Imperyalismong Hapones",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Mga Layunin at mahahalagang pangyayari sa pananakop ng mga Hapones",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "C. Kabayanihang Pilipino sa Panahon ng Digmaan at Kapayapaan (1898-1946)",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "A. Kaayusang Panlipunan matapos ang Ikalawang Digmaang Pandaigdig",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "B. Mga Hamong dulot ng Neokolonyalismo",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Politika",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Sosyo-Kultural",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "C. Mga Hamon sa Demokrasya",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "D. Pagbabalik ng Demokrasya: Pamana ng EDSA People Power I",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "A. Ang Pilipinas matapos ang EDSA",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Ekonomiya",
+      "sortOrder": 21
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang pagkakatatag, layunin, aral at paglaganap ng Katipunan",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga pangyayaring naganap sa Panahon ng Himagsikang Pilipino (1892-1896)",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga bunga ng pangyayari sa panahon ng Himagsikang Pilipino (1896-1898)",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang deklarasyon ng kasarinlan ng Pilipinas at ang pagkakatatag ng Unang Republika",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Natatalakay ang partisipasyon ng kababaihan sa Himagsikang Pilipino",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang konsepto ng imperyalismo",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang pakikibaka ng mga Pilipino sa panahon ng Digmaang Pilipino-Amerikano",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang imperyalistang pamamaraang ginamit ng mga Amerikano sa pananakop sa Pilipinas",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-4",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakabubuo ng kongklusyon tungkol sa pagsusumikap ng mga Pilipino tungo sa pagtatatag ng nagsasariling pamahalaan",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-5",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang polisiya at programa ng Pamahalaang Komonwelt",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-6",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Natataya ang mga kontribusyon ng mga natatanging Pilipinong nakipaglaban para sa kalayaan laban sa mga Amerikano",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-7",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga layunin at mahahalagang pangyayari sa pananakop ng mga Hapones",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-8",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga pagbabagong naidulot sa lipunang Pilipino ng mga polisiya at programang ipinatupad ng mga Hapones",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-2:item-9",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nakapagsasagawa ng pananaliksik ukol sa kontribusyon ng pagpupunyagi ng mga Pilipino sa pagkamit ng ganap na Kalayaan",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-3:item-1",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nailalarawan ang kaayusang panlipunan sa Pilipinas matapos ang Ikalawang Digmaang Pandaigdig",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-3:item-2",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga patakarang pang-ekonomiya ng Pilipinas mula 1946-1986 na nakatali sa neokolonyalismo",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-3:item-3",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasisiyasat ang layunin ng mga kasunduang militar sa pagitan ng Pilipinas at Amerika",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-3:item-4",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakabubuo ng kongklusyon tungkol sa epekto ng neokolonyalistang pananaw sa kultura at lipunang Pilipino",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-3:item-5",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga suliranin at hamon sa kasarinlan at pagkabansa ng mga Pilipino sa ilalim ng Batas Militar",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-3:item-6",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nabibigyang-halaga ang kontribusyon ng People Power I sa muling pagkamit ng kalayaan at kasarinlan sa mapayapang paraan",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-4:item-1",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nailalarawan ang kaayusang panlipunan matapos ang EDSA 1",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-4:item-2",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakabubuo ng kongklusyon ukol sa mga hamong politikal ng Pilipinas mula 1987 hanggang sa kasalukuyan",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-araling-panlipunan:period-4:item-3",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga hamong pang-ekonomiya ng Pilipinas mula 1987 hanggang sa kasalukuyan",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "b5af4b37ae5cba28c4318e6b9e6a70708df7a2456594bf8c3c868e9868cc44dd"
+  }
+}

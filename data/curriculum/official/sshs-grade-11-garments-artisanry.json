@@ -1,0 +1,424 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-garments-artisanry",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Garments Artisanry",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1hr312B8dIHIE0LjU4v-_6SfsMlsa4J8r/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Garments-Artisanry.pdf",
+    "fileId": "1hr312B8dIHIE0LjU4v-_6SfsMlsa4J8r",
+    "sha256": "ffbbafd0f0e8671d1e1f86fcafda8c9530a1aa5b83e1fad98bd1f96785016b04",
+    "byteSize": 388126,
+    "pageCount": 19,
+    "pagesUsed": {
+      "from": 2,
+      "to": 15
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "GARMENTS-ARTISANRY11",
+    "name": "Garments Artisanry",
+    "description": "Official Grade 11 Garments Artisanry competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 8,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 10,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 12,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Factors to Consider in Garment Designing",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Creating Garments Design",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pattern Drafting for Ladies’ Blouse and Men’s Polo",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Laying Out Pattern Pieces (blouse and polo)",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Post Garment Construction Pocedures",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Marketing Strategy",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Lower Garments",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Body Measurements for Skirt and Short Pants",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Pattern Drafting for Skirts and Shorts",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Cut Fabrics Sew and Assemble Garment Parts (Skirt and Short Pants)",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Post-Garment Construction Procedures",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Blazers and Trousers",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Body measurements for Blazers and trousers",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Pattern Drafting for Blazers and Trousers",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Cut Fabrics Sew and Assemble Garment Parts",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Alter Completed Garments Apply Finishing Touches",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Sleeping Garments and Children’s wear",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Garment Designs for Sleeping Garments and Children’s wear",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Pattern Drafting for Sleeping Garments and Children’s wear",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Cutting Fabrics Sew and Assemble Garment Parts",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Post-Garments Construction Procedures",
+      "sortOrder": 22
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the key components of dressmaking, tailoring, and fashion design following Occupational Health and Safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the considerations in designing garments.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create own designs of ladies’ blouse and men’s polo.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform pattern drafting for created designs following Occupational Health and Safety precautions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform sewing and assembling of sustainable upper garments.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Apply post-garment construction procedures.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Discuss marketing strategy.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-2:item-1",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the types and parts of lower garments",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-2:item-2",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Create own designs of skirts and shorts based on standards",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-2:item-3",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform pattern drafting for created designs",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-2:item-4",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform sewing and assembling and creating sustainable designs for lower garments",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-2:item-5",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply post-garment construction procedures",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-3:item-1",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the types and parts of blazers and trousers",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-3:item-2",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Create own designs of blazers and trousers",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-3:item-3",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform pattern drafting for created designs",
+      "sourcePage": 11,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-3:item-4",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform sewing and assembling sustainable blazers and trousers",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-3:item-5",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply post-garment construction procedures",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-4:item-1",
+      "quarter": 4,
+      "domain": "D18",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the types and parts of sleeping garments and children’s wear",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-4:item-2",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Create own designs of sleeping garment and children’s wear",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-4:item-3",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform pattern drafting for sleeping garments and children’s wear",
+      "sourcePage": 14,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-4:item-4",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform sewing and assembling of sustainable sleeping garments and children’s wear",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:period-4:item-5",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply post-garment construction procedures.",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "f62b56523607ecd6eafcd1e110574db1ae4b78fc013aaeace139228b6c1e5546"
+  }
+}

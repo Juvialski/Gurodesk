@@ -1,0 +1,1968 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "src/data/curriculumCatalog.ts",
+  "entryCount": 189,
+  "entries": [
+    {
+      "id": "revised-k10-grade-1-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "GMRC",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-1-language",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "Language",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-1-makabansa",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "Makabansa",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-1-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-1-reading-and-literacy",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "Reading and Literacy",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-10-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Araling Panlipunan",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-10-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-10-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-10-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "MAPEH",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-10-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-10-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Science",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-10-tle",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "TLE",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-10-values-education",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Values Education",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-2-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-2-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-2-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "GMRC",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-2-makabansa",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "Makabansa",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-2-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-3-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-3-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-3-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "GMRC",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-3-makabansa",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "Makabansa",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-3-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-3-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "Science",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-4-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "Araling Panlipunan",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-4-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-4-epp",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "EPP",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-4-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-4-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "GMRC",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-4-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "MAPEH",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-4-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-4-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "Science",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-5-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "Araling Panlipunan",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-5-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-5-epp",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "EPP",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-5-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-5-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "GMRC",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-5-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "MAPEH",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-5-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-5-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "Science",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-6-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "Araling Panlipunan",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-6-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-6-epp",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "EPP",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-6-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-6-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "GMRC",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-6-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "MAPEH",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-6-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-6-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "Science",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-7-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Araling Panlipunan",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-7-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-7-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-7-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "MAPEH",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-7-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-7-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Science",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-7-tle",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "TLE",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-7-values-education",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Values Education",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-8-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Araling Panlipunan",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-8-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-8-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-8-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "MAPEH",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-8-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-8-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Science",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-8-tle",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "TLE",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-8-values-education",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Values Education",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-9-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Araling Panlipunan",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-9-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "English",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-9-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Filipino",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-9-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "MAPEH",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-9-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Mathematics",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-9-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Science",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-9-tle",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "TLE",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-grade-9-values-education",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Values Education",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "revised-k10-kindergarten-kindergarten",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Kindergarten",
+      "learningArea": "Kindergarten",
+      "track": "revised_k10",
+      "schoolYears": [
+        "2024-2025",
+        "2025-2026",
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Arts 1 - Creative Industries: Visual Art, Literary Art, Media Art, Applied Art and Traditional Art",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-arts-2-creative-industries-music-dance-and-theater",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Arts 2 - Creative Industries: Music, Dance and Theater",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-biology-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Biology 1",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-biology-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Biology 2",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-business-1-basic-accounting",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Business 1 - Basic Accounting",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-business-2-business-finance-and-income-taxation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Business 2 - Business Finance and Income Taxation",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-business-3-business-economics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Business 3 - Business Economics",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-chemistry-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Chemistry 1",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-chemistry-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Chemistry 2",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-citizenship-and-civic-engagement",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Citizenship and Civic Engagement",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-contemporary-literature-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Contemporary Literature 1",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-contemporary-literature-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Contemporary Literature 2",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-contemporary-marketing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Contemporary Marketing",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-creative-composition-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Creative Composition 1",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-creative-composition-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Creative Composition 2",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-earth-and-space-science-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Earth and Space Science 1",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-earth-and-space-science-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Earth and Space Science 2",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-entrepreneurship",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Entrepreneurship",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino 1 - Wika at Komunikasyon sa Akademikong Filipino",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino 2 - Filipino para sa Larang Teknikal Propesyonal",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-filipino-2-filipino-sa-isports",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino 2 - Filipino sa Isports",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-filipino-2-filipino-sa-sining-at-disenyo",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino 2 - Filipino sa Sining at Disenyo",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-filipino-identity-through-the-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino Identity Through the Arts",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-finite-mathematics-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Finite Mathematics 1",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-finite-mathematics-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Finite Mathematics 2",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Human Movement 1 - Basic Anatomy in Sports and Exercise",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-human-movement-2-motor-skills-development",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Human Movement 2 - Motor Skills Development",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-introduction-to-organization-and-management",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Introduction to Organization and Management",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-introduction-to-philosophy",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Introduction to Philosophy",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-leadership-and-management-in-the-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Leadership and Management in the Arts",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-malikhaing-pagsulat",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Malikhaing Pagsulat",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-philippine-governance-philippine-politics-and-governance",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Philippine Governance / Philippine Politics and Governance",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-physical-education-1-fitness-and-recreation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Physical Education 1 - Fitness and Recreation",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-physical-education-2-sports-and-dance",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Physical Education 2 - Sports and Dance",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-physics-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Physics 1",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-physics-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Physics 2",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-social-sciences-theory-and-practice",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Social Sciences Theory and Practice",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-sports-activity-management",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Sports Activity Management",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-sports-coaching",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Sports Coaching",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_academic-grade-11-sports-officiating",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Sports Officiating",
+      "track": "sshs_academic",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_core-grade-11-effective-communication",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Effective Communication",
+      "track": "sshs_core",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_core-grade-11-general-mathematics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "General Mathematics",
+      "track": "sshs_core",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_core-grade-11-general-science",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "General Science",
+      "track": "sshs_core",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_core-grade-11-life-and-career-skills",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Life and Career Skills",
+      "track": "sshs_core",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_core-grade-11-mabisang-komunikasyon",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Mabisang Komunikasyon",
+      "track": "sshs_core",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_core-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Pag-aaral ng Kasaysayan at Lipunang Pilipino",
+      "track": "sshs_core",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-advanced-mathematics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Advanced Mathematics",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-arts-apprenticeship-dance",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Dance",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-arts-apprenticeship-literary-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Literary Arts",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-arts-apprenticeship-media-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Media Arts",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-arts-apprenticeship-music",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Music",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-arts-apprenticeship-theater-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Theater Arts",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-basic-calculus",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Basic Calculus",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-biology-3",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Biology 3",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-biology-4",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Biology 4",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-chemistry-3",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Chemistry 3",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-chemistry-4",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Chemistry 4",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-conceptual-biology-and-earth-and-space",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Conceptual Biology and Earth and Space",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-conceptual-physics-and-chemistry-in-daily-life",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Conceptual Physics and Chemistry in Daily Life",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-creative-production-and-presentation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Creative Production and Presentation",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-database-management",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Database Management",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-earth-and-space-science-3",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Earth and Space Science 3",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-earth-and-space-science-4",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Earth and Space Science 4",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-empowerment-technologies",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Empowerment Technologies",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-fundamentals-of-data-analytics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Fundamentals of Data Analytics",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-physics-3",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Physics 3",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-physics-4",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Physics 4",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_grade12_new-grade-12-pre-calculus",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Pre-Calculus",
+      "track": "sshs_grade12_new",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-aesthetic-services-beauty-care",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Aesthetic Services / Beauty Care",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-agricultural-crops-production",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Agricultural Crops Production",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-agro-entrepreneurship",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Agro-Entrepreneurship",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-animation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Animation",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-aquaculture",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Aquaculture",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-automotive-servicing-electrical-repair",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Automotive Servicing (Electrical Repair)",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-automotive-servicing-engine-and-chassis-repairs",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Automotive Servicing (Engine and Chassis Repairs)",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-bakery-operations",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Bakery Operations",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-broadband-installation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Broadband Installation",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-caregiving-adult-care",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Caregiving - Adult Care",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-caregiving-child-care",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Caregiving - Child Care",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-carpentry",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Carpentry",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-commercial-air-conditioning-installation-and-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Commercial Air Conditioning Installation and Servicing",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-computer-programming-java",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Computer Programming (Java)",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-computer-programming-net-technology",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Computer Programming (.NET Technology)",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-computer-programming-oracle-database",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Computer Programming (Oracle Database)",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-computer-systems-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Computer Systems Servicing",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-construction-operation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Construction Operation",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-contact-center-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Contact Center Services",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-domestic-refrigeration-and-air-conditioning-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Domestic Refrigeration and Air Conditioning Servicing",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-driving-and-automotive-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Driving and Automotive Servicing",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-electrical-installation-maintenance",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Electrical Installation Maintenance",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-electronics-product-assembly-and-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Electronics Product Assembly and Servicing",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-events-management-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Events Management Services",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-fish-capture",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Fish Capture",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-food-and-beverage-operation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Food and Beverage Operation",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-food-processing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Food Processing",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-garments-artisanry",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Garments Artisanry",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-hairdressing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Hairdressing",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-handicrafts-weaving",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Handicrafts (Weaving)",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-hotel-operation-front-office-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Hotel Operation (Front Office Services)",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-hotel-operation-housekeeping-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Hotel Operation (Housekeeping Services)",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-illustration",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Illustration",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-kitchen-operations",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Kitchen Operations",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-manual-metal-arc-welding",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Manual Metal Arc Welding",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-marine-engineering-at-the-support-level",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Marine Engineering at the Support Level",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-marine-transportation-at-the-support-level",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Marine Transportation at the Support Level",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-mechatronics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Mechatronics",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-motorcycle-and-small-engine-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Motorcycle and Small Engine Servicing",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-organic-agriculture-production",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Organic Agriculture Production",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-photovoltaic-systems-installation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Photovoltaic Systems Installation",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-poultry-production-chicken",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Poultry Production - Chicken",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-ruminants-production",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Ruminants Production",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-ships-catering-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Ships Catering Services",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-swine-production",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Swine Production",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-technical-drafting",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Technical Drafting",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-tourism-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Tourism Services",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    },
+    {
+      "id": "sshs_techpro-grade-11-visual-graphic-design",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Visual Graphic Design",
+      "track": "sshs_techpro",
+      "schoolYears": [
+        "2026-2027"
+      ]
+    }
+  ]
+}

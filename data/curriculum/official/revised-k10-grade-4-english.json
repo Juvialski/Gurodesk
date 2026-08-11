@@ -1,0 +1,613 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-4-english",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG English CG 2023 Grades 2-10 (withAppendices)",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20English%20CG%202023%20Grades%202-10%20%28withAppendices%29.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+    "sha256": "db4a5c2b7389f9237b21ee19873faf9b950fe55b9f0918db336269f112dc897c",
+    "byteSize": 6187245,
+    "pageCount": 255,
+    "pagesUsed": {
+      "from": 87,
+      "to": 102
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 4",
+    "code": "ENGLISH4",
+    "name": "English",
+    "description": "Official Grade 4 English competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 87,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 91,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 95,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 99,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Listening and Reading (receptive skills)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Speaking and Writing (productive skills)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Viewing and Representing",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN4LR-I-1",
+      "text": "Comprehend literary texts.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN4LR-I-2",
+      "text": "Comprehend informational texts.",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN4SW-I-1",
+      "text": "Use words with literal (denotative) and implied (connotative) meanings in sentences.",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN4SW-I-2",
+      "text": "Use tone and mood appropriately for one’s purpose, context, and target audience:",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN4SW-I-3",
+      "text": "Compose appropriate sentences for clarity and coherence.",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN4SW-I-4",
+      "text": "Produce text with introduction, body, and conclusion in conveying idea: using introduction, body, and conclusion.",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN4SW-I-5",
+      "text": "Express ideas appropriately (age-appropriate, gender-responsive, culture sensitive) for a narrative b enumeration-description",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN4SW-I-6",
+      "text": "Use appropriate non-verbal cues for clarity of context, purpose, and meaning.",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-9",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN4VR-I-1",
+      "text": "Identify visual elements.",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-10",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN4VR-I-2",
+      "text": "Derive meaning based on the visual elements.",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-11",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN4VR-I-3",
+      "text": "Identify real or make-believe, fact or non-fact images.",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-1:item-12",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN4VR-I-4",
+      "text": "Identify multimedia elements: text (headlines, subtitles, slogans).",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN4LR-II-1",
+      "text": "Comprehend literary texts.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN4LR-II-2",
+      "text": "Comprehend informational texts.",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN4SW-II-1",
+      "text": "Use words with literal (denotative) and implied (connotative) meanings in sentences.",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN4SW-II-2",
+      "text": "Use tone and mood appropriately for one’s purpose, context, and target audience:",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN4SW-II-3",
+      "text": "Compose appropriate sentences for clarity and coherence.",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN4SW-II-4",
+      "text": "Produce text with introduction, body, and conclusion in conveying ideas: using introduction, body, and conclusion.",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN4SW-II-5",
+      "text": "Express ideas appropriately (age-appropriate, gender-responsive, culture sensitive) a narrative b enumeration-description c time order: chronology d time order: procedural",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN4SW-II-6",
+      "text": "Use appropriate non-verbal cues for clarity of context, purpose, and meaning.",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-9",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN4VR-II-1",
+      "text": "Identify visual elements.",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-10",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN4VR-II-2",
+      "text": "Derive meaning based on the visual elements.",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-11",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN4VR-II-3",
+      "text": "Identify real or make-believe, fact or non-fact images.",
+      "sourcePage": 94,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-2:item-12",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN4VR-II-4",
+      "text": "Identify multimedia elements: text (headlines, subtitles, slogans).",
+      "sourcePage": 94,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN4LR-III-1",
+      "text": "Comprehend literary texts.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN4LR-III-2",
+      "text": "Comprehend informational texts.",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN4SW-III-1",
+      "text": "Use words with literal (denotative) and implied (connotative) meanings in sentences.",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN4SW-III-2",
+      "text": "Use tone and mood appropriately for one’s purpose, context, and target audience: informal.",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN4SW-III-3",
+      "text": "Compose appropriate sentences for clarity and coherence.",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN4SW-III-4",
+      "text": "Produce text with introduction, body, and conclusion in conveying ideas: using",
+      "sourcePage": 97,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-7",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN4SW-III-5",
+      "text": "Express ideas appropriately (age-appropriate, gender-responsive, culture sensitive) for one’s purpose, context, and target audience.",
+      "sourcePage": 97,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-8",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN4SW-III-6",
+      "text": "Use appropriate non-verbal cues for clarity of context, purpose, and meaning.",
+      "sourcePage": 97,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN4VR-III-1",
+      "text": "Identify visual elements: using colors (general meaning of colors)",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN4VR-III-2",
+      "text": "Derive meaning based on the visual elements.",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-11",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN4VR-III-3",
+      "text": "Identify real or make-believe, fact or non-fact images.",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-3:item-12",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN4VR-III-4",
+      "text": "Identify multimedia elements: graphics (photographs, drawings, graphs,",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN4LR-IV-1",
+      "text": "Comprehend literary texts.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN4LR-IV-2",
+      "text": "Comprehend informational texts.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN4SW-IV-1",
+      "text": "Use words with literal (denotative) and implied (connotative) meanings in sentences.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-4",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN4SW-IV-2",
+      "text": "Use tone and mood appropriately for one’s purpose, context, and target audience: informal.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-5",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN4SW-IV-3",
+      "text": "Compose appropriate sentences for clarity and coherence.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-6",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN4SW-IV-4",
+      "text": "Produce text with introduction, body, and conclusion in conveying ideas: using introduction, body, and conclusion.",
+      "sourcePage": 101,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-7",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN4SW-IV-5",
+      "text": "Express ideas appropriately (age-appropriate, gender-responsive, culture sensitive) a narrative b recount",
+      "sourcePage": 101,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-8",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN4SW-IV-6",
+      "text": "Use appropriate non-verbal cues for clarity of context, purpose, and meaning.",
+      "sourcePage": 101,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-9",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN4VR-IV-1",
+      "text": "Identify visual elements: using space (three-dimensional, four-dimensional, and",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-10",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN4VR-IV-2",
+      "text": "Derive meaning based on the visual elements.",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-11",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN4VR-IV-3",
+      "text": "Identify real or make-believe, fact or non-fact images.",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-12",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN4VR-IV-4",
+      "text": "Create a visual text drawn from visual elements learned.",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:period-4:item-13",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN4VR-IV-5",
+      "text": "Identify multimedia elements: graphics (photographs, drawings, graphs, illustrations, icons, etc.).",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2ab2ede9a52ba89c956693a336c9b4122970fa71b1b1923e73d957d7c8b9d83f"
+  }
+}

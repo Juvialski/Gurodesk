@@ -1,0 +1,420 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-finite-mathematics-2",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Finite Mathematics 2",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/11E6LL-BNmDGl45th5rp3PlEY0Q2RY75W/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Finite-Mathematics-2.pdf",
+    "fileId": "11E6LL-BNmDGl45th5rp3PlEY0Q2RY75W",
+    "sha256": "1a7deef6aa866acffbf8bbfdbfeeaf9026c5969787d1fce72a10ef859e2a093b",
+    "byteSize": 332983,
+    "pageCount": 4,
+    "pagesUsed": {
+      "from": 3,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FINITE-MATHEMATICS11",
+    "name": "Finite Mathematics 2",
+    "description": "Official Grade 11 Finite Mathematics 2 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "COUNTING TECHNIQUES",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "PROBABILITY",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "NUMBER THEORY",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "NETWORKS AND GRAPHS",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use the addition and multiplication principles to count elements of a set;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "differentiate between a combination and a permutation of objects;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "calculate the number of combinations and permutations of n objects taken k at a time;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "apply the properties of combinations to count the elements of a set;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve problems involving combinations and permutations;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "compute the number of ways of arranging a. a set with non-distinct elements b. a set of objects in a circle",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "compute the number of ways of distributing objects (distinct and non-distinct) into groups;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "solve counting problems using combinatorial techniques;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "illustrate sample spaces and events by listing elements;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "calculate the probability of an event by (a) listing and (b) using counting techniques;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "determine if two or more events are mutually exclusive;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "calculate the probability of the complement of an event and the union of two events;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "differentiate between simple and conditional probability;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-14",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "calculate conditional probabilities;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-15",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "determine if two events are independent; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-1:item-16",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "solve probability problems using the laws of probability and Bayes’ Rule.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "prove properties of divisibility of integers;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-2",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "illustrate prime and composite integers and the fundamental theorem of Arithmetic by formulating the prime factorization of positive integers;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-3",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "compute the GCD and LCM of two positive integers by prime factorization and the Euclidean algorithm;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-4",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "solve linear Diophantine Equation using the Euclidean Algorithm;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-5",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "illustrate congruence modulo m and its properties",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "perform arithmetic operations and solve linear equations modulo m;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-7",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "solve problems involving modular arithmetic (UPC codes, ISBN, Luhn’s algorithm for credit card number verification);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-8",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "illustrate elements of a graph (vertices/nodes, edges/arcs) and the different types of graphs (simple, directed, complete, bipartite, connected, path, cycle, tree, regular, etc.);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-9",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explore some real-life situations where graphs are utilized;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-10",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "differentiate between Eulerian and Hamiltonian paths/circuits;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-11",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "apply Euler’s theorem to determine the existence of Eulerian paths and circuits;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-12",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "apply Dirac’s condition for the existence of Hamiltonian circuits;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-13",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "identify Eulerian and Hamiltonian circuits and paths in a connected graph;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-14",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "explain spanning trees and their significance;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-15",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "apply Breadth-First Search (BFS) and Depth-First Search (DFS) algorithms to find spanning trees in a connected graph; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:period-2:item-16",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "apply different methods to find shortest paths (Dijktra’s algorithm, Floyd-Warshall algorithm).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "bf6acfa0ce219c2b04fdddb5cd9fb3eeca8970ec31b7844feacf5aedf679d759"
+  }
+}

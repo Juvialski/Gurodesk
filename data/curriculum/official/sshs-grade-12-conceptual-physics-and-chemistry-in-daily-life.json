@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Conceptual Physics and Chemistry in Daily Life",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1DPTT5vnIZeKFzdBXI7TGWYXVyZpPZEY6/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Conceptual Physics and Chemistry in Daily Life.pdf",
+    "fileId": "1DPTT5vnIZeKFzdBXI7TGWYXVyZpPZEY6",
+    "sha256": "8c7ea567c8a4c8ef6b2697328aa74950a08bc3e059d1312112c37a332f07aaee",
+    "byteSize": 378045,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "CONCEPTUAL-PHYSICS12",
+    "name": "Conceptual Physics and Chemistry in Daily Life",
+    "description": "Official Grade 12 Conceptual Physics and Chemistry in Daily Life competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Physicists and Careers in Physics",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Circular and Rotational Motion in Daily Life",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Aerodynamics and Air Pressure in Design",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Light, Color, and Wave Interference",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Atomic and Molecular Mass in Everyday Products",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Mole Concept and Counting Particles",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Rates of Chemical Reactions in Everyday Life",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Organic Compounds in Daily Life",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Environmental Impact of Organic Compounds",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Relationships among Pressure, Volume, and Temperature",
+      "sortOrder": 10
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify Filipino and international physicists and explain how their discoveries contribute to technologies used in everyday life;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify and explore various career paths and opportunities related to Physics (e.g. Medical Physics, Biophysics, Nuclear Physics, Meteorology, Space Science, Data Science, Materials Science, Engineering, and Energy Studies);",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the connected concepts of circular and rotational motion in everyday life, such as satellite motion, amusement park rides, and safety practices in driving cars and handling industrial machines;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe how aerodynamic objects such as umbrellas, roofs and airplane wings behave in situations with unequal air speeds and air pressures;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "gather information through secondary sources how aerodynamic vehicles and structures are designed based on the effects of airspeed and air pressure;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explore the applications of color mixing with pigments and light in industries such as art, entertainment, photography, engineering, and food production;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-7",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "investigate the phenomenon of wave interference in water ripples, vibrating guitar strings, sound amplifiers; and overlapping radio signals; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-8",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "use secondary sources to discuss applications of wave interference in technologies such as noise canceling devices, holography, and anti-reflection coatings.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-9",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain the significance of calculating atomic mass, formula mass, and molecular mass in everyday applications such as nutrition labeling, pharmaceutical dosage formulation, and chemical product development;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-10",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "explain the mole concept in counting particles of a substance and describe its applications in medicine, environmental monitoring, and industry including pharmaceuticals and pollution monitoring;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-11",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "investigate how factors affecting the rates of chemical reactions, such as surface area and temperature, influence real-life applications, including cooking, food spoilage, drug efficacy and the shelf life of consumer products;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-12",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "describe different organic compounds that can be found at home and in school and their role in consumer products, industry, health and medicine;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-13",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "explain how specific organic compounds contribute to environmental issues such as air pollution and climate change; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:period-1:item-14",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "conduct observations and interpret data to describe how changes in: a. pressure affects the volume of a gas, b. temperature affects the volume of a gas, and c. temperature affects the pressure of gas.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "aee519b8fb831cfe7156950112a06e96c9bd53df8e450eab3104d6c0ed4b8dc7"
+  }
+}

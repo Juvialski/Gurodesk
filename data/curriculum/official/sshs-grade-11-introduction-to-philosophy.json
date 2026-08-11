@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-introduction-to-philosophy",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Introduction to Philosophy",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1HHs5ni_CRKT9OCSTXjKQum9QqoZzyN30/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Introduction-to-Philosophy.pdf",
+    "fileId": "1HHs5ni_CRKT9OCSTXjKQum9QqoZzyN30",
+    "sha256": "615588d3d11ad4ab3de0c2b8c87d28fb205b93712f57a9ecf5f4ca1e885915fb",
+    "byteSize": 371623,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 3
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "INTRODUCTION-TO-PH11",
+    "name": "Introduction to Philosophy",
+    "description": "Official Grade 11 Introduction to Philosophy competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Defining Philosophy",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Doing Philosophy",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "The Human Person as Embodied Being in the World (zoon logon, pagkatao)",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Recognize the value of understanding the nature and importance of doing Philosophy",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Recognize the importance of analyzing the ways of doing Philosophy",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Recognize the importance of applying the ways of doing Philosophy on the Human Person as an embodied being in the world, with and for others, toward human and social flourishing",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "15bb4848b70a00dc9889482b3bdb6403acb1e7702cb8475983d4827283684a25"
+  }
+}

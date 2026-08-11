@@ -24,6 +24,9 @@ function clean(value: unknown, max = 2000) { return typeof value === 'string' ? 
 function list(value: unknown, maxItems = 30, maxLength = 500) { return Array.isArray(value) ? value.map((entry) => clean(entry, maxLength)).filter(Boolean).slice(0, maxItems) : [] }
 function parseJson(value: string): Row { return parseGeminiJson(value) }
 function onlyKeys(value: Row, keys: string[]) { return Object.keys(value).every((key) => keys.includes(key)) }
+function stableValue(value: unknown): unknown { if (Array.isArray(value)) return value.map(stableValue); if (!value || typeof value !== 'object') return value; return Object.fromEntries(Object.entries(value as Row).sort(([left], [right]) => left.localeCompare(right, 'en')).map(([key, entry]) => [key, stableValue(entry)])) }
+function stableJson(value: unknown) { return JSON.stringify(stableValue(value)) }
+function savedAnswerForVisual(value: unknown) { const answer = { ...object(value) }; delete answer._visual; delete answer._visualPlan; return answer }
 
 function validateCandidate(value: unknown, questionType: QuestionType, resources: string[], rationaleRequired = true, immutableContext?: ImmutableAssessmentContext) {
   // The shared Edge-safe contract is authoritative for every live path.
@@ -269,6 +272,9 @@ Deno.serve(async (req) => {
     if (operation === 'visual') {
       candidateValidationStarted = true
       const approved = validateCandidate(body.candidate, serverType, resources, false, immutable)
+      if (clean(approved.prompt) !== clean(item.prompt) || stableJson(approved.answer) !== stableJson(savedAnswerForVisual(item.answer))) {
+        return json({ error: 'The saved question changed before visual generation. Reload the current item and retry the visual-only action.' }, 409)
+      }
       const requirement = clean(approved.visualRequirement, 20) || 'none'
       if (requirement === 'none') {
         auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload)

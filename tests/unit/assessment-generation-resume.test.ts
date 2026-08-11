@@ -1,14 +1,20 @@
 import { describe, expect, it, vi } from 'vitest'
 import { generateMissingAssessmentItems, type AssessmentItemSuggestion } from '../../src/lib/assessmentGeneration'
 import {
+  beginAssessmentVisualGeneration,
   checkpointAssessmentGenerationFailure,
   checkpointAssessmentGenerationSuccess,
+  checkpointAssessmentVisualFailure,
+  checkpointAssessmentVisualSuccess,
   createAssessmentGenerationCheckpoint,
   loadAssessmentGenerationCheckpoint,
   pendingAssessmentGenerationItemIds,
+  pendingAssessmentVisualItemIds,
   recoverAssessmentGenerationItems,
   saveAssessmentGenerationCheckpoint,
 } from '../../src/lib/assessmentGenerationResume'
+import { ASSESSMENT_VISUAL_FIXTURES } from '../../src/lib/assessmentVisualFixtures'
+import { assessmentVisualSourceHash } from '../../src/lib/assessmentVisualPlanning'
 import { assessmentItem, assessmentRecord } from './fixtures'
 
 function suggestionFor(itemId: string): AssessmentItemSuggestion {
@@ -143,5 +149,95 @@ describe('assessment generation progress and resume checkpoints', () => {
     expect(recovered.record.items[0].prompt).toBe('Recovered generated question?')
     expect(recovered.record.items[1].prompt).toBe('')
     expect(recovered.record.items[2].prompt).toBe('')
+  })
+
+  it('recovers a visual checkpoint only onto the exact saved question', () => {
+    const storage = memoryStorage()
+    const candidate = suggestionFor('item-1').candidate
+    const generated = assessmentItem('multiple_choice', {
+      id: 'item-1',
+      prompt: candidate.prompt,
+      answer: candidate.answer,
+      rationale: candidate.rationale,
+      authorshipState: 'ai_suggestion',
+      qaState: 'verified',
+      visualRequirement: 'helpful',
+      visualIntent: 'Draw the relevant relationship without revealing the answer.',
+      visualStatus: 'pending',
+    })
+    const record = assessmentRecord([generated])
+    let checkpoint = createAssessmentGenerationCheckpoint({
+      assessmentId: record.id,
+      userId: record.userId,
+      itemIds: [generated.id],
+      now: new Date('2026-08-09T10:00:00.000Z'),
+    })
+    checkpoint = checkpointAssessmentGenerationSuccess(checkpoint, generated)
+    checkpoint = beginAssessmentVisualGeneration(checkpoint, [generated.id])
+    const visualized = {
+      ...generated,
+      visual: ASSESSMENT_VISUAL_FIXTURES.marksAndLabels,
+      visualStatus: 'succeeded' as const,
+      visualAttempts: 1,
+      visualSourceHash: assessmentVisualSourceHash(generated),
+      visualUpdatedAt: '2026-08-09T10:02:00.000Z',
+    }
+    checkpoint = checkpointAssessmentVisualSuccess(checkpoint, visualized)
+    expect(saveAssessmentGenerationCheckpoint(checkpoint, storage)).toBe(true)
+
+    const loaded = loadAssessmentGenerationCheckpoint(record.id, record.userId, { storage, now: new Date('2026-08-09T10:03:00.000Z') })
+    expect(loaded?.schemaVersion).toBe(2)
+    expect(loaded?.phase).toBe('visuals')
+    expect(pendingAssessmentVisualItemIds(loaded!)).toEqual([])
+    const recovered = recoverAssessmentGenerationItems(record, loaded!)
+    expect(recovered).toMatchObject({ recovered: 0, visualRecovered: 1 })
+    expect(recovered.record.items[0].prompt).toBe(generated.prompt)
+    expect(recovered.record.items[0].answer).toEqual(generated.answer)
+    expect(recovered.record.items[0].visual).toEqual(ASSESSMENT_VISUAL_FIXTURES.marksAndLabels)
+
+    const edited = assessmentRecord([{ ...generated, prompt: `${generated.prompt} Teacher edit.` }])
+    const rejected = recoverAssessmentGenerationItems(edited, loaded!)
+    expect(rejected.visualRecovered).toBe(0)
+    expect(rejected.record.items[0].visual).toBeUndefined()
+  })
+
+  it('keeps checkpointed questions after a later failure and retries visuals only within the attempt bound', () => {
+    const item = assessmentItem('multiple_choice', {
+      id: 'item-1',
+      prompt: 'Checkpointed question?',
+      authorshipState: 'ai_suggestion',
+      qaState: 'verified',
+      visualRequirement: 'helpful',
+      visualStatus: 'pending',
+    })
+    let checkpoint = createAssessmentGenerationCheckpoint({ assessmentId: 'assessment-1', userId: 'teacher-a', itemIds: [item.id] })
+    checkpoint = checkpointAssessmentGenerationSuccess(checkpoint, item)
+    checkpoint = checkpointAssessmentGenerationFailure(checkpoint, item.id, 'Verifier became unavailable after the question was saved.')
+    expect(checkpoint.generatedItems[item.id].prompt).toBe(item.prompt)
+    expect(pendingAssessmentGenerationItemIds(checkpoint)).toEqual([])
+
+    checkpoint = beginAssessmentVisualGeneration(checkpoint, [item.id])
+    checkpoint = checkpointAssessmentVisualFailure(checkpoint, { ...item, visualStatus: 'failed', visualAttempts: 1 }, 'Visual provider unavailable.')
+    expect(pendingAssessmentVisualItemIds(checkpoint, 2)).toEqual([item.id])
+    expect(pendingAssessmentVisualItemIds(checkpoint, 1)).toEqual([])
+  })
+
+  it('loads schema-v1 checkpoints as question-phase schema-v2 checkpoints', () => {
+    const storage = memoryStorage()
+    const item = assessmentItem('multiple_choice', { id: 'legacy-item' })
+    const current = createAssessmentGenerationCheckpoint({
+      assessmentId: 'legacy-assessment',
+      userId: 'teacher-a',
+      itemIds: [item.id],
+      now: new Date('2026-08-09T10:00:00.000Z'),
+    })
+    const { phase: _phase, visualItemIds: _visualItemIds, visualItems: _visualItems, visualFailures: _visualFailures, ...legacyFields } = current
+    storage.setItem('gurodesk.assessment.generation.batch.v1:legacy-assessment', JSON.stringify({ ...legacyFields, schemaVersion: 1 }))
+
+    const loaded = loadAssessmentGenerationCheckpoint('legacy-assessment', 'teacher-a', {
+      storage,
+      now: new Date('2026-08-09T10:01:00.000Z'),
+    })
+    expect(loaded).toMatchObject({ schemaVersion: 2, phase: 'questions', visualItemIds: [], visualItems: {}, visualFailures: {} })
   })
 })

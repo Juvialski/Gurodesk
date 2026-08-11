@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-business-1-basic-accounting",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Business 1 - Basic Accounting",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1eA2P_YMRniFLrCMEiWC2ul3Ys_oHcYZi/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Business-1-Basic-Accounting.pdf",
+    "fileId": "1eA2P_YMRniFLrCMEiWC2ul3Ys_oHcYZi",
+    "sha256": "17413049b491594614589f5f3eba43a986770f74211f3812122b73908c3ca240",
+    "byteSize": 319625,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "BUSINESS-1-BASIC-A11",
+    "name": "Business 1 - Basic Accounting",
+    "description": "Official Grade 11 Business 1 - Basic Accounting competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Introduction to Accounting",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Types of Major Accounts",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "The Accounting Equation Rules of Debits and Credits using T-accounts",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Books of Accounts",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Accounting Worksheets for:",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Accounting Cycle of a Service Business",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Introduction to Merchandising Business",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Accounting Cycle of a Merchandising Business",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Accounting Practice Set",
+      "sortOrder": 9
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the nature, history and branches of accounting and its offered services",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explain the basic accounting framework",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Distinguish the five major accounts and their classifications",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Analyze simple business transactions following the rules of debit and credit",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Distinguish the book of accounts",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Discuss Balance Sheet as a Financial Statement",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-1:item-7",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Analyze service business transactions and the required source documents",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss merchandising business transactions and the required source documents using the perpetual and periodic methods",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explain shipping and delivery terms using the perpetual and periodic methods",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Prepare complete accounting worksheets following a record of transactions in the merchandising business using the perpetual method and periodic method",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:period-2:item-4",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Present a complete accounting practice set following the fundamental accounting cycle",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "ed0e519a87a59ee5f1037a1e5eaa9e7afcb9aa53f08b42b3aa552af23981895d"
+  }
+}

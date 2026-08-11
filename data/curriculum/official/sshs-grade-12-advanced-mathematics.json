@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-advanced-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Advanced Mathematics",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1RcJS6dO_SQuWRo5oOQG3KQQ_EYU2mACJ/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Advanced Mathematics.pdf",
+    "fileId": "1RcJS6dO_SQuWRo5oOQG3KQQ_EYU2mACJ",
+    "sha256": "50081ba5971baf5b07d1893fa233989c3999c6e1c1dce241a806108e308513d4",
+    "byteSize": 352972,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 3,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "ADVANCED-MATHEMATI12",
+    "name": "Advanced Mathematics",
+    "description": "Official Grade 12 Advanced Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 3,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "NUMBER AND ALGEBRA (NA)",
+      "sortOrder": 1
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "differentiate between linear, quadratic, and exponential models based on data patterns or graphs.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "interpret linear models in real-life contexts such as cost analysis, revenue prediction, or population growth.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "interpret quadratic models in real-life contexts involving area, projectile motion, or optimization.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "interpret exponential models in real-life contexts such as compound interest, population growth, or decay.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "evaluate the appropriateness, reasonableness, and limitations of using linear, quadratic, or exponential models in a given real-life context.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "identify an angle by describing its initial and terminal sides and its direction of rotation (clockwise or counterclockwise).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "sketch angles in standard position.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "convert radian measures to degree measures and vice versa.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "use radian measure to find the arc length and the area of a sector.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "solve problems involving radian measure, arc length, and area of a sector.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "illustrate the different trigonometric functions in relation to the unit circle.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-12",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "use reference angles to find values of trigonometric functions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-13",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "determine the domain and range of the different trigonometric functions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-14",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "graph the six trigonometric functions using features such as amplitude, period, phase shift, and asymptotes.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-15",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "express trigonometric functions of acute angles as functions of the complement of the angle, using cofunction identities.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-16",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "simplify trigonometric expressions by using Pythagorean identities.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-17",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "solve problems involving trigonometric functions including periodic phenomena.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-18",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "apply sum and difference formulas for trigonometric functions to simplify expressions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-19",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "apply double-angle and half-angle formulas to find exact values or simplify trigonometric expressions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-20",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "prove trigonometric identities by applying the appropriate formulas.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-21",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "solve problems involving trigonometric identities.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-22",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 22,
+      "competencyCode": null,
+      "text": "illustrate the domain and range of the inverse trigonometric functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-23",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 23,
+      "competencyCode": null,
+      "text": "graph inverse trigonometric functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-24",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 24,
+      "competencyCode": null,
+      "text": "evaluate inverse trigonometric expressions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-25",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 25,
+      "competencyCode": null,
+      "text": "solve problems involving inverse trigonometric functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-26",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 26,
+      "competencyCode": null,
+      "text": "illustrate the polar coordinate system.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-27",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 27,
+      "competencyCode": null,
+      "text": "locate points in the polar coordinate system.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-28",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 28,
+      "competencyCode": null,
+      "text": "convert coordinates from rectangular to polar systems and vice versa.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-29",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 29,
+      "competencyCode": null,
+      "text": "identify polar curves from their equations.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-30",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 30,
+      "competencyCode": null,
+      "text": "sketch the graphs of polar equations.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-31",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 31,
+      "competencyCode": null,
+      "text": "solve problems involving the polar coordinate system.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "b4874de283081373c5795ac293d07f8acff9a5e5b0b3ce7c8abb416f3b394cc6"
+  }
+}

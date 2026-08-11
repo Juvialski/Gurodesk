@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Human Movement 1 - Basic Anatomy in Sports and Exercise",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1q9bq5rJLJ7V_YP2p_EH35pk4eh8WJ2PE/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Human-Movement-1-Basic-Anatomy-in-Sports-and-Exercise.pdf",
+    "fileId": "1q9bq5rJLJ7V_YP2p_EH35pk4eh8WJ2PE",
+    "sha256": "46060af7cc883361db7cc632a118873e1d3a8db046ef73a5fae8baf84a6324ba",
+    "byteSize": 397710,
+    "pageCount": 7,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "HUMAN-MOVEMENT-1-B11",
+    "name": "Human Movement 1 - Basic Anatomy in Sports and Exercise",
+    "description": "Official Grade 11 Human Movement 1 - Basic Anatomy in Sports and Exercise competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Human Structure and Processes",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Major Components and Body Responses and Adaptations to Functions of the Human Exercise Movement Systems:",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Movement Analysis of the Upper Extremities",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Movement Analysis of the lower Extremities",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Analysis of Basic Movement Patterns",
+      "sortOrder": 5
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the basic structure of the human body",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe the function and interaction of body systems in relation to fitness and exercise",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "execute basic movement patterns using different anatomical terms and movement descriptors",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze the various movement patterns of the upper extremity segments",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:period-2:item-2",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze the various movement patterns of the lower extremity segments",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:period-2:item-3",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "execute basic movement patterns using different anatomical terms and movement descriptors",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "6f9cf19b1e7bfda23ff80665b99842dbfe18fa865151fba5b5a1802b6cdc7940"
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-10-mapeh-music-and-arts",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Music and Arts CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Music%20and%20Arts%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "sha256": "df37bef41e2af8c4bf0320b718461948f8e3ddc3687ffb49cd99a1e68e61ea67",
+    "byteSize": 1815357,
+    "pageCount": 98,
+    "pagesUsed": {
+      "from": 77,
+      "to": 83
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 10",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 10",
+    "code": "MAPEH10",
+    "name": "MAPEH",
+    "description": "Official Grade 10 MAPEH — Music and Arts competency records.",
+    "component": "Music and Arts"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 77,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 79,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 81,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 83,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "MA-D01",
+      "name": "Theme: “Philippine Creative Industries within the Creative Economy” PHILIPPINE CREATIVE INDUSTRIES DOMAINS (Republic Act no. 11904: Philippine Creative Industries Law)",
+      "sortOrder": 1
+    },
+    {
+      "code": "MA-D02",
+      "name": "Theme: “Challenges and Issues of Selected Creative Industries” PERFORMING ARTS / VISUAL ARTS",
+      "sortOrder": 2
+    },
+    {
+      "code": "MA-D03",
+      "name": "Materials",
+      "sortOrder": 3
+    },
+    {
+      "code": "MA-D04",
+      "name": "Theme: “Technologies in Philippine Creative Industries” PERFORMING ARTS / VISUAL ARTS",
+      "sortOrder": 4
+    },
+    {
+      "code": "MA-D05",
+      "name": "Theme: “Music and Arts Multimedia Production” PERFORMING ARTS / VISUAL ARTS",
+      "sortOrder": 5
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-1:item-1",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the emerging Philippine Creative Industries within the Creative Economy using relevant and credible information literatures, emerging concepts, techniques, processes, and practices;",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-1:item-2",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze the composition, and quality of selected local creative works based on the domain standards of the Philippine Creative Industries;",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-1:item-3",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "assess relevant career options in creative industries based on their career plan analysis; and",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-1:item-4",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "produce creative works based on emerging concepts, techniques, processes, and practices used in a selected creative industry.",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-2:item-1",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "examine the challenges and issues faced by select local Filipino artists in the creative industries;",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-2:item-2",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "relate their experiences with selected relevant challenges and issues encountered by Filipino artists in the creative industries;",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-2:item-3",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "participate in local community creative industry activities;",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-2:item-4",
+      "quarter": 2,
+      "domain": "MA-D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "critique a relevant case study or available and credible resources about the challenges and issues of artists in creative industries in relation to their intended career.",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-3:item-1",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "examine the aesthetic principles and technical elements used in selected technology-based creative work;",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-3:item-2",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explore technical processes of various hardware and software of available technologies in producing a collaborative creative work; and",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-3:item-3",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "evaluate their technology-based creative work in terms of its technical and aesthetic elements, principles, and processes.",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-4:item-1",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine the relevant contemporary and emerging concepts, processes, techniques, and practices in multimedia production;",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-4:item-2",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explore different roles and functions in a collaborative multimedia production;",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-4:item-3",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "execute a collaborative multimedia production based on a given plan and concept; *Note that this is execute. Planning & conceptualization are higher & are not part of this competency. Planning & conceptualization should be done by the teacher or learning partner beforehand.",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-4:item-4",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "assess a production's strengths and areas for improvement based on technical and artistic elements, principles, and processes; and",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-music-and-arts:period-4:item-5",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "evaluate their career choices in the creative industries based on their production of technology-based creative works, individual capacities, potentials, contexts, and preferences.",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "6f07d270343ad302f40f963aa5ca9f9fb8a0c02ab09f7be8693b7921dc55fe8a"
+  }
+}

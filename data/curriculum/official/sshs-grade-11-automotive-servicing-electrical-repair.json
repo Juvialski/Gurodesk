@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-automotive-servicing-electrical-repair",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Automotive Servicing (Electrical Repair)",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1LIuKPg_gclJPVspHeSOvUTJoULeKVN6x/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Automotive-Servicing-Electrical-Repair_.pdf",
+    "fileId": "1LIuKPg_gclJPVspHeSOvUTJoULeKVN6x",
+    "sha256": "fbbc7bb258d866bfb646f23c52566b885e528a051cf86a0ab4df0753ef6dc266",
+    "byteSize": 548883,
+    "pageCount": 13,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "AUTOMOTIVE-SERVICI11",
+    "name": "Automotive Servicing (Electrical Repair)",
+    "description": "Official Grade 11 Automotive Servicing (Electrical Repair) competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Automotive Electrical Servicing",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Automotive Electrical Operating System",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Starting System Required Items o tools, materials, equipment, and instruments o car protective equipment (CPE) o manufacturer specifications o repair/service manual",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Diagnosing and Troubleshooting Procedures for Starting System",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Procedures for Repairing Ignition System",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Charging System Required Items",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Diagnosing and Troubleshooting Procedures for Charging System",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Procedures for Repairing Charging System",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Automotive Body Electrical Systems Required Items",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Diagnosing and Troubleshooting Procedures for Automotive Body Electrical Systems",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Procedures for Repairing Automotive Body Electrical Systems",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Overview of the automotive manual air-conditioning",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Required Items in servicing automotive manual air-conditioning system o Tools, materials, equipment, and instruments o Car protective equipment (CPE) o Manufacturer specifications",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Diagnosing and Troubleshooting Procedures for Automotive Air-Conditioner System",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Inspection and Diagnosis of A/C System",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Procedures for Repairing automotive air-conditioner system",
+      "sortOrder": 16
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the overview of automotive electrical servicing",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the principles of automotive electrical operating system",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Distinguish the required items for servicing the ignition and starting system",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform procedures in diagnosing and troubleshooting the ignition and starting system",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform procedures in repairing the ignition and starting systems",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Distinguish the required items for servicing the charging system",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform procedures in diagnosing and troubleshooting the charging system",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-8",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Perform procedures for repairing the charging system",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-9",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Distinguish the required items for servicing the automotive body electrical systems",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-10",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Perform procedures in diagnosing and troubleshooting the automotive body electrical systems",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-11",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Perform procedures in repairing the automotive body electrical systems",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-12",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Calculate the service cost for automotive electrical services",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-2:item-1",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the principles of automotive manual air-conditioning system",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-2:item-2",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Distinguish the required items for servicing the automotive manual air-conditioning system",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-2:item-3",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform procedures in diagnosing and troubleshooting automotive air-conditioner system",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-2:item-4",
+      "quarter": 2,
+      "domain": "D15",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform procedures in servicing of automotive manual air-conditioning system and components",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-2:item-5",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform procedures in repairing the automotive air-conditioner system",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-2:item-6",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "calculate the service cost for automotive car air-conditioner system",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "60b3f60b00f5dffc15504ec412cf2203f0a1ef9b4b425f64365e4d7250915894"
+  }
+}

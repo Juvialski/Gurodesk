@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-citizenship-and-civic-engagement",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Citizenship and Civic Engagement",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1_Ah-nrSZZ4koOaSXmiIoyeOzDurUXBDn/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Citizenship-and-Civic-Engagement.pdf",
+    "fileId": "1_Ah-nrSZZ4koOaSXmiIoyeOzDurUXBDn",
+    "sha256": "a268e555f7f6a4bf4fb4bd4d167b65f6b909c3c47729339e59ecc8ffc72e57e7",
+    "byteSize": 343585,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 2,
+      "to": 6
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CITIZENSHIP-AND-CI11",
+    "name": "Citizenship and Civic Engagement",
+    "description": "Official Grade 11 Citizenship and Civic Engagement competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Citizenship",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Elections and Political Parties",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "The Rights of Filipino Citizens",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Civil Society Organizations, Social Movements and Non-movements.",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Community Engagement and Development",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Community Action",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Participatory Methodologies and Approaches of Community Actions and Involvements Partnership building with local groups",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Community Profiling and Mapping Needs Assessment",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Participatory Action Planning Resource Mobilization Community Action Plan Evaluation (Rubric)",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Community Action Initiative: Field Practicum",
+      "sortOrder": 10
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Examine the meaning and importance of active and empowered citizenship",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Analyze the electoral process, implications of the type of electoral systems on politics and governance, and the role of political parties in a democracy",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Analyze the relationship between citizens' rights and responsibilities in fostering active citizenship and good governance",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Assess the roles and contributions of civil society organizations and social movements to Philippine democracy",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Examine forms of community engagement that contribute to community development through solidarity",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Recognize the importance of solidarity in promoting national and global community development (e.g., poverty alleviation)",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-1:item-7",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Conduct PESTLE analysis to identify major issues affecting one’s own community",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-1:item-8",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Evaluate selected cases of community action initiatives",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Analyze different methodologies and approaches to community action and partnerships with local groups",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Conduct community profiling and mapping and needs assessment using the appropriate tools",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Develop partnerships with local groups for community development and resource mobilization and a community action plan using participatory approaches and evaluation tools for a community action initiative",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-2:item-4",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Implement community action initiatives",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-2:item-5",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Evaluate the implementation of the community involvement",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:period-2:item-6",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Reflect on the insights and learnings gained from the community action initiative",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "d98986004f1702694aee6543b3e9cd7b19f3fddabc719d6d28087cc56d42b6c3"
+  }
+}

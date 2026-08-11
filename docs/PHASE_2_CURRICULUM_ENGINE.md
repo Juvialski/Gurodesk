@@ -29,9 +29,11 @@ Teacher assignment
 
 The query filters structured metadata first. Semantic/RAG retrieval is not needed for basic competency lookup.
 
-## First verified dataset
+## Verified datasets
 
-`data/curriculum/matatag-grade7-mathematics.json`
+The original demo fixture now lives at:
+
+`data/curriculum/official/revised-k10-grade-7-mathematics.json`
 
 Coverage:
 - Grade 7
@@ -39,17 +41,17 @@ Coverage:
 - Revised K to 10 / MATATAG Curriculum
 - Quarter 1 to Quarter 4
 - 52 competency records
-- source-page provenance: pages 30-33 of the official curriculum guide
+- source-page provenance: PDF pages 52-55 of the reviewed current official guide
 - no competency code is asserted when the source does not provide one
 
-The manifest is also used in demo mode, so preview data and production seed data share one source of truth.
+The manifest is also used in demo mode, so preview data and production seed data share one source of truth. Supabase mode now has a complete reviewed pack: 196 manifests and 6,181 competencies covering all 189 current national catalog entries. See `docs/OFFICIAL_CURRICULUM_IMPLEMENTATION_MANIFEST.md`.
 
 ## Import pipeline
 
 Canonical source:
 
 ```text
-data/curriculum/*.json
+data/curriculum/official/*.json
 ```
 
 Validation:
@@ -58,10 +60,11 @@ Validation:
 npm run curriculum:validate
 ```
 
-Generator:
+Aggregate generator and integrity check:
 
 ```bash
-node scripts/generate-curriculum-sql.mjs <manifest.json> <output.sql>
+npm run curriculum:generate:bundle
+npm run curriculum:check:bundle
 ```
 
 The generator refuses manifests that are not explicitly marked verified.

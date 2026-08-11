@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-2-gmrc",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG GMRC and VE CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20GMRC%20and%20VE%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "sha256": "0d32f2ecdec894ac1b837244b857d4823ed2806a11e3fe456cb2a5d2c7f7fcfa",
+    "byteSize": 2540394,
+    "pageCount": 296,
+    "pagesUsed": {
+      "from": 56,
+      "to": 79
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 2",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 2",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 2",
+    "code": "GMRC2",
+    "name": "GMRC",
+    "description": "Official Grade 2 GMRC competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 56,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 62,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 68,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 74,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Mga Batayang Impormasyon tungkol sa Sariling Pamilya",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Pangangalaga sa Kalusugan Gabay ang Pamilya",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Pag-unawa sa Sariling Damdamin",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pansariling Panalangin",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Pagtitipid na Nakabubuti sa Kapaligiran",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Mga Tungkulin ng Batang Pilipino sa Pamayanan",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Pagkilala ng Sariling Kakayahan o Talento sa Tulong ng Pamilya",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Maayos na Pag-uusap sa Loob ng Pamilya",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Pagmamahal sa Pamilya bilang Gabay sa Pakikipagkapuwa",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Mga Gawaing Panrelihiyon o Paniniwala ng Pamilya",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Kalinisan sa Tahanan tungo sa Maayos na Kapaligiran",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Mga Paraan ng Mabuting Pagtanggap ng Pamilya sa Bisita",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Wastong Paraan sa Pakikipagkapuwa",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Paggawa ng Kabutihan sa Kapuwa",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Pagkilala sa Kabutihan ng Kapuwa",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Pagkilala sa Iba't ibang Relihiyon o Paniniwala ng Kapuwa",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Pangangalaga sa Kapaligiran Katuwang ang Kapuwa-bata",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Pagbabayanihan ng Kapuwa-bata para sa Pamayanan",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Disiplinang Pansarili sa Paggamit ng Pampublikong Pasilidad",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Pakikiisa ng Pamilya sa Pamayanan",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Mga Pagdiriwang sa Pamayanan na Nakapagpapabuti sa Pakikipagkapuwa",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Mga Gawain ng Iba’t ibang Relihiyon o Paniniwala na Nakatutulong sa Pamayanan",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Pangangalaga ng Kapaligiran sa Kinabibilangang Pamayanan",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Mga Kabayanihan sa Sariling Bayan",
+      "sortOrder": 24
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagpapahalaga sa sarili sa pamamagitan ng paggamit ng batayang impormasyon sa mga angkop na situwasyon a. Natutukoy ang mga batayang impormasyon tungkol sa sariling pamilya b. Napatutunayan na ang mga batayang impormasyon tungkol sa sariling pamilya ay mahalaga sa pagkakaroon ng kamalayan sa sariling pagkakakilanlan c. Naipahahayag ang mga batayang impormasyon tungkol sa sariling pamilya (hal. pagguhit ng family portrait at pagkuwento tungkol sa pamilya)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagpapahalaga sa sarili sa pamamagitan ng pagtupad sa mga alituntuning pangkalusugan at pangkaligtasan a. Natutukoy ang mga paraan ng pangangalaga sa kalusugan na natutuhan sa pamilya b. Naipaliliwanag na ang pangangalaga sa kalusugan gabay ang pamilya ay mahalaga sa pagpapanatili ng malusog na isip at katawan c. Naisasakilos ang wastong pangangalaga sa kalusugan na gabay ang pamilya",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging totoo sa pamamagitan ng wastong pagpapahayag ng tunay na damdamin sa mga pangyayari o situwasyon a. Naiisa-isa ang iba't ibang damdamin b. Naiuugnay ang pag-unawa sa sariling damdamin sa paglinang ng pansariling disiplina na makikita sa kaniyang mga kilos at pakikipag-ugnayan c. Nailalapat ang mga wastong pagtugon sa iba’t ibang nararanasang damdamin",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging madasalin sa pamamagitan ng pagbabahagi ng sariling panalangin a. Nakapagbibigay ng mga mabuting dulot ng pansariling panalangin b. Napatutunayan na ang pansariling panalangin ay paraan ng pakikipag-ugnayan upang maipahayag ang pagkilala, pasasalamat, at pagmamahal sa Diyos c. Nakabubuo ng sariling panalangin para sa ikabubuti ng sarili at kapuwa",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging masinop sa pamamagitan ng pagtitiyak na walang naaaksaya at nasasayang na gamit o mga bagay sa kapaligiran na maaaring mapakinabangan a. Nakakikilala ng mga wastong paraan ng pagtitipid na nakabubuti sa kapaligiran b. Napatutunayan na ang pagtitipid na nakabubuti sa kapaligiran ay pagganap sa tungkuling gamitin nang wasto at sulitin ang mga bagay c. Naisasakilos ang mga wastong paraan ng pagtitipid na nakabubuti sa kapaligiran",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging masunurin sa pamamagitan ng pagsunod sa iba’t ibang alituntunin sa pamayanan a. Natutukoy ang mga tungkulin ng batang Pilipino sa pamayanan b. Napatutunayan na ang mga sariling tungkulin ng batang Pilipino sa pamayanan ay makatutulong upang hubugin ang pagmamahal sa kaniyang bayan c. Nailalapat ang mga tungkulin sa pamayanan ng batang Pilipino sa iba’t ibang situwasyon",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nakapagsasanay ng tiwala sa sarili sa pamamagitan ng pagpapakita ng kakayahan o talento a. Natutukoy ang sariling kakayahan o talento sa tulong ng pamilya b. Napatutunayan na ang pagkilala ng sariling kakayahan o talento sa tulong ng pamilya ay naglilinang sa kaniyang taglay na kalakasan tungo sa pagkakaroon ng tiwala sa sarili c. Nakapagbabahagi ng sariling kakayahan o talento na natuklasan sa tulong ng pamilya",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagpasensiya sa pamamagitan ng paggamit ng mga magagalang na pananalita at wastong pagkilos a. Nailalarawan ang maayos na pag-uusap sa loob ng pamilyang kinabibilangan b. Nakapagbibigay ng patunay na ang maayos na pag-uusap sa loob ng pamilya ay nakapagdudulot ng maayos na ugnayan at pagkakaunawaan ng lahat ng kasapi c. Naisasakilos ang mga paraan ng maayos na pakikipag-uusap sa loob ng pamilya bilang bahagi nito",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipakikita ang katapatan sa pamamagitan ng pagsasabi ng katotohanan sa iba't ibang situwasyon a. Naiisa-isa ang mga kabutihang dulot ng pagiging tapat sa pamilya sa pakikipagkapuwa b. Napatutunayan na ang katapatan sa pamilya bilang gabay sa pakikipagkapuwa ay nakapagdudulot ng maayos na ugnayan c. Naisasakilos ang mga paraan ng katapatan sa pakikipag-ugnayan sa kapuwa na natutuhan sa pamilya",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-2:item-4",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging masunurin sa pamamagitan ng pakikilahok sa mga gawaing panrelihiyon o paniniwala ng pamilya a. Natutukoy ang mga gawaing panrelihiyon o paniniwala ng pamilya b. Napatutunayan na ang mga gawaing panrelihiyon o paniniwala ng pamilya ay nakapagbubuklod at nakapagpapatatag dito c. Nakapagbabahagi ng mga gawaing panrelihiyon o paniniwala ng pamilyang kinabibilangan",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-2:item-5",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagkamaayos sa pamamagitan ng pagsunod sa mga alituntunin at tagubilin ng pamilya sa pagpapanatili ng kalinisan a. Natutukoy ang mga paraan ng pagpapanatili ng kalinisan sa tahanan b. Napatutunayan na ang kalinisan sa tahanan tungo sa maayos na kapaligiran ay mahalaga upang malinang ang pagkamaayos sa sarili at kapaligiran c. Nailalapat ang pagpapanatili ng kalinisan sa tahanan sa iba’t ibang gawain at situwasyon",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-2:item-6",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naipakikita ang mabuting pakikitungo sa pamamagitan ng wastong paraan ng pagtanggap sa mga bisita a. Nailalarawan ang mga paraan ng mabuting pagtanggap ng pamilya sa mga bisita b. Napatutunayan na ang mga paraan ng mabuting pagtanggap ng pamilya sa mga bisita ay sumasalamin sa mabuting pakikitungo o hospitable at mabuting ugnayan sa pamayanan c. Naisasakilos ang mga paraan ng mabuting pagtanggap ng pamilya sa mga bisita",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-3:item-1",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapanagutan sa pakikitungo at pakikipag-usap sa kapuwa a. Naiisa-isa ang mga wastong paraan sa pakikipagkapuwa b. Napatutunayan na ang wastong paraan sa pakikipagkapuwa ay nakatutulong upang mapaunlad ang pakikipag-ugnayan c. Naisasakilos ang wastong paraan sa pakikipagkapuwa tungo sa kabutihan",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-3:item-2",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagmahal sa pamamagitan ng pagkukusang tumulong sa kapuwa batay sa sariling kakayahan a. Natutukoy ang mga kilos o gawain na nagpapakita ng kabutihan sa kapuwa b. Napatutunayan na ang paggawa ng kabutihan sa kapuwa ay naglilinang ng mga gawi tungo sa pagiging mabuting tao c. Naisasakilos ang mga paraan ng paggawa ng kabutihan sa kapuwa (halimbawa: pagtutulungan sa mga gawain)",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-3:item-3",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagpasalamat sa pamamagitan ng iba’t ibang paraan ng pagkilala sa mga kabutihang nagawa ng kapuwa a. Naiisa-isa ang mga paraan ng pagpapasalamat sa kabutihan ng kapuwa b. Napatutunayan na ang pagkilala sa kabutihan ng kapuwa ay pagbibigay-halaga sa kagandahang-loob ng kapuwa tungo sa paglinang ng mga mabuting gawi c. Naisasakilos ang mga gawain na nagpapakita ng pasasalamat sa mga kabutihang nagawa ng kapuwa",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-3:item-4",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging magalang sa pamamagitan ng wastong kilos ng pagkilala sa iba’t ibang gawain o simbolo ng relihiyon o paniniwala ng kapuwa a. Naiisa-isa ang mga paraan ng paggalang sa iba't ibang relihiyon o paniniwala ng kapuwa b. Napatutunayan na ang paggalang sa pagkakaiba-iba ng relihiyon o paniniwala ng kapuwa ay kailangan upang magkaroon ng mabuting ugnayan. c. Nailalapat ang mga paraan ng paggalang sa iba’t ibang relihiyon o paniniwala ng kapuwa",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-3:item-5",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagmalasakit sa pamamagitan ng paglahok sa mga gawaing nagpapabuti sa kapaligiran katuwang ang kapuwa-bata a. Natutukoy ang mga paraan ng wastong pangangalaga sa kapaligiran katuwang ang kapuwa-bata b. Napatutunayan na ang pangangalaga sa kapaligiran katuwang ang kapuwa-bata ay nakapanghihikayat na magtulungan sa pagpapabuti ng kapaligiran c. Naisasakilos ang mga paraan ng wastong pangangalaga sa kapaligiran katuwang ang kapuwa-bata",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-3:item-6",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging matulungin sa pamamagitan ng pagbabahagi ng sariling kakayahan o anumang tulong sa mga gawain ng pagbabayanihan kasama ang kapuwa-bata a. Nailalarawan ang pagbabayanihan ng kapuwa-bata para sa pamayanan b. Napatutunayan na ang pagbabayanihan ng kapuwa-bata para sa pamayanan ay nagbibigay ng inspirasyon na makiisa sa mga gawain sa pamayanan c. Nakalalahok sa mga gawain ng pagbabayanihan ng kapuwa-bata para sa pamayanan",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-4:item-1",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagmalasakit sa pamamagitan ng pagsunod sa mga alituntunin sa loob at labas ng pampublikong pasilidad a. Natutukoy ang mga kilos na nagpapakita ng disiplinang pansarili sa paggamit ng pampublikong pasilidad b. Napatutunayan na ang disiplinang pansarili sa paggamit ng pampublikong pasilidad ay nakatutulong sa pagpapanatili ng kaayusan at kalinisan alinsunod sa mga panuntunan ng pamayanan c. Naisasakilos ang mga wastong paggamit ng pampublikong pasilidad bilang pagpapanatili ng kaayusan at kalinisan alinsunod sa mga panuntunan ng pamayanan",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-4:item-2",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapanagutan sa pamamagitan ng pagtupad sa mga inaasahang kilos na nagpapakita ng pakikiisa ng pamilya sa pamayanan a. Nakakikilala ng mga gawain na nagpapakita ng pakikiisa ng pamilya sa pamayanan b. Napatutunayan na ang pakikiisa ng pamilya sa pamayanan ay bahagi ng tungkulin nitong panatilihin ang kaayusan ng bayan c. Nakapagbabahagi ng mga pansariling gawain na nagpapakita ng pakikiisa ng pamilyang kinabibilangan sa pamayanan",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-4:item-3",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging palakaibigan sa pamamagitan ng pakikiisa mga pagdiriwang sa pamayanan a. Naiisa-isa ang mga pagdiriwang sa pamayanan na nagpapabuti ng pakikipagkapuwa b. Napatutunayan na ang pakikiisa sa mga pagdiriwang sa pamayanan ay nagpapabuti ng pakikipagkapuwa c. Nakapagbabahagi ng karanasan ng pakikiisa sa mga pagdiriwang sa pamayanan upang mapabuti ang ugnayan ng mamamayan",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-4:item-4",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pakikiisa sa pamamagitan ng pagtupad ng kaniyang mga tungkulin sa gawain ng kinabibilangang relihiyon o paniniwala a. Naiisa-isa ang mga gawain ng iba’t ibang relihiyon o paniniwala na nakatutulong sa pamayanan b. Napatutunayan na ang mga gawain ng iba’t ibang relihiyon o paniniwala na nakatutulong sa pamayanan ay nakalilinang ng pagkakaisa at pagkakaunawaan ng mga mamamayan c. Nakapagbabahagi ng mga karanasan sa mga gawaing tumutulong sa pamayanan ng kinabibilangang relihiyon o paniniwala",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-4:item-5",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagmalasakit sa pamamagitan ng pangangalaga sa kapaligiran ayon sa sariling kakayahan a. Natutukoy ang mga gawain ng pamayanan sa pangangalaga sa kapaligiran b. Napatutunayan na ang pangangalaga ng kapaligiran ng kinabibilangang pamayanan ay nagdudulot ng ligtas at maayos na pamumuhay c. Nakalalahok sa mga gawain ng pangangalaga ng pamayanan sa kapaligiran gamit ang sariling kakayahan",
+      "sourcePage": 78,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-gmrc:period-4:item-6",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagmamahal sa bayan sa pamamagitan ng mga kilos na nagbibigay-halaga sa mga sakripisyo ng mga bayani sa sariling bayan a. Nakakikilala ng mga kabayanihan sa sariling bayan b. Napatutunayan na ang mga kabayanihan sa sariling bayan ay kapupulutan ng aral at mabuting halimbawa ng pagmamahal sa bayan c. Naisasakilos ang pagkilala sa mga kabayanihan sa sariling bayan",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "ce6f2f4d83b479751a55bcb67724c088cd5ea6d1f816d9fc892bcda64f6ff9d0"
+  }
+}

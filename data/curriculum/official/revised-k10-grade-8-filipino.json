@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-8-filipino",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "sourceConsistency": {
+      "detailedTableCountsByQuarter": [
+        7,
+        7,
+        7,
+        6
+      ],
+      "publishedSummaryCountsByQuarter": [
+        7,
+        7,
+        7,
+        6
+      ],
+      "status": "matched",
+      "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    }
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG FILIPINO CG 2023 Grades 2-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20FILIPINO%20CG%202023%20Grades%202-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "sha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+    "byteSize": 2192086,
+    "pageCount": 172,
+    "pagesUsed": {
+      "from": 133,
+      "to": 146
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 8",
+    "code": "FILIPINO8",
+    "name": "Filipino",
+    "description": "Official Grade 8 Filipino competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 133,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 137,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 140,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 144,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Pag-unawa at Pagsusuri sa mga Tekstong Nasusulat",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Pag-unawa at Pagsusuri ng mga Tekstong Biswal",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Paglikha at Presentasyon ng Tekstong Multimodal",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pag-unawa at Pagsusuri ng mga Tekstong Nasusulat",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa Panahon ng Propaganda at Himagsikan • Kaligirang Pangkasaysayan (Panitikan sa Panahon ng Propaganda at Himagsikan)",
+      "sourcePage": 133,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Akda sa Panahon ng Propaganda at Himagsikan • Tula (a) Natutukoy ang mahahalagang elemento (persona, sukat at tugma, talinghaga at estilo) at detalye (paksa, nilalaman at kaisipan) ng tula (b) Naipaliliwanag ang nakapaloob na pahiwatig, simbolo, talinghaga, at larawang diwa/ imahen sa tula (c) Naiuugnay ang mahahalagang kaisipan sa tula batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tula) batay sa konteksto ng panahon, lunan, at may-akda (e) Nasusuri ang mga elementong panlingguwistika (sukat, tono, tugma, at talinghaga) ng tula (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon • Sanaysay (a) Natutukoy ang mahahalagang elemento (paksa, anyo, kaisipan, damdamin, himig at estilo) at detalye sa sanaysay (b) Naiuugnay ang mahahalagang kaisipan ng sanaysay batay sa sariling pananaw, moral, katangian at karanasan ng tao (c) Nasusuri ang mahahalagang kaisipan sa sanaysay batay sa konteksto ng panahon, lunan, at may-akda (d) Nasusuri ang mga elementong panlingguwistika (anyo, damdamin, himig at wika ) ng sanaysay (e) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa sanaysay batay sa konteksto ng panahon",
+      "sourcePage": 134,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong persweysib gamit ang mga kasanayang pang-akademik • Mga kasanayang pang-akademik (gaya ng pagtukoy sa paksa, layon at ideya, pagtatala ng mahahalagang impormasyon (detalye), mekaniks sa pagsulat (diksyon, estilo at paggamit ng transisyonal at kohesiyong gramatikal), paggamit ng angkop na mga salita sa pagpapahayag ng mga ideya at pagbuo ng talata) • Mga tekstong persweysib (gaya ng adbertisment, sanaysay, talumpati, editoryal at rebyu ng aklat) (a) Natutukoy ang paksa, layon, at ideya sa teksto (b) Nakapagtatala ng mahahalagang impormasyon (pagtukoy sa ideya, paglalarawan ng sipi, paggalugad sa iba pang detalye, pag-aanalisa, at pagtataya ng mga mapanghikayat na salita at pahayag) (c) Naibabalangkas ang mahahalagang detalye at ideya mula sa teksto (d) Naipaliliwanag ang mahahalagang ideya at detalye gamit ang diksyon, estilo, transisyonal at kohesiyong gramatikal kaangkupan ng salita at ideya na nais iparating sa mambabasa",
+      "sourcePage": 134,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang tekstong persweysib batay sa estruktura nito (punto, ebidensya, at analisis)",
+      "sourcePage": 135,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora at PWD) Mga elemento ng tekstong biswal (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (panitikan at persweysib)",
+      "sourcePage": 135,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-1:item-6",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng sanaysay sa pamamagitan ng tekstong multimodal (gaya ng video o animasyon) (a) Nakapipili ng sanaysay tungkol sa Kalinangang Pilipino mula sa Panahon ng Propaganda hanggang sa Panahon ng Himagsikan (b) Nakapagtatala ng mga detalye tungkol sa binasang sanaysay (c) Nakabubuo ng borador ng sanaysay na may paglalapat ng mga elementong biswal sa ilustrasyon na gagamitin sa video o animasyon",
+      "sourcePage": 135,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nabuong proseso sa paglikha ng sanaysay sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (pag-uulat), at etikal na kasanayan at pananagutan",
+      "sourcePage": 136,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa panahon ng Pananakop ng Estados Unidos kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (Panitikan sa Panahon ng Pananakop ng Estados Unidos)",
+      "sourcePage": 137,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Akda sa Panahon ng Pananakop ng Estados Unidos • Mga dulang makabayan • Mga rehiyonal na akdang pampanitikan (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa tuluyan (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing) at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa binasang tuluyan (b) Naiuugnay ang mahahalagang kaisipan ng tuluyan batay sa sariling pananaw, moral, katangian at karanasan ng tao (c) Nasusuri ang mahahalagang pangyayari sa teksto (tuluyan) batay sa konteksto ng panahon, lunan, at may-akda (d) Nasusuri ang mga elementong panlingguwistika (bisa ng salita, pahiwatig, idyomatikong pahayag, estilo) ng tuluyan (e) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga, at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 137,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong persweysib gamit ang mga kasanayang pang-akademik • Mga kasanayang pang-akademik (gaya ng pagtukoy sa paksa, layon at ideya, pagtatala ng mahahalagang impormasyon (detalye), mekaniks sa pagsulat (diksyon, estilo at paggamit ng transisyonal at kohesiyong gramatikal), paggamit ng angkop na mga salita sa pagpapahayag ng mga ideya at pagbuo ng talata) • Mga tekstong persweysib (gaya ng adbertisment, sanaysay, talumpati, editoryal at rebyu ng aklat) (a) Natutukoy ang paksa, layon, at ideya sa teksto (b) Nakapagtatala ng mahahalagang impormasyon (pagtukoy sa ideya, paglalarawan ng sipi, paggalugad sa iba pang detalye, pag-aanalisa, at pagtataya ng mga mapanghikayat na salita at pahayag) (c) Naibabalangkas ang mahahalagang detalye at ideya mula sa teksto (d) Naipaliliwanag ang mahahalagang ideya at detalye gamit ang diksyon, estilo, transisyonal at kohesiyong gramatikal at kaangkupan ng salita at ideya na nais iparating sa mambabasa",
+      "sourcePage": 138,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-2:item-4",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang tekstong persweysib batay sa estruktura nito (punto, ebidensya, at analisis)",
+      "sourcePage": 138,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora at PWD) Mga elemento ng tekstong biswal na video o animasyon (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (panitikan at persweysib)",
+      "sourcePage": 139,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng sanaysay sa pamamagitan ng tekstong multimodal (gaya ng video o animasyon) (a) Nakabubuo ng karagdagang detalye tungkol sa Kalinang Pilipino sa Panahon ng Pananakop ng Estados Unidos para sa borador ng sanaysay (b) Nakasusulat ng panimulang iskrip batay sa haba at frame ng gagawing video o animasyon (c) Nakapagpaplano ng visual representation at audio na gagamitin sa video o animasyon (d) Naibabalangkas ang mga tiyak na dayalog, caption at sound sa video o animasyon (e) Nakabubuo ng inisyal na video o animasyon ng isang sanaysay",
+      "sourcePage": 139,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-2:item-7",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nabuong proseso sa paglikha ng video o animasyon sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (pag-uulat), at etikal na kasanayan at pananagutan",
+      "sourcePage": 139,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa panahon ng Pananakop ng Hapon kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (Panitikan sa Panahon ng Pananakop ng Hapon)",
+      "sourcePage": 140,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Akda sa Panahon ng Pananakop ng Hapon • Tanaga • Haiku • Tanka (a) Natutukoy ang mahahalagang elemento (persona, sukat at tugma, talinghaga at estilo) at detalye (paksa, nilalaman at kaisipan) ng tula (b) Naipaliliwanag ang nakapaloob na pahiwatig, simbolo, talinghaga, at larawang diwa/ imahen sa tula (c) Naiuugnay ang mahahalagang kaisipan ng tula batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tula) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (sukat, tugma, tono at talinghaga) ng tula (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon • Dula • Maikling kuwento (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa tuluyan (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing), pagkakahanay ng mga pangyayari (parallelism and simultaneity), pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa binasang tuluyan (c) Naiuugnay ang mahahalagang kaisipan ng tuluyan batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari ng teksto (tuluyan) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (bisa ng salita, pahiwatig, idyomatikong pahayag, estilo) ng tuluyan (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 140,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-3:item-3",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong ekspositori gamit ang mga kasanayang pang-akademik • Mga kasanayang pang-akademik (gaya ng pagtukoy sa paksa, layon at ideya, pagtatala ng mahahalagang impormasyon (detalye), mekaniks sa pagsulat (diksyon, estilo at paggamit ng transisyonal at kohesiyong gramatikal), paggamit ng angkop na mga salita sa pagpapahayag ng mga ideya at pagbuo ng talata) • Mga tekstong pampahayagan (editoryal) (a) Natutukoy ang paksa, layon, at ideya sa teksto (b) Naiisa-isa ang mga platform at katangian ng mga tekstong pampahayagan (c) Nakapagtatala ng mahahalagang impormasyon (gaya ng narinig at direktang sinabi mula sa interbyu, direktang sipi mula sa nabasa, paraphrasing sa mga mahahalagang detalye at ideya mula sa teksto (d) Naipaliliwanag ang mahahalagang ideya at detalye gamit ang diksyon,estilo, transisyonal at kohesiyong gramatikal at kaangkupan ng salita at ideya na nais iparating sa mambabasa, kritisismo, interpretasyon, panghikayat at papuri (e) Natutukoy ang paraan ng pagtutumbas at/o panghihiram ng salita at pahayag sa teksto",
+      "sourcePage": 141,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-3:item-4",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang tekstong pampahayagan (editoryal) batay sa estruktura at katangian nito",
+      "sourcePage": 142,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora at PWD) Mga elemento ng tekstong biswal na video o animasyon (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (panitikan at persweysib)",
+      "sourcePage": 142,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng isang ng sanaysay sa pamamagitan ng tekstong multimodal (gaya ng video o animasyon) a) Nakabubuo ng karagdagang detalye tungkol sa Kalinang Pilipino sa Panahon ng Pananakop ng Hapon para sa pinal na sanaysay b) Nailalapat ang mga elemento ng video o animasyon sa pagbuo ng multimodal c) Nakapagsasagawa ng pinal na pagdisenyo/ pag-aanyo ng video o animasyon ng sanaysay batay sa elemento nito",
+      "sourcePage": 142,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nilikhang tekstong multimodal (sanaysay na nasa anyong video o animasyon) sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (pag-uulat), at etikal na kasanayan at pananagutan",
+      "sourcePage": 143,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa kaligirang pangkasaysayan ng Obra Maestra – Florante at Laura • Kaligirang Pangkasaysayan (Florante at Laura)",
+      "sourcePage": 144,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga kaugnay na impormasyon hinggil sa Obrang Maestra – Florante at Laura • Talambuhay ng May-akda • Apat na Himagsik ni Balagtas • Kay Selya • Sa Babasa Nito",
+      "sourcePage": 144,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Obra: Florante at Laura • Saknong 1-68 • Saknong 69-172 • Saknong 173-257 • Saknong 258-399 (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay, na tuon sa tunggalian) at detalye sa Florante at Laura (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing), pagkakahanay ng mga pangyayari (parallelism and simultaneity), at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa Florante at Laura. (c) Naiuugnay ang mahahalagang kaisipan ng Florante at Laura batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari ng teksto (tuluyan) batay sa konteksto ng panahon, sosyo-kultural, lunan, at may-akda (e) Nasusuri ang mga elementong panlingguwistika sa Florante at Laura (sukat, tugma, talinghaga at estilo) (f) Nakapaghahambing ng mga tekstong hawig sa Florante at Laura at iba pang awit na nasusulat sa Pilipinas at sa ibang bansa (g) Naipahahayag ang sariling saloobin, pananaw at damdamin tungkol sa ilang napapanahong isyu kaugnay ng mga usaping tinalakay sa akda",
+      "sourcePage": 144,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-4:item-4",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal na makikita sa Florante at Laura • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora at PWD) (a) Naipaliliwanag ang kahulugan ng tekstong biswal (gaya ng alegorya sa Florante at Laura: puno ng higuera, mababangis na hayop, gubat na mapanglaw at kasuotan ng mga piling tauhan sa Obra Maestra-Florante at Laura (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng Obra Maestra-Florante at Laura.",
+      "sourcePage": 145,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-4:item-5",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakabubuo ng tula para sa pagtatanghal ng isang spoken word poetry na nagtatampok sa Apat na Himagsik ni Balagtas na maiuugnay sa panunumbalik ng kalinangang Pilipino (a) Nakapipili ng angkop na mga salita (b) Nakasusulat ng borador ng tula para sa spoken word poetry (c) Nagagamit ang matalinghagang salita at elemento ng tula sa pagbuo ng spoken word poetry (d) Nairerebisa ang piyesa para sa spoken word poetry (e) Naisasapinal ang nagawang spoken word poetry (f) Nakapaghahanda ng pagtatanghal ng isang spoken word poetry (g) Nakapagsasagawa ng pagtatanghal ng isang spoken word poetry",
+      "sourcePage": 146,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-filipino:period-4:item-6",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nilikhang tekstong multimodal ( spoken word poetry ) sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 146,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "ef0f6fb8ee576221dd4540871ab59acd0287b5a44cdaec2d22779763364e64e1"
+  }
+}

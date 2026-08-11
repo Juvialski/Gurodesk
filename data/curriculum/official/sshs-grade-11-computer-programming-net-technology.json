@@ -1,0 +1,844 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-computer-programming-net-technology",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Computer Programming (.NET Technology)",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1Ahft6TDRVTCLifTKloQ2lrQ0Yx9KDjEF/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Computer-Programming-.NET-Technology.pdf",
+    "fileId": "1Ahft6TDRVTCLifTKloQ2lrQ0Yx9KDjEF",
+    "sha256": "e15d95363b671281ad32b9d4137d4733dd1cdfe11e11727f0c04ad9bd1ad848d",
+    "byteSize": 256913,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 8
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "COMPUTER-PROGRAMMI11",
+    "name": "Computer Programming (.NET Technology)",
+    "description": "Official Grade 11 Computer Programming (.NET Technology) competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "HTML Fundamentals",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "HTML paragraph formatting elements",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "HTML List",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "HTML Multimedia",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "HTML Table Elements, Attributes and Values",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "HTML Links",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "HTML Frames",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "HTML Forms",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Installation of Integrated Development Environment (IDE)",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Cascading Style Sheet (CSS) Fundamentals",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "CSS Selectors",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "CSS Text, Font, Color",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "CSS Gradient and Opacity",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "CSS Box Model",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "CSS List and Links",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "CSS Z-index, Position, Float",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "CSS Image Gallery",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "CSS Pseudo Class and Elements",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "CSS Flexbox Layout and Media Queries",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "CSS RWD (Responsive Web Development) Layouts",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Introduction to JavaScript",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Statements, Algorithm, Flowchart, and Pseudocode",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Variables, data types and functions",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "JavaScript Operators",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "JavaScript Events",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Control Flow",
+      "sortOrder": 26
+    },
+    {
+      "code": "D27",
+      "name": "Loops",
+      "sortOrder": 27
+    },
+    {
+      "code": "D28",
+      "name": "Arrays",
+      "sortOrder": 28
+    },
+    {
+      "code": "D29",
+      "name": "JavaScript Objects",
+      "sortOrder": 29
+    },
+    {
+      "code": "D30",
+      "name": "DOM (Document Object Model) Node",
+      "sortOrder": 30
+    },
+    {
+      "code": "D31",
+      "name": "C# Fundamentals",
+      "sortOrder": 31
+    },
+    {
+      "code": "D32",
+      "name": "C# Data Types, Variables, Strings, and Constants",
+      "sortOrder": 32
+    },
+    {
+      "code": "D33",
+      "name": "C# Operators and Decision Making",
+      "sortOrder": 33
+    },
+    {
+      "code": "D34",
+      "name": "C# Loops (iteration)",
+      "sortOrder": 34
+    },
+    {
+      "code": "D35",
+      "name": "C# Classes, Methods and Structure",
+      "sortOrder": 35
+    },
+    {
+      "code": "D36",
+      "name": "C# Arrays",
+      "sortOrder": 36
+    },
+    {
+      "code": "D37",
+      "name": "C# OOP approach",
+      "sortOrder": 37
+    },
+    {
+      "code": "D38",
+      "name": "C# File Input/Output",
+      "sortOrder": 38
+    },
+    {
+      "code": "D39",
+      "name": "ASP.NET MVC Fundamentals",
+      "sortOrder": 39
+    },
+    {
+      "code": "D40",
+      "name": "ASP.NET MVC-Environment ASP.NET MVC-Life Cycle",
+      "sortOrder": 40
+    },
+    {
+      "code": "D41",
+      "name": "ASP.NET MVC – Routing, Controllers, and Actions",
+      "sortOrder": 41
+    },
+    {
+      "code": "D42",
+      "name": "ASP.NET MVC – Filters, Selectors, and View",
+      "sortOrder": 42
+    },
+    {
+      "code": "D43",
+      "name": "ASP.NET MVC-Data Model",
+      "sortOrder": 43
+    },
+    {
+      "code": "D44",
+      "name": "ASP.NET MVC-Helpers",
+      "sortOrder": 44
+    },
+    {
+      "code": "D45",
+      "name": "ASP.NET MVC-Model Binding",
+      "sortOrder": 45
+    },
+    {
+      "code": "D46",
+      "name": "ASP.NET MVC – Databases and Validation",
+      "sortOrder": 46
+    },
+    {
+      "code": "D47",
+      "name": "ASP.NET MVC – Security, Caching, Data Annotations, and NuGet Package",
+      "sortOrder": 47
+    },
+    {
+      "code": "D48",
+      "name": "ASP.NET MVC-Web API",
+      "sortOrder": 48
+    },
+    {
+      "code": "D49",
+      "name": "Convert Website to Mobile Version Using A Third Party Application (Appgeyser, Android studio, Web2apk)",
+      "sortOrder": 49
+    },
+    {
+      "code": "D50",
+      "name": "Service Costing in Web Development",
+      "sortOrder": 50
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the HTML fundamentals",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Use paragraph formatting elements",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Apply list attributes and values in web page designs",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Create HTML documents with multimedia elements",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Use table elements, attributes, and values in designing web pages",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Create hyperlinks between web pages",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Use frames in designing web pages",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-8",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Create HTML form web pages and provide fields where user can enter data",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-9",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Perform installation of Integrated Development Environment (IDE) application",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-10",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Discuss Cascading Style Sheet (CSS) fundamentals",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-1:item-11",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Apply the different CSS Selectors",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-1",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Apply CSS text, font, and color in designing web pages",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-2",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Apply CSS gradient and opacity",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-3",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create layouts of web pages using the CSS box model",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-4",
+      "quarter": 2,
+      "domain": "D15",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Use the CSS list and link properties and values in creating web pages",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-5",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Utilizes CSS Z-index, position, float properties and values in designing web pages",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-6",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Create web pages with a CSS image gallery",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-7",
+      "quarter": 2,
+      "domain": "D18",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Apply CSS pseudo class and elements",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-8",
+      "quarter": 2,
+      "domain": "D19",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Apply CSS flexbox layout and media queries in web designs",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-9",
+      "quarter": 2,
+      "domain": "D20",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Create responsive websites using CSS Responsive Web Development (RWD) Layouts",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-10",
+      "quarter": 2,
+      "domain": "D21",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Discuss the fundamentals of JavaScript",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-11",
+      "quarter": 2,
+      "domain": "D22",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Demonstrate the structures of statements, algorithm, flowchart, and pseudocode",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-2:item-12",
+      "quarter": 2,
+      "domain": "D23",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Apply variables, data types, and functions in creating web applications",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-1",
+      "quarter": 3,
+      "domain": "D24",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Use JavaScript operators in problem solving",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-2",
+      "quarter": 3,
+      "domain": "D25",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Use event handlers and event listeners in creating web applications",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-3",
+      "quarter": 3,
+      "domain": "D26",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Use conditional and switch statements in creating web applications",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-4",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Apply loops in creating a program using while, do while, and for loops",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-5",
+      "quarter": 3,
+      "domain": "D28",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Use JavaScript arrays in creating a program",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-6",
+      "quarter": 3,
+      "domain": "D29",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Create objects to display the set of properties and values",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-7",
+      "quarter": 3,
+      "domain": "D30",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Apply Document Object Model (DOM) nodes in creating a web document",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-8",
+      "quarter": 3,
+      "domain": "D31",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Discuss the C# fundamentals",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-9",
+      "quarter": 3,
+      "domain": "D32",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Use C# data types, variables, strings, and constants in creating a web application",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-10",
+      "quarter": 3,
+      "domain": "D33",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Apply C# operators and decision making in problem solving",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-11",
+      "quarter": 3,
+      "domain": "D34",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Use the C# iteration statements in creating a web application",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-12",
+      "quarter": 3,
+      "domain": "D35",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Apply C# classes, methods and structure in creating a web application",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-13",
+      "quarter": 3,
+      "domain": "D36",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Create web application programs that contains C# arrays",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-14",
+      "quarter": 3,
+      "domain": "D37",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Apply the C# Object-Oriented Programming (OOP) approach in creating a web application",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-3:item-15",
+      "quarter": 3,
+      "domain": "D38",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Utilize the C# file input/output in creating, deleting, and reading web applications",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-1",
+      "quarter": 4,
+      "domain": "D39",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the ASP.NET Model View Controller (MVC) fundamentals",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-2",
+      "quarter": 4,
+      "domain": "D40",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the ASP.NET MVC environment and life cycle",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-3",
+      "quarter": 4,
+      "domain": "D41",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform configurations of the routing process in directing an http request in an ASP.NET MVC project using controllers and actions",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-4",
+      "quarter": 4,
+      "domain": "D42",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Use filters, selectors, and views in creating projects",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-5",
+      "quarter": 4,
+      "domain": "D43",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply the ASP.NET MVC-data model",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-6",
+      "quarter": 4,
+      "domain": "D44",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Use ASP.NET MVC – helpers in creating realistic HTML controls",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-7",
+      "quarter": 4,
+      "domain": "D45",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Create bridges between the http request and the action methods (Model Binding)",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-8",
+      "quarter": 4,
+      "domain": "D46",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Discuss the framework of ASP.NET MVC – database and adding validation to a model",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-9",
+      "quarter": 4,
+      "domain": "D47",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Execute security features in a web application",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-10",
+      "quarter": 4,
+      "domain": "D48",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Create ASP.NET MVC-web application program interface (API)",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-11",
+      "quarter": 4,
+      "domain": "D49",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Convert website to mobile version",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:period-4:item-12",
+      "quarter": 4,
+      "domain": "D50",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Compute the service costs for web development, web hosting",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "cc22bb418863639c5c37799eb3bb4d5cd847379424d7e9e173e3bf7a968599b0"
+  }
+}

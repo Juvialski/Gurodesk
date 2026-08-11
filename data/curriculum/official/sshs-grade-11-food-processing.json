@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-food-processing",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Food Processing",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1TszrpDV50JoAnvjAwLmnLKpkoNvZ1QY0/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Food-Processing.pdf",
+    "fileId": "1TszrpDV50JoAnvjAwLmnLKpkoNvZ1QY0",
+    "sha256": "ffa49774f6c495bdbc04c0c14b295fe9e0548f900d6fcfe01fd2a7fd9c71ad74",
+    "byteSize": 529509,
+    "pageCount": 15,
+    "pagesUsed": {
+      "from": 2,
+      "to": 9
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FOOD-PROCESSING11",
+    "name": "Food Processing",
+    "description": "Official Grade 11 Food Processing competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 8,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Halal Principles and Practices",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Tools, Materials, and Equipment in Food Processing and Fish Product Packaging",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Maintenance Procedures",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Occupational Safety and Health (OSH)",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Sugar Concentration",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Packaging and Labeling Sugar-Concentrated Products Finish Product and Inspection",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Costing Parameters",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Salting, Curing, and Smoking",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Fermentation and Pickling",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Drying and Dehydration",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Thermal Application",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Marketing of Processed Foods",
+      "sortOrder": 13
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-food-processing:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the overview of food processing and fish product packaging",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss halal principles and practices in food processing",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Determine the different tools, materials, and equipment in food processing, packaging, and labeling",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform maintenance of tools and equipment according to enterprise protocols",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Discuss Occupational Safety and Health (OSH) procedures in food processing and fish product packaging",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss types and classification of packaging in food processing",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform processing of food through sugar concentration",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform packaging and labeling of sugar-concentrated food products",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-2:item-4",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform costing of sugar-concentrated products",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-3:item-1",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform food processing through salting, curing, and smoking",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-3:item-2",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform food processing through fermentation and pickling",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-4:item-1",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform food processing through drying and dehydration process",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-4:item-2",
+      "quarter": 4,
+      "domain": "D12",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform food processing through thermal application",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-processing:period-4:item-3",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform selling of processed foods",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "d36b91255a0c8eeee48e0fedfbed02ccc9113ae544a5afe71e690f74b4717fc3"
+  }
+}

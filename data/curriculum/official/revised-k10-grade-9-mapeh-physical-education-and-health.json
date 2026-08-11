@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-9-mapeh-physical-education-and-health",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG PE and Health CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20PE%20and%20Health%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "sha256": "31e3758e6260530bd41db71f6f7ea614ee6ceba6136b62f20aa62be88960943d",
+    "byteSize": 2192779,
+    "pageCount": 58,
+    "pagesUsed": {
+      "from": 41,
+      "to": 44
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 9",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 9",
+    "code": "MAPEH9",
+    "name": "MAPEH",
+    "description": "Official Grade 9 MAPEH — Physical Education and Health competency records.",
+    "component": "Physical Education and Health"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 41,
+      "sourceLabel": "First Quarter"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 42,
+      "sourceLabel": "Second Quarter"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 43,
+      "sourceLabel": "Third Quarter"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 44,
+      "sourceLabel": "Fourth Quarter"
+    }
+  ],
+  "domains": [
+    {
+      "code": "PH-D01",
+      "name": "Protecting Self from Intentional Injuries",
+      "sortOrder": 1
+    },
+    {
+      "code": "PH-D02",
+      "name": "Other Prevention and Protective Strategies for Intentional Injuries (outside the individual)",
+      "sortOrder": 2
+    },
+    {
+      "code": "PH-D03",
+      "name": "Physical Activity Participation: Target and/or Invasion Games",
+      "sortOrder": 3
+    },
+    {
+      "code": "PH-D04",
+      "name": "Responsible Parenthood and Family Planning",
+      "sortOrder": 4
+    },
+    {
+      "code": "PH-D05",
+      "name": "Determinants, Effects, and Ways to Control Population Growth",
+      "sortOrder": 5
+    },
+    {
+      "code": "PH-D06",
+      "name": "Impact of Physical Activity Participation on Reproductive Process",
+      "sortOrder": 6
+    },
+    {
+      "code": "PH-D07",
+      "name": "Physical Activity Participation: Striking/Fielding Games and/or Net/Wall Games",
+      "sortOrder": 7
+    },
+    {
+      "code": "PH-D08",
+      "name": "Non-Communicable Diseases",
+      "sortOrder": 8
+    },
+    {
+      "code": "PH-D09",
+      "name": "Measures and Strategies to Prevent Non-Communicable Diseases",
+      "sortOrder": 9
+    },
+    {
+      "code": "PH-D10",
+      "name": "Fitness and Non-Communicable Disease Prevention",
+      "sortOrder": 10
+    },
+    {
+      "code": "PH-D11",
+      "name": "Physical Activity Participation: Dances Dances of the Muslim South",
+      "sortOrder": 11
+    },
+    {
+      "code": "PH-D12",
+      "name": "Nature and Effects of Hazards and Disasters",
+      "sortOrder": 12
+    },
+    {
+      "code": "PH-D13",
+      "name": "Ways to Prepare for or Mitigate the Effects of Hazards and Disasters",
+      "sortOrder": 13
+    },
+    {
+      "code": "PH-D14",
+      "name": "Home-Based Practices to Prepare for or Mitigate the Effects of Hazards and Disasters Examples",
+      "sortOrder": 14
+    },
+    {
+      "code": "PH-D15",
+      "name": "Physical Activity Participation: Dances Theatrical Dances",
+      "sortOrder": 15
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-1:item-1",
+      "quarter": 1,
+      "domain": "PH-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss ways to protect self from intentional injuries;",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-1:item-2",
+      "quarter": 1,
+      "domain": "PH-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "formulate recommendations to prevent intentional injuries; and",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-1:item-3",
+      "quarter": 1,
+      "domain": "PH-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "create sport/s using target and/or invasion game principles and concepts.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-2:item-1",
+      "quarter": 2,
+      "domain": "PH-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the importance of responsible parenthood and family planning;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-2:item-2",
+      "quarter": 2,
+      "domain": "PH-D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "formulate strategies for addressing population growth;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-2:item-3",
+      "quarter": 2,
+      "domain": "PH-D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "examine impact of physical activity participation on reproductive process; and",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-2:item-4",
+      "quarter": 2,
+      "domain": "PH-D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "create games using striking/fielding and net/wall game principles and concepts.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-3:item-1",
+      "quarter": 3,
+      "domain": "PH-D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze the nature and risk and protective factors for non-communicable diseases;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-3:item-2",
+      "quarter": 3,
+      "domain": "PH-D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "formulate measures and strategies to prevent non-communicable diseases;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-3:item-3",
+      "quarter": 3,
+      "domain": "PH-D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "design a personalized exercise program to prevent non-communicable diseases; and",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-3:item-4",
+      "quarter": 3,
+      "domain": "PH-D11",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "practice technical and expressive skills to develop proficiency in genre and style-specific techniques to improve movement competence and physical activity participation.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-4:item-1",
+      "quarter": 4,
+      "domain": "PH-D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze the nature and effects of hazards and disasters;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-4:item-2",
+      "quarter": 4,
+      "domain": "PH-D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "formulate ways to prepare for or mitigate the effects of hazards and disasters;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-4:item-3",
+      "quarter": 4,
+      "domain": "PH-D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "engage in home-based practices to prepare for or mitigate the effects of hazards and disasters; and",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mapeh-physical-education-and-health:period-4:item-4",
+      "quarter": 4,
+      "domain": "PH-D15",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "refine technical and expressive skills to develop proficiency in genre and style-specific techniques to master movement competence and physical activity participation.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "1e49cd2c7e3e4cf7ef0b97d60ae8ff7c0bbbfd19a6f9bfa9c21ba1933c19b8d0"
+  }
+}

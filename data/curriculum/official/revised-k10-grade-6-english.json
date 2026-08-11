@@ -1,0 +1,659 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-6-english",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG English CG 2023 Grades 2-10 (withAppendices)",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20English%20CG%202023%20Grades%202-10%20%28withAppendices%29.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+    "sha256": "db4a5c2b7389f9237b21ee19873faf9b950fe55b9f0918db336269f112dc897c",
+    "byteSize": 6187245,
+    "pageCount": 255,
+    "pagesUsed": {
+      "from": 119,
+      "to": 132
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 6",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 6",
+    "code": "ENGLISH6",
+    "name": "English",
+    "description": "Official Grade 6 English competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 119,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 123,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 127,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 130,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Listening and Reading (receptive skills)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Speaking and Writing (productive skills)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Viewing and Representing",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN6LR-I-1",
+      "text": "Comprehend literary texts.",
+      "sourcePage": 119,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN6LR-I-2",
+      "text": "Comprehend informational texts.",
+      "sourcePage": 120,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN6SW-I-1",
+      "text": "Use words with literal (denotative) and implied (connotative) meanings in sentences.",
+      "sourcePage": 120,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN6SW-I-2",
+      "text": "Compose appropriate sentences for clarity and coherence.",
+      "sourcePage": 120,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN6SW-I-3",
+      "text": "Produce text with introduction, body, and conclusion in conveying ideas: providing",
+      "sourcePage": 121,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN6SW-I-4",
+      "text": "Express ideas appropriately (age-appropriate, gender-responsive, culture sensitive) for one’s purpose, context, and target audience.",
+      "sourcePage": 121,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN6SW-I-5",
+      "text": "Use appropriate non-verbal cues for clarity of context, purpose, and meaning.",
+      "sourcePage": 121,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN6SW-I-6",
+      "text": "Create simple survey forms based on purpose: personal data information (print).",
+      "sourcePage": 121,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-9",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN6VR-I-1",
+      "text": "Derive meaning based on the visual elements.",
+      "sourcePage": 121,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-10",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN6VR-I-2",
+      "text": "Evaluate cultural appropriateness of visual elements.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-11",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN6VR-I-3",
+      "text": "Create a visual text drawn from visual elements learned.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-12",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN6VR-I-4",
+      "text": "Identify multimedia elements.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-13",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN6VR-I-5",
+      "text": "Derive meaning for multimedia elements learned.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-1:item-14",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": "EN6VR-I-6",
+      "text": "Create a multimedia text drawn from multimedia elements learned.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN6LR-II-1",
+      "text": "Comprehend literary texts.",
+      "sourcePage": 123,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN6LR-II-2",
+      "text": "Comprehend informational texts.",
+      "sourcePage": 123,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN6SW-II-1",
+      "text": "Use words with literal (denotative) and implied (connotative) meanings in sentences.",
+      "sourcePage": 124,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN6SW-II-2",
+      "text": "Compose appropriate sentences for clarity and coherence.",
+      "sourcePage": 124,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN6SW-II-3",
+      "text": "Produce text with introduction, body, and conclusion in conveying ideas: providing",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN6SW-II-4",
+      "text": "Express ideas appropriately (age-appropriate, gender-responsive, culture sensitive) for one’s purpose, context, and target audience.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN6SW-II-5",
+      "text": "Use appropriate non-verbal cues for clarity of context, purpose, and meaning.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN6SW-II-6",
+      "text": "Create simple survey forms based on purpose: open-ended survey forms (print).",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-9",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN6VR-II-1",
+      "text": "Derive meaning based on the visual elements.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-10",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN6VR-II-2",
+      "text": "Evaluate cultural appropriateness of visual elements.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-11",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN6VR-II-3",
+      "text": "Create a visual text drawn from visual elements learned.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-12",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN6VR-II-4",
+      "text": "Identify multimedia elements.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-13",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN6VR-II-5",
+      "text": "Derive meaning for multimedia elements learned.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-2:item-14",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": "EN6VR-II-6",
+      "text": "Create a multimedia text drawn from multimedia elements learned.",
+      "sourcePage": 126,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN6LR-III-1",
+      "text": "Comprehend literary texts.",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN6LR-III-2",
+      "text": "Comprehend informational texts.",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN6SW-III-1",
+      "text": "Use words with literal (denotative) and implied (connotative) meanings in sentences.",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN6SW-III-2",
+      "text": "Compose appropriate sentences for clarity and coherence.",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN6SW-III-3",
+      "text": "Produce text with introduction, body, and conclusion in conveying ideas: providing evidence to support information.",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN6SW-III-4",
+      "text": "Express ideas appropriately (age-appropriate, gender-responsive, culture sensitive) a narrative b persuasive",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-7",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN6SW-III-5",
+      "text": "Use appropriate non-verbal cues for clarity of context, purpose, and meaning.",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-8",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN6SW-III-6",
+      "text": "Create simple survey forms based on purpose: interview survey forms (oral).",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN6VR-III-1",
+      "text": "Derive meaning based on the visual elements.",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN6VR-III-2",
+      "text": "Evaluate cultural appropriateness of visual elements.",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-11",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN6VR-III-3",
+      "text": "Create a visual text drawn from visual elements learned.",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-12",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN6VR-III-4",
+      "text": "Identify multimedia elements.",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-13",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN6VR-III-5",
+      "text": "Derive meaning for multimedia elements learned.",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-3:item-14",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": "EN6VR-III-6",
+      "text": "Create a multimedia text drawn from multimedia elements learned.",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN6LR-IV-1",
+      "text": "Comprehend literary texts.",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN6LR-IV-2",
+      "text": "Comprehend informational texts.",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-3",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": "EN6SW-IV-1",
+      "text": "Compose appropriate sentences for clarity and coherence.",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-4",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": "EN6SW-IV-2",
+      "text": "Produce text with introduction, body, and conclusion in conveying ideas: providing evidence to support information.",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-5",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": "EN6SW-IV-3",
+      "text": "Express ideas appropriately (age-appropriate, gender-responsive, culture sensitive) a narrative",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-6",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": "EN6SW-IV-4",
+      "text": "Use appropriate non-verbal cues for clarity of context, purpose, and meaning.",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-7",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": "EN6SW-IV-5",
+      "text": "Create simple survey forms based on purpose: online survey forms (digital).",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-8",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": "EN6VR-IV-1",
+      "text": "Derive meaning based on the visual elements.",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-9",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN6VR-IV-2",
+      "text": "Evaluate cultural appropriateness of visual elements.",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-10",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN6VR-IV-3",
+      "text": "Create a visual text drawn from visual elements learned.",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-11",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN6VR-IV-4",
+      "text": "Identify multimedia elements.",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-12",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN6VR-IV-5",
+      "text": "Derive meaning for multimedia elements learned.",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:period-4:item-13",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN6VR-IV-6",
+      "text": "Create a multimedia text drawn from multimedia elements learned.",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "27f9ff9b43b02ac6af159df98c9d3cc6399611f8cebe4f93ef1223d96cf4dadf"
+  }
+}

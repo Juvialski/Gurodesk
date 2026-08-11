@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-construction-operation",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Construction Operation",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1MmRgAYr-MbJFLcIdVhQ7YadgIGzxOAR-/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Construction-Operation_.pdf",
+    "fileId": "1MmRgAYr-MbJFLcIdVhQ7YadgIGzxOAR-",
+    "sha256": "bf60aded69e950545627d449634fe0591a5920cac636b9e4bb767531d85733ae",
+    "byteSize": 470452,
+    "pageCount": 12,
+    "pagesUsed": {
+      "from": 2,
+      "to": 8
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CONSTRUCTION-OPERA11",
+    "name": "Construction Operation",
+    "description": "Official Grade 11 Construction Operation competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 8,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Introduction",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Site preparation",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Foundation layout",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Formworks",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Re-bars",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Scaffolding",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Concrete pouring",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Backfilling, and compaction",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Concrete blocks and bricks",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "NOTE: Layout and installation for plumbing works should be considered before plastering activities. Cement plaster",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Pre-cast balusters and handrails",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Plumbing Materials",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Plumbing lay-out",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Plumbing joints and fittings",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Construction scope management",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Forms/ papers",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Basic construction projects",
+      "sortOrder": 17
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss overview in masonry",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss masonry materials, tools and equipment",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform procedure in site preparations",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform procedure in excavation for foundation works",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform procedures in formworks preparation",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform procedures in re-bars preparation",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-1:item-7",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform procedures in scaffoldings preparation",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform procedures in preparing concrete for pouring",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform procedures in backfilling and compaction",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform procedures in laying block/ bricks",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-2:item-4",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform procedures in plastering concrete surfaces",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-2:item-5",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform pre-cast balusters and handrails installation",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-3:item-1",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Prepare common plumbing materials, tools and equipment for installation",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-3:item-2",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform plumbing installation based on lay-out plan.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-3:item-3",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform piping joints and connections based on job specifications",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-4:item-1",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the basic concept of construction management",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-4:item-2",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform basic project cost and estimates for construction services",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-construction-operation:period-4:item-3",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Simulate basic cost and estimates for basic construction projects",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "6574c49a3a4e860f918ea86ed81a2a74a22fb063c3973f4e7e96a157fdb54dc5"
+  }
+}

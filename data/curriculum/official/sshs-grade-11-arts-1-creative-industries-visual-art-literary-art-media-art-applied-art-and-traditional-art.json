@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Arts 1 - Creative Industries: Visual Art, Literary Art, Media Art, Applied Art and Traditional Art",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1bcyYY640aEYYuAJChkIixVho5QeNkSTS/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Arts-1-Creative-Industries-Visual-Art-Literary-Art-Media-Art-Applied-Art-and-Traditional-Art.pdf",
+    "fileId": "1bcyYY640aEYYuAJChkIixVho5QeNkSTS",
+    "sha256": "2045508ba96e3ebefb3b9b32ba8f77633afbb91e21a9cb64d05306b3eeda484d",
+    "byteSize": 440352,
+    "pageCount": 12,
+    "pagesUsed": {
+      "from": 2,
+      "to": 8
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "ARTS-1-CREATIVE-IN11",
+    "name": "Arts 1 - Creative Industries: Visual Art, Literary Art, Media Art, Applied Art and Traditional Art",
+    "description": "Official Grade 11 Arts 1 - Creative Industries: Visual Art, Literary Art, Media Art, Applied Art and Traditional Art competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Philippine Creative Industries",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Laws Related to Creative Industries",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Industry Mapping",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Elements and Principles of Artistic Expression",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Art Criticism",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Organic Unity",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Various Art Markets",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "D. Organizing a Small-Scale Art Fair",
+      "sortOrder": 8
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the definitions and domains of creative industries and their impact on various aspects of society and daily life",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "infer the relevance and implications of prevailing creative industry laws on art production",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "conduct industry mapping for a specific creative sector (visual arts, literary arts, media arts, or traditional arts) to accurately represent the roles, relationships, and interdependencies of key players within the industry",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "apply the techniques in the execution of visual arts, literary arts, media arts, applied, and/or traditional arts into a creative output, with safe practice",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze the role of formal analysis and aesthetic theories in developing critical reviews of creative works in visual, literary, media, applied, and traditional arts",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "evaluate artworks that manifest organic unity based on art analysis",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "examine how various art markets, platforms, and entrepreneurial pathways influence the creation and distribution of art in socio-economic and cultural contexts",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-2:item-4",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "organize a small-scale art fair that effectively communicates a message or purpose to a defined audience",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "eec575aed7836032505fa05d40271cdc91feb4f25ffb273d54b5a6f9d2adad95"
+  }
+}

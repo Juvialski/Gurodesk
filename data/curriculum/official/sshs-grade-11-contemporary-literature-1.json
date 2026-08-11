@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-contemporary-literature-1",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Contemporary Literature 1",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1UyqZPgMv6YpvCurVtS9zIrJaw6zd7W6z/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Contemporary-Literature-1.pdf",
+    "fileId": "1UyqZPgMv6YpvCurVtS9zIrJaw6zd7W6z",
+    "sha256": "79d293d6d796e8409ca11537c206bc5148ef6184cdf5dd6dc15c34187e623468",
+    "byteSize": 266054,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 3,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CONTEMPORARY-LITER11",
+    "name": "Contemporary Literature 1",
+    "description": "Official Grade 11 Contemporary Literature 1 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Describe the role of literature in reflecting and challenging personal and collective identity.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explore Philippine literature (including regional works) as a way of understanding personal and local heritage and identity.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Demonstrate understanding and appreciation of how composers use forms and features purposefully to engage responders at a personal level.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Use a variety of approaches to engage at a personal level with written, spoken and multimodal texts, including poetry.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Identify how themes in literary texts connect to personal identity and experiences (e.g., family, belonging, wellbeing).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Respond to literary texts in ways that promote personal connection (e.g., reading log, journaling, thematic maps, reviews, personal essays).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Explain how composers use literary forms and features to foster personal connection of the responder in affective and intellectual ways.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Participate in interactive learning (e.g., group discussions and read-alouds) to deepen empathy and understanding of literary texts.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Consider how literary works shape or challenge personal beliefs, values, or emotions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Review one’s interaction with literary texts, identifying strengths and areas for growth to cultivate empathy and personal awareness.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss literature’s role in shaping cultural understanding and dialogue.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explore contemporary global literature (including literary works by Filipinos of broad reach) as a way of understanding the world.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Demonstrate understanding and appreciation of how composers use forms and features purposefully to shape and challenge cultural and social assumptions, understandings, and perspectives.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-4",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Use a variety of approaches to make meaning of the world through written, spoken and multimodal texts, including short stories or a novella.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-5",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Identify recurring themes in Philippine and global literary texts (e.g., cultural identity, justice seeking, migration, protest and resistance).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-6",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Respond to literary texts in ways that promote social connection (e.g., discussion, book club, team-based games such as ‘hot seat’, group presentations, collaborative essays).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-7",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Explain how composers use literary forms and features to resonate with contemporary audiences, making connections to current social concerns and real-world events.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-8",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Participate in interactive learning (e.g., debates and forums) to deepen understanding and appreciation of other perspectives of literary texts.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-9",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Consider how literary texts shape or challenge one’s understanding of other people and their social and cultural contexts.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:period-2:item-10",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Review one’s interaction with literary texts, identifying strengths and areas for growth to cultivate cultural awareness and outward thinking.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "827b3b88ce99f54603ac0c70aec59594f5fbec60552abb346344d67663a4b6cf"
+  }
+}

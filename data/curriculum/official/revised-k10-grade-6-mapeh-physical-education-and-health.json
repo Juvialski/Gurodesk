@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-6-mapeh-physical-education-and-health",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG PE and Health CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20PE%20and%20Health%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "sha256": "31e3758e6260530bd41db71f6f7ea614ee6ceba6136b62f20aa62be88960943d",
+    "byteSize": 2192779,
+    "pageCount": 58,
+    "pagesUsed": {
+      "from": 29,
+      "to": 32
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 6",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 6",
+    "code": "MAPEH6",
+    "name": "MAPEH",
+    "description": "Official Grade 6 MAPEH — Physical Education and Health competency records.",
+    "component": "Physical Education and Health"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 29,
+      "sourceLabel": "First Quarter"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 30,
+      "sourceLabel": "Second Quarter"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 31,
+      "sourceLabel": "Third Quarter"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 32,
+      "sourceLabel": "Fourth Quarter"
+    }
+  ],
+  "domains": [
+    {
+      "code": "PH-D01",
+      "name": "Holistic Wellness",
+      "sortOrder": 1
+    },
+    {
+      "code": "PH-D02",
+      "name": "Changes in Health Dimensions among Adolescents",
+      "sortOrder": 2
+    },
+    {
+      "code": "PH-D03",
+      "name": "Physical Activity and Holistic Wellness",
+      "sortOrder": 3
+    },
+    {
+      "code": "PH-D04",
+      "name": "Physical Activity Participation: Target and/or Invasion Games",
+      "sortOrder": 4
+    },
+    {
+      "code": "PH-D05",
+      "name": "Early Pregnancy Prevention (Concepts and Benefits)",
+      "sortOrder": 5
+    },
+    {
+      "code": "PH-D06",
+      "name": "Adolescents’ Sexual and Reproductive Health and The Role of the Family",
+      "sortOrder": 6
+    },
+    {
+      "code": "PH-D07",
+      "name": "Communicable Diseases",
+      "sortOrder": 7
+    },
+    {
+      "code": "PH-D08",
+      "name": "Communicable Disease Prevention and Control",
+      "sortOrder": 8
+    },
+    {
+      "code": "PH-D09",
+      "name": "Benefits of Physical Activity as a Preventive Measure for Communicable Disease Prevention and Control",
+      "sortOrder": 9
+    },
+    {
+      "code": "PH-D10",
+      "name": "Physical Activity Participation: Rhythmic Activities and Dances",
+      "sortOrder": 10
+    },
+    {
+      "code": "PH-D11",
+      "name": "Understanding Environmental Concerns through One Health",
+      "sortOrder": 11
+    },
+    {
+      "code": "PH-D12",
+      "name": "Managing and Promoting Environmental Health Sanitation through Community Participation and Collaboration",
+      "sortOrder": 12
+    },
+    {
+      "code": "PH-D13",
+      "name": "Physical Activities in Promoting Environmental Health",
+      "sortOrder": 13
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-1:item-1",
+      "quarter": 1,
+      "domain": "PH-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the interdependence of the different health dimensions in developing holistic wellness;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-1:item-2",
+      "quarter": 1,
+      "domain": "PH-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "evaluate how changes in the different health dimensions affect adolescents’ well-being;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-1:item-3",
+      "quarter": 1,
+      "domain": "PH-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "engage in physical and other activities to improve holistic wellness; and",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-1:item-4",
+      "quarter": 1,
+      "domain": "PH-D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "execute modified physical activities (target/invasion games) by applying its concepts and skills for active living.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-2:item-1",
+      "quarter": 2,
+      "domain": "PH-D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the concepts and benefits of preventing early pregnancy;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-2:item-2",
+      "quarter": 2,
+      "domain": "PH-D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "evaluate the value of the family in helping adolescents deal with sexual and reproductive health concerns, particularly in preventing teenage pregnancy; and",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-3:item-1",
+      "quarter": 3,
+      "domain": "PH-D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the nature of common communicable diseases;",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-3:item-2",
+      "quarter": 3,
+      "domain": "PH-D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze healthful ways of preventing and controlling common communicable diseases;",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-3:item-3",
+      "quarter": 3,
+      "domain": "PH-D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "evaluate the benefits of physical activity as an immune-boosting activity for communicable disease prevention and control; and",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-3:item-4",
+      "quarter": 3,
+      "domain": "PH-D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "lead actively in different rhythmic activities and dances in sustaining their movement competence and physical activity participation.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-4:item-1",
+      "quarter": 4,
+      "domain": "PH-D11",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the nature and effects of environmental concerns using the concept of One Health;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-4:item-2",
+      "quarter": 4,
+      "domain": "PH-D12",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "evaluate basic strategies in managing and promoting environmental health sanitation through community participation and collaboration;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-4:item-3",
+      "quarter": 4,
+      "domain": "PH-D13",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "advocate for environmental health protection through physical activity participation; and",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-physical-education-and-health:period-4:item-4",
+      "quarter": 4,
+      "domain": "PH-D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "lead actively in different rhythmic activities and dances in sustaining their movement competence and physical activity participation.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "7b9896673567b0e6fe886b7d7cae09a79cb66a01268ea980ebb1c8849a9dbb05"
+  }
+}

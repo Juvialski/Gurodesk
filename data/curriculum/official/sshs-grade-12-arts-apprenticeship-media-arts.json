@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-arts-apprenticeship-media-arts",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Arts Apprenticeship - Media Arts",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/16lxlQSURg2_nhD0AiE2UDXD-PLkABnBj/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Arts Apprenticeship - Media Arts.pdf",
+    "fileId": "16lxlQSURg2_nhD0AiE2UDXD-PLkABnBj",
+    "sha256": "8f441db0a7f964ab49d0565e450fede9ec2957e25c541683a3a69656c840f039",
+    "byteSize": 292449,
+    "pageCount": 7,
+    "pagesUsed": {
+      "from": 3,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "ARTS-APPRENTICESHI12",
+    "name": "Arts Apprenticeship - Media Arts",
+    "description": "Official Grade 12 Arts Apprenticeship - Media Arts competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 3,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Media Arts and The Work Environment",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Apprenticeship Orientation",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Apprenticeship Proper",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss media arts from the perspective of industry function and professional processes;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "articulate the professional roles and ethical practices of media artists in creative industry settings;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "evaluate the roles, responsibilities, and accountability of apprentices in media arts organizations;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "demonstrate proficiency and professionalism in media arts tasks and workplace practices during apprenticeship; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "synthesize apprenticeship experiences through creative documentation.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "1f9f1af588ef7f984f7fbee0359fcab980f3d0b7e92c090e9f87ea5f4670d22b"
+  }
+}

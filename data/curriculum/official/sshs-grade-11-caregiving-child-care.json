@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-caregiving-child-care",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Caregiving - Child Care",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1vSO_zQJSI7U13IN0h7ENQ_VevfKUkMWe/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Caregiving-Child-Care-a_o-Jun-9.pdf",
+    "fileId": "1vSO_zQJSI7U13IN0h7ENQ_VevfKUkMWe",
+    "sha256": "77141e0a3dd6acc1725a4fba2ccecd492cd28cc18194b6814e8c68a757b7a954",
+    "byteSize": 340624,
+    "pageCount": 15,
+    "pagesUsed": {
+      "from": 2,
+      "to": 6
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CAREGIVING-CHILD-C11",
+    "name": "Caregiving - Child Care",
+    "description": "Official Grade 11 Caregiving - Child Care competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Caregiving",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Common Therapeutic Communication Techniques",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Caregiving Care Plan Using the SMARTER (Specific, Measurable, Attainable, Realistic,Time-bound, Evaluate, Re-evaluate) Approach",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Infection Control Procedures",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "o medical waste",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Vital Signs",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Overview in Pre-Natal and Post-Natal Care",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "WHO Exclusive Breastfeeding Act",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Republic Act 9288: (Newborn Screening Act)",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Immunization of Newborn to Children (RA No.7846) Common Types of Vaccines and Side Effects",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Stages of Growth and Development of Infant to Preschooler Developmental milestone of infant to preschooler",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Bathing Paraphernalia Bathing Procedures",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Feeding Tools, Materials, and Equipment Feeding Techniques",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Sleeping Habits",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Behavioral Patterns",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Common Routines",
+      "sortOrder": 16
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the occupational safety and health policies and procedures (OHS), and career opportunities in caregiving",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Compare the therapeutic and non-therapeutic communication",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create a caregiving care plan using the SMARTER (Specific, Measurable, Attainable, Realistic,Time-bound, Evaluate, Re-evaluate) approach",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform infection control procedures in accordance with the industry practices",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Demonstrate first aid and basic life support standards in accordance with the Philippine Red Cross",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform the procedures in taking the vital signs",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-3:item-1",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the pre-natal and post-natal care",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-3:item-2",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the appropriateness of breast feeding techniques and positions",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-3:item-3",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss the newborn screening test",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-3:item-4",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss the common types of vaccines and side effects in newborns up to preschoolers",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-3:item-5",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Discuss the different stages of growth and development of infants to preschoolers",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-3:item-6",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform bathing procedures",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-3:item-7",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform the appropriate feeding techniques",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-3:item-8",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Discuss the different sleeping habits",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-4:item-1",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the different behavioral patterns",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-child-care:period-4:item-2",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform the common routine activities",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "23f1875c7cd81fe24a8db2d0bdf85211b2d39415ed4831bcf785b20197af43ed"
+  }
+}

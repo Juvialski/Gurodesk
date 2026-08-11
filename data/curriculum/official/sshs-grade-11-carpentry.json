@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-carpentry",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Carpentry",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1QoN824hewfmiv6AmjuA3TJaKOQdkfAnV/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Carpentry_.pdf",
+    "fileId": "1QoN824hewfmiv6AmjuA3TJaKOQdkfAnV",
+    "sha256": "8eb7f51973ab0462d0ac2ced7e694dcdb4527e81512ae389f70c683f869510c3",
+    "byteSize": 482563,
+    "pageCount": 13,
+    "pagesUsed": {
+      "from": 2,
+      "to": 8
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CARPENTRY11",
+    "name": "Carpentry",
+    "description": "Official Grade 11 Carpentry competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of structural carpentry ⚫ Definition and scope ⚫ Roles of structural carpentry personnel ⚫ Career and business opportunities in structural carpentry o Apprenticeship o Ski",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Essential carpentry tools, equipment, materials and PPEs in structural carpentry ⚫ Common hand tools o Types o Functions o Maintenance",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Essentials of carpentry specifications and tolerance ⚫ Specifications in carpentry operations o Quality of materials o Dimensions and sizes o Finishing requirements o Joints and co",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Set up basic 4-corner batter board ⚫ Site preparation ⚫ Building foundation layout (Set tolerance for dimensions) ⚫ Setting up batter board at the corners ⚫ Establish structure ele",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Importance points of formworks Types of formworks ⚫ Wood forms and coverings ⚫ Metal forms and fasteners Applications of formwork ⚫ Foundations",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Factors affecting wood form quality ⚫ Wood defects ⚫ Wood properties (Physical and Mechanical) Common formwork materials ⚫ Frame and covering ⚫ Hardware Occupational safety and hea",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Construct wooden form working drawing ⚫ Foundations and footings ⚫ Columns ⚫ Beams ⚫ Slabs",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Correctly interpret and identify plans and details ⚫ Check tools and materials to be used ⚫ Apply and use proper safety precautions and PPEs",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Clear area for form installation Erection process ⚫ Scaffold and braces assembly ⚫ Secure locks and connectors Final checking ⚫ Measurements ⚫ Squareness ⚫ plumbness ⚫ levelness",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Prepare tools for formworks disassembly ⚫ Dismantle formworks components and accessories ⚫ Sort formworks components according to condition Store formworks components and accessori",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Layout post and horizontal members according to working plan ⚫ Vertical dimensions ⚫ Horizontal members dimensions Install posts and horizontal members according to measurements ⚫",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Selecting and planning flooring layout ⚫ Room type ⚫ Traffic level ⚫ Proper alignment ⚫ Pattern consistency Applying flooring materials ⚫ Framing procedures",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Fabrication and installation doors and windows ⚫ Doors ⚫ Windows Installation jambs ⚫ Measuring and cutting jambs ⚫ Installing and jambs ⚫ Finishing",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Constructing concepts and designs in roofing ⚫ Roof framing and structure o Roof frame o Rafters o Trusses o Supports ⚫ Installing roofing materials o Lumbers o Fasteners o Adhesiv",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Installing ceiling framework ⚫ Beam ⚫ Joists ⚫ Supports ⚫ Cross bracing Installing ceiling sheathings ⚫ Plywood ⚫ Drywall ⚫ Plaster board ⚫ Acoustic tiles Installing ceiling decora",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Introduction to build – in cabinet ⚫ Definition ⚫ Importance ⚫ Types Planning and design ⚫ Considerations ⚫ Tools and material selection ⚫ Working drawing Construction process",
+      "sortOrder": 16
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-carpentry:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Identify principles structural carpentry",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Prepare tools, equipment, consumables and PPEs used in structural carpentry",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss specifications and tolerance in structural carpentry",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform basic 4-corner batter board set up",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss importance and applications of formworks",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Prepare tools, materials and equipment in wooden formwork",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform working drawing plan for wooden form",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-2:item-4",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Prepare wooden foundation and column form for fabrication",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-2:item-5",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply wooden foundation and column form process",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-2:item-6",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Strip / disassembly wooden foundation and column form",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-3:item-1",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform operations for walling works",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-3:item-2",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Apply flooring installation procedures",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-3:item-3",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform doors, windows, and trim installation",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-4:item-1",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform operations for roofing works",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-4:item-2",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform process in ceiling works",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-carpentry:period-4:item-3",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform build – in cabinet fabrication",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "fb2a1b51f8f34783b2da01bec6455a7fce0bd358d5e07800761ea94df505c534"
+  }
+}

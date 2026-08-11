@@ -1,0 +1,748 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-7-english",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG English CG 2023 Grades 2-10 (withAppendices)",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20English%20CG%202023%20Grades%202-10%20%28withAppendices%29.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+    "sha256": "db4a5c2b7389f9237b21ee19873faf9b950fe55b9f0918db336269f112dc897c",
+    "byteSize": 6187245,
+    "pageCount": 255,
+    "pagesUsed": {
+      "from": 144,
+      "to": 153
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 7",
+    "code": "ENGLISH7",
+    "name": "English",
+    "description": "Official Grade 7 English competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 144,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 146,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 148,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 151,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Evaluating literary texts",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Publishing an original literary text that reflects culture",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "clarity of meaning, purpose, form, and function",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Publishing a multimodal informational text for one’s purpose and target audience",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Evaluating letters for clarity of purpose and meaning",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Sending letters to communicate with and respond to senders",
+      "sortOrder": 6
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-7-english:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN7LIT-I-1",
+      "text": "Analyze literary texts as expressions of individual or communal values within: structural context a conflict character vs. character character vs. society character vs. nature/environment b character c characterization d plot: linear and flashback f diction g tone and mood h style i patterns and motifs j figures of speech and sound devices k point of view and narrative techniques l organic unity",
+      "sourcePage": 144,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN7LIT-I-2",
+      "text": "Analyze the maxims, universal truths, and philosophies presented in the literary text as a means of valuing other people and their various circumstances in life.",
+      "sourcePage": 145,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN7LIT-I-3",
+      "text": "Identify one’s meaning and purpose in selecting the type of literary text for composition.",
+      "sourcePage": 145,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN7LIT-I-4",
+      "text": "Compose literary texts using appropriate structure.",
+      "sourcePage": 145,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN7LIT-I-5",
+      "text": "Revise the literary texts for coherence and cohesion.",
+      "sourcePage": 145,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN7LIT-I-6",
+      "text": "Publish an original literary text that reflects culture: poem.",
+      "sourcePage": 145,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN7LIT-II-1",
+      "text": "Analyze literary texts as expressions of individual or communal values within: structural context a conflict character vs. character character vs. society character vs. nature/environment b character c characterization d plot: linear and flashback e rhyme and meter f diction g tone and mood h style i patterns and motifs j figures of speech and sound devices l organic unity",
+      "sourcePage": 146,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN7LIT-II-2",
+      "text": "Analyze the maxims, universal truths, and philosophies presented in the literary text as a means of valuing other people and their various circumstances in life.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN7LIT-II-3",
+      "text": "Identify one’s meaning and purpose in selecting the type of literary text for composition.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN7LIT-II-4",
+      "text": "Compose literary texts using appropriate structure.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN7LIT-II-5",
+      "text": "Revise the literary texts for coherence and cohesion.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN7LIT-II-6",
+      "text": "Publish an original literary text that reflects culture: short story.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": "EN7INF-III-1",
+      "text": "Examine text structures for clarity of meaning and purpose: a expository text sequence/process comparison-contrast cause and effect problem and solution a news and press releases b features",
+      "sourcePage": 148,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": "EN7INF-III-2",
+      "text": "Examine linguistic features as tools to achieve organizational efficiency in informational texts: -diction and style",
+      "sourcePage": 148,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": "EN7INF-III-3",
+      "text": "Examine how visual elements are used as tools to achieve the intended meaning of informational texts: -vectors (for scientific, mathematical, or technical topics) and viewpoint-technical editing-animations",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": "EN7INF-III-4",
+      "text": "Extract significant information.",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": "EN7INF-III-5",
+      "text": "Analyze the real-world issues/occurrences presented in informational texts.",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": "EN7INF-III-6",
+      "text": "Distinguish facts from claims/opinions:",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": "EN7INF-III-7",
+      "text": "Analyze propaganda techniques used in informational texts for political correctness:",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": "EN7INF-III-8",
+      "text": "Draw inferences and conclusions to formulate sound judgment: -author’s purpose and meaning-target audience: hypothetical vs. real, experts vs. laypeople, managerial vs. rank-and-file",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN7INF-III-9",
+      "text": "Analyze how non-linear texts represent and/or summarize the contents of informational texts:",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN7INF-III-10",
+      "text": "Determine the veracity of the information presented: -credibility of the author-accuracy of information-relevance-timeliness-objectivity-coverage",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-11",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN7INF-III-11",
+      "text": "Analyze textual evidence to support an argument/general statement: -quoting-paraphrasing-summarizing",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-12",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN7INF-III-12",
+      "text": "Assess the quality of journalistic articles based on standard development principles: -simplicity and brevity-precision-objectivity and factuality-fairness and balance-ethics",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-13",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN7INF-III-13",
+      "text": "Synthesize significant information.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-14",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": "EN7INF-III-14",
+      "text": "Identify the text type appropriate for one’s topic, purpose, and target audience.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-15",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": "EN7INF-III-15",
+      "text": "Organize significant information using various technique.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-16",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": "EN7INF-III-16",
+      "text": "Determine one’s thesis as the central idea of the paper.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-17",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": "EN7INF-III-17",
+      "text": "Compose the informational text based on the chosen text type.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-18",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 18,
+      "competencyCode": "EN7INF-III-18",
+      "text": "Apply multimodal elements appropriate to the chosen text delivery/ies.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-19",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 19,
+      "competencyCode": "EN7INF-III-19",
+      "text": "Revise the text for coherence.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-20",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 20,
+      "competencyCode": "EN7INF-III-20",
+      "text": "Revise the text for cohesion (diction, syntax, and style).",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-21",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 21,
+      "competencyCode": "EN7INF-III-21",
+      "text": "Edit the text for textual consistency.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-3:item-22",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 22,
+      "competencyCode": "EN7INF-III-22",
+      "text": "Publish a multimodal informational text for one’s purpose and target audience: expository text, news and press releases, and features.",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-1",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": "EN7INF-IV-1",
+      "text": "Examine text structures for clarity of meaning and purpose: academic text: expository essay",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-2",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": "EN7INF-IV-2",
+      "text": "Examine linguistic features as tools to achieve organizational efficiency in informational texts:",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-3",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": "EN7INF-IV-3",
+      "text": "Analyze the use of discipline-specific words, voice, technical terms in research, and conceptual, operational, and expanded definition of words.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": "EN7INF-IV-4",
+      "text": "Extract significant information.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-5",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": "EN7INF-IV-5",
+      "text": "Analyze supporting evidence to validate assertions and counterclaims: -factual knowledge-statistical inferences-informed opinion-personal testimony",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-6",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": "EN7INF-IV-6",
+      "text": "Evaluate claims explicitly or implicitly made in a text: -claim of fact-claim of value-claim of policy",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-7",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": "EN7INF-IV-7",
+      "text": "Draw inferences and conclusions to formulate sound judgment: -author’s purpose and meaning-target audience: hypothetical vs. real, experts vs. laypeople, managerial vs. rank-and-file",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-8",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": "EN7INF-IV-8",
+      "text": "Analyze textual evidence to support an argument/general statement: -quoting-paraphrasing-summarizing",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-9",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "EN7INF-IV-9",
+      "text": "Synthesize significant information.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": "EN7INF-IV-10",
+      "text": "Identify the text type appropriate for one’s topic, purpose, and target audience.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-11",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": "EN7INF-IV-11",
+      "text": "Organize significant information using various technique.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-12",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": "EN7INF-IV-12",
+      "text": "Determine one’s thesis as the central idea of the paper.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-13",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": "EN7INF-IV-13",
+      "text": "Compose the informational text based on the chosen text type.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-14",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": "EN7INF-IV-14",
+      "text": "Apply multimodal elements appropriate to the chosen text delivery/ies.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-15",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": "EN7INF-IV-15",
+      "text": "Revise the text for coherence.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-16",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": "EN7INF-IV-16",
+      "text": "Revise the text for cohesion (diction, syntax, and style).",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-17",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": "EN7INF-IV-17",
+      "text": "Edit the text for textual consistency.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-18",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 18,
+      "competencyCode": "EN7INF-IV-18",
+      "text": "Publish a multimodal informational text for one’s purpose and target audience: expository essay.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-19",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": "EN7TRAN-IV-1",
+      "text": "Analyze distinguishing features of informal and formal correspondences to infer sender’s meaning and purpose across modalities: letter of request.",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-20",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": "EN7TRAN-IV-2",
+      "text": "Analyze milieus influencing the structure and rhetoric of informal and formal correspondences across modalities: -parts and formats-organizational patterns-politeness strategies (etiquette)",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-21",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 21,
+      "competencyCode": "EN7TRAN-IV-3",
+      "text": "Examine the sender’s voice for clarity of purpose and meaning: -diction-style-tone and register-point of view-sentence structure",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-22",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 22,
+      "competencyCode": "EN7TRAN-IV-4",
+      "text": "Examine how ethics is established in transmitting informal and formal correspondences across modalities.",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-23",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 23,
+      "competencyCode": "EN7TRAN-IV-5",
+      "text": "Identify one’s purpose and meaning in writing letters.",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-24",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 24,
+      "competencyCode": "EN7TRAN-IV-6",
+      "text": "Compose a letter of request.",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-25",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 25,
+      "competencyCode": "EN7TRAN-IV-7",
+      "text": "Revise for coherence and cohesion.",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-26",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 26,
+      "competencyCode": "EN7TRAN-IV-8",
+      "text": "Edit for consistency of diction, style, tone and register, point of view, and grammar.",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:period-4:item-27",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 27,
+      "competencyCode": "EN7TRAN-IV-9",
+      "text": "Send correspondences to communicate with and respond to senders within the bounds of ethics.",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "516dbf8b519994d12853239a2648366be0ef9c1ec30afb573d0b0e594603c783"
+  }
+}

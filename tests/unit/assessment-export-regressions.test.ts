@@ -10,6 +10,7 @@ import type { AssessmentRecord } from '../../src/types/assessment'
 import type { TosContent, TosRecord } from '../../src/types/tos'
 import { ASSESSMENT_QUESTION_TYPES } from '../../src/types/assessment'
 import { ASSESSMENT_VISUAL_FIXTURES } from '../../src/lib/assessmentVisualFixtures'
+import { assessmentVisualSourceHash } from '../../src/lib/assessmentVisualPlanning'
 import { assessmentItem, fixedNow } from './fixtures'
 import { cloneCandidate } from './assessmentContractFixtures'
 
@@ -213,9 +214,42 @@ describe('assessment export and preview persistence regressions', () => {
     const tos = oneItemTos()
     const draft = createAssessmentBlueprint(tos, { id: 'assessment-persistence-1', userId: 'teacher-a', title: 'Persisted assessment', now: fixedNow })
     const candidate = cloneCandidate('multiple_choice')
+    const visualPlanSource = { ...draft.items[0], prompt: candidate.prompt, answer: candidate.answer }
+    const visualSourceHash = assessmentVisualSourceHash(visualPlanSource)
     const edited: AssessmentRecord = {
       ...draft,
-      items: [{ ...draft.items[0], prompt: candidate.prompt, answer: candidate.answer, rationale: candidate.rationale, authorshipState: 'teacher_accepted', qaState: 'verified', visual: ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon }],
+      items: [{
+        ...draft.items[0],
+        prompt: candidate.prompt,
+        answer: candidate.answer,
+        rationale: candidate.rationale,
+        authorshipState: 'teacher_accepted',
+        qaState: 'verified',
+        visual: ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon,
+        visualRequirement: 'helpful',
+        visualIntent: 'Show the polygon without naming or classifying it.',
+        visualStatus: 'succeeded',
+        visualAttempts: 1,
+        visualSourceHash,
+        visualUpdatedAt: fixedNow,
+        history: [{
+          id: 'history-visual-plan-1',
+          savedAt: fixedNow,
+          source: 'generated',
+          prompt: candidate.prompt,
+          questionType: 'multiple_choice',
+          answer: candidate.answer,
+          rationale: candidate.rationale,
+          pointsPossible: 1,
+          points: 1,
+          qaState: 'verified',
+          visualRequirement: 'helpful',
+          visualIntent: 'Show the polygon without naming or classifying it.',
+          visualStatus: 'pending',
+          visualAttempts: 0,
+          visualSourceHash,
+        }],
+      }],
       totalPoints: 1,
     }
     const saved = await saveAssessmentDocument(edited, true)
@@ -223,6 +257,15 @@ describe('assessment export and preview persistence regressions', () => {
     expect(loaded?.items[0].prompt).toBe(candidate.prompt)
     expect(loaded?.items[0].answer).toEqual(candidate.answer)
     expect(loaded?.items[0].visual).toEqual(ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon)
+    expect(loaded?.items[0]).toMatchObject({
+      visualRequirement: 'helpful',
+      visualIntent: 'Show the polygon without naming or classifying it.',
+      visualStatus: 'succeeded',
+      visualAttempts: 1,
+      visualSourceHash,
+      visualUpdatedAt: fixedNow,
+    })
+    expect(loaded?.items[0].history?.[0]).toMatchObject({ visualRequirement: 'helpful', visualStatus: 'pending', visualSourceHash })
     expect(loaded?.sourceTos.id).toBe(tos.id)
     expect(loaded?.versionNumber).toBeGreaterThan(saved.versionNumber - 1)
 
@@ -231,6 +274,8 @@ describe('assessment export and preview persistence regressions', () => {
     expect(duplicate.items[0].id).not.toBe(loaded?.items[0].id)
     expect(duplicate.items[0].prompt).toBe(candidate.prompt)
     expect(duplicate.items[0].visual).toEqual(ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon)
+    expect(duplicate.items[0]).toMatchObject({ visualRequirement: 'helpful', visualStatus: 'succeeded', visualSourceHash })
+    expect(duplicate.items[0].history?.[0]).toMatchObject({ visualRequirement: 'helpful', visualStatus: 'pending', visualSourceHash })
     expect(duplicate.sourceTos.content).toEqual(loaded?.sourceTos.content)
   })
 })

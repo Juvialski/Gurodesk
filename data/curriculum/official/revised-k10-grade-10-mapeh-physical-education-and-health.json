@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-10-mapeh-physical-education-and-health",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG PE and Health CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20PE%20and%20Health%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "sha256": "31e3758e6260530bd41db71f6f7ea614ee6ceba6136b62f20aa62be88960943d",
+    "byteSize": 2192779,
+    "pageCount": 58,
+    "pagesUsed": {
+      "from": 45,
+      "to": 48
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 10",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 10",
+    "code": "MAPEH10",
+    "name": "MAPEH",
+    "description": "Official Grade 10 MAPEH — Physical Education and Health competency records.",
+    "component": "Physical Education and Health"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 45,
+      "sourceLabel": "First Quarter"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 46,
+      "sourceLabel": "Second Quarter"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 47,
+      "sourceLabel": "Third Quarter"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 48,
+      "sourceLabel": "Fourth Quarter"
+    }
+  ],
+  "domains": [
+    {
+      "code": "PH-D01",
+      "name": "Characteristics of an e-Health Literate Individual Examples",
+      "sortOrder": 1
+    },
+    {
+      "code": "PH-D02",
+      "name": "e-Health Skills and Practices Includes Competencies for Mobile Health (Mhealth) and Telemedicine (Telehealth)",
+      "sortOrder": 2
+    },
+    {
+      "code": "PH-D03",
+      "name": "Physical Activity Participation: e-Sports",
+      "sortOrder": 3
+    },
+    {
+      "code": "PH-D04",
+      "name": "Maternal and Child Health (MCH)",
+      "sortOrder": 4
+    },
+    {
+      "code": "PH-D05",
+      "name": "Prevention of Maternal and Child Health Issues",
+      "sortOrder": 5
+    },
+    {
+      "code": "PH-D06",
+      "name": "Physical Activities and Maternal and Child Health",
+      "sortOrder": 6
+    },
+    {
+      "code": "PH-D07",
+      "name": "Physical Activity Participation: Recreational Activities",
+      "sortOrder": 7
+    },
+    {
+      "code": "PH-D08",
+      "name": "Community Health Issues and Concerns Such as but not limited to Healthy Aging, Caring for the Elderly, Coping with Loss and Grief, Building Active Lifestyles, and Nurturing Healthy",
+      "sortOrder": 8
+    },
+    {
+      "code": "PH-D09",
+      "name": "One Health",
+      "sortOrder": 9
+    },
+    {
+      "code": "PH-D10",
+      "name": "Organizing Physical Activities for Community Health",
+      "sortOrder": 10
+    },
+    {
+      "code": "PH-D11",
+      "name": "Physical Activity Participation: Dances Dances of the Traditionalist Communities",
+      "sortOrder": 11
+    },
+    {
+      "code": "PH-D12",
+      "name": "Basic Emergency Care",
+      "sortOrder": 12
+    },
+    {
+      "code": "PH-D13",
+      "name": "Basic Life Support",
+      "sortOrder": 13
+    },
+    {
+      "code": "PH-D14",
+      "name": "Physical Activity Participation: Dances Emerging/Popular Dances",
+      "sortOrder": 14
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-1:item-1",
+      "quarter": 1,
+      "domain": "PH-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe the characteristics of an e-health literate individual;",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-1:item-2",
+      "quarter": 1,
+      "domain": "PH-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "integrate skills and practices to be e-health literate; and",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-1:item-3",
+      "quarter": 1,
+      "domain": "PH-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "manage an e-sports event applying its concepts and principles.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-2:item-1",
+      "quarter": 2,
+      "domain": "PH-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze ways to safeguard the health and well-being of mothers and children;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-2:item-2",
+      "quarter": 2,
+      "domain": "PH-D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "integrate ways to prevent issues affecting mothers and children into family roles and responsibilities;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-2:item-3",
+      "quarter": 2,
+      "domain": "PH-D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss the role of physical activities in safeguarding the health of mothers and children; and",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-2:item-4",
+      "quarter": 2,
+      "domain": "PH-D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "manage outdoor recreational activities applying its concepts, principles, and its required fitness concepts for active living.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-3:item-1",
+      "quarter": 3,
+      "domain": "PH-D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss common community health issues, programs, and laws and policies;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-3:item-2",
+      "quarter": 3,
+      "domain": "PH-D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "integrate the concept of One Health in understanding the interdependence of human, animal, and environmental health;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-3:item-3",
+      "quarter": 3,
+      "domain": "PH-D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "organize physical activities to promote community health; and",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-3:item-4",
+      "quarter": 3,
+      "domain": "PH-D11",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform dances to refine technical and expressive skills using genre and style specific techniques to master movement competence and physical activity participation.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-4:item-1",
+      "quarter": 4,
+      "domain": "PH-D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "integrate basic emergency care as part of first aid knowledge and skills;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-4:item-2",
+      "quarter": 4,
+      "domain": "PH-D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate skills in providing basic life support; and",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mapeh-physical-education-and-health:period-4:item-3",
+      "quarter": 4,
+      "domain": "PH-D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "manipulate combinations of the elements of dance and choreographic devices to communicate their choreographic intent to master movement competence and physical activity participation.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "3a863849c8eb788bd97dc5e1ee6ae278911100d92a4db5c12199493ded20349d"
+  }
+}

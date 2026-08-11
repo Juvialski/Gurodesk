@@ -1,0 +1,578 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-7-science",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Science CG 2023 Grades 3-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Science%20CG%202023%20Grades%203-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "sha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+    "byteSize": 1436380,
+    "pageCount": 72,
+    "pagesUsed": {
+      "from": 46,
+      "to": 49
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 7",
+    "code": "SCIENCE7",
+    "name": "Science",
+    "description": "Official Grade 7 Science competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 46,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 47,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 48,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 49,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Use of models",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Science equipment: the compound microscope",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Balanced and unbalanced forces",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "System models",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "recognize that scientists use models to explain phenomena that cannot be easily seen or detected;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe the Particle Model of Matter as “All matter is made up of tiny particles with each pure substance having its own kind of particles.”;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe that particles are constantly in motion, have spaces between them, attract each other, and move faster as the temperature increases (or with the addition of heat);",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use diagrams and illustrations to describe the arrangement, spacing, and relative motion of the particles in each of the three states (phases) of matter;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain the changes of state in terms of particle arrangement and energy changes: a. solid → liquid → vapor, and b. vapor → liquid → solid;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "follow appropriate steps of a scientific investigation which includes: a. Aim or problem, b. Materials and equipment, c. Method or procedures, d. Results including data, and e. Conclusion.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "make accurate measurements using standard units for physical quantities and organize the collected data when carrying out a scientific investigation;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify the role of the solute and solvent in a solution;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "express quantitatively the amount of solute present in a given volume of solvent;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "demonstrate how different factors affect the solubility of a solute in a given solvent, such as heat;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "identify solutions, which can be found at home and in school and that react with litmus indicator, as acids, bases, and salts; and",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-1:item-12",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "demonstrate proper use and handling of science equipment.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify the parts and functions, and demonstrate proper handling and storing of a compound microscope;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "use proper techniques in observing and identifying the parts of a cell with a microscope such as the cell membrane, nucleus, cytoplasm, mitochondria, and chloroplasts;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "recognize that some organisms consist of a single cell (unicellular) like in bacteria and some consist of many cells (multicellular) like in a human;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "differentiate plant and animal cells based on their organelles;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "recognize that cells reproduce through two types of cell division, mitosis and meiosis, and describe mitosis as cell division for growth and repair;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explain that genetic information is passed on to offspring from both parents by the process of meiosis and fertilization;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "differentiate sexual from asexual reproduction in terms of: a) number of parents involved, and b) similarities of offspring to parents;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "use a labelled diagram to describe the connections between the levels of biological organization to one another from cells to the biosphere;",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "describe the trophic levels of an organism as levels of energy in a food pyramid; and",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "use examples of food pyramids to describe the transfer of energy between organisms from one trophic level to another.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify that forces act between objects and can be measured.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify and describe everyday situations that demonstrate: a. balanced forces such as a box resting on an inclined plane, a man standing still, or an object moving with constant velocity; b. unbalanced forces, such as freely falling fruit or an accelerating car;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "draw a free-body diagram to represent the relative magnitude and direction of the forces involving balanced and unbalanced forces;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify that when forces are not balanced, they can cause changes in the object’s speed or direction of motion;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain the difference between distance and displacement in everyday situations in relation to a reference point;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "distinguish between speed and velocity using the concept of vectors;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe uniform velocity and represent it using distance-time graphs;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain the difference between heat and temperature;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify advantageous and disadvantageous examples of conduction, convection, and radiation;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "explain in terms of the particle model the processes underlying convection and conduction of heat energy; and",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-3:item-11",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "gather information from secondary sources to identify and describe examples of innovative devices that can be used to transform heat energy into electrical energy.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "classify geological faults according to the angle of the fault plane and direction of slip;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "use models or illustrations to explain how movements along faults generate earthquakes and identify and explain which types of faults are most likely to occur in the Philippines and explain why;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe how the effects of earthquakes on communities depend on their magnitude;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-4",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use the PHIVOLCS FaultFinder or other reliable information source to identify where the nearest fault system is located from their community and assess the risk of earthquakes to their local community;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "make models of fault scenarios to illustrate: a. the epicenter of an earthquake from its focus, b. the intensity of an earthquake from its magnitude, and c. how underwater earthquakes may or may not generate tsunamis;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "refer to the local disaster readiness plans to demonstrate what to do during and after an earthquake;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain how earthquakes result in tsunamis that devastate shoreline communities;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "describe procedures that the authorities have in place to alert communities of pending tsunamis and what procedures can be implemented should a tsunami impact a community;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain how energy from the Sun interacts with the atmosphere;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "make a physical model or use drawings to demonstrate how the tilt of the Earth relative to its orbit around the Sun affects the intensity of sunlight absorbed by different areas of Earth over a year;",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-11",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "explain, using models, how the tilt of the Earth affects the changes in the length of daytime at different times of the year; and",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:period-4:item-12",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "explain how solar energy contributes to the occurrence of land and sea breezes, monsoons, and the Intertropical Convergence Zone (ITCZ).",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "8fe9f9899184b56d54aafe21c11b59b53f54015228b7f78a0e44686d2c2a099d"
+  }
+}

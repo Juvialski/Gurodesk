@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-5-mapeh-music-and-arts",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Music and Arts CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Music%20and%20Arts%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "sha256": "df37bef41e2af8c4bf0320b718461948f8e3ddc3687ffb49cd99a1e68e61ea67",
+    "byteSize": 1815357,
+    "pageCount": 98,
+    "pagesUsed": {
+      "from": 38,
+      "to": 45
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 5",
+    "code": "MAPEH5",
+    "name": "MAPEH",
+    "description": "Official Grade 5 MAPEH — Music and Arts competency records.",
+    "component": "Music and Arts"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 38,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 40,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 42,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 44,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "MA-D01",
+      "name": "Theme",
+      "sortOrder": 1
+    },
+    {
+      "code": "MA-D02",
+      "name": "Theme: “Exploring Philippine Music and Arts during the 16th – 17th Century (1521-",
+      "sortOrder": 2
+    },
+    {
+      "code": "MA-D03",
+      "name": "Relevant Choreographic Principles of Dance with Exploration of Movement Vocabulary II. VISUAL ARTS",
+      "sortOrder": 3
+    },
+    {
+      "code": "MA-D04",
+      "name": "Theme: “Exploring Philippine Music and Arts during the 17th – 18th Century (1600-",
+      "sortOrder": 4
+    },
+    {
+      "code": "MA-D05",
+      "name": "C. Dance",
+      "sortOrder": 5
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-1:item-1",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "differentiate evolving early Philippine conventional and contemporary performing and visual arts concepts, processes, and practices;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-1:item-2",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discuss the various forms and functions of the early Philippine performing and visual arts in their locality/province/region;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-1:item-3",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "adapt conventional processes and practices of the early Philippine performing and visual arts in their creative works; and",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-1:item-4",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "evaluate creative works based on identified conventions during the early Philippine performing and visual arts.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-2:item-1",
+      "quarter": 2,
+      "domain": "MA-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "categorize relevant creative works based on the use of mediums, patterns, symbolisms, and other relevant practices (i.e. use of rhythm and tempo; choice of motifs/ symbols, materials, medium, etc.) in their region during the early Philippine period;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-2:item-2",
+      "quarter": 2,
+      "domain": "MA-D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply mediums, patterns, symbolisms, and other relevant practices (i.e. use of rhythm and tempo; choice of motifs/ symbol, materials, medium, etc.) in performing and visual arts during the early Philippine period in the production of creative works;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-2:item-3",
+      "quarter": 2,
+      "domain": "MA-D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "assess sample works based on the personal meanings derived from the early Philippine performing and visual arts; and",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-2:item-4",
+      "quarter": 2,
+      "domain": "MA-D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "adapt early Philippine conventional practices in performing and visual arts using mediums, patterns, symbolisms, and other relevant practices (i.e use of rhythm and tempo; choice of motifs/ symbols, materials, medium, etc.) in the production of creative works.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-3:item-1",
+      "quarter": 3,
+      "domain": "MA-D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "differentiate the relevant changing styles, functions, and conventions in performing and visual arts processes and practices between the early Philippine and 16th – 17th Century;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-3:item-2",
+      "quarter": 3,
+      "domain": "MA-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "determine the styles, and functions of representative works based on the concepts, processes, and practices in performing and visual arts of the 16th – 17th Century;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-3:item-3",
+      "quarter": 3,
+      "domain": "MA-D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "apply the mediums, patterns, forms, and relevant practices in the performing and visual arts in the production of creative works inspired by their locality/province and regions during the 16th – 17th Century; and",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-3:item-4",
+      "quarter": 3,
+      "domain": "MA-D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "examine their creative works based on accepted conventional processes and practices in performing and visual arts during the 16th – 17th Century.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-4:item-1",
+      "quarter": 4,
+      "domain": "MA-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "distinguish relevant concepts, processes, and practices applied in the different performing and visual arts during the 17th – 18th Century in their locality/ province/ region;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-4:item-2",
+      "quarter": 4,
+      "domain": "MA-D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discuss contemporary forms in performing and visual arts inspired by the conventions during 17th – 18th Century;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-4:item-3",
+      "quarter": 4,
+      "domain": "MA-D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "evaluate creative works based on identified conventions during the 17th – 18th Century; and",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-music-and-arts:period-4:item-4",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "adapt conventional processes and practice in performing and visual arts during the 17th – 18th Century in their creative works.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "22bccd18212d801f03bbaf16abf8f30f496d64863656790a3795dc8ecf8ee52a"
+  }
+}

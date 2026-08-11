@@ -1,0 +1,943 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-1-language",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG LANGUAGE CG 2023 Grade 1",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20LANGUAGE%20CG%202023%20Grade%201.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG LANGUAGE CG 2023 Grade 1.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG LANGUAGE CG 2023 Grade 1.pdf",
+    "sha256": "6f2d464b9e04b9c383529a07fb80145cfaa5ef8907177ff3061bb94497b2b683",
+    "byteSize": 1792225,
+    "pageCount": 59,
+    "pagesUsed": {
+      "from": 36,
+      "to": 46
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 1",
+    "code": "LANGUAGE1",
+    "name": "Language",
+    "description": "Official Grade 1 Language competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 36,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 39,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 42,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 45,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Language for Interacting with Others",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Language for Developing and Expressing Ideas",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Appreciating Languages",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Interacting with Texts",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Creating Texts",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Language for",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Expressing Ideas",
+      "sortOrder": 7
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "LANG1LIO-I-1",
+      "text": "Talk about one’s personal experiences. a. oneself and family b. content-specific topics",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "LANG1LIO-I-2",
+      "text": "Participate in classroom interactions using verbal and non-verbal responses. a. Respond to teacher’s one-step instructions b. Ask questions",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": "LANG1LIO-I-3",
+      "text": "Use common and socially acceptable expressions (e.g., greetings, leave-taking). a. Use simple and appropriate personal greetings b. Use familiar terms of address c. Greet and respond appropriately to greetings",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": "LANG1LIO-I-4",
+      "text": "Interact purposely and participate in conversations and discussions in pairs, in groups, or in whole-class discussions. a. Make requests b. Give or offer information c. Communicate needs d. Clarify information e. Seek help f. Take part in or take turns in conversation or discussion",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": "LANG1LIO-I-5",
+      "text": "Share confidently thoughts, preferences, needs, feelings, and ideas with peers, teachers, and other adults.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "LANG1LDEI-I-1",
+      "text": "Express ideas using a variety of symbols (e.g., drawings, emojis, scribbles). a. oneself and family b. content-specific topics",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "LANG1LDEI-I-2",
+      "text": "Use words to represent ideas and events related to oneself and family. a. words that represent people, animals, objects, locations (naming words) b. words that represent activities and situations (action words) c. words that represent qualities or attributes (describing words)",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "LANG1LDEI-I-3",
+      "text": "Use language to express connections between ideas. a. Express compare and contrast b. Express cause and effect c. Use time words to relate ideas",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": "LANG1LDEI-I-4",
+      "text": "Use high-frequency and content-specific words referring to oneself and family.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": "LANG1LDEI-I-5",
+      "text": "Participate in and contribute to group oral language activities (e.g., singing, chanting, sabayang bigkas).",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-11",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "LANG1AL-I-1",
+      "text": "Notice the features (e.g., sounds, intonation, signs) of their first language and other languages in one’s context.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-12",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "LANG1AL-I-2",
+      "text": "Recognize how a change in intonation (volume, pitch) and body language can change the meanings of utterances/expressions. a. Recognize the difference between statements, questions, commands and exclamations. b. Respond to change of tones and cues through facial expressions, gestures and actions",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-13",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "LANG1AL-I-3",
+      "text": "Recognize how language reflects cultural practices and norms. a. Share about the language(s) spoken at home b. Share words and phrases in their language c. Notice how local names of streets, places and landmarks have origins in their language d. Explore local terms for food and their origins.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-14",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": "LANG1IT-I-1",
+      "text": "View and listen to a range of texts for enjoyment and interest.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-15",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": "LANG1IT-I-2",
+      "text": "Recognize icons and symbols in various texts found in familiar contexts (e.g., printed and digital texts, books, magazines, environmental print).",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-16",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": "LANG1IT-I-3",
+      "text": "Engage with or respond to a short spoken texts. a. View or listen to spoken texts b. Identify a variety of purposes for viewing and listening to texts c. Discuss what is interesting or entertaining in a text d. Express personal preferences",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-17",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": "LANG1IT-I-4",
+      "text": "Give reason/s for choosing books/texts for enjoyment and interest.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-18",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": "LANG1CT-I-1",
+      "text": "Record and report ideas and events using some learnt vocabulary. a. Note and describe main points b. Sequence up to three (3) key events c. Relate ideas or events to one’s experience",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-19",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": "LANG1CT-I-2",
+      "text": "Use own words in retelling information from various texts (e.g., legends, fables, and jokes).",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-1:item-20",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": "LANG1CT-I-3",
+      "text": "Draw and discuss information or ideas from a range of text (e.g., stories, images, digital texts). a. Note and describe main points (e.g., main characters and events) c. Infer the character’s feelings and traits d. Predict possible endings e. Relate ideas or events to one’s experience",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "LANG1LIO-II-1",
+      "text": "Talk about one’s personal experiences. a. school b. content-specific topics",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "LANG1LIO-II-2",
+      "text": "Participate in classroom interaction using verbal and non-verbal responses. a. Respond to teacher’s one-step instructions b. Ask questions",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": "LANG1LIO-II-3",
+      "text": "Use common and socially acceptable expressions (e.g., greetings, leave-taking). a. Use simple and appropriate personal greetings b. Use familiar terms of address c. Greet and respond appropriately to greetings",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-4",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": "LANG1LIO-II-4",
+      "text": "Interact purposely and participate in conversations and discussions in pairs, in groups, or in whole-class discussions. a. Make requests b. Offer information c. Communicate needs d. Clarify information e. Seek help f. Take part in or take turns in conversation or discussion",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-5",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": "LANG1LIO-II-5",
+      "text": "Share confidently thoughts, preferences, needs, feelings, and ideas with peers, teachers, and other adults.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-6",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": "LANG1LDEI-II-1",
+      "text": "Express ideas using a variety of symbols (e.g., drawings, emojis, scribbles).",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-7",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": "LANG1LDEI-II-2",
+      "text": "Use words to represent ideas and events related to school. a. words that represent people, animals, objects, locations (naming words) b. words that represent activities and situations (action words) c. words that represent qualities or attributes (describing words)",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-8",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 8,
+      "competencyCode": "LANG1LDEI-II-3",
+      "text": "Use language to express connections between ideas. a. Express compare and contrast b. Express cause and effect c. Use time words to relate ideas",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-9",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 9,
+      "competencyCode": "LANG1LDEI-II-4",
+      "text": "Use high-frequency and content-specific words referring to school.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-10",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 10,
+      "competencyCode": "LANG1LDEI-II-5",
+      "text": "Participate in and contribute to group oral language activities (e.g., singing, chanting, sabayang bigkas).",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-11",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "LANG1AL-II-1",
+      "text": "Notice the features (e.g., sounds, intonation, signs) of their first language and other languages in one’s contexts.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-12",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "LANG1AL-II-2",
+      "text": "Recognize how the change of intonation (volume, pitch, etc.) and body language can change the meanings of utterances/expressions.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-13",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "LANG1AL-II-3",
+      "text": "Recognize how language reflects cultural practices and norms. a. Share about the language(s) spoken at home b. Share words and phrases in their language c. Notice how local names of streets, places and landmarks have origins in their language d. Explore local terms for food and their origins.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-14",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": "LANG1IT-II-1",
+      "text": "View and listen to a range of texts for enjoyment and interest.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-15",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": "LANG1IT-II-2",
+      "text": "Recognize icons and symbols in various texts found in one’s school (e.g., printed and digital texts, books, magazines, environmental print).",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-16",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": "LANG1IT-II-3",
+      "text": "Engage with or respond to a short spoken texts. a. View or listen to spoken texts b. Identify a variety of purposes for viewing and listening to texts c. Discuss what is interesting or entertaining in a text d. Express personal preferences",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-17",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": "LANG1IT-II-4",
+      "text": "Give reason/s for choosing books/texts for enjoyment and interest.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-18",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": "LANG1CT-II-1",
+      "text": "Record and report ideas and events using some learnt vocabulary. a. Note and report main points b. Sequence up to three (3) key events e. Relate ideas or events to one’s experience",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-19",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": "LANG1CT-II-2",
+      "text": "Use own words in retelling information from various texts (e.g., legends, fables, and jokes).",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-2:item-20",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": "LANG1CT-II-3",
+      "text": "Draw and discuss information or ideas from a range of text (e.g., stories, images, digital texts). a. Note and describe main points (e.g., main characters and events) c. Infer the character’s feelings and traits d. Predict possible endings e. Relate ideas or events to one’s experience",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "LANG1LIO-III-1",
+      "text": "Talk about one’s personal experiences. a. community b. content-specific topics",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "LANG1LIO-III-2",
+      "text": "Participate in classroom interactions using verbal and non-verbal responses. a. Respond to teacher’s one-step instructions b. Ask questions",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-3",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": "LANG1LIO-III-3",
+      "text": "Use common and socially acceptable expressions (e.g., greetings, leave-taking). a. Use simple and appropriate personal greetings b. Use familiar terms of address c. Greet and respond appropriately to greetings",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-4",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": "LANG1LIO-III-4",
+      "text": "Interact purposely and participate in conversations and discussions, in pairs, in groups, or in whole-class discussions. a. Make requests b. Offer information c. Communicate needs d. Clarify information e. Seek help f. Take part in or take turns in conversation or discussion",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-5",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": "LANG1LIO-III-5",
+      "text": "Share confidently thoughts, preferences, needs, feelings, and ideas with peers, teachers, and other adults.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-6",
+      "quarter": 3,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": "LANG1LDEI-III-1",
+      "text": "Express ideas using a variety of symbols (e.g., drawings, emojis, scribbles).",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-7",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": "LANG1LDEI-III-2",
+      "text": "Use words to represent ideas and events related to community. a. words that represent people, animals, objects, locations (naming words) b. words that represent activities and situations (action words) c. words that represent qualities or attributes (describing words)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-8",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 8,
+      "competencyCode": "LANG1LDEI-III-3",
+      "text": "Use language to express connections between ideas. a. Express compare and contrast b. Express cause and effect c. Use time words to relate ideas",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-9",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 9,
+      "competencyCode": "LANG1LDEI-III-4",
+      "text": "Use high-frequency and content-specific words referring to community.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-10",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 10,
+      "competencyCode": "LANG1LDEI-III-5",
+      "text": "Participate in and contribute to group oral language activities (e.g., singing, chanting, sabayang bigkas).",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-11",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "LANG1AL-III-1",
+      "text": "Notice the features (e.g., sounds, intonation, signs) of their first language and other languages in one’s context.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-12",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "LANG1AL-III-2",
+      "text": "Recognize how a change in intonation (volume, pitch) and body language can change the meanings of utterances/expressions.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-13",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "LANG1AL-III-3",
+      "text": "Recognize how language reflects cultural practices and norms. a. Share about the language(s) spoken at home b. Share words and phrases in their language c. Notice how local names of streets, places and landmarks have origins in their language d. Explore local terms for food and their origins.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-14",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": "LANG1IT-III-1",
+      "text": "View and listen to a range of texts for enjoyment and interest.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-15",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": "LANG1IT-III-2",
+      "text": "Recognize icons and symbols in various texts found in one’s community (e.g., printed and digital texts, books, magazines, environmental print).",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-16",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": "LANG1IT-III-3",
+      "text": "Engage with or respond to a short spoken texts. a. View or listen to spoken texts b. Identify a variety of purpose for listening to texts c. Discuss what is interesting or entertaining in a text d. Express personal preference",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-17",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": "LANG1IT-III-4",
+      "text": "Give reason/s for choosing books/texts for enjoyment and interest.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-18",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": "LANG1CT-III-1",
+      "text": "Record and report ideas and events using some learnt vocabulary. a. Note and report main points b. Sequence up to three (3) key events c. Relate ideas or events to one’s experience",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-19",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": "LANG1CT-III-2",
+      "text": "Use own words to retell information from various texts (e.g., legends, fables, and jokes).",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-3:item-20",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": "LANG1CT-III-3",
+      "text": "Draw and discuss information or ideas from a range of text (e.g., stories, images, digital texts). a. Note and describe main points (e.g., main characters and events) c. Infer the character’s feelings and traits d. Predict possible endings e. Relate ideas or events to one’s experience",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "LANG1LIO-IV-1",
+      "text": "Talk about one’s personal experiences. a. environment b. content-specific topics",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "LANG1LIO-IV-2",
+      "text": "Participate in classroom interactions using verbal and non-verbal responses. a. Respond to teacher’s one-step instructions b. Ask questions",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-3",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": "LANG1LIO-IV-3",
+      "text": "Use common and socially acceptable expressions (e.g., greetings, leave-taking). a. Use simple and appropriate personal greetings b. Use familiar terms of address c. Greet and respond appropriately to greetings",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-4",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": "LANG1LIO-IV-4",
+      "text": "Interact purposely and participate in conversations and discussions, in pairs, in groups, or during whole-class discussions a. Make requests b. Offer information c. Communicate needs d. Clarify information e. Seek help f. Take part in or take turns in conversation or discussion",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-5",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": "LANG1LIO-IV-5",
+      "text": "Share confidently thoughts, preferences, needs, feelings, and ideas with peers, teachers, and other adults.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-6",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": "LANG1LDEI-IV-1",
+      "text": "Express ideas using a variety of symbols (e.g. drawings, emojis, scribbles).",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-7",
+      "quarter": 4,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": "LANG1LDEI-IV-2",
+      "text": "Use words to represent ideas and events related to environment. a. words that represent people, animals, objects, locations (naming words) b. words that represent activities and situations (action words) c. words that represent qualities or attributes (describing words)",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-8",
+      "quarter": 4,
+      "domain": "D07",
+      "sortOrder": 8,
+      "competencyCode": "LANG1LDEI-IV-3",
+      "text": "Use language to express connections between ideas. a. Express compare and contrast b. Express cause and effect c. Use time words to relate ideas",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-9",
+      "quarter": 4,
+      "domain": "D07",
+      "sortOrder": 9,
+      "competencyCode": "LANG1LDEI-IV-4",
+      "text": "Use high-frequency and content-specific words referring to environment.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-10",
+      "quarter": 4,
+      "domain": "D07",
+      "sortOrder": 10,
+      "competencyCode": "LANG1LDEI-IV-5",
+      "text": "Participate in and contribute to group oral language activities (e.g., singing, chanting, sabayang bigkas).",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-11",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "LANG1AL-IV-1",
+      "text": "Notice the features (e.g., sounds, intonation, signs) of their first language and other languages in one’s context.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-12",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "LANG1AL-IV-2",
+      "text": "Recognize how a change in intonation (volume, pitch, etc.) and body language can change the meanings of utterances/expressions.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-13",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "LANG1AL-IV-3",
+      "text": "Recognize how language reflects cultural practices and norms. a. Share about the language(s) spoken at home b. Share words and phrases they know in their language c. Notice how local names of streets, places and landmarks have origins in their language d. Explore local terms for food and their origins.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-14",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": "LANG1IT-IV-1",
+      "text": "View and listen to a range of texts for enjoyment and interest.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-15",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": "LANG1IT-IV-2",
+      "text": "Recognize icons and symbols in various texts found in one’s environment (e.g., printed and digital text, books, magazines, environmental print).",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-16",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": "LANG1IT-IV-3",
+      "text": "Engage with or respond to a short spoken texts. a. View or listen to spoken texts b. Identify a variety of purpose for listening to texts c. Discuss what is interesting or entertaining in a text d. Express personal preference",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-17",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": "LANG1IT-IV-4",
+      "text": "Give reason/s for choosing books/texts for enjoyment and interest.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-18",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": "LANG1CT-IV-1",
+      "text": "Record and report ideas and events using some learnt vocabulary. a. Note and report main points (e.g., main characters and events) in a story, text or interaction b. Sequence up to three (3) key events c. Relate ideas or events to one’s experience.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-19",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": "LANG1CT-IV-2",
+      "text": "Use own words in retelling information from various texts (e.g., legends, fables, and jokes).",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:period-4:item-20",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": "LANG1CT-IV-3",
+      "text": "Draw and discuss information or ideas from a range of text (e.g., stories, images, digital texts). a. Note and describe main points (e.g., main characters and events) c. Infer the character’s feelings and traits d. Predict possible endings e. Relate ideas or events to one’s experience",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "5027df125e3e1f3981077a5d1f032006d9d945da6237809a9bc923d39b4aea32"
+  }
+}

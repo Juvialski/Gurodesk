@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-4-mapeh-music-and-arts",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Music and Arts CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Music%20and%20Arts%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "sha256": "df37bef41e2af8c4bf0320b718461948f8e3ddc3687ffb49cd99a1e68e61ea67",
+    "byteSize": 1815357,
+    "pageCount": 98,
+    "pagesUsed": {
+      "from": 30,
+      "to": 36
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 4",
+    "code": "MAPEH4",
+    "name": "MAPEH",
+    "description": "Official Grade 4 MAPEH — Music and Arts competency records.",
+    "component": "Music and Arts"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 30,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 32,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 34,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 36,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "MA-D01",
+      "name": "Theme: “My Cultural Identity and My Province” Relevant Local Forms, Themes, Representation, Mediums, And Practices in Music and Arts",
+      "sortOrder": 1
+    },
+    {
+      "code": "MA-D02",
+      "name": "Theme: “Influences of Faiths and Beliefs in the Province on Music and Arts” Relevant Local Forms, Themes, Representation, Mediums, And Practices in Music and Arts",
+      "sortOrder": 2
+    },
+    {
+      "code": "MA-D03",
+      "name": "Relevant Elements of Artistic Expression with local context II. Visual Arts",
+      "sortOrder": 3
+    },
+    {
+      "code": "MA-D04",
+      "name": "Theme: “Legends and Folklore of the Province and/or Region” Relevant Local Forms, Themes, Representation, Mediums, and Practices in Music and Arts",
+      "sortOrder": 4
+    },
+    {
+      "code": "MA-D05",
+      "name": "Theme: “Celebrations in my Province and Region” Relevant Local Forms, Themes, Representation, Mediums, and Practices in Music and Arts",
+      "sortOrder": 5
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-1:item-1",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the basic concepts and principles of sound, theater, dance and visual elements based on the representations in the creative works of their province;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-1:item-2",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe concepts and ideas about their cultural identity based on the representations in the creative works of their province;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-1:item-3",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain relevant and/or unique local processes and practices in producing/ performing creative works that reveal their cultural identity; and",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-1:item-4",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use relevant, and appropriate local processes and practices in producing/ performing creative works that reveal their cultural identity.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-2:item-1",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the basic concepts and principles of sound, theater, dance and visual elements based on the representations of local creative works;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-2:item-2",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "relate their faiths and beliefs based on the representations of local creative works with basic concepts and principles of sound, theater, dance and visual elements;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-2:item-3",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "compare the musical, theatrical, dance, and visual arts representations of local concepts (i.e. rhythm and tempo, use of colors and symbols) in relevant creative works based on the faiths and beliefs of the province;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-2:item-4",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "experiment with relevant, appropriate, and available local processes and musical/improvised instruments, theatrical, dance and art materials in producing/ performing creative works that reveal their faiths and beliefs; and",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-2:item-5",
+      "quarter": 2,
+      "domain": "MA-D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "produce simple improvisations (rhythm and tempo, theatrical, dance, and visual) with faiths and beliefs as the theme.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-3:item-1",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the use of the properties of sound, theatrical, dance and visual elements as expressed in relevant creative works;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-3:item-2",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "relate stories/ narratives as expressed in relevant creative works to properties of sound, theatrical, dance and visual elements;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-3:item-3",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "determine cultural identity based on the concepts, processes and practices in the sound, theater, dance and visual art of their respective provinces; and",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-3:item-4",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "produce a creative work about their personal story/identity in the community using appropriate local concepts, processes and practices in sound, theater, dance and visual art.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-4:item-1",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "examine the properties of sound, theatrical, dance, visual elements, and design principles observed in selected sample creative works from their province;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-4:item-2",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "distinguish the unique sound, visual, dance and theatrical concepts, processes, and practices in the creative works found in the cultural celebrations of their province/region;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-4:item-3",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "select appropriate practices, choice of themes, mediums, and concepts of celebrations found in their province/region for the production of their creative works; and",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-music-and-arts:period-4:item-4",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "produce creative works based on the celebrations of their culture, province, region using available local concepts, processes and practices, and beliefs as the theme.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "e4d4b4478029859bd2cbf866c1480166bdcd93b9b3f135fb0ea47bd4c72fc186"
+  }
+}

@@ -1,0 +1,573 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-kindergarten-kindergarten",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Kindergarten CG 2023",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Kindergarten%20CG%202023.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Kindergarten CG 2023.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Kindergarten CG 2023.pdf",
+    "sha256": "c357055be32435180c0af2536b18601e4602ac6ecc743fb24d881b7b633e1155",
+    "byteSize": 984841,
+    "pageCount": 37,
+    "pagesUsed": {
+      "from": 18,
+      "to": 23
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Kindergarten",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Kindergarten",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Kindergarten",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Kindergarten",
+    "code": "KINDERGARTENK",
+    "name": "Kindergarten",
+    "description": "Official Kindergarten Kindergarten competency records."
+  },
+  "periods": [
+    {
+      "label": "Theme I",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 18,
+      "sourceLabel": "Theme I"
+    },
+    {
+      "label": "Theme II",
+      "sequence": 2,
+      "periodType": "term",
+      "sourcePage": 20,
+      "sourceLabel": "Theme II"
+    },
+    {
+      "label": "Theme III",
+      "sequence": 3,
+      "periodType": "term",
+      "sourcePage": 22,
+      "sourceLabel": "Theme III"
+    },
+    {
+      "label": "Theme IV",
+      "sequence": 4,
+      "periodType": "term",
+      "sourcePage": 23,
+      "sourceLabel": "Theme IV"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "recognize oneself as a member of a family;",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "express oneself through music, arts, and movement;",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "demonstrate ability to respond appropriately in different situations and events;",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "demonstrate locomotor and non-locomotor movements;",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "recognize one’s rights as a child;",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "create artworks using local and available materials;",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "identify one’s given name, friends' names, their family members, and common things they use that are found at home;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "produce the sound of the letter it stands for;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "write the letters of the alphabet in uppercase and lowercase form;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "narrate one’s personal experiences;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "use polite greetings and courteous expressions in appropriate situations;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-12",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "identify the body parts and their functions;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-13",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "describe objects based on attributes (shapes, sizes, uses, etc.) using senses and body parts;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-14",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "practice ways of caring for and protecting one’s body;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-15",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "use communication tools properly and technology appropriately;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-16",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "match numerals to a set of concrete objects around me;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-17",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "compare quantities using one to one correspondence to determine which has more, less, or equal;",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-18",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "use non-standard measuring tools.",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-19",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "demonstrate respectful attitude towards oneself, parents, and other members of the family; and",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-20",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "recognize the importance of having a positive attitude in dealing with different circumstances.",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "follow rules and regulations in going to different places;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate proper ways of caring and protecting one’s community;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "recognize that sounding off letters form words;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-4",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify familiar sounds in the environment;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-5",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe the different places and persons belonging in one’s community;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-6",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "give the correct sequence of events in a local text listened to;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-7",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "tell the names of the days in a week and months in a year;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-8",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "recognize different modes of transportation on land, water, and air used in the community;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-9",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "classify common objects in the environment according to colors and shapes;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-10",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "create own patterns using local concrete objects;",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-11",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "identify the positions (in, on, over, under, top, and bottom) and directions (left and right, front and back) of objects in one’s environment;",
+      "sourcePage": 21,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-2:item-12",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "demonstrate proper behavior in various situations and places in the community.",
+      "sourcePage": 21,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "show appreciation of one’s culture and traditions;",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "participate in dialogues or conversations about familiar events;",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-3:item-3",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify solutions to a problem based on a local text listened to;",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-3:item-4",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "appreciate the natural and physical environment in the country;",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-3:item-5",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "apply basic mathematical operations (formal and non-formal applications) using locally available materials; and",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-3:item-6",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "recognize Philippine coins and bills and their importance; and",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-3:item-7",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "show respect and concern for our country.",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "show ways of caring for and protecting our environment;",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "predict outcomes based on any given situation;",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-4:item-3",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "observe the changes in the weather daily (temperature, time, etc.);",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-4:item-4",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "classify objects based on observable properties;",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-4:item-5",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "demonstrate preparedness during emergencies and disasters;",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-4:item-6",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "create visual representations of simple concepts (pictographs, pictures, illustrations, etc.); and",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:period-4:item-7",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "demonstrate awareness of uniqueness including but not limited to language, gender, color, culture (dress, habits, beliefs and faith, etc.), status in life, ability.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "716db9c71d9ca9e3368a7c98a162dad57089a34813227f1cd6f3b783f0a27d36"
+  }
+}

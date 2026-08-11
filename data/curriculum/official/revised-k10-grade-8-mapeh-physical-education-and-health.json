@@ -1,0 +1,347 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-8-mapeh-physical-education-and-health",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG PE and Health CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20PE%20and%20Health%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "sha256": "31e3758e6260530bd41db71f6f7ea614ee6ceba6136b62f20aa62be88960943d",
+    "byteSize": 2192779,
+    "pageCount": 58,
+    "pagesUsed": {
+      "from": 37,
+      "to": 40
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 8",
+    "code": "MAPEH8",
+    "name": "MAPEH",
+    "description": "Official Grade 8 MAPEH — Physical Education and Health competency records.",
+    "component": "Physical Education and Health"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 37,
+      "sourceLabel": "First Quarter"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 38,
+      "sourceLabel": "Second Quarter"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 39,
+      "sourceLabel": "Third Quarter"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 40,
+      "sourceLabel": "Fourth Quarter"
+    }
+  ],
+  "domains": [
+    {
+      "code": "PH-D01",
+      "name": "Healthy and Positive Sexuality",
+      "sortOrder": 1
+    },
+    {
+      "code": "PH-D02",
+      "name": "Nature of Sexually Transmitted Infections Examples",
+      "sortOrder": 2
+    },
+    {
+      "code": "PH-D03",
+      "name": "Physical Activity Participation: Striking/Fielding Games",
+      "sortOrder": 3
+    },
+    {
+      "code": "PH-D04",
+      "name": "Characteristics of Friendships, Long-Term Commitments, Marriage, and Parenting Based on Love, Trust, and Respect",
+      "sortOrder": 4
+    },
+    {
+      "code": "PH-D05",
+      "name": "Appropriate Ways to Show Affection Respecting Personal Boundaries and Asking for Consent Before Showing Affection",
+      "sortOrder": 5
+    },
+    {
+      "code": "PH-D06",
+      "name": "Safe and Respectful Environment Promotion in all Physical Activity Settings",
+      "sortOrder": 6
+    },
+    {
+      "code": "PH-D07",
+      "name": "Physical Activity Participation: Net/Wall Games",
+      "sortOrder": 7
+    },
+    {
+      "code": "PH-D08",
+      "name": "Psychoactive Substances",
+      "sortOrder": 8
+    },
+    {
+      "code": "PH-D09",
+      "name": "Substance Use Prevention Interventions across Settings",
+      "sortOrder": 9
+    },
+    {
+      "code": "PH-D10",
+      "name": "Psychoactive Substances and Physical Activity Participation",
+      "sortOrder": 10
+    },
+    {
+      "code": "PH-D11",
+      "name": "Physical Activity Participation: Dances Dances of the Northern Highlands",
+      "sortOrder": 11
+    },
+    {
+      "code": "PH-D12",
+      "name": "Factors that Influence Consumer Behavior",
+      "sortOrder": 12
+    },
+    {
+      "code": "PH-D13",
+      "name": "Strategies in Evaluating Health Information, Health Products and Health Services Examples",
+      "sortOrder": 13
+    },
+    {
+      "code": "PH-D14",
+      "name": "Types of Quackery and Their Associated Risks Examples: Medical, Nutrition, Device, Beauty, and Fitness",
+      "sortOrder": 14
+    },
+    {
+      "code": "PH-D15",
+      "name": "Physical Activity Participation: Dances Social and Ballroom Dances",
+      "sortOrder": 15
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-1:item-1",
+      "quarter": 1,
+      "domain": "PH-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the importance of values in building a healthy and positive sexuality and preventing gender-based issues;",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-1:item-2",
+      "quarter": 1,
+      "domain": "PH-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discuss sexually transmitted infections and their preventive measures;",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-1:item-3",
+      "quarter": 1,
+      "domain": "PH-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "perform physical activities by applying principles and concepts of striking/fielding games to solve tactical problems for active living; and",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-1:item-4",
+      "quarter": 1,
+      "domain": "PH-D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "execute appropriate skills of sports and the required fitness abilities of chosen striking/fielding games in responding to tactical problems.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-2:item-1",
+      "quarter": 2,
+      "domain": "PH-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the characteristics of friendships, long-term commitments, marriage, and parenting;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-2:item-2",
+      "quarter": 2,
+      "domain": "PH-D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "evaluate the various ways to show affection in relationships;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-2:item-3",
+      "quarter": 2,
+      "domain": "PH-D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "demonstrate effective self-regulation skills to avoid inappropriate or non-consensual physical contact in all physical activity participation;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-2:item-4",
+      "quarter": 2,
+      "domain": "PH-D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform safely physical activities by applying principles and concepts of net/wall games to solve tactical problems for active living; and",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-2:item-5",
+      "quarter": 2,
+      "domain": "PH-D07",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "execute safely appropriate skills of sports and the required fitness abilities of chosen net/wall games in responding to tactical problems.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-3:item-1",
+      "quarter": 3,
+      "domain": "PH-D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the nature, general effects of and preventive measures against the use of psychoactive substances;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-3:item-2",
+      "quarter": 3,
+      "domain": "PH-D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "evaluate interventions, laws, and policies to prevent the use of psychoactive substances;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-3:item-3",
+      "quarter": 3,
+      "domain": "PH-D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze how psychoactive substances can affect physical activity participation; and",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-3:item-4",
+      "quarter": 3,
+      "domain": "PH-D11",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "practice technical and expressive skills to develop proficiency in genre and style-specific techniques to enhance movement competence and physical activity participation.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-4:item-1",
+      "quarter": 4,
+      "domain": "PH-D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss ways to be an informed consumer;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-4:item-2",
+      "quarter": 4,
+      "domain": "PH-D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "examine health information, health products, health services, and health care providers;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-4:item-3",
+      "quarter": 4,
+      "domain": "PH-D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze various forms of quackery and fraudulent health services and their associated risks; and",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-physical-education-and-health:period-4:item-4",
+      "quarter": 4,
+      "domain": "PH-D15",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform dances using genre and style specific techniques, expressive skills, and choreographic intents to enhance movement competence and physical activity participation.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "44e14bd88d88afbfb44f041ab52d0847a96b9bc6bc656023e89e46322d1975df"
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-leadership-and-management-in-the-arts",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Leadership and Management in the Arts",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1lijU3qn88_WPHTIIKqUNIs2IPg74pCy2/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Leadership-and-Mangement-in-the-Arts.pdf",
+    "fileId": "1lijU3qn88_WPHTIIKqUNIs2IPg74pCy2",
+    "sha256": "88cfcda088ba88e44a011e244c94601c9fd247c7e79168d9f011f410aa4a11d0",
+    "byteSize": 413150,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "LEADERSHIP-AND-MAN11",
+    "name": "Leadership and Management in the Arts",
+    "description": "Official Grade 11 Leadership and Management in the Arts competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Management Basics",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Arts Production",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Production Brief",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "A. Production Meeting",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "C. Evaluation of Production Resources and Processes:",
+      "sortOrder": 5
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze the key functions of management and their application in arts organizations, productions, and events",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "assess the internal and external conditions influencing the planning and execution of an artistic production",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "create a production management plan that outlines objectives, resource allocation, staffing, logistics, and evaluation strategies",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:period-2:item-1",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "apply management skills and techniques to execute the production plan",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:period-2:item-2",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "evaluate the production by identifying the strengths and areas of improvement",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "bc705efaeeed5c58c83f9559fb7b51cd87e2d48bcef7d1804aff98a9f2b22b1f"
+  }
+}

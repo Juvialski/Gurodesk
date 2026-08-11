@@ -1,0 +1,521 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-8-values-education",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG GMRC and VE CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20GMRC%20and%20VE%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "sha256": "0d32f2ecdec894ac1b837244b857d4823ed2806a11e3fe456cb2a5d2c7f7fcfa",
+    "byteSize": 2540394,
+    "pageCount": 296,
+    "pagesUsed": {
+      "from": 213,
+      "to": 240
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 8",
+    "code": "VALUES-EDUCATION8",
+    "name": "Values Education",
+    "description": "Official Grade 8 Values Education competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 213,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 220,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 227,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 234,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Kamalayan sa mga Emosyong Nararamdaman",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Positibong Pananaw Gabay ang Pamilya",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Pakikipagkapuwa-tao",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pananampalataya Bilang Gabay sa Pag-iingat sa Sarili",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Mga Sariling Paraan ng Pagdakila sa Diyos",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Pamumuhay ng Payak Bilang Pansariling Pag-iingat sa Kalikasan",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Sariling Pag-iimpok at Pagtitipid Upang Makatulong sa Pamayanan",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Tungkulin ng Pamilya sa Edukasyon ng Bata",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Mga Pagsubok sa Pamilya",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Pagbibigay-halaga sa Kabutihang Dulot ng Pamilya",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Pagiging Mapagpasalamat sa Diyos sa Tulong ng Pamilya at Kapuwa",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Pagkilala sa Presensiya ng Diyos sa Loob ng Pamilya",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Mga Tugon ng Pamilya sa mga Pangangailangang Pisyolohikal na may Pagsasaalang-alang sa Kalikasan",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Paggunita ng Pamilya sa mga Makasaysayang Pagdiriwang",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Kadalisayan sa Salita at Gawa sa Pakikipagkapuwa",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Pamamahala ng Ugnayan sa Panahon ng Hindi Pagkakaunawaan sa Kapuwa",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Positibong Pananaw sa Seksuwalidad ng Sarili at Kapuwa",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Pakikipag-ugnayan sa Kapuwa sa Kabila ng Pagkakaiba-iba sa Paniniwala o Relihiyon",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Pagkalinga sa Kapuwa Bilang Indikasyon ng Pananampalataya",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Pangangalaga sa mga Hayop Katuwang ang Kapuwa",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Ang Pilipino Bilang Kapuwa Mamamayan ng Daigdig",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Paglinang ng Positibong Disposisyon Bilang Mamamayan",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Paggamit ng Kalayaan sa Mapanagutang Pagsunod sa mga Alituntunin sa Bayan",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Makataong Pakikipag-ugnayan",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "Pagtupad sa mga Gampanin ng Kinabibilangang Relihiyon o Paniniwala",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Pagiging Bukas-palad sa Kapuwa Bilang Salamin ng Pananampalataya",
+      "sortOrder": 26
+    },
+    {
+      "code": "D27",
+      "name": "Pagtugon ng mga Mamamayan sa mga Nanganganib na Maubos na Hayop at Halaman (Endangered Species)",
+      "sortOrder": 27
+    },
+    {
+      "code": "D28",
+      "name": "Pakikilahok ng Pamilya sa mga Gawaing Pangkapayapaan ng Bayan",
+      "sortOrder": 28
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa maingat na paghusga sa pamamagitan ng pagninilay sa kamalayan sa mga emosyong nararamdaman, kilos, pag-iisip, at reaksiyon ng katawan a. Naiisa-isa ang mga indikasyon ng pagkakaroon ng kamalayan sa mga emosyong nararamdaman b. Napatutunayan na ang emosyong nararamdaman ay nakatutulong upang lubos na makilala ang sarili at makatugon nang wasto sa mga nararamdaman sa bawat situwasyon tungo sa pagpapaunlad ng sarili at ugnayan sa kapuwa c. Naipakikita ang pagkilala sa mga emosyong nararamdaman",
+      "sourcePage": 213,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging matatag sa pamamagitan ng mga gawaing nagpapakita ng pagpapahalaga sa mga positibong pananaw gabay ang pamilya a. Nailalarawan ang positibong pananaw gabay ang pamilya b. Naipaliliwanag na ang positibong pananaw gabay ang pamilya ay may impluwensiya sa kalusugang pangkaisipan at pangkatawan, na nagsisilbing kanlungan sa lahat ng panahon at ito ang naglilinang ng katatagan c. Naisasakilos ang mga gawain na nagpapahalaga sa mga positibong pananaw gabay ang pamilya",
+      "sourcePage": 214,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagmalasakit sa pamamagitan ng pagiging sensitibo at wastong pagtugon sa pangangailangan ng kapuwa a. Nailalarawan ang mga paraan ng pakikipagkapuwa bilang isang kabataan b. Naipaliliwanag na ang pakikipagkapuwa-tao ay nakaugat sa kalikasan ng tao bilang panlipunang nilalang at naglilinang ng kaniyang kaganapan bilang tao sa pamamagitan ng paglilingkod sa kapuwa na indikasyon ng pagmamahal c. Nailalapat ang mga paraan ng pakikipagkapuwa bilang isang kabataan",
+      "sourcePage": 215,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa paggalang sa buhay sa pamamagitan ng pag-iwas sa mga gawain at ugnayan na nakasasama sa katawan a. Natutukoy ang mga paraan ng pag-iingat sa sarili gabay ang pananampalataya b. Naipaliliwanag na ang pananampalataya bilang gabay sa pag-iingat sa sarili ay pagpapanatili ng ugnayan sa Diyos at pagtiyak upang lubos na mapahalagahan ang buhay at makamit ang layunin ng kaniyang pagkalikha c. Naisasakilos ang mga paraan ng pag-iingat sa sarili gabay ang pananampalataya",
+      "sourcePage": 216,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagpasalamat sa pamamagitan ng pagpapahayag ng mga papuri at kabutihan ng Diyos batay sa relihiyon o paniniwalang kinabibilangan a. Naiisa-isa ang mga sariling paraan ng pagdakila sa Diyos b. Naipaliliwanag na ang mga sariling paraan ng pagdakila sa Diyos ay pagkilala sa Kaniya at pagpapasalamat sa lahat ng mga biyayang tinatamasa c. Nakapaglalapat ng mga sariling paraan ng pagdakila sa Diyos batay sa relihiyon o paniniwalang kinabibilangan",
+      "sourcePage": 217,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakapagsasanay ng kapayakan sa pamamagitan ng pagbibigay-priyoridad sa mga pangangailangan kaysa sa kagustuhan a. Nakapagpapahayag ng mga paraan ng payak na pamumuhay bilang pansariling pag-iingat sa kalikasan b. Nahihinuha na ang payak na pamumuhay at wastong pagkunsumo ay kailangan bilang pakikiisa ng tao sa pag-iingat sa kalikasan c. Naisasakilos ang mga paraan ng payak na pamumuhay bilang pansariling pag-iingat sa kalikasan",
+      "sourcePage": 218,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagmalasakit sa pamamagitan ng pakikisangkot sa mga gawaing nagtatampok ng pagtitipid at pag-iimpok upang makatulong sa pamayanan (hal. pagbibigay ng mga lata, bote, pahayagan na maaaring ibenta) a. Naiisa-isa ang mga paraan ng sariling pag-iimpok at pagtitipid upang makatulong sa pamayanan ayon sa kakayahan b. Naipaliliwanag na ang sariling pag-iimpok at pagtitipid upang makatulong sa pamayanan ay aktibong pakikibahagi sa pagpapabuti ng kalagayan ng mga mamamayan at pagtugon sa kanilang mga pangangailangan c. Nailalapat ang mga paraan ng sariling pag-iimpok at pagtitipid upang makatulong sa pamayanan ayon sa kakayahan",
+      "sourcePage": 219,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-2:item-1",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging masipag sa pamamagitan ng paggawa hanggang matapos ang mga itinakdang gawain sa pag-aaral sa kabila ng mga hamon/limitasyon a. Naiisa-isa ang mga tungkulin ng pamilya sa edukasyon ng bawat bata b. Naipaliliwanag na ang tungkulin ng pamilya sa edukasyon ng bata ay paunlarin ang mga kaalaman, kasanayan, at pagpapahalaga ng bawat bata tungo sa matagumpay at makabuluhang buhay na ginagabayan ng katotohanan at kabutihan c. Nailalapat ang mga tungkulin sa sariling edukasyon bilang pagtugon sa tungkulin ng pamilya",
+      "sourcePage": 220,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-2:item-2",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging matatag sa pamamagitan ng pagtataglay ng positibong pananaw sa buhay at pagtulong sa sarili na malampasan ang mga pinagdaraanang pagsubok a. Natutukoy ang mga pagsubok sa pamilya b. Napatutunayan na ang mga pagsubok sa pamilya ay kailangang unawain at matanggap upang magsilbing inspirasyon at gabay sa hinaharap c. Nakapaglalapat ng mga wastong pagtugon sa mga nararanasang pagsubok sa pamilyang kinabibilangan",
+      "sourcePage": 221,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-2:item-3",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagpasalamat sa pamamagitan ng palagiang pagdiriwang ng mga munting tagumpay na nakamit sa tulong ng mga positibong katangian ng pamilyang kinabibilangan a. Nakakikilala sa mga kabutihang dulot ng pamilya sa sarili b. Naipaliliwanag na ang pagbibigay-pansin at halaga sa kabutihang dulot ng pamilya ay nakatutulong upang lubos na maunawaan ang sarili c. Nailalapat ang mga sariling paraan ng pagbibigay-halaga sa mga kabutihang dulot ng pamilya",
+      "sourcePage": 222,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-2:item-4",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagkumbaba sa pamamagitan ng paggawa ng kabutihan sa kapuwa bilang indikasyon ng pasasalamat sa Diyos a. Nakapagpapahayag ng mga paraan ng pasasalamat sa Diyos mula sa natutuhan sa pamilya at kapuwa b. Naipaliliwanag na ang pagiging mapagpasalamat sa Diyos sa tulong ng pamilya at kapuwa ay pagkilala sa biyayang tinatamasa c. Nailalapat ang mga paraan ng pasasalamat sa Diyos na natutuhan mula sa pamilya at kapuwa",
+      "sourcePage": 223,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-2:item-5",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pananampalataya sa pamamagitan ng pagkilala sa presensiya ng Diyos sa kinabibilangang pamilya a. Nakakikilala ng mga situwasyon na indikasyon ng presensiya ng Diyos sa loob ng pamilya b. Napatutunayan na ang presensiya ng Diyos sa loob ng pamilya ay makikita sa kapayapaan, katatagan at pagmamahalan sa loob ng pamilya c. Nailalapat ang mga paraan ng pagkilala sa presensiya ng Diyos sa loob ng pamilya",
+      "sourcePage": 224,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-2:item-6",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapamaraan (resourceful) sa pamamagitan ng pagtatanim, pagbuburo at iba pang kaugnay na gawain nang may pagsasaalang-alang sa kalikasan a. Natutukoy ang mga tugon ng pamilya sa mga pangangailangang pisyolohikal ( hal. pagtatanim ng gulay, pagbuburo, at iba pang kaugnay na gawain) b. Naipaliliwanag na ang mga tugon ng pamilya sa mga pangagailangang pisyolohikal gaya ng pagtatanim, pagbuburo at iba pang kaugnay na gawain, bilang pinagkukunan ng pagkain ay paraan upang matugunan ang kanilang pangangailangan gamit ang kakayahan at taglay na resorses. c. Naisasakilos ang mga paraan sa pagtugon ng pamilya sa mga pangangailangang pisyolohikal na may pagsasaalang-alang sa kalikasan",
+      "sourcePage": 225,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-2:item-7",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa nasyonalismo sa pamamagitan ng paghahalaw ng mga virtue na ipinakita ng mga bayani at nasasalamin sa mga makasaysayang pagdiriwang a. Nakakikilala ng mga paraan sa paggunita ng pamilya sa mga makasaysayang pagdiriwang b. Naipaliliwanag na ang paggunita ng pamilya sa mga makasaysayang pagdiriwang ay nakapagpapaunlad ng kamalayan sa mga kabayanihan ng mga magiting na Pilipino at mahahalagang pangyayari upang bigyang-pugay ang mga ambag ng mga ito sa bansa c. Nailalapat ang sariling mga paraan ng paggunita ng pamilyang kinabibilangan sa mga makasaysayang pagdiriwang ayon sa kanilang kakayahan",
+      "sourcePage": 226,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-3:item-1",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging matapat sa pamamagitan ng pagtutugma ng salita at kilos ayon sa damdamin at iniisip ngkapuwa na may pagsasaalang-alang sa kahihinatnan nito a. Natutukoy ang mga paglabag sa pagiging totoo sa salita at gawa sa kapuwa (hal. pagsisinungaling, hindi pagtupad sa pangako at tungkulin) b. Naipaliliwanag na ang kadalisayan sa salita at gawa sa pakikipagkapuwa ay patunay ng pagkakaroon ng pananagutan sa katotohanan at mabuting konsensiya, na ang layunin ay ibigay sa kapuwa ang nararapat bilang paggalang sa kaniyang dignidad c. Nailalapat ang mga kilos ng pagiging totoo sa salita at gawa sa kapuwa",
+      "sourcePage": 227,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-3:item-2",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagpasensiya sa pamamagitan ng pagsasagawa ng mga paraan ng positibong pagpapayapa ng isip at damdamin a. Nakapagpapahayag ng mga wastong paraan ng pamamahala ng ugnayan kapag may hindi pagkakaunawaan sa kapuwa b. Naipaliliwanag na ang pamamahala ng ugnayan sa panahon ng hindi pagkakaunawaan sa kapuwa ay mahalaga para maisalba ang mabuting ugnayan at mapairal ang kahinahunan upang makaiwas mula sa mga hindi inaasahang kahihinatnan c. Naisasakilos ang mga wastong paraan ng pamamahala ng ugnayan kapag may hindi pagkakaunawaan sa kapuwa",
+      "sourcePage": 228,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-3:item-3",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging magalang sa pamamagitan ng panghihikayat sa mga kamag-aral na isabuhay ang positibong pananaw sa seksuwalidad a. Nakakikilala ng iba’t ibang pananaw sa seksuwalidad b. Naipaliliwanag na ang positibong pananaw sa seksuwalidad ng sarili at kapuwa ay mahalaga sa pagbuo ng sariling pagkakakilanlan at paggalang sa kapuwa c. Nakapaglalapat ng mga paraan sa pagpapanatili ng positibong pag-iisip tungkol sa seksuwalidad ng sarili at kapuwa",
+      "sourcePage": 229,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-3:item-4",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging magalang sa pamamagitan ng angkop na pagtugon kapag pinag-uusapan ang mga pagkakaiba-iba sa paniniwala ng iba’t ibang paniniwala o relihiyon a. Naiisa-isa ang mga wastong paraan ng pakikipag-ugnayan sa kapuwa sa kabila ng pagkakaiba-iba sa paniniwala o relihiyon b. Napatutunayan na ang pakipag-ugnayan sa kapuwa sa kabila ng pagkakaiba-iba ng paniniwala o relihiyon ay pagtitiyak ng mapayapang pamumuhay kasama ang ibang tao c. Nakapaglalapat ng mga wastong paraan ng pakikag-ugnayan sa kapuwa sa kabila ng pagkakaiba-iba ng paniniwala o relihiyon",
+      "sourcePage": 230,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-3:item-5",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapaglingkod sa pamamagitan ng pagkalinga sa kapuwa a. Nailalarawan ang mga paraan ng pagkalinga sa kapuwa bilang indikasyon ng pananampalataya b. Naipaliliwanag na ang pagkalinga sa kapuwa bilang indikasyon ng pananampalataya ay patunay ng pagmamahal sa Diyos at pagtupad sa tungkuling maglingkod sa kapuwa c. Naisasakilos ang mga sariling paraan ng pagkalinga sa kapuwa bilang indikasyon ng pananampalataya",
+      "sourcePage": 231,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-3:item-6",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagmalasakit sa mga hayop sa pamamagitan ng pagbibigay ng kailangang resorses ng mga ito ayon sa sariling kakayahan a. Nakakikilala ng mga paraan ng pangangalaga sa mga hayop katuwang ang kapuwa b. Napatutunayan na ang pangangalaga sa mga hayop katuwang ang kapuwa ay aktibong pakikibahagi bilang mabuting katiwala ng mga nilikha ng Diyos c. Nailalapat ang mga paraan ng pangangalaga sa mga hayop katuwang ang kapuwa",
+      "sourcePage": 232,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-3:item-7",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pakikiisa sa pamamagitan ng wastong pakikitungo sa ibang lahi kung may pagkakataon o pakikisangkot sa mga pandaigdigang gawain na nagsusulong ng kabutihang panlahat a. Natutukoy ang mga katangian ng Pilipino bilang kapuwa mamamayan ng daigdig b. Nahihinuha na ang mga Pilipino bilang kapuwa mamamayan ng daigdig ay may katangi-tanging paraan ng pagkalinga sa kapuwa sa kabila ng pagkakaiba-iba ng lahi at may kakayahang makiisa sa mga pandaigdigang gawain na nagsusulong ng kabutihang panlahat c. Naipakikita ang mga katangian ng Pilipino bilang kapuwa mamamayan ng daigdig",
+      "sourcePage": 233,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-4:item-1",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa maingat na paghusga sa pamamagitan ng pagsusuri sa mga sariling pananaw sa mga pangyayari sa bayan a. Nakakikilala ng mga paraan ng paglinang ng positibong disposisyon bilang mamamayan b. Naipaliliwanag na ang paglinang ng positibong disposisyon bilang mamamayan ay makatutulong sa pagtupad sa mga sariling tungkulin sa bayan c. Nailalapat ang mga paraan ng paglinang ng positibong disposisyon bilang mamamayan",
+      "sourcePage": 234,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-4:item-2",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakapagsasanay ng nasyonalismo sa pamamagitan ng kahandaan sa kahihinatnan ng mga sariling pasiya o kilos sa kapuwa mamamayan a. Nakapagpapahayag ng mga paraan ng paggamit ng kalayaan sa mapanagutang pagsunod sa mga alituntunin sa bayan b. Natutuklasan na ang paggamit ng kalayaan sa mapanagutang pagsunod sa mga alituntunin ay may kaakibat na tungkuling piliin at gawin ang mabuti para sa bayan c. Nailalapat ang mga paraan ng paggamit ng kalayaan sa mapanagutang pagsunod sa mga alituntunin sa bayan ayon sa kaniyang kakayahan",
+      "sourcePage": 235,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-4:item-3",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging patas sa pamamagitan ng walang paghuhusgang pakikipag-ugnayan sa kanila at pagkilala sa pagkakaiba-iba at pagkakatulad sa pagtupad sa kanilang tungkulin sa pamayanan a. Nailalarawan ang makataong pakikipag-ugnayan sa bayan b. Naipaliliwanag na ang makataong pakikipag-ugnayan sa bayan ay nagpapakita ng patas na pakikitungo (fair treatment) sa kapuwa anuman ang kanilang kasarian, kakayahan, katayuan sa buhay, relihiyon o paniniwala, at ideyolohiya bilang paggalang sa kanilang dignidad c. Naisasakilos ang makataong pakikipag-ugnayan sa bayan",
+      "sourcePage": 236,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-4:item-4",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pakikiisa sa pamamagitan ng pagkukusang maging bahagi ng mga gawain ng relihiyon o paniniwalang kinabibilangan a. Naiisa-isa ang mga gampanin ng kinabibilangang relihiyon o paniniwala b. Nakapagpapatibay na ang pagtupad sa mga gampanin ng kinabibilangang relihiyon o paniniwala ay mapagkukunan ng inspirasyon, pag-asa at karunungan sa pamumuhay sa bayan c. Nakikibahagi sa pagtupad sa mga gampanin ng kinabibilangang relihiyon o paniniwala",
+      "sourcePage": 237,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-4:item-5",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagbigay sa pamamagitan ng kusang-loob na pagtulong sa kapuwa gamit ang sariling oras, talento o resorses a. Natutukoy ang mga paraan ng pagiging bukas-palad sa kapuwa bilang salamin ng pananampalataya b. Naipaliliwanag na ang pagiging bukas-palad sa kapuwa bilang salamin ng pananampalataya ay pagtugon sa tungkuling ibahagi ang mga kaloob ng Diyos nang may pagsasaalang-alang sa pangangailangan ng kapuwa c. Nailalapat ang mga paraan ng pagiging bukas-palad sa kapuwa bilang salamin ng pananampalataya",
+      "sourcePage": 238,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-4:item-6",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa paggalang sa buhay sa pamamagitan ng panghihikayat sa kapuwa ng wastong pag-iingat sa mga nanganganib na maubos na hayop at halaman(endangered species) a. Nakakikilala ng mga wastong pagtugon ng mga mamamayan sa mga nanganganib na maubos na hayop at halaman (endangered species) b. Nahihinuha na ang pagtugon ng mga mamamayan sa pangangalaga sa mga nanganganib na maubos na hayop at halaman (endangered species) ay pagtiyak ng kaligtasan at pagpapanatili ng balanse ng kalikasan c. Naisasakilos ang mga wastong pagtugon ng mamamayan sa mga nanganganib na maubos na hayop at halaman (endangered species)",
+      "sourcePage": 239,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-values-education:period-4:item-7",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pakikiisa sa pamamagitan ng pagpapalaganap ng mga programa na maaaring lahukan ng pamilya na tumutugon sa kapayapaan at kaligtasan ng mamamayan a. Natutukoy ang mga kilos ng pakikilahok ng pamilya sa mga gawaing pangkapayapaan ng bayan b. Naipaliliwanag na ang pakikilahok ng pamilya sa mga gawaing pangkapayapaan ay nakatutulong sa pagpapanatili ng pagtutulungan, pagkakaisa at katiwasayan ng bayan c. Nailalapat ang mga sariling tungkulin sa pakikilahok ng pamilyang kinabibilangan sa mga gawaing pangkapayapaan ng bayan",
+      "sourcePage": 240,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "a8e35aeb2b9be11e21d7b24fc517b2f40485f26f15b3cc4ac8081b2629669df7"
+  }
+}

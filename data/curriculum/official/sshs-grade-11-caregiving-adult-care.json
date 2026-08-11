@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-caregiving-adult-care",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Caregiving - Adult Care",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1x4qd_O285lAjfNYLH3CGNT_T0f04mblH/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Caregiving-Adult-Care.pdf",
+    "fileId": "1x4qd_O285lAjfNYLH3CGNT_T0f04mblH",
+    "sha256": "760ae00bee67db29f140188af3a50e5341f6682971c1f40da32a8d6c558e81dc",
+    "byteSize": 376930,
+    "pageCount": 15,
+    "pagesUsed": {
+      "from": 2,
+      "to": 9
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CAREGIVING-ADULT-C11",
+    "name": "Caregiving - Adult Care",
+    "description": "Official Grade 11 Caregiving - Adult Care competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Caregiving",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Common therapeutic communication techniques",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Infection control procedures",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Care Plan Specific, Measurable, Attainable, Realistic,Time-bound, Evaluate, Re-evaluate",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Aging Process",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Vital Signs:",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Fluid and Dietary Requirements",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Bowel Elimination",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Bathing Technique",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Perineal/Genital Care",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Oral Care",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Bed Making",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Safe Ambulation and Transfer",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Basic Wound Care",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Heat/Cold Therapy",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Palliative Care",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Medication Administration",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Service costing in providing caregiving services",
+      "sortOrder": 18
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss career opportunities, occupational health, safety policies, and legal and ethical issues of adult care.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Compare therapeutic with non-therapeutic communication.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform infection control techniques in accordance with industry practices.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Demonstrate first aid and basic life support standards in accordance with Philippine Red Cross procedures.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Create a caregiving plan using SMARTER (Specific, Measurable, Attainable, Realistic, Time-bound, Evaluate, Re-evaluate) approach.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the phases of body system in relation to aging process",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform the procedure in taking the vital signs",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-3:item-1",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform feeding techniques",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-3:item-2",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform basics of toileting and elimination procedure",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-3:item-3",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform bathing techniques",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-3:item-4",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform perineal/genital care techniques",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-3:item-5",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform oral care procedure",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-3:item-6",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform hospital bed making techniques",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-4:item-1",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform safe ambulation and transfer techniques",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-4:item-2",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform basic wound care techniques",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-4:item-3",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform heat/cold therapy techniques",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-4:item-4",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss palliative care",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-4:item-5",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform medication administration assistance",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-caregiving-adult-care:period-4:item-6",
+      "quarter": 4,
+      "domain": "D18",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Calculate the service cost in providing caregiving services",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "22a9268aece176822ab2ff7168a661acac41d0fb95b0598d88dfb129e8ac64b0"
+  }
+}

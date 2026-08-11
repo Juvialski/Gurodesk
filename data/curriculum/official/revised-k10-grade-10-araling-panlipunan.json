@@ -1,0 +1,379 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-10-araling-panlipunan",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Araling Panlipunan CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Araling%20Panlipunan%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "sha256": "7b643c05dbac653b229416aa19d3d14d1f2b7baadb93c64a66c762e45ef91490",
+    "byteSize": 3220970,
+    "pageCount": 76,
+    "pagesUsed": {
+      "from": 68,
+      "to": 73
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 10",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 10",
+    "code": "ARALING-PANLIPUNAN10",
+    "name": "Araling Panlipunan",
+    "description": "Official Grade 10 Araling Panlipunan competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 68,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 70,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 71,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 73,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "A. Mga Hamon at Kontemporanyong Isyung Panlipunan sa Pilipinas at Daigdig",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Konteksto ng Suliraning Pangkapaligiran",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "C. Mga Pagtugon sa mga Hamong Pangkapaligiran",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "D. Dalawang Dulog/Lapit sa Pagtugon sa mga Hamong Pangkapaligiran",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "E. Community-Based Disaster Risk Reduction and Management Plan",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "A. Konteksto ng mga Isyung Pang-ekonomiya",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "C. Mga Pagtugon sa mga Hamong Pang-ekonomiya at Pampolitika",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "A. Mga Konseptong Pangkasarian",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "B. Gender Roles sa Iba’t ibang Panig ng Pilipinas at Daigdig",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "C. Mga Isyung Nagaganap sa Lipunan Kaugnay ng Kasarian",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "D. Mga Saligang Nagtataguyod sa Karapatan Kaugnay ng Kasarian, Karahasan, at Diskriminasyon",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Pandaigdigang Batayan",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "A. Pagkamamamayan",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "B. Karapatang Pantao",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "C. Mga Isyu at Hamon sa Pagkamamamayan",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "D. Pakikilahok sa mga gawaing politikal at pansibiko ng mamamayan",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "E. Pagkamamamayan at Mabuting Pamamahala",
+      "sortOrder": 17
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang kahalagahan ng kaalaman sa mga kontemporanyong isyu",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga sanhi at epekto ng mga suliraning pangkapaligiran ng daigdig",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga programa at inisyatiba upang mapangalagaan ang kapaligiran",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang pagkakaiba ng top-down at bottom up approach sa pagharap sa suliraning pangkapaligiran",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang kahalagahan ng Community-Based Disaster Risk Reduction and Management Approach sa pagtugon sa mga hamon at suliraning pangkapaligiran",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang kalagayang pang-ekonomiya ng bansa at ang mga isyung kinakaharap nito bunga ng globalisasyon",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natataya ang implikasyon ng iba’t ibang suliranin sa paggawa, pamumuhay at sa pag-unlad ng ekonomiya ng bansa",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga batas at saligan sa iba’t ibang tugon sa pagharap sa hamon at isyung pang-ekonomiya at pampolitika",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-3:item-1",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga uri ng kasarian (gender) at sex",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-3:item-2",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang gender roles sa Pilipinas at iba’t ibang panig ng daigdig",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-3:item-3",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang iba’t ibang salik na nagiging dahilan ng diskriminasyon sa kasarian, sa tahanan, paaralan, trabaho at komunidad",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-3:item-4",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang iba’t ibang nararanasang karahasan ng lahat ng kasarian",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-3:item-5",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipahahayag ang pananaw tungkol sa nararanasang karahasan ng mga batang babae, kababaihan, at miyembro ng LGBTQIA+",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-3:item-6",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang tugon ng iba’t ibang samahan (lokal at internasyonal) laban sa karahasan at diskriminasyon",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-3:item-7",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang tugon ng pamahalaan at mamamayan ng Pilipinas sa mga isyu ng diskriminasyon at karahasan",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-4:item-1",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga katangiang dapat taglayin ng isang aktibong mamamayan na nakikilahok sa mga gawain at usaping pansibiko",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-4:item-2",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang kahalagahan ng pagsusulong at pangangalaga sa karapatang pantao sa pagtugon sa mga isyu at hamong panlipunan",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-4:item-3",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga isyu at hamon sa pagkamamamayan",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-4:item-4",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Natatalakay ang aktibong pakikilahok ng mamamayan sa mga gawaing pansibiko",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-araling-panlipunan:period-4:item-5",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang papel ng mamamayan sa pagkakaroon ng isang mabuting pamamahala",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "c940cb8a7f1f505c3eaf5e0a148d0d14239a0b4ad364cd5ee678d6d237a488a7"
+  }
+}

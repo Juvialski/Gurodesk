@@ -1,0 +1,574 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-9-science",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Science CG 2023 Grades 3-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Science%20CG%202023%20Grades%203-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "sha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+    "byteSize": 1436380,
+    "pageCount": 72,
+    "pagesUsed": {
+      "from": 55,
+      "to": 60
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 9",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 9",
+    "code": "SCIENCE9",
+    "name": "Science",
+    "description": "Official Grade 9 Science competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 55,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 57,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 59,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 60,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Newton's Laws",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Scale, proportion and quantity",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "DNA replication and mutations",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Valid and reliable investigations",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify inertia as the tendency for an object to stay at rest or in motion unless acted on by an unbalanced net force;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate in practical situations and describe that acceleration is a change in speed and/or direction as the result of a net force;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "investigate the relationship among force, acceleration, and mass;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain that when any two objects interact, there are equal but opposite forces exerted between them, which is evident in many practical situations and applications;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "observe and identify action-reaction pairs in everyday situations such as stepping off a boat, or a book on a table, and draw force diagrams to explain how the pairs affect the motion of objects;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "identify that electricity is a flow of electrons and show appreciation for the need to observe safe measures in handling electricity;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "participate in guided investigations to infer the relationship among current, voltage, and resistance in assembled series and parallel circuits with varying number of loads and battery;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "draw diagrams of and assemble series and parallel circuits, showing switch, battery, loads/resistors, ammeter, and voltmeter;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "collaborate in a class discussion to recognize the advantages and limitations of using series or parallel circuits;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe electromagnetic radiation (EMR) as energy that is created by the vibrations of electrically charged particles which allows it to travel through materials or space as transverse waves;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "compare the relative wavelengths and frequencies of different types of electromagnetic waves, including radio waves, microwaves, infrared, visible light, ultra-violet, x-rays, and gamma radiation;",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-12",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "identify practical applications of electromagnetic radiation, such as radio waves used in telecommunications, and x-rays and gamma rays in medicine; and",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-1:item-13",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "gather information from secondary sources to explain the harmful effects that EMR can have on living things.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify and explain evidence that current continents are separate parts of what was a single continent millions of years ago;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "participate in a collaborative group or class task to examine and describe the topographical and geological evidence for plate boundaries occurring in the area where the Philippines is located;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the types of plate boundaries found around the Earth;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe how fossils can be used for dating the age of rocks and sediments;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe how relative and absolute dating techniques are used to determine the subdivisions of geologic time;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explain how the geologic time scale helps to recount the history of the Earth;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe how seismic wave data has been used to develop a model for the internal structure and composition of the Earth;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "create a scale drawing to represent relative thicknesses of the layers of Earth’s interior, including the crust, lithosphere, asthenosphere, mantle, outer core, and inner core;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "distinguish among comets, meteoroids, asteroids, and dwarf planets, and describe how they help us to understand the nature and formation of the Earth and the Solar System;",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "gather information from secondary sources to discuss the regular occurrence of meteor showers; and",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-2:item-11",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "explain how modern research about celestial objects uses new space technologies including telescopes and space probes.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use models and labeled diagrams to represent the double helix structure of DNA (deoxyribonucleic acid);",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain the role of DNA, genes, and chromosomes in the transmission of traits;",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe mutations as changes in DNA or chromosomes and discuss some of the factors that cause mutations, such as infectious agents, radiation, and chemicals;",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use information from secondary sources to explain the beneficial, harmful, and neutral effects of mutations;",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain the advantage of high biodiversity in maintaining the stability of an ecosystem during difficult conditions, such as food shortages, disease, and climate change;",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "use information from secondary resources to classify animals and plants of the Philippines as critically endangered, endangered, or vulnerable species;",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "discuss as a class how threats to biodiversity can lead to species extinction;",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "use information from secondary sources to research how to protect and conserve endangered and/or economically important species in the local community;",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "describe using labeled diagrams the biotic and abiotic features of tropical rainforests, swamps, estuaries, mangrove forests, and coral reefs;",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "use information from secondary sources to describe the possible effects of human activities, such as deforestation, pollution, and introduction of invasive species, on living things in an ecosystem; and",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-3:item-11",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "plan to conduct a survey to explore the possibilities for minimizing the negative impacts of human activities on an ecosystem.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "carry out a valid and reliable scientific investigation to show the formation of a new substance, such as formation of a carbonate (carbon dioxide in limewater), or formation of a precipitate (from silver nitrate solution);",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain that the formation of new bonds or the breaking of existing bonds constitutes a chemical change and the formation of a new substance;",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe a valence electron as an electron in the outer shell of an atom that can take part in formation of bonds;",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-4",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify the number of valence electrons of oxygen based on its position in the periodic table;",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain the formation of ions as either the loss or gain of electrons to produce ionic bonds, using examples, such as the formation of sodium chloride;",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "write the chemical formula and chemical names of some common ionic compounds, including sodium chloride (NaCl), magnesium oxide (MgO), potassium chloride (KCl) and magnesium chloride (MgCl ); 2",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain the formation of covalent bonds using a molecule of water and a molecule of carbon dioxide;",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "write the chemical formula and chemical name of some common covalent compounds, including water (H O), carbon dioxide (CO ), and ammonia (NH ); 2 2 3",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "show by using models that ionic compounds form crystalline structures whereas covalent compounds form individual molecules;",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "explain properties of metals in terms of their structure and metallic bonding (sea of electrons model); and",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:period-4:item-11",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "investigate the properties of ionic, covalent, and metallic substances, such as melting point, hardness, electrical and thermal conductivity.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "5ced78f3f8c4d44a2097ea458896d75494cf3090e91a365345433c8b3690053c"
+  }
+}

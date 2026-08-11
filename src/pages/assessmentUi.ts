@@ -147,6 +147,13 @@ export function appendItemHistory(item: AssessmentItem, source: 'generated' | 'a
     points: item.points,
     qaState: value.qaState,
     visual: item.visual ? cloneItem(item).visual : undefined,
+    visualRequirement: item.visualRequirement,
+    visualIntent: item.visualIntent,
+    visualStatus: item.visualStatus,
+    visualAttempts: item.visualAttempts,
+    visualError: item.visualError,
+    visualSourceHash: item.visualSourceHash,
+    visualUpdatedAt: item.visualUpdatedAt,
   }
   return [...history, version].slice(-5)
 }

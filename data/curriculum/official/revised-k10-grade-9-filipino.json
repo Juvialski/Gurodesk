@@ -1,0 +1,380 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-9-filipino",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "sourceConsistency": {
+      "detailedTableCountsByQuarter": [
+        7,
+        7,
+        6,
+        5
+      ],
+      "publishedSummaryCountsByQuarter": [
+        7,
+        7,
+        6,
+        5
+      ],
+      "status": "matched",
+      "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    }
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG FILIPINO CG 2023 Grades 2-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20FILIPINO%20CG%202023%20Grades%202-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "sha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+    "byteSize": 2192086,
+    "pageCount": 172,
+    "pagesUsed": {
+      "from": 147,
+      "to": 160
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 9",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 9",
+    "code": "FILIPINO9",
+    "name": "Filipino",
+    "description": "Official Grade 9 Filipino competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 147,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 151,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 155,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 158,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Pag-unawa at Pagsusuri sa",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Pag-unawa at Pagsusuri ng mga Tekstong Biswal",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Paglikha at Presentasyon ng Tekstong Multimodal",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pag-unawa at Pagsusuri sa mga Tekstong Nasusulat",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa Panahon ng Kasarinlan kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (Panitikan sa Panahon ng Kasarinlan)",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Akda sa Panahon ng Kasarinlan • Tula (a) Natutukoy ang mahahalagang elemento (persona, sukat at tugma, talinghaga at estilo) at detalye (paksa, nilalaman at kaisipan) ng tula (b) Naipaliliwanag ang nakapaloob na pahiwatig, simbolo, talinghaga, at larawang diwa/ imahen sa tula (c) Naiuugnay ang mahahalagang kaisipan ng tula batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tula) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (sukat, tugma,tono at talinghaga) ng tula (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon • Maikling katha • Nobela • Dula • Sanaysay • Mga Panitikan sa Ingles sa Panahon ng Kasarinlan na isinulat ng mga Pilipino (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa tuluyan (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing), pagkakahanay ng mga pangyayari (parallelism and simultaneity), at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa binasang tuluyan (c) Naiuugnay ang mahahalagang kaisipan ng tuluyan batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tuluyan) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (bisa ng salita, pahiwatig, idyomatikong pahayag, estilo) ng tuluyan (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 148,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong argumentatibo gamit ang mga kasanayang pang-akademik • Mga kasanayang pang-akademik (gaya ng pagtukoy sa paksa, layon at ideya, pagtatala ng mahahalagang impormasyon (detalye), mekaniks sa pagsulat (diksyon, estilo at paggamit ng transisyonal at kohesiyong gramatikal), paggamit ng angkop na mga salita sa pagpapahayag ng mga ideya at pagbuo ng talata) • Mga tekstong argumentatibo (gaya ng retorikal na analisis, literaring analisis, debate at talumpati) (a) Natutukoy ang paksa, layon, at ideya sa teksto (b) Natutukoy sa tekstong argumentatibo ang mga impormasyon at detalye na makatotohanan at mayaman sa opinyon (c) Nakikilala ang mga pangunahin at pangalawang sanggunian (d) Naitatala ang mahahalagang impormasyon mula sa iba’t ibang pinagkukunang sangggunian (e) Naipaliliwanag ang mahahalagang ideya at detalye gamit ang diksyon, estilo, transisyonal at kohesiyong gramatikal at kaangkupan ng salita at ideya na nais iparating sa mambabasa",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang tekstong argumentatibo batay sa estruktura nito (tesis, proposisyon, datos, pangangatuwiran, at rebuttal)",
+      "sourcePage": 149,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora at PWD) Elemento ng tekstong biswal na pabalat ng graphic novel (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (panitikan at argumentatibo)",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-1:item-6",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng isang pabalat ng graphic novel hango sa literaring analisis (a) Nakapipili ng nobela sa Panahon ng Kasarinlan (b) Naitatala ang pinakakapana-panabik na bahagi ng nobela na gagamitin sa pabalat ng graphic novel (c) Naiguguhit ang imahen/ larawan (ilustrasyon ng tauhan, tema, panel, gutter) ng mga tauhan batay sa mga pangyayari at dayalog na kinasangkutan nila (d) Nakabubuo ng borador (disenyo at pabalat o cover) para sa graphic novel gamit ang mga elementong biswal",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nabuong proseso sa paglikha ng pabalat ng graphic novel hango sa bahagi ng sinuring nobela sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (advertisement), at etikal na kasanayan at pananagutan",
+      "sourcePage": 150,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-2:item-1",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa Panahon ng Aktibismo at Batas Militar kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (Panitikan sa panahon ng Aktibismo at Batas-Militar)",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-2:item-2",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Tula Sa Panahon ng Aktibismo at Batas-Militar • Tula (a) Natutukoy ang mahahalagang elemento (persona, sukat at tugma, talinghaga at estilo) at detalye (paksa, nilalaman at kaisipan) ng tula (b) Naipaliliwanag ang nakapaloob na pahiwatig, simbolo, talinghaga, at larawang diwa/imahen sa tula (c) Naiuugnay ang mahahalagang kaisipan ng tula batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tula) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (sukat, tugma, tono at talinghaga) ng tula (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon • Maikling katha • Nobela • Dula • Mga Akda sa Ingles sa Panahon ng Aktibismo at Batas-Militar na sinulat ng mga Pilipino (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa tuluyan (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing), pagkakahanay ng mga pangyayari (parallelism and simultaneity), at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa binasang tuluyan (c) Naiuugnay ang mahahalagang kaisipan ng tuluyan batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tuluyan) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (bisa ng salita, pahiwatig, idyomatikong pahayag, estilo) ng tuluyan (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-2:item-3",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong argumentatibo gamit ang mga kasanayang pang-akademik • Mga kasanayang pang-akademik (gaya ng pagtukoy sa paksa, layon at ideya, pagtatala ng mahahalagang impormasyon (detalye), mekaniks sa pagsulat (diksyon, estilo, at paggamit ng transisyonal at kohesiyong gramatikal), paggamit ng angkop na mga salita sa pagpapahayag ng mga ideya at pagbuo ng talata) • Mga tekstong argumentatibo (gaya ng retorikal na analisis, literaring analisis, debate at talumpati) (a) Natutukoy ang paksa, layon at ideya sa teksto (b) Natutukoy sa tekstong argumentatibo ang mga impormasyon at detalye na makatotohanan at opinyon (c) Nakikilala ang mga pangunahin at pangalawang sanggunian (d) Naitatala ang mahahalagang impormasyon mula sa iba’t ibang mapagkakatiwalaang sanggunian (e) Naipaliliwanag ang mahahalagang ideya at detalye gamit ang diksyon, estilo, transisyonal at kohesiyong gramatikal at kaangkupan ng salita at ideya na nais iparating sa mambabasa",
+      "sourcePage": 152,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-2:item-4",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang tekstong argumentatibo batay sa estruktura nito (tesis, proposisyon, datos, pangangatuwiran, at rebuttal)",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora at PWD) Elemento ng tekstong biswal na graphic novel (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (pampanitikan at argumentatibo)",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng isang pabalat ng graphic novel hango sa bahagi ng sinuring nobela (a) Natutukoy ang mga materyal na gagamitin sa pagbuo ng napiling pabalat ng graphic novel (b) Nailalapat ang angkop na kulay at teksto sa nabuong imahen/larawan (c) Nasusuri ang kaangkupan ng mga inilapat na elemento sa pabalat ng graphic novel (d) Nakabubuo ng simpleng patalastas para sa nabuong graphic novel",
+      "sourcePage": 153,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-2:item-7",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nabuong pabalat ng graphic novel na hango sa literari analisis sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (advertisement), at etikal na kasanayan at pananagutan",
+      "sourcePage": 154,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-3:item-1",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa Panahon ng 1986 hanggang sa pagbubukas ng Bagong Milenyo kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (1986 hanggang sa Pagbubukas ng Bagong Milenyo)",
+      "sourcePage": 155,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-3:item-2",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Akda mula 1986 hanggang sa Pagbubukas ng Bagong Milenyo • Tula (a) Natutukoy ang mahahalagang elemento (persona, sukat at tugma, talinghaga at estilo) at detalye (paksa, nilalaman at kaisipan) ng tula (b) Naipaliliwanag ang nakapaloob na pahiwatig, simbolo, talinghaga, at larawang diwa/imahen sa tula (c) Naiuugnay ang mahahalagang kaisipan ng tula batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tula) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (sukat, tugma,tono at talinghaga) ng tula (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon • Maikling kuwento • Nobela • Dula • Pelikula • Sanaysay (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa tuluyan (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing), pagkakahanay ng mga pangyayari (parallelism and simultaneity), at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa binasang tuluyan (c) Naiuugnay ang mahahalagang kaisipan ng tuluyan batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tuluyan) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (bisa ng salita, pahiwatig, idyomatikong pahayag, estilo) ng tuluyan (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 155,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-3:item-3",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga katangian ng Korespondensiya Opisyal ● Mga Liham Pantanggapan (gaya ng liham pakiusap, pagtatanong, at aplikasyon) ● Sulatroniko/Email ● Pagbuo ng Resolusyon (a) Natutukoy ang isang korespondensiya opisyal batay sa layon at sitwasyon (b) Nakapagbabalangkas ng isang korespondensiya opisyal batay sa layon at sitwasyon",
+      "sourcePage": 156,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD) Elemento ng tekstong biswal na logo at letterhead ng korespondesiya opisyal (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (panitikan at argumentatibo)",
+      "sourcePage": 157,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakabubuo ng isang korespondensiya opisyal batay sa layunin, gamit ang nilikhang logo at letterhead (a) Natutukoy ang tiyak na logo at letterhead na gagawin para sa isang korespondensiya opisyal (b) Naitatala ang mga tiyak na larawan, caption at mga tao na kabilang sa letterhead (c) Nakabubuo ng plano at borador hinggil sa logo at letterhead na gagawin (d) Nakasusulat ng isang korespondensiya opisyal gamit ang nilikhang logo at letterhead",
+      "sourcePage": 157,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nabuong korespondensiya opisyal gamit ang nilikhang logo at letterhead sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (paggamit ng sulatroniko o email), at etikal na kasanayan at pananagutan",
+      "sourcePage": 157,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa kaligirang pangkasaysayan ng Obra Maestra – Noli Me Tangere • Kaligirang Pangkasaysayan (Noli Me Tangere)",
+      "sourcePage": 158,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Obra Maestra: Noli Me Tangere • Talambuhay ni Dr. Jose P. Rizal • Pagpapakilala ng mga Tauhan • Kabanata 1-18 at 21 • Kabanata 19-20, 22-46 • Kabanata 47-63 (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa Noli Me Tangere (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing), pagkakahanay ng mga pangyayari (parallelism and simultaneity), at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa Noli Me Tangere (c) Naiuugnay ang mahahalagang kaisipan ng Noli Me Tangere batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tuluyan) batay sa konteksto ng panahon, lunan, at may-akda (g) Nasusuri ang mga elementong panlingguwistika sa Noli Me Tangere (h) Nakapaghahambing ng mga tekstong hawig sa Noli Me Tangere at iba pang nobelang panlipunan ba nasusulat sa Pilipinas at sa ibang bansa",
+      "sourcePage": 158,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal na makikita sa Noli Me Tangere • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD) - Pabalat ng Noli Me Tangere-Bayan ng San Diego na kakikitaan ng magagarang karuwahe-Larawan ng karukhaan ng pamilya nina Sisa, Basilio, at Crispin-Mga Pagkaing Pilipino-Photography-Simbahan na punong-puno ng tao habang may nagmimisang isang Paring Espanyol na kumukumpas ang kamay habang siya ay nasa pulpito-Ang senaryo ng away nina Donya Consolacion at Donya Victorina-Ang Gubat ng mga Ibarra-Piitan-Lawa ng San Diego-Libingan ng mga Ibarra-Bangka-Mahahalagang tauhan (a) Naipaliliwanag ang kahulugan ng tekstong biswal sa Obra Maestra-Noli Me Tangere (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng Obra Maestra-Noli Me Tangere",
+      "sourcePage": 159,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakabubuo ng video trailer ng Noli Me Tangere na naipakikita ang pag-unlad ng usaping panlipunan sa kasalukuyan (a) Nakapipili ng tiyak na bahagi ng Noli Me Tangere (b) Nakabubuo ng plano sa pagbuo ng trailer at borador (c) Nakakukuha ng mga videos ng mga gaganap (d) Nalalapatan ng mga sound effects na kailangan sa video (e) Nailalapat ang iba pang elementong multimodal (f) Nairerebisa ang nabuong video trailer",
+      "sourcePage": 160,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:period-4:item-5",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nilikhang tekstong multimodal (video trailer) sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 160,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "7e6dac65ea9fcf346bbac990fff9790c3795a31343b0048c8341a9906f556344"
+  }
+}

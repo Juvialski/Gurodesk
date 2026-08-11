@@ -1,0 +1,474 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-electronics-product-assembly-and-servicing",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Electronics Product Assembly and Servicing",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/14nLwp8_5kafrjL0VU9-BVBW2jC-H2_0S/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Electronics-Product-and-Assembly-Servicing_.pdf",
+    "fileId": "14nLwp8_5kafrjL0VU9-BVBW2jC-H2_0S",
+    "sha256": "b8bcc232c52dfbd2bcf77e9276c0f4b5882a9b6a44d6584c0704f07b4b53349c",
+    "byteSize": 313644,
+    "pageCount": 10,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "ELECTRONICS-PRODUC11",
+    "name": "Electronics Product Assembly and Servicing",
+    "description": "Official Grade 11 Electronics Product Assembly and Servicing competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Electronic Systems Servicing",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Electronic Components",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Printed Circuit Boards (PCB)",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Soldering",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Power Supply",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Variable Regulated Power Supply Assembly",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Appliances with Electric Motor",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Appliances with Heating Components",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Rechargeable and Electronic-Controlled Lighting Units",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Closed-Circuit television (CCTV) System",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Closed-Circuit Television (CCTV) Installation Procedure",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Closed-Circuit Television (CCTV) System Servicing",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Fire Alarm system",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Fire Alarm System Servicing",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Audio Products and Systems",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Audio Products and Systems Installation/Operation",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Audio Products and Systems Servicing",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Television",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Control Boards",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Sensors and Actuators",
+      "sortOrder": 20
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Explain the overview of Electronic Systems Servicing",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss electronic components identification",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Demonstrate procedures in testing electronic components.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss the procedures for PCB designing, including de-sign software and layout transfer techniques",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Discuss soldering and desoldering",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Discuss the different types of power supplies",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-1:item-7",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform variable regulated power supply assembly",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the procedures in servicing appliances with electric motors",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Apply procedures in servicing appliances with electric motors",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss the procedures in servicing appliances with heating components",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-2:item-4",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Apply procedure in servicing appliances with heating components",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-2:item-5",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Discuss the procedures in servicing rechargeable and electronic-controlled lighting units.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-2:item-6",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Demonstrate the procedure in servicing electronic-controlled lighting units",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-3:item-1",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the principles of Closed-Circuit Television (CCTV) system",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-3:item-2",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Demonstrate the procedure in CCTV system installation",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-3:item-3",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform CCTV system servicing",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-3:item-4",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss the principles of fire alarm systems",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-3:item-5",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform the procedure in fire alarm system installation",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-3:item-6",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform the procedure in fire alarm system servicing",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-1",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss audio products and systems",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-2",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform the installation and operation of audio products and systems",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-3",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform procedure in servicing audio products and systems",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-4",
+      "quarter": 4,
+      "domain": "D18",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss television",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-5",
+      "quarter": 4,
+      "domain": "D18",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform the procedure in servicing television",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-6",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Discuss control boards and motor controllers",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-7",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform the procedure in servicing control boards and mo-tor controllers",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-8",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Discuss sensors and actuators",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:period-4:item-9",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Perform the procedure in servicing sensors and actuators",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "3791c768cce29fe4bc810138d54728557911d5e14f09e57a64752c198ab0971a"
+  }
+}

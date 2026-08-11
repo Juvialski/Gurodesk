@@ -1,0 +1,569 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-10-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Mathematics CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Mathematics%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "sha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+    "byteSize": 1754867,
+    "pageCount": 73,
+    "pagesUsed": {
+      "from": 65,
+      "to": 68
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 10",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 10",
+    "code": "MATHEMATICS10",
+    "name": "Mathematics",
+    "description": "Official Grade 10 Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 65,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 66,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 67,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 68,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Measurement and Geometry (MG)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Number and Algebra (NA)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Data and Probability (DP)",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "apply laws of sines in solving oblique triangles, including ambiguous cases.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply laws of cosines in solving oblique triangles.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the position of points in the Cartesian plane.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe translations, reflections, and rotations, in the Cartesian plane using coordinates.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve problems involving laws of sines and cosines, including bearings.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "illustrate on the number line quadratic inequalities in one variable.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "solve quadratic inequalities in one variable and expresses solutions in various notations.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "solve problems involving quadratic inequalities in one variable.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve quadratic inequalities in two variables.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "determine the region of solutions of a linear or quadratic inequality in two variables.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve absolute value equations in one variable and express solutions in various notations)",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve absolute value inequalities in one variable and express solutions in various notations",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "illustrate measures of position (quartiles, deciles, and percentiles).",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "construct and interpret box-and-whisker plots and cumulative frequency histograms and polygons.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "calculate a specified measure of position, interquartile range, and outliers, from ungrouped data.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "calculate the percentile rank of a given score from ungrouped data.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "draw conclusions from statistical data using the measures of position.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "illustrate the laws of rational non-integral exponents.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "simplify radical expressions.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "perform operations involving radical expressions, including rationalizing the denominator.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "determine the nature of roots of a quadratic equation using the discriminant.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "determine the equation of a quadratic function given: a. a table of values b. its graph, and c. its zeros.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-11",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve equations reducible to quadratic equations, e.g., 𝑥⁴−5𝑥²+4=0",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-12",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve problems involving quadratic functions.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-2:item-13",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "solve radical equations, including equations reducible to linear or quadratic equations.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "transform the equation of a circle from center-radius form to general form, and vice versa.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "determine the center and the radius of a circle from a given equation.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "sketch the graph of a circle given its equation.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "find the equation of a circle from given conditions, e.g., given two points as the endpoints of a diameter.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve problems involving geometric figures on the Cartesian plane.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "evaluate statistical reports by linking claims to displays, statistics, and representative data.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "illustrate mutually exclusive events and non-mutually exclusive events.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify complementary events.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve probability problems involving: a. union and intersection of events, including mutually and non-mutually exclusive events; b. dependent and independent events, including conditional probability where the solution is limited to the use of contingency tables or Venn diagrams; and c. complementary events.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explore inductively the relationship between simple interest and compound interest.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "calculate compound interest by repeated applications of simple interest.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve problems involving compound interest by repeated applications of simple interest.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain inductively the formulas for compound interest and depreciation.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explore inductively the differences in the amount of compound interest obtained on amounts of money invested: a. annually, b. quarterly, and c. monthly.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "solve real-life problems involving: a. compound interest, and b. depreciation.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "establish properties and relationships for central angles, inscribed angles, secants, and tangents, of a circle.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "solve problems involving: a. central angles, b. inscribed angles, c. angles formed by two intersecting chords, d. angles formed by two secants intersecting outside the circle, e. angles formed by two intersecting tangents, and f. angles formed by intersecting secant and tangent.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "establish properties and relationships for chords, secants, and tangents.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "solve problems involving lengths of: a. intersecting chords, b. two secant segments intersecting outside a circle, and c. two intersecting tangent segments.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-11",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "define sectors and segments of a circle and finds their areas.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:period-4:item-12",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve problems involving area of a sector of a circle, segment of a circle, and shaded regions in other figures that involve sectors or segments. • calculate compound interest and depreciation. (NA) • apply properties and relationships of central angles, inscribed angles, chords, secants, and tangents of circles. (MG) • define sectors and segments of a circle, and find their areas. (MG)",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "9de8bd63fdceb6472028935ecd663a5c14eee12dea1311dec7cedb38c32af29d"
+  }
+}

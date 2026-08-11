@@ -1,0 +1,843 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-1-reading-and-literacy",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Reading and Literacy CG 2023 G1",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Reading%20and%20Literacy%20CG%202023%20G1.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Reading and Literacy CG 2023 G1.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Reading and Literacy CG 2023 G1.pdf",
+    "sha256": "6f67d06f2b0f5730a087dbc273bdb1cfeeccd64ccf9ee87342a0f52dea5c12b0",
+    "byteSize": 1715914,
+    "pageCount": 56,
+    "pagesUsed": {
+      "from": 36,
+      "to": 44
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 1",
+    "code": "READING-AND-LITERA1",
+    "name": "Reading and Literacy",
+    "description": "Official Grade 1 Reading and Literacy competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 36,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 39,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 41,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 43,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Phonological Awareness (oracy for literacy)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Phonics and Word Study (sounds to words)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Vocabulary and Word Knowledge (words)",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Comprehending and Analyzing Text (discourse)",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Creating and Composing Text (discourse)",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Comprehending and Analyzing",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Text (discourse)",
+      "sortOrder": 7
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "RL1PA-I-1",
+      "text": "Chant nursery rhymes and poems.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "RL1PA-I-2",
+      "text": "Segment a two-three syllable word into its syllabic parts.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": "RL1PA-I-3",
+      "text": "Identify rhyming words in nursery rhymes, poems, and chants.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": "RL1PA-I-4",
+      "text": "Say two or three words that rhyme.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": "RL1PA-I-5",
+      "text": "Identify initial sounds (vowels, consonants, and semi-vowels, if any).",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "RL1PWS-I-1",
+      "text": "Produce the sound of the letters of L1.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "RL1PWS-I-2",
+      "text": "Identify the letters in L1.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "RL1PWS-I-3",
+      "text": "Isolate sounds (consonants and vowels) in a word (beginning and/or ending).",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": "RL1PWS-I-4",
+      "text": "Substitute individual sounds in simple words to make new words.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": "RL1PWS-I-5",
+      "text": "Sound out words accurately.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": "RL1VWK-I-1",
+      "text": "Use vocabulary referring to oneself and family.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-12",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "RL1VWK-I-2",
+      "text": "Identify words with different functions (naming and describing words): a. words that label persons, places, things, animals, actions, situations, ideas, and emotions b. words that describe persons, places, things, animals, actions,",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-13",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "RL1VWK-I-3",
+      "text": "Read high frequency words accurately for meaning.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-14",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": "RL1VWK-I-4",
+      "text": "Read content-specific words (Math, Makabansa, GMRC) accurately for meaning.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-15",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 15,
+      "competencyCode": "RL1VWK-I-5",
+      "text": "Write words legibly and correctly.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-16",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": "RL1CAT-I-1",
+      "text": "Comprehend stories. a. Note important details in stories (character, setting, and events). b. Sequence stories with at least 3 events. c. Infer the character’s feelings and traits. d. Predict possible ending. e. Relate story events to one’s experience.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-17",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": "RL1CAT-I-2",
+      "text": "Comprehend informational text. a. Note significant details in informational texts (list and describe). b. Identify problem and solution.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-18",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": "RL1CCT-I-1",
+      "text": "Narrate one’s personal experiences: a. oneself and family b. content-specific topics",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-19",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": "RL1CCT-I-2",
+      "text": "Use own words in retelling myths, legends, fables, and narrative poems.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-20",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": "RL1CCT-I-3",
+      "text": "Express ideas about: a. oneself and family b. content-specific topics",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-21",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 21,
+      "competencyCode": "RL1CCT-I-4",
+      "text": "Respond creatively to texts (myths, legends, fables, and narrative",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": "RL1PWS-II-1",
+      "text": "Produce the sound of the letters of L1.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": "RL1PWS-II-2",
+      "text": "Identify the letters in L1.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "RL1PWS-II-3",
+      "text": "Isolate sounds (consonants and vowels) in a word (beginning and/or ending).",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "RL1PWS-II-4",
+      "text": "Substitute individual sounds in simple words to make new words.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "RL1PWS-II-5",
+      "text": "Sound out words accurately.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": "RL1VWK-II-1",
+      "text": "Use vocabulary referring to school.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-7",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": "RL1VWK-II-2",
+      "text": "Identify words with different functions (naming and describing words): a. words that label persons, places, things, animals, actions, situations, ideas, and emotions. b. words that describe persons, places, things, animals, actions, situations, ideas, and emotions.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-8",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": "RL1VWK-II-3",
+      "text": "Read high frequency words accurately for meaning.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-9",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "RL1VWK-II-4",
+      "text": "Read content-specific words (Math, Makabansa, and GMRC) accurately for meaning.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-10",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "RL1VWK-II-5",
+      "text": "Write words legibly and correctly.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-11",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": "RL1CAT-II-1",
+      "text": "Comprehend stories a. Note important details in stories (character, setting, and events). b. Sequence stories with at least 3 events. c. Infer the character’s feelings and traits. d. Predict possible ending. e. Relate story events to one’s experience. f. Identify cause and effect of events.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-12",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": "RL1CAT-II-2",
+      "text": "Comprehend informational text. a. Note significant details in informational texts (list and describe). b. Identify problem and solution.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-13",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 13,
+      "competencyCode": "RL1CCT-II-1",
+      "text": "Narrate one’s personal experiences: a. school b. content-specific topics",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-14",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 14,
+      "competencyCode": "RL1CCT-II-2",
+      "text": "Use own words in retelling myths, legends, fables, and narrative poems.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-2:item-15",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 15,
+      "competencyCode": "RL1CCT-II-3",
+      "text": "Express ideas about:",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-1",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": "RL1PWS-III-1",
+      "text": "Produce the sound of the letters of L1.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": "RL1PWS-III-2",
+      "text": "Identify the letters in L1.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "RL1PWS-III-3",
+      "text": "Isolate sounds (consonants and vowels) in a word (beginning and/or ending).",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "RL1PWS-III-4",
+      "text": "Substitute individual sounds in simple words to make new words.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "RL1PWS-III-5",
+      "text": "Sound out words accurately.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": "RL1VWK-III-1",
+      "text": "Use vocabulary referring to community.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": "RL1VWK-III-2",
+      "text": "Identify words with different functions (naming and describing words): a. words that label persons, places, things, animals, actions, situations, ideas, and emotions. b. words that describe persons, places, things, animals, actions, situations, ideas, and emotions.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": "RL1VWK-III-3",
+      "text": "Read high frequency words accurately for meaning.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "RL1VWK-III-4",
+      "text": "Read content-specific words (Math, Makabansa, and GMRC) accurately for meaning.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "RL1VWK-III-5",
+      "text": "Write words legibly and correctly.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-11",
+      "quarter": 3,
+      "domain": "D06",
+      "sortOrder": 11,
+      "competencyCode": "RL1CAT-III-1",
+      "text": "Read sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-12",
+      "quarter": 3,
+      "domain": "D06",
+      "sortOrder": 12,
+      "competencyCode": "RL1CAT-III-2",
+      "text": "Comprehend stories a. Note important details in stories (character, setting, and events). b. Sequence stories with at least 3 events. c. Infer the character’s feelings and traits. d. Predict possible ending. e. Relate story events to one’s experience. f. Identify cause and effect of events. g. Identify the problem and solution in stories.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-13",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 13,
+      "competencyCode": "RL1CAT-III-3",
+      "text": "Comprehend informational text. a. Note significant details in informational texts (list and describe). b. Identify problem and solution.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-14",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 14,
+      "competencyCode": "RL1CCT-III-1",
+      "text": "Narrate one’s personal experiences: a. community b. content-specific topics",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-15",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 15,
+      "competencyCode": "RL1CCT-III-2",
+      "text": "Use own words in retelling myths, legends, fables, and narrative poems.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-16",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 16,
+      "competencyCode": "RL1CCT-III-3",
+      "text": "Express ideas about:",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-3:item-17",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 17,
+      "competencyCode": "RL1CCT-III-4",
+      "text": "Respond creatively to texts (myths, legends, fables, and narrative",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-1",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": "RL1PWS-IV-1",
+      "text": "Produce the sound of the letters of L1.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-2",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": "RL1PWS-IV-2",
+      "text": "Identify the letters in L1.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "RL1PWS-IV-3",
+      "text": "Isolate sounds (consonants and vowels) in a word (beginning and/or ending).",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-4",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "RL1PWS-IV-4",
+      "text": "Substitute individual sounds in simple words to make new words.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-5",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "RL1PWS-IV-5",
+      "text": "Sound out words accurately.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-6",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": "RL1VWK-IV-1",
+      "text": "Use vocabulary referring to environment.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-7",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": "RL1VWK-IV-2",
+      "text": "Identify words with different functions (naming and describing words): a. words that label persons, places, things, animals, actions, situations, ideas, and emotions. b. words that describe persons, places, things, animals, actions, situations, ideas, and emotions.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-8",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": "RL1VWK-IV-3",
+      "text": "Read high frequency words accurately for meaning.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-9",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": "RL1VWK-IV-4",
+      "text": "Read content-specific words (Math, Makabansa, and GMRC) accurately for meaning.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-10",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "RL1VWK-IV-5",
+      "text": "Write words legibly and correctly.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-11",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 11,
+      "competencyCode": "RL1CAT-IV-1",
+      "text": "Read sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-12",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 12,
+      "competencyCode": "RL1CAT-IV-2",
+      "text": "Comprehend stories a. Note important details in stories (character, setting, and events). b. Sequence stories with at least 3 events. c. Infer the character’s feelings and traits. d. Predict possible ending. e. Relate story events to one’s experience. f. Identify cause and effect of events. g. Identify the problem and solution in stories.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-13",
+      "quarter": 4,
+      "domain": "D07",
+      "sortOrder": 13,
+      "competencyCode": "RL1CAT-IV-3",
+      "text": "Comprehend informational text. a. Note significant details in informational texts (list and describe). b. Identify problem and solution.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-14",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 14,
+      "competencyCode": "RL1CCT-IV-1",
+      "text": "Narrate one’s personal experiences: a. environment b. content-specific topics",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-15",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 15,
+      "competencyCode": "RL1CCT-IV-2",
+      "text": "Use own words in retelling myths, legends, fables, and narrative poems.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-16",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 16,
+      "competencyCode": "RL1CCT-IV-3",
+      "text": "Express ideas about:",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:period-4:item-17",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 17,
+      "competencyCode": "RL1CCT-IV-4",
+      "text": "Respond creatively to texts (myths, legends, fables, and narrative",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "f81024c7f7f071e48cb7468663e33b73f181c2ac5ca28877028f9922267034d4"
+  }
+}

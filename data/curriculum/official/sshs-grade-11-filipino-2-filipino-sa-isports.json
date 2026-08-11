@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-filipino-2-filipino-sa-isports",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Filipino 2 - Filipino sa Isports",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/15i2J4AJ0-q0scJAflgDtT2x2STe5zBfX/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Filipino-2-Filipino-sa-Isports.pdf",
+    "fileId": "15i2J4AJ0-q0scJAflgDtT2x2STe5zBfX",
+    "sha256": "7dbfc5e7a5296ea441048da7a447fe5dade1c7d1ef80ec9c764ab9d1344ed9ff",
+    "byteSize": 215544,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FILIPINO-2-FILIPIN11",
+    "name": "Filipino 2 - Filipino sa Isports",
+    "description": "Official Grade 11 Filipino 2 - Filipino sa Isports competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Mga Gamit ng Akademikong Filipino:",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Mga Elemento ng Tekstong Pang-isports:",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "A. Ulat ng laro",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Mga Sulating Pang-isports",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Mga Sulating Pangkalakalan sa Isports",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Mga Sulatin sa Serbisyong Pang-isports",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Pangangalaga ng Kalusugan sa Simula, Habang, at Pagkatapos ng Laro",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Pagbuo ng Sports Brochure",
+      "sortOrder": 8
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang gamit ng akademikong Filipino sa kalusugan, isports, at kaangkupang pisikal",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga elemento ng mga sulating pang-isports",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga elemento ng mga sulating pang-isports",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naihahambing ang sulating pang-isports sa iba pang sulatin batay sa mga elemento",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mga etika at hakbang sa pagsulat ng sulating pang-isports",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng mga sulating pang-isports batay sa elemento at etika sa pagsulat gamit ang akademikong Filipino",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga sulating pangkalakalan sa isports batay sa mga elemento",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga sulatin sa serbisyong pang-isports",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-2:item-3",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakasusulat ng scouting report batay sa pinanood na bidyo ng laro",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-2:item-4",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakasusulat ng piling sulatin sa serbisyong pang-isports batay sa interes ng mag-aaral",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-2:item-5",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasagawa ng panayam kaugnay sa kaligtasan at pangangalaga ng mental at pisikal na kalusugan ng manlalaro",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-2:item-6",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng sports brochure kaugnay ng mahahalagang datos na nakalap sa pangangalaga ng mental at pisikal na kalusugan ng manlalaro sa napiling isports",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "06c7e6438f1f28181527226e1d1725a9422a9dfb2c8061208baf2a8b542786e1"
+  }
+}

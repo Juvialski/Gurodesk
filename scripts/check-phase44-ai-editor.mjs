@@ -136,7 +136,7 @@ for (const required of ['baseQuestion', 'studentQuestion', 'teacherQuestion', 'b
 for (const required of ['multiple_choice', 'true_false', 'short_answer', 'constructed_response', 'identification', 'fill_in_the_blank', 'numerical_answer', 'problem_solving', 'matching', 'multiple_select', 'essay']) assert.match(exportPresentationSource, new RegExp(required), `shared export presentation covers ${required}`)
 for (const required of ['fill_in_the_blank', 'numerical_answer', 'problem_solving', 'matching', 'multiple_select', 'essay', 'See rubric', 'question-flow']) assert.match(exportSource + exportViewSource + exportPresentationSource, new RegExp(required))
 assert.match(exportModelSource, /mode === 'student'/)
-assert.match(exportSource, /answerText/)
+assert.match(exportPresentationSource, /assessmentPaperAnswerText/, 'all renderers share one deterministic answer formatter')
 assert.doesNotMatch(exportModelSource, /Gemini|gemini|fetch\(|GuroDesk/)
 assert.doesNotMatch(exportSource, /Gemini|gemini|fetch\(|GuroDesk/)
 assert.doesNotMatch(read('src/components/AssessmentDocumentView.tsx'), /qaState|authorshipState|teacherNotes|internal/i)

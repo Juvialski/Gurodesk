@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-general-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: General Mathematics",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1_hxcZCtEkI6kMOLvKLWSuG8y2af2Icfk/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "GENERAL-MATHEMATICS.pdf",
+    "fileId": "1_hxcZCtEkI6kMOLvKLWSuG8y2af2Icfk",
+    "sha256": "bc574279387d94de424cccfb451bd81a8b36fa878623de3b74d8138da9da41e4",
+    "byteSize": 379273,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "GENERAL-MATHEMATIC11",
+    "name": "General Mathematics",
+    "description": "Official Grade 11 General Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "NUMBERS AND ALGEBRA (NA)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "MEASUREMENT AND GEOMETRY (MG)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "DATA AND PROBABILITY (DP)",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "calculate weekly or monthly wages from an annual salary, wages from an hourly rate, including situations involving overtime and other allowances, and earnings based on commission or piecework;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply a percentage increase or decrease in various contexts; a) determining the impact of inflation on costs and wages over time b) calculating percentage mark-ups and discounts c) calculating VAT d) calculating profit or loss in both absolute and percentage terms.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve problems involving salaries, wages, benefits, and deductions (tax computations, overtime pay, and gross and net incomes) using appropriate technology;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine and apply the appropriate metric units for various contexts, such as units for small and large quantities and scientific measurements;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "convert measurements with different units in the same system and between different systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "determine the surface area of three-dimensional objects, such as prisms, pyramids, cylinders, cones, spheres, and combinations of these;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "calculate the volume of prisms, pyramids, cylinders, cones, spheres, and combinations of these;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "use a scale to interpret and compare distances on maps, blueprints, and sketches;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "solve problems involving the conversion of currencies;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "apply time conversions in various real-world scenarios such as travel planning, project management, and daily routine schedules for personal and business transactions;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "apply temperature conversions to real-world scenarios such as recipe adjustments, weather reports, scientific experiments, storage conditions, and energy efficiency;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "classify functions based on their graphs and/or equations to determine if they are linear, absolute value, quadratic, square root, or cube root;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "sketch the graph of the following functions: linear, absolute value, quadratic, square root, or cube root with or without technology;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-11",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "apply the functions to model and solve real-life problems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-12",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "illustrate a piecewise function in practical contexts (i.e., fare rates, purchasing, and income tax);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-2:item-13",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "solve practical problems involving piecewise functions;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "illustrate the trigonometric ratios in a right-angled triangle using a real-life object or figure;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "illustrate the area of oblique triangles (i.e., Heron’s Formula and the rule Area=½ abSinC);",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve practical problems involving a. right and oblique triangles b. angles of elevation and depression c. the use of bearings in navigation",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "estimate and measure lengths and distances (e.g,, floor dimensions, measuring fabric for clothing);",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "calculate the area and perimeter of residential spaces (e.g., room renovations, garden layouts);",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "solve problems involving compound interest, including maturity value, future value, nominal rates, and number of terms;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "illustrate simple annuity, general annuity, and deferred annuity;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve problems involving annuities;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "calculate the fair market value of a cash flow stream that includes an annuity;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "differentiate between business and consumer loans and their characteristics, such as repayment terms, requirements, purpose, and interest rates;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "solve problems involving business and consumer loans (e.g., amortization, mortgage);",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "illustrate a. null hypothesis b. alternative hypothesis c. level of significance d. types of error",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "formulate the null and alternative hypotheses of a given problem;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "determine the (a) level of significance and (b) types of error appropriate to a given hypothesis;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "test hypotheses for one and two population means using technology employing the following statistical tools: a. z-test for known standard deviation b. z-test for unknown standard deviation c. one-sample t-test d. independent samples t-test e. paired samples t-test",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "5c905f2f0610e0672701592eeac57e6b82cf9a2ddba7aad575c8ec7ca51d1815"
+  }
+}

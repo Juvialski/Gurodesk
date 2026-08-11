@@ -1,0 +1,629 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-6-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Mathematics CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Mathematics%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "sha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+    "byteSize": 1754867,
+    "pageCount": 73,
+    "pagesUsed": {
+      "from": 48,
+      "to": 51
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 6",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 6",
+    "code": "MATHEMATICS6",
+    "name": "Mathematics",
+    "description": "Official Grade 6 Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 48,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 49,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 50,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 51,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Measurement and Geometry (MG)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Number and Algebra (NA)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Data and Probability (DP)",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explore whether or not a shape tessellates.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "tessellate a surface using different shapes, including triangles, squares, and rectangles.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "draw resulting images of shapes that undergo translation, reflection, rotation",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "add and subtract decimals with decimal parts of up to 4 decimal places.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving addition and/or subtraction of decimals, including problems involving money.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "mentally multiply decimals of up to 2 decimal places by 0.1, 0.01, 0.001, 10, 100, and 1000.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving multiplication of decimals that may or may not also involve addition or subtraction of decimals, including problems involving money.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "divide: a. 1- to 2-digit whole numbers resulting in a repeating (non-terminating) decimal quotient (e.g., 1/3 = 0.3333…), and b. a whole number by a decimal of 1 decimal place.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "mentally divide: a. decimals of up to 4 decimal places by 0.1, 0.01, and 0.001, and b. decimals of up to 2 decimal places by 10, 100, and 1000.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "solve problems involving division of decimals that may or may not involve the other operations with decimals and/or whole numbers.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "obtain products that result from multiplying different combinations of fractions, whole numbers, and mixed numbers.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving multiplication that may or may not involve addition or subtraction of different combinations of fractions, whole numbers, and mixed numbers.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "divide different combinations of fractions, whole numbers, and mixed numbers.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-1:item-14",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving division of different combinations of fractions, whole numbers, and mixed numbers that may or may not involve any of the other operations of fractions.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe the relationship between quantities using ratio for: a. part-whole relationships, and b. part-part relationships.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "express one number as a fraction of another given their ratio, and vice versa.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify and write equivalent ratios.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "solve problems involving ratio.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "illustrate ratio and proportion in given situations using tables and/or the double number line model.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "find how many times one value is larger than another given their ratio, and vice versa.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "solve problems involving ratio and proportion.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "illustrate and explain the relationships between percentages, fractions, and decimals.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify and explain the uses of percentages.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "write numbers in exponential form e. g., 2×2×2=2³, and vice versa e.g., 2³ =2×2×2.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-11",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "give the value of numbers expressed in exponential form.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-2:item-12",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "perform calculations involving numbers in exponential form by applying the GEMDAS rules.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine appropriate units for measuring volume and capacity.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "convert cu. cm to L, and vice versa.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "find the volume of a cube and of a rectangular prism using standard units of measurement.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "solve problems involving volumes of cubes and rectangular prisms.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve problems involving capacity.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-6",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "convert sq. cm to sq. m, and vice versa.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-7",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "find the area, in sq. m or sq. cm, of composite figures composed of triangles, squares, and rectangles.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-8",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "solve problems involving the perimeter and area of triangles, parallelograms, trapezoids, and composite figures composed of triangles, squares, and rectangles.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-9",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "draw circles with different radii using a pair of compasses.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-10",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "identify and describes the parts of a circle.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-11",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "measure the circumference of circles using appropriate tools.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-12",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "approximate the value of pi (𝜋) (the ratio of circumference to diameter).",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-3:item-13",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "find the circumference of a circle using 𝐶 =𝜋𝑑 or 𝐶 =2𝜋𝑟.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explore inductively the area of a circle leading to the formula 𝐴=𝜋𝑟².",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "find the area of a circle using the formula.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "find the area of composite figures composed of any two or more of the following: triangle, square, rectangle, circle, and semicircle.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "solve problems involving circumference and area of circles, and composite figures.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "find the angle measures and/or percentages based on the given data for a pie graph.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "construct a pie graph using appropriate tools.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "interpret data presented in a pie graph.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "interpret data from digital media that are presented in tabular or graphical form.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "draw conclusions or make inferences based on data presented in a pie graph.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "solve problems using data presented in a pie graph.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-11",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "determine the common factors and the greatest common factor (GCF) of two numbers using the following methods: listing, prime factorization, and continuous division.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-12",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "find the common multiples and least common multiple (LCM) of two numbers using the following methods: listing, prime factorization, and continuous division.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:period-4:item-13",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "solve problems involving GCF and LCM.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "f6415178b5dd21cbe9da63d523ae6fda70ffdd06661bb3ff9836a3bd7f60eb5a"
+  }
+}

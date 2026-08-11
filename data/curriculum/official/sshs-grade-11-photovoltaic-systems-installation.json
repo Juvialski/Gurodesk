@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-photovoltaic-systems-installation",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Photovoltaic Systems Installation",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1ghBjYlRamzscoWrgJe_kR5Viclg2igtR/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Photovoltaic-Systems-Installation_.pdf",
+    "fileId": "1ghBjYlRamzscoWrgJe_kR5Viclg2igtR",
+    "sha256": "d3b2309feb7ec97ce11f574ae9e24063a2decaad35b743df0c2e8318b2144ef9",
+    "byteSize": 264254,
+    "pageCount": 10,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "PHOTOVOLTAIC-SYSTE11",
+    "name": "Photovoltaic Systems Installation",
+    "description": "Official Grade 11 Photovoltaic Systems Installation competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 3"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Renewable Energy and Solar Power",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Installation checklist",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Site Assessment Procedures",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Documentation and report",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "General",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Safety protocols for PV systems installation",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "PV Systems Installation",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "PV Systems Installation Procedures",
+      "sortOrder": 8
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the concepts and principles related to Photovoltaic Systems Installation.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss checklist for installation parameters.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform site assessment procedures.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Report completion of work.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform inspection of PV components, materials and meas-uring instruments compliance.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-2:item-2",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Conduct reporting of test results of PV components and materials.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-3:item-1",
+      "quarter": 3,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss safety protocols for PV systems installation.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-3:item-2",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Determine the PV installation layout, tools, and materials.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-3:item-3",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform installation of photovoltaic systems.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:period-3:item-4",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Report completion of work.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "421d80360a63293c4bf252583876f297474ec9c7fa9517cd43569853785dbdc5"
+  }
+}

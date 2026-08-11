@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-contemporary-marketing",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Contemporary Marketing",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1xAdgEp0BotSHZZoI_y19G3NpxpoP0cgA/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Contemprary-Marketing.pdf",
+    "fileId": "1xAdgEp0BotSHZZoI_y19G3NpxpoP0cgA",
+    "sha256": "7b9436462abf65b769ffbb1a06981bcb85385f8b0cf3fe71432eebdc9b7c3904",
+    "byteSize": 293103,
+    "pageCount": 4,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CONTEMPORARY-MARKE11",
+    "name": "Contemporary Marketing",
+    "description": "Official Grade 11 Contemporary Marketing competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Fundamental Principles of Marketing",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Customer-centric Marketing",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Market Opportunity Analysis and Market Research",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Porter’s five forces",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Marketing Plan",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Market Segmentation, Market Targeting, and Market Positioning",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Modern Marketing Mix Strategies",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Marketing Analytics and Data-Driven Decision-Making",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Presentation of Marketing Plan based on the results of the",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Customer Relationship Management (CRM)",
+      "sortOrder": 10
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the fundamental principles of marketing",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Distinguish traditional and contemporary marketing",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Explain consumer behavior",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss the buying decision process, customer acquisition and customer retention",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Analyze the potential areas and market conditions using market analysis tools",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Conduct marketing research",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-7",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Discuss the components of a marketing plan",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-8",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "determine the target market based on the evaluated market segment.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-9",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "formulate a clear strategy to position the product.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Analyze the 7P’s of Marketing Mix",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the framework for making data-driven marketing",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Develop a marketing plan fora specific product based on data analysis and environmental scanning",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:period-2:item-4",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Analyze the measures and practices for sustaining business products or services",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "6569a62d1b19ee0736a3f01a1444f5837a3773fed0d92b26f182aec05773b428"
+  }
+}

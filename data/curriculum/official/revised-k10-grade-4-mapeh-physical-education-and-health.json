@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-4-mapeh-physical-education-and-health",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG PE and Health CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20PE%20and%20Health%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "sha256": "31e3758e6260530bd41db71f6f7ea614ee6ceba6136b62f20aa62be88960943d",
+    "byteSize": 2192779,
+    "pageCount": 58,
+    "pagesUsed": {
+      "from": 21,
+      "to": 24
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 4",
+    "code": "MAPEH4",
+    "name": "MAPEH",
+    "description": "Official Grade 4 MAPEH — Physical Education and Health competency records.",
+    "component": "Physical Education and Health"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 21,
+      "sourceLabel": "First Quarter"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 22,
+      "sourceLabel": "Second Quarter"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 23,
+      "sourceLabel": "Third Quarter"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 24,
+      "sourceLabel": "Fourth Quarter"
+    }
+  ],
+  "domains": [
+    {
+      "code": "PH-D01",
+      "name": "Introduction to Personal Health",
+      "sortOrder": 1
+    },
+    {
+      "code": "PH-D02",
+      "name": "Personal Hygiene Practices",
+      "sortOrder": 2
+    },
+    {
+      "code": "PH-D03",
+      "name": "Current Health Status and Body Awareness",
+      "sortOrder": 3
+    },
+    {
+      "code": "PH-D04",
+      "name": "Physical Activity Participation: Target Games",
+      "sortOrder": 4
+    },
+    {
+      "code": "PH-D05",
+      "name": "Characteristics of a Healthy Family",
+      "sortOrder": 5
+    },
+    {
+      "code": "PH-D06",
+      "name": "Roles and Responsibilities of Family Members in Promoting Family Health",
+      "sortOrder": 6
+    },
+    {
+      "code": "PH-D07",
+      "name": "Physical Activity Participation in Improving Family Health",
+      "sortOrder": 7
+    },
+    {
+      "code": "PH-D08",
+      "name": "Physical Activity Participation: Invasion Games",
+      "sortOrder": 8
+    },
+    {
+      "code": "PH-D09",
+      "name": "Concept of Safe and Healthy Eating",
+      "sortOrder": 9
+    },
+    {
+      "code": "PH-D10",
+      "name": "Essential Nutrients and their Functions",
+      "sortOrder": 10
+    },
+    {
+      "code": "PH-D11",
+      "name": "Balanced Meal and Balanced Diet",
+      "sortOrder": 11
+    },
+    {
+      "code": "PH-D12",
+      "name": "Physical Activity Participation: Rhythmic Activities and Dances",
+      "sortOrder": 12
+    },
+    {
+      "code": "PH-D13",
+      "name": "Child’s Basic Health Rights",
+      "sortOrder": 13
+    },
+    {
+      "code": "PH-D14",
+      "name": "Filipino Consumer Rights",
+      "sortOrder": 14
+    },
+    {
+      "code": "PH-D15",
+      "name": "Health and Fitness Facts and Fads",
+      "sortOrder": 15
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-1:item-1",
+      "quarter": 1,
+      "domain": "PH-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the concept and importance of personal health for active living;",
+      "sourcePage": 21,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-1:item-2",
+      "quarter": 1,
+      "domain": "PH-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate proper personal hygiene practices;",
+      "sourcePage": 21,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-1:item-3",
+      "quarter": 1,
+      "domain": "PH-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "relate current health status to body awareness; and",
+      "sourcePage": 21,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-1:item-4",
+      "quarter": 1,
+      "domain": "PH-D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform physical activities using target game concepts with agility, balance, coordination, and speed for active and healthy living: a. locomotor skills by avoiding an object or obstacles, and b. manipulative skills by sending or propelling an object to an intended area.",
+      "sourcePage": 21,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-2:item-1",
+      "quarter": 2,
+      "domain": "PH-D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the characteristics and importance of promoting a healthy family;",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-2:item-2",
+      "quarter": 2,
+      "domain": "PH-D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate one’s roles and responsibilities in promoting family health;",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-2:item-3",
+      "quarter": 2,
+      "domain": "PH-D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "participate in various physical and daily life activities to improve family health; and",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-2:item-4",
+      "quarter": 2,
+      "domain": "PH-D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform physical activities using invasion game concepts with agility, balance, and coordination for active living: a. locomotor skills by attacking to create space, and denying and covering space or goal; and b. manipulative skills by sending away and receiving objects.",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-3:item-1",
+      "quarter": 3,
+      "domain": "PH-D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the concept and importance of eating safe and healthy food;",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-3:item-2",
+      "quarter": 3,
+      "domain": "PH-D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate healthy and balanced food choices to include essential nutrients;",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-3:item-3",
+      "quarter": 3,
+      "domain": "PH-D11",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the benefits of eating a balanced meal when engaging in physical activities; and",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-3:item-4",
+      "quarter": 3,
+      "domain": "PH-D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "engage actively in different rhythmic activities and dances for improving one’s movement competence and physical activity participation.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-4:item-1",
+      "quarter": 4,
+      "domain": "PH-D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss child’s basic health rights for active living;",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-4:item-2",
+      "quarter": 4,
+      "domain": "PH-D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate ways to be an informed, critical, and responsible Filipino consumer;",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-4:item-3",
+      "quarter": 4,
+      "domain": "PH-D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the effects of health and fitness facts and fads in physical activity participations; and",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mapeh-physical-education-and-health:period-4:item-4",
+      "quarter": 4,
+      "domain": "PH-D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "engage actively in different rhythmic activities and dances for improving their movement competence and physical activity participation.",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "6b7c889aceafa6445610b0f37ab5022a8e47f365bc1ffff3afa8180c8a503c03"
+  }
+}

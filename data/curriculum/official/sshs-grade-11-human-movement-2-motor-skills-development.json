@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-human-movement-2-motor-skills-development",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Human Movement 2 - Motor Skills Development",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1UeQgSRmOIYCVmuvsNYHU6P9kxed1Fbkd/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Human-Movement-2-Motor-Skills-Development.pdf",
+    "fileId": "1UeQgSRmOIYCVmuvsNYHU6P9kxed1Fbkd",
+    "sha256": "edca5434d05d7f72d84d14507f307beaa3f29217992586e0a1acc2fe4b96e40d",
+    "byteSize": 419069,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 3
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "HUMAN-MOVEMENT-2-M11",
+    "name": "Human Movement 2 - Motor Skills Development",
+    "description": "Official Grade 11 Human Movement 2 - Motor Skills Development competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Classifications of Motor Skills",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Motor Learning Stages Factors Affecting Motor Learning",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "The Motor Control Theories",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Measuring and Analyzing Human Movement Suggested Activities Methods of Analysis",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-human-movement-2-motor-skills-development:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the different classifications of motor skills to optimize performance",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-2-motor-skills-development:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe motor learning factors in relation to motor learning stages in fitness and exercise",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-2-motor-skills-development:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "apply motor control theories in relation to fitness and exercise",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-2-motor-skills-development:period-2:item-1",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze movement patterns using measurement techniques to enhance performance",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "ec3a315d227296b01da342f5980dd6efb42954f6e5a960c6c26a97d3d7ef46b8"
+  }
+}

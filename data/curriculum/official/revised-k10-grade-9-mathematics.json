@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-9-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Mathematics CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Mathematics%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "sha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+    "byteSize": 1754867,
+    "pageCount": 73,
+    "pagesUsed": {
+      "from": 60,
+      "to": 64
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 9",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 9",
+    "code": "MATHEMATICS9",
+    "name": "Mathematics",
+    "description": "Official Grade 9 Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 60,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 61,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 62,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 64,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Measurement and Geometry (MG)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Number and Algebra (NA)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Number and Algebra (N/A)",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Data and Probability (DP)",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "illustrate and describe point, line, ray, line segment, angle, and plane using models and geometric notations.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "construct perpendicular and parallel lines.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify the relationships between angles formed by parallel lines cut by a transversal.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "determine angle measures involving angle pairs, parallel and perpendicular lines, and parallel lines cut by a transversal.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "identify relations that are functions based on the definitions of relations and functions.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "determine the domain and the range of a function expressed in different representations.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "express the relationship between two variables as a function.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "determine the slopes (as rate of change) and the zeros of linear functions represented in: a. graphs, b. equations, and c. tables of values.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "graph a linear function and determine its: a. domain, b. range, c. intercepts, and d. slope.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "represent linear relationships found in real-life situations using different representations.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve problems involving linear functions.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine conditions that guarantee parallelism and perpendicularity of lines.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "classify quadrilaterals based on formal definitions.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use properties of parallelograms to find measures of angles, sides, perpendicular height, and diagonals.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "solve problems involving parallelograms, rectangles, squares, or rhombuses by applying their different properties.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "prove properties of parallelograms by applying the relevant theorems.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "derive the properties of trapezoids and kites by exploring the relationship between their parts and secondary parts.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "solve problems on trapezoids and kites by applying their properties.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "distinguish inductive and deductive reasoning for establishing proofs.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "state postulates and theorems about defined and undefined terms in geometry, and formulates proofs involving them.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "use the triangle congruence postulates and theorems to illustrate congruence of triangles, including CPCTC (definition of congruent triangles).",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-11",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve problems involving right triangle congruence theorems, isosceles triangle theorem, perpendicular bisector theorem, and midline theorem",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-12",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "construct and justify the construction of segments, angles and triangles, including, but not limited to, the triangle’s secondary parts and centers, using the triangle congruence postulates and theorems.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-2:item-13",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "construct congruence proofs involving triangles or corresponding parts of triangles using a two-column proof.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "represent real-life situations that can be modelled using quadratic relationships.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "graph equations in two variables to represent quadratic relationships, such as 𝑦=𝑎𝑥²,𝑦=𝑎𝑥²+𝑏,𝑦=𝑎(𝑥−𝑏)².",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "interpret features of a parabola such as vertex, axis of symmetry, x–intercepts, opening direction, minimum or maximum value, zeros, and increasing and decreasing intervals.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "transform the quadratic functions 𝑦=𝑎𝑥²,𝑦=𝑎𝑥²+𝑏,𝑦=𝑎(𝑥−𝑏)² and 𝑦=𝑎𝑥²+𝑏𝑥+𝑐 into the form 𝑦=𝑎(𝑥−ℎ)²+𝑘, and vice versa.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "sketch the graph of quadratic functions expressed in equation form.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "analyze the effect of changing the values of the parameters on the behavior of its graph and on the properties of the quadratic function 𝑦=𝑎(𝑥−ℎ)²+𝑘.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "find the zeros of quadratic functions in factored and standard form, graphically and algebraically.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "solve quadratic equations by: a. extracting square roots, b. factoring, and c. using the quadratic formula.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve problems involving quadratic functions and equations",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-10",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "illustrate similarity of polygons.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-11",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "illustrate and apply triangle similarity theorems in different situations.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-12",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve problems involving triangle similarity.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-13",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "solve problems involving measures of sides and angles of special triangles (30-60-90, 45-45-90).",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-14",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "illustrate real-life situations that involve direct variation and real-life situations that involve inverse variation.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-15",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "translate a relationship between two quantities into a variation statement and/or a mathematical equation, given a table of values or a graph.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-3:item-16",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "solve problems involving variation. • sketch the graph of a quadratic function. (NA) • solve quadratic equations. (NA) • illustrate and apply similarity of polygons, including triangles. (MG) • apply direct and inverse variation. (NA)",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "solve problems involving the perpendicular bisector theorem, isosceles triangle theorem, theorems on equilateral triangles, and the midline theorem.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain theorems on triangle inequalities and apply these theorems in comparing measures in a triangle.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "determine the values of the sine, cosine, and tangent trigonometric ratios corresponding to the angles of the special triangles.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "find the values of the sine, cosine, and tangent ratios of any acute angle.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "use the trigonometric ratios in solving right triangles.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "illustrate angles of elevation and angles of depression.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "solve real-life problems involving right triangles through the application of the trigonometric ratios.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "interpret and analyze data from the digital media that are in tabular or graphical form to assess whether the data may be misleading.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "illustrate simple and compound events.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "determine the probabilities of simple and compound events.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-mathematics:period-4:item-11",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve problems involving probabilities of simple and compound events.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "4ea8304ed83aa57a323da4546c5af75966255a679c766ecd9af88867037e86eb"
+  }
+}

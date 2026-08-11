@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-10-filipino",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "sourceConsistency": {
+      "detailedTableCountsByQuarter": [
+        5,
+        6,
+        4,
+        5
+      ],
+      "publishedSummaryCountsByQuarter": [
+        5,
+        6,
+        4,
+        5
+      ],
+      "status": "matched",
+      "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    }
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG FILIPINO CG 2023 Grades 2-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20FILIPINO%20CG%202023%20Grades%202-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "sha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+    "byteSize": 2192086,
+    "pageCount": 172,
+    "pagesUsed": {
+      "from": 162,
+      "to": 171
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 10",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 10",
+    "code": "FILIPINO10",
+    "name": "Filipino",
+    "description": "Official Grade 10 Filipino competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 162,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 165,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 168,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 170,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Pag-unawa at Pagsusuri sa mga Tekstong Nasusulat",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Pag-unawa at Pagsusuri ng mga Tekstong Biswal",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Paglikha at Presentasyon ng Tekstong Multimodal",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa kaligirang pangkasaysayan ng Obra Maestra – El Filibusterismo • Kaligirang Pangkasaysayan (El Filibusterismo)",
+      "sourcePage": 162,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Obra Maestra: El Filibusterismo • Pag-aalay sa El Filibusterismo • Ang GOMBURZA • Mga Tauhan • Pagbabalik-tanaw sa Noli Me Tangere (mahahalagang pangyayari na iniuugnay sa El Filibusterismo) • Kabanata 1-10 • Kabanata 11-18 • Kabanata 19-25 • Kabanata 26-32 • Kabanata 33-39 (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa El Filibusterimo (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing), pagkakahanay ng mga pangyayari (parallelism and simultaneity), at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa El Filibusterimo (c) Naiuugnay ang mahahalagang kaisipan ng El Filibusterismo batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahalagang pangyayari ng teksto (tuluyan) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika sa El Filibusterimo (f) Nakapaghahambing ng mga tekstong hawig sa El Filibusterismo at iba pang nobelang panlipunan na nasusulat sa Pilipinas at sa ibang bansa",
+      "sourcePage": 162,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal na makikita sa El Filibusterismo • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD)’ - pabalat ng El Filibusterismo at komiks nito-bapor Tabo-larawan ng sistemang reduccion-kubyerta-serbesa at tubig-buwayang nag-aanyong demonyo-lupang ari-arian-lupa (nakabusal sa bibig ng bagong magsasaka) - agnos/relikaryo/laket-rebolber-Pasko/kapaskuhan-gubat ng mga Ibarra-ulo ni Imuthis-riles-apyan-kayamanan ni Kapitan Tiyago-paskil-lason-kayamanan ni Simoun-Karagatang Pasipiko (a) Naipaliliwanag ang kahulugan ng tekstong biswal sa Obra Maestra-El Filibusterismo (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng Obra Maestra-El Filibusterismo",
+      "sourcePage": 163,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakabubuo ng documentary film tungkol sa pag-unlad ng isang usaping panlipunan na maiuugnay sa El Filibusterismo (a) Nakapipili ng tiyak na bahagi ng El Filibusterismo (b) Nakabubuo ng plano sa paglikha ng documentary film at borador (c) Nakakukuha ng mga videos ng mga gaganap (d) Nalalapatan ng mga sound effects na kailangan sa video (e) Nailalapat ang iba pang elementong multimodal (f) Nairerebisa ang nabuong documentary film",
+      "sourcePage": 163,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nilikhang tekstong multimodal (documentary film) sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 164,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa Kontemporaneong Panahon/ Makabagong Panahon kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (Panitikan sa Kontemporaneong Panahon / Makabagong Panahon)",
+      "sourcePage": 165,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Akda sa Kontemporaneong Panahon / Makabagong Panahon • Tula (a) Natutukoy ang mahahalagang elemento (persona, sukat at tugma, talinghaga at estilo) at detalye (paksa, nilalaman at kaisipan) ng tula (b) Naipaliliwanag ang nakapaloob na pahiwatig, simbolo, talinghaga, at larawang diwa/ imahen sa tula (c) Naiuugnay ang mahahalagang kaisipan ng tula batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tula) batay sa konteksto ng panahon, lunan at may-akda. (e) Nasusuri ang mga elementong panlingguwistika (sukat, tugma,tono at talinghaga) ng tula (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon. Tuluyan (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa tuluyan (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing), pagkakahanay ng mga pangyayari (parallelism and simultaneity), at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa binasang tuluyan. (c) Naiuugnay ang mahahalagang kaisipan ng tuluyan batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tuluyan) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (bisa ng salita, pahiwatig, idyomatikong pahayag, estilo) ng tuluyan (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 165,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang mahahalagang impormasyon sa isang pananaliksik • Kahulugan ng pananaliksik • Mga mananaliksik • Etika ng pananaliksik (plagiarism)",
+      "sourcePage": 166,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora at PWD) Elemento ng tekstong biswal na mga grapiko, balangkas, at tsart mula sa sarbey (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (akademik)",
+      "sourcePage": 166,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-2:item-5",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakabubuo ng biswal na representasyon mula sa isang sarbey (a) Nakapipili ng paksa (b) Nababalangkas ang mga nakalap na impormasyon (c) Nakabubuo ng borador (d) Nailalapat ang biswal at multimodal na mga elemento",
+      "sourcePage": 167,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naibabahagi ang biswal na representasyon mula sa isang sarbey sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 167,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang kahalagahan ng impormasyon, mensahe, at detalye sa kritikal na pagtingin sa isang komunidad (tulad ng paaralan, barangay, lokal na pamahalaan) Mga Kasanayan sa Pananaliksik • Pangangalap ng mga mapagkakatiwalaang sanggunian • Pagtukoy sa katotohanan at opinyon • Pagsusuri sa mapagkakatiwalaang sanggunian at kredibilidad ng may-akda • Pagtukoy sa pangunahin at pangalawang sanggunian • Paggamit ng mga angkop na terminolohiya o salita",
+      "sourcePage": 168,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD) Elemento ng tekstong biswal na konseptuwal na balangkas at paradigma (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (akademik)",
+      "sourcePage": 168,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakabubuo ng isang konseptuwal na balangkas na nagpapakita ng kahalagahan ng mapagkakatiwalaang mga sanggunian (a) Nasusuri ang pagkamakatotohanan ng mga mapagkukunang sanggunian (b) Natutukoy ang mga paksa, tema, at gaps (c) Nababalangkas ang konseptuwal na balangkas sa pamamagitan ng dayagram",
+      "sourcePage": 169,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naibabahagi ang konseptuwal na balangkas sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 169,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nasusuri ang isang abstrak ng pananaliksik (a) Naiisa-isa ang mga posibleng paksa para sa panukalang pananaliksik (b) Natutukoy ang layunin, pamamaraan, resulta at kongklusyon ng isang abstrak (c) Nakabubuo ng sintesis sa mga nabasang abstrak",
+      "sourcePage": 170,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakabubuo ng panukalang pananaliksik batay sa layunin at target na mambabasa",
+      "sourcePage": 170,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD) Elemento ng tekstong biswal na flow chart (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (akademik)",
+      "sourcePage": 170,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakabubuo ng isang poster presentation ng isang panukalang pananaliksik tungkol sa isang napapanahong usapin/paksa upang makatugon sa pandaigdigang pakikipag-ugnayan bilang isang makabayang Pilipino (a) Nakapipili ng paksa ng pananaliksik (b) Nakapagsasagawa ng paunang pananaliksik (c) Nakapagbabalangkas ng bahagi ng panukalang pananaliksik (layunin, pamaraan, inaasahang bunga at iba pa) (d) Nakasusulat ng borador ng poster presentation (e) Narerebisa ang poster presentation (f) Nakabubuo ng balangkas ng panukalang pananaliksik sa pamamagitan ng flow chart",
+      "sourcePage": 171,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:period-4:item-5",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naibabahagi ang poster presentation ng panukalang pananaliksik sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 171,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "122de4878b0a6226f000232447fbc019087488040c0a1454a66aed9ff528ac81"
+  }
+}

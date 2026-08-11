@@ -9,8 +9,9 @@ const batchTest = fs.readFileSync('tests/unit/assessment-generation-batch-regres
 const phase44Validator = fs.readFileSync('scripts/check-phase44-ai-editor.mjs', 'utf8')
 
 assert.match(generation, /legacyVisualPresent/, 'legacy combined question+visual responses remain accepted')
-assert.match(generation, /if \(candidate\.visual\)[\s\S]{0,700}else if \(initialVisualRequirement === 'required'\)/, 'an already-returned legacy visual prevents a second visual request')
-assert.match(generation, /"helpful" visuals are intentionally deferred/, 'helpful visuals do not automatically double provider calls')
+assert.match(generation, /if \(candidate\.visual\)[\s\S]{0,300}visual: clone\(candidate\.visual\)/, 'an already-returned legacy visual is preserved without a replacement request')
+assert.match(generation, /separate sequential pass generates diagrams/, 'question generation persists visual intent without automatically doubling provider calls')
+assert.match(generation, /enrichAssessmentVisualsSequentially/, 'helpful and required diagrams use the dedicated bounded second pass')
 assert.match(generation, /edge_transport/, 'Edge transport failures have an explicit category')
 assert.match(generation, /Failed to send a request to the Edge Function/, 'Supabase Functions fetch failures are recognized')
 assert.match(generation, /summary\.providerPaused = true[\s\S]{0,120}paused = true/, 'exhausted service boundaries stop the remainder of the batch')

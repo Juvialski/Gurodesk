@@ -8,3 +8,5 @@ dist
 .supabase
 
 *.tsbuildinfo
+__pycache__/
+*.py[cod]

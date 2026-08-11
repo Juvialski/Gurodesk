@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-conceptual-biology-and-earth-and-space",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Conceptual Biology and Earth and Space",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1kFqyKBvfSWGyXY9aqkQIoVpdyaGXFapr/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Conceptual Biology and Earth and Space Science.pdf",
+    "fileId": "1kFqyKBvfSWGyXY9aqkQIoVpdyaGXFapr",
+    "sha256": "42131590d5c9af29e91dc49b7a7265136a91a2bde2a5022cca46725312e79f1b",
+    "byteSize": 387117,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "CONCEPTUAL-BIOLOGY12",
+    "name": "Conceptual Biology and Earth and Space",
+    "description": "Official Grade 12 Conceptual Biology and Earth and Space competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Heredity and Genetic Variation",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Biodiversity and Conservation in the Philippines",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Biotechnology in Daily Life",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Natural Resources and Environmental Sustainability",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Human Activities and Climate Change",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Earth Observation and Space Technologies",
+      "sortOrder": 6
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify patterns of inherited traits in familiar human characteristics (e.g., dimples, widow’s peak, attached or free earlobes, and other inherited traits) using simple family examples or pedigrees to explain that genes are passed from parents to offspring;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain that differences in physical characteristics among people (e.g., skin tone, height, hair type and other inherited traits) are features of genetic diversity resulting from variations in DNA;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain that natural variation in inherited traits contributes to the variety of plants and animals found in the Philippines;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe endemic organisms in the Philippines by identifying examples found in their locality or nearby regions and explaining their importance to local ecosystems and communities;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "design a community-based activity that helps protect and preserve local biodiversity and describe how it can be applied in the community;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-6",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "describe the importance and everyday uses of traditional biotechnology (e.g., fermentation in food production, preservation, and household practices);",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe how biotechnology helps improve crop production and nutritional value to support food needs;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-8",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain how biotechnology, supported by digital tools for analyzing biological information, help scientists develop medicines, vaccines, and medical technologies that address health problems in communities; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-9",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain how the responsible and ethical use of biotechnology can support community well-being while minimizing risks to health, society, and the environment.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-10",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "explain how conserving natural resources (e.g., water, energy, raw materials) helps reduce environmental damage, maintain resource availability, and support daily needs such as food production, energy use, and clean water supply;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-11",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "identify ways to practice environmental sustainability in everyday life and describe how these actions (e.g., waste reduction, energy and water conservation, use of renewable energy, and sustainable food practices) help protect the environment;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-12",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "explain how human activities such as fossil fuel burning, deforestation, industrial processes, and mining contribute to climate change by releasing greenhouse gases and other pollutants that affect the environment;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-13",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "describe how greenhouse gases trap heat in the atmosphere and how increased greenhouse gas levels enhance the greenhouse effect, leading to global warming;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-14",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "use information from reliable data sources (e.g., online databases) to analyze how climate change affects local communities and ecosystems, and relate these effects to global phenomena such as sea-level rise and increased frequency of extreme weather events;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-15",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "identify Filipino and international contributions to space technologies and describe how these advancements benefit society (e.g., communication, weather forecasting, disaster monitoring);",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-16",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "use information from satellite images, weather maps, and online databases (e.g., PAGASA, NASA, PhilSA) to explain how satellites collect and provide data about",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-17",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "explain how robotic rovers and probes collect data from planets such as Mars and how these findings contribute to understanding Earth’s formation, environment, and processes; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-biology-and-earth-and-space:period-1:item-18",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "explain how scientists estimate the scale of the universe using ground-based and space-based technologies (e.g., telescopes and measurements of redshift and standard candles).",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "1d8376c9588088e6fca12f2455c77ab10a627660c5e80853c050e12b25767e5a"
+  }
+}

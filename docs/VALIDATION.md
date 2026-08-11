@@ -8,16 +8,17 @@ Run:
 npm run curriculum:validate
 ```
 
-Expected Grade 7 Mathematics result:
+Expected aggregate result:
 
 ```text
-52 verified competencies, 4 periods, 3 domains
+196 official curriculum manifests: 6181 verified competencies
+189 catalog entries → 196 manifests → 129 pinned sources → 6181 competencies
 ```
 
 The validator checks, among other things:
 
 - manifest is explicitly verified
-- source is an HTTPS `deped.gov.ph` URL
+- source file URL is a trusted official/institutional HTTPS host and its landing page is an official DepEd page
 - curriculum version exists
 - periods are valid and unique
 - domains referenced by competencies exist
@@ -31,10 +32,11 @@ The validator checks, among other things:
 Run:
 
 ```bash
-npm run curriculum:generate:g7math
+npm run curriculum:generate:bundle
+npm run curriculum:check:bundle
 ```
 
-Then compare the generated seed with `supabase/migrations/202608080003_seed_g7_mathematics.sql` before changing the migration. Generated SQL should come from the reviewed manifest, never from manual edits to a production seed.
+The result is `supabase/seeds/official-curriculum-complete.sql`. It must contain one transaction, the aggregate manifest hash, and 6,181 stable update/insert pairs. Generated SQL must come from reviewed manifests, never from manual edits to a production seed. Migration 003 remains unchanged for legacy Grade 7 identity compatibility.
 
 ## Security checks
 

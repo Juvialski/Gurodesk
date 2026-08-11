@@ -19,6 +19,7 @@ import {
 } from './assessmentQa'
 import { assessmentRequestScheduler } from './assessmentRequestScheduler'
 import { supabase } from './supabase'
+import { assessmentVisualPlanForItem, assessmentVisualSourceHash, invalidateAssessmentVisualAfterContentEdit, withResolvedAssessmentVisualPlan } from './assessmentVisualPlanning'
 import { validateAssessmentVisual } from './assessmentVisualValidation'
 
 type UnknownRecord = Record<string, unknown>
@@ -426,6 +427,13 @@ function historyWithPrevious(item: AssessmentItem, source: 'alternative' | 'repa
     points: item.points,
     qaState: value.qaState,
     visual: item.visual,
+    visualRequirement: item.visualRequirement,
+    visualIntent: item.visualIntent,
+    visualStatus: item.visualStatus,
+    visualAttempts: item.visualAttempts,
+    visualError: item.visualError,
+    visualSourceHash: item.visualSourceHash,
+    visualUpdatedAt: item.visualUpdatedAt,
   }].slice(-5)
 }
 
@@ -435,7 +443,7 @@ export function applyAssessmentItemCandidate(item: AssessmentItem, candidate: As
   if (hasExistingAssessmentContent(item) && options.alternative !== true) throw new Error('Existing item content is protected; request an explicit alternative before replacing it.')
   if (candidate.referencedResources.length > 0 && options.teacherResources === undefined) throw new Error('Referenced resources require a server-approved teacher resource list; item mapping was not changed.')
   const validated = validateAssessmentCandidate(candidate, item.questionType, options.teacherResources ?? [])
-  const next = {
+  let next: AssessmentItem = {
     ...clone(item),
     prompt: validated.prompt,
     answer: clone(validated.answer),
@@ -447,9 +455,20 @@ export function applyAssessmentItemCandidate(item: AssessmentItem, candidate: As
     // A provider omission is the legacy/manual-compatible "leave it alone"
     // signal.  An explicit null is an accepted replacement with no diagram.
     visual: validated.visual === undefined ? item.visual : validated.visual === null ? undefined : clone(validated.visual),
+    visualRequirement: validated.visualRequirement,
+    visualIntent: validated.visualIntent,
+    visualAttempts: 0,
+    visualError: undefined,
+    visualUpdatedAt: new Date().toISOString(),
     history: historyWithPrevious(item, options.source ?? (options.alternative ? 'alternative' : 'generated')),
   }
-  return next
+  if (validated.visual) {
+    next.visualStatus = 'succeeded'
+    next.visualSourceHash = assessmentVisualSourceHash(next)
+  } else {
+    next = invalidateAssessmentVisualAfterContentEdit(item, next)
+  }
+  return withResolvedAssessmentVisualPlan(next)
 }
 
 /** Apply a suggestion while preserving the QA result produced by the
@@ -643,12 +662,14 @@ function candidateFromResponse(data: UnknownRecord, item: AssessmentItem, approv
 }
 
 function itemWithCandidate(item: AssessmentItem, candidate: AssessmentItemCandidate) {
-  return {
+  return withResolvedAssessmentVisualPlan({
     ...item,
     prompt: candidate.prompt,
     answer: candidate.answer,
     visual: candidate.visual === undefined ? item.visual : candidate.visual === null ? undefined : candidate.visual,
-  }
+    visualRequirement: candidate.visualRequirement,
+    visualIntent: candidate.visualIntent,
+  })
 }
 
 export type AssessmentVisualGenerationResult = {
@@ -692,6 +713,138 @@ export async function generateAssessmentVisualSuggestion(args: {
   const result = validateAssessmentVisual(raw)
   if (!result.valid) throw new Error(`The dedicated AI visual is invalid: ${result.errors.slice(0, 3).join(' ')}`)
   return { visual: clone(raw as AssessmentVisual), model: String(data.model || 'unknown'), fallbackUsed: data.fallbackUsed === true, requestsUsed: providerRequestCount(data.providerRequestCount) }
+}
+
+export type AssessmentVisualEnrichmentSummary = {
+  eligible: number
+  attempted: number
+  succeeded: number
+  failed: number
+  skipped: number
+  cancelled: number
+  requiredFailed: number
+  helpfulFailed: number
+  providerPaused: boolean
+  results: AssessmentItem[]
+  errors: Array<{ itemId: string; itemNumber: number; requirement: 'helpful' | 'required'; message: string }>
+}
+
+export type AssessmentVisualEnrichmentOptions = {
+  assessment: AssessmentRecord
+  demo: boolean
+  itemIds?: string[]
+  force?: boolean
+  maxAttempts?: number
+  signal?: AbortSignal
+  generate?: typeof generateAssessmentVisualSuggestion
+  onItem?: (item: AssessmentItem, outcome: { status: 'success' | 'failed'; requirement: 'helpful' | 'required'; message?: string }) => void | Promise<void>
+  onProgress?: (progress: { processed: number; total: number; succeeded: number; failed: number; remaining: number; itemId: string; itemNumber: number; status: 'success' | 'failed' | 'cancelled'; message?: string }) => void
+}
+
+function visualCandidateForItem(item: AssessmentItem, requirement: 'helpful' | 'required', visualIntent: string): AssessmentItemCandidate {
+  return {
+    questionType: item.questionType,
+    prompt: item.prompt,
+    answer: clone(item.answer),
+    rationale: item.rationale ?? '',
+    referencedResources: [],
+    visualRequirement: requirement,
+    visualIntent,
+  }
+}
+
+/** Pass 2: generate only diagrams, strictly one item at a time. A failed
+ * optional diagram never replaces or discards its already-saved question. */
+export async function enrichAssessmentVisualsSequentially(options: AssessmentVisualEnrichmentOptions): Promise<AssessmentVisualEnrichmentSummary> {
+  const selected = options.itemIds?.length ? new Set(options.itemIds) : null
+  const maxAttempts = Math.max(1, Math.min(5, Math.floor(options.maxAttempts ?? 2)))
+  const generate = options.generate ?? generateAssessmentVisualSuggestion
+  const candidates = options.assessment.items
+    .filter((item) => (!selected || selected.has(item.id)) && item.prompt.trim() && item.authorshipState !== 'empty' && item.locked !== true && item.qaState !== 'locked')
+    .map((item) => withResolvedAssessmentVisualPlan(item))
+    .filter((item) => {
+      const plan = assessmentVisualPlanForItem(item)
+      if (plan.requirement === 'none') return false
+      if (!options.force && plan.current) return false
+      return options.force || plan.attempts < maxAttempts
+    })
+    .sort((left, right) => left.itemNumber - right.itemNumber || left.id.localeCompare(right.id, 'en'))
+  const summary: AssessmentVisualEnrichmentSummary = {
+    eligible: candidates.length,
+    attempted: 0,
+    succeeded: 0,
+    failed: 0,
+    skipped: options.assessment.items.length - candidates.length,
+    cancelled: 0,
+    requiredFailed: 0,
+    helpfulFailed: 0,
+    providerPaused: false,
+    results: [],
+    errors: [],
+  }
+  let working = options.assessment
+  let processed = 0
+  const progress = (item: AssessmentItem, status: 'success' | 'failed' | 'cancelled', message?: string) => {
+    processed += 1
+    options.onProgress?.({ processed, total: candidates.length, succeeded: summary.succeeded, failed: summary.failed, remaining: Math.max(0, candidates.length - processed), itemId: item.id, itemNumber: item.itemNumber, status, ...(message ? { message } : {}) })
+  }
+  for (let index = 0; index < candidates.length; index += 1) {
+    const source = working.items.find((item) => item.id === candidates[index].id) ?? candidates[index]
+    if (options.signal?.aborted) {
+      for (const pending of candidates.slice(index)) { summary.cancelled += 1; progress(pending, 'cancelled') }
+      break
+    }
+    const plan = assessmentVisualPlanForItem(source)
+    if (plan.requirement === 'none') continue
+    const requirement = plan.requirement
+    summary.attempted += 1
+    const attempt = plan.attempts + 1
+    const startedAt = new Date().toISOString()
+    const running: AssessmentItem = { ...source, visualRequirement: requirement, visualIntent: plan.intent, visualStatus: 'running', visualAttempts: attempt, visualError: undefined, visualSourceHash: plan.sourceHash, visualUpdatedAt: startedAt }
+    working = { ...working, items: working.items.map((item) => item.id === running.id ? running : item) }
+    try {
+      const candidate = visualCandidateForItem(running, requirement, plan.intent)
+      const result = await generate({ assessment: working, item: running, candidate, visualIntent: plan.intent, demo: options.demo, signal: options.signal })
+      if (!result.visual) throw Object.assign(new Error('Dedicated visual generation returned no usable diagram.'), { failureCategory: 'empty_visual' })
+      if (assessmentVisualSourceHash(running) !== plan.sourceHash) throw Object.assign(new Error('The question changed while its visual was being generated; the stale diagram was not attached.'), { failureCategory: 'stale_visual' })
+      const completed: AssessmentItem = {
+        ...running,
+        visual: clone(result.visual),
+        visualStatus: 'succeeded',
+        visualError: undefined,
+        visualSourceHash: plan.sourceHash,
+        visualUpdatedAt: new Date().toISOString(),
+      }
+      working = { ...working, items: working.items.map((item) => item.id === completed.id ? completed : item) }
+      summary.results.push(completed)
+      summary.succeeded += 1
+      await options.onItem?.(completed, { status: 'success', requirement })
+      progress(completed, 'success')
+    } catch (error) {
+      if (options.signal?.aborted || (error instanceof DOMException && error.name === 'AbortError')) {
+        summary.cancelled += 1
+        progress(running, 'cancelled')
+        for (const pending of candidates.slice(index + 1)) { summary.cancelled += 1; progress(pending, 'cancelled') }
+        break
+      }
+      const message = clean(String((error as { message?: unknown })?.message ?? error), 600) || 'Visual generation failed.'
+      const failed: AssessmentItem = { ...running, visualStatus: 'failed', visualError: message, visualUpdatedAt: new Date().toISOString() }
+      working = { ...working, items: working.items.map((item) => item.id === failed.id ? failed : item) }
+      summary.results.push(failed)
+      summary.failed += 1
+      if (requirement === 'required') summary.requiredFailed += 1
+      else summary.helpfulFailed += 1
+      summary.errors.push({ itemId: failed.id, itemNumber: failed.itemNumber, requirement, message })
+      await options.onItem?.(failed, { status: 'failed', requirement, message })
+      progress(failed, 'failed', message)
+      if (batchGenerationShouldPause(error)) {
+        summary.providerPaused = true
+        for (const pending of candidates.slice(index + 1)) { summary.cancelled += 1; progress(pending, 'cancelled') }
+        break
+      }
+    }
+  }
+  return summary
 }
 
 export async function requestAssessmentVerification(args: { assessment: AssessmentRecord; item: AssessmentItem; candidate: AssessmentItemCandidate; generatorModel?: string; demo?: boolean; signal?: AbortSignal }) {
@@ -775,10 +928,8 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
     fallbackUsed = data.fallbackUsed === true
   }
 
-  // The first provider request owns only question content. Expose that validated
-  // result before starting the independent visual call so batch generation can
-  // checkpoint it locally. If the browser is refreshed during diagram work, the
-  // teacher can recover the paid-for question instead of generating it again.
+  // Pass 1 owns question content only. Persist its visual plan with the question;
+  // a separate sequential pass generates diagrams after the batch is stable.
   await args.onQuestionReady?.({
     assessmentId: assessment.id,
     itemId: item.id,
@@ -795,53 +946,19 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
     quotaPaused: false,
   })
 
-  let visualRequestsUsed = 0
-  let visualError = ''
-  const initialVisualRequirement = candidate.visualRequirement ?? 'none'
   if (candidate.visual) {
     // Legacy/backward-safe path: older deployed generators may already return a
-    // validated diagram with the question. Keep it and never issue an unsupported
-    // second `visual` operation against that backend.
+    // validated diagram with the question. Keep it without issuing another call.
     candidate = { ...candidate, visual: clone(candidate.visual) }
-  } else if (initialVisualRequirement === 'required') {
-    try {
-      const visualResult = await generateAssessmentVisualSuggestion({ assessment, item, candidate, visualIntent: candidate.visualIntent, demo, signal })
-      visualRequestsUsed += visualResult.requestsUsed
-      candidate = { ...candidate, visual: visualResult.visual ?? null }
-    } catch (visualFailure) {
-      visualError = String((visualFailure as { message?: unknown })?.message ?? visualFailure)
-      candidate = { ...candidate, visual: null }
-      if (batchGenerationShouldPause(visualFailure)) quotaPaused = true
-    }
   } else {
-    // "helpful" visuals are intentionally deferred. They must never double the
-    // provider traffic of an otherwise self-contained question during bulk runs.
-    // A required visual still receives its dedicated pass above.
+    // Explicitly record that pass 1 produced no diagram. The persisted visual
+    // plan remains pending for the separate sequential enrichment phase.
     candidate = { ...candidate, visual: null }
   }
 
   const review = await adaptiveReview(assessment, item, candidate, demo, signal, model)
-  let mergedCandidate = review.candidate
-  let reviewDeterministic = review.deterministic
-  let reviewState = review.state
-
-  // A verifier repair may legitimately rewrite visual intent. Regenerate only the
-  // diagram, never the repaired question, and only when the repaired item asks for one.
-  if (review.repairAttempted && (mergedCandidate.visualRequirement ?? 'none') === 'required' && !mergedCandidate.visual) {
-    try {
-      const repairedVisual = await generateAssessmentVisualSuggestion({ assessment, item, candidate: mergedCandidate, visualIntent: mergedCandidate.visualIntent, demo, signal })
-      visualRequestsUsed += repairedVisual.requestsUsed
-      mergedCandidate = { ...mergedCandidate, visual: repairedVisual.visual ?? null }
-      const deterministic = validateAssessmentItemDeterministic(itemWithCandidate(item, mergedCandidate), { allowedTypes: allowedTypesFor(assessment) })
-      reviewDeterministic = deterministic
-      reviewState = stateForAssessmentItem(itemWithCandidate(item, mergedCandidate), deterministic)
-    } catch (visualFailure) {
-      visualError = String((visualFailure as { message?: unknown })?.message ?? visualFailure)
-      if (batchGenerationShouldPause(visualFailure)) quotaPaused = true
-    }
-  }
-
-  const state = reviewState
+  const mergedCandidate = review.candidate
+  const state = review.state
   quotaPaused = quotaPaused || Boolean((review as { quotaPaused?: boolean }).quotaPaused)
   return {
     assessmentId: assessment.id,
@@ -853,15 +970,14 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
     fallbackUsed,
     editable: true,
     qaState: state,
-    deterministicQa: reviewDeterministic,
+    deterministicQa: review.deterministic,
     risk: review.risk,
     verifier: review.verifier,
     repairAttempted: review.repairAttempted,
-    requestsUsed: baseRequests + visualRequestsUsed + review.requestsUsed,
-    visualRequestsUsed,
+    requestsUsed: baseRequests + review.requestsUsed,
+    visualRequestsUsed: 0,
     visualRequirement: mergedCandidate.visualRequirement,
     visualIntent: mergedCandidate.visualIntent,
-    ...(visualError ? { visualError } : {}),
     quotaPaused,
   }
 }

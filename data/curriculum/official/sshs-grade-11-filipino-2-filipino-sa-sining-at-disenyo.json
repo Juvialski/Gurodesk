@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Filipino 2 - Filipino sa Sining at Disenyo",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1OrcGbzTpXwijKjitSyc_nl-DT78yH33x/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Filipino-2-Filipino-sa-Sining-at-Disenyo.pdf",
+    "fileId": "1OrcGbzTpXwijKjitSyc_nl-DT78yH33x",
+    "sha256": "2b24dd9172a92004b0e74f81a643e2053124e940a4f4c0e2e468cbc7a4a4678f",
+    "byteSize": 457353,
+    "pageCount": 10,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FILIPINO-2-FILIPIN11",
+    "name": "Filipino 2 - Filipino sa Sining at Disenyo",
+    "description": "Official Grade 11 Filipino 2 - Filipino sa Sining at Disenyo competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Gamit ng Komunikatibong Filipino sa Sining at Disenyo Batay sa:",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Ang Espasyo ng Wika sa mga Uri ng Sining at Disenyo",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "A. Anyong Patula",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Paggawa ng Rebyu ng Tekstong Pansining (hal., Rebyu ng Iskrip ng Pelikula o Teleserye, atbp.)",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Rebyu ng Likha ng mga Alagad ng Sining o Artista sa Komunidad",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Sining Panteatro",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Sining Biswal",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Eksibit ng mga Anyo ng Sining",
+      "sortOrder": 8
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang gamit ng komunikatibong Filipino sa sining at disenyo",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang paggamit ng komunikatibong Filipino sa iba’t ibang uri ng sining at disenyo",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang iba't ibang uri ng sining batay sa mga elemento ng anyo nito at ekspresyong kultural",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang batayang kaalaman, kalikasán, at mga elemento ng mga tekstong pansining",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naiuugnay ang mahalagang kaisipan ng mga tekstong pansining sa sariling pananaw, karanasan ng tao, at mga usaping panlipunan",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng ulat-suri sa mga tekstong pansining ayon sa: a. gamit ng komunikatibong Filipino b. elemento c. ekspresyong kultural d. etikal na pananagutan (hal., paggamit ng Artificial Intelligence o AI, plagiarism, atbp.)",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-1:item-7",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakasusulat ng rebyu ng likha ng isang alagad ng sining o artista sa komunidad gamit ang komunikatibong Filipino",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nasusuri ang iba't ibang uri ng sining batay sa mga elemento at ekspresyong kultural",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naiuugnay ang mahalagang kaisipan ng mga tekstong pansining sa sariling pananaw, karanasan ng tao, at mga usaping panlipunan",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mahahalagang elemento ng mahusay na sulating pansining sa napanood na teleserye, dula, shadow play, puppet show, at iba pa",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-2:item-4",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakalilikha ng sulatin batay sa wasto at angkop na paggamit ng wika sa mga sining Biswal",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-2:item-5",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakabubuo ng ulat-suri sa mga tekstong pansining ayon sa: a. gamit ng komunikatibong Filipino b. elemento c. ekspresyong kultural d. etikal na pananagutan (hal., paggamit ng Artificial Intelligence, plagiarism, at iba pa)",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-2:item-6",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakapagsasagawa ng eksibit ng mga anyong sining na ginagamitan ng mabisang komunikatibong Filipino",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "717772bb0a025596bd08315b1f08ee70be01c8519b940e970422e9c683596dc4"
+  }
+}

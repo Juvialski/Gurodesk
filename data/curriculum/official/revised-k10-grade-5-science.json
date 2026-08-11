@@ -1,0 +1,521 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-5-science",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Science CG 2023 Grades 3-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Science%20CG%202023%20Grades%203-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "sha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+    "byteSize": 1436380,
+    "pageCount": 72,
+    "pagesUsed": {
+      "from": 37,
+      "to": 40
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 5",
+    "code": "SCIENCE5",
+    "name": "Science",
+    "description": "Official Grade 5 Science competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 37,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 38,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 39,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 40,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Matter in daily life",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Body systems in animals",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Contact and non-contact forces",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Landforms, rocks and minerals",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe matter as anything that has mass and takes up space;",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify that matter has (exists in) three states called solids, liquids, and gases;",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the properties of solids, liquids, and gases in terms of shape and volume: a. solids: definite shape and volume b. liquids: no definite shape; definite volume c. gases: no definite shape or volume;",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify objects at home and in the classroom as solid, liquid or gas;",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "use measuring cylinders or beakers to measure volume using units, such as milliliters (mL), and liters (L);",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "describe how changes in temperature cause matter to change in state, such as solid to liquid to gas;",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe the steps of a simple science investigation: a. What is the problem? b. What materials do you need? c. What do you need to do? d. What have you found out/learned?;",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify and appropriately use units in simple science activities, such as milligrams (mg,) grams (g), kilograms (kg), and degrees centigrade (oC); and",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "plan simple scientific investigations in answering questions, such as “Do gases (like air) or liquids (like water) have mass?”, using appropriate simple science equipment, such as a balance, and a thermometer, with appropriate units.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify from pictures and labeled diagrams the parts of the digestive system as mouth, gullet, stomach, small intestine, and large intestine, and describe how they work;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify from pictures and diagrams the parts of the respiratory system as the nose, windpipe, and lungs, and describe how they work;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify from pictures and labeled diagrams the parts of the female reproductive system as ovaries, uterus, and vagina and those of the male reproductive system as the prostate, testis, and penis and describe how they work;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use a table to show how living things can be classified into groups based on similar characteristics: a. plants including flowering and non-flowering; b. animals including mammals, reptiles, insects, birds, fish, amphibians, and reptiles; c. microorganisms including fungi and bacteria;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "identify which groups of animals reproduce by giving birth to live young, such as mammals, and which reproduce by laying eggs, such as birds and reptiles;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "compare the life cycles of mammals from birth to adulthood, birds from egg to a mature organism, and plants from seed to a young plant, and then to a mature plant;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe the purpose of specialized structures in plants, such as rhizomes, tubers, thorns, bulbs, and aerial roots;",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain how some plants have adapted to unfavorable conditions in the environment, such as lack of rain or floods; and",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "use information from secondary sources to describe examples of how some animals have changed to better suit their environment, such as mimicry or camouflage.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "carry out simple investigations to demonstrate that contact forces cause objects to move in the same direction as the direction that the force is applied;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "plan and carry out a scientific investigation to determine the effect of different surfaces on the size of frictional forces;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "demonstrate how friction can produce heat and investigate ways of reducing and increasing friction;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify gravity as a non-contact force that affects the behaviors of materials and objects on Earth in predictable ways;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "predict and explain whether heavier objects will fall faster than lighter objects due to the force of gravity;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "observe and describe the effects of gravity to the motion of an object;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "investigate the effects of static electricity using common materials, such as a comb, plastic and glass rods, and balloons;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "assemble and draw a simple circuit using batteries, wires, switch, and bulb and/or toy motor or buzzer;",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "design and construct a simple electrical circuit to identify what materials will conduct electricity and use it to identify materials from the environment that will and will not conduct electricity; and",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "make a simple electromagnet and observe and record its properties.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify local examples of natural landforms and bodies of water such as mountains, valleys, rivers, and coastlines, and describe how they influence non-living and living components of the environment;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explore the school grounds or the local area to observe or collect different types of rocks, describing their similarities and differences in terms of their features, such as texture, color, and grain crystal size;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "classify common rocks from provided samples using a simple rock classification system, such as a dichotomous key;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-4",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain how soil is formed from rocks and minerals;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "demonstrate how erosion transports Earth materials;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explain the role of the water cycle in the environment;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "construct a model to communicate some of the key processes in the water cycle;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "describe some effects of weather disturbances that occur in or near the Philippines;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "describe the weather conditions according to a Public Storm Warning Signal issued by the Philippine Atmospheric, Geophysical and Astronomical Services Administration (PAGASA);",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe typical weather conditions before, during and after a tropical cyclone;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-11",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "describe the general structure of the solar system, identifying the names of the major celestial objects, their main features, and general composition; and;",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:period-4:item-12",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "make drawings or a simple model to show the motion of the Earth and Moon relative to the Sun to explain the phases of the moon that people see from Earth.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "3fa483b22f78b7f00e1e4a1e38842328f2f1e25a2f2ab5d686a70ba959470f78"
+  }
+}

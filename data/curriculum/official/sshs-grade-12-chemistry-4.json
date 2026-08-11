@@ -1,0 +1,383 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-chemistry-4",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Chemistry 4",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1ubL-HENR0fLsObKh-kHTrYQh6ZdSJhwD/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Chemistry 4.pdf",
+    "fileId": "1ubL-HENR0fLsObKh-kHTrYQh6ZdSJhwD",
+    "sha256": "b6de497221bc4c6b3fff2bcd8800e089cd788f84d18533b5fece9e8d8052e609",
+    "byteSize": 339136,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 3,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "CHEMISTRY-412",
+    "name": "Chemistry 4",
+    "description": "Official Grade 12 Chemistry 4 competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 3,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Introduction to Organic Chemistry",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Molecular",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Polarity and Electron Distribution",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Hybrid orbitals",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Functional Groups",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Alkanes (Saturated Hydrocarbon)",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Alkenes and Alkynes (Unsaturated Hydrocarbons)",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Alkyl Halides and Alcohols",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Alcohols",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Aromatic",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Compounds",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Carbonyl",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "(Aldehydes and",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Carboxylic Acids and Derivatives",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Biomolecules",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Application of Organic Compounds",
+      "sortOrder": 16
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe the unique properties of carbon that lead to the formation of a wide variety of organic compounds;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "use bonding, electronegativity, and intermolecular forces to explain the properties of organic compounds;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use electronegativity differences and dipole moments to explain molecular polarity and properties;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use hybridization in structure and bonding of organic compounds;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "identify common functional groups in organic molecules;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "use IUPAC nomenclature to name and write the structures of alkanes;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-7",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "analyze structural isomerism in alkanes and relate structure to physical properties;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-8",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "describe some simple reactions of organic compounds such as combustion, addition, substitution, condensation, and saponification;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-9",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain the importance of alkanes as fuels and relate their properties to energy use, safety, and global warming;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-10",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "compare alkanes, alkenes, and alkynes in terms of structure, bonding, and properties;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-11",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "use IUPAC nomenclature to name and write the structures of alkenes and alkynes; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-12",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "explain the role of alkenes and alkynes as raw materials in the production of polymers and industrial chemicals.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-13",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "1use IUPAC nomenclature to name and write the structures of alkyl halides and alcohols;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-14",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "explain how functional groups influence the properties, reactivities, and uses of alkyl halides and alcohols;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-15",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "describe the structure and stability of aromatic compounds;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-16",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "analyze how aromatic structure influences their properties and uses;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-17",
+      "quarter": 1,
+      "domain": "D12",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "use IUPAC nomenclature to name and write the structures of aldehydes and ketones;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-18",
+      "quarter": 1,
+      "domain": "D13",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "explain how the carbonyl group influences the properties of aldehydes and ketones;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-19",
+      "quarter": 1,
+      "domain": "D14",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "describe the structure and properties of carboxylic acids and some of their derivatives, such as esters;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-20",
+      "quarter": 1,
+      "domain": "D15",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "explain the importance of biomolecules, including carbohydrates, lipids, proteins, and nucleic acids in terms of their structure, function, and role in biological processes;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-21",
+      "quarter": 1,
+      "domain": "D15",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "Conduct experiments showing the properties of biomolecules;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-22",
+      "quarter": 1,
+      "domain": "D16",
+      "sortOrder": 22,
+      "competencyCode": null,
+      "text": "explain how organic compounds are used in industry, such as the use of alkenes in the production of polymers and plastics); and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:period-1:item-23",
+      "quarter": 1,
+      "domain": "D16",
+      "sortOrder": 23,
+      "competencyCode": null,
+      "text": "discuss how polymers have contributed to the development while also causing pollution, health hazards, and other socio-scientific issues.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "3118faed4ee4693a03318545e168897c1f2e1789daacc1304be85c305385e621"
+  }
+}

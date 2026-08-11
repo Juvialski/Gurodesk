@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-organic-agriculture-production",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Organic Agriculture Production",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1Hfzvyn0n3igWTAkTnzFjn4ZnniuwEIEm/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Organic-Agriculture-Production.pdf",
+    "fileId": "1Hfzvyn0n3igWTAkTnzFjn4ZnniuwEIEm",
+    "sha256": "a0d4c7d1cacd9815e9652c11f85263b3ea67e9382a6799187be70efce0f3dcab",
+    "byteSize": 575572,
+    "pageCount": 15,
+    "pagesUsed": {
+      "from": 2,
+      "to": 8
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "ORGANIC-AGRICULTUR11",
+    "name": "Organic Agriculture Production",
+    "description": "Official Grade 11 Organic Agriculture Production competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 8,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Farm Tools, Materials, and Equipment",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Farm Nursery Operations",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Procedure in planting operations",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Harvest and Post-Harvest Handling Operations in Vegetable Production",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Producing Organic Fertilizers",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Organic Concoctions and Extracts Production",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Raising organic chicken",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Raising Organic Hogs",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Raising an Organic Small Ruminant (goat)",
+      "sortOrder": 10
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the overview of Organic Agriculture Production",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform maintenance of farm tools, materials, and equipment following safety precautions",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform nursery operations for organic vegetable production",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform planting operations",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform harvest and post-harvest handling operations",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform activities in producing organic fertilizers based on production practices",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform the procedures of producing organic concoctions and extracts based on the Philippine National Standard in organic agriculture",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-3:item-1",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform activities in raising organic chicken",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-4:item-1",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform activities in raising organic hogs based on industry practices",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:period-4:item-2",
+      "quarter": 4,
+      "domain": "D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform activities in raising organic small ruminants",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "20fd78746e29a8b34fc0823bdc48926363884de95a6aa9a04b1943690cd7ad9f"
+  }
+}

@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-3-gmrc",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG GMRC and VE CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20GMRC%20and%20VE%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "sha256": "0d32f2ecdec894ac1b837244b857d4823ed2806a11e3fe456cb2a5d2c7f7fcfa",
+    "byteSize": 2540394,
+    "pageCount": 296,
+    "pagesUsed": {
+      "from": 80,
+      "to": 103
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 3",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 3",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 3",
+    "code": "GMRC3",
+    "name": "GMRC",
+    "description": "Official Grade 3 GMRC competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 80,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 86,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 92,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 98,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Sariling Hilig at Kakayahan",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Pagpapatatag ng mga gawi sa Pag-iimpok at Pagtitipid Kasama ang Pamilya",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Mga Sariling Gampanin ng Bata sa Tahanan at Paaralan",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Mga Sariling Pagkilos na may Paggalang sa Diyos",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Mga Pansariling Gawain na Nakabubuti sa Kapaligiran",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Mga Pansariling Karapatan na Kinikilala sa Pamayanan",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Sariling Paraan ng Pakikilahok sa Pamilya",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Pakikipag-ugnayan sa Bawat Kasapi ng Pamilya",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Pagtupad ng mga Gampanin ang mga Inaasahang Kilos sa Tahanan at Paaralan",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Pakikibahagi sa mga Gawaing Panrelihiyon o Paniniwala ng Pamilya",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Mga Gawi ng Pamilya sa Pangangalaga sa Kalikasan",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Mga Mabuting Kaugalian ng Pamilyang Pilipino sa Rehiyong Kinabibilangan",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Ugnayan ng Sarili sa Kapuwa",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Sariling Kakayahan Para sa Kapuwa",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Sariling Pagkilala sa mga Taong may Kapansanan o Persons with Disability (PWD) o Iba pang may Natatanging Kondisyon",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Paghahandog ng Panalangin para sa Kapuwa",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Pamamahala sa mga",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Paghikayat sa Kapuwa na Igalang ang mga Sagisag ng Bansa",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Mga Impormasyon sa Kinabibilangang Barangay",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Mga Alituntunin sa Barangay na Kinabibilangan",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Mga Tungkulin ng mga Taong Nakatira sa Barangay",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "General",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Pakikiisa sa",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Mga Kontribusyon ng mga Makabagong Bayani (Modern Day Heroes) sa Bayan",
+      "sortOrder": 24
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipakikita ang tiwala sa sarili sa pamamagitan ng kawilihan na paunlarin ang kaniyang hilig at kakayahan a. Naiisa-isa ang sariling hilig at kakayahan b. Napatutunayan na ang sariling hilig at kakayahan ay mahalaga upang makilala ang sarili bilang bata c. Nailalapat ang sariling hilig at kakayahan tungo sa kakayahan sa pagpapatibay ng tiwala sa sarili",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagmalasakit sa pamamagitan ng tamang paglalaan ng mga pera o gamit na angkop sa iba’t ibang situwasyon a. Nakakikilala ng mga paraan ng pagpapatatag ng mga gawi sa pag-iimpok at pagtitipid kasama ang pamilya b. Napatutunayan na ang pagpapatatag ng mga gawi sa pag-iimpok at pagtitipid kasama ang pamilya ay magpapaunlad ng sariling kasanayan na mapamahalaan ang higit na mas malaking halaga ng pera o mga gamit sa kinabukasan c. Naisasakilos ang mga paraan ng pagpapatatag ng mga gawi sa pag-iimpok at pagtitipid kasama ang pamilya",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging responsable sa pamamagitan ng wastong pagtupad sa kaniyang mga gampanin batay sa mga tagubilin ng magulang at nakatatanda a. Natutukoy ang mga gawain ng isang bata sa tahanan at paaralan b. Napatutunayan na ang mga sariling gampanin ng bata sa tahanan at paaralan ay nakatutulong upang mahubog ang pagiging responsable sa kanilang gawain at kilos c. Nakapagbabahagi ng mga karanasan sa pagtugon sa mga gampanin ng isang bata sa tahanan at paaralan",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipakikita ang pananalig sa Diyos sa pamamagitan ng pagsunod sa Kaniyang mga aral a. Nakakikilala ng mga sariling pagkilos ng may paggalang sa Diyos b. Naipaliliwanag na ang mga sariling pagkilos na may paggalang sa Diyos ay tanda ng pagkilala at pagmamahal sa Kaniya at ito ay nagdudulot ng pagkakaroon ng mabuting asal c. Nailalapat ang mga pagkilos na nagpapakita ng paggalang sa Diyos",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipakikita ang disiplina sa pamamagitan ng pakikiisa sa mga gawaing pangkapaligiran a. Natutukoy ang mga pansariling gawain na nakabubuti sa kapaligiran b. Naipaliliwanag na ang mga pansariling gawain na nakabubuti sa kapaligiran ay magdudulot ng ligtas, maayos, at malinis na pamayanan c. Naisasakilos ang mga natukoy na mabuting magagawa ng bata sa kapaligiran",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging magalang sa pamamagitan ng wastong pakikitungo sa kapuwa sa iba’t ibang situwasyon a. Naiisa-isa ang mga pansariling karapatan na natatamasa ng isang bata sa pamayanan b. Naipaliliwanag na ang mga pansariling karapatan na kinikilala sa pamayanan ay nagtitiyak sa kaligtasan at matiwasay na pamumuhay ng bawat bata c. Naisasakilos ang mga gawain na nagbibigay-halaga sa mga karapatang tinatamasa ng bawat bata",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipakikita ang pakikiisa sa pamamagitan ng pagtupad sa mga gawain sa loob ng tahanan na ayon sa kaniyang kakayahan a. Natutukoy ang mga sariling paraan ng pakikilahok sa mga gawain sa loob ng tahanan b. Naipaliliwanag na ang sariling paraan ng pakikilahok sa mga gawain ng pamilya ay nakatutulong sa pagkakabuklod-buklod at pagpapatatag ng ugnayan ng bawat kasapi ng pamilya c. Nailalapat ang mga sariling paraan ng pakikiisa sa mga gawain sa loob ng tahanan (Hal. paraan ng wastong pakikipag-ugnayan nang may paggalang ang bawat kasapi ng mag-anak)",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging totoo sa pamamagitan ng wastong pakikipag-ugnayan sa bawat kasapi ng pamilya a. Nailalarawan ang pakikipag-ugnayan sa bawat kasapi ng pamilya b. Napangangatuwiranan na ang wastong pakikipag-ugnayan sa bawat kasapi ng pamilya ay daan upang malinang ang pagmamahalan at pagkakaunawaan c. Nailalapat ang mga sariling paraan ng wastong pakikipag-ugnayan sa bawat kasapi ng pamilya",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasanay ng pagkukusa sa pamamagitan ng wastong pagtugon sa mga itinakdang gawain at iskedyul a. Natutukoy ang mga gawain na nagpapakita ng pagtupad sa mga gampanan at mga inaasahang kilos sa tahanan at paaralan b. Nasusuri na ang pagtupad sa mga gampanin at mga inaasahang kilos sa tahanan at paaralan ay lilinang ng mga gawi na makatutulong sa pagpapaunlad ng kaniyang mga kasanayan at ugnayan sa kapuwa c. Nailalapat ang mga inaasahang kilos nang may pagkukusa sa tahanan at paaralan",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-2:item-4",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipakikita ang pakikiisa sa pamamagitan ng kusang pagtulong at paglalaan ng oras upang matupad ang mga gawaing panrelihiyon o paniniwala ng pamilya a. Nailalarawan ang mga sariling paraan ng pakikibahagi sa mga gawaing panrelihiyon o paniniwala ng pamilyang kinabibilangan b. Naipaliliwanag na ang pakikibahagi sa mga gawaing panrelihiyon o paniniwala ng pamilya ay lilinang ng mga kaugalian o gawi ng pakikipag-ugnayan sa Diyos c. Naisasakilos ang pagiging aktibo sa mga gawaing panrelihiyon o paniniwala ng pamilyang kinabibilangan",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-2:item-5",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagmalasakit sa pamamagitan ng pagpapalaganap ng mga mabuting kinagawian ng pamilya sa pangangalaga sa kalikasan sa iba’t ibang paraan a. Naiisa-isa ang mga gawi ng pamilya sa pangangalaga sa kalikasan b. Naipaliliwanag na ang mga gawi ng pamilya ay nakaaapekto sa sariling kaisipan at kilos sa pangangalaga ng kalikasan c. Nailalapat ang mga sariling kilos na nagpapakita ng mga gawi ng pamilya sa pangangalaga sa kalikasan",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-2:item-6",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging masunurin sa pamamagitan ng pagbabahagi ng mga sariling karanasan sa pagtalima sa mga mabuting kaugalian ng pamilyang Pilipino sa rehiyong kinabibilangan a. Nakakikilala ng mga mabuting kaugalian ng pamilyang Pilipino sa rehiyong kinabibilangan b. Napangangatuwiranan na ang mga mabuting kaugalian ng pamilyang Pilipino sa rehiyong kinabibilangan ay kailangang panatiliin c. Naisasakilos ang mga paraan ng pagsunod sa mga mabuting kaugalian ng pamilyang Pilipino sa rehiyong kinabibilangan (hal. malapit na ugnayan, paggalang sa matatanda, at pagtutulungan)",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-3:item-1",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagpasensiya sa pamamagitan ng angkop na pananalita at pagtugon sa mga situwasyong kasama ang kapuwa a. Nailalarawan ang mga ugnayan ng sarili sa kapuwa b. Naipaliliwanag na ang ugnayan ng sarili sa kapuwa ay nakatutulong sa paglinang ng mga kasanayan sa pakikipagkapuwa c. Nailalapat ang mga kilos na nagpapakita ng wastong pakikitungo sa kapuwa",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-3:item-2",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagmalasakit sa pamamagitan ng kahandaan na mag-alok at magbigay ng angkop na pagtulong sa pangangailangan ng ibang tao a. Natutukoy ang mga sariling kakayahan na makatutulong sa kapuwa b. Napangangatuwiranan na ang kahandaan na mag-alok at magbigay ng tulong ayon sa sariling kakayahan sa kapuwa ay lilinang ng pagmamalasakit dito. c. Naisasakilos ang mga sariling paraan ng pagtulong sa kapuwa sa iba’t ibang situwasyon (hal. pagbabahagi ng gamit/pagkain, pag-alalay sa maysakit o nasaktan)",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-3:item-3",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging magalang sa mga taong may kapansanan o Persons with Disability (PWD) o iba pang may natatanging kondisyon sa pamamagitan ng wastong pakikipag-ugnayan a. Naiisa-isa ang mga paraan ng pakikipag-ugnayan sa mga taong may kapansanan o Persons with Disability (PWD) o iba pang may natatanging kondisyon b. Napatutunayan na ang sariling pagkilala sa mga taong may kapansanan o Persons with Disability (PWD) o iba pang may natatanging kondisyon ay nagsusulong ng paggalang at pagtanggap tungo sa payapang pakikipagkapuwa c. Nakapagmumungkahi ng mga wastong paraan ng pagkikipag-ugnayan batay sa kalagayan ng mga taong may kapansanan o Persons with Disability (PWD) o iba pang may natatanging kondisyon",
+      "sourcePage": 94,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-3:item-4",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging madasalin sa pamamagitan ng paglalaan ng panahon o oras para sa pananalangin sa kapuwa a. Nailalarawan ang iba’t ibang paraan ng pananalangin para sa kapuwa b. Naipaliliwanag na ang paghahandog ng panalangin sa kapuwa ay pagpapaunlad ng pananampalataya c. Naipahahayag ang mga panalangin para sa iba’t ibang tao batay sa kanilang pangangailangan o situwasyon",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-3:item-5",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging masinop sa pamamagitan ng paglikha ng mga gamit mula sa mga bagay na hindi na nagagamit a. Naiisa-isa ang mga paraan ng pamamahala sa mga bagay na hindi na nagagamit sa tulong ng kapuwa b. Napatutunayan na ang pamamahala sa mga bagay na hindi na nagagamit sa tulong ng kapuwa ay simpleng paraan sa pagsisinop ng mga biyaya ng kalikasan c. Nakalalahok sa mga gawain sa tahanan o paaralan na nagtataguyod ng 4Rs sa tulong ng kapuwa (Refuse, Reduce, Reuse, Recycle)",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-3:item-6",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagmamahal sa bayan sa pamamagitan ng mga angkop na kilos upang maipaunawa sa kapuwa ang kahalagahan ng sagisag ng bansa a. Natutukoy ang mga paraan ng panghihikayat sa kapuwa na igalang ang mga sagisag ng bansa b. Napangangatuwiranan na ang paghikayat sa kapuwa na igalang ang mga sagisag ng bansa ay pagkilala sa pambansang adhikain, tradisyon at pagkakaisa ng mga Pilipino c. Naipahahayag ang panghihikayat sa kapuwa na igalang ang mga sagisag na nagtataguyod ng pagmamahal sa bayan",
+      "sourcePage": 97,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-4:item-1",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipakikita ang maingat na paghuhusga sa mga impormasyon tungkol sa barangay na kinabibilangan a. Nakakikilala ng mga impormasyon tungkol sa barangay na kinabibilangan b. Napatutunayan na ang mga impormasyon sa barangay na kinabibilangan ay mahalagang gampanin sa pagpapanatili ng kaayusan, kaligtasan at katahimikan ng mamamayan c. Nakapagbabahagi ng mga impormasyon tungkol sa barangay na kinabibilangan",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-4:item-2",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipakikita ang pakikiisa sa pamamagitan ng paglahok sa mga gawain alinsunod sa mga alituntunin sa barangay na kinabibilangan a. Natutukoy ang mga alituntunin sa barangay na kinabibilangan b. Naipaliliwanag na ang mga alituntunin sa barangay na kinabibilangan ay mahalagang sundin upang mapanatili ang kaligtasan, kaayusan at katahimikan ng mga mamamayan c. Nakapipili ng mga tiyak na alituntunin sa barangay na kinabibilangan na itataguyod sa sariling paraan",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-4:item-3",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging responsable sa pamamagitan ng panghihikayat sa kapuwa-bata na gampanan ang mga tungkulin bilang kasapi ng barangay na kinabibilangan a. Naiisa-isa ang tungkulin ng mga taong nakatira sa barangay b. Naipaliliwanag na ang mga tungkulin ng mga taong nakatira sa barangay ay kailangang gampanan ng lahat bilang pagtataguyod ng kanilang kabutihan c. Nailalapat ang mga paraan ng pagsunod sa mga tungkulin sa kinabibilangang barangay bilang kasapi nito",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-4:item-4",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipakikita ang pananampalataya sa pamamagitan ng pagtugon sa pangangailangan ng gawain ng relihiyon o paniniwala sa kinabibilangang pamayanan a. Nakakikilala ng mga gawain ng relihiyon o paniniwala sa kinabibilangang pamayanan b. Nasusuri na ang pakikibahagi sa mga gawain ng relihiyon o paniniwala sa kinabibilangang pamayanan ay nakapagpapatibay ng ugnayan sa Diyos c. Nakapipili ng mga paraan ng pakikibahagi sa mga gawain ng relihiyon o paniniwala sa kinabibilangang pamayanan",
+      "sourcePage": 101,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-4:item-5",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagpamalasakit sa pamamagitan ng sariling paraan upang mapalinis ang hangin a. Nakakikilala ng mga paraan ng pakikiisa sa pamayanan upang mapanatili ang kalinisan ng hangin b. Napangangatuwiranan na ang pakikiisa sa pamayanan sa pagpapanatili ng malinis na hangin ay tungkulin ng bawat mamamayan c. Naisasakilos ang mga paraan ng pakikiisa sa pamayanan upang mapanatili ang kalinisan ng hangin (hal. pagtatanim ng halaman at puno, wastong pagtatapon ng basura)",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:period-4:item-6",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagpasalamat pamamagitan ng pagkilala sa mga kontribusyon ng mga makabagong bayani (Modern Day Heroes) sa bayan a. Nakapag-uugnay ng kahalagahan ng kontribusyon ng mga makabagong bayani (Modern Day Heroes) sa kasalukuyang panahon b. Naipaliliwanag na ang mga kontribusyon ng mga makabagong bayani (modern day heroes) ay dapat kilalanin bilang pagpupugay sa mga mabuting naidulot nila sa pamayanan na dapat tularan ng mamamayan c. Nakabubuo ng gawain na nagtatampok sa kabayanihan ng mga makabagong bayani (modern day heroes) (hal. pagsasadula, skit, role playing)",
+      "sourcePage": 103,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "55d7dfc4c24d97a3442fa472854f13d5e61a4d2ae7e4e6d628cda9d3ac931198"
+  }
+}

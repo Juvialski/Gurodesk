@@ -7,7 +7,7 @@ import type {
   AssessmentTosSnapshot,
   QuestionType,
 } from '../types/assessment'
-import type { AssessmentVisual } from '../types/assessmentVisual'
+import type { AssessmentVisual, AssessmentVisualRequirement, AssessmentVisualStatus } from '../types/assessmentVisual'
 import type { TosContent, TosRecord } from '../types/tos'
 import { createAssessmentBlueprint, duplicateAssessmentBlueprint, normalizeAssessmentBlueprint } from './assessmentBlueprint'
 import { deriveAssessmentTotalPoints, normalizeItemPoints } from './assessmentScoring'
@@ -64,6 +64,25 @@ function firstRelation(value: unknown): DbRow | null {
 function relationRows(value: unknown): DbRow[] {
   if (!Array.isArray(value)) return []
   return value.filter((item) => item && typeof item === 'object').map((item) => asObject(item))
+}
+
+const VISUAL_REQUIREMENTS = new Set<AssessmentVisualRequirement>(['none', 'helpful', 'required'])
+const VISUAL_STATUSES = new Set<AssessmentVisualStatus>(['not_required', 'pending', 'running', 'succeeded', 'failed', 'stale'])
+
+function visualPlanFromAnswer(answer: DbRow): Partial<AssessmentItem> {
+  const plan = asObject(answer._visualPlan)
+  const requirement = VISUAL_REQUIREMENTS.has(plan.requirement as AssessmentVisualRequirement) ? plan.requirement as AssessmentVisualRequirement : undefined
+  const status = VISUAL_STATUSES.has(plan.status as AssessmentVisualStatus) ? plan.status as AssessmentVisualStatus : undefined
+  const attempts = Number(plan.attempts)
+  return {
+    ...(requirement ? { visualRequirement: requirement } : {}),
+    ...(typeof plan.intent === 'string' ? { visualIntent: plan.intent.slice(0, 500) } : {}),
+    ...(status ? { visualStatus: status } : {}),
+    ...(Number.isSafeInteger(attempts) && attempts >= 0 && attempts <= 20 ? { visualAttempts: attempts } : {}),
+    ...(typeof plan.error === 'string' && plan.error.trim() ? { visualError: plan.error.trim().slice(0, 600) } : {}),
+    ...(typeof plan.sourceHash === 'string' && /^visual-source-v1-[0-9a-f]{8}$/u.test(plan.sourceHash) ? { visualSourceHash: plan.sourceHash } : {}),
+    ...(typeof plan.updatedAt === 'string' && plan.updatedAt.length <= 80 ? { visualUpdatedAt: plan.updatedAt } : {}),
+  }
 }
 
 /** Normalize only missing shape defaults; never recalculate a finalized source. */
@@ -216,6 +235,7 @@ function mapItem(row: DbRow): AssessmentItem {
   const questionType = text(row.question_type, 'multiple_choice') as QuestionType
   const storedAnswer = asObject(row.answer)
   const storedVisual = isAssessmentVisual(storedAnswer._visual) ? storedAnswer._visual as AssessmentVisual : undefined
+  const storedVisualPlan = visualPlanFromAnswer(storedAnswer)
   return {
     id: text(row.id),
     itemNumber: Number(row.item_number),
@@ -253,6 +273,7 @@ function mapItem(row: DbRow): AssessmentItem {
     locked: row.locked === true,
     history: Array.isArray(row.version_history) ? clone(row.version_history) as AssessmentItem['history'] : Array.isArray(row.qa_history) ? clone(row.qa_history) as AssessmentItem['history'] : [],
     ...(storedVisual ? { visual: clone(storedVisual) } : {}),
+    ...storedVisualPlan,
   }
 }
 
@@ -356,7 +377,19 @@ function itemWire(item: AssessmentItem) {
   // additive, validated reserved key inside its JSON answer payload so the
   // existing RPC/mirror/version machinery persists it without a migration.
   delete answer._visual
+  delete answer._visualPlan
   if (item.visual && isAssessmentVisual(item.visual)) answer._visual = clone(item.visual)
+  if (item.visualRequirement || item.visualIntent || item.visualStatus || item.visualSourceHash || item.visualError || item.visualUpdatedAt || item.visualAttempts) {
+    answer._visualPlan = {
+      requirement: VISUAL_REQUIREMENTS.has(item.visualRequirement as AssessmentVisualRequirement) ? item.visualRequirement : 'none',
+      intent: String(item.visualIntent ?? '').trim().slice(0, 500),
+      status: VISUAL_STATUSES.has(item.visualStatus as AssessmentVisualStatus) ? item.visualStatus : item.visual ? 'succeeded' : 'not_required',
+      attempts: Math.max(0, Math.min(20, Math.floor(Number(item.visualAttempts) || 0))),
+      error: String(item.visualError ?? '').trim().slice(0, 600),
+      sourceHash: String(item.visualSourceHash ?? '').slice(0, 80),
+      updatedAt: String(item.visualUpdatedAt ?? '').slice(0, 80),
+    }
+  }
   return {
     id: item.id,
     itemNumber: item.itemNumber,

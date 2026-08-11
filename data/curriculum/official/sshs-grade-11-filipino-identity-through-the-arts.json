@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-filipino-identity-through-the-arts",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Filipino Identity Through the Arts",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1_Y0nhJEtkyT6M3LKKERQlJgwsk40a6LD/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Filipino-Identity-Through-the-Arts (1).pdf",
+    "fileId": "1_Y0nhJEtkyT6M3LKKERQlJgwsk40a6LD",
+    "sha256": "a89b82cd0cd71c6f6cfcfe32589660c67688203b5a4d791a3e54d63ff990538c",
+    "byteSize": 372848,
+    "pageCount": 7,
+    "pagesUsed": {
+      "from": 2,
+      "to": 3
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FILIPINO-IDENTITY-11",
+    "name": "Filipino Identity Through the Arts",
+    "description": "Official Grade 11 Filipino Identity Through the Arts competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "A. Worldviews and how they are shaped by geography, history and institutions",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Filipino worldview, constructions of identity, and their manifestations in indigenous and traditional arts",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "C. Significant features and characteristics of selected indigenous and traditional Philippine music, dance, and theater",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "D. Geographic, historical, cultural, political, economic, and social contexts of the selected samples of indigenous or traditional Philippine music, dance, and theater",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "F. Exemplars from the communities and artists of indigenous or traditional Philippine music, dance, and theater art forms",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "G. Devised performances drawn from indigenous and traditional music, dance and theater",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "A. Significant features and characteristics of selected indigenous and traditional Philippine visual arts, literary arts, and architecture",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "B. Geographic, historical, cultural, political, economic, and social contexts of the selected samples of indigenous or traditional Philippine visual arts, literary arts, and archit",
+      "sortOrder": 8
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain how worldviews are shaped by geography, history, and institutions",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe how Filipino worldview and constructions of identity are manifested in indigenous and traditional arts",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss the significant features and characteristics of selected indigenous and traditional Philippine music, dance, and theater",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "analyze how geographic, historical, cultural, political, and social phenomena are etched in selected samples of indigenous and traditional Philippine music, dance, and theater",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "evaluate the significance of exemplary Filipino artists and community-based culture bearers in safeguarding arts practices as cultural heritage",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "create a performance inspired by Philippine indigenous or traditional music, dance, or theater arts reflecting informed understanding of its elements and contexts",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the significant features and characteristics of selected indigenous and traditional Philippine visual arts, literary arts, and architecture",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze how geographic, historical, cultural, political, and social phenomena are etched in selected samples of indigenous and traditional Philippine visual arts, literary arts, and architecture",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "fdd463eca902c085a8180b704aece0d10110da55d1de622b617304a98c0c88ed"
+  }
+}

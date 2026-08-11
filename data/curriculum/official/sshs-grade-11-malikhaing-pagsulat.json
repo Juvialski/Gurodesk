@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-malikhaing-pagsulat",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Malikhaing Pagsulat",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1qNCpYfpcPN1mdvCFN1cgRTJD-NXZ9A--/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Malikhaing-Pagsulat.pdf",
+    "fileId": "1qNCpYfpcPN1mdvCFN1cgRTJD-NXZ9A--",
+    "sha256": "f4acb68425056870cfb69e0c5d9bfaf62d93460603852f69e57c2659c06034e5",
+    "byteSize": 387476,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "MALIKHAING-PAGSULA11",
+    "name": "Malikhaing Pagsulat",
+    "description": "Official Grade 11 Malikhaing Pagsulat competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Mga Paghahanda sa Pagsulat",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Pagsasanay sa Pagsasalaysay",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "C. Pagsasanay sa Pagbuo ng Tauhan",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "D. Pagsasanay sa Pagbuo ng Taludtod",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Pagsulat ng Tula",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Pagsulat ng Maikling Kuwento",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Pinal na Awtput: Unang borador ng alinman sa koleksiyon ng pitong",
+      "sortOrder": 7
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang mahahalagang detalye sa paligid sa pamamagitan ng pagmamasid",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang kahalagahan ng mga pandama sa paglalarawan",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nagagamit ang limang pandama sa masining na paglalarawan ng paligid",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakabubuo ng mga imahen gamit ang pagwawangis at pagtutulad",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Natutukoy ang simula, gitna, at wakas ng mga naratibo",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng naratibong may tatlong-pangungusap na may malinaw na simula, gitna, at wakas",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga pamilyar na salaysay sa paghubog ng mga bagong tauhan",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-8",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Natutukoy ang iba’t ibang uri ng sukat at tugma",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-9",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nakabubuo ng modernong bugtong at/o salawikain na may wastong sukat at tugma",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-10",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Natutukoy ang persona o tinig sa tula",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-11",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang pagkakaiba-iba ng mga himig sa tula",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-12",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nakabubuo ng mga tulang nasa anyong tradisyonal, moderno, at postmoderno",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-13",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang pagkakaiba-iba ng mga popular na genre sa maikling kuwento",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-14",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang pagkakaiba-iba ng mga tunggalian",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-15",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na punto de bista para sa binubuong kuwento",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-16",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nakapagbabalangkas ng banghay para sa binubuong maikling kuwento",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-17",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Nakabubuo ng mga tauhan, tagpuan, at tunggalian para sa maikling kuwento",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-18",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Nakapagsusulat ng unang borador ng alinman sa koleksiyon ng tula o isang maikling kuwento.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "e79aa57487c27f1295eb129400bd6a006e57d8135546da40e25a30adad4ebbc1"
+  }
+}

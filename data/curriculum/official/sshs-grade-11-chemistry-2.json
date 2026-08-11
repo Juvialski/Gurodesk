@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-chemistry-2",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Chemistry 2",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1_XeoHM9dqdiNTWlt469hZpWSvCZPycFX/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Chemistry-2.pdf",
+    "fileId": "1_XeoHM9dqdiNTWlt469hZpWSvCZPycFX",
+    "sha256": "5db5204f64bd2ee88defe534a5788097fe220e27a8207673239b19bee65d499d",
+    "byteSize": 325213,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CHEMISTRY-211",
+    "name": "Chemistry 2",
+    "description": "Official Grade 11 Chemistry 2 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Intermolecular forces",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Types of chemical reactions",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "The Mole Concept",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "The Law of Conservation of Mass and stoichiometry",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use a diagram to differentiate the intermolecular forces and the intramolecular forces in the molecules of liquid water;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "use secondary sources to explain the effect of intermolecular forces on liquid properties such as surface tension, viscosity, vapor pressure, boiling point, and molar heat of vaporization;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-3:item-3",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use a table to compare the intermolecular forces of attraction and properties of water, acetone, and ethanol in terms of boiling point, viscosity, surface tension;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-4:item-1",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use secondary sources to identify examples of synthesis/combination, decomposition, single displacement, double displacement, combustion and acid-base reactions;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-4:item-2",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "write the balanced chemical equations of various chemical reactions in real-life scenarios by applying the Law of Conservation of Mass;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify examples of chemical reactions that occur in the environment and in living things, such as photosynthesis, respiration, digestion, Maillard reaction, hydrolysis, oxidation-reduction;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain the development and importance of the Mole Concept;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "determine the molar mass of a number of common elements, such as hydrogen, oxygen, magnesium, lead, sodium and chlorine, and the molar mass of a number of common compounds, such as water, sodium chloride and carbon dioxide;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "calculate mass, mole, and number of particles in a given chemical reaction such as in respiration, photosynthesis, and environmental and industrial reactions;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe the environmental effects of various chemical reactions by examining their efficiency and byproducts, and suggest ways to minimize their negative impacts; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "f860d92bde43a1b02ac2da466926e97af6e1dd9b8dd68cbaebd0576020db1f3f"
+  }
+}

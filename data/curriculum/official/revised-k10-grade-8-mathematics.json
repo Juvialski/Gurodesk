@@ -1,0 +1,631 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-8-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Mathematics CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Mathematics%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "sha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+    "byteSize": 1754867,
+    "pageCount": 73,
+    "pagesUsed": {
+      "from": 56,
+      "to": 59
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 8",
+    "code": "MATHEMATICS8",
+    "name": "Mathematics",
+    "description": "Official Grade 8 Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 56,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 57,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 58,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 59,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Data and Probability (DP)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Number and Algebra (NA)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Measurement and Geometry (MG)",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Data and Probability (D/P)",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine measures of central tendency of ungrouped data.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "draw conclusions from statistical data using the measures of central tendency.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "model real-life situations using algebraic expressions.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "add and subtract simple monomials.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "multiply and divide simple monomials, leading to the derivation of the laws of exponents.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "multiply simple monomials and binomials with simple binomials and multinomials, using the distributive property with various techniques and models.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "use special product patterns to multiply binomials.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "completely factor different types of polynomials (polynomials with common monomial factor; difference of two squares; quadratic trinomials, including perfect square trinomials).",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve problems involving special products and factors of polynomials.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "simplify rational algebraic expressions.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "perform operations on rational algebraic expressions.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve problems involving simple rational algebraic equations (using cross-multiplication).",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "formulate the rule for finding the next term in a sequence by looking for patterns.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "illustrate and describe the Cartesian coordinate plane.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "plot points on the Cartesian coordinate plane and determine the coordinates of a point on the plane.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve problems involving distance between two points and midpoint of a line segment on the Cartesian coordinate plane.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explore inductively the volume of pyramids other than square and rectangular pyramids.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "find the volume of pyramids other than square and rectangular pyramids.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "solve problems involving volume of pyramids.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explore inductively the volumes of cones and spheres, leading to their formulas.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "find the volumes of cones and spheres.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve problems involving the volume of cones and spheres.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "apply the Pythagorean Theorem in finding the missing side of a right triangle, and its converse in classifying triangles.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-11",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "apply the triangle inequality theorems to establish results for angles and sides in triangles.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-2:item-12",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve financial problems involving: a. earning money, b. profit and loss, c. buying amounts of products that represent the best value (‘best buys’), and d. buying on terms (‘instalment plan’).",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "solve linear equations in one variable.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "solve problems (e.g., number problems, geometry problems, and money problems) involving linear equations in one variable.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve linear inequalities in one variable.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "graph on a number line the solution of linear inequalities in one variable.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve problems involving linear inequalities in one variable.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "describe a linear equation in two variables and express its solution using ordered pairs.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-7",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "define and determine the slope and intercepts of a line.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-8",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "find the equation of a line given: a. two points, b. the slope and a point, c. the slope and y-intercept, and d. the x– and y– intercepts.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-9",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "sketch the graph (straight line) of a linear equation given: a. any two points on the line, b. the x– and y– intercepts, and c. the slope and a point on the line.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-10",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "define and illustrate a system of linear equations in two variables.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-11",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve a system of linear equations (with integer solutions) by graphing.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-12",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "classify the types of systems of linear equations based on the number of solutions.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-13",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "solve algebraically a system of linear equations in two variables.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-14",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "solve problems involving systems of linear equations in two variables.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-3:item-15",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "recognize and solve problems involving linear inequalities in two variables.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "calculate the measures of variability (range, mean deviation, and standard deviation) for ungrouped data.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "draw conclusions from statistical data using the measures of variability.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "investigate, interpret, and analyze graphs from primary data (e.g., examination scores).",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "investigate, interpret, and analyze graphs from secondary data.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "differentiate theoretical from experimental probability by conducting an experiment or an investigation.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "describe the sample space of an experiment.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "use the Fundamental Counting Principle to determine the number of possible outcomes of an experiment.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "calculate the theoretical probability of a single event by listing all possible outcomes.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "describe probability as a measure of the chance of an event occurring.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "calculate the probability of simple combined events by listing, or by possibility diagrams or tree diagrams.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:period-4:item-11",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve problems involving experimental probability and/or theoretical probability using the Fundamental Counting Principle.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "ab446fda1b48f3e1ba6abaebf025d6c971a21b609da0a3b913427f60b914d539"
+  }
+}

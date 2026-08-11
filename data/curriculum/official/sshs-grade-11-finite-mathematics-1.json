@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-finite-mathematics-1",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Finite Mathematics 1",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1hxWAqfjmZUx5P1iTgToVuWDMc0A0ZdI5/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Finite-Mathematics-1.pdf",
+    "fileId": "1hxWAqfjmZUx5P1iTgToVuWDMc0A0ZdI5",
+    "sha256": "d8426828467f1113e311deadb48e316071bd2db075f3b8455e59e8fc02f4e4d9",
+    "byteSize": 328437,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 3,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FINITE-MATHEMATICS11",
+    "name": "Finite Mathematics 1",
+    "description": "Official Grade 11 Finite Mathematics 1 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "GEOMETRY OF DESIGN",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "PATTERNS IN NATURE AND ART",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "MATRICES",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "LINEAR PROGRAMMING",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify and describe symmetries in nature and art a. reflection b. rotational c. line of symmetry d. center of rotation e. angle of rotation",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "illustrate various geometric transformations (translation, reflection, rotation, dilation, and glide reflection);",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify polygons that can tesselate the plane;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "generate tessellations using geometric transformations;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "construct Escher-type tessellations;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "identify the geometric transformations that generate a given Frieze pattern;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "define and explain the golden ratio, golden rectangle, golden spiral, and golden angles;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify the golden ratio, golden rectangle, golden spiral, and golden angles in nature and art;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "define the Fibonacci sequence and investigate its historical origin;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "identify examples of Fibonacci sequence in nature and art;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "explain the connection between the Golden Ratio and the Fibonacci sequence;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "define and identify fractals in nature and art; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "generate fractals with or without the use of technology.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "illustrate matrix and its components (e.g., row, column, dimensions, and order of a matrix);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-2",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "perform matrix operations (addition, subtraction, scalar multiplication, multiplication, transposition);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-3",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "apply properties of matrix operations (commutative, associative, distributive, zero matrix, identity matrix, etc.);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-4",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "represent systems of linear equations using matrices;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-5",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "apply row operations to solve a system of linear equations;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "define the inverse of a matrix;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-7",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "calculate the inverse of a matrix using row operations;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-8",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "use row operations to determine if a system of linear equations is independent (unique solution), dependent consistent (infinitely many solutions), or inconsistent (no solution);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-9",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "compute the determinant of a 2×2 and a 3×3 matrix;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-10",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "use the determinant to test matrix invertibility;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-11",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "use Cramer’s rule to solve an independent system of linear equations ( 2×2 and 3×3);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-12",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "illustrate linear programming and its significance in decision-making;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-13",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "formulate real-world problems into linear programming models;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-14",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "graph the feasible region in a Linear Programming Problem;.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-15",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "determine the optimal solutions to a Linear Programming Problem using the Corner Point Theorem;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-16",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "solve linear programming problems of two variables by graphical method, with or without technology;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:period-2:item-17",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "construct an initial simplex tableau from an LP problem; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "0c7fe1cdd089ca36155cd51e222d170dc03df5f8d2baf115b887f368977d6b57"
+  }
+}

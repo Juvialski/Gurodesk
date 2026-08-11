@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Domestic Refrigeration and Air Conditioning Servicing",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1T2o7cyyuINra8xpnMyCgT5p9Rr2Zn3y-/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Domestic-Refrigeration-and-Air-Conditioning-Servicing_.pdf",
+    "fileId": "1T2o7cyyuINra8xpnMyCgT5p9Rr2Zn3y-",
+    "sha256": "27d4be635921d87f7f2af1870338f12ef252b5c952cebdcf873f31130c0fe6cf",
+    "byteSize": 525335,
+    "pageCount": 11,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "DOMESTIC-REFRIGERA11",
+    "name": "Domestic Refrigeration and Air Conditioning Servicing",
+    "description": "Official Grade 11 Domestic Refrigeration and Air Conditioning Servicing competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Refrigeration and Air Conditioning servicing",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "(but not limited to the following):",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Pre-installation procedure for domestic air-conditioning unit",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Installation procedure for air-conditioning unit",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Maintenance of window-type air conditioning units Cleaning procedure of the air filter",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Pre-troubleshooting of domestic refrigeration and window-type air conditioning units",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Troubleshooting of domestic refrigeration and window-type air-conditioning units",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Pre-repairing procedure of domestic refrigeration and air conditioning units",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Repairing of the domestic refrigeration and air conditioning units",
+      "sortOrder": 9
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss overview of Refrigeration and Air Conditioning servicing",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss refrigeration and air conditioning concepts and principles",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform pre-installation procedure for an air-conditioning unit",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform procedures in installing a window-type air-conditioning unit",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform maintenance of window-type air-conditioning units",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-3:item-1",
+      "quarter": 3,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss pre-troubleshooting of domestic refrigeration and window-type air conditioning units",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-3:item-2",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform troubleshooting of domestic refrigeration and window-type air-conditioning units",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-4:item-1",
+      "quarter": 4,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss repairing of domestic refrigeration and window-type air conditioning units",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-4:item-2",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform repairing of domestic refrigeration and window-type air-conditioning units",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "937e37a31650683d9572bd0f8cc6d4bede6470c1143fa8c79e17d1b9718db0d2"
+  }
+}

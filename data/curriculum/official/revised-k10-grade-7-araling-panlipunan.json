@@ -1,0 +1,423 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-7-araling-panlipunan",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Araling Panlipunan CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Araling%20Panlipunan%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "sha256": "7b643c05dbac653b229416aa19d3d14d1f2b7baadb93c64a66c762e45ef91490",
+    "byteSize": 3220970,
+    "pageCount": 76,
+    "pagesUsed": {
+      "from": 42,
+      "to": 49
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 7",
+    "code": "ARALING-PANLIPUNAN7",
+    "name": "Araling Panlipunan",
+    "description": "Official Grade 7 Araling Panlipunan competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 42,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 44,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 46,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 48,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "ANG HEOGRAPIYA NG TIMOG SILANGANG ASYA",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Heograpiyang Pantao ng Timog Silangang Asya",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "SINAUNANG KASAYSAYAN NG TIMOG SILANGANG ASYA",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "B. Mga Sinaunang Kabihasnan sa Timog Silangang Asya",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "A. Ang Konsepto ng Kolonyalismo at Imperyalismo",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "B. Ang Kolonyalismo at Imperyalismong Kanluranin sa Pangkapuluang Timog Silangang Asya",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "C. Ang Kolonyalismo at Imperyalismong Kanluranin sa Pangkontinenteng Timog Silangang Asya",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "D. Paglitaw ng Imperyalismong Hapon sa ika-20 siglo",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "A. Pagpapaliwanag ng mga Batayang Konsepto",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "B. Nasyonalismo at Pagtamo ng Kasarinlan ng mga Piling Bansa sa Timog Silangang Asya",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "C. Mga Hamon sa Pagkabansa ng Pilipinas Matapos ang Ikalawang Digmaang Pandaigdig",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "D. Mga Hamon ng Pagkabansa sa Pangkontinenteng Timog Silangang Asya Matapos ang Kumperensiya ng Bandung",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "E. Mga Hamon sa Pagkabansa sa Pangkapuluang Timog Silangang Asya matapos ang Kumperensiya ng Bandung",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "A. Ang Pagtatag ng ASEAN",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "B. Ang Pilipinas sa ASEAN",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "C. Ang ASEAN at Hamon ng Likas-kayang Pag-unlad sa Pilipinas at Timog Silangang Asya",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "D. Kalagayang ng Karapatang Pantao sa Pilipinas at Timog Silangang Asya",
+      "sortOrder": 17
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mahalagang ginampanan ng katangiang pisikal ng Pilipinas at ng rehiyon sa pagbuo ng sinaunang kasaysayan at kalinangan ng mga mamamayan sa Pilipinas at Timog Silangang Asya",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang heograpiyang pantao ng Timog Silangang Asya batay sa pangkat-etnolinggwistiko, pananampalataya, estrukturang panlipunan, at ugnayang pangkapangyarihan",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naiuugnay ang katangian ng sinaunang lipunan sa pagkakamag-anak, pamilya at kasarian (kinship, family and gender) sa Timog Silangang Asya",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang kalinangang Austronesyano at Imperyong Maritima kaugnay sa pagbuo ng kalinangan ng Pilipinas at Timog Silangang Asya",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naiuugnay ang sinaunang kabihasnan ng Pilipinas sa mga bansa sa Timog Silangang Asya, China at India",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang ugnayan ng heograpiya at sinaunang kasaysayan ng mga bansa sa Timog Silangang Asya",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang konsepto ng kolonyalismo at imperyalismo",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-2:item-2",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipaghahambing ang una at ikalawang yugto ng imperyalismong Kanluranin",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-2:item-3",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga pamamaraan at patakarang kolonyal sa tatlong bansa ng pangkapuluang Timog Silangang Asya",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-2:item-4",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang iba’t ibang pagtugon sa kaayusang kolonyal (pag-alsa, pag-angkin at pag-angkop) sa tatlong bansa ng pangkapuluang Timog Silangang Asya",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-2:item-5",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga pamamaraan at patakarang kolonyal sa tatlong bansa ng pangkontinenteng Timog Silangang Asya",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-2:item-6",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang iba’t ibang pagtugon sa kaayusang kolonyal (pag-alsa, pag-angkin, at pag-angkop) sa tatlong bansa ng pangkontinenteng Timog Silangang Asya",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-2:item-7",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang imperyalismong Hapon sa ika-20 siglo",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-2:item-8",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Naipaghahambing ang mga pamamaraan, patakarang kolonyal, at iba’t ibang pagtugon sa kaayusang kolonyal (pag-alsa, pag-angkin at pag-angkop) sa apat na mga bansa ng Timog Silangang Asya",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-3:item-1",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang sumusunod na konsepto: A. Nasyonalismo B. Kasarinlan C. Pagkabansa",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-3:item-2",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang pagtamo ng kasarinlan ng mga piling bansa sa Timog Silangang Asya",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-3:item-3",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga hamon sa pagkabansa ng Pilipinas matapos ang Ikalawang Digmaang Pandaigdig",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-3:item-4",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga hamon sa pagkabansa ng pangkontinenteng Timog Silangang Asya matapos ang Kumperensiya ng Bandung",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-3:item-5",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga hamon sa pagkabansa ng pangkapuluang Timog Silangang Asya matapos ang Kumperensiya ng Bandung",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-4:item-1",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang layunin, kasaysayan, estruktura, at ilang tagumpay ng ASEAN",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-4:item-2",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naiuugnay ang papel ng Pilipinas bilang aktibong kasapi ng ASEAN",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-4:item-3",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga hamon at tugon ng ASEAN sa pagtamo ng likas-kayang pag-unlad (sustainable development)",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-araling-panlipunan:period-4:item-4",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang papel ng ASEAN sa usapin ng karapatang pantao sa Pilipinas at Timog Silangang Asya",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "7e1432d5c2c5b3290a3d92dbf01692b6fdf374e1bca62a5a4a3f20df54115943"
+  }
+}

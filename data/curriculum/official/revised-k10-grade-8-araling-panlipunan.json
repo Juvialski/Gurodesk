@@ -1,0 +1,466 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-8-araling-panlipunan",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Araling Panlipunan CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Araling%20Panlipunan%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "sha256": "7b643c05dbac653b229416aa19d3d14d1f2b7baadb93c64a66c762e45ef91490",
+    "byteSize": 3220970,
+    "pageCount": 76,
+    "pagesUsed": {
+      "from": 51,
+      "to": 57
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 8",
+    "code": "ARALING-PANLIPUNAN8",
+    "name": "Araling Panlipunan",
+    "description": "Official Grade 8 Araling Panlipunan competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 51,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 53,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 55,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 57,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "A. Heograpiya ng Asya at Daigdig",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Mga Sinaunang Kabihasnan",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "C. Estrukturang Panlipunan sa Iba’t ibang Bahagi ng Asya at Daigdig",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "D. Ang Relihiyon at Ibang Paniniwala",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "A. Mahahalagang Pangyayari sa Daigdig noong Ika-15 at Ika-16 Siglo",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "B. Panahon ng Paggalugad at Kolonyalismo sa America",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "C. Ang mga Asyano sa Panahon ng Paggalugad at Kolonyalismo",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "D. Panahon ng Imperyalismo",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "E. Panahon ng Absolutismo, Liberalismo at Enlightenment",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "F. Rebolusyong Pranses at Pag-usbong ng mga Bansang Estado",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "G. Paglaganap ng Nasyonalismo sa Asya at Amerika",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "A. Unang Digmaang Pandaigdig",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "B. Ang Daigdig Pagkaraan ng Digmaan",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "C. Banta ng Ideolohiyang Totalitaryanismo at Pasismo",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "D. Ikalawang Digmaang Pandaigdig",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "E. Ang Cold War sa Europa at America",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "F. Ang Asya at Africa sa Panahon ng Cold War",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "G. Ang Daigdig Matapos ang Cold War: Pagkakabuwag ng USSR",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "H. Mga Kilusan para sa Demokrasya",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "A. Ang United Nations (UN) at ang Pilipinas bilang kasapi nito",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "B. Mga Isyung Panlipunan: Isyung Pangkalusugan (SARS, Bird Flu, STIs, COVID-19, at iba pa)",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "C. Mga Isyung Pampolitika, Pangkabuhayan, at Pangkalikasan",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "D. Globalisasyon at Pagkamamamayan ng Daigdig",
+      "sortOrder": 23
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nailalarawan ang katangiang pisikal ng daigdig at implikasyon nito sa pamumuhay ng mga tao",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang kalagayang heograpikal ng mga sinaunang kabihasnan sa Asya at iba pang bahagi ng daigdig",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Napatutunayan ang kahalagahan ng pakikipag-ugnayan ng mga tao sa pag-unlad ng mga kabihasnan",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Natataya ang epekto ng estrukturang panlipunan sa pag-unlad ng pamumuhay ng tao",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang papel ng relihiyon at ibang paniniwala sa paghubog sa pagkakakilanlang kultural ng tao",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang interaksiyon ng tao sa kaniyang kapaligiran",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang mahahalagang pangyayari noong ika-15 at ika-16 siglo bago ang panahon ng paggalugad ng mga lupain",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga pangyayari at kinahinatnan ng paggalugad at kolonyalismo ng mga Europeo sa mga bagong lupain sa America",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga naging unang tugon ng mga Asyano sa panahon ng paggalugad at kolonyalismo",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-2:item-4",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang imperyalismong Europeo at Japan sa Asya at Africa",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-2:item-5",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naiuugnay ang Enlightenment at Rebolusyong Amerikano sa paglinang ng nasyonalismo at pagkabansa",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-2:item-6",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang mahahalagang pangyayari sa panahon ng Rebolusyong Pranses at pagtatag ng mga bansang estado",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-2:item-7",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nasusuri ang naging tugon ng ilang bansa sa Asya, Africa at Latin America sa imperyalismong Europeo",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-3:item-1",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga sanhi, pangyayari, at pagbabagong dulot ng Unang Digmaang Pandaigdig",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-3:item-2",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nabibigyang katuwiran ang naging tugon ng mga bansa sa pagharap sa iba’t ibang suliranin pagkaraan ng digmaan",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-3:item-3",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang ideolohiyang totalitaryanismo bilang banta sa demokratikong pamamahala",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-3:item-4",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Natataya ang mga sanhi, pangyayari, at pagbabagong dulot ng Ikalawang Digmaang Pandaigdig",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-3:item-5",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga pangyayaring nagbigay daan sa Cold War at ang mga tunggaliang dulot nito",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-3:item-6",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang epekto ng Cold War sa Asya at Africa",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-3:item-7",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Natataya ang kalagayan ng daigdig sa pagwawakas ng Cold War",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-3:item-8",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang bahaging ginampanan ng iba’t ibang kilusan sa pagtaguyod ng demokratikong lipunan",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-4:item-1",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nailalarawan ang United Nations at ang Pilipinas bilang kasapi nito",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-4:item-2",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga isyung panlipunan na kinakaharap ng daigdig",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-4:item-3",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga isyung pampolitika, pangkabuhayan, at pangkalikasang kinakaharap ng daigdig",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-araling-panlipunan:period-4:item-4",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang pagiging mapanagutang mamamayan ng daigdig",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "ec5aef819181e5fc0e81dfc07f557db091636dc7a5af45de3ed35405b26a0887"
+  }
+}

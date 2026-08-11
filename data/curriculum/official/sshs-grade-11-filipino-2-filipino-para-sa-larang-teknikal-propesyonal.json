@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Filipino 2 - Filipino para sa Larang Teknikal Propesyonal",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/10xE0YTY4nLHlaPv-W0l6D6bW4g-1Nx8v/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Filipino-2-Filipino-para-sa-Larang-Teknikal-Propesyonal.pdf",
+    "fileId": "10xE0YTY4nLHlaPv-W0l6D6bW4g-1Nx8v",
+    "sha256": "1147bd959d68843f05b3db94c1618af4d2101bfd68205eeb0fb8d992cac56f33",
+    "byteSize": 440449,
+    "pageCount": 12,
+    "pagesUsed": {
+      "from": 2,
+      "to": 6
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FILIPINO-2-FILIPIN11",
+    "name": "Filipino 2 - Filipino para sa Larang Teknikal Propesyonal",
+    "description": "Official Grade 11 Filipino 2 - Filipino para sa Larang Teknikal Propesyonal competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Gamit ng Akademikong Filipino sa Teknikal-Propesyonal na Larang",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Iba Pang Uri ng Sulatin",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Mga Elemento ng Teksto sa Teknikal-Propesyonal na Larang",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Mga Elemento sa Pagpapahayag sa Teknikal-Propesyonal na Larang",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Pagsasagawa ng Pasalitang Multimodal na Presentasyon ng Piniling Produkto o Serbisyo",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Kahulugan, Katangian, at Kahalagahan ng Pagsulat sa Teknikal-Propesyonal na Larang",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Mga Hakbang sa Pagbuo ng Tekstong Teknikal-Propesyonal",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Mga Salita sa Piniling Teknikal-Propesyonal na Larang (hal., Information and Communications Technology, Industrial Arts, Family and Consumers Science, Agriculture and Fishery Arts,",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Mga Konsiderasyong Teknikal, Etikal at Kultural sa Pagbuo ng Tekstong Teknikal-Propesyonal",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Iba’t Ibang Uri at Anyo ng Liham-Transaksiyonal",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Pagbuo ng portfolio ng mga tekstong teknikal-propesyonal",
+      "sortOrder": 11
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang gamit ng akademikong Filipino sa teknikal-propesyonal na larang",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naihahambing ang tekstong teknikal-propesyonal sa iba pang uri ng sulatin",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga elemento ng mga teksto ng piniling teknikal-propesyonal na larang (a. Information Communication and Technology, b. Industrial Arts, c. Family and Consumers Science, d. Agriculture and Fishery Arts)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong teknikal-propesyonal ayon sa mga elemento: • Nilalaman • Estruktura • Rehistro ng wika • Konteksto • Tono",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga elemento sa pagpapahayag sa teknikal-propesyonal na larang",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga salik sa pagpapahayag sa teknikal-propesyonal na larang",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-1:item-7",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakapagsasagawa ng multimodal na presentasyon ng piniling produkto o serbisyo gamit ang akademikong Filipino",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang kahulugan, katangian, at kahalagahan ng pagsulat sa teknikal-propesyonal na larang",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga hakbang sa pagbuo ng tekstong teknikal-propesyonal",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagtatala ng teknikal na mga salita sa piniling teknikal-propesyonal na larang sa pagbuo ng teksto",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-2:item-4",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga konsiderasyong teknikal, etikal at kultural sa pagbuo ng tekstong teknikal-propesyonal",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-2:item-5",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga halimbawang dokumentong ginagamit sa teknikal-propesyonal na larang ayon sa sumusunod na mga aspekto: • Nilalaman • Estruktura • Rehistro ng wika • Konteksto • Tono",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-2:item-6",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng piling dokumento sa teknikal-propesyonal na larang gamit ang akademikong Filipino",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-2:item-7",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakabubuo ng portfolio ng mga tekstong teknikal-propesyonal",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2e217c7aaf129f12604041bc9fbcda2ef5965c4ed64cdb8048b71906427a3765"
+  }
+}

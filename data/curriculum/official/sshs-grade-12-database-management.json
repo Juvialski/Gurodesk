@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-database-management",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Database Management",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1fMK14QLZCJR1SMmnjIw2RESpIkO44KgH/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Database Management.pdf",
+    "fileId": "1fMK14QLZCJR1SMmnjIw2RESpIkO44KgH",
+    "sha256": "05ce9739da44267f72c14754f6429d9da268f6b7d8933435964cb86e30d7f92b",
+    "byteSize": 318783,
+    "pageCount": 4,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "DATABASE-MANAGEMEN12",
+    "name": "Database Management",
+    "description": "Official Grade 12 Database Management competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Introduction to Databases",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Introduction to SQL",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "SQL Commands",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "SQL Commands Advanced SQL Features (Select Into, Insert Into Select, Case)",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "define database and database management system.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "differentiate relational and non-relational databases, their purposes and functions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss real-world applications of databases and database management system.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain the basic concepts of SQL and its role in data management and analysis.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain the concepts of tables, rows, and columns in a database.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "create an Entity–Relationship (ER) Diagram representing entities, attributes, and relationships in a relational database.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain the roles of primary keys and foreign keys in establishing and maintaining relationships between database tables.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify key components of SQL syntax and common SQL data types.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "create databases and tables using SQL, including inserting and updating data.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-10",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "differentiate SQL command structures based on their purpose and usage in data definition, data manipulation, and data querying.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-11",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "write executable queries against a database using an appropriate SQL command.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-12",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "identify the structure of a SQL command statement",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-13",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "explain how SQL clauses are used to filter results.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-14",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "write executable queries against a database using appropriate SQL commands.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-15",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "develop a database management system using SQL.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-database-management:period-1:item-16",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "present the developed database management system before an audience.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "6fe2e9011130544286e4af59979d53673cf4c4761708191b6a054674a5fffc39"
+  }
+}

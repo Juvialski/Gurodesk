@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-earth-and-space-science-3",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Earth and Space Science 3",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1wKPQDoXNHPXOGZ7KfQdRADW6iyzcp1ds/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Earth and Space Science 3.pdf",
+    "fileId": "1wKPQDoXNHPXOGZ7KfQdRADW6iyzcp1ds",
+    "sha256": "09c6d0a568df5228d21b9a66a04d48b81744c34a7d1bedd121de197972d4c6f2",
+    "byteSize": 431935,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "EARTH-AND-SPACE-SC12",
+    "name": "Earth and Space Science 3",
+    "description": "Official Grade 12 Earth and Space Science 3 competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Origin and evolution of the universe",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Stellar properties and planetary motion",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Exoplanets and astrobiology",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Space technology and Earth observation",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Space technologies for climate observation",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Causes of climate change",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Climate policy and governance",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Climate resilience and sustainable action",
+      "sortOrder": 8
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "evaluate competing cosmological models using observational evidence, including galaxy recession rates, the age of the universe, and the large-scale structure of matter;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "use redshift data and cosmic microwave background evidence to evaluate the Big Bang model;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze the timeline from the Big Bang to the formation of the first stars and galaxies;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "analyze stellar spectra to classify stars using the Hertzsprung-Russel diagram;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "apply Kepler’s laws to explain planetary orbital characteristics and habitability zones;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-6",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "conduct investigation on the exoplanet detection methods and their relevance to astrobiology;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "evaluate evidence from exoplanet research (e.g., atmospheric composition, temperature, and distance from a star) to assess conditions for extraterrestrial life;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-8",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify key space technologies for space exploration and Earth observation and their primary functions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-9",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "use satellite imagery (e.g. from PhilSA Space Data Dashboard, NASA Worldview or Copernicus Browser) to analyze land cover change, deforestation, or urban expansion in a Philippine locality over time; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-10",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "evaluate how PhilSA and international space agencies use remote sensing data to monitor Philippine environment conditions and support disaster response.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-11",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "use satellite-derived datasets including temperature anomalies, sea level measurements, and atmospheric CO₂ to identify climate trends in the Philippines;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-12",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "use satellite and ocean observation data to analyze the sea level rise and its potential impacts on Philippine coastal communities;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-13",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "explain how enhanced greenhouse effect and human activities contribute to global warming and climate change;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-14",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "calculate personal or school-level carbon footprints and relate the results to national greenhouse gas emissions data;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-15",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "describe the commitments of the Philippines under the Paris Agreement and their role in reducing greenhouse gas emissions;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-16",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "analyze the provisions of Republic Act No. 9729 and explain how local government units implement climate adaptation plans;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-17",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "describe the mitigation and adaptation strategies used in Philippine communities; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:period-1:item-18",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "create a community-level climate resilience plan integrating renewable energy planning, waste reduction, and ecosystem-based adaptation.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "1f8dd875878214c58913e926b7bc58a0bd09db9c0bfc2aca971e9737ea1a9094"
+  }
+}

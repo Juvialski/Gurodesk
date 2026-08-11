@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-4-science",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Science CG 2023 Grades 3-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Science%20CG%202023%20Grades%203-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "sha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+    "byteSize": 1436380,
+    "pageCount": 72,
+    "pagesUsed": {
+      "from": 33,
+      "to": 36
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 4",
+    "code": "SCIENCE4",
+    "name": "Science",
+    "description": "Official Grade 4 Science competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 33,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 34,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 35,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 36,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Science inventions",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Systems in plants and animals",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Forces and movement",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Soils",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-4-science:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use information from secondary sources to identify a famous Filipino and/or foreign scientist and their invention/s;",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "use information from the home or the local community to identify a science invention and explain its impact on their everyday life;",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the chemical properties of materials, such as they can be burnt, react with other materials, or are degradable or biodegradable;",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe changes in properties of materials when exposed to certain changes in temperature, such as changes when wood or coal are burned;",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "demonstrate ways to minimize harmful changes in materials, such as restriction of burning of waste materials, and care in handling reactive materials;",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "identify issues and concerns in the local community and how they could be addressed by science, such as the treatment of waste; and",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "apply science process skills and attitudes in conducting a guided survey about environmental issues and concerns including grouping and classifying, communicating, and open mindedness.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe in simple terms how the following human body systems work: muscular, skeletal, digestive, circulatory, and respiratory;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "observe the root and shoot system in plants and describe why they are important;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use a drawing or diagram to classify some Philippine animals and plants, based on their habitat: some live on land (terrestrial), live in water (aquatic) or fly in the air (aerial);",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "make a list or draw up a table with examples of animals and plants in a particular habitat, such as a garden, rice field, seashore, and mangrove swamp;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "use flow charts to compare the different stages in the life cycle of animals, such as a butterfly, frog, chicken, and human;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "use information from secondary sources to group animals according to the food they eat. Some are: a. plant eaters (herbivores), b. meat eaters (carnivores), and c. plant and meat-eaters (omnivores); and",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "draw a simple food chain using living things from the Philippines and label them as herbivores, carnivores, and omnivores.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "participate in guided activities to discover and predict how rigid and soft objects can be moved and/or changed in shape;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "measure accurately the distance and time when things move using simple equipment;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify that how far an object moves in a given time is called speed;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "construct and label simple graphs of different speeds including stationary and uniform speeds, both fast and slow;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "participate in guided activities to demonstrate that pushes and pulls can be used to change the speed and direction of an object including making it go faster, turn it to a different direction, slow it down, and stop it;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "determine how forces can change the shape of objects such as when they are pushed, pulled, stretched, bent, twisted, or squeezed;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "carry out guided investigations to identify the properties of magnets, including how they affect other magnets and objects made of different materials;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify examples of how objects can affect other objects even when they are not in contact with each other, such as magnets attracting other objects, light from the sun affecting our eyes, and skin, and loud noises hurting our ears;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify that energy is something that can cause change including light, sound, and heat energy; and",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "observe and identify sources and uses of light, sound, and heat energy at school, at home and in the local community.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "participate in guided activities using simple equipment to compare different types of soil including sandy, clay, silt, and loam, including comparing the ability of the soils to hold water;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "recognize that water is one of the basic needs of plants and animals;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "participate in a guided investigation to identify the effect of different types of soil on the growth of plants;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-4",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify some of the basic characteristics used to describe the weather, such as air temperature, air pressure, wind speed, wind direction, humidity, rain, and cloud cover;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "use weather instruments to measure and record some of the characteristics of weather during a school day;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "examine a local weather chart to make simple interpretations about the local weather and how it might change and describe and practice safety precautions to use during poor or extreme weather conditions;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe some of the overall characteristics of the Sun, such as its composition, its size, and the main energy it radiates;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "describe the changes in the direction and length of shadows from a shadow stick and use the information to infer why the Sun changes position during a day; and",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "make suggestions about the importance of the Sun to living things for a group or class discussion and confirm and record ideas by referring to trustworthy secondary sources of information.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "9464168e476d6e66f85cb7e0eba30b3c60b994a0a4813b128f6ecb5e805e731b"
+  }
+}

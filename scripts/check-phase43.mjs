@@ -18,12 +18,15 @@ async function loadModel() {
 async function loadExportRuntime() {
   const source = read('src/lib/assessmentExport.ts')
   let output = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
+  let presentationOutput = ts.transpileModule(read('src/lib/assessmentExportPresentation.ts'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
+  presentationOutput = presentationOutput.replace(/import \{ normalizeAssessmentMathText \} from '\.\/assessmentMathText';/, 'const normalizeAssessmentMathText = (value) => String(value ?? "");')
+  const presentationUrl = `data:text/javascript;base64,${Buffer.from(presentationOutput).toString('base64')}`
   output = output.replace(/import \{[\s\S]*?\} from 'docx';/, 'const AlignmentType = { CENTER: "center" }; class Document {}; class Packer { static async toBlob() { return new Blob(); } }; class Paragraph {}; class TextRun {};')
   output = output.replace(/import \{ jsPDF \} from 'jspdf';/, 'const jsPDF = class {};')
   output = output.replace(/import \{ downloadBlob \} from '\.\/docxTemplate';/, 'const downloadBlob = () => {};')
   output = output.replace(/import \{ assessmentVisualSvgMarkup, drawAssessmentVisualPdf \} from '\.\/assessmentVisualExport';/, 'const assessmentVisualSvgMarkup = () => ""; const drawAssessmentVisualPdf = () => {};')
   output = output.replace(/import \{ normalizeAssessmentMathText \} from '\.\/assessmentMathText';/, 'const normalizeAssessmentMathText = (value) => String(value ?? "");')
-  output = output.replace(/import \{[\s\S]*?\} from '\.\/assessmentExportPresentation';/, 'const assessmentQuestionKeepTogether = () => true; const assessmentQuestionTypeLabel = (type) => String(type); const assessmentResponseKind = () => "lines"; const assessmentSectionTitle = (type) => String(type); const assessmentUsesContiguousTypeSections = () => false; const assessmentVisualScale = () => 1; const recommendedAssessmentResponseLines = () => 1;')
+  output = output.replace(/import \{[\s\S]*?\} from '\.\/assessmentExportPresentation';/, `import { buildAssessmentPaperPresentation } from '${presentationUrl}';`)
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
 }
 

@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-sports-coaching",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Sports Coaching",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1O4Jw33SR_0krmbz4Ee3wX6FKTlA3FNrg/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Sports-Coaching.pdf",
+    "fileId": "1O4Jw33SR_0krmbz4Ee3wX6FKTlA3FNrg",
+    "sha256": "836145775b335b688492dcee466266e4221f8095eb9323186976da2560733cc8",
+    "byteSize": 489569,
+    "pageCount": 11,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "SPORTS-COACHING11",
+    "name": "Sports Coaching",
+    "description": "Official Grade 11 Sports Coaching competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Philosophy of Coaching",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Knowledge of Sports Coaching",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Coaching Exposure in Selected Individual/Dual Sports",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Selected Sports Coaching Exposure",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Characteristics of an Effective Coach Reflective Thinking, Good Communication Skills, Leadership and Motivation, Adaptability & Problem Solving, Goal Setting & Development Focus, S",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Coaching Styles",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Developing and Implementing Game Plans:",
+      "sortOrder": 7
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-sports-coaching:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the philosophy, principles, and styles that influence coaching practices",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-coaching:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate the essential coaching competencies to enhance coaching effectiveness for individual/dual sports",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-coaching:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "apply coaching skills in selected individual/dual sports through practice, observation, simulation, and feedback",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-coaching:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "assess the coaching performance in selected individual/dual sports",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-coaching:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the different characteristics of an effective team sports coach",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-coaching:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe the coaching styles of reputable national and international coaches and how it affects the performance handling team sports",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-coaching:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "apply technical and tactical games plan essential in team sports",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-coaching:period-2:item-4",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "evaluate the coaching performance in selected team sports",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "f548732ef3af54b09c121d447e0d18658c1fcc36c6ed17b9011d24d1b553ac0b"
+  }
+}

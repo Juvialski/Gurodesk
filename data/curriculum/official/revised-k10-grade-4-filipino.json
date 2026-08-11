@@ -1,0 +1,864 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-4-filipino",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "sourceConsistency": {
+      "detailedTableCountsByQuarter": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "publishedSummaryCountsByQuarter": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "status": "matched",
+      "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    }
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG FILIPINO CG 2023 Grades 2-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20FILIPINO%20CG%202023%20Grades%202-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "sha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+    "byteSize": 2192086,
+    "pageCount": 172,
+    "pagesUsed": {
+      "from": 67,
+      "to": 81
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 4",
+    "code": "FILIPINO4",
+    "name": "Filipino",
+    "description": "Official Grade 4 Filipino competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 67,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 71,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 75,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 79,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Panonood at Presentasyon",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Pakikinig at Pagbasa (Kasanayang Pagtanggap)",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pagsasalita at Pagsulat (Kasanayang Produktibo)",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong naratibo (alamat, pabula, parabula, at anekdota) a. Napagsusunod-sunod ang mga pangyayaring hindi bababa sa anim b. Nasusuri ang katangian at kilos ng tauhan c. Nakikilala ang realidad at pantasya d. Naibibigay ang natuklasang kaalaman sa teksto e. Nakapagbibigay ng angkop na pamagat ng teksto",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy ang tayutay (onomatopeya) sa pagbibigay-kahulugan ng pahayag sa binasa o napakinggang teksto",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naiuugnay ang kaisipan ng akda sa sariling karanasan",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong impormatibo (pag-iisa at paglalarawan) a. Natutukoy ang mahahalagang impormasyon ng teksto b. Nakikilala ang paksa, pangunahin, at mga pansuportang detalye c. Nakapagbibigay ng sariling reaksiyon",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang layon ng teksto ● magsalaysay (alamat, pabula, parabula, anekdota) ● maglahad (pag-iisa-isa at paglalarawan)",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang may denotasyon at konotasyong kahulugan sa pagbuo ng pangungusap a. panandang konteksto ● kasingkahulugan ● kasalungat ● pagbibigay ng halimbawa b. tayutay • onomatopeya",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na diksiyon (kaangkupan ng salita/retorika at estilo) sa pagpapahayag ayon sa: a. layon (magsalaysay at maglahad) b. kahulugan c. tagapakinig/tagapanood/mambabasa d. konteksto (salusalo at kaarawan) e. tono at damdamin",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakabubuo ng pahayag gamit ang hugnayang pangungusap",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang maylapi at bahagi ng panalita sa pagpapahayag a. Gamit ng mga Panlapi ● unlapi ● gitlapi ● hulapi ● kabilaan b. Pangatnig ● pangatnig na nag-uugnay ng magkatimbang ● pangatnig na nag-uugnay ng di-magkatimbang c. Pangngalan ● uri ng pangngalan (pantangi) ● uri ng pangngalan (pambalana: tahas/kongkreto, basal/di-kongkreto, at lansakan) ● kayarian ng pangngalan (payak at maylapi) d. Panghalip Panao e. Pang-uring Panlarawan ● kayarian ng pang-uri (payak at maylapi) f. Pang-abay ● pamanahon ● panlunan",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Nagagamit ang pangkalahatang kayarian ng teksto sa pagbuo ng diskurso a. nagsasalaysay (alamat, pabula, parabula, at anekdota) b. naglalahad (pag-iisa-isa at paglalarawan)",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Nakabubuo ng tekstong may mga panandang nag-uugnay ng mga ideya ayon sa layon, kahulugan, tagapakinig/mambabasa, at konteksto a. tekstong naratibo (alamat, pabula, parabula at anekdota) b. tekstong impormatibo ● pag-iisa-isa ● paglalarawan",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-12",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na wika sa pagpapahayag na isinasaalang-alang ang edad, kasarian, paksa, at kultura sa iba’t ibang sitwasyon: ● pakikipag-usap sa kasapi ng pamilya (pagpapaalam, pag-uutos, paghingi ng paumanhin, pagsali sa usapan ng may edad)",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-13",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na mga nakagawiang di-berbal na hudyat sa pagpapahayag: • kilos at galaw ng katawan (kumpas, padyak, tayo, atbp.) • ekspresyon ng mukha",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-14",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na wika sa pagpapahayag na isinasaalang-alang ang edad, kasarian, paksa, at kultura tuwing may salusalo at pagdiriwang ng kaarawan",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-15",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nakabubuo ng teksto batay sa iba’t ibang layon ng akademiya at transaksiyonal na teksto • liham pangkaibigan (paanyaya)",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-16",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga bahagi ng aklat bilang isa sa pangkalahatang sanggunian (pabalat, pahina ng pamagat, pahina ng karapatang sipi, paunang salita)",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-17",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga elementong biswal (linya, hugis, kulay, espasyo, pag-aanyo at direksyon (directional) at ang kahulugan nito",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-1:item-18",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Nabibigyang kahulugan ang mga tekstong biswal (teksto, memes, logo, icons, barcode, QR Code, atbp,) na namasid at napanood batay sa mga elemento nito",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong naratibo (anekdota, tulang pambata, at kuwentong bayan) a. Natutukoy ang mga bahagi ng teksto (simula, gitna, wakas) b. Naibibigay ang kahulugan sa kilos at pahayag ng tauhan c. Natutukoy ang magkakaugnay na pangyayari d. Naibibigay ang opinyon at reaksiyon sa ikinilos ng tauhan e. Nababago ang katangian o pag-uugali ng mga tauhan",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-2",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy ang tayutay (asonansya) sa pagbibigay-kahulugan ng pahayag sa binasa o napakinggang teksto",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-3",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naiuugnay ang kaisipan ng akda sa sariling karanasan",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-4",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong impormatibo (paglalahad muli (recount) gaya ng talaarawan at talambuhay ng sarili o autobiography a. Natutukoy ang mahahalagang impormasyon ng teksto b. Natutukoy ang katotohanan at opinyon c. Nakikilala ang paksa, pangunahin, at mga pansuportang detalye",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-5",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang layon ng teksto ● magsalaysay (anekdota, tulang pambata, kuwentong-bayan) ● maglahad muli (recount – talaarawan at talambuhay ng sarili)",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-6",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang may denotasyon at konotasyong kahulugan sa pagbuo ng pangungusap a. panandang konteksto ● kasingkahulugan ● kasalungat ● pagbibigay ng halimbawa b. tayutay ● asonansya",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-7",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na diksiyon (kaangkupan ng salita/retorika at estilo) sa pagpapahayag ayon sa: a. layon (magsalaysay at maglahad) b. kahulugan c. tagapakinig/tagapanood/mambabasa d. konteksto (binyagan at kasalan) e. tono at damdamin",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-8",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakabubuo ng pahayag gamit ang hugnayang pangungusap",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-9",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga bahagi ng panalita sa pagpapahayag a. Pangatnig ● pangatnig na nag-uugnay ng magkatimbang ● pangatnig na nag-uugnay ng di-magkatimbang b. Pangngalan ● kayarian ng pangngalan (inuulit at tambalan) c. Panghalip Pamatlig d. Pang-uring Panlarawan ● kayarian ng pang-uri (inuulit at tambalan) e. Pang-uring Pamilang ● patakaran f. Pang-abay ● pamaraan g. Pandiwa • aspekto (pawatas, naganap/perpektibo, at katatapos)",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-10",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Nagagamit ang pangkalahatang kayarian ng teksto sa pagbuo ng diskurso a. nagsasalaysay (anekdota, tulang pambata, at kuwentong-bayan) b. naglalahad (paglalahad muli /recount)",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-11",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Nakabubuo ng tekstong may mga panandang nag-uugnay ng mga ideya ayon sa layon, kahulugan, tagapakinig/mambabasa, at konteksto a. tekstong naratibo (anekdota, tulang pambata, at kuwentong-bayan) b. tekstong impormatibo (paglalahad muli/recount) ● talaarawan ● talambuhay ng sarili/autobiography",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-12",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na wika sa pagpapahayag na isinasaalang-alang ang edad, kasarian, paksa, at kultura sa iba’t ibang sitwasyon: ● pakikipag-usap sa kasapi ng pamilya (pagpapaalam, pag-uutos, paghingi ng paumanhin, pagsali sa usapan ng may edad)",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-13",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na mga nakagawiang di-berbal na hudyat sa pagpapahayag: • kilos at galaw ng katawan (kumpas, padyak, tayo, atbp.) • ekspresyon ng mukha",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-14",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na wika sa pagpapahayag na isinasaalang-alang ang edad, kasarian, paksa, at kultura tuwing may binyagan at kasalan",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-15",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nakabubuo ng teksto batay sa iba’t ibang layong akademik at transaksiyonal na teksto • liham pangkaibigan (pagbati)",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-16",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga bahagi ng aklat bilang isa sa pangkalahatang sanggunian (talaan ng nilalaman, katawan ng aklat)",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-17",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Nailalarawan ang ipinahihiwatig na kahulugan ng mga elementong biswal (linya, hugis, kulay, espasyo, pag-aanyo) at direksyon (directional) na nasa tekstong namasid o napanood",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-2:item-18",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Napaghahambing ang kahulugan ng mga tekstong biswal na makikita sa mga babala, anunsiyo, at patalastas",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong naratibo (mito, epiko, tulang pambata, at kuwentong kababalaghan) a. Natutukoy ang nagsasalita/nagsasalaysay b. Naibibigay ang sariling solusyon sa suliranin c. Nahihinuha ang susunod na pangyayari d. Naibibigay ang opinyon at reaksiyon sa pangyayari e. Naiiba o nababago ang mga pangyayari sa teksto",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy ang tayutay (aliterasyon) sa pagbibigay-kahulugan ng pahayag sa binasa o napakinggang teksto",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naiuugnay ang kaisipan ng akda sa sariling karanasan",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong impormatibo (paglalahad muli (recount) ng talambuhay (biography) ng taong may makabuluhang ambag sa lipunan gaya ng mga bayani, manggagawa, dalubhasa at iba pa a. Naibabalangkas ang mahahalagang impormasyon b. Naibibigay ang sariling reaksiyon c. Natutukoy ang katotohanan at opinyon",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang layon ng teksto ● magsalaysay (mito, epiko, tulang pambata, kuwentong kababalaghan) ● maglahad (recount-talambuhay ng taong may makabuluhang ambag sa lipunan)",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-6",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang may denotasyon at konotasyong kahulugan sa pagbuo ng pangungusap a. panandang konteksto ● kasingkahulugan ● kasalungat ● pagbibigay ng halimbawa b. tayutay ● aliterasyon",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-7",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na diksiyon (kaangkupan ng salita/retorika at estilo) sa pagpapahayag ayon sa: a. layon (magsalaysay at maglahad) b. kahulugan c. tagapakinig/tagapanood/mambabasa d. konteksto (lamay at pulong) e. tono at damdamin",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-8",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakabubuo ng pahayag gamit ang hugnayang pangungusap",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-9",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga bahagi ng panalita sa pagpapahayag a. Pangatnig ● pangatnig na nag-uugnay ng magkatimbang ● pangatnig na nag-uugnay ng di-magkatimbang b. Panghalip ● pananong ● panaklaw c. Pang-uring pamilang ● panunuran d. Pang-abay • panggaano e. Kataga o Ingklitik f. Pandiwa ● aspekto (nagaganap/imperpektibo)",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-10",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Nagagamit ang pangkalahatang kayarian ng teksto sa pagbuo ng diskurso a. nagsasalaysay (mito, epiko, tulang pambata, at kuwentong kababalaghan) b. naglalahad (paglalahad muli/recount)",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-11",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Nakabubuo ng tekstong may mga panandang nag-uugnay ng mga ideya ayon sa layon, kahulugan, tagapakinig/mambabasa, at konteksto a. tekstong naratibo (mito, epiko, tulang pambata, at kuwentong kababalaghan) b. tekstong impormatibo (paglalahad muli/recount) gaya ng talambuhay ng mga Pilipinong may makabuluhang ambag sa lipunan (biography)",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-12",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na wika sa pagpapahayag na isinasaalang-alang ang edad, kasarian, paksa, at kultura sa iba’t ibang sitwasyon: ● pakikipag-usap sa kasapi ng pamilya (pagpapaalam, pag-uutos, paghingi ng paumanhin, pagsali sa usapan ng mga may edad)",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-13",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na mga nakagawiang di-berbal na hudyat sa pagpapahayag: • kilos at galaw ng katawan (kumpas, padyak, tayo, atbp.) • ekspresyon ng mukha",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-14",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na wika sa pagpapahayag na isinasaalang-alang ang edad, kasarian, paksa, at kultura tuwing may lamay at pulong",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-15",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nakabubuo ng teksto batay sa iba’t ibang layon ng akademiya at transaksiyonal na teksto • liham pangkaibigan (pakikiramay)",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-16",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga bahagi ng aklat bilang isa sa pangkalahatang sanggunian (glosari, bibliyograpiya)",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-17",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Nasusuri ang kaangkupan ng elementong biswal at simbolong kultural na ginamit sa pagbuo ng teksto (teksto, memes, logo, icons, barcode, QR Code, cartooning, atbp.)",
+      "sourcePage": 78,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-3:item-18",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Naibibigay ang layon ng mga tekstong biswal (babala, anunsiyo, patalastas, atbp.)",
+      "sourcePage": 78,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-1",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong naratibo (mito, epiko, kuwentong kababalaghan, at tulang pambata) a. Natutukoy ang sanhi at bunga ng mga pangyayari b. Naibibigay ang pagkakaiba at pakakatulad ng mga pangyayari c. Nahuhulaan ang posibleng kalalabasan ng pangyayari d. Naibibigay ang natuklasang kaalaman sa teksto e. Nakapagbibigay ng sariling sa pagwawakas",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-2",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy ang tayutay (simili o pagtutulad) sa pagbibigay-kahulugan ng pahayag sa binasa o napakinggang teksto",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-3",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naiuugnay ang kaisipan ng akda sa sariling karanasan",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong impormatibo (pagsunod-sunod sa panuto, hakbang at proseso a. Naisasaayos ang mga hakbang at proseso gamit ang balangkas at dayagram b. Naipakikita ang nakalap na impormasyon gamit ang balangkas o dayagram c. Naibibigay ang lagom ng teksto",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-5",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang layon ng teksto ● magsalaysay (mito, epiko, kuwentong kababalaghan, at tulang pambata) ● maglahad (pagsusunod-sunod sa panuto, hakbang at proseso)",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang may denotasyon at konotasyong kahulugan sa pagbuo ng pangungusap a. panandang konteksto ● kasingkahulugan ● kasalungat ● pagbibigay ng halimbawa b. tayutay ● pagtutulad/simili",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na diksiyon (kaangkupan ng salita/retorika at estilo) sa pagpapahayag ayon sa: a. layon (magsalaysay at maglahad) b. kahulugan c. tagapakinig/tagapanood/mambabasa d. konteksto (Kapistahan at Pambansang Pistang Opisyal) e. tono at damdamin",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakabubuo ng pahayag gamit ang hugnayang pangungusap",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga bahagi ng panalita sa pagpapahayag a. Pangatnig ● pangatnig na nag-uugnay ng magkatimbang ● pangatnig na nag-uugnay ng di-magkatimbang b. Panghalip Pamanggit c. Pang-uring Pamilang ● pamahalagi d. Kaantasan ng Pang-uri • lantay e. Pang-abay ● pang-agam f. Pandiwa • Aspekto (magaganap/kontemplatibo)",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Nagagamit ang pangkalahatang kayarian ng teksto sa pagbuo ng diskurso a. nagsasalaysay (mito, epiko, kuwentong kababalaghan, at tulang pambata) b. naglalahad (pagsusunod-sunod sa panuto, hakbang, at proseso)",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-11",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Nakabubuo ng tekstong may mga panandang nag-uugnay ng mga ideya ayon sa layon, kahulugan, tagapakinig/mambabasa, at konteksto a. tekstong naratibo (mito, epiko, kuwentong kababalaghan, at tulang pambata) b. tekstong impormatibo (pagsunod-sunod sa panuto, hakbang, at proseso)",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-12",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na wika sa pagpapahayag na isinasaalang-alang ang edad, kasarian, paksa, at kultura sa iba’t ibang sitwasyon: • pakikipag-usap sa kasapi ng pamilya (pagpapaalam, pag-uutos, paghingi ng paumanhin, pagsali sa usapan ng mga may edad)",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-13",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na mga nakagawiang di-berbal na hudyat sa pagpapahayag: • kilos at galaw ng katawan (kumpas, padyak, tayo, atbp.) • ekspresyon ng mukha",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-14",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na wika sa pagpapahayag na isinasaalang-alang ang edad, kasarian, paksa, at kultura tuwing may kapistahan at pambansang pistang opisyal",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-15",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nakabubuo ng teksto batay sa iba’t ibang layon ng akademiya at transaksiyonal na teksto • liham pangkaibigan (pasasalamat)",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-16",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga bahagi ng aklat bilang isa sa pangkalahatang sanggunian (indeks, apendiks)",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-17",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga angkop na elemento at simbolong kultural sa pagbuo ng tekstong biswal",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:period-4:item-18",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Nakabubuo ng tekstong biswal (babala, anunsiyo, patalastas, atbp.) batay sa layon",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "ebb1eed1f4a0db5e67de481f2726ec942beea4e31e38c9e2aeaf12dc3ec8525a"
+  }
+}

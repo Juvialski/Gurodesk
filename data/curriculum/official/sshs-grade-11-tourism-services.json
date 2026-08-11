@@ -1,0 +1,489 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-tourism-services",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Tourism Services",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1HVTpg3GZKzm0-e7PJockNv8MhbYDejEH/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Tourism-Services.pdf",
+    "fileId": "1HVTpg3GZKzm0-e7PJockNv8MhbYDejEH",
+    "sha256": "c79c468ab2c6aa496edb6586d3add6fe11298e47673e5af5dfec2a1afc713989",
+    "byteSize": 637388,
+    "pageCount": 24,
+    "pagesUsed": {
+      "from": 2,
+      "to": 19
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "TOURISM-SERVICES11",
+    "name": "Tourism Services",
+    "description": "Official Grade 11 Tourism Services competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 9,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 16,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "The Travel and Tourism Industry",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Travel and Tourism Industry Stakeholders",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Travel Intermediaries, Attractions, and Activities",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Legal and Ethical Considerations in Travel Services",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Travel Preliminaries",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "client Profiling o special needs o health and dietary requirements o cultural diversity",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Ticketing Processing",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Complete Travel Service Transactions",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Safety Awareness in Travel",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Introduction to Tourism Promotion",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "The Tourism Sectors",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Tourism Products and Services",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "The Tour Package",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Promoting tour packages",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Promoting Tourism",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Dealing with Customers",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "customer churn and improving retention rates",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Overview of Tour Guiding Services",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Tour Guiding as a Profession",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Tourism in the Philippines",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Stages of Tour Guiding",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Tour Documents, Logbook, and Suppliers",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Risk Management in Tour Guiding",
+      "sortOrder": 23
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the scope, types, and history of the travel and tourism industry",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explain career opportunities, global, and local trends in tourism services",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss travel and tourism industry stakeholders and their role",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss travel intermediaries",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Design a travel and tour package with itineraries",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Analyze the legal and ethical considerations in travel services",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Explain the travel preliminaries",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the uses and functions of the Global Distribution System used in the tourism industry",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss the process of providing travel service requirements in other travel and tour products",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-2:item-4",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Demonstrate ways of providing solutions and alternatives to address customer ticket concerns",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-2:item-5",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Discuss the stages involved in processing payments for travel transactions",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-2:item-6",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform the procedures for providing compensation entitlement to guests affected by flight disruptions",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-1",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the concepts, characteristics of tourism products, and the marketing mix",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-2",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explain the roles of stakeholders in tourism promotion, trends, and ethical considerations",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-3",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss the different sectors of tourism promotion",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-4",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss tourism products and services in tourism promotion",
+      "sourcePage": 11,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-5",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Discuss types of tour package",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-6",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Demonstrate tour packages promotion",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-7",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform tourism promotion using promotional tools and techniques",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-8",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Demonstrate appropriate dealing with customers applying ethical and responsible customer engagement",
+      "sourcePage": 14,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-3:item-9",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Discuss the health, safety, and security in tourism services",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-4:item-1",
+      "quarter": 4,
+      "domain": "D18",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss an overview of local guiding services.",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-4:item-2",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Demonstrate the characteristics and roles of a tour guide including the Filipino brand of service excellence",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-4:item-3",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Differentiate the different types of tourists, the Philippine geography, and its tourism culture",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-4:item-4",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Demonstrate the stages of tour guiding",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-4:item-5",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Develop tour commentaries",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-4:item-6",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Explain the use of tour logbooks and documents and the importance of tour suppliers",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:period-4:item-7",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Assess risk in tour guiding and implement appropriate procedures in handling unforeseen events",
+      "sourcePage": 19,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "5c865a985a8e8f9a00aaadd286068ced0920566a1711bb9aec9d86840bc441a5"
+  }
+}

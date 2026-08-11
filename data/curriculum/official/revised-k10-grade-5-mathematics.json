@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-5-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Mathematics CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Mathematics%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "sha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+    "byteSize": 1754867,
+    "pageCount": 73,
+    "pagesUsed": {
+      "from": 44,
+      "to": 47
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 5",
+    "code": "MATHEMATICS5",
+    "name": "Mathematics",
+    "description": "Official Grade 5 Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 44,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 45,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 46,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 47,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Measurement and Geometry (MG)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Number and Algebra (NA)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Data and Probability (DP)",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe a 12-and 24-hour clock system.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "convert 12-hour time to 24-hour time, and vice-versa.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve problems involving 12-and 24-hour time.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "compare the time in different world time zones to the time in the Philippines using a world time zone map.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve problems on comparing the time in different world time zones to the time in the Philippines.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "perform three or more different operations by applying the GMDAS rules.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "multiply fractions using models.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "multiply a fraction by a fraction.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving multiplication of fractions that may or may not also involve addition or subtraction of fractions.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "identify the height of a parallelogram, triangle, and trapezoid, in different orientations.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "find the area of a parallelogram, triangle, and trapezoid, in sq. cm or sq. m, using formulas.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-1:item-12",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "estimate the areas of triangles and quadrilaterals (parallelogram, rhombus, trapezoid) using grids.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "divide fractions using models.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "divide a fraction by a fraction.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving division of fractions that may or may not involve the other operations with fractions.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "determine a. the place value to thousandths of a digit in a given decimal number, b. the value of a digit, and c. the digit of a number, given its place value.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "read and write decimal numbers with decimal parts to thousandths.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "convert terminating decimals to fractions, and vice versa.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "compare and order decimal numbers with decimal parts to thousandths.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "round decimal numbers to the nearest thousandths.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "add and subtract decimal numbers with decimal parts of up to 3 decimal places.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving addition and/or subtraction of decimals, including problems involving money.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-11",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "use divisibility rules to find common factors of numbers: a. divisibility rules for 2, 5, and 10, b. divisibility rules for 3, 6, and 9, and c. divisibility rules for 4, 8, 11, and",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-2:item-12",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "distinguish prime numbers from composite numbers using the Sieve of Eratosthenes.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "collects bivariate data from interview, questionnaire, and other appropriate sources.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify the appropriate graph (bar graph or line graph) to represent a given set of data.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "construct double bar graphs and double line graphs.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "interpret data presented in a double bar graph or a double line graph.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "draw conclusions or make inferences based on data presented in a double bar graph or a double line graph.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "solve problems using data presented in a double bar graph or a double line graph.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe probability as a measure of the chance of an event occurring.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "calculate the theoretical probability of a simple event by listing all possible outcomes.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-9",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "estimate each of two decimal numbers to the nearest whole number to estimate their product.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-10",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "multiply decimal numbers with decimal parts of up to 2 decimal places.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-11",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving multiplication of decimals that may or may not also involve addition or subtraction of decimals, including problems involving money.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-12",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "estimate the quotient when dividing two decimal numbers by estimating the dividend and divisor to the nearest whole number.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-3:item-13",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "divide: a. 1-to 2-digit whole numbers resulting in a terminating decimal quotient (e.g., 4 ÷ 5 = 0.8), and b. a decimal of up to 2 decimal places by a 1-to 2-digit whole number, resulting in a terminating decimal quotient of up to 3 decimal places.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving division of decimals that may or may not also involve the other operations with decimals, including problems involving money.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "perform three or more different operations with fractions and decimals by applying the GMDAS rules.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "illustrate different solid figures using concrete and pictorial models.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "relate plane figures to solid figures using concrete and pictorial models.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe and differentiate prisms and pyramids using their vertices, faces, and/or edges.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "illustrate and describe solid figures and their nets.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "make models of solid figures.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "illustrate and find the surface area of solid figures.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve problems involving the surface area of solid figures.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe and distinguish cubes and rectangular prisms.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-11",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "estimate the volume of a cube and of a rectangular prism using non-standard units of measurement.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mathematics:period-4:item-12",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "draw the image of an object after applying rotation about a point given an angle of rotation, clockwise or counterclockwise.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "176ee8892039534e24ec46926284d520c633bb4256101549146bde162886ec80"
+  }
+}

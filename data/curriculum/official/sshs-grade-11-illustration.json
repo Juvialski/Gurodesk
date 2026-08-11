@@ -1,0 +1,394 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-illustration",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Illustration",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1ucklGcslXTa8cFehdfnwU2wynFX8tREL/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Illustration.pdf",
+    "fileId": "1ucklGcslXTa8cFehdfnwU2wynFX8tREL",
+    "sha256": "9909c269a4a8cfce02cfbaf340c508beabc16f54f2ae0e494951dd5efb59fc86",
+    "byteSize": 378552,
+    "pageCount": 17,
+    "pagesUsed": {
+      "from": 2,
+      "to": 10
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "ILLUSTRATION11",
+    "name": "Illustration",
+    "description": "Official Grade 11 Illustration competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 9,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Fundamentals of Illustration",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Laws related to the Visual Arts Industry",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Traditional Tools, Materials, and Equipment",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Workplace Ergonomics",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Traditional Drawing Techniques",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Basic Shapes with Illusion of Volume",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Transforming Basic Shapes into Figures and Objects",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Human Figures",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Tools and Equipment for Digital Drawing",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Digital Drawing Techniques",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Digital Drawing of Basic Shapes with Illusion of Volume",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Digital Drawings of Figures and Objects",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Vector Art",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Gathering Concept Art Information",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Character Analysis",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Digital Drawing for Concept Art",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Illustration Analysis",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Illustration Design Brief",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Digital Illustration",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Design Pricing and Costing Guide",
+      "sortOrder": 20
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-illustration:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the fundamentals of illustration",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the laws related to visual arts industry",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Classify the tools and materials required for traditional drawings",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss workplace ergonomics",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply different traditional drawing techniques",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Create basic shapes with illusion of volume using traditional drawing techniques",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Create figures and objects from basic shapes using traditional drawing techniques",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-1:item-8",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Create human figures using traditional drawing techniques",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-2:item-1",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the tools and equipment for digital drawing",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-2:item-2",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Apply the different digital drawing techniques",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-2:item-3",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create digital drawings of basic shapes with illusion of volume",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-2:item-4",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Create digital drawings of figures and objects using basic shapes",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-2:item-5",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Create vector art using digital drawing techniques",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-3:item-1",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform gathering of information from common sources for concept art",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-3:item-2",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Analyze design requirements for concept art based on a given theme or idea",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-3:item-3",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create concept art using appropriate digital drawing techniques",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-4:item-1",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Analyze illustration styles",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-4:item-2",
+      "quarter": 4,
+      "domain": "D18",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Analyze design briefs for digital illustration",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-4:item-3",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create illustrations which represent the ideas from the design briefs using appropriate illustration styles",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:period-4:item-4",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Compute for design costs for illustration",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "5ea3463baf4ddf7a9857f81545b395a149f48075fab1dee82ef21fc6cdb9e64b"
+  }
+}

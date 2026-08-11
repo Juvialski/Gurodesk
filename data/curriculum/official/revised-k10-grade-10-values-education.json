@@ -1,0 +1,439 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-10-values-education",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG GMRC and VE CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20GMRC%20and%20VE%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "sha256": "0d32f2ecdec894ac1b837244b857d4823ed2806a11e3fe456cb2a5d2c7f7fcfa",
+    "byteSize": 2540394,
+    "pageCount": 296,
+    "pagesUsed": {
+      "from": 269,
+      "to": 291
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 10",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 10",
+    "code": "VALUES-EDUCATION10",
+    "name": "Values Education",
+    "description": "Official Grade 10 Values Education competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 269,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 275,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 281,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 287,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Pansariling Gampanin sa mga Isyung Panlipunan",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Mga Gampanin upang Tugunan ang Pangangailangan ng Sariling Kinabukasan",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Pakikipag-diyalogo Gamit ang Social Media o iba pang Ugnayan sa Kapuwa",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pagpapatibay ng Pansariling Ugnayan sa Diyos Tungo sa Makabuluhang Buhay",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Sariling Pagtugon sa mga Isyung Pangkalikasan Tungo sa Sustenableng Pag-unlad",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Sariling Paninindigan sa Karapatang Pantao Tungo sa Makatarungang Pamayanan",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Sariling Pagpapahalaga Gabay sa Pagpaplano sa Buhay",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Mga Katangian ng Pagmamagulang",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Pagpili ng Iba’t ibang Bokasyon Gabay ang Pamilya",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Pagpapahalaga sa Impluwensiya ng Pamilya sa Pananampalataya",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Pagtugon ng Pamilya sa mga Isyung Pangkalikasan",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Wastong Pagtugon ng Pamilya sa mga Napapanahong Isyung Panlipunan",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Mga Isyu ng Pakikipagkapuwa Batay sa mga Uri ng Konsensiya",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Makataong Kilos Gabay ang Pamilya tungo sa Makabuluhang Pakikipagkapuwa",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Mga Isyu sa Paggawa na Nakaaapekto sa Pakikipagkapuwa",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Pananampalataya o Paniniwala bilang Gabay sa Mabuting Pakikipagkapuwa",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Pagkakapit-bisig sa Pagharap sa mga Napapanahong Isyung Pangkalikasan",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Pagtanggap sa Pagkakaiba-iba ng Kultura ng Iba’t ibang Henerasyon",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Ugnayan ng Personal na Pagpili ng Karera sa Pagpapabuti ng Pamayanan",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Pantay-pantay na Pagtingin sa Iba't-ibang Propesyon sa Pamayanan",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Nagkakaisang Gawain ng Iba’t ibang Pananampalataya o Paniniwala Tungo sa Mapayapang Pamayanan",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Mga Napapanahong",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Mga Isyung Kinahaharap ng mga Mamamayan ng Daigidig (global citizen)",
+      "sortOrder": 23
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapanagutan sa pamamagitan ng pag-iwas sa mga gawaing nakasasama sa sarili at kapuwa gaya ng bisyo, pambubulas, panggigipit o panlalamang sa iba a. Natutukoy ang mga pansariling gampanin sa mga isyung panlipunan na nakaaapekto sa dignidad ng tao b. Nabibigyang katuwiran na ang pansariling gampanin sa mga isyung panlipunan ay mahalagang salik sa pagtataguyod ng dignidad ng tao na makatutulong upang mawala ang diskriminasyon c. Nailalapat ang mga wastong paraan ng pagtupad sa pansariling gampanin sa mga isyung panlipunan na nakaaapekto sa dignidad ng tao",
+      "sourcePage": 269,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging matiyaga sa pamamagitan ng angkop na pagtugon sa mga hamon ng pag-iimpok o pamumuhunan upang makapaghanda para sa sariling kinabukasan a. Nakapagsusuri ng mga gampanin upang tugunan ang pangangailangan ng sariling kinabukasan b. Naipaliliwanag na ang mga gampanin upang tugunan ang pangangailangan ng sariling kinabukasan ay makatutulong na mapagtagumpayan ang mga hamon ukol sa pinansiyal o materyal na bagay tungo sa paghubog ng mga gawi nang maayos na pamamahala ng mga resorses c. Naisasakilos ang mga gampanin upang paghandaan ang pangangailangan ng sariling kinabukasan ayon sa kakayahan",
+      "sourcePage": 270,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasanay ng pagiging mapagpasensiya sa pamamagitan ng pagtitimbang-timbang ng katotohanan ng mga impormasyon o detalye na nakapaloob sa pakikipag-ugnayan sa kapuwa bago gumawa ng pagpapasiya o hakbang a. Nakakikilala ng mga wastong paraan ng pakikipagdiyalogo gamit ang social media o iba pang ugnayan sa kapuwa b. Naipaliliwanag na ang pakikipagdiyalogo gamit ang social media o iba pang ugnayan sa kapuwa ay nakaugat sa pagpapahalaga sa dignidad ng tao kung kaya’t dapat itong nakaayon sa mga sinusunod na alituntunin sa wastong pakikipag-ugnayan c. Nailalapat ang mga wastong paraan ng pakikipagdiyalogo gamit ang social media o iba pang ugnayan sa kapuwa",
+      "sourcePage": 271,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pananampalataya sa pamamagitan ng pagdaraos o pakikilahok sa mga gawain ayon sa kakayahan a. Natutukoy ang mga paraan ng pagpapatibay ng pansariling ugnayan sa Diyos tungo sa makabuluhang buhay b. Napatutunayan na ang pagpapatibay ng pansariling ugnayan sa Diyos tungo sa makabuluhang buhay ay katangian ng tao bilang esprituwal na nilalang na naipakikita sa paglilingkod sa kapuwa at pagkiling sa kabutihan c. Naisasakilos ang mga paraan ng pagpapatibay ng pansariling ugnayan sa Diyos tungo sa makabuluhang buhay",
+      "sourcePage": 272,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mabuting katiwala sa pamamagitan ng pakikilahok sa mga adbokasiya at proyektong pangkapaligiran sa paaralan o pamayanan a. Natatalakay ang sariling pagtugon sa mga isyung pangkalikasan tungo sa sustenableng pag-unlad b. Naipaliliwanag na ang sariling pagtugon sa mga isyung pangkalikasan tungo sa sustenableng pag-unlad ay gampanin ng bawat indibidwal upang makapagbigay ng kontribusyon sa pagpapabuti ng pinagkukunang-yaman at pagharap sa mga maaaring suliranin na kaakibat nito c. Nailalapat ang wastong pagtugon sa mga isyung pangkalikasan tungo sa sustenableng pag-unlad ayon sa kakayahan",
+      "sourcePage": 273,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakapagsasanay ng pagiging makatarungan sa pamamagitan ng patas na pakikitungo sa kapuwa at pagsasaalang-alang nang makatuwirang pagtatangi sa opinyon at saloobin ng iba a. Nakapagsusuri ng mga paraan ng paninindigan sa karapatang pantao tungo sa makatarungang pamayanan b. Nahihinuha na ang sariling paninindigan sa karapatang pantao tungo sa makatarungang pamayanan ay mahalaga upang magkaroon ng wastong kamalayan at pag-unawa sa mga nararapat na ibigay sa kapuwa na may kaakibat na paggalang sa kanilang dignidad at pakikitungo nang patas at pantay c. Naisasakilos nang wasto at mapayapa ang sariling paninindigan sa karapatang pantao tungo sa makatarungang pamayanan",
+      "sourcePage": 274,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nakapagsasanay ng pagiging mapanagutan sa pamamagitan ng pagbubuo ng tamang pananaw sa ibayong paghahanda sa bokasyong pagpapamilya a. Nasusuri ang mga sa sariling pagpapahalaga bilang gabay sa pagpaplano sa buhay (hal. Pagkakaraon ng trabaho, pagpasok sa isang bokasyon, pagpapamilya at iba) b. Naipaliliwanag na ang sariling pagpapahalaga sa pagpaplano sa buhay ay nangangailangan ng ibayong paghahanda at komitment bilang moral na pananagutan c. Nakapagbabalangkas ng mga plano na nagpapakita ng wastong paghahanda sa pagpaplano sa buhay",
+      "sourcePage": 275,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging maunawain sa pamamagitan ng walang paghuhusgang pagtanggap sa iba’t ibang katangian ng pagiging magulang a. Nasusuri ang mga katangian ng pagiging magulang sa pagpapalaki ng kanilang mga anak b. Napatutunayan na ang mga katangian ng pagiging magulang ay nakaugat sa paniniwala, kultura at karanasan ng pamilya na nakaiimpluwensiya sa paghubog ng kabuuang pagkatao at mga pagpapahalaga niya c. Nakabubuo ng positibong pananaw sa mga katangian ng pagigiging magulang na may pagkilala sa konteksto at kakanyahan ng bawat pamilya",
+      "sourcePage": 276,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang karunungan sa pamamagitan ng pagtitimbang-timbang ng mga kahihinatnan ng pipiliing bokasyon gabay ang pamilya a. Nakapagpapahayag ng iba’t ibang bokasyon na maaaring piliin gabay ang pamilya b. Naipaliliwanag na ang pagpili ng iba’t ibang bokasyon gabay ang pamilya ay indikasyon ng pagkilala sa sarili na nangangailangan ng ibayong paghahanda at commitment upang matamo ang tagumpay at tunay na kaligayahan tungo sa makabuluhang buhay c. Nailalapat ang positibong pananaw sa pipiliing bokasyon gabay ang pamilya",
+      "sourcePage": 277,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-2:item-4",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagpasalamat sa pamamagitan ng pagtatangi sa mga gawi ng pamilya sa pananampalatayang kinabibilangan a. Natutukoy ang paraan ng pagpapahalaga sa impluwensiya ng pamilya sa pananampalataya b. Naipaliliwanag na ang pagpapahalaga sa impluwensiya ng pamilya sa pananampalataya ay nagpapatibay sa mga natutuhan at kinalakihang paniniwala ukol sa Diyos na magbibigay direksyon sa mga moral na pagpapasiya sa buhay c. Nailalapat ang mga paraan ng pagpapahalaga sa impluwensiya ng pamilya sa pananampalataya",
+      "sourcePage": 278,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-2:item-5",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pakikiisa sa pamamagitan ng pagsusulong ng mga polisiya o alituntunin sa pangangalaga sa kalikasan gabay ang pamilya a. Natutukoy ang mga paraan ng pagtugon ng pamilya sa mga isyung pagkalikasan b. Naipaliliwanag na ang pagtugon ng pamilya sa mga isyung pagkalikasan ay kinakailangan ng kamalayan at pakikiisa ng bawat kasapi nito tungo sa kolektibong pananagutan ng pangangalaga sa kapaligiran c. Naisasakilos ang mga sarling gampanin sa pagtugon ng pamilya sa mga isyung pagkalikasan",
+      "sourcePage": 279,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-2:item-6",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pakikiisa sa pamamagitan ng aktibong pakikisangkot sa mga proyekto at programang panlipunan a. Natutukoy ang mga wastong pagtugon ng pamilya sa mga napapanahong isyung panlipunan b. Naipaliliwanag na ang wastong pagtugon ng pamilya sa mga napapanahong isyung panlipunan ay bahagi ng kanilang pananagutan bilang pangunahing tagapaghubog ng mga susunod na mamamayan tungo sa maunlad na pamayanan c. Nailalapat ang sarling paraan bilang bahagi ng wastong pagtugon ng pamilya sa mga napapanahong isyung panlipunan",
+      "sourcePage": 280,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-3:item-1",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging matapat sa pamamagitan ng palagiang pagninilay sa iba’t ibang ugnayan sa kapuwa na may pagkiling sa kabutihan batay sa mga uri ng konsensiya a. Nasusuri ang mga isyu ng pakikipagkapuwa batay sa mga uri ng konsensiya b. Naipaliliwanag na ang mga isyu ng pakikipagkapuwa batay sa mga uri ng konsensiya ay nangangailangan ng tamang pag-unawa na gagabay sa wastong paghuhusga o pagpapasiya na may pagkiling sa kabutihan upang mapanatili at mapaunlad ang positibong pakikitungo sa iba c. Nailalapat ang mga wastong pakikipagkapuwa batay sa mga uri ng konsensiya",
+      "sourcePage": 281,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-3:item-2",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapanagutan sa pamamagitan ng pagtitimbang sa mga pasiya at gawi na magpapanatili ng wastong pakikipag-ugnayan sa kapuwa a. Nasusuri ang mga makataong kilos gabay ang pamilya tungo sa makabuluhang pakikipagkapuwa b. Nahihinuha na ang makataong kilos gabay ang pamilya tungo sa makabuluhang pakikipagkapuwa ay magbubunsod ng ugnayan na may pagpapahalaga sa dignidad ng tao at kusang pagpapasiya na may pagsasaalang-alang sa kabutihan ng lahat c. Naisasakilos ang makataong kilos gabay ang pamilya tungo sa makabuluhang pakikipagkapuwa",
+      "sourcePage": 282,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-3:item-3",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging makatarungan sa pamamagitan ng pagtatampok ng mga posisyon o paninindigan na nakabatay sa mga wastong pamantayan, obhektibong pagtingin sa situwasyon at mga mungkahing magpapabuti dito a. Nasusuri ang mga isyu sa paggawa na nakaaapekto sa pakikipagkapuwa b. Napatutunayan na ang mga isyu sa paggawa na nakaaapekto sa pakikipagkapuwa ay nangangailangan ng wasto at kolektibong pagtugon upang mangibabaw ang mga mabuting gawi na makatutulong sa produktibong ugnayan at paggawa at mapagtagumpayan ang mga hamon dito c. Nakabubuo ng mga mungkahi sa mga isyu sa paggawa na nakaaapekto sa pakikipagkapuwa",
+      "sourcePage": 283,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-3:item-4",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagtataglay ng integridad sa pamamagitan ng pagsusulong ng mabuting pakikipagkapuwa kahit walang sumusubaybay alinsunod sa kinabibilangang pananampalataya o paniniwala a. Nakapagpapahayag ng mga aral ng pananampalataya o paniniwala bilang gabay sa mabuting pakikipagkapuwa b. Naipaliliwanag na ang pananampalataya o paniniwala bilang gabay sa mabuting pakikipagkapuwa ay mahalagang isabuhay sa anumang situwasyon upang mapanatili at mapaunlad ang ugnayan na nakabatay sa pagmamahal at pagkalinga sa kapuwa tungo sa makabuluhang buhay at mas malalim na ugnayan sa Diyos c. Nailalapat ang mga aral ng pananampalataya o paniniwala bilang gabay sa pakikipagkapuwa",
+      "sourcePage": 284,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-3:item-5",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pakikiisa sa pamamagitan ng panghihimok sa kapuwa na makilahok sa mga napapanahong gawaing pangkalikasan na may pagsasaalang-alang sa kanilang kakayahan a. Naiisa-isa ang mga paraan ng pagkakapit-bisig sa pagharap sa mga napapanahong isyung pangkalikasan b. Napatutunayan na ang pagkakapit-bisig sa pagharap sa mga napapanahong isyung pangkalikasan ay pagtupad sa gampanin ng lahat na tugunan ang mga banta sa pagkasira, pagkaubos at pananamantala sa kalikasan c. Naisasakilos ang mga paraan ng pakikipagkapit-bisig sa pagharap sa mga napapanahong isyung pangkalikasan",
+      "sourcePage": 285,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-3:item-6",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagpapahalaga sa pamana ng kultura sa pamamagitan ng pagpapahalaga sa mga gawi o paraan ng pamumuhay at kultura ng iba’t ibang henerasyon a. Nailalahad ang pagkakaiba-iba ng kultura ng iba’t ibang henerasyon b. Napatutunayan na ang pagtanggap sa pagkakaiba-iba ng kultura ng iba’t ibang henerasyon ay daan sa malalim at mabuting pakikipag-ugnayan ng bawat isa tungo sa mahusay at maginhawang samahan sa pamayanan c. Nakapaglalapat ng mga paraan ng pagtanggap sa pagkakaiba-iba ng kultura ng iba’t ibang henerasyon",
+      "sourcePage": 286,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-4:item-1",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nailalapat ang maingat na paghusga sa pagpili ng karera nang may pagsasa-alang-alang sa mga panloob at panlabas na salik tungo sa pagpapabuti ng pamayanan a. Naiisa-isa ang mga salik sa pagpili ng sariling Karera (hal. Senior High School Track, trabaho, negosyo, kurso at iba pa) na may kaugnayan sa pagpapabuti ng pamayanan b. Naipaliliwanag na ang ugnayan ng personal na pagpili ng karera sa pagpapabuti ng pamayanan ay nangangailangan ng ibayong paghahanda bilang bahagi ng kaniyang pansarili at panlipunang gampanin tungo sa matagumpay na kinabukasan at makabuluhang buhay c. Naisasakilos ang pagpili ng karera nang may pagsasa-alang-alang sa mga panloob at panlabas na salik tungo sa pagpapabuti ng pamayanan",
+      "sourcePage": 287,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-4:item-2",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging magalang sa pamamagitan ng pagtatangi sa mga kontribusiyon ng bawat propesyon sa pamayanang kinabibilangan a. Nakapaglalarawan ng mga paraan na nagpapakita nang pantay-pantay na pagtingin sa iba’t ibang propesyon sa pamayanan b. Napatutunayan na ang pantay-pantay na pagtingin sa iba’t ibang propesyon sa pamayanan ay nangangailangan ng ibayong kamalayan at positibong pananaw na may kaakibat na paggalang, pagtanggap at pagpapahalaga sa kontribusiyon ng bawat indibidwal tungo sa pagpapabuti ng sariling pamumuhay at pamayanang kinabibilangan c. Naisasakilos ang mga paraan na nagpapakita nang pantay-pantay na pagtingin sa iba’t ibang propesyon sa pamayanan",
+      "sourcePage": 288,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-4:item-3",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pakikiisa sa pamamagitan ng pakikisangkot sa mga gawaing pampamayanan na nagpapabuklod sa iba’t ibang pangkat ng pananamapalataya o paniniwala a. Natatalakay ang mga nagkakaisang gawain ng iba’t ibang pananampalataya o paniniwala tungo sa mapayapang pamayanan b. Naipaliliwanag na ang nagkakaisang gawain ng iba’t ibang pananampalataya o paniniwala tungo sa mapayapang pamayanan ay magsusulong sa paglutas ng sigalot, pagtugon sa pangangailangan at pagtutulungan na kaakibat ang pagtanggap at paggalang sa tao sa kabila ng kanilang mga pagkakaiba c. Nailalapat ang sariling paraan bilang bahagi ng nagkakaisang gawain ng iba’t ibang pananampalataya o paniniwala tungo sa mapayapang pamayanan",
+      "sourcePage": 289,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-4:item-4",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagmalasakit sa pamamagitan ng panghihikayat sa iba na makibahagi sa iba’t ibang adbokasiya na tumutugon sa mga pandaigdigang isyu ng kalikasan a. Natutukoy ang mga napapanahong pandaigdigang adbokasiyang pangkalikasan b. Napatutunayan na ang mga napapanahong pandaigdigang adbokasiyang pangkalikasan ay pagtugon na nakaugat sa pagmamahal sa kapaligiran na dapat maisapuso ng bawat mamamayan ng daigdig bilang kaniyang gampanin sa pag-iingat at pagpapayaman dito c. Nakabubuo ng adbokasiya bilang pagtugon sa mga napapanahong pandaigdigang isyu ng kalikasan",
+      "sourcePage": 290,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-values-education:period-4:item-5",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pandaigdigang pag-unawa at pagkakaisa sa pamamagitan ng pagpukaw sa kamalayan at damdamin ng iba sa pagtupad ng tungkulin bilang mamamayan ng daigdig (global citizen) a. Nasusuri ang mga isyung kinakaharap ng mga mamamayan ng daigdig (global citizen) b. Naipaliliwanag na ang mga isyung kinakaharap ng mga mamamayan ng daigdig (global citizen) ay humuhubog sa mga pagpapahalaga at pananaw sa lipunan ng bawat mamamayan c. Naisasakilos ang mga paraan ng wastong pagtugon sa mga mga isyung kinakaharap ng mga mamamayan ng daigdig (global citizen)",
+      "sourcePage": 291,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "e5ff39070859e77a9e91a641032f37ebbb839b594ad72a29fedcc129ba5d86bb"
+  }
+}

@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-4-araling-panlipunan",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Araling Panlipunan CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Araling%20Panlipunan%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "sha256": "7b643c05dbac653b229416aa19d3d14d1f2b7baadb93c64a66c762e45ef91490",
+    "byteSize": 3220970,
+    "pageCount": 76,
+    "pagesUsed": {
+      "from": 16,
+      "to": 20
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 4",
+    "code": "ARALING-PANLIPUNAN4",
+    "name": "Araling Panlipunan",
+    "description": "Official Grade 4 Araling Panlipunan competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 16,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 17,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 18,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 20,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "A. Ang Heograpiya ng Pilipinas",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Ang Pambansang Teritoryo",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "C. Pagkakakilanlang Heograpikal",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "D. Kahalagahan ng Katangiang Heograpikal sa Pag-unlad ng Bansa",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "A. Mga Pinagkukunang – Yaman ng Bansa (Likas na Yaman – Lupa, Tubig, Gubat, Enerhiya, Mineral; at Yamang Tao)",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "B. Mga Hamon sa Pagkamit ng Likas-kayang Pag-unlad",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "A. Elemento ng Pagkabansa",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "B. Ang Pambansang Pamahalaan",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "C. Serbisyo ng Pamahalaan (Batay sa Pambansang Badyet ng Pilipinas 2022)",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "A. Mga Sagisag ng Pagkakakilanlang Pilipino",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "B. Pagkamamamayan",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "C. Karapatan at Tungkulin ng Mamamayang Pilipino",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "D. Kagalingang Pansibiko",
+      "sortOrder": 13
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang kinalalagyan ng Pilipinas gamit ang tiyak at relatibong lokasyon",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natatalakay ang konsepto ng bansa",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga saligan ng lawak at hangganan ng teritoryo ng Pilipinas",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nailalarawan ang pagkakakilanlang heograpikal ng Pilipinas: a. Heograpiyang Pisikal b. Heograpiyang Pantao",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang ugnayan ng lokasyon ng Pilipinas sa heograpiya nito",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang katangiang heograpikal ng bansa",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga pinagkukunang-yamang matatagpuan sa bansa",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-2:item-2",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang iba’t ibang pakinabang pang-ekonomiko ng mga pinagkukunang-yaman ng bansa",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-2:item-3",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga hamon at pagtugon sa mga gawaing pangkabuhayan ng bansa",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-2:item-4",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga hamon sa pagkamit ng likas-kayang pag-unlad",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-2:item-5",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang mga gawaing nagsusulong ng likas-kayang pag-unlad (sustainable development) ng mga pinagkukunang-yaman ng bansa",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-3:item-1",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang kahalagahan ng mga elemento ng pagkabansa",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-3:item-2",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang balangkas o estruktura ng pamahalaan ng Pilipinas.",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-3:item-3",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang papel ng pamahalaan at mga programang A. Pangkalusugan B. Pang-edukasyon C. Pangkapayapaan D. Pang-ekonomiya E. Pang-impraestruktura",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-3:item-4",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang iba’t ibang programa ng pamahalaan",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-4:item-1",
+      "quarter": 4,
+      "domain": "D10",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga sagisag ng pagkakakilanlang Pilipino",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-4:item-2",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy ang konsepto at prinsipyo ng pagkamamamayan",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-4:item-3",
+      "quarter": 4,
+      "domain": "D12",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga karapatan at tungkulin ng isang mamamayan",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-4:item-4",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Natatalakay ang konsepto ng kagalingang pansibiko",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-araling-panlipunan:period-4:item-5",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang papel na ginagampanan ng mga mamamayan sa pagtataguyod ng karapatan at tungkulin tungo sa pagtamo ng kagalingang pansibiko",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "8a74306e783cf5b072bab3e1f5767863081468ac671a452c1b85bab2e2f41218"
+  }
+}

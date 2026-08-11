@@ -1,11 +1,11 @@
 import type { AssessmentAnswer, AssessmentItem } from '../types/assessment'
 import type { AssessmentVisual, AssessmentVisualPolygon, AssessmentVisualTextLabel } from '../types/assessmentVisual'
 import { normalizeAssessmentMathText } from './assessmentMathText'
+import { assessmentVisualPlanForItem, promptRequiresAssessmentVisual } from './assessmentVisualPlanning'
 import { validateAssessmentVisual } from './assessmentVisualValidation'
 
 type QaFinding = { code: string; message: string; severity: 'error' | 'warning' }
 
-const VISUAL_DEPENDENCY = /\b(?:shown|provided|given)\s+(?:in\s+)?(?:the\s+)?(?:visual|diagram|figure|graph)|\b(?:provided|shown)\s+(?:geometric\s+)?(?:polygon|shape)\b|\b(?:refer to|use|from)\s+(?:the\s+)?(?:visual|diagram|figure|graph)|\b(?:diagram|figure|graph)\s+(?:shows|illustrates|depicts)\b/iu
 const STOPWORDS = new Set(['the','a','an','of','to','and','or','is','are','be','in','on','with','which','following','what','when','where','given','provided','shown','based','examine','consider','identify','determine','evaluate','analyze','analyse','state','describe','explain','calculate','find','select','all','that','apply','correctly','specific','measure','measures'])
 const POLYGON_NAMES: Record<string, number> = { triangle: 3, quadrilateral: 4, pentagon: 5, hexagon: 6, heptagon: 7, octagon: 8, nonagon: 9, decagon: 10 }
 
@@ -13,7 +13,7 @@ function clean(value: unknown) { return typeof value === 'string' ? normalizeAss
 function record(value: unknown): Record<string, unknown> { return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {} }
 function array(value: unknown) { return Array.isArray(value) ? value : [] }
 
-export function promptRequiresAssessmentVisual(prompt: string) { return VISUAL_DEPENDENCY.test(clean(prompt)) }
+export { promptRequiresAssessmentVisual }
 
 function tokens(value: string) {
   return clean(value).toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').split(/\s+/u).filter((token) => {
@@ -130,12 +130,24 @@ function semanticAnswerText(value: string) {
 function conciseAcceptedAnswerTerms(item: AssessmentItem) {
   const answer = record(item.answer)
   const values: string[] = []
-  if (item.questionType === 'short_answer' || item.questionType === 'identification') {
+  if (item.questionType === 'multiple_choice') {
+    const choices = array(answer.choices).map(record)
+    const selected = choices.find((choice) => String(choice.id) === String(answer.choiceId))
+    if (selected) values.push(clean(selected.text))
+  } else if (item.questionType === 'multiple_select') {
+    const selected = new Set(array(answer.choiceIds).map(String))
+    values.push(...array(answer.choices).map(record).filter((choice) => selected.has(String(choice.id))).map((choice) => clean(choice.text)))
+  } else if (item.questionType === 'short_answer' || item.questionType === 'identification') {
     values.push(...array(answer.acceptedAnswers).filter((entry): entry is string => typeof entry === 'string'))
   } else if (item.questionType === 'fill_in_the_blank') {
     for (const rawBlank of array(answer.blanks)) values.push(...array(record(rawBlank).acceptedAnswers).filter((entry): entry is string => typeof entry === 'string'))
+  } else if (item.questionType === 'numerical_answer') {
+    if (answer.value !== undefined) values.push(String(answer.value))
+    if (answer.unit) values.push(String(answer.unit))
+  } else if (item.questionType === 'problem_solving') {
+    if (answer.finalAnswer !== undefined) values.push(String(answer.finalAnswer))
   }
-  return [...new Set(values.map(semanticAnswerText).filter((value) => value.length >= 3))]
+  return [...new Set(values.map(semanticAnswerText).filter((value) => value.length >= 1 && value.length <= 120))]
 }
 
 function learnerVisualContainsAnswer(item: AssessmentItem, visual: AssessmentVisual) {
@@ -148,11 +160,14 @@ function learnerVisualContainsAnswer(item: AssessmentItem, visual: AssessmentVis
 export function assessmentVisualSemanticFindings(item: AssessmentItem): QaFinding[] {
   const findings: QaFinding[] = []
   const visual = item.visual
-  if (promptRequiresAssessmentVisual(item.prompt) && !visual) findings.push({ code: 'required-visual-missing', message: 'This question depends on a diagram/figure/graph, but no exportable visual is attached.', severity: 'error' })
+  const plan = assessmentVisualPlanForItem(item)
+  if (!visual && plan.requirement === 'required') findings.push({ code: 'required-visual-missing', message: 'This question requires a diagram/figure/graph, but no exportable visual is attached.', severity: 'error' })
+  else if (!visual && plan.requirement === 'helpful') findings.push({ code: 'helpful-visual-missing', message: 'A diagram would improve this item, but visual enrichment has not produced one yet.', severity: 'warning' })
   if (!visual) return findings
+  if (!plan.current) findings.push({ code: 'stale-visual', message: 'The attached visual was generated for an older prompt or answer and must be regenerated or reviewed.', severity: plan.requirement === 'required' ? 'error' : 'warning' })
   const validation = validateAssessmentVisual(visual)
   if (!validation.valid) {
-    findings.push({ code: 'invalid-export-visual', message: 'The attached visual is invalid and cannot be trusted in student export.', severity: promptRequiresAssessmentVisual(item.prompt) ? 'error' : 'warning' })
+    findings.push({ code: 'invalid-export-visual', message: 'The attached visual is invalid and cannot be trusted in student export.', severity: plan.requirement === 'required' ? 'error' : 'warning' })
     return findings
   }
   if (learnerVisualContainsAnswer(item, visual)) {
@@ -183,7 +198,7 @@ export function assessmentVisualSemanticFindings(item: AssessmentItem): QaFindin
   const requiredLabels = [...new Set([...requiredPointLabels, ...explicitLabels])]
   const labelPresent = (required: string) => labels.some((label) => label === required || label.startsWith(`${required}°`))
   const missing = requiredLabels.filter((required) => !labelPresent(required))
-  if (missing.length) findings.push({ code: 'visual-label-mismatch', message: `The prompt references labels that are missing from the structured visual: ${missing.map((value) => value.toUpperCase()).join(', ')}.`, severity: promptRequiresAssessmentVisual(item.prompt) ? 'error' : 'warning' })
+  if (missing.length) findings.push({ code: 'visual-label-mismatch', message: `The prompt references labels that are missing from the structured visual: ${missing.map((value) => value.toUpperCase()).join(', ')}.`, severity: plan.requirement === 'required' ? 'error' : 'warning' })
   return findings
 }
 

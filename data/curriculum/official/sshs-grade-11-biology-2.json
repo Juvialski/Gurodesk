@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-biology-2",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Biology 2",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1YtWVM14JGUOaUvrR4eC7a9LXbb_4F8XR/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Biology-2.pdf",
+    "fileId": "1YtWVM14JGUOaUvrR4eC7a9LXbb_4F8XR",
+    "sha256": "e6325c49746abe745659b0e1dd72b5f208a322ff23c249cbe2c0c45c18569b12",
+    "byteSize": 323060,
+    "pageCount": 4,
+    "pagesUsed": {
+      "from": 2,
+      "to": 3
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "BIOLOGY-211",
+    "name": "Biology 2",
+    "description": "Official Grade 11 Biology 2 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Plant cells, tissues, organs, and organ systems",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Animal tissues",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Organ systems",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-biology-2:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain how cell specialization leads to the formation of different tissues, organs, and organ systems that perform specific functions in an organism;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "use a microscope to distinguish the defining characteristics of simple and complex permanent tissues in plants;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-3:item-3",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "construct a table that demonstrates the parts and functions of a plant, including the leaf, xylem, phloem, stem, and root;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-3:item-4",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use information from secondary sources to write a short review on how plant tissues, including xylem and phloem, contribute to improving crop productivity;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "use a microscope to compare the animal tissue types relative to their cellular organization and structure;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "construct a table that describes the characteristics and functions of the four main types of animal tissues: epithelial, connective, muscle, and nervous;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-4:item-1",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "draw diagrams that explain how the organ systems of plants, including the shoot system and the root system, work together to absorb nutrients and moisture to enable the plant to grow and reproduce;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-4:item-2",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain how the interdependence of plant organ systems contributes to the survival and function of an organism;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-4:item-3",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use information from secondary sources to explain the importance of planting and preserving trees based on the importance of their organ systems in combating climate change and enhancing air quality;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "create a table that includes animal organ systems, such as nervous, muscular, skeletal, excretory, endocrine, and lymphatic systems, and their functions, and use the",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "1f7ff46f2b32f7d13ca34affcfa9cd8dd5e124f90832a3cab460002dde770a06"
+  }
+}

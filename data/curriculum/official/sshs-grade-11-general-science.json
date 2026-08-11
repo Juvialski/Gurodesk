@@ -1,0 +1,379 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-general-science",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: General Science",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1GX5YW3_odb9MVbaQ0vnhNPqCHqt8QF3-/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "GENERAL-SCIENCE.pdf",
+    "fileId": "1GX5YW3_odb9MVbaQ0vnhNPqCHqt8QF3-",
+    "sha256": "80b5fffbe358518fc7b578833c14008412272e8899b09694bb1eef3724ca6610",
+    "byteSize": 365109,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "GENERAL-SCIENCE11",
+    "name": "General Science",
+    "description": "Official Grade 11 General Science competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Physics in daily life",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Applications of translational and rotational motion",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Chemists and how they have made an impact on our lives",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Application of chemical substances in household and personal care products",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Unifying themes of life science",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "The importance of cells in living things",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Organ systems working together",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Philippine ecosystems",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Uniqueness of the planet Earth",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Uniqueness of the Philippines",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Uses of earth materials by people",
+      "sortOrder": 11
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-general-science:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify various ways physics enhances our quality of life across different areas, including household activities, health and safety, work productivity, and leisure;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "compare and contrast translational and rotational motion in terms of their respective linear and angular quantities;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "demonstrate through simple activities the relationship between linear and angular quantities; a. human movement (e.g., exercises, dance, and gymnastics), and b. ergonomic designs (e.g., buildings, vehicles, furniture, and toys);",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use information from secondary resources to report how Louis Pasteur combined research from the fields of chemistry and biology, which has helped scientists to understand the cause of some diseases and prevent infection;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-2:item-2",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "construct a table using product labels that describe the function of the different substances (elements or compounds) present in household products such as those in bleach, detergents, baking powder, and personal care products such as shampoo, soaps, and toothpaste;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-2:item-3",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain the benefits and potential risks of using and disposing of household and personal care products, by considering their chemical composition, environmental impact, and human health effects, referring to the Department of Trade and Industry (DTI), Food and Drugs Authority (FDA), and the Department of Environment and Natural Resources (DENR);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-1",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain using photographs or videos of simple plants or animals as examples how life forms operate as systems of related parts working together;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-2",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "create a diagram to show the relationship between the structural components of a biological system and their functions;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-3",
+      "quarter": 3,
+      "domain": "D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe how cells obtain nutrients from food and convert them into energy through cellular processes to sustain life in plants and animals;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-4",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain how various plant organs interact to facilitate the transport of materials throughout the plant system;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-5",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe how a damaged part in a system affects the organism using the case of a torn ACL (skeletal and muscular) and an asthma attack (respiratory and circulatory);",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-6",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explain how the nervous and endocrine systems work together to regulate body temperature in response to stimuli;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-7",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain how vaccines work by relating to the functions of the immune system and lymphatic system in protecting an organism against infectious diseases;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-8",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "describe what is meant by the term ‘climate change’;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-9",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "describe how biological systems respond to climate change and contribute to understanding its effects on living organisms in the Philippines;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-10",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "explain how climate change impacts Philippine ecosystems;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-11",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "propose ways to adapt and mitigate the impacts of climate change on local biodiversity; and",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-3:item-12",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "analyze information from secondary sources to evaluate the adverse effects of overpopulation locally and globally.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-4:item-1",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the characteristics of Earth that support life in comparison with the other planets of the Solar System;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-4:item-2",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe how the greenhouse effect regulates Earth's temperature, making it suitable for life;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-4:item-3",
+      "quarter": 4,
+      "domain": "D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "demonstrate how the Philippine archipelago was formed;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-4:item-4",
+      "quarter": 4,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain using suitable resources, including images, maps, and cross-sections the unique landforms, climate, and life forms of the Philippines Archipelago that have developed due to its geographical and geological location on Earth;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:period-4:item-5",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe the distinctive properties and local availability of earth materials, including rocks, minerals, and soils, and how they are harnessed to support human activities and industries;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "b0fe3ec41a7ce5c815c0f4466f66418ac1754c145c559749226d1e96219f7677"
+  }
+}

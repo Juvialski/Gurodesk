@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-6-mapeh-music-and-arts",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Music and Arts CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Music%20and%20Arts%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "sha256": "df37bef41e2af8c4bf0320b718461948f8e3ddc3687ffb49cd99a1e68e61ea67",
+    "byteSize": 1815357,
+    "pageCount": 98,
+    "pagesUsed": {
+      "from": 46,
+      "to": 53
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 6",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 6",
+    "code": "MAPEH6",
+    "name": "MAPEH",
+    "description": "Official Grade 6 MAPEH — Music and Arts competency records.",
+    "component": "Music and Arts"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 46,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 48,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 50,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 52,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "MA-D01",
+      "name": "heme",
+      "sortOrder": 1
+    },
+    {
+      "code": "MA-D02",
+      "name": "Theme: “Development of Philippine Music and Arts during the American Period (1899 to 1935)” Relevant Local Forms, Themes, Representations, Mediums, and Practices in Music and Arts.",
+      "sortOrder": 2
+    },
+    {
+      "code": "MA-D03",
+      "name": "Musical Symbols and Terminologies Pertaining to The Speed of Music Musical Behaviors: Responding; Creating; Performing; Reflecting",
+      "sortOrder": 3
+    },
+    {
+      "code": "MA-D04",
+      "name": "Theme",
+      "sortOrder": 4
+    },
+    {
+      "code": "MA-D05",
+      "name": "Staging and Spectacles",
+      "sortOrder": 5
+    },
+    {
+      "code": "MA-D06",
+      "name": "Musical Behaviors: Listening; Composing; Performing; Reflecting",
+      "sortOrder": 6
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-1:item-1",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss how relevant events and principles/ beliefs/ ideas in the 19th Century and during the Philippine Revolutionary Period influenced the concepts, processes, and practices in performing and visual arts;",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-1:item-2",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "distinguish representative creative works from the 19th Century and during the Philippine Revolutionary Period based on conventional functions, principles/ beliefs/ ideas, and practices of the period; and",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-1:item-3",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "interpret conventional concepts, processes, and practices in their creative work inspired 19th Century or during the Philippine Revolutionary Period performing and visual arts.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-2:item-1",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain how relevant events and principles/ beliefs/ ideas in the American Period in the Philippines influenced the concepts, processes, and practices in performing and visual arts;",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-2:item-2",
+      "quarter": 2,
+      "domain": "MA-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discriminate ideas, functions, and practices used in representative creative works between the American Period and the Revolutionary Period; and",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-2:item-3",
+      "quarter": 2,
+      "domain": "MA-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "incorporate conventional concepts, processes, and practices, with their personal preferences in their contemporary creative work inspired by the Philippine performing and visual arts during the American Period.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-3:item-1",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss how relevant events and principles/ beliefs/ ideas in the Commonwealth Period and Japanese Occupation in the Philippines influenced the concepts, processes, and practices in performing and visual arts;",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-3:item-2",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "determine how the Filipino identity is expressed in the creative works during the Commonwealth Period and Japanese Occupation;",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-3:item-3",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "assess sample works or their creative works based on the conventions during the Commonwealth Period and Japanese Occupation; and",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-3:item-4",
+      "quarter": 3,
+      "domain": "MA-D05",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "incorporate concepts, processes, and practices, according to their preferences, in their contemporary creative work inspired by the Philippine performing and visual arts during the Commonwealth Period and Japanese Occupation.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-4:item-1",
+      "quarter": 4,
+      "domain": "MA-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine how Filipino identities are expressed in relevant creative works in terms of culture, history, and nationhood;",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-4:item-2",
+      "quarter": 4,
+      "domain": "MA-D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "select appropriate forms, processes/ instruments/ mediums/ technology in making their creative works;",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-4:item-3",
+      "quarter": 4,
+      "domain": "MA-D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "assess creative work/s (selected or personal work) based on personal preferences and accepted conventions in performing and visual arts: and",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mapeh-music-and-arts:period-4:item-4",
+      "quarter": 4,
+      "domain": "MA-D06",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "produce contemporary creative works depicting their historical/ cultural/ national identities using appropriate and relevant concepts, processes, practices, and technologies in performing and visual arts.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2a69acf612e4940b9ccc38e5d3af0b6ad703f39be980c4c96f4369aadf26fe1f"
+  }
+}

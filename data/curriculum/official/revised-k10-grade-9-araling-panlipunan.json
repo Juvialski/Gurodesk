@@ -1,0 +1,514 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-9-araling-panlipunan",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Araling Panlipunan CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Araling%20Panlipunan%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "sha256": "7b643c05dbac653b229416aa19d3d14d1f2b7baadb93c64a66c762e45ef91490",
+    "byteSize": 3220970,
+    "pageCount": 76,
+    "pagesUsed": {
+      "from": 59,
+      "to": 65
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 9",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 9",
+    "code": "ARALING-PANLIPUNAN9",
+    "name": "Araling Panlipunan",
+    "description": "Official Grade 9 Araling Panlipunan competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 59,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 61,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 62,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 64,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "A. Pag-aaral ng Ekonomiks tungo sa Likas-kayang Pag-unlad",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Likas-kayang Pag-unlad",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "C. Alokasyon at Sistemang Pang-ekonomiya",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "D. Produksiyon: Konsepto at Implikasyon",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "E. Pagkonsumo at Matalinong Mamimili",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "A. Demand, Suplay at Ekwilibriyo sa Pamilihan",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Konsepto ng Suplay",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Interaksyon ng Demand at Suplay sa Pamilihan",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "B. Konsepto ng Pamilihan",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "C. Papel ng Pamahalaan sa Pagsasaayos ng Pamilihan",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "A. Paikot na Daloy ng Ekonomiya",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "B. Pagsukat ng Pambansang Kita",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "C. Suliraning Pang-Ekonomiya",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "D. Implasyon",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "E. Poverty / Kahirapan",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "F. Patakarang Piskal",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "G. Patakaran sa Pananalapi",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "H. Matalinong Pamamahalang Pampinansyal",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "A. Konsepto at Palatandaan ng Pambansang Kaunlaran",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "B. Sektor ng Agrikultura",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "C. Sektor ng Industriya",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Mga patakarang pang-ekonomiyang nakaaapekto sa sektor ng industriya",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "E. Impormal na Sektor",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "F. Kalakalang Panlabas",
+      "sortOrder": 24
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga konsepto at batayan ng pag-aaral ng ekonomiks tungo sa likas-kayang pag-unlad",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natataya ang kahalagahan ng pagsusulong ng likas-kayang pag-unlad bilang mekanismo sa pagtamo ng pambansa at pandaigdigang kaunlaran",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang ugnayan ng alokasyon at sistemang pang-ekonomiya bilang mekanismo sa pagtugon sa hamon ng kakapusan",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga salik ng produksiyon at ang implikasyon nito sa pang-araw-araw na pamumuhay",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga katangian ng isang entreprenyur at mga organisasyon ng negosyo",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang konsepto at ang mga salik na nakaaapekto sa pagkonsumo",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-1:item-7",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naipamamalas ang talino sa pagkonsumo sa pamamagitan ng paggamit ng mga katangian ng isang matalinong mamimili",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-1:item-8",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Naisusulong ang mga karapatan at mga tungkulin ng isang mamimili",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang konsepto ng demand",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga salik na nakaaapekto sa demand sa pang-araw-araw na pamumuhay",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natatalakay ang konsepto suplay",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-2:item-4",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga salik na nakaaapekto sa suplay sa pang-araw-araw na pamumuhay",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-2:item-5",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang interaksiyon ng demand at suplay at implikasyon nito sa kalagayan ng presyo at ng pamilihan",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-2:item-6",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang kahulugan at iba’t ibang estruktura ng pamilihan",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-2:item-7",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang papel na ginagampanan ng pamahalaan sa pagsasaayos ng pamilihan sa pagkamit ng kabutihang panlahat",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-3:item-1",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang ugnayan ng mga sektor na bumubuo sa modelo ng paikot na daloy ng ekonomiya",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-3:item-2",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang pamamaraan at kahalagahan ng pagsukat ng Pambansang Kita",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-3:item-3",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natataya ang kasalukuyang kalagayan ng unemployment at ang mga programa ng pamahalaang tumutugon sa suliraning ito",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-3:item-4",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Natatalakay ang konsepto, dahilan, epekto at pagtugon sa implasyon",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-3:item-5",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga dahilan, epekto ng kahirapan (poverty), at ang mga solusyon sa paglutas nito",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-3:item-6",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang konsepto, layunin at pamamaraan ng pagsasakatuparan ng patakarang piskal partikular ang pagbubuwis",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-3:item-7",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nasusuri ang konsepto, layunin at pamamaraan ng pagsasakatuparan ng patakarang pananalapi",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-3:item-8",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang ugnayan ng pag-iimpok, pamumuhunan at financial literacy bilang salik sa matalinong pamamahalang pampinansyal",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-4:item-1",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga palatandaan ng pambansang kaunlaran",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-4:item-2",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nailalahad ang layunin, paraan at katuturan, ng pagsasakatuparan ng Ambisyon 2040",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-4:item-3",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang kasalukuyang kalagayan at bahaging ginagampanan ng sektor ng agrikultura sa pambansang ekonomiya",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-4:item-4",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang papel ng sektor ng industriya at mga patakarang pang-ekonomiya na nakatutulong dito sa loob at labas ng bansa",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-4:item-5",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang papel ng sektor ng paglilingkod at ang mga patakarang pang-ekonomiyang nakatutulong dito",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-4:item-6",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang papel ng impormal na sector ng ekonomiya at ang mga patakarang pang-ekonomiyang nakatutulong dito",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-araling-panlipunan:period-4:item-7",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nasusuri ang pang-ekonomikong ugnayan at patakarang panlabas na nakatutulong sa Pilipinas",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "7ecac34537e98313da3ca2e6cdaaa3a0ff6836caad5428b6804589b1d7d62893"
+  }
+}

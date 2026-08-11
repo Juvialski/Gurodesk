@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-physics-1",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Physics 1",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/15nD9goFqJG8WNPBGFEw3439I3OPgfjoq/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Physics-1.pdf",
+    "fileId": "15nD9goFqJG8WNPBGFEw3439I3OPgfjoq",
+    "sha256": "d1a4ce7818551728483950b64b6f2844ad6d16ea0ba134ef1101f527c06d2c3f",
+    "byteSize": 381738,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "PHYSICS-111",
+    "name": "Physics 1",
+    "description": "Official Grade 11 Physics 1 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Introduction to Physics",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Kinematics",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Translational dynamics",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Rotational mechanics",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-physics-1:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use secondary sources to evaluate the impact of physics in society and identify the range of careers that are available through the study of physics;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "conduct simple experiments on the translational motion of objects in one-and two-dimensions using standard and alternative measuring tools to measure length and time quantitatively;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "define the fundamental quantities and the basis of its SI units;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "calculate displacement, velocity, and acceleration in one-dimensional motion;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "create and interpret motion graphs of one-dimensional motion (displacement-time, velocity-time, and acceleration-time graphs);",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "derive the four kinematic equations and their various forms through algebraic methods to solve",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "conduct simple experiments on forces using standard and alternative measuring tools to measure length, mass, volume, and time quantitatively;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-2",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "determine the resultant of one-to two-dimensional vectors using analytical methods;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-3",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "apply Newton’s laws of motion in solving word problems involving equilibrium and non-equilibrium cases;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-4",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "calculate work done by an applied force and the power generated in practical situations such as engineering and sports science;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-5",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain how energy is conserved in various real-life scenarios;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "develop a table to summarize how the principles of impulse and conservation of linear momentum apply in various real-life contexts, such as sports performance, vehicle safety systems, industrial processes, and space exploration;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-7",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe rotational motion in terms of angular displacement, angular velocity, angular acceleration, and angular frequency;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-8",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain various phenomena involving rotational motion using the concepts of torque, moment of inertia, and angular momentum;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:period-2:item-9",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "design a prototype applying concepts of rotational motion to improve processes involved in various fields such as the automotive industry, amusement park rides, and manufacturing;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "6459450d913004a9f80522592990bf9150fb574a30b8a77332b0a184a8f6f806"
+  }
+}

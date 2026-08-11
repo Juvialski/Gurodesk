@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-pre-calculus",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Pre-Calculus",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1Vcikd2dpYlGw51dYMxdFGqIpbyTtVbRo/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Pre-Calculus.pdf",
+    "fileId": "1Vcikd2dpYlGw51dYMxdFGqIpbyTtVbRo",
+    "sha256": "2da05c268ce1c2dd4f1ca48099f526528fb2ef705d0b25aff7a87de5b03988a0",
+    "byteSize": 380956,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "PRE-CALCULUS12",
+    "name": "Pre-Calculus",
+    "description": "Official Grade 12 Pre-Calculus competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "MEASUREMENT AND GEOMETRY (MG)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "NUMBER AND ALGEBRA (NA)",
+      "sortOrder": 2
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine the equations of lines and circles from given geometric conditions (e.g., two points; a point and a slope; parallelism or perpendicularity; center and radius; and endpoints of a diameter).",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "represent real-life situations using equations of lines and circles.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze the geometric relationships between lines and circles using their equations.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "graph the solution sets of systems of equations involving lines and circles.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve systems of equations involving lines and circles.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "apply translations and reflections to the graphs of equations",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "analyze the relationships between equations and their graphs by identifying patterns that affect orientation, symmetry, shape, and general behavior.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "solve problems involving graphs of various types of equations and their transformations.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify polynomial functions in third degree or higher.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "apply the Remainder and Factor Theorems to determine the zeros of polynomial functions, where appropriate.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve polynomial equations and inequalities.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "graph and describe the characteristics of polynomial functions with and without graphing tools.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "solve problems involving polynomial equations and functions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-14",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "differentiate rational expressions, equations, and functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-15",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "graph rational functions and describe their intercepts, zeros, asymptotes, domain and range.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-16",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "solve rational equations and real-life problems involving rational functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-17",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "define the inverse of a function and enumerate its properties.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-18",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "identify the inverse of simple one-to-one algebraic functions (linear, square root of linear, y=x3, quotient of two linear functions).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-19",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "sketch the graph of the inverse function given the graph of the original function.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-20",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "define and illustrate exponential functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-21",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "formulate the inverse of an exponential function using logarithms.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-22",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 22,
+      "competencyCode": null,
+      "text": "sketch graphs of exponential and logarithmic functions and identify their domains and ranges.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-23",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 23,
+      "competencyCode": null,
+      "text": "prove properties of logarithms.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-24",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 24,
+      "competencyCode": null,
+      "text": "solve exponential and logarithmic equations.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:period-1:item-25",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 25,
+      "competencyCode": null,
+      "text": "solve real-life problems using exponential and logarithmic functions and equations.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "bb9193c7b36342bfdc0a9da3b0c36f613c5e555738be8bf49a379deaaca24db5"
+  }
+}

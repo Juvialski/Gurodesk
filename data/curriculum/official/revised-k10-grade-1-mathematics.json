@@ -1,0 +1,593 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-1-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Mathematics CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Mathematics%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "sha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+    "byteSize": 1754867,
+    "pageCount": 73,
+    "pagesUsed": {
+      "from": 25,
+      "to": 28
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 1",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 1",
+    "code": "MATHEMATICS1",
+    "name": "Mathematics",
+    "description": "Official Grade 1 Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 25,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 26,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 27,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 28,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Measurement and Geometry (MG)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Number and Algebra (NA)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Data and Probability (DP)",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify simple 2-dimensional shapes (triangle, rectangle, square) of different size and in different orientation.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "compare and distinguish 2-dimensional shapes according to features such as sides and corners.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "compose and decompose triangles, squares, and rectangles.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "count up to 100 (includes counting up or down from a given number and identifying a number that is 1 more or 1 less than a given number).",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "read and write numerals up to 100.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "recognize and represent numbers up to 100 using a variety of concrete and pictorial models (e.g., number line, block or bar models, and numerals).",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "compare two numbers up to 20.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "order numbers up to 20 from smallest to largest, and vice versa.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "describe the position of objects using ordinal numbers: 1st, 2nd, 3rd, up to 10th.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "compose and decompose numbers up to 10 using concrete materials (e.g., 5 is 5 and 0; 4 and 1; 3 and 2; 2 and 3; 1 and 4; 0 and 5).",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "illustrate addition of numbers with sums up to 20 using a variety of concrete and pictorial models and describes addition as “counting up,” and “putting together.”",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "illustrate by applying the following properties of addition, using sums up to 20: a. the sum of zero and any number is equal to the number, and b. changing the order of the addends does not change the sum.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "solve problems (given orally or in pictures) involving addition with sums up to 20.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "measure the length of an object and the distance between two objects using non-standard units.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "compare lengths and distances using non-standard units.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve problems involving lengths and distances using non-standard units.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "order numbers up to 100 from smallest to largest, and vice versa.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "counts by 2s, 5s and 10s up to 100.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "determine a. the place value of a digit in a 2-digit number, b. the value of a digit, and c. the digit of a number, given its place value",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "decompose any 2-digit number into tens and ones.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "add numbers by expressing addends as tens and ones (expanded form).",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "add numbers with sums up to 100 without regrouping, using a variety of concrete and pictorial models for: a. 2-digit and 1-digit numbers, and b. 2-digit and 2-digit numbers.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "solve problems (given orally or in pictures) involving addition with sums up to 100 without regrouping.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "collect data in one variable through a simple interview.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "present data in a pictograph without a scale.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "interpret a pictograph without a scale.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "organize data in a pictograph without a scale into a table.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "illustrate subtraction involving numbers up to 20 using a variety of concrete and pictorial models, and describes subtraction as “taking away.”",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "find the missing number in addition or subtraction sentences involving numbers up to 20.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-7",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "write an equivalent expression to a given addition or subtraction expression (e.g., 2+3 = 1+4; 10-5 = 6-1).",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-8",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "solve subtraction problems (given orally or in pictures) where both numbers are less than 20.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-9",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "subtract numbers where both numbers are less than 100 using concrete and pictorial models, without regrouping: a. 2-digit minus 1-digit numbers, and b. 2-digit minus 2-digit numbers.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-10",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "subtract numbers by expressing minuends and subtrahends as tens and ones (expanded form), without regrouping.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-11",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "determine the next term/s in a repeating pattern (patterns could use rhythmic properties, visual elements in the arts, …) (e.g., numbers: 2, 4, 2, 4__, __; letters: a, b, c, a, b, c, a, __, __,).",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-3:item-12",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "create repeating patterns using objects, images, or numbers.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "illustrate 1/2 and 1/4 as parts of a whole.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "compare 1/2 and 1/4 using models.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "count halves and quarters",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "recognize coins (excluding centavo coins) and bills up to ₱100 and their notations.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "determine the value of a number of bills and/or a number of coins (excluding centavo coins) up to ₱100.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "compare different denominations of peso coins (excluding centavo coins) and bills up to ₱100.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "solve 1-step problems (given orally or in pictures) involving addition of money where the sum is up to ₱100, or subtraction of money where both amounts are less than ₱100.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify the position of objects moved in half turn or in quarter turn, in clockwise or in counter-clockwise direction, given an initial facing direction.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "read and write time by the hour, half hour, and quarter hour using an analog clock.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "give the days of the week and months of the year in the correct order.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-11",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "determine the day and month of the year using a calendar.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:period-4:item-12",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve problems involving time (hour, half hour, quarter hour, days in a week, and months in a year).",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "0ebe53a930a1d4833aecf6a470a02c50771c94ecd657f44f0079da69f38ef94f"
+  }
+}

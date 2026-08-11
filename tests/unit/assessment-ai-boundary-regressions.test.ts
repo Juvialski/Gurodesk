@@ -71,6 +71,14 @@ describe('assessment question-generator request boundary', () => {
     expect(source).toMatch(/validateAssessmentVisual/u)
   })
 
+  it('binds visual-only requests to the authoritative saved prompt and answer', () => {
+    expect(source).toMatch(/function stableJson/u)
+    expect(source).toMatch(/function savedAnswerForVisual/u)
+    expect(source).toMatch(/clean\(approved\.prompt\) !== clean\(item\.prompt\)/u)
+    expect(source).toMatch(/stableJson\(approved\.answer\) !== stableJson\(savedAnswerForVisual\(item\.answer\)\)/u)
+    expect(source).toMatch(/saved question changed before visual generation/u)
+  })
+
   it('keeps question type, item identity, mapping, and points server-owned', () => {
     expect(source).toMatch(/serverType !== requestedType/u)
     expect(source).toMatch(/item\.question_type/u)

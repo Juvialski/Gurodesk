@@ -1,0 +1,623 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-4-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Mathematics CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Mathematics%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "sha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+    "byteSize": 1754867,
+    "pageCount": 73,
+    "pagesUsed": {
+      "from": 39,
+      "to": 43
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 4",
+    "code": "MATHEMATICS4",
+    "name": "Mathematics",
+    "description": "Official Grade 4 Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 39,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 40,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 42,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 43,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Measurement and Geometry (MG)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Number and Algebra (NA)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Data and Probability (DP)",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "illustrate different angles (right, acute, and obtuse) using models.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "measure and draw angles using a protractor.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "draw and state the properties of triangles and quadrilaterals.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "classify triangles and quadrilaterals according to sides and angles.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "differentiate different quadrilaterals.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "find the perimeter of quadrilaterals that are not squares or rectangles.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "find the perimeter of composite figures composed of triangles and quadrilaterals.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "read and write numbers up to 1 000 000 in numerals and in words.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "determine a. the place value of a digit in a 6-digit number, b. the value of a digit, and c. the digit of number, given its place value.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "compare numbers up to 1 000 000 using =, < and >.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "round numbers to the nearest hundred thousand.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "estimate the sum and difference of two 5-to 6-digit numbers by rounding the addends to the nearest large place value of the numbers.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "add numbers with sums up to 1 000 000 and subtracts numbers where both numbers are less than 1 000 000, with and without regrouping.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "multiply two numbers with and without regrouping: a. 3-to 4-digit numbers by a 1-digit number, and b. 2-to 3-digit numbers by 2-digit numbers, with products up to 1 000 000.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "estimate the result of multiplying two numbers where the product is less than 1 000 000.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving one or more of the four operations with results of calculations up to 1 000 000, including problems involving money.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "divide two numbers with and without regrouping a. 3-to 4-digit numbers by 1-digit numbers b. 2-to 3-digit numbers by 2-digit numbers",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "estimate the quotient when dividing 3-to 4-digit dividends by 1-to 2-digit divisors, by first estimating the dividends and divisors using multiples of 10.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "represent situations involving one or more of the four operations using a number sentence.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "perform two or more different operations by applying the MDAS rules.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "convert common units of measure from larger to smaller units, and vice versa: a. meter and centimeter, b. kilometer and meter, c. kilogram and gram, d. gram and milligram, and e. liter and milliliter.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "convert time measures from smaller to larger units, and vice versa: a. seconds to minutes, b. minutes to hours, c. hours to days, d. days to weeks e. weeks to months, and f. months to years.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "solve problems involving conversion of units of length, mass, capacity, and time, including problems involving elapsed time in hours and minutes.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "represent dissimilar fractions, with denominators up to 10, using models.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "compare dissimilar fractions using the symbols =, >, and <.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "order dissimilar fractions from smallest to largest, and vice versa.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "generate equivalent fractions using models.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "determine equivalent fractions.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "identify the multiples of given numbers up to 100.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-7",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "find all the factors of a given number up to 100.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-8",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "reduce fractions to simplest form.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-9",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "add and subtract dissimilar fractions using models.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-10",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "add and subtract dissimilar fractions: a. two proper fractions, b. two mixed numbers, c. a mixed number and a proper fraction, d. a whole number and a proper fraction, and e. a whole number and a mixed number.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-11",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve multi-step problems involving addition and/or subtraction of fractions.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-12",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "identify symmetry with respect to a line.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-13",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "complete a figure that is symmetric with respect to a line.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-3:item-14",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "draws the image of an object after applying reflection with respect to a line, including glide reflection.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "collect data with time element using appropriate sources.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "present data in a tabular form, or in a single line graph.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "interpret data presented in a tabular form, or in a single line graph.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "solve problems using data for at most two variables in a tabular form, or in a single line graph.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe the rule used to generate a given simple pattern.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "complete a number sentence: a. to represent a property of operations (e.g., 4 + 3 = 3 + __) (commutative property of addition) b. to represent equivalent number facts (e.g., 4 + __ = 6 + 3)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "represent decimal numbers using models and manipulatives to show the relationship to fractions.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "read and write decimal numbers with decimal parts to hundredths.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "determine a. the place value to hundredths of a digit in a given decimal number, b. the value of a digit, and c. the digit of number, given its place value.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "convert decimal numbers to fractions, and fractions with denominators 10 or 100 to decimals.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-11",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "plot decimal numbers with tenth decimal part on the number line.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-12",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "compare and order decimal numbers with decimal parts to hundredths.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:period-4:item-13",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "round decimal numbers to the nearest whole number and to the nearest tenth.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "4e49671189872dfd541fb5f71053c948011728ef5b6bdc09e940fa17018cbd76"
+  }
+}

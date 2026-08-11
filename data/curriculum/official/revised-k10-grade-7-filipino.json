@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-7-filipino",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "sourceConsistency": {
+      "detailedTableCountsByQuarter": [
+        7,
+        7,
+        7,
+        5
+      ],
+      "publishedSummaryCountsByQuarter": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "status": "official_source_variance",
+      "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    }
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG FILIPINO CG 2023 Grades 2-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20FILIPINO%20CG%202023%20Grades%202-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "sha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+    "byteSize": 2192086,
+    "pageCount": 172,
+    "pagesUsed": {
+      "from": 122,
+      "to": 132
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 7",
+    "code": "FILIPINO7",
+    "name": "Filipino",
+    "description": "Official Grade 7 Filipino competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 122,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 125,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 128,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 131,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Pag-unawa at pagsusuri sa mga tekstong nasusulat",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Pag-unawa at Pagsusuri ng mga Tekstong Biswal",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Paglikha at Presentasyon ng Tekstong Multimodal",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa panahon ng katutubo kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (Panitikan sa Panahon ng Katutubo-Tula)",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng teksto para sa kritikal na pag-unawa Mga Tula sa Panahon ng Katutubo • Tula at Karunungang bayan (katulad ng bugtong, tanaga, sawikain, salawikain at kasabihan) • Awiting-bayan (katulad ng dalit, oyayi, kundiman, diona, dung-aw, soliranin, talindaw at iba pa) • Epikong bayan (katulad ng Alim, Bantugan, Biag ni Lam-ang, Ibalon, Kudaman, Labaw Donggon at iba pa) (a) Natutukoy ang mahahalagang elemento (persona, sukat at tugma, talinghaga at estilo) at detalye (paksa, nilalaman at kaisipan) ng teksto (b) Naipaliliwanag ang nakapaloob na pahiwatig, simbolo, talinghaga, at larawang diwa/ imahen sa teksto (c) Naiuugnay ang mahahalagang kaisipan ng tula batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (sukat, tugma, tono at talinghaga) ng teksto (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong ekspositori gamit ang mga kasanayang pang-akademik • Mga kasanayang pang-akademik (katulad ng pagtukoy sa paksa, layon at ideya, pagtatala ng mahahalagang impormasyon (detalye), mekaniks sa pagsulat (diksyon, estilo at paggamit ng transisyonal at kohesiyong gramatikal), paggamit ng angkop na mga salita sa pagbuo ng talata at pagpapahayag ng mga ideya) • Mga tekstong ekspositori (katulad ng memoirs, journals, personal na sanaysay, kasaysayan, heograpiya, aklat ukol sa mga hayop at halaman, tekstong pang-instruksyon, siyentipiko at medikal na teksto at ulat, legal na dokumento, impormasyonal na brochure, menu, resipe, listahan ng mga pamimili, at deskripsyon ng nilalaman ng produkto at transkripsyon ng talumpati) (a) Natutukoy ang paksa, layon, at ideya sa teksto (b) Nakapagtatala ng mahahalagang impormasyon (c) Naipaliliwanag ang mahahalagang ideya at detalye gamit ang diksyon, estilo, transisyonal at kohesiyong gramatikal at kaangkupan ng salita at ideya na nais iparating sa mambabasa",
+      "sourcePage": 123,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang tekstong ekspositori batay sa estruktura nito • deskripsyon • pagkakaiba at pagkakatulad • sanhi at bunga • suliranin at solusyon • pagkakasunod-sunod at proseso",
+      "sourcePage": 124,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD) Mga elemento ng tekstong biswal na comic book (katulad ng istrip, ilustrasyon ng tauhan, dayalog, caption, sound effects, pabalat o cover, panel, gutter, tema at disenyo) (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (panitikan at ekspositori)",
+      "sourcePage": 124,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-1:item-6",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda sa pamamagitan ng tekstong multimodal (katulad ng comic book brochure) a. Natutukoy ang tiyak na tauhang itatampok sa sanaysay b. Naitatala ang mga tiyak na dayalog at caption sa istrip na makapaglalarawan sa tauhan c. Naiguguhit ang imahen/ larawan ng tauhan batay sa mga pangyayari at dayalog (ilustrasyon ng tauhan, tema, panel, gutter) na kinasangkutan nito d. Nakabubuo ng borador ng disenyo at pabalat ng comic book brochure gamit ang mga elementong biswal",
+      "sourcePage": 124,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nabuong proseso sa paglikha ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda at borador ng comic book brochure sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (story telling), at etikal na kasanayan at pananagutan",
+      "sourcePage": 124,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa panahon ng katutubo kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (Panitikan sa Panahon ng Katutubo-Tuluyan)",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Tuluyan Sa Panahon ng Katutubo: • Kuwentong-bayan (katulad ng alamat, pabula at kuwentong posong) • Dula (katulad ng katutubong sayaw at rituwal ng babaylan) (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa tuluyan (b) Naipaliliwanag ang banghay (katulad ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing) at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa binasang tuluyan (c) Naiuugnay ang mahahalagang kaisipan sa tuluyan batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tuluyan) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika (bisa ng salita, pahiwatig, idyomatikong pahayag, estilo) ng tuluyan (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong ekspositori gamit ang mga kasanayang pang-akademik • Mga kasanayang pang-akademik (katulad ng pagtukoy sa paksa, layon at ideya, pagtatala ng mahahalagang impormasyon (detalye), mekaniks sa pagsulat (diksyon, estilo at paggamit ng transisyonal at kohesiyong gramatikal), paggamit ng angkop na mga salita sa pagpapahayag ng mga ideya at pagbuo ng talata) • Mga tekstong ekspositori (katulad ng memoirs, journals, personal na sanaysay, kasaysayan, heograpiya, aklat ukol sa mga hayop at halaman, tekstong pang-instruksyon, siyentipiko at medikal na teksto at ulat, legal na dokumento, impormasyonal na brochure, menu, resipe, listahan ng mga pamimili, at deskripsyon ng nilalaman ng produkto at transkripsyon ng talumpati) (a) Natutukoy ang paksa, layon, at ideya sa teksto (b) Nakapagtatala ng mahahalagang impormasyon (c) Naibabalangkas ang mahahalagang detalye at ideya mula sa teksto (d) Naipaliliwanag ang mahahalagang ideya at detalye gamit ang diksyon, estilo, transisyonal at kohesiyong gramatikal at kaangkupan ng salita at ideya na nais iparating sa mambabasa",
+      "sourcePage": 126,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-2:item-4",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang tekstong ekspositori batay sa estruktura nito • deskripsyon • pagkakaiba at pagkakatulad • sanhi at bunga • suliranin at solusyon • pagkakasunod-sunod at proseso",
+      "sourcePage": 126,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD) Mga elemento ng tekstong biswal na comic book (katulad ng disenyo: tipo, sukat, tupi (fold), at kulay) (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (panitikan at ekspositori)",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda sa pamamagitan ng tekstong multimodal (katulad ng comic book brochure) (a) Natutukoy ang tiyak na tauhang itatampok sa sanaysay (b) Naitatala ang mga tiyak na dayalog at caption sa istrip na makapaglalarawan sa tauhan (c) Naiguguhit ang imahen/ larawan ng tauhan batay sa mga pangyayari at dayalog (ilustrasyon ng tauhan, tema, panel, gutter) na kinasangkutan nito (d) Nakabubuo ng borador ng disenyo at pabalat ng comic book brochure gamit ang mga elementong biswal (e) Natutukoy ang tiyak na tipo ng brochure na paglalapatan ng sanaysay (f) Naibabalangkas ang mga tiyak na dayalog, caption (istrip at dayalog) na makapaglalarawan sa tauhan (g) Nakapagsasagawa ng pagdisenyo/ pag-aanyo ng comic book brochure ( tipo, sulat, tupi, at kulay) (h) Nakabubuo ng borador para sa comic book brochure gamit ang mga elementong biswal",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-2:item-7",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nabuong proseso sa pagdisenyo ng comic book brochure ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (story telling), at etikal na kasanayan at pananagutan",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa panahon ng pananakop ng Espanya kaugnay ng mga tekstong pampanitikan • Kaligirang Pangkasaysayan (Panitikan sa Panahon ng Pananakop ng Espanya)",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Mga Akda sa Panahon ng Pananakop ng Espanya • Mga akdang panrelihiyon (gaya ng pasyon, dasal at iba pa ) • Akdang pangkagandahang-asal • Dula (gaya ng senakulo, tibag, Flores de Mayo, Santacruzan at iba pa) • Awit at korido (a) Natutukoy ang mahahalagang elemento at detalye sa mga akda (b) Naipaliliwanag ang mensahe o pahiwatig at kaisipang nakapaloob sa mga akda (c) Naiuugnay ang mahahalagang kaisipan ng akda batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto (tuluyan) batay sa konteksto ng panahon, lunan at may-akda (e) Nasusuri ang mga elementong panlingguwistika at gamit ng wika sa akda (f) Nasusuri ang kultural na elemento (simbolo, wika, norms, pagpapahalaga at arketipo) na nakapaloob sa teksto batay sa konteksto ng panahon",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-3:item-3",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nauunawaan ang tekstong ekspositori gamit ang mga kasanayang pang-akademik • Mga kasanayang pang-akademik (katulad ng pagtukoy sa paksa, layon at ideya, pagtatala ng mahahalagang impormasyon (detalye), mekaniks sa pagsulat (diksyon, estilo at paggamit ng transisyonal at kohesiyong gramatikal), paggamit ng angkop na mga salita sa pagpapahayag ng mga ideya at pagbuo ng talata) • Mga tekstong pampahayagan (balita) (a) Natutukoy ang paksa, layon, at ideya sa teksto (b) Naiisa-isa ang mga platform at katangian ng mga tekstong pampahayagan (c) Nakapagtatala ng mahahalagang impormasyon (katulad ng narinig at direktang sinabi mula sa interbyu, direktang sipi mula sa nabasa, paraphrasing sa mahahalagang detalye at ideya mula sa teksto) (d) Naipaliliwanag ang mahahalagang ideya at detalye gamit ang diksyon, estilo, transisyonal at kohesiyong gramatikal at kaangkupan ng salita at ideya na nais iparating sa mambabasa (e) Natutukoy ang paraan ng pagtutumbas at/o panghihiram ng salita sa teksto",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-3:item-4",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang tekstong pampahayagan (balita) batay sa estruktura at katangian nito • pabaligtad na piramide – sumagot sa tanong na Sino, Ano, Kailan, Saan, at Paano • paraan ng pagsulat",
+      "sourcePage": 129,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal batay sa mga elemento • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD) Mga elemento ng tekstong biswal na comic book brochure (a) Naipaliliwanag ang mga elemento ng tekstong biswal (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng teksto (panitikan at ekspositori)",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda sa pamamagitan ng tekstong multimodal (katulad ng comic book brochure) (a) Natutukoy ang tiyak na tauhang itatampok sa sanaysay (b) Naitatala ang mga tiyak na dayalog at caption sa istrip na makapaglalarawan sa tauhan (c) Naiguguhit ang imahen/ larawan ng tauhan batay sa mga pangyayari at dayalog (ilustrasyon ng tauhan, tema, panel, gutter) na kinasangkutan nito (d) Nakabubuo ng borador ng disenyo at pabalat ng comic book brochure gamit ang mga elementong biswal (e) Natutukoy ang tiyak na tipo ng brochure na paglalapatan ng sanaysay (f) Naibabalangkas ang mga tiyak na dayalog, caption (istrip at dayalog) na makapaglalarawan sa tauhan (g) Nakapagsasagawa ng pagdisenyo/ pag-aanyo ng comic book brochure ( tipo, sulat, tupi, at kulay) (h) Nakabubuo ng borador para sa comic book brochure gamit ang mga elementong biswal (i) Natutukoy ang mga elemento ng comic book brochure na paglalapatan ng sanaysay (j) Nakapagsasagawa ng pinal na pagdisenyo/ pag-aanyo ng comic book brochure batay sa elemento nito",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nilikhang tekstong multimodal ng pinal na comic book brochure tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda sa napiling platform na isinasaalang-alang ang kasanayang komunikatibo (story telling), at etikal na kasanayan at pananagutan",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mahahalagang pangyayari sa kaligirang pangkasaysayan ng Obra Maestra – Ibong Adarna • Kaligirang Pangkasaysayan (Ibong Adarna)",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-4:item-2",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga detalye ng tekstong pampanitikan para sa kritikal na pag-unawa Obra: Ibong Adarna • Saknong 1-6 • Saknong 7-442 • Saknong 443-1006 • Saknong 1007-1717 (a) Natutukoy ang mahahalagang elemento (tauhan, tagpuan, banghay na tuon sa tunggalian) at detalye sa Ibong Adarna (b) Naipaliliwanag ang banghay (gaya ng pagkakasunod-sunod ng pangyayari; pagyuyugto ng mga pangyayari (foreshadowing) at pagbabalik-tanaw sa mga pangyayari (in medias res), mensahe, pahiwatig at kaisipan sa Ibong Adarna (c) Naiuugnay ang mahahalagang kaisipan ng Ibong Adarna batay sa sariling pananaw, moral, katangian at karanasan ng tao (d) Nasusuri ang mahahalagang pangyayari sa teksto batay sa konteksto ng panahon, lunan, at may-akda (e) Nasusuri ang mga elementong panlingguwistika sa Ibong Adarna (sukat, tugma, talinghaga, at estilo) (f) Nakapaghahambing ng mga tekstong hawig sa Ibong Adarna at iba pang koridong nasusulat sa Pilipinas at sa ibang bansa",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga tekstong biswal na makikita sa Ibong Adarna • mga teknikal na biswal (laki, espasyo, kulay, linya, anyo at imahen) • estereotipo (uri, kasarian, edad, etnisidad, pangkat, antas ng pamumuhay, diaspora, at PWD) (a) Naipaliliwanag ang kahulugan ng tekstong biswal sa Obra Maestra-Ibong Adarna (b) Naiuugnay ang mga elemento ng tekstong biswal sa pag-unawa ng Obra Maestra-Ibong Adarna",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakabubuo ng iskrip para sa pagtatanghal ng isang puppet shadow play tungkol sa mahahalagang pangyayari sa Ibong Adarna na maiuugnay sa pagiging Pilipino: (a) Nakapipili ng mahahalagang pangyayari sa Ibong Adarna na maiuugnay sa pagiging Pilipino (b) Nakasusulat ng iskrip para sa shadow play (c) Nakasusulat ng plano ng pagtatanghal (d) Natutukoy ang mga elementong gagamitin sa pagbuo ng mga puppet (e) Nakapagsasagawa ng shadow play batay sa elemento ng tekstong biswal",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:period-4:item-5",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naibabahagi ang nilikhang tekstong multimodal sa napiling platform na isinasaalang-alang ang mga kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 132,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "34a8c1d99437e829a25a479e488b8086e9ce37d6d17c074c5e3c317375b20060"
+  }
+}

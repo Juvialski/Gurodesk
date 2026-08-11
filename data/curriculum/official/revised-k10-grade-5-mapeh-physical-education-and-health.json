@@ -1,0 +1,337 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-5-mapeh-physical-education-and-health",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG PE and Health CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20PE%20and%20Health%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "sha256": "31e3758e6260530bd41db71f6f7ea614ee6ceba6136b62f20aa62be88960943d",
+    "byteSize": 2192779,
+    "pageCount": 58,
+    "pagesUsed": {
+      "from": 25,
+      "to": 28
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 5",
+    "code": "MAPEH5",
+    "name": "MAPEH",
+    "description": "Official Grade 5 MAPEH — Physical Education and Health competency records.",
+    "component": "Physical Education and Health"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 25,
+      "sourceLabel": "First Quarter"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 26,
+      "sourceLabel": "Second Quarter"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 27,
+      "sourceLabel": "Third Quarter"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 28,
+      "sourceLabel": "Fourth Quarter"
+    }
+  ],
+  "domains": [
+    {
+      "code": "PH-D01",
+      "name": "Nature of Stress",
+      "sortOrder": 1
+    },
+    {
+      "code": "PH-D02",
+      "name": "Bullying and Other Violent-Related Behaviors as Stressors",
+      "sortOrder": 2
+    },
+    {
+      "code": "PH-D03",
+      "name": "Stress-reduction Activities",
+      "sortOrder": 3
+    },
+    {
+      "code": "PH-D04",
+      "name": "Physical Activity Participation: Striking/Fielding Games",
+      "sortOrder": 4
+    },
+    {
+      "code": "PH-D05",
+      "name": "Changes During Puberty",
+      "sortOrder": 5
+    },
+    {
+      "code": "PH-D06",
+      "name": "Family Roles in Managing Changes During Puberty",
+      "sortOrder": 6
+    },
+    {
+      "code": "PH-D07",
+      "name": "Puberty-related Myths and Misconceptions and Effects on Physical Activity Participations",
+      "sortOrder": 7
+    },
+    {
+      "code": "PH-D08",
+      "name": "Physical Activity Participation: Net/Wall Games",
+      "sortOrder": 8
+    },
+    {
+      "code": "PH-D09",
+      "name": "Medicines as Health Products",
+      "sortOrder": 9
+    },
+    {
+      "code": "PH-D10",
+      "name": "Dangers of Gateway Drugs",
+      "sortOrder": 10
+    },
+    {
+      "code": "PH-D11",
+      "name": "Effects of Medicine Misuse and Use of Gateway Drugs to Physical Activity and Fitness",
+      "sortOrder": 11
+    },
+    {
+      "code": "PH-D12",
+      "name": "Physical Activity Participation: Rhythmic Activities and Dances",
+      "sortOrder": 12
+    },
+    {
+      "code": "PH-D13",
+      "name": "Home, School, Community, and Outdoor Safety",
+      "sortOrder": 13
+    },
+    {
+      "code": "PH-D14",
+      "name": "Road Safety",
+      "sortOrder": 14
+    },
+    {
+      "code": "PH-D15",
+      "name": "Preventing Injuries During Physical Activity Participations",
+      "sortOrder": 15
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-1:item-1",
+      "quarter": 1,
+      "domain": "PH-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "apply various healthy coping strategies to manage stress;",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-1:item-2",
+      "quarter": 1,
+      "domain": "PH-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate assertive behavior to prevent and deal with bullying, harassment, discrimination, and violence;",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-1:item-3",
+      "quarter": 1,
+      "domain": "PH-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze stress-reducing benefits of physical activities; and",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-1:item-4",
+      "quarter": 1,
+      "domain": "PH-D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "performs physical activities using striking/fielding game concepts with agility, balance, coordination, and speed for active living: a. locomotor skills by creating, moving, denying, and covering space: and b. manipulative skills by striking and sending an object to an intended area.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-2:item-1",
+      "quarter": 2,
+      "domain": "PH-D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe concepts, effects, and ways to manage changes during puberty;.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-2:item-2",
+      "quarter": 2,
+      "domain": "PH-D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze various family roles in managing changes during puberty;",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-2:item-3",
+      "quarter": 2,
+      "domain": "PH-D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss common puberty-related myths and misconceptions that can affect physical activity participation; and",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-2:item-4",
+      "quarter": 2,
+      "domain": "PH-D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform physical activities using net/wall game concepts with agility, balance, and coordination for active living: a. locomotor skill by attacking to create and move into space and denying and covering space; and b. manipulative skills by serving and striking theballtoanopenspace and by blocking and receiving the ball.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-3:item-1",
+      "quarter": 3,
+      "domain": "PH-D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the proper use of medicines as health products to prevent misuse and harm to the body;",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-3:item-2",
+      "quarter": 3,
+      "domain": "PH-D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze the negative effects of gateway drugs on the individual, family, and the community;",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-3:item-3",
+      "quarter": 3,
+      "domain": "PH-D11",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "determine the negative effects of medicine misuse and use of gateway drugs to physical activity and fitness; and",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-3:item-4",
+      "quarter": 3,
+      "domain": "PH-D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "participate actively in different rhythmic activities and dances for maintaining their movement competence and physical activity participation.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-4:item-1",
+      "quarter": 4,
+      "domain": "PH-D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss potential hazards and safety guidelines at home, in school, in the community, and outdoors;",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-4:item-2",
+      "quarter": 4,
+      "domain": "PH-D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate self-management skills for road safety;",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-4:item-3",
+      "quarter": 4,
+      "domain": "PH-D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze ways to prevent injuries during physical activity participations; and",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-mapeh-physical-education-and-health:period-4:item-4",
+      "quarter": 4,
+      "domain": "PH-D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "participate actively in different rhythmic activities and dances in maintaining their movement competence and physical activity participation.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "b1e61d897a2876fc9c4b7a850b78551b511c41333593af53467be4eb27cf2c01"
+  }
+}

@@ -1,7 +1,8 @@
 import type { AssessmentItem, AssessmentRecord } from '../types/assessment'
-import { applyAssessmentItemSuggestion, generateAssessmentItemSuggestion, generateAssessmentVisualSuggestion, generateMissingAssessmentItems, type AssessmentItemCandidate } from './assessmentGeneration'
+import { applyAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, generateAssessmentVisualSuggestion, generateMissingAssessmentItems, type AssessmentItemCandidate } from './assessmentGeneration'
 import { unlockAssessmentItem } from './assessmentItemLifecycle'
 import { reviewAssessmentForFinalization, type AssessmentFinalReview } from './assessmentFinalReview'
+import { assessmentVisualPlanForItem, assessmentVisualSourceHash } from './assessmentVisualPlanning'
 
 const AUTO_IGNORED_HARD_CODES = new Set(['teacher-review'])
 const AUTO_REPAIRABLE_AUTHORSHIP = new Set(['ai_suggestion', 'teacher_accepted'])
@@ -82,7 +83,7 @@ function blockerRepairContext(assessment: AssessmentRecord, itemId: string, teac
 }
 
 export type AssessmentAutoPrepareProgress = {
-  phase: 'generate' | 'repair' | 'review' | 'ready' | 'paused'
+  phase: 'generate' | 'visual' | 'repair' | 'review' | 'ready' | 'paused'
   round: number
   message: string
   itemId?: string
@@ -122,11 +123,13 @@ export async function autoPrepareAssessmentPaper(args: {
   generateMissing?: typeof generateMissingAssessmentItems
   generateItem?: typeof generateAssessmentItemSuggestion
   generateVisual?: typeof generateAssessmentVisualSuggestion
+  enrichVisuals?: typeof enrichAssessmentVisualsSequentially
 }): Promise<AssessmentAutoPrepareResult> {
   const maxRounds = Math.max(1, Math.min(3, Math.floor(args.maxRounds ?? 3)))
   const generateMissing = args.generateMissing ?? generateMissingAssessmentItems
   const generateItem = args.generateItem ?? generateAssessmentItemSuggestion
   const generateVisual = args.generateVisual ?? generateAssessmentVisualSuggestion
+  const enrichVisuals = args.enrichVisuals ?? enrichAssessmentVisualsSequentially
   let working = args.assessment
   let generated = 0
   let regenerated = 0
@@ -159,6 +162,27 @@ export async function autoPrepareAssessmentPaper(args: {
       }
       await args.onCheckpoint?.(working)
       if (providerPaused || args.signal?.aborted) break
+    }
+
+    const visualCandidates = working.items.filter((item) => !item.locked && item.qaState !== 'locked' && assessmentVisualPlanForItem(item).eligible)
+    if (visualCandidates.length) {
+      args.onProgress?.({ phase: 'visual', round, message: `Enriching ${visualCandidates.length} diagram${visualCandidates.length === 1 ? '' : 's'} sequentially.` })
+      const visualSummary = await enrichVisuals({
+        assessment: working,
+        demo: args.demo,
+        itemIds: visualCandidates.map((item) => item.id),
+        signal: args.signal,
+        generate: generateVisual,
+        onItem: (item, outcome) => {
+          working = replaceItem(working, item)
+          args.onProgress?.({ phase: 'visual', round, itemId: item.id, itemNumber: item.itemNumber, message: outcome.status === 'success' ? `Added the visual for Item ${item.itemNumber}.` : `Item ${item.itemNumber} kept its question; visual enrichment needs review.` })
+        },
+      })
+      await args.onCheckpoint?.(working)
+      if (visualSummary.providerPaused || args.signal?.aborted) {
+        providerPaused = true
+        break
+      }
     }
 
     args.onProgress?.({ phase: 'review', round, message: 'Running deterministic paper QA.' })
@@ -212,7 +236,8 @@ export async function autoPrepareAssessmentPaper(args: {
           const candidate = candidateForVisualRepair(current, visualIssues)
           const visualResult = await generateVisual({ assessment: working, item: current, candidate, visualIntent: candidate.visualIntent, issues: visualIssues.map((issue) => `${issue.code}: ${issue.message}`), demo: args.demo, signal: args.signal })
           if (!visualResult.visual) throw new Error('Dedicated visual generation returned no usable diagram.')
-          working = replaceItem(working, { ...current, visual: visualResult.visual, locked: false, qaState: 'generated' })
+          const visualUpdatedAt = new Date().toISOString()
+          working = replaceItem(working, { ...current, visual: visualResult.visual, visualRequirement: 'required', visualIntent: candidate.visualIntent, visualStatus: 'succeeded', visualAttempts: (current.visualAttempts ?? 0) + 1, visualError: undefined, visualSourceHash: assessmentVisualSourceHash(current), visualUpdatedAt, locked: false, qaState: 'generated' })
           regenerated += 1
           for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === itemId) repairFailures.splice(index, 1)
           args.onProgress?.({ phase: 'repair', round, itemId, itemNumber: current.itemNumber, message: `Repaired only the visual for Item ${current.itemNumber}; question text and answer were preserved.` })

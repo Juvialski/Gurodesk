@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-handicrafts-weaving",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Handicrafts (Weaving)",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1fnqydE8kJ-7qMp8JQRgOzgyeCC3W8Qs7/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Handicrafts-Weaving.pdf",
+    "fileId": "1fnqydE8kJ-7qMp8JQRgOzgyeCC3W8Qs7",
+    "sha256": "f244c6e28629f8e41fa4613c8d7f558704bbcea31c5c1d3f200d97c50fa61e9d",
+    "byteSize": 410672,
+    "pageCount": 9,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "HANDICRAFTS-WEAVIN11",
+    "name": "Handicrafts (Weaving)",
+    "description": "Official Grade 11 Handicrafts (Weaving) competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Principles of Basketry",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Tools and Raw Materials",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Steps in Preparing Raw Materials",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Drying",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Techniques in Finishing Basket Products",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Techniques and Patterns in Mat Weaving",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Steps in Mat Weaving",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Basketry Products",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Product Cost",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Principles of Handloom Weaving",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Tools, Materials, and Devices",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Warp Factors to Consider in Loom Weaving",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Handloom Processes",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Steps in Making Handloom Textile",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Packaging, Labeling, and Proper Storing",
+      "sortOrder": 15
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the principles of basketry",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss tools and raw materials used for basketry weaving",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform the steps in preparing raw materials for weaving",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Create basket products following the Occupational Safety and Health standards",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply techniques in finishing basket products.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the methods, techniques, and patterns in mat weaving",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Create mat products using the steps in weaving with safety precautions",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create innovative and sustainable basketry products using weaving techniques",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-2:item-4",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Determine the production cost for basketry products",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-2:item-5",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Engage in marketing of basketry products.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-3:item-1",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the principles of handloom weaving",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-3:item-2",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Determine the usage and maintenance of tools, materials, and devices for handloom weaving",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-3:item-3",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Apply the steps in making handloom devices for textile weaving",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-4:item-1",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Explain processes in handloom weaving",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-4:item-2",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Weave textile using handloom devices",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-handicrafts-weaving:period-4:item-3",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Plan post weaving activities of woven textile products",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "7e212e5a06301d5f70fb993f7559cf5a5539937d8b1489df0b4884d8454cc1c1"
+  }
+}

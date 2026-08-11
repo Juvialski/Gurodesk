@@ -1,0 +1,638 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-7-tle",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG EPP_TLE CG 2023 Grades 4 - 10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20EPP_TLE%20CG%202023%20Grades%204%20-%2010.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+    "sha256": "c084380893d493c840baa56882af535ac41581dec7eae6d1a594ed71c428ce90",
+    "byteSize": 2647383,
+    "pageCount": 184,
+    "pagesUsed": {
+      "from": 69,
+      "to": 79
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 7",
+    "code": "TLE7",
+    "name": "TLE",
+    "description": "Official Grade 7 TLE competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 69,
+      "sourceLabel": "Quarter I"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 71,
+      "sourceLabel": "Quarter II"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 75,
+      "sourceLabel": "Quarter III"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 78,
+      "sourceLabel": "Quarter IV"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Sectors of ICT and Its Career and Business Opportunities",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Trends and Issues in ICT",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Qualities of Successful Entrepreneurs in the Field of ICT",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Computer Number Systems",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Conversion of Computer Number Systems",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Word Processing Software",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Presentation Software",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Spreadsheet Software",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Career Opportunities",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Agricultural Tools, Implements, and Equipment",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Agricultural Hazards and Risks in Farm Operations",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Agricultural Practices in Crop Production",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Care and Maintenance of Crops",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Farm Waste Processing",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Agricultural Practices in Harvesting Crops",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Breeds of Farm Animals",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Materials, Tools, and Equipment for Poultry and Livestock Animals",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Housing Requirements for Poultry and Livestock Animals",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Feeding Management for Poultry and Livestock Animals",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Farm Waste Management in Animal Production",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Products and Byproducts of Poultry and Livestock Animals",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "General",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Services in Industrial Arts",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Hand Tools, Power Tools, Instruments, and Equipment Used in Industrial Arts Services",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "Scale Reading",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Mensuration and Calculations",
+      "sortOrder": 26
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze the various sectors of ICT and evaluate the potential career and business prospects relevant to their future career choices",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discuss the emerging trends and issues in ICT",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss the qualities of successful entrepreneurs in the field of ICT",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "discuss Occupational Safety and Health (OSH) standards in ICT environments",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "differentiate the various computer number systems",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "apply conversion of computer number systems",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-7",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "create word documents with page breaks, auto tables of contents, mail merge, and references",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-8",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "create presentations with a master slide, motion paths, hyperlinks, and action buttons",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-1:item-9",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "create spreadsheets with conditional formatting and data analysis",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-1",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss career and business opportunities in agriculture",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-2",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "differentiate agricultural tools, implements, and equipment",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-3",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify different tools and equipment used in agriculture",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-4",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "discuss safety procedures in farm operations",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-5",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "discuss hazards and risks in farm",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-6",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "perform agricultural practices in crop production production",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-7",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "discuss care and maintenance of crops",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-8",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain farm waste processing",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-9",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "perform basket composting and foliar fertilizer fermentation",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-10",
+      "quarter": 2,
+      "domain": "D15",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "discuss harvesting and post-harvesting practices practices",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-11",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "determine the breeds of farm animals",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-12",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "determine poultry and livestock materials, tools, and equipment and their uses based on industry standards",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-13",
+      "quarter": 2,
+      "domain": "D18",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "illustrate housing requirements for poultry and livestock based on industry standards",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-14",
+      "quarter": 2,
+      "domain": "D19",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "discuss feeding management according to the Philippine National",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-15",
+      "quarter": 2,
+      "domain": "D20",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "discuss farm waste management in poultry and livestock production according to Republic Act No 9003 or the Ecological Solid Waste",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-2:item-16",
+      "quarter": 2,
+      "domain": "D21",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "identify products and byproducts of poultry and livestock production",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-1",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "differentiate hospitality and tourism",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-2",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "distinguish the types and forms of tourism and the kinds of tourists",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-3",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain the scope of the hospitality industry",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-4",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify career and business opportunities in the hotel and tourism industry",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-5",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "examine the issues, challenges, trends, and innovations in the hospitality and tourism industry",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-6",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "discuss the fundamentals of food preparation and service",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-7",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "recognize the seven principles of HACCP in food preparation and service",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-8",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify the common tools and equipment used in food preparation and service industry",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-3:item-9",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "discuss the care and maintenance of tools and equipment used in food preparation and service industry",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-4:item-1",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the services in industrial arts",
+      "sourcePage": 78,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-4:item-2",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "determine career and business opportunities in industrial arts",
+      "sourcePage": 78,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-4:item-3",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss the codes and standards for industrial arts services",
+      "sourcePage": 78,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-4:item-4",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify the uses and maintenance of hand tools, power tools, instruments, and equipment",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-4:item-5",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "interpret the readings in different measuring instruments",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:period-4:item-6",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "demonstrate mensuration and calculations following safety precautions",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "4df4f34361b3e5d4d9a36b10a6d918f6cfac1df8454afc23ed610bed694cb99d"
+  }
+}

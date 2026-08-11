@@ -11,12 +11,13 @@ const validatorFiles = readdirSync(new URL('.', import.meta.url))
   .filter((name) => /^check-.+\.mjs$/u.test(name))
   .sort((left, right) => left.localeCompare(right, 'en'))
 
-const curriculumFiles = readdirSync(new URL('../data/curriculum/', import.meta.url))
+const curriculumFiles = readdirSync(new URL('../data/curriculum/official/', import.meta.url))
   .filter((name) => name.endsWith('.json'))
   .sort((left, right) => left.localeCompare(right, 'en'))
-  .map((name) => `data/curriculum/${name}`)
+  .map((name) => `data/curriculum/official/${name}`)
 
 run('curriculum manifests', ['scripts/validate-curriculum.mjs', ...curriculumFiles])
+run('official curriculum coverage', ['scripts/validate-official-curriculum-coverage.mjs'])
 for (const validator of validatorFiles) run(validator, [`scripts/${validator}`])
 
-process.stdout.write(`\n[validate] ${validatorFiles.length + 1} existing validator commands passed.\n`)
+process.stdout.write(`\n[validate] ${validatorFiles.length + 2} existing validator commands passed.\n`)

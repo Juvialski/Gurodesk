@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-8-mapeh-music-and-arts",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Music and Arts CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Music%20and%20Arts%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf",
+    "sha256": "df37bef41e2af8c4bf0320b718461948f8e3ddc3687ffb49cd99a1e68e61ea67",
+    "byteSize": 1815357,
+    "pageCount": 98,
+    "pagesUsed": {
+      "from": 62,
+      "to": 68
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 8",
+    "code": "MAPEH8",
+    "name": "MAPEH",
+    "description": "Official Grade 8 MAPEH — Music and Arts competency records.",
+    "component": "Music and Arts"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 62,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 64,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 66,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 68,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "MA-D01",
+      "name": "Theme: “Emerging Popular Music and Arts in Asia and their Cultural Influences”",
+      "sortOrder": 1
+    },
+    {
+      "code": "MA-D02",
+      "name": "Arts Processes",
+      "sortOrder": 2
+    },
+    {
+      "code": "MA-D03",
+      "name": "Theme: “Conventional Significant Folk Music and Arts of Asia”",
+      "sortOrder": 3
+    },
+    {
+      "code": "MA-D04",
+      "name": "Theme: “Conventional Significant Court Music and Arts of Asia”",
+      "sortOrder": 4
+    },
+    {
+      "code": "MA-D05",
+      "name": "Theme: “Integrative Creative Works of Selected Asian Music and Arts” PERFORMING ARTS / VISUAL ARTS",
+      "sortOrder": 5
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-1:item-1",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explore the emerging popular performing and visual arts in selected Asian countries;",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-1:item-2",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze the cultural influences, relationships, and characteristics (similarities and differences) of emerging and contemporary concepts, techniques, processes and/or practices in various Asian popular performing and visual arts;",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-1:item-3",
+      "quarter": 1,
+      "domain": "MA-D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "evaluate representative creative works based on concepts, techniques, processes, and/or practices of emerging and contemporary Asian popular performing and visual arts; and",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-1:item-4",
+      "quarter": 1,
+      "domain": "MA-D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "integrate relevant concepts, techniques, processes, and/or practices of emerging and contemporary Asian popular performing and visual arts in the production of their creative work.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-2:item-1",
+      "quarter": 2,
+      "domain": "MA-D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine distinct characteristics of significant folk performing and visual arts applied in the conventional significant folk performing arts and visual arts of Asia;",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-2:item-2",
+      "quarter": 2,
+      "domain": "MA-D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "relate significant folk performing and visual arts of Asia to emerging creative concepts, processes & practices;",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-2:item-3",
+      "quarter": 2,
+      "domain": "MA-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "evaluate representative creative works of selected Asian communities based on relevant conventional and emerging concepts, techniques, processes, and/or practices in folk performing and visual arts; and",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-2:item-4",
+      "quarter": 2,
+      "domain": "MA-D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "integrate relevant conventional and emerging concepts, techniques, processes, and practices of significant Asian folk performing and visual arts in the production of one’s creative works.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-3:item-1",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "examine representative creative works using relevant conventional and emerging concepts, techniques, processes, and/or practices in selected Asian court performing and visual arts;",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-3:item-2",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply the salient features of relevant conventional and emerging concepts, techniques, processes, and/or practices of selected Asian court performing and visual arts in their creative works;",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-3:item-3",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "assess their competency in the production of creative work based on concepts, processes, techniques, and/or practices used in selected Asian court performing and visual arts; and",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-3:item-4",
+      "quarter": 3,
+      "domain": "MA-D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "produce creative works inspired by selected Asian court music and arts using conventional and emerging concepts, techniques, processes, and/or practices.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-4:item-1",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "examine representative integrative creative works using relevant conventional and emerging concepts, techniques, processes, and/or practices in selected Asian performing and visual arts festivals/productions;",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-4:item-2",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "distinguish the cultural influences (e.g. geography, religion, entertainment, customs, and traditions) of selected Asian performing and visual arts festivals and productions;",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-4:item-3",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "assess their competency in the production of integrative creative work based on concepts, processes, techniques, and/or practices of selected Asian performing and visual arts festivals/productions; and",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mapeh-music-and-arts:period-4:item-4",
+      "quarter": 4,
+      "domain": "MA-D05",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "integrate relevant conventional and emerging concepts, techniques, processes, and/or practices of selected Asian performing and visual arts festivals/productions in their creative works.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "5e287fdffb99c2fafdbebf0cbc2b2e632d58b9b1224f43b3a0ab42b0b14714b0"
+  }
+}

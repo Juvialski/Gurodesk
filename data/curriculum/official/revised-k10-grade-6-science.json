@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-6-science",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Science CG 2023 Grades 3-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Science%20CG%202023%20Grades%203-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "sha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+    "byteSize": 1436380,
+    "pageCount": 72,
+    "pagesUsed": {
+      "from": 41,
+      "to": 44
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 6",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 6",
+    "code": "SCIENCE6",
+    "name": "Science",
+    "description": "Official Grade 6 Science competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 41,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 42,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 43,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 44,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Diagrams and flowcharts",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "The circulatory system",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Simple machines",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Volcanic activity and safety",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe changes of state for solids, liquids, and gases as melting, evaporation, freezing, condensation using diagrams and flowcharts;",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain the role of heat energy in change of state processes;",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain why physical changes are reversible, and chemical changes are irreversible;",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe useful everyday examples of uniform and non-uniform mixtures, such as solutions and suspensions;",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe air as a mixture of oxygen, carbon dioxide, nitrogen, and water vapor;",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "demonstrate various techniques in separating mixtures, such as decantation, winnowing, scooping, picking, evaporation, filtering, sieving, and using magnets;",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain the benefits of each mixture separation technique in preparing useful products;",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "apply the features of a fair test: a. change one factor, b. measure one factor, and c. keep all other factors the same; and",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "recognize the features of a fair test and that scientific investigations also involve a) doing at least three trials, or use replication, and b) observing, measuring, and recording accurately.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify from pictures and diagrams the parts of the circulatory system as heart, blood, and blood vessels, and describe how they work;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe the different ways that plants reproduce, such as pollination, seed production, and plant propagation;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "plan a simple scientific investigation that includes the features of a fair test, replication, and accurate measurement to determine which type of plant propagation, such as cutting, budding, layering, grafting, works best for garden plants;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe the differences between animals with a backbone (vertebrates) and animals without backbones (invertebrates) by using common local examples of each group;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe the roles of producers, consumers, scavengers, and decomposers in a food web;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "use information from secondary sources to describe that living things interact with each other in the natural environment, such as through competition, or predation;",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe living things, such as animals and plants, as biotic factors and light, water, temperature, and soil type, as abiotic factors of an ecosystem; and",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain how interaction between living things and interactions between living and non-living things may bring good or harm to the living things involved.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "observe and describe examples and uses of simple machines found at home, at school, and in the community;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "demonstrate through guided investigation the advantages and limitations of simple machines such as inclined planes, wedges, levers, and pulleys;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "carry out fair tests to show how levers can be used to change the magnitude and direction of a force;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify that waves carry energy from a source to a receiver;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "carry out investigations with water waves in a ripple tank, a big tub of water or improvised ripple tank and observe and describe the features of the waves including their: a. shape, such as crests and troughs; b. size, such as width and height; and c. patterns of movement, such as how they bend, or reflect off walls;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "research using secondary sources to identify how the properties of waves are described using scientific terms such as amplitude, frequency, wavelength, and velocity;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "identify differences and similarities between longitudinal waves and transverse waves;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "demonstrate using simple models how longitudinal waves and transverse waves carry energy;",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify some examples of longitudinal waves, and transverse waves; and",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe and explain how sound changes when the source or the receiver are moving.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain what volcanoes are and how they are formed;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "use local information or other reliable sources to identify where the nearest active and inactive volcanoes are located and assess the risk of impacts from eruptions to their local community;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss the patterns of volcanic eruptions in the Philippines over the last 100 years with family and community members to assess and describe how predictable patterns of eruptions are;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-4",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify and describe some of the materials formed during volcanic eruptions in the Philippines;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Interpret PHIVOLCS Volcano Monitoring (Alert Levels) to demonstrate what to do before, during, and after a volcanic eruption;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "describe the different seasons in the Philippines and suggest activities that are appropriate for each season;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "demonstrate the rotation of the Earth on its axis using a globe to explain day and night;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "make a Sun-Earth-Moon system model to demonstrate and explain the observable effects of predictable patterns and events including: a. changes in seasons, b. changes observed in the patterns of visible star over a year, and c. solar and lunar eclipses;",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain why ancient human cultures relied on constellations to indicate directions and verify seasons; and",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "gather information from local indigenous community members or from reliable secondary sources to investigate ways that indigenous people of the Philippines represented and communicated understandings of: a. the predictability of solar and lunar eclipses, and b. patterns /interpretations in the night sky and their use for tracking time.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "f194efdafcd6874b8e4125d9806afb22dbd2ac70bb97c85720f56559fb4d4928"
+  }
+}

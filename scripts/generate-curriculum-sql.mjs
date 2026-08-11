@@ -23,7 +23,7 @@ const lines = []
 lines.push(`-- Generated from ${basename(input)}. Do not hand-edit; update the verified manifest and regenerate.`)
 lines.push('begin;')
 lines.push('')
-lines.push(`insert into public.source_documents (source_type, title, issuance_code, source_url, published_on, publisher, retrieved_on, verification_status)\nvalues (${q(manifest.source.sourceType)}, ${q(manifest.source.title)}, ${q(manifest.source.issuanceCode)}, ${sourceUrl}, ${q(manifest.source.publishedOn)}, ${q(manifest.source.publisher)}, ${q(manifest.verification.verifiedOn)}, 'verified')\non conflict (source_url) where source_url is not null do update set\n  title = excluded.title,\n  issuance_code = excluded.issuance_code,\n  published_on = excluded.published_on,\n  publisher = excluded.publisher,\n  retrieved_on = excluded.retrieved_on,\n  verification_status = 'verified',\n  updated_at = timezone('utc', now());`)
+lines.push(`insert into public.source_documents (source_type, title, issuance_code, source_url, published_on, publisher, retrieved_on, content_hash, verification_status)\nvalues (${q(manifest.source.sourceType)}, ${q(manifest.source.title)}, ${q(manifest.source.issuanceCode)}, ${sourceUrl}, ${q(manifest.source.publishedOn)}, ${q(manifest.source.publisher)}, ${q(manifest.verification.verifiedOn)}, ${q(manifest.source.sha256)}, 'verified')\non conflict (source_url) where source_url is not null do update set\n  title = excluded.title,\n  issuance_code = excluded.issuance_code,\n  published_on = excluded.published_on,\n  publisher = excluded.publisher,\n  retrieved_on = excluded.retrieved_on,\n  content_hash = excluded.content_hash,\n  verification_status = 'verified',\n  updated_at = timezone('utc', now());`)
 lines.push('')
 lines.push(`insert into public.curriculum_versions (code, name, framework, effective_from_school_year, effective_to_school_year, status, implementation_notes)\nvalues (${versionCode}, ${q(manifest.curriculumVersion.name)}, ${q(manifest.curriculumVersion.framework)}, ${q(manifest.curriculumVersion.effectiveFromSchoolYear)}, ${q(manifest.curriculumVersion.effectiveToSchoolYear)}, ${q(manifest.curriculumVersion.status)}, ${q(manifest.curriculumVersion.implementationNotes)})\non conflict (code) do update set\n  name = excluded.name,\n  framework = excluded.framework,\n  effective_from_school_year = excluded.effective_from_school_year,\n  effective_to_school_year = excluded.effective_to_school_year,\n  status = excluded.status,\n  implementation_notes = excluded.implementation_notes,\n  updated_at = timezone('utc', now());`)
 lines.push('')
@@ -53,12 +53,24 @@ for (const standard of manifest.performanceStandards) {
   lines.push('')
 }
 
-lines.push(`delete from public.curriculum_competencies\nwhere subject_id = (select cs.id from public.curriculum_subjects cs join public.curriculum_versions cv on cv.id = cs.curriculum_version_id where cv.code = ${versionCode} and cs.grade_level = ${gradeLevel} and cs.name = ${subjectName})\n  and source_document_id = (select id from public.source_documents where source_url = ${sourceUrl});`)
-lines.push('')
 for (const competency of manifest.competencies) {
-  lines.push(`insert into public.curriculum_competencies (subject_id, domain_id, academic_period_id, competency_code, competency_text, sort_order, source_document_id, source_page, verification_status)\nselect cs.id, cd.id, ap.id, ${q(competency.competencyCode)}, ${q(competency.text)}, ${n(competency.sortOrder)}, sd.id, ${n(competency.sourcePage)}, 'verified'\nfrom public.curriculum_subjects cs\njoin public.curriculum_versions cv on cv.id = cs.curriculum_version_id\njoin public.curriculum_domains cd on cd.subject_id = cs.id and cd.code = ${q(competency.domain)}\njoin public.academic_periods ap on ap.subject_id = cs.id and ap.sequence = ${n(competency.quarter)}\njoin public.source_documents sd on sd.source_url = ${sourceUrl}\nwhere cv.code = ${versionCode} and cs.grade_level = ${gradeLevel} and cs.name = ${subjectName};`)
+  lines.push(`update public.curriculum_competencies cc\nset domain_id = cd.id,\n  competency_code = ${q(competency.competencyCode)},\n  competency_text = ${q(competency.text)},\n  source_page = ${n(competency.sourcePage)},\n  verification_status = 'verified',\n  updated_at = timezone('utc', now())\nfrom public.curriculum_subjects cs\njoin public.curriculum_versions cv on cv.id = cs.curriculum_version_id\njoin public.curriculum_domains cd on cd.subject_id = cs.id and cd.code = ${q(competency.domain)}\njoin public.academic_periods ap on ap.subject_id = cs.id and ap.sequence = ${n(competency.quarter)}\njoin public.source_documents sd on sd.source_url = ${sourceUrl}\nwhere cv.code = ${versionCode}\n  and cs.grade_level = ${gradeLevel}\n  and cs.name = ${subjectName}\n  and cc.subject_id = cs.id\n  and cc.academic_period_id = ap.id\n  and cc.source_document_id = sd.id\n  and cc.sort_order = ${n(competency.sortOrder)};`)
+  lines.push('')
+  lines.push(`insert into public.curriculum_competencies (subject_id, domain_id, academic_period_id, competency_code, competency_text, sort_order, source_document_id, source_page, verification_status)\nselect cs.id, cd.id, ap.id, ${q(competency.competencyCode)}, ${q(competency.text)}, ${n(competency.sortOrder)}, sd.id, ${n(competency.sourcePage)}, 'verified'\nfrom public.curriculum_subjects cs\njoin public.curriculum_versions cv on cv.id = cs.curriculum_version_id\njoin public.curriculum_domains cd on cd.subject_id = cs.id and cd.code = ${q(competency.domain)}\njoin public.academic_periods ap on ap.subject_id = cs.id and ap.sequence = ${n(competency.quarter)}\njoin public.source_documents sd on sd.source_url = ${sourceUrl}\nwhere cv.code = ${versionCode} and cs.grade_level = ${gradeLevel} and cs.name = ${subjectName}\n  and not exists (\n    select 1 from public.curriculum_competencies cc\n    where cc.subject_id = cs.id\n      and cc.academic_period_id = ap.id\n      and cc.source_document_id = sd.id\n      and cc.sort_order = ${n(competency.sortOrder)}\n  );`)
   lines.push('')
 }
+
+const competencyOrdersByPeriod = new Map()
+for (const competency of manifest.competencies) {
+  const orders = competencyOrdersByPeriod.get(competency.quarter) ?? []
+  orders.push(competency.sortOrder)
+  competencyOrdersByPeriod.set(competency.quarter, orders)
+}
+const expectedCompetencyRows = [...competencyOrdersByPeriod.entries()]
+  .map(([period, orders]) => `(ap.sequence = ${n(period)} and cc.sort_order in (${orders.map(n).join(', ')}))`)
+  .join(' or ')
+lines.push(`delete from public.curriculum_competencies cc\nusing public.curriculum_subjects cs, public.curriculum_versions cv, public.academic_periods ap, public.source_documents sd\nwhere cs.curriculum_version_id = cv.id\n  and ap.subject_id = cs.id\n  and sd.source_url = ${sourceUrl}\n  and cv.code = ${versionCode}\n  and cs.grade_level = ${gradeLevel}\n  and cs.name = ${subjectName}\n  and cc.subject_id = cs.id\n  and cc.academic_period_id = ap.id\n  and cc.source_document_id = sd.id\n  and not (${expectedCompetencyRows});`)
+lines.push('')
 
 lines.push('commit;')
 lines.push('')

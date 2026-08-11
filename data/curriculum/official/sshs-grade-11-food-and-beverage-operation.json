@@ -1,0 +1,439 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-food-and-beverage-operation",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Food and Beverage Operation",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1xpb2DsaqgAS-NjPHolRsP24_9ZEpueyh/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Food-and-Beverage-Operation-a_o-Jun-9.pdf",
+    "fileId": "1xpb2DsaqgAS-NjPHolRsP24_9ZEpueyh",
+    "sha256": "887d390d43fc08084ced9800a7b7924e37f1a6b2acf4d2b212edba3209bdf74c",
+    "byteSize": 409704,
+    "pageCount": 17,
+    "pagesUsed": {
+      "from": 2,
+      "to": 10
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FOOD-AND-BEVERAGE-11",
+    "name": "Food and Beverage Operation",
+    "description": "Official Grade 11 Food and Beverage Operation competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 9,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of the Food and Beverage Service o Classification o Organizational structure o Career opportunities o Types of food and beverage operation or service o Food and beverage o",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Tools, Equipment and Materials o Identification and proper use o Maintenance and storage o Proper handling",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Principles of Service o Hospitality and courtesy o Menu knowledge",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "o Accuracy and consistency o Timeliness o Professionalism o Guest focus o Customer relation o Table etiquette o Attention to ambiance",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Menu Knowledge o Types of menus o Menu structure and design o Food and beverage pairing o Common dietary requirements",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Customer Relation o Effective communication skills",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Reservation process o Types of reservation process:",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "O p ening and Closing Procedures o front of the house o back of the house",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Handling and Serving Techniques o Carrying plates o Carrying trays o Serving foods and beverage o Clearing tables",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Table Setting and Presentation l Table service o Russian o English o French",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Beverage Service",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Restaurant Service",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "In-room Dining Service l Overview l Tools, equipment and set up l Menu knowledge and guest preference l Communication and guest interaction l Technology in in-room dining l Sequenc",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Overview of the Coffee",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Sustainable Careers and Business Opportunities",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Barista Tools",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Barista Equipment",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Manual Brewing Equipment",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Operations Up to Backflushing and Backwashing",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Process in Preparing Coffee",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Types of Coffee Beverages",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Types of Non-Coffee Beverages l Non-Coffee l Milk-based l Fruit-based l Tea-based l Powder-based l Mocktails",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Beverage Costing",
+      "sortOrder": 23
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the overview of the food and beverage industry.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Demonstrate proper use, maintenance and handling of tools, equipment and materials.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss principles of service for food and beverage operation.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss the importance of legislation and safety measures in food and beverage operation",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Develop menu for restaurant and room services",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Demonstrate effective customer handling in the food service",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Demonstrate the correct sequence of reservation process",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-8",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Discuss opening and closing procedures in food and beverage operations",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-9",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Demonstrate proper handling and serving techniques",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-10",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Demonstrate table settings and presentations",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-2:item-1",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the types of beverage services",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-2:item-2",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Demonstrate the pre-and post-service sequence in the restaurant service",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-2:item-3",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Demonstrate in-room dining service",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-3:item-1",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the basic coffee knowledge",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-3:item-2",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Identify the career opportunities related to coffee",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-3:item-3",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform proper use, cleaning and maintenance of tools, equipment, and accessories used in a barista operation",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-3:item-4",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Demonstrate procedures in calibrating espresso and grinder machine",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-3:item-5",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Demonstrate brewing methods used in different equipment",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-3:item-6",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform procedures in operating espresso machines",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-3:item-7",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Apply process in preparing coffee",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-4:item-1",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Prepare coffee-based beverages",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-4:item-2",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform the skills in preparing non-coffee-based beverages.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:period-4:item-3",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "perform basic cashiering, general control procedures and beverage costing.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "daac5a880bd95fcf1702ecdc059ca01bed88a7934617b1518a287eaff671241b"
+  }
+}

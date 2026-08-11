@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-philippine-governance-philippine-politics-and-governance",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Philippine Governance / Philippine Politics and Governance",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1N3SmYyjmpOdZKexrpTCpvuNC6B64Jx3m/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Philippine-Governance-Philippine-Politics-and-Governance.pdf",
+    "fileId": "1N3SmYyjmpOdZKexrpTCpvuNC6B64Jx3m",
+    "sha256": "94569a8e22bae115bfb1932e7baabaa6de9c0cc56b6df08a8018e8ed9b2c058c",
+    "byteSize": 311259,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "PHILIPPINE-GOVERNA11",
+    "name": "Philippine Governance / Philippine Politics and Governance",
+    "description": "Official Grade 11 Philippine Governance / Philippine Politics and Governance competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "The Concepts of Politics and Governance",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "1 The meaning of political ideology",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "1 State",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "1 The 1987 Philippine Constitution as a Social Contract",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "1 The key elements of the Presidential form of",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "1 The Bicameral Legislative System (Upper and",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "1 The leadership, structure, roles, and",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "1 The separation of powers as a fundamental",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "1 Features of Decentralization in the Philippines",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "1 The meaning of public accountability",
+      "sortOrder": 10
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Analyze the interplay of politics, power, and governance and their impact on society 1.Analyze the interplay of politics, power, and governance and their impact on society",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Differentiate major political ideologies and explain how they influence governance systems in the Philippines and around the world",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Examine the concepts of state and nation and assess their implications for international relations",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Evaluate the 1987 Constitution as a social contract that defines the human rights, and the rule of law based on the collective will of the",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Explain the roles and powers of the President, Vice President, and Cabinet members in implementing national policies and programs 1.Explain the roles and powers of the President, Vice President, and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Examine the functions and responsibilities of the Senate and the House of Representatives and analyze how their legislative actions contribute to and shape national development",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Analyze the role of the Judiciary in dispensing justice and protecting constitutional freedoms and safeguards",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-2:item-4",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Explain the principle of separation of powers and the system of checks and balances among the three branches of government in promoting accountability, preventing abuse of power, and ensuring good governance",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-2:item-5",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Examine the roles of Local Government Units (LGUs) in governance and service delivery and how decentralization affects local and national governance",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:period-2:item-6",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Explain the concept of public accountability and evaluate the role of constitutional commissions and citizens' participation in safeguarding democracy and promoting good governance",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "cf56cea1da8dd2d33c6a20133b4a706b3a6efef1b16a049c08bcbaed119050a6"
+  }
+}

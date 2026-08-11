@@ -1,0 +1,691 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-5-epp",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG EPP_TLE CG 2023 Grades 4 - 10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20EPP_TLE%20CG%202023%20Grades%204%20-%2010.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+    "sha256": "c084380893d493c840baa56882af535ac41581dec7eae6d1a594ed71c428ce90",
+    "byteSize": 2647383,
+    "pageCount": 184,
+    "pagesUsed": {
+      "from": 46,
+      "to": 57
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 5",
+    "code": "EPP5",
+    "name": "EPP",
+    "description": "Official Grade 5 EPP competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 46,
+      "sourceLabel": "Quarter I"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 48,
+      "sourceLabel": "Quarter II"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 54,
+      "sourceLabel": "Quarter III"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 56,
+      "sourceLabel": "Quarter IV"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Netiquette",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Paggamit ng web browser at search engine",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "E-Mail",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Word Processing Software",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Presentation Software",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Desktop Publishing Software",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Spreadsheet Software",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Block Coding",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Kahulugan ng animal production at mga sangay nito",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Kahalagahan at kabutihang dulot ng pag-aalaga ng poultry animals sa natural na pamamaraan",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Mga piling batas, lokal na ordinansa, at mga ahensya ng gobyerno at non-government organization (NGOs) sa pag-aalaga ng poultry animals",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Mga taong nagtagumpay sa pag-alaga ng poultry animals at ang mga katangiang taglay nila",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Mga salik na dapat isaalang-alang sa sa pag-aalaga ng poultry animals sa natural na paraan",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Mga karaniwang uri at lahi ng poultry animals na makikita sa pamayanan na maaaring alagaan § pugo § manok § pato/itik/bibe § pabo § gansa",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Mga karaniwang sakit, sanhi, palatandaan, pamaraan sa pag iwas at panlunas sa mga sakit ng poultry animals § Avian Flu § Pneumonia § Fowl pox § Enteritis § Pullorosis Paghahanda ng",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Pag-aalaga at pangangasiwa ng poultry animals sa natural na pamamaraan",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Pag-aani ng alagang poultry animals at mga produkto nito",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Pagbebenta ng inaning poultry animals at produkto nito",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Pananahi",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Mga Basic Hand Stitch",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Paraan ng Pagkumpuni ng Payak na Sira ng Kasuotan",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Pananahi Gamit ang Makina",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Embroidery Stitches",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Crochet Stitches",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "Mga karaniwang sira ng produktong yari sa kahoy, kawayan, metal, produktong de-kuryente, at iba pa",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Mga uri ng kasangakapan sa pagbuo at pagkukumpuni",
+      "sortOrder": 26
+    },
+    {
+      "code": "D27",
+      "name": "Mga materyales sa pagkukumpuni ng mga produktong yari sa kahoy, kawayan, metal, produktong de-kuryente, at iba pa",
+      "sortOrder": 27
+    },
+    {
+      "code": "D28",
+      "name": "Pangangalaga at pagsisinop ng kasangkapan at materyales sa pagkukumpuni",
+      "sortOrder": 28
+    },
+    {
+      "code": "D29",
+      "name": "Hakbang sa pagkukumpuni ng kagamitang yari sa kahoy, kawayan nang may pag-iingat",
+      "sortOrder": 29
+    },
+    {
+      "code": "D30",
+      "name": "Hakbang sa pagkukumpuni ng kagamitang yari sa metal nang may pag-iingat",
+      "sortOrder": 30
+    },
+    {
+      "code": "D31",
+      "name": "Hakbang sa pagkukumpuni ng kagamitang de-kuryente nang may pag-iingat",
+      "sortOrder": 31
+    },
+    {
+      "code": "D32",
+      "name": "Service cost Mga pamamaraan sa pagtutuos ng service cost",
+      "sortOrder": 32
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "natatalakay ang mga panuntunan ng netiquette sa paggamit ng Internet",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "nakikilala ang mga uri ng web browser at mga bahagi nito",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "nagagamit ang search engine sa ligtas at responsableng pamamaraan",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "nakapagpapadala ng mensahe gamit ang E-Mail sa ligtas at responsableng pamamaraan",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "nakagagawa ng word document na may images, shapes, smartarts, tables at page background",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "nakagagawa ng slide presentation na may animation, transition, audio, at video",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-7",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "nakagagawa ng desktop publishing document gamit ang page design, layout, at building block",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-8",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "nakagagawa ng spreadsheet na may basic functions iba’t ibang dokumento gamit ang productivity tools",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-9",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "nakikila ang user interface ng Block Coding",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-1:item-10",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "nagagamit ang events, motion, sound, looks, at backdrops block codes",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-1",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "natatalakay ang kahulugan ng animal production at mga sangay nito",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-2",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "natatalakay ang kahalagahan at kabutihang dulot sa pag-aalaga ng poultry animals sa natural na pamamaraan",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-3",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "naipaliliwanag ang mga piling batas, lokal na ordinansa, at mga ahensya ng gobyerno at non-government organization (NGOs), at serbisyong naibibigay sa pag-aalaga ng poultry animals",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-4",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "nakikilala ang mga tao sa pamayanan/buong bansa na nagtagumpay sa pag-alaga ng poultry animals at ang mga katangiang taglay nila",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-5",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "natatalakay ang mga salik na dapat isaalang-alang sa sa pag-aalaga ng poultry animals sa natural na paraan",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-6",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "natatalakay ang mga karaniwang uri at lahi ng poultry animals na makikita sa pamayanan na maaaring alagaan",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-7",
+      "quarter": 2,
+      "domain": "D15",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "natatalakay ang mga karaniwang sakit, sanhi, palatandaan, pamaraan sa pag iwas at panlunas sa mga sakit ng poultry animals",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-8",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "naisasagawa ang pag-aalaga at pangangasiwa ng poultry animals sa natural na pamamaraan",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-9",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "natatalakay ang pag-aani ng alagang poultry animals at mga produkto nito",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-2:item-10",
+      "quarter": 2,
+      "domain": "D18",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "nakapagbebenta ng mga inaning poultry animals at produkto nito",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-1",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "natatalakay ang kahalagahan ng pananahi",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-2",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "nakikilala ang iba’t ibang kagamitan sa pananahi",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-3",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "naisasagawa ang mga basic hand stitch nang may pag-iingat",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-4",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "natutukoy ang mga payak na sira ng kasuotan",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-5",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "naisasagawa ang angkop na pagkukumpuni ng mga simpleng sira ng kasuotan gamit ang basic hand stitch nang may pag-iingat",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-6",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "natutukoy ang mga bahagi ng makina at wastong gamit nito",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-7",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "natutukoy ang mga materyales sa pagbuo ng mga kagamitang pambahay",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-8",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "natatalakay ang mga solusyon sa mga karaniwang suliraning nararanasan sa pananahi gamit ang makina",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-9",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "nasusunod ang mga hakbang sa paggamit ng makina",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-10",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "nakagagawa ng simpleng kagamitang pambahay gamit ang makina nang may pag-iingat",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-11",
+      "quarter": 3,
+      "domain": "D23",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "natutukoy ang mga kagamitan sa embroidery stitches",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-12",
+      "quarter": 3,
+      "domain": "D23",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "nasusunod ang mga wastong pamamaraan ng pagbuo ng embroidery stitches",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-13",
+      "quarter": 3,
+      "domain": "D24",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "natutukoy ang mga kagamitan sa crochet stitches",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-14",
+      "quarter": 3,
+      "domain": "D24",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "nakagagawa ng crochet stitches",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-3:item-15",
+      "quarter": 3,
+      "domain": "D24",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "naisasagawa ang pagbebenta ng kagamitang pambahay",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-4:item-1",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "natatalakay ang mga karaniwang sira at pamamaraan ng pagkukumpuni ng mga produktong yari sa kahoy, kawayan, metal, produktong de-kuryente, at iba pa",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-4:item-2",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "naipaliliwanag ang maingat na paggamit ng mga kasangkapan sa pagkukumpuni",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-4:item-3",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "natutukoy ang mga uri ng materyales sa pagkukumpuni",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-4:item-4",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "natutukoy ang wastong pangangalaga at pagsisinop ng kasangkapan at materyales sa pagkukumpuni",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-4:item-5",
+      "quarter": 4,
+      "domain": "D29",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "pagkukumpuni ng mga kagamitang yari sa kahoy o kawayan nang may pag-iingat",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-4:item-6",
+      "quarter": 4,
+      "domain": "D30",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "pagkukumpuni ng mga kagamitang yari sa metal nang may pag-iingat",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-4:item-7",
+      "quarter": 4,
+      "domain": "D31",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "pagkukumpuni ng mga kagamitang de-kuryente nang may pag-iingat",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:period-4:item-8",
+      "quarter": 4,
+      "domain": "D32",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "natutuos ang service cost sa inayos na kagamitan manually o gamit ang spreadsheet",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "4ce0dc64dd5e76f51b99bde4ecdb206e12f87a340fd19facd4fab5dedab1f5cf"
+  }
+}

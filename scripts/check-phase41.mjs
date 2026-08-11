@@ -8,9 +8,21 @@ const read = (file) => fs.readFileSync(path.join(root, file), 'utf8')
 
 async function loadTypeScriptModule(file) {
   const source = read(file)
-  const output = ts.transpileModule(source, {
+  let output = ts.transpileModule(source, {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
   }).outputText
+  if (file === 'src/lib/assessmentBlueprint.ts') {
+    const mathOutput = ts.transpileModule(read('src/lib/assessmentMathText.ts'), {
+      compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
+    }).outputText
+    const mathUrl = `data:text/javascript;base64,${Buffer.from(mathOutput).toString('base64')}`
+    let planningOutput = ts.transpileModule(read('src/lib/assessmentVisualPlanning.ts'), {
+      compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
+    }).outputText
+    planningOutput = planningOutput.replace("from './assessmentMathText'", `from '${mathUrl}'`)
+    const planningUrl = `data:text/javascript;base64,${Buffer.from(planningOutput).toString('base64')}`
+    output = output.replace("from './assessmentVisualPlanning'", `from '${planningUrl}'`)
+  }
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
 }
 

@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-biology-4",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Biology 4",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1k0aovvNjBO24yJU7xx9GlYLe5CviTvTH/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Biology 4.pdf",
+    "fileId": "1k0aovvNjBO24yJU7xx9GlYLe5CviTvTH",
+    "sha256": "2c8f19fed4ccaaa307cf9dacfc3c44a7a11a9685a899470defdb1525a2473884",
+    "byteSize": 415602,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "BIOLOGY-412",
+    "name": "Biology 4",
+    "description": "Official Grade 12 Biology 4 competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Taxonomy: Identification, Nomenclature, and Classification",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Interaction and Interdependence",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Environmental Science",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Biotechnology and Artificial Intelligence",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe the contributions of important scientists to the development of biological taxonomy;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain how structural characteristics and molecular evidence, such as DNA sequences, are used in the classification of living organisms;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain how the classification of organisms relates to their adaptations to different environments;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe the distinctive attributes of a specific taxon relative to other taxa;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "classify organisms into a specific taxon based on its distinctive characteristics;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "use information from secondary sources to: a. identify extinct species and explain the ecological impacts of their loss in the environment (e.g., dodo, Philippine rhinoceros); and b. identify species at risk of extinction and explain the importance of conservation prioritization (e.g., terrestrial species such as the Philippine eagle and tamaraw; aquatic and marine species such as the Philippine crocodile, hawksbill sea turtle, tabios/tawilis, and giant clam; and threatened tree species such as narra and molave);",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain ecological relationships among organisms in an ecosystem, including competition, predation, mutualism, commensalism, and parasitism;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain how organisms adapt to abiotic factors such as climate change;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain the basic principles and components of ecosystems;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "use diagrams to trace the flow of energy in an ecosystem (e.g., food chain, food web, and ecological pyramid); and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "explain how terrestrial and aquatic ecosystems are interconnected through interactions among forests, rivers, mangroves, seagrass beds, and coral reefs.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-12",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "use diagrams to explain the nutrient cycles in ecosystems, including the water cycle, carbon dioxide– oxygen cycle, phosphorus cycle, and nitrogen cycle;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-13",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "describe different ways human activities affect ecosystems, such as pollution, deforestation, and the introduction of invasive species;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-14",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "explain how the principles of Circular and Blue Economy promote proper management of wastes and natural resources and contribute to a healthy ecosystem and human health (e.g., recycling and composting of wastes, sustainable fisheries, mangrove conservation, and seaweed farming);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-15",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "evaluate the environmental impacts of development projects using environmental impact assessment (EIA) to support sustainable decision-making;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-16",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "explain the importance of biotechnology and artificial intelligence in addressing challenges related to health, food security, and environmental sustainability (e.g., vaccine development, genetically modified crops, disease detection, and environmental monitoring);",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-17",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "explain ethical responsibilities of humans toward the natural environment by examining ethical issues related to human interventions such as genetic modification, cloning, biodiversity conservation, and ecosystem management; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:period-1:item-18",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "use information from secondary sources to explain legal, environmental, and social issues related to biotechnology and artificial intelligence, such as genetic modification and cloning, AI-assisted drug discovery and disease diagnosis, and the use of AI in monitoring biodiversity and managing biological data.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "dd855da99ffb922ecd31e8f45d401efbe8ef1343a3a52600b5dd25cf0a168ecd"
+  }
+}

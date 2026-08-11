@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-computer-systems-servicing",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Computer Systems Servicing",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/10i2FhQCFu1KAKHlW08g0ZSAaIEb0SGbf/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Computer-Systems-Servicing.pdf",
+    "fileId": "10i2FhQCFu1KAKHlW08g0ZSAaIEb0SGbf",
+    "sha256": "983618a043067255bfa27bd0568415513e801a8f6e0ffa6dded1677f4c1c5b3a",
+    "byteSize": 312392,
+    "pageCount": 15,
+    "pagesUsed": {
+      "from": 2,
+      "to": 10
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "COMPUTER-SYSTEMS-S11",
+    "name": "Computer Systems Servicing",
+    "description": "Official Grade 11 Computer Systems Servicing competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Computer System Elements",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Computer Disassembly and Assembly procedure",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Preparing Application and System Software",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Installation of Operating System and Application Software",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Computer Testing and Documentation",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Computer Network Concepts",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Setting Up Computer Network",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Network Testing and Documentation",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Server Management",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Server Installation",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Active Directory Domain Services (ADDS)",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Domain Name System (DNS) Services",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Dynamic Host Configuration Protocol (DHCP) Services",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "File and Storage Services",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Web Servers Internet Information Services (IIS)",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Print and Document Services",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Remote Desktop Services",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Troubleshooting & Repairing Computer Systems",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Computer Network Troubleshooting and Repair",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Computer Server Troubleshooting and Repair",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Computer Systems Maintenance",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Computer Network Maintenance",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Maintaining Computer Server",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "Documentation and Reporting",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Proposing a Business Plan",
+      "sortOrder": 26
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss fundamental concepts of computer systems servicing",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss elements of computer systems",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform disassembly and assembly of computer hardware",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Create portable bootable device",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform installation of system software and application software",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform computer testing and documentation",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the concepts of computer network",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform setting up of computer network",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform network testing and documentation",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-1",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the concepts of server management",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-2",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform server installation",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-3",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform installation of Active Directory Domain Services (ADDS)",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-4",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform installation of Domain Name System (DNS) services",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-5",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform installation and configuration of Dynamic Host Configuration Protocol (DHCP) services",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-6",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform installation and configuration of File and Storage Services",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-7",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform installation and configuration of web servers Internet Information Services (IIS).",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-8",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Perform installation of print and document services",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-3:item-9",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Perform installation of remote desktop services",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-4:item-1",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform troubleshooting and repairs of computer systems",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-4:item-2",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform troubleshooting and repairs of computer network",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-4:item-3",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform troubleshooting and repairs of computer server",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-4:item-4",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform maintenance of computer systems",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-4:item-5",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform maintenance of computer networks",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-4:item-6",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform maintenance of computer servers",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-4:item-7",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Prepare documentation and reporting on maintenance of computer systems, servers, and networks.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-systems-servicing:period-4:item-8",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Develop a business plan proposal",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2946de293f545604044ccb7be2f1cc6f5ae472a06faf0568e8f66f6c1482618c"
+  }
+}

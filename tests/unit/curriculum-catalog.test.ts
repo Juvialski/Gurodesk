@@ -12,14 +12,15 @@ describe('national curriculum catalog', () => {
   it('has current source-grounded coverage across Kindergarten to Grade 12', () => {
     const grades = ['Kindergarten', ...Array.from({ length: 12 }, (_, index) => `Grade ${index + 1}`)]
     for (const grade of grades) expect(curriculumEntriesForGrade(grade, '2026-2027').length).toBeGreaterThan(0)
-    expect(CURRICULUM_CATALOG_STATS.verifiedCompetencyPacks).toBeGreaterThanOrEqual(1)
+    expect(CURRICULUM_CATALOG_STATS.verifiedCompetencyPacks).toBe(189)
   })
 
-  it('keeps exact verified coverage separate from catalog breadth', () => {
-    const verified = findCurriculumCatalogEntry('Grade 7', 'Mathematics', '2026-2027')
-    const catalogOnly = findCurriculumCatalogEntry('Grade 9', 'Science', '2026-2027')
-    expect(verified?.status).toBe('verified_competencies')
-    expect(catalogOnly?.status).not.toBe('verified_competencies')
+  it('marks every current official pack verified while keeping transition entries separate', () => {
+    const current = CURRICULUM_CATALOG.filter((entry) => !entry.track.startsWith('legacy'))
+    const transitional = CURRICULUM_CATALOG.filter((entry) => entry.track.startsWith('legacy'))
+    expect(current).toHaveLength(189)
+    expect(current.every((entry) => entry.status === 'verified_competencies')).toBe(true)
+    expect(transitional.every((entry) => entry.status === 'transitional')).toBe(true)
   })
 
   it('models phased rollout by school year', () => {

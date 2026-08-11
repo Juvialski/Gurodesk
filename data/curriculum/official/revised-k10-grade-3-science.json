@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-3-science",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Science CG 2023 Grades 3-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Science%20CG%202023%20Grades%203-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "sha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+    "byteSize": 1436380,
+    "pageCount": 72,
+    "pagesUsed": {
+      "from": 29,
+      "to": 32
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 3",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 3",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 3",
+    "code": "SCIENCE3",
+    "name": "Science",
+    "description": "Official Grade 3 Science competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 29,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 30,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 31,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 32,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Science in our daily life",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Guided science activities using process skills",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Exploring and Questioning",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "The Non-Living environment",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify objects, activities, or natural events observed in their local environment that can be explained by science;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "participate in guided science activities by asking questions and tinkering with materials;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the uses of various science equipment and materials used in simple activities, such as a ruler, hand lens, scissors, balloons, modeling clay, and cardboard;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe different science process skills used in performing simple science activities, such as observing, predicting, and measuring using units such as millimeter, centimeter, and meter;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe the physical properties of solid materials, such as hard, shiny, or stretchable;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explain that changes in materials can be harmful to living and non-living things in the environment, such as trash disposal, and burning household materials;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "demonstrate proper handling and disposal of materials according to their properties, such as reusing objects, disposing of excess oil into garbage, and recycling paper, plastic or glass;",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "describe how changes in solid materials make them useful, such as when they are shaped, pressed, hammered, joined, or cut; and",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify the properties and uses of metals used by the local community such as iron, gold, silver, and copper.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use the skills of observing, predicting, and measuring in performing simple guided science activities;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "observe and describe the difference between living and non-living things and give examples of each that can be found in the local environment;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the characteristics of living things: they grow, respond, and reproduce;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "observe and describe the outer body parts of animals, such as head, legs or wings, and identify their role to move and to gather food;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "observe the outer parts of plants, such as leaves, roots, and stems and identify their role to get water and nutrients from the soil;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "identify the basic needs of all living things, such as air, food, water, and shelter;",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "observe examples and explain how living things depend on one another and on the environment to meet their basic needs; and",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "recognize that there is a need to protect and conserve the environment for living things to survive.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explore and demonstrate different ways to make objects move by natural causes, such as wind and water, or by people, such as pushing, pulling, rolling, and carrying;",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explore and describe things that affect the movement of objects, including size, shape, heaviness, material, and surface texture;",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "measure and describe changes in the position of people or objects in relation to their original position, such as moving closer, farther, left, or right;",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explore and describe how sound is made and transferred in everyday situations, such as the ringing of a bell or the hearing of noises;",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe sources of light and their use in everyday situations;",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "participate in guided science activities to explore and describe sources of light, how it behaves or can be changed, and its uses in everyday situations;",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain how light and sound can be harmful to people and make suggestions on how to protect oneself from them; and",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "participate in guided activities to explore and describe some ways to use movement, sound, and light to send information between two people.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "participate in guided activities to locate and describe different types of non-living things found in and around their school, such as rocks, soil, water, air, metals, clouds, rain, and sunlight;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify some useful things that people have made from non-living materials and describe what natural materials have been used to make the items;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "recognize that the non-living materials that make up the environment are referred to as ‘earth materials’;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-4",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "observe and record changes in the weather during a day or over some days and describe the different types and patterns of weather that occur in the local area;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe how changes in the weather can affect daily activities and explain how some types of weather can be dangerous for people;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "participate in guided activities to carefully observe and describe the natural objects commonly seen in the sky during daytime and nighttime, including the Sun, the Moon, planets, and stars;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "participate in guided activities to explore and record how and when the Sun, the Moon, planets, and stars can be seen moving across the sky;",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain how natural objects in the sky affect activities of people; and",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "describe safety measures that people can use to avoid the harmful effects of the Sun’s light.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "b540077ac5e2522779338cee6f50c4678c7f4bd33a63e3dfd2f7de4fd40e588f"
+  }
+}

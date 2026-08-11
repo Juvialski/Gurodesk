@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-arts-apprenticeship-music",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Arts Apprenticeship - Music",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/13EBmV3zDa7Ie9GHtIp5gIxgwLbXEVnvC/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Arts Apprenticeship - Music.pdf",
+    "fileId": "13EBmV3zDa7Ie9GHtIp5gIxgwLbXEVnvC",
+    "sha256": "99ef7ae56fd4a19685e5d9d7b1b4a79ed9d4e74514814fdcf5ad8d2aeed73c0a",
+    "byteSize": 386814,
+    "pageCount": 7,
+    "pagesUsed": {
+      "from": 3,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "ARTS-APPRENTICESHI12",
+    "name": "Arts Apprenticeship - Music",
+    "description": "Official Grade 12 Arts Apprenticeship - Music competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 3,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "A. Organizational requirements for occupational health and safety in the music industry.",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Understanding Music Production, the Profession, and Professionalism in the Arts",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "C. Work Processes in Music Production and Performance",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "D. Professionalism and ethics in the music industry;",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "D. Music Apprenticeship Proper",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "E. Portfolio Development",
+      "sortOrder": 6
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-music:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss safety and security procedures in the music;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-music:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discuss the interdisciplinary roles and responsibilities of music artists, the functions of art organizations, and chain of accountability in the organization as an apprentice;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-music:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain the work process involved in music production and related performing arts field;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-music:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "analyze how professional, corporate social responsibility, and ethical practices can be applied in the music industry;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-music:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "demonstrate proficiency, professionalism, cultural sensitivity, and ethical practices under music apprenticeship; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-music:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "synthesize the music apprenticeship experience through creative documentation.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "8bada84a3e683088928df21b23c9621b9fd4259250375a3b45c95bda8538ba0d"
+  }
+}

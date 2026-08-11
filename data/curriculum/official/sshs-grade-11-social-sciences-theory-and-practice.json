@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-social-sciences-theory-and-practice",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Social Sciences Theory and Practice",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1GCPeYXpPYzoAUDJwCCukPbNJ1eeOnSuV/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Social-Sciences-Theory-and-Practice.pdf",
+    "fileId": "1GCPeYXpPYzoAUDJwCCukPbNJ1eeOnSuV",
+    "sha256": "9ccb582e526be879f3e152b98400c1fe0d027fc1c472bbd0b43c639c3173566a",
+    "byteSize": 302270,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "SOCIAL-SCIENCES-TH11",
+    "name": "Social Sciences Theory and Practice",
+    "description": "Official Grade 11 Social Sciences Theory and Practice competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Social Sciences as the study of society",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Historical context of the emergence of the social",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "The Social Science disciplines:",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Transdisciplinarity: Integration and",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Understanding Psychology: Concepts, Theories,",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Counseling as an Applied Social Science: Concepts,",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "The Focus of Social Work: Theories, Methods, and",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "The Role of Education: Theories, Methods, and",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Criminology: The Study of Crime, Justice, and Social",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Communication and Multimedia Studies as",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Gender Studies and Development as Interdisciplinary",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "The Interdisciplinary Lens: Viewing Society Through",
+      "sortOrder": 12
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Differentiate the nature and functions of Social Science disciplines from the natural sciences and the humanities",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Establish the interconnections among Social Science disciplines, natural sciences, and the humanities",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Examine the historical foundations and social contexts that led to the development of the social sciences",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Examine various Social Science disciplines in terms of their fields, main areas of inquiry, methods, theories, and approaches political behavior, major political theories, and key methods of political inquiry relations, research, media, advocacy, and security methods and career opportunities, influenced by globalization anthropology. and careers in understanding societies and culture",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Examine the value of transdisciplinarity in understanding society",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Examine the concepts, major theories, and methods and career pathways of Psychology including Filipino indigenous psychological concepts",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Analyze the key theories and methods and career pathways of counseling",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Examine the focus of social work as an applied social science and its key theories and approaches, and methods and career opportunities",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-2:item-4",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Analyze the goals, key educational theories and philosophies, and methods of educational research and education in the Philippines",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-2:item-5",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Examine criminology as an applied social science i ncluding its theories, methods and careers",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-2:item-6",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Analyze communication and multimedia arts as an applied social science including its major theories, and career pathways",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-2:item-7",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Examine gender studies and development, including its theories and concepts, methods of inquiry, interdisciplinary nature, and career pathways",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:period-2:item-8",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Examine the value of transdisciplinarity in understanding society",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "81268def85442986ebb54724f009c78b656161a813db8f8fa38cec9d10fb888a"
+  }
+}

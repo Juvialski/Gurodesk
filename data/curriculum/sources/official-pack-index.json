@@ -1,0 +1,1968 @@
+{
+  "schemaVersion": 1,
+  "catalogEntryCount": 189,
+  "manifestCount": 196,
+  "note": "MAPEH catalog entries intentionally map to separate Music and Arts and Physical Education and Health source manifests.",
+  "packs": [
+    {
+      "catalogId": "revised-k10-grade-1-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "GMRC",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-1-gmrc"
+    },
+    {
+      "catalogId": "revised-k10-grade-1-language",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "Language",
+      "component": null,
+      "sourceId": "k10-language-cg-2023-grade-1",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-1-language"
+    },
+    {
+      "catalogId": "revised-k10-grade-1-makabansa",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "Makabansa",
+      "component": null,
+      "sourceId": "k10-makabansa-cg-2023-grades-1-3",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-1-makabansa"
+    },
+    {
+      "catalogId": "revised-k10-grade-1-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-1-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-1-reading-and-literacy",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 1",
+      "learningArea": "Reading and Literacy",
+      "component": null,
+      "sourceId": "k10-reading-and-literacy-cg-2023-g1",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-1-reading-and-literacy"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Araling Panlipunan",
+      "component": null,
+      "sourceId": "k10-araling-panlipunan-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-10-araling-panlipunan"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-10-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-10-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "MAPEH",
+      "component": "Music and Arts",
+      "sourceId": "k10-music-and-arts-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-10-mapeh-music-and-arts"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "MAPEH",
+      "component": "Physical Education and Health",
+      "sourceId": "k10-pe-and-health-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-10-mapeh-physical-education-and-health"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-10-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Science",
+      "component": null,
+      "sourceId": "k10-science-cg-2023-grades-3-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-10-science"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-tle",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "TLE",
+      "component": null,
+      "sourceId": "k10-epp-tle-cg-2023-grades-4-10",
+      "extractionMode": "numeric_plain",
+      "slug": "revised-k10-grade-10-tle"
+    },
+    {
+      "catalogId": "revised-k10-grade-10-values-education",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 10",
+      "learningArea": "Values Education",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-10-values-education"
+    },
+    {
+      "catalogId": "revised-k10-grade-2-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-2-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-2-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-2-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-2-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "GMRC",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-2-gmrc"
+    },
+    {
+      "catalogId": "revised-k10-grade-2-makabansa",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "Makabansa",
+      "component": null,
+      "sourceId": "k10-makabansa-cg-2023-grades-1-3",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-2-makabansa"
+    },
+    {
+      "catalogId": "revised-k10-grade-2-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 2",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-2-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-3-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-3-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-3-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-3-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-3-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "GMRC",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-3-gmrc"
+    },
+    {
+      "catalogId": "revised-k10-grade-3-makabansa",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "Makabansa",
+      "component": null,
+      "sourceId": "k10-makabansa-cg-2023-grades-1-3",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-3-makabansa"
+    },
+    {
+      "catalogId": "revised-k10-grade-3-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-3-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-3-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 3",
+      "learningArea": "Science",
+      "component": null,
+      "sourceId": "k10-science-cg-2023-grades-3-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-3-science"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "Araling Panlipunan",
+      "component": null,
+      "sourceId": "k10-araling-panlipunan-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-4-araling-panlipunan"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-4-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-epp",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "EPP",
+      "component": null,
+      "sourceId": "k10-epp-tle-cg-2023-grades-4-10",
+      "extractionMode": "numeric_plain",
+      "slug": "revised-k10-grade-4-epp"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-4-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "GMRC",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-4-gmrc"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "MAPEH",
+      "component": "Music and Arts",
+      "sourceId": "k10-music-and-arts-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-4-mapeh-music-and-arts"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "MAPEH",
+      "component": "Physical Education and Health",
+      "sourceId": "k10-pe-and-health-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-4-mapeh-physical-education-and-health"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-4-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-4-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 4",
+      "learningArea": "Science",
+      "component": null,
+      "sourceId": "k10-science-cg-2023-grades-3-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-4-science"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "Araling Panlipunan",
+      "component": null,
+      "sourceId": "k10-araling-panlipunan-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-5-araling-panlipunan"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-5-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-epp",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "EPP",
+      "component": null,
+      "sourceId": "k10-epp-tle-cg-2023-grades-4-10",
+      "extractionMode": "numeric_plain",
+      "slug": "revised-k10-grade-5-epp"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-5-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "GMRC",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-5-gmrc"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "MAPEH",
+      "component": "Music and Arts",
+      "sourceId": "k10-music-and-arts-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-5-mapeh-music-and-arts"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "MAPEH",
+      "component": "Physical Education and Health",
+      "sourceId": "k10-pe-and-health-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-5-mapeh-physical-education-and-health"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-5-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-5-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 5",
+      "learningArea": "Science",
+      "component": null,
+      "sourceId": "k10-science-cg-2023-grades-3-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-5-science"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "Araling Panlipunan",
+      "component": null,
+      "sourceId": "k10-araling-panlipunan-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-6-araling-panlipunan"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-6-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-epp",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "EPP",
+      "component": null,
+      "sourceId": "k10-epp-tle-cg-2023-grades-4-10",
+      "extractionMode": "numeric_plain",
+      "slug": "revised-k10-grade-6-epp"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-6-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-gmrc",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "GMRC",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-6-gmrc"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "MAPEH",
+      "component": "Music and Arts",
+      "sourceId": "k10-music-and-arts-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-6-mapeh-music-and-arts"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "MAPEH",
+      "component": "Physical Education and Health",
+      "sourceId": "k10-pe-and-health-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-6-mapeh-physical-education-and-health"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-6-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-6-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 6",
+      "learningArea": "Science",
+      "component": null,
+      "sourceId": "k10-science-cg-2023-grades-3-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-6-science"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Araling Panlipunan",
+      "component": null,
+      "sourceId": "k10-araling-panlipunan-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-7-araling-panlipunan"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-7-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-7-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "MAPEH",
+      "component": "Music and Arts",
+      "sourceId": "k10-music-and-arts-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-7-mapeh-music-and-arts"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "MAPEH",
+      "component": "Physical Education and Health",
+      "sourceId": "k10-pe-and-health-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-7-mapeh-physical-education-and-health"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-7-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Science",
+      "component": null,
+      "sourceId": "k10-science-cg-2023-grades-3-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-7-science"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-tle",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "TLE",
+      "component": null,
+      "sourceId": "k10-epp-tle-cg-2023-grades-4-10",
+      "extractionMode": "numeric_plain",
+      "slug": "revised-k10-grade-7-tle"
+    },
+    {
+      "catalogId": "revised-k10-grade-7-values-education",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 7",
+      "learningArea": "Values Education",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-7-values-education"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Araling Panlipunan",
+      "component": null,
+      "sourceId": "k10-araling-panlipunan-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-8-araling-panlipunan"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-8-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-8-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "MAPEH",
+      "component": "Music and Arts",
+      "sourceId": "k10-music-and-arts-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-8-mapeh-music-and-arts"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "MAPEH",
+      "component": "Physical Education and Health",
+      "sourceId": "k10-pe-and-health-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-8-mapeh-physical-education-and-health"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-8-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Science",
+      "component": null,
+      "sourceId": "k10-science-cg-2023-grades-3-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-8-science"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-tle",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "TLE",
+      "component": null,
+      "sourceId": "k10-epp-tle-cg-2023-grades-4-10",
+      "extractionMode": "numeric_plain",
+      "slug": "revised-k10-grade-8-tle"
+    },
+    {
+      "catalogId": "revised-k10-grade-8-values-education",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 8",
+      "learningArea": "Values Education",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-8-values-education"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-araling-panlipunan",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Araling Panlipunan",
+      "component": null,
+      "sourceId": "k10-araling-panlipunan-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-9-araling-panlipunan"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-english",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "English",
+      "component": null,
+      "sourceId": "k10-english-cg-2023-grades-2-10-withappendices",
+      "extractionMode": "coded",
+      "slug": "revised-k10-grade-9-english"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-filipino",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Filipino",
+      "component": null,
+      "sourceId": "k10-filipino-cg-2023-grades-2-10",
+      "extractionMode": "unnumbered",
+      "slug": "revised-k10-grade-9-filipino"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "MAPEH",
+      "component": "Music and Arts",
+      "sourceId": "k10-music-and-arts-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-9-mapeh-music-and-arts"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-mapeh",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "MAPEH",
+      "component": "Physical Education and Health",
+      "sourceId": "k10-pe-and-health-cg-2023-grades-4-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-9-mapeh-physical-education-and-health"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-mathematics",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Mathematics",
+      "component": null,
+      "sourceId": "k10-mathematics-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-9-mathematics"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-science",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Science",
+      "component": null,
+      "sourceId": "k10-science-cg-2023-grades-3-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-9-science"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-tle",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "TLE",
+      "component": null,
+      "sourceId": "k10-epp-tle-cg-2023-grades-4-10",
+      "extractionMode": "numeric_plain",
+      "slug": "revised-k10-grade-9-tle"
+    },
+    {
+      "catalogId": "revised-k10-grade-9-values-education",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Grade 9",
+      "learningArea": "Values Education",
+      "component": null,
+      "sourceId": "k10-gmrc-and-ve-cg-2023-grades-1-10",
+      "extractionMode": "numeric",
+      "slug": "revised-k10-grade-9-values-education"
+    },
+    {
+      "catalogId": "revised-k10-kindergarten-kindergarten",
+      "curriculumCode": "REVISED-K10-MATATAG",
+      "gradeLevel": "Kindergarten",
+      "learningArea": "Kindergarten",
+      "component": null,
+      "sourceId": "k10-kindergarten-cg-2023",
+      "extractionMode": "numeric_global",
+      "slug": "revised-k10-kindergarten-kindergarten"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-aesthetic-services-beauty-care",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Aesthetic Services / Beauty Care",
+      "component": null,
+      "sourceId": "sshs-g11-aesthetic-services-beauty-care",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-aesthetic-services-beauty-care"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-agricultural-crops-production",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Agricultural Crops Production",
+      "component": null,
+      "sourceId": "sshs-g11-agricultural-crops-production",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-agricultural-crops-production"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-agro-entrepreneurship",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Agro-Entrepreneurship",
+      "component": null,
+      "sourceId": "sshs-g11-agro-entrepreneurship",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-agro-entrepreneurship"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-animation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Animation",
+      "component": null,
+      "sourceId": "sshs-g11-animation",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-animation"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-aquaculture",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Aquaculture",
+      "component": null,
+      "sourceId": "sshs-g11-aquaculture",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-aquaculture"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Arts 1 - Creative Industries: Visual Art, Literary Art, Media Art, Applied Art and Traditional Art",
+      "component": null,
+      "sourceId": "sshs-g11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-arts-2-creative-industries-music-dance-and-theater",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Arts 2 - Creative Industries: Music, Dance and Theater",
+      "component": null,
+      "sourceId": "sshs-g11-arts-2-creative-industries-music-dance-and-theater",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-automotive-servicing-electrical-repair",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Automotive Servicing (Electrical Repair)",
+      "component": null,
+      "sourceId": "sshs-g11-automotive-servicing-electrical-repair",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-automotive-servicing-electrical-repair"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-automotive-servicing-engine-and-chassis-repairs",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Automotive Servicing (Engine and Chassis Repairs)",
+      "component": null,
+      "sourceId": "sshs-g11-automotive-servicing-engine-and-chassis-repairs",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-automotive-servicing-engine-and-chassis-repairs"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-bakery-operations",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Bakery Operations",
+      "component": null,
+      "sourceId": "sshs-g11-bakery-operations",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-bakery-operations"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-biology-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Biology 1",
+      "component": null,
+      "sourceId": "sshs-g11-biology-1",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-biology-1"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-biology-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Biology 2",
+      "component": null,
+      "sourceId": "sshs-g11-biology-2",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-biology-2"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-broadband-installation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Broadband Installation",
+      "component": null,
+      "sourceId": "sshs-g11-broadband-installation",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-broadband-installation"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-business-1-basic-accounting",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Business 1 - Basic Accounting",
+      "component": null,
+      "sourceId": "sshs-g11-business-1-basic-accounting",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-business-1-basic-accounting"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-business-2-business-finance-and-income-taxation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Business 2 - Business Finance and Income Taxation",
+      "component": null,
+      "sourceId": "sshs-g11-business-2-business-finance-and-income-taxation",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-business-2-business-finance-and-income-taxation"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-business-3-business-economics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Business 3 - Business Economics",
+      "component": null,
+      "sourceId": "sshs-g11-business-3-business-economics",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-business-3-business-economics"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-caregiving-adult-care",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Caregiving - Adult Care",
+      "component": null,
+      "sourceId": "sshs-g11-caregiving-adult-care",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-caregiving-adult-care"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-caregiving-child-care",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Caregiving - Child Care",
+      "component": null,
+      "sourceId": "sshs-g11-caregiving-child-care",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-caregiving-child-care"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-carpentry",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Carpentry",
+      "component": null,
+      "sourceId": "sshs-g11-carpentry",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-carpentry"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-chemistry-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Chemistry 1",
+      "component": null,
+      "sourceId": "sshs-g11-chemistry-1",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-chemistry-1"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-chemistry-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Chemistry 2",
+      "component": null,
+      "sourceId": "sshs-g11-chemistry-2",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-chemistry-2"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-citizenship-and-civic-engagement",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Citizenship and Civic Engagement",
+      "component": null,
+      "sourceId": "sshs-g11-citizenship-and-civic-engagement",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-citizenship-and-civic-engagement"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-commercial-air-conditioning-installation-and-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Commercial Air Conditioning Installation and Servicing",
+      "component": null,
+      "sourceId": "sshs-g11-commercial-air-conditioning-installation-and-servicing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-computer-programming-java",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Computer Programming (Java)",
+      "component": null,
+      "sourceId": "sshs-g11-computer-programming-java",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-computer-programming-java"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-computer-programming-net-technology",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Computer Programming (.NET Technology)",
+      "component": null,
+      "sourceId": "sshs-g11-computer-programming-net-technology",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-computer-programming-net-technology"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-computer-programming-oracle-database",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Computer Programming (Oracle Database)",
+      "component": null,
+      "sourceId": "sshs-g11-computer-programming-oracle-database",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-computer-programming-oracle-database"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-computer-systems-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Computer Systems Servicing",
+      "component": null,
+      "sourceId": "sshs-g11-computer-systems-servicing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-computer-systems-servicing"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-construction-operation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Construction Operation",
+      "component": null,
+      "sourceId": "sshs-g11-construction-operation",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-construction-operation"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-contact-center-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Contact Center Services",
+      "component": null,
+      "sourceId": "sshs-g11-contact-center-services",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-contact-center-services"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-contemporary-literature-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Contemporary Literature 1",
+      "component": null,
+      "sourceId": "sshs-g11-contemporary-literature-1",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-contemporary-literature-1"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-contemporary-literature-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Contemporary Literature 2",
+      "component": null,
+      "sourceId": "sshs-g11-contemporary-literature-2",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-contemporary-literature-2"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-contemporary-marketing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Contemporary Marketing",
+      "component": null,
+      "sourceId": "sshs-g11-contemporary-marketing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-contemporary-marketing"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-creative-composition-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Creative Composition 1",
+      "component": null,
+      "sourceId": "sshs-g11-creative-composition-1",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-creative-composition-1"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-creative-composition-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Creative Composition 2",
+      "component": null,
+      "sourceId": "sshs-g11-creative-composition-2",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-creative-composition-2"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-domestic-refrigeration-and-air-conditioning-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Domestic Refrigeration and Air Conditioning Servicing",
+      "component": null,
+      "sourceId": "sshs-g11-domestic-refrigeration-and-air-conditioning-servicing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-driving-and-automotive-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Driving and Automotive Servicing",
+      "component": null,
+      "sourceId": "sshs-g11-driving-and-automotive-servicing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-driving-and-automotive-servicing"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-earth-and-space-science-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Earth and Space Science 1",
+      "component": null,
+      "sourceId": "sshs-g11-earth-and-space-science-1",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-earth-and-space-science-1"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-earth-and-space-science-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Earth and Space Science 2",
+      "component": null,
+      "sourceId": "sshs-g11-earth-and-space-science-2",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-earth-and-space-science-2"
+    },
+    {
+      "catalogId": "sshs_core-grade-11-effective-communication",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Effective Communication",
+      "component": null,
+      "sourceId": "sshs-g11-effective-communication",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-effective-communication"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-electrical-installation-maintenance",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Electrical Installation Maintenance",
+      "component": null,
+      "sourceId": "sshs-g11-electrical-installation-maintenance",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-electrical-installation-maintenance"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-electronics-product-assembly-and-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Electronics Product Assembly and Servicing",
+      "component": null,
+      "sourceId": "sshs-g11-electronics-product-assembly-and-servicing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-electronics-product-assembly-and-servicing"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-entrepreneurship",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Entrepreneurship",
+      "component": null,
+      "sourceId": "sshs-g11-entrepreneurship",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-entrepreneurship"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-events-management-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Events Management Services",
+      "component": null,
+      "sourceId": "sshs-g11-events-management-services",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-events-management-services"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino 1 - Wika at Komunikasyon sa Akademikong Filipino",
+      "component": null,
+      "sourceId": "sshs-g11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino 2 - Filipino para sa Larang Teknikal Propesyonal",
+      "component": null,
+      "sourceId": "sshs-g11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-filipino-2-filipino-sa-isports",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino 2 - Filipino sa Isports",
+      "component": null,
+      "sourceId": "sshs-g11-filipino-2-filipino-sa-isports",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-filipino-2-filipino-sa-isports"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-filipino-2-filipino-sa-sining-at-disenyo",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino 2 - Filipino sa Sining at Disenyo",
+      "component": null,
+      "sourceId": "sshs-g11-filipino-2-filipino-sa-sining-at-disenyo",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-filipino-identity-through-the-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Filipino Identity Through the Arts",
+      "component": null,
+      "sourceId": "sshs-g11-filipino-identity-through-the-arts",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-filipino-identity-through-the-arts"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-finite-mathematics-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Finite Mathematics 1",
+      "component": null,
+      "sourceId": "sshs-g11-finite-mathematics-1",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-finite-mathematics-1"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-finite-mathematics-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Finite Mathematics 2",
+      "component": null,
+      "sourceId": "sshs-g11-finite-mathematics-2",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-finite-mathematics-2"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-fish-capture",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Fish Capture",
+      "component": null,
+      "sourceId": "sshs-g11-fish-capture",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-fish-capture"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-food-and-beverage-operation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Food and Beverage Operation",
+      "component": null,
+      "sourceId": "sshs-g11-food-and-beverage-operation",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-food-and-beverage-operation"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-food-processing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Food Processing",
+      "component": null,
+      "sourceId": "sshs-g11-food-processing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-food-processing"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-garments-artisanry",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Garments Artisanry",
+      "component": null,
+      "sourceId": "sshs-g11-garments-artisanry",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-garments-artisanry"
+    },
+    {
+      "catalogId": "sshs_core-grade-11-general-mathematics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "General Mathematics",
+      "component": null,
+      "sourceId": "sshs-g11-general-mathematics",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-general-mathematics"
+    },
+    {
+      "catalogId": "sshs_core-grade-11-general-science",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "General Science",
+      "component": null,
+      "sourceId": "sshs-g11-general-science",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-general-science"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-hairdressing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Hairdressing",
+      "component": null,
+      "sourceId": "sshs-g11-hairdressing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-hairdressing"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-handicrafts-weaving",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Handicrafts (Weaving)",
+      "component": null,
+      "sourceId": "sshs-g11-handicrafts-weaving",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-handicrafts-weaving"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-hotel-operation-front-office-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Hotel Operation (Front Office Services)",
+      "component": null,
+      "sourceId": "sshs-g11-hotel-operation-front-office-services",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-hotel-operation-front-office-services"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-hotel-operation-housekeeping-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Hotel Operation (Housekeeping Services)",
+      "component": null,
+      "sourceId": "sshs-g11-hotel-operation-housekeeping-services",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-hotel-operation-housekeeping-services"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Human Movement 1 - Basic Anatomy in Sports and Exercise",
+      "component": null,
+      "sourceId": "sshs-g11-human-movement-1-basic-anatomy-in-sports-and-exercise",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-human-movement-2-motor-skills-development",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Human Movement 2 - Motor Skills Development",
+      "component": null,
+      "sourceId": "sshs-g11-human-movement-2-motor-skills-development",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-human-movement-2-motor-skills-development"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-illustration",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Illustration",
+      "component": null,
+      "sourceId": "sshs-g11-illustration",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-illustration"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-introduction-to-organization-and-management",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Introduction to Organization and Management",
+      "component": null,
+      "sourceId": "sshs-g11-introduction-to-organization-and-management",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-introduction-to-organization-and-management"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-introduction-to-philosophy",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Introduction to Philosophy",
+      "component": null,
+      "sourceId": "sshs-g11-introduction-to-philosophy",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-introduction-to-philosophy"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-kitchen-operations",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Kitchen Operations",
+      "component": null,
+      "sourceId": "sshs-g11-kitchen-operations",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-kitchen-operations"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-leadership-and-management-in-the-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Leadership and Management in the Arts",
+      "component": null,
+      "sourceId": "sshs-g11-leadership-and-management-in-the-arts",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-leadership-and-management-in-the-arts"
+    },
+    {
+      "catalogId": "sshs_core-grade-11-life-and-career-skills",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Life and Career Skills",
+      "component": null,
+      "sourceId": "sshs-g11-life-and-career-skills",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-life-and-career-skills"
+    },
+    {
+      "catalogId": "sshs_core-grade-11-mabisang-komunikasyon",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Mabisang Komunikasyon",
+      "component": null,
+      "sourceId": "sshs-g11-mabisang-komunikasyon",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-mabisang-komunikasyon"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-malikhaing-pagsulat",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Malikhaing Pagsulat",
+      "component": null,
+      "sourceId": "sshs-g11-malikhaing-pagsulat",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-malikhaing-pagsulat"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-manual-metal-arc-welding",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Manual Metal Arc Welding",
+      "component": null,
+      "sourceId": "sshs-g11-manual-metal-arc-welding",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-manual-metal-arc-welding"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-marine-engineering-at-the-support-level",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Marine Engineering at the Support Level",
+      "component": null,
+      "sourceId": "sshs-g11-marine-engineering-at-the-support-level",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-marine-engineering-at-the-support-level"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-marine-transportation-at-the-support-level",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Marine Transportation at the Support Level",
+      "component": null,
+      "sourceId": "sshs-g11-marine-transportation-at-the-support-level",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-marine-transportation-at-the-support-level"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-mechatronics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Mechatronics",
+      "component": null,
+      "sourceId": "sshs-g11-mechatronics",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-mechatronics"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-motorcycle-and-small-engine-servicing",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Motorcycle and Small Engine Servicing",
+      "component": null,
+      "sourceId": "sshs-g11-motorcycle-and-small-engine-servicing",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-motorcycle-and-small-engine-servicing"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-organic-agriculture-production",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Organic Agriculture Production",
+      "component": null,
+      "sourceId": "sshs-g11-organic-agriculture-production",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-organic-agriculture-production"
+    },
+    {
+      "catalogId": "sshs_core-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Pag-aaral ng Kasaysayan at Lipunang Pilipino",
+      "component": null,
+      "sourceId": "sshs-g11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-philippine-governance-philippine-politics-and-governance",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Philippine Governance / Philippine Politics and Governance",
+      "component": null,
+      "sourceId": "sshs-g11-philippine-governance-philippine-politics-and-governance",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-philippine-governance-philippine-politics-and-governance"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-photovoltaic-systems-installation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Photovoltaic Systems Installation",
+      "component": null,
+      "sourceId": "sshs-g11-photovoltaic-systems-installation",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-photovoltaic-systems-installation"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-physical-education-1-fitness-and-recreation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Physical Education 1 - Fitness and Recreation",
+      "component": null,
+      "sourceId": "sshs-g11-physical-education-1-fitness-and-recreation",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-physical-education-1-fitness-and-recreation"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-physical-education-2-sports-and-dance",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Physical Education 2 - Sports and Dance",
+      "component": null,
+      "sourceId": "sshs-g11-physical-education-2-sports-and-dance",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-physical-education-2-sports-and-dance"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-physics-1",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Physics 1",
+      "component": null,
+      "sourceId": "sshs-g11-physics-1",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-physics-1"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-physics-2",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Physics 2",
+      "component": null,
+      "sourceId": "sshs-g11-physics-2",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-physics-2"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-poultry-production-chicken",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Poultry Production - Chicken",
+      "component": null,
+      "sourceId": "sshs-g11-poultry-production-chicken",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-poultry-production-chicken"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-ruminants-production",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Ruminants Production",
+      "component": null,
+      "sourceId": "sshs-g11-ruminants-production",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-ruminants-production"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-ships-catering-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Ships Catering Services",
+      "component": null,
+      "sourceId": "sshs-g11-ships-catering-services",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-ships-catering-services"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-social-sciences-theory-and-practice",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Social Sciences Theory and Practice",
+      "component": null,
+      "sourceId": "sshs-g11-social-sciences-theory-and-practice",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-social-sciences-theory-and-practice"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-sports-activity-management",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Sports Activity Management",
+      "component": null,
+      "sourceId": "sshs-g11-sports-activity-management",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-sports-activity-management"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-sports-coaching",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Sports Coaching",
+      "component": null,
+      "sourceId": "sshs-g11-sports-coaching",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-sports-coaching"
+    },
+    {
+      "catalogId": "sshs_academic-grade-11-sports-officiating",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Sports Officiating",
+      "component": null,
+      "sourceId": "sshs-g11-sports-officiating",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-sports-officiating"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-swine-production",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Swine Production",
+      "component": null,
+      "sourceId": "sshs-g11-swine-production",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-swine-production"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-technical-drafting",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Technical Drafting",
+      "component": null,
+      "sourceId": "sshs-g11-technical-drafting",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-technical-drafting"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-tourism-services",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Tourism Services",
+      "component": null,
+      "sourceId": "sshs-g11-tourism-services",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-tourism-services"
+    },
+    {
+      "catalogId": "sshs_techpro-grade-11-visual-graphic-design",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 11",
+      "learningArea": "Visual Graphic Design",
+      "component": null,
+      "sourceId": "sshs-g11-visual-graphic-design",
+      "extractionMode": null,
+      "slug": "sshs-grade-11-visual-graphic-design"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-advanced-mathematics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Advanced Mathematics",
+      "component": null,
+      "sourceId": "sshs-g12-advanced-mathematics",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-advanced-mathematics"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-arts-apprenticeship-dance",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Dance",
+      "component": null,
+      "sourceId": "sshs-g12-arts-apprenticeship-dance",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-arts-apprenticeship-dance"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-arts-apprenticeship-literary-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Literary Arts",
+      "component": null,
+      "sourceId": "sshs-g12-arts-apprenticeship-literary-arts",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-arts-apprenticeship-literary-arts"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-arts-apprenticeship-media-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Media Arts",
+      "component": null,
+      "sourceId": "sshs-g12-arts-apprenticeship-media-arts",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-arts-apprenticeship-media-arts"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-arts-apprenticeship-music",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Music",
+      "component": null,
+      "sourceId": "sshs-g12-arts-apprenticeship-music",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-arts-apprenticeship-music"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-arts-apprenticeship-theater-arts",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Arts Apprenticeship - Theater Arts",
+      "component": null,
+      "sourceId": "sshs-g12-arts-apprenticeship-theater-arts",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-arts-apprenticeship-theater-arts"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-basic-calculus",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Basic Calculus",
+      "component": null,
+      "sourceId": "sshs-g12-basic-calculus",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-basic-calculus"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-biology-3",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Biology 3",
+      "component": null,
+      "sourceId": "sshs-g12-biology-3",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-biology-3"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-biology-4",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Biology 4",
+      "component": null,
+      "sourceId": "sshs-g12-biology-4",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-biology-4"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-chemistry-3",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Chemistry 3",
+      "component": null,
+      "sourceId": "sshs-g12-chemistry-3",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-chemistry-3"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-chemistry-4",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Chemistry 4",
+      "component": null,
+      "sourceId": "sshs-g12-chemistry-4",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-chemistry-4"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-conceptual-biology-and-earth-and-space",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Conceptual Biology and Earth and Space",
+      "component": null,
+      "sourceId": "sshs-g12-conceptual-biology-and-earth-and-space",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-conceptual-biology-and-earth-and-space"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-conceptual-physics-and-chemistry-in-daily-life",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Conceptual Physics and Chemistry in Daily Life",
+      "component": null,
+      "sourceId": "sshs-g12-conceptual-physics-and-chemistry-in-daily-life",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-creative-production-and-presentation",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Creative Production and Presentation",
+      "component": null,
+      "sourceId": "sshs-g12-creative-production-and-presentation",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-creative-production-and-presentation"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-database-management",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Database Management",
+      "component": null,
+      "sourceId": "sshs-g12-database-management",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-database-management"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-earth-and-space-science-3",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Earth and Space Science 3",
+      "component": null,
+      "sourceId": "sshs-g12-earth-and-space-science-3",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-earth-and-space-science-3"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-earth-and-space-science-4",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Earth and Space Science 4",
+      "component": null,
+      "sourceId": "sshs-g12-earth-and-space-science-4",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-earth-and-space-science-4"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-empowerment-technologies",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Empowerment Technologies",
+      "component": null,
+      "sourceId": "sshs-g12-empowerment-technologies",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-empowerment-technologies"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-fundamentals-of-data-analytics",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Fundamentals of Data Analytics",
+      "component": null,
+      "sourceId": "sshs-g12-fundamentals-of-data-analytics",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-fundamentals-of-data-analytics"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-physics-3",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Physics 3",
+      "component": null,
+      "sourceId": "sshs-g12-physics-3",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-physics-3"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-physics-4",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Physics 4",
+      "component": null,
+      "sourceId": "sshs-g12-physics-4",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-physics-4"
+    },
+    {
+      "catalogId": "sshs_grade12_new-grade-12-pre-calculus",
+      "curriculumCode": "STRENGTHENED-SHS-2026",
+      "gradeLevel": "Grade 12",
+      "learningArea": "Pre-Calculus",
+      "component": null,
+      "sourceId": "sshs-g12-pre-calculus",
+      "extractionMode": null,
+      "slug": "sshs-grade-12-pre-calculus"
+    }
+  ]
+}

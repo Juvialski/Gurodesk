@@ -1,5 +1,6 @@
 import type { AssessmentAnswer, AssessmentItem, AssessmentItemVersion, AssessmentQaState, QuestionType } from '../types/assessment'
 import { normalizeItemPoints } from './assessmentScoring'
+import { assessmentVisualSourceHash, invalidateAssessmentVisualAfterContentEdit, withResolvedAssessmentVisualPlan } from './assessmentVisualPlanning'
 
 const MAX_HISTORY = 5
 
@@ -13,7 +14,7 @@ function versionId() {
   return `item-version-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
 }
 
-export type AssessmentItemEdit = Partial<Pick<AssessmentItem, 'prompt' | 'questionType' | 'answer' | 'rationale' | 'teacherNotes' | 'pointsPossible' | 'points' | 'visual'>>
+export type AssessmentItemEdit = Partial<Pick<AssessmentItem, 'prompt' | 'questionType' | 'answer' | 'rationale' | 'teacherNotes' | 'pointsPossible' | 'points' | 'visual' | 'visualRequirement' | 'visualIntent'>>
 
 export function isAssessmentItemLocked(item: AssessmentItem) {
   return item.locked === true || item.qaState === 'locked'
@@ -37,6 +38,13 @@ function snapshot(item: AssessmentItem, source: AssessmentItemVersion['source'])
     points: item.points,
     qaState: item.qaState,
     visual: item.visual ? clone(item).visual : undefined,
+    visualRequirement: item.visualRequirement,
+    visualIntent: item.visualIntent,
+    visualStatus: item.visualStatus,
+    visualAttempts: item.visualAttempts,
+    visualError: item.visualError,
+    visualSourceHash: item.visualSourceHash,
+    visualUpdatedAt: item.visualUpdatedAt,
   }
 }
 
@@ -53,11 +61,19 @@ function answerChanged(before: AssessmentItem, after: AssessmentItem) {
     || normalizeItemPoints(before) !== normalizeItemPoints(after)
 }
 
+function visualSourceChanged(before: AssessmentItem, after: AssessmentItem) {
+  return before.questionType !== after.questionType || before.prompt !== after.prompt || JSON.stringify(before.answer) !== JSON.stringify(after.answer)
+}
+
 /** Apply one-question edits without allowing a lock to be bypassed. */
 export function editAssessmentItem(item: AssessmentItem, edit: AssessmentItemEdit, options: { explicitUnlock?: boolean; source?: AssessmentItemVersion['source'] } = {}) {
   if (isAssessmentItemLocked(item) && options.explicitUnlock !== true) throw new Error('Locked assessment items must be unlocked before editing.')
-  const next = { ...clone(item), ...clone(edit) } as AssessmentItem
+  let next = { ...clone(item), ...clone(edit) } as AssessmentItem
   const material = answerChanged(item, next)
+  if (visualSourceChanged(item, next)) next = invalidateAssessmentVisualAfterContentEdit(item, next)
+  else if (Object.prototype.hasOwnProperty.call(edit, 'visual')) {
+    next = withResolvedAssessmentVisualPlan({ ...next, visualStatus: next.visual ? 'succeeded' : undefined, visualSourceHash: assessmentVisualSourceHash(next), visualError: undefined, visualUpdatedAt: new Date().toISOString() })
+  }
   const withHistory = pushAssessmentItemHistory(item, options.source ?? 'teacher_edit')
   return {
     ...next,
@@ -137,6 +153,13 @@ export function restoreAssessmentItemVersion(item: AssessmentItem, historyId: st
     pointsPossible: prior.pointsPossible,
     points: prior.points ?? prior.pointsPossible,
     visual: prior.visual ? clone(prior.visual) : undefined,
+    visualRequirement: prior.visualRequirement,
+    visualIntent: prior.visualIntent,
+    visualStatus: prior.visualStatus,
+    visualAttempts: prior.visualAttempts,
+    visualError: prior.visualError,
+    visualSourceHash: prior.visualSourceHash,
+    visualUpdatedAt: prior.visualUpdatedAt,
     authorshipState: 'teacher_edited' as const,
     qaState: 'answer_needs_recheck' as const,
     locked: false,

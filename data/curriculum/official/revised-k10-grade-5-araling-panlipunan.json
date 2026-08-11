@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-5-araling-panlipunan",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Araling Panlipunan CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Araling%20Panlipunan%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf",
+    "sha256": "7b643c05dbac653b229416aa19d3d14d1f2b7baadb93c64a66c762e45ef91490",
+    "byteSize": 3220970,
+    "pageCount": 76,
+    "pagesUsed": {
+      "from": 22,
+      "to": 29
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 5",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 5",
+    "code": "ARALING-PANLIPUNAN5",
+    "name": "Araling Panlipunan",
+    "description": "Official Grade 5 Araling Panlipunan competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 22,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 24,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 26,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 29,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "A. Pagbuo ng Pangkasaysayang Pananaw",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "B. Pinagmulan ng Pilipinas at ng Sinaunang Pilipino",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "C. Pinagmulan ng Sinaunang Tao sa Pilipinas",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "D. Interaksiyon ng Tao, Lipunan, at Kapaligiran",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "E. Pangkapaligiran at Kalidad ng Pamumuhay ng Tao",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "A. Pagkakatulad, Pagkakaiba, at Pagkakaugnay-ugnay ng Kalinangan",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "B. Paglaganap at Katuruan ng Islam sa Pilipinas at ang Sultanato",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "C. Ugnayan ng Sinaunang Bayang Pilipino sa Ilang Piling bansa sa Asya",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "A. Pagbabagong Pananaw ng Pamamahala",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "B. Mga Paraan ng Espanya sa Pagsasailalim sa Lipunang Pilipino",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "C. Mga Patakarang Kolonyal na Ipinatupad ng Espanya sa Bansa",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "D. Pag-aangkop ng Bayan sa Kulturang Espanyol",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "E. Pagbabagong Pananaw at Pagtugon ng mga Pilipino sa Kolonyalismong Espanyol",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "F. Pagtatanggol ng mga katutubong Pilipino laban sa Kolonyalismong Espanyol",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "A. Pagbubuo ng Kamalayang Nasyonalismong Pilipino",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "B. Kilusang Propaganda",
+      "sortOrder": 16
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang pag-aaral ng kasaysayan at mga batayan nito",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga pamamaraan at pananaw ng kasaysayan",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natutukoy ang pinagmulan ng Pilipinas batay sa agham, kaalamang bayan, at relihiyon",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang pinagmulan ng sinaunang tao sa Pilipinas batay sa agham at kaalamang bayan",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang kaugnayan ng lokasyon sa paghubog ng kasaysayan.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga sinaunang bayang Pilipino batay sa organisasyong panlipunan, pang-ekonomiya, at pampolitika",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-1:item-7",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang ginampanan ng kababaihan sa pagbuo ng kalinangan ng sinaunang Pilipino",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang konsepto ng kalinangan at uri nito",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga paniniwala, relihiyon, at tradisyon ng sinaunang bayang Pilipino",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-2:item-3",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natatalakay ang iba’t ibang uri ng sinaunang sining, pagpapalamuti at arkitektura ng mga Pilipino",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-2:item-4",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Natatalakay ang pagdating at paglaganap ng Islam",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-2:item-5",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga katuruan ng Islam at pamahalaang sultanato",
+      "sourcePage": 24,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-2:item-6",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang ugnayan ng sinaunang bayang Pilipino sa ilang piling bansa sa Asya",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-3:item-1",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang kahulugan at mga dahilan ng kolonisasyon",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-3:item-2",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga paraan sa pagsasailalim sa lipunang Pilipino",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-3:item-3",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga patakarang kolonyal na ipinatupad ng Espanya sa bansa",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-3:item-4",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga paraan ng pag-aangkop at pagtugon ng mga Pilipino sa kolonyalismong Espanyol",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-3:item-5",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Natatalakay ang katayuan ng kababaihan sa panahon ng kolonyalismong Espanyol",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-3:item-6",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga pagpupunyagi, kinahinatnan, at implikasyon ng pagtatanggol ng mga katutubong pangkat kababaihan, at iba pang sektor na mapanatili ang kalayaan sa kolonyalismo",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-4:item-1",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nasusuri ang konsepto ng nasyonalismo",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-4:item-2",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang pagbabagong dulot ng kaisipang liberal sa pag-usbong ng nasyonalismo",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-4:item-3",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang ambag ng panggitnang uri sa pag-usbong ng nasyonalismong Pilipino",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-4:item-4",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang kilusan para sa sekularisasyon at Pilipinisasyon ng mga Parokya",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-4:item-5",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga idinulot ng Cavite Mutiny at paggarote sa GOMBURZA sa pag-usbong ng nasyonalismong Pilipino",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-4:item-6",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mga layunin ng pagkakatatag ng Kilusang Propaganda",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-araling-panlipunan:period-4:item-7",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nasusuri ang papel na ginampanan ng Kilusang Propaganda sa pag-usbong ng nasyonalismo",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "99d36e496224aebdec24c8d21025697b56290510a798bf510ee39b9a744f1382"
+  }
+}

@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-aesthetic-services-beauty-care",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Aesthetic Services / Beauty Care",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1tSFjuuxc_y4wbDsR5YxuwW_Oyu9M8294/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Aesthetic-Services-Beauty-Care.pdf",
+    "fileId": "1tSFjuuxc_y4wbDsR5YxuwW_Oyu9M8294",
+    "sha256": "ab63165bd44a842d965c2c600afe9a4bea2cef8540b03312c4d960b74cc00f0f",
+    "byteSize": 405421,
+    "pageCount": 12,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "AESTHETIC-SERVICES11",
+    "name": "Aesthetic Services / Beauty Care",
+    "description": "Official Grade 11 Aesthetic Services / Beauty Care competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Introduction to Beauty Care Services",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Introduction to Nail Care Services",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Safety and Hygiene Practices for Nail Care Services",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Nail Care Procedures",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Introduction to Skincare Services",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Skincare Tools, Equipment, and Products Used",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Skincare Procedures",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Skincare Services",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Introduction to Makeup Services",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Makeup Tools, Equipment, Cosmetic Products, and Consumables",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Types of Makeup and Services",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Introduction to Basic Hairstyling",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Tools, Equipment Accessories, and Consumables in Hairstyling",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Hair Preparation Techniques-Draping the client before hairstyling-Hair cleansing and drying Types of Hair shampoo and Conditioning Hair blacking",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Hairstyling Techniques-Thermal hairstyling-Non-thermal hairstyling",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Hairstyling Services-Event/setting",
+      "sortOrder": 17
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss principles of beauty care services",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss beauty care services",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Explain the importance of understanding the nail anatomy",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss the importance of safety and hygiene practices",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform spa and nail care procedures following industry standards",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss skincare concepts and safety considerations for skincare services",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss tools, equipment, and products used in skincare services",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Explain the different skincare procedures",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-2:item-4",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform basic skincare procedures by following safety industry standards",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-3:item-1",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss key concepts of makeup services",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-3:item-2",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the functions of makeup products, tools, and equipment",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-3:item-3",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Demonstrate makeup application techniques following safety guidelines in makeup services",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-4:item-1",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the of basic hairstyling",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-4:item-2",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explain the function and use of hairstyling tools equipment, accessories, and consumables",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-4:item-3",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss the preparation techniques for hairstyling services",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-4:item-4",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform hairstyling techniques",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-aesthetic-services-beauty-care:period-4:item-5",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Discuss the different hairstyling services according to client needs.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "a78a3e43282a0a97a8e8c3b72830c12368d02e67e3425af6d8e73742ce255552"
+  }
+}

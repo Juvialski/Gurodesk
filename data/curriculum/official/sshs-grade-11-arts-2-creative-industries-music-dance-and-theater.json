@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Arts 2 - Creative Industries: Music, Dance and Theater",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1qFYHnodJzY92CVxfQnB9qIy_bt_urqlg/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Arts-2-Creative-Industries-Music-Dance-and-Theater.pdf",
+    "fileId": "1qFYHnodJzY92CVxfQnB9qIy_bt_urqlg",
+    "sha256": "c905c676267f31d5163df721a184535b439a8f04f7bae42dc7f36d9946d9a5f4",
+    "byteSize": 422567,
+    "pageCount": 11,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "ARTS-2-CREATIVE-IN11",
+    "name": "Arts 2 - Creative Industries: Music, Dance and Theater",
+    "description": "Official Grade 11 Arts 2 - Creative Industries: Music, Dance and Theater competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Philippine Creative Industries",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Policies Governing Creative Industries",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Industry Mapping",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Elements of Artistic Expression",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Safety Protocols and Procedures in Respective Disciplines",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Integration of Artistic Expression in Music, Dance, and Theater Arts",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Art Criticism",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Performing Arts Markets",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Types of Short-Length Live Production",
+      "sortOrder": 9
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the history and development of the Philippine creative industries and their impact on society and daily life",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain the relevance and implications of prevailing creative industry laws and other legal matters on art production",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "conduct industry mapping for a specific creative sector (music, dance, and theater arts) to represent the roles, relationships, and interdependencies of key players within the industry",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "analyze how the elements of artistic expression interact and contribute to the overall impact of mounting a performance",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "examine potential safety hazards and risks associated with the practices and processes of the performing arts to evaluate the effectiveness of different safety protocols in mitigating those risks",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "create a performance routine that integrates elements, differentiated skills, and techniques from a chosen arts discipline, demonstrating originality and artistic expression",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "construct a review of a music/dance/theater performance",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze the impact of various performing arts market trends on career opportunities and entrepreneurial pathways in the arts",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "stage a collaborative mini-production that communicates a message or purpose to a defined audience",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "6866ca1e65f8dee1dd9a540238ad1439950201827421dd96e67008c6fd8b0e55"
+  }
+}

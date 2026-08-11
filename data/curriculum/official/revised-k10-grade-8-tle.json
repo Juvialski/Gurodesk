@@ -1,0 +1,801 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-8-tle",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG EPP_TLE CG 2023 Grades 4 - 10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20EPP_TLE%20CG%202023%20Grades%204%20-%2010.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+    "sha256": "c084380893d493c840baa56882af535ac41581dec7eae6d1a594ed71c428ce90",
+    "byteSize": 2647383,
+    "pageCount": 184,
+    "pagesUsed": {
+      "from": 80,
+      "to": 93
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 8",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 8",
+    "code": "TLE8",
+    "name": "TLE",
+    "description": "Official Grade 8 TLE competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 80,
+      "sourceLabel": "Quarter I"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 82,
+      "sourceLabel": "Quarter II"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 88,
+      "sourceLabel": "Quarter III"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 91,
+      "sourceLabel": "Quarter IV"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "ICT as a Tool in Online Marketing",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Digital Citizenship",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "ICT-Related Legal Bases",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Tools and Equipment in ICT",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Software Applications",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Graphic Design Software",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Video Editing",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Aquaculture and Fisheries",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Career and Business Opportunities",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Phases of Fish Culture",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Classification of Fish According to their Habitat",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Republic Act 10654 An act to prevent, deter and eliminate illegal, unreported, and unregulated fishing, amending Republic Act No 8550, otherwise known as \"The Philippine Fisheries",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Species of Fish in the Philippines",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Occupational Hazards in Fisheries",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Advantages and Disadvantages of Organic Aquaculture",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Aquaculture Methods and Practices",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Tools and Equipment Used in Aquaculture",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Fishing Gears Used for Catching Fish",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Basic Fishing Bait Methods",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Post-Harvest Handling Activities",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Importance of Food Processing Career and Business Opportunities",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Classifications of Ingredients Used in Food Processing",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Ingredients Used for Food Processing",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Tools and Equipment in Food Processing",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "functions and uses of basic tools and equipment",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Packaging and Labelling of Food Products",
+      "sortOrder": 26
+    },
+    {
+      "code": "D27",
+      "name": "General",
+      "sortOrder": 27
+    },
+    {
+      "code": "D28",
+      "name": "Working Drawings and Signs and Symbols",
+      "sortOrder": 28
+    },
+    {
+      "code": "D29",
+      "name": "Types of Manuals",
+      "sortOrder": 29
+    },
+    {
+      "code": "D30",
+      "name": "Component Parts",
+      "sortOrder": 30
+    },
+    {
+      "code": "D31",
+      "name": "Diagnostics and Troubleshooting in Industrial Arts Services",
+      "sortOrder": 31
+    },
+    {
+      "code": "D32",
+      "name": "Service Cost",
+      "sortOrder": 32
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-8-tle:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "assess ICT as tools for online marketing",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discuss current events reflecting on their own digital citizenship",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "distinguish ICT-related legal bases and their consequences",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "familiarize themselves with the tools and equipment in ICT",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "familiarize themselves with appropriate software applications for specific tasks",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "utilize graphic design tools for graphic production",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "utilize video editing tools with multimedia materials",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-1",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the background of aquaculture and its relation to fisheries",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-2",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discuss career and business opportunities related to fisheries",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-3",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss the phases of fish culture",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-4",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "identify common fishes according to their habitat",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-5",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "familiarize themselves with sections of RA. 10654",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-6",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "discuss fish species in the Philippines",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-7",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "discuss Occupational Safety and Health (OSH) hazards in fisheries",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-8",
+      "quarter": 2,
+      "domain": "D15",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "discuss advantages and disadvantages of organic aquaculture",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-9",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify different aquaculture methods and selected practices",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-10",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "determine the area and depth requirement of aquaculture facilities",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-11",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "discuss the uses of tools and equipment in aquaculture",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-12",
+      "quarter": 2,
+      "domain": "D18",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "identify fishing gears used for catching fish",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-13",
+      "quarter": 2,
+      "domain": "D18",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "create a simple hand line following safety precautions",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-14",
+      "quarter": 2,
+      "domain": "D19",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "discuss basic fishing bait methods",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-15",
+      "quarter": 2,
+      "domain": "D20",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "discuss post-harvest handling activities",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-16",
+      "quarter": 2,
+      "domain": "D20",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "perform sorting, grading, and storing of fishes following safety precautions",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-17",
+      "quarter": 2,
+      "domain": "D21",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "discuss the importance of food processing",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-18",
+      "quarter": 2,
+      "domain": "D21",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "discuss opportunities for food processing as a career and as a business",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-19",
+      "quarter": 2,
+      "domain": "D22",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "discuss different raw materials used in food processing",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-20",
+      "quarter": 2,
+      "domain": "D23",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "explain the ingredients used for food processing",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-21",
+      "quarter": 2,
+      "domain": "D23",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "discuss different methods in food processing following industry standards",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-22",
+      "quarter": 2,
+      "domain": "D24",
+      "sortOrder": 22,
+      "competencyCode": null,
+      "text": "discuss different tools and equipment, uses, and maintenance in food processing",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-23",
+      "quarter": 2,
+      "domain": "D25",
+      "sortOrder": 23,
+      "competencyCode": null,
+      "text": "perform quantification procedures in processing food",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-24",
+      "quarter": 2,
+      "domain": "D26",
+      "sortOrder": 24,
+      "competencyCode": null,
+      "text": "discuss different packaging materials used in food processing",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-2:item-25",
+      "quarter": 2,
+      "domain": "D26",
+      "sortOrder": 25,
+      "competencyCode": null,
+      "text": "develop sample label design for processed food products",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-1",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the concepts of beauty care and wellness services",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-2",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify the structures of nail, skin, and hair",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-3",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify career and business opportunities in beauty care and wellness services",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-4",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "discuss the legal basis in beauty care and wellness services",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-5",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "identify trends, issues, and challenges in beauty care and wellness services",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-6",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "identify tools, implements, materials, and equipment in beauty care and wellness services",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-7",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "discuss sanitation and maintenance in the workplace, tools, implements, materials, and equipment",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-8",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "discuss the Occupational Safety and Health (OSH) practices in beauty care and wellness services",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-9",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "perform hand spa services following safety precautions",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-10",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "discuss the concepts in making garments",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-11",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "identify supplies and materials used for making garments",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-12",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "apply the principles of pattern drafting in making garments following safety precautions",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-13",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "discuss the concepts in making handicrafts",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-14",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "identify supplies and materials used for making handicrafts",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-3:item-15",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "apply the principles in making handicrafts following safety precautions",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-4:item-1",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain signs and symbols for construction services, electrical services, electronics services, and automotive and small engine services",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-4:item-2",
+      "quarter": 4,
+      "domain": "D29",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "discuss the types of manuals used in industrial arts services",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-4:item-3",
+      "quarter": 4,
+      "domain": "D29",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "discuss the consumables in industrial arts services",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-4:item-4",
+      "quarter": 4,
+      "domain": "D30",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "discuss the component parts of industrial arts services",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-4:item-5",
+      "quarter": 4,
+      "domain": "D31",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "discuss simple diagnostics in industrial arts services",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-4:item-6",
+      "quarter": 4,
+      "domain": "D31",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "perform simple troubleshooting in industrial arts services",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:period-4:item-7",
+      "quarter": 4,
+      "domain": "D32",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "discuss repair service cost in industrial arts",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "e9551ff8e9262d63e0b4dd23b7167e1b5daa164b67542cbfc91c9715b343842b"
+  }
+}

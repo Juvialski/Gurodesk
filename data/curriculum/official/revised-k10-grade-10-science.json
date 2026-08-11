@@ -1,0 +1,564 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-10-science",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Science CG 2023 Grades 3-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Science%20CG%202023%20Grades%203-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+    "sha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+    "byteSize": 1436380,
+    "pageCount": 72,
+    "pagesUsed": {
+      "from": 61,
+      "to": 67
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 10",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 10",
+    "code": "SCIENCE10",
+    "name": "Science",
+    "description": "Official Grade 10 Science competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 61,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 63,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 65,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 67,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Plate Tectonics",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Projectile motion",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Chemical reactions",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Homeostasis",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "identify modern scientific processes used to detect and measure the displacement of tectonic plates;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe the structures, movements and events that occur at each type of plate boundary;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify the locations of major mountains, faults, volcanos, and ocean trenches using a map of the Philippine Archipelago, and interpret the features in relation to plate tectonics;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "predict the position and shape of the Philippine Archipelago in 50 million years, based on the current velocity of the Philippine Plate;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "gather information from secondary sources to describe and explain what mechanisms that drive the movement of tectonic plates including the role of the asthenosphere;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explain how the subduction of an oceanic plate impacts on the plate above it;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain how plate tectonics can be used to explain the formation of the largest mountain ranges on Earth including the Himalayas and the Andes mountains;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify evidence of global warming and climate change;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify the role of greenhouse gases in enhanced global warming and climate change;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe how global climatic phenomena, such as the El Niño Southern Oscillation, may impact weather systems;",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "identify local impacts of global climate change and suggest ways that individuals can do to reduce the impact of global warming; and",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-1:item-12",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "explain how increased societal uses of renewable energies could mitigate the effects of global climate change, including how the Philippines could make better use of its plentiful natural resources.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "investigate and describe the relationship among the projectile variables including the angle and velocity of release, and projectile height and range, using everyday activities such as shooting basketballs or kicking footballs;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "describe different types of collisions as elastic or inelastic by providing some examples;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use models to investigate elastic or inelastic collisions and describe the forces involved and their effects;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain that momentum depends on the mass and the velocity of a moving object that can be used to predict the impact the object will have if it hits another object;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "carry out guided investigations using different objects to describe momentum-related relationships, such as the more momentum an object has, the harder for it to stop;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "identify and explain that to change the momentum of an object, it is necessary to apply a force on the object over a period of time;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "gather information from secondary sources to identify ways to reduce the impact of collisions such as seatbelts, airbags, and crumple zones in vehicles;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "identify that momentum is conserved before and after the collision of objects;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "describe how high voltage electricity from power plants is generated and safely distributed to industries, businesses, and homes, including the role of substations (grid stations), and electric meters;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe and explain the need for safety precautions in handling household electrical devices;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-11",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "describe the similarities and differences between electric motors and electric generators;",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-12",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "collaborate in a class discussion to identify ways to reduce the use of electrical energy in Filipino houses and communities and explain what local and global benefits can be achieved; and",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-2:item-13",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "gather information from secondary sources to evaluate how renewable and non-renewable generation of electricity in the Philippines impacts human activities and the environment.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe the indicators for a chemical reaction as color change, the formation of a precipitate, the release of gas, and or odor, or a change in temperature;",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify common acids, bases, and salts (e.g., hydrochloric acid, sodium hydroxide, and saline solution) using different indicators;",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe important types of chemical reactions (combination, decomposition, single replacement, double replacement);",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain how important types of chemical reactions, such as combustion, acids on metals, acids on carbonates, photosynthesis, and respiration, relate to or impact the natural and built environments using information from secondary sources;",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-5",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "recognize that scientists: a. use chemical equations to describe chemical reactions, and b. write equations in word form and using formula for common chemical reactions;",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-6",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explain that chemical equations demonstrate a rearrangement of atoms but the total mass of the system remains the same during a chemical reaction;",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-7",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "apply the principles of conservation of mass to balance chemical equations;",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-8",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain the factors affecting the rates of chemical reactions as applied in food preservation and materials production, control of fire, pollution, and corrosion; and",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-3:item-9",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "identify that chemical reactions may be exothermic or endothermic",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-1",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe homeostasis as a state of balance among all the body systems in humans that needs to be maintained for survival and proper functioning; its indicators include body temperature, glucose level, and blood pressure;",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain how homeostasis is maintained through various feedback mechanisms, both positive and negative;",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-3",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use information from secondary sources to describe natural selection as the primary mechanism driving evolutionary change;",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-4",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "discuss in small groups important concepts in the theories of evolution, such as variation, heredity, isolation, selection, and adaptation;",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-5",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "use information from secondary sources to explain how lines of evidence, such as fossils, biogeography, and comparative morphology, support the occurrence of evolution;",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "explain the term biotechnology and provide examples;",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "use information from secondary sources to identify the products of traditional biotechnology through fermentation (e.g. cheese, soy sauce, vinegar, nata de coco);",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "use information from secondary sources to identify examples of modern biotechnology, such as genetically modified organisms and processes (e.g. in vitro fertilization);",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "participate in a class debate on the societal, environmental, and ethical implications of using biotechnological products and methods;",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "discuss the factors that limit the ecosystem’s carrying capacity, such as adequate food, shelter, water, and mates; and",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:period-4:item-11",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "explain that the ecosystem’s population growth slows down as it gets closer to the carrying capacity.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "624bad6bc637c4a8c903e340873cf1178b8e18f3feba634cd03c1205fa9b4e46"
+  }
+}

@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-chemistry-3",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Chemistry 3",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1C8m5YtFqluYhj5rPp_311abINxdFPBhy/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Chemistry 3.pdf",
+    "fileId": "1C8m5YtFqluYhj5rPp_311abINxdFPBhy",
+    "sha256": "85ca8109ef84d038c73a398b5a03de926164f5f47e56631c6960805e8de4c92e",
+    "byteSize": 341901,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 3,
+      "to": 6
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "CHEMISTRY-312",
+    "name": "Chemistry 3",
+    "description": "Official Grade 12 Chemistry 3 competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 3,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Strength and Concentration of Acids and Bases",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Acid-Base Titrations",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Buffer Systems",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Chemical Equilibrium",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Separation of Mixtures",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Instrumental Analysis (Colorimetry)",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Redox Reactions",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Galvanic Cells",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Electrochemical Potentials",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Electrolysis",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Applications of Electrochemistry",
+      "sortOrder": 11
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "differentiate Arrhenius, Brønsted-Lowry, and Lewis’ acid-base theories;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "calculate the pH of acids and bases commonly found at home and in the environment;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "conduct pH measurements to identify differences in the strengths of acids and bases;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe the dissociation of acids and bases in water, conjugate acid-base pairs in solution, and the amphiprotic nature of certain substances;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain the difference between strong and weak acids and bases and distinguish these from concentrated and dilute solutions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "conduct simple titration experiments and perform titrimetric calculations;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain the role of buffer systems in maintaining stability in natural environments and biological systems;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-8",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "differentiate static and dynamic equilibrium and relate equilibrium to closed chemical systems;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-9",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain the reversibility of chemical reactions using real-life examples such as the dissolution and release of carbon dioxide in water, the formation and decomposition of calcium carbonate in limestone, and the Haber-Bosch process for ammonia synthesis;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-10",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "use equilibrium constant expressions (Kc) to calculate the concentrations of reactants and products at chemical equilibrium and determine the extent and direction of a chemical reaction;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-11",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "conduct investigations on the effects of temperature, concentration, volume or pressure on a chemical system at equilibrium; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-12",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "analyze how reaction rates and chemical equilibrium are applied in environmental processes and industrial practices to optimize processes, reduce waste, and design sustainable solutions using Green Chemistry and systems thinking.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-13",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "differentiate common separation techniques, such as filtration, recrystallization, distillation, and chromatography based on their principles;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-14",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "conduct a laboratory activity using a separation technique and explain the results based on physical properties;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-15",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "explain the principles of colorimetry based on light absorption by substances;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-16",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "describe the relationship between absorbance and concentration using calibration curves;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-17",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "conduct a colorimetry-based investigation to determine the concentration of an unknown solution;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-18",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "use the concepts of oxidation and reduction in terms of electron transfer and oxidation numbers to analyze redox reactions;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-19",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "write half-reactions and balance overall equations to represent redox reactions;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-20",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "create diagrams of galvanic cells to identify the anode, cathode, and direction of electron flow;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-21",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "use table of standard reduction potentials to identify and compare the reduction potentials of galvanic half-cells and the reactivity of metals in aqueous solutions;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-22",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 22,
+      "competencyCode": null,
+      "text": "use cell potential values to predict the spontaneity of redox reactions;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-23",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 23,
+      "competencyCode": null,
+      "text": "conduct experiments on electrolysis processes; and",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:period-1:item-24",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 24,
+      "competencyCode": null,
+      "text": "explain electrochemistry applications in batteries, sustainable energy technologies, and corrosion control.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2fcc748bc5fa85ef9acae74330ee46cdd2767d6e5a474c3fabcabd7f180f91d8"
+  }
+}

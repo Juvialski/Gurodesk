@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-physics-2",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Physics 2",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1wsacnvmNEdTpZbOMWSBJfSk4mXMqMki-/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Physics-2.pdf",
+    "fileId": "1wsacnvmNEdTpZbOMWSBJfSk4mXMqMki-",
+    "sha256": "42fb52b273790d3c8f4d527cc4310e182fef6fb16e642b3abb463eb518122657",
+    "byteSize": 187145,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "PHYSICS-211",
+    "name": "Physics 2",
+    "description": "Official Grade 11 Physics 2 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Gravity",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Fluid mechanics",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Heat in Systems",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Thermodynamic processes and Laws of Thermodynamics",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-physics-2:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use Newton’s universal gravitation equation to determine the force of gravity between two objects, including between nearby objects, and between planets and satellites;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "calculate gravitational potential energy in various contexts, such as near-Earth objects, satellites, and planets;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "identify everyday situations that involve fluids in natural situations, and which make use of fluids in practical applications;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe the properties of fluids, including density, viscosity, pressure, surface tension, and compressibility;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain how the output force in a hydraulic system is influenced by the difference in cross-sectional areas of the connected components;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-4:item-1",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "recall the methods of heat transfer and their applications, such as in cooking, building insulation, and thermal clothing;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-4:item-2",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain how temperature is measured in various contexts, such as body temperature, air temperature, and apparent temperature (heat index);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-4:item-3",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use a table to explain how the nature of heat facilitates the movement of energy in environmental systems, body systems, chemical systems, and technological systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-4:item-4",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "calculate the amount of heat needed for temperature change and phase change of various substances;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-4:item-5",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "quantitively investigate the factors affecting compression and expansion of solids due to a change in temperature;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-4:item-6",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "use information from secondary sources to describe thermodynamic processes in engines and refrigeration systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-4:item-7",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe and explain the factors affecting the efficiency of engines, such as working cycle, friction, and material limitations; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:period-4:item-8",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "use the laws of thermodynamics to describe how different sustainable energy technologies work.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "121f37bd64bfd40a6635acfc18024de8f26ab5cbbba85b0f7d45ea73172664b2"
+  }
+}

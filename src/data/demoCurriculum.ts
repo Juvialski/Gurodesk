@@ -1,4 +1,4 @@
-import manifest from '../../data/curriculum/matatag-grade7-mathematics.json'
+import manifest from '../../data/curriculum/official/revised-k10-grade-7-mathematics.json'
 import type { CurriculumNavigatorBundle } from '../types/curriculum'
 
 const source = {
@@ -47,7 +47,13 @@ const domains = manifest.domains.map((domain) => ({
 const periodIdByQuarter = Object.fromEntries(periods.map((period) => [period.sequence, period.id]))
 const domainIdByCode = Object.fromEntries(domains.map((domain) => [domain.code, domain.id]))
 
-const standards = manifest.performanceStandards.map((standard) => ({
+const performanceStandards = manifest.performanceStandards as Array<{
+  quarter: number
+  text: string
+  sourcePage: number
+}>
+
+const standards = performanceStandards.map((standard) => ({
   id: `std-${manifest.subject.code.toLowerCase()}-q${standard.quarter}-performance`,
   standardType: 'performance' as const,
   standardText: standard.text,
@@ -80,7 +86,7 @@ const bundle: CurriculumNavigatorBundle = {
   competencies,
   source,
   coverageNote:
-    'Demo mode includes the complete Grade 7 Mathematics competency set from the verified official MATATAG curriculum guide. Other grades and learning areas remain intentionally unavailable until their source manifests are verified and imported.',
+    'Demo mode intentionally includes one verified Grade 7 Mathematics pack. Supabase mode exposes the complete official curriculum pack after the aggregate seed is imported.',
 }
 
 export function getDemoCurriculumBundle(
@@ -109,6 +115,6 @@ export function getDemoCurriculumBundle(
     competencies: [],
     source: null,
     coverageNote:
-      'This assignment does not have a verified demo curriculum manifest yet. Supabase mode will show it once an official source has been reviewed and imported.',
+      'This assignment is outside the intentionally small demo fixture. Supabase mode exposes it after the complete official curriculum seed is imported.',
   }
 }

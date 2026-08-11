@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-creative-production-and-presentation",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Creative Production and Presentation",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1GSjS7KIllShguC73CgOdT2e4E2LSCCbE/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Creative Production and Presentation.pdf",
+    "fileId": "1GSjS7KIllShguC73CgOdT2e4E2LSCCbE",
+    "sha256": "80e76b134b22beac4bc8c6fd065d87259de7e4a22c3382cef3a537b1dbd75cd7",
+    "byteSize": 436135,
+    "pageCount": 16,
+    "pagesUsed": {
+      "from": 3,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "CREATIVE-PRODUCTIO12",
+    "name": "Creative Production and Presentation",
+    "description": "Official Grade 12 Creative Production and Presentation competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 3,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Creative Research and Concept Development",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Collaborative Planning and Design",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Creative Execution and Iteration",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Documentation and Portfolio Development (Integrated Across Phases)",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Critical Evaluation and Reflection",
+      "sortOrder": 5
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-creative-production-and-presentation:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "propose discipline-specific creative productions grounded in artistic research and cultural contexts;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-creative-production-and-presentation:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "plan collaborative andcreative productions using industry-based processes within their chosen art forms;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-creative-production-and-presentation:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "execute discipline-specific creative productions using appropriate artistic, technical, and technological processes;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-creative-production-and-presentation:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "present discipline-specific creative works for public engagement following professional standards;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-creative-production-and-presentation:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "document the creative production process and outputs using industry-standard formats within the chosen discipline; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-creative-production-and-presentation:period-1:item-6",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "evaluate discipline-specific creative productions through critique and reflective analyses.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "d6b14b0cf496530ff608aa99d5232fa9dff8b20ac318a0f4e8b76adde8cb2efd"
+  }
+}

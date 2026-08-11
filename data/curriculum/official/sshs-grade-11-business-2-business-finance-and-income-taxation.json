@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-business-2-business-finance-and-income-taxation",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Business 2 - Business Finance and Income Taxation",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1g2h_IteBo1XQnxsAXmFsSjH7dL8roNob/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Business-2-Business-Finance-and-Income-Taxation.pdf",
+    "fileId": "1g2h_IteBo1XQnxsAXmFsSjH7dL8roNob",
+    "sha256": "3c09bb19b355b3acfd93280a145258fc6761cd4e178660bf7eb5010732008cb6",
+    "byteSize": 328660,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "BUSINESS-2-BUSINES11",
+    "name": "Business 2 - Business Finance and Income Taxation",
+    "description": "Official Grade 11 Business 2 - Business Finance and Income Taxation competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Introduction to Financial Management",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Financial System",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Financial Planning Tools and Concepts",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Sources and Uses of Short-Term and Long-Term Funds Types of Investments",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Measuring and Managing Investment Risks",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Managing Personal Finance",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Principles of Income and Business Taxation",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Types of Taxes in the Philippine Setting",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Certificate of Compensation Payment/Tax Withheld (2316 BIR Form)",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Taxes",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Ethical Considerations in Taxation",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Compute Tax Adherent to the Current National Internal Revenue Code (NIRC) Tax Code",
+      "sortOrder": 12
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the functions of finance and financial management",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the components of the financial system including the financial markets, institutions, instruments, and regulating bodies",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Evaluate the different tools for managing cash in both the traditional and cashless economy, receivables, and inventory",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Evaluate short-term and long-term acquisitions",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Examine ethical issues in the financial management process",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Evaluate the key factors influencing the potential returns, profitability, and risk associated with various investments",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-7",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Calculate the internal rate of return, future value, net present value of money, and payback period of a given investment",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-8",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Apply the tools and techniques used to reduce or minimize investment risks",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-1:item-9",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Apply the financial management cycle to personal practices such as earning, budgeting, savings, spending, investing, or protecting money",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the principles and purpose of taxation",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "differentiate the types of taxes",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-2:item-3",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "articulate the significance of 2316 BIR form",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-2:item-4",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "discuss the applicable taxes for individual and business enterprises",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-2:item-5",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "discuss the ethical considerations in taxation for individual and business enterprises",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:period-2:item-6",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "compute tax for individual and business enterprises",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2371219e519bff40c1eb7676bc6ac4dadfa0c53aa27d65dbcb87343edbf54d06"
+  }
+}

@@ -230,6 +230,10 @@
 .assessment-visual-editor-actions .button { min-height:40px; font-size:9px; }
 .assessment-visual-editor-actions .button.danger { color:#a44842; }
 .assessment-visual-error { color:#a44842; font-size:9px; line-height:1.45; }
+.assessment-visual-plan-status { display:grid; gap:3px; margin:0 0 10px; padding:9px 11px; border:1px solid #d8e4ef; border-radius:8px; background:#f7fbff; color:#4b6074; font-size:9px; line-height:1.4; }
+.assessment-visual-plan-status strong { color:#244d72; text-transform:capitalize; }
+.assessment-visual-plan-status small,.assessment-visual-plan-status.status-failed { color:#9b4742; }
+.assessment-visual-plan-status.status-stale { border-color:#e6c57d; background:#fffaf0; }
 .assessment-diagram { display:block; width:100%; max-width:600px; height:auto; max-height:340px; margin:1px auto 5px; overflow:visible; }
 .assessment-suggestion-visual { max-width:420px; max-height:220px; margin:8px 0 10px; }
 .assessment-document-question-visual { grid-column:2; max-width:330px; max-height:220px; margin:3px 0 10px; }
@@ -283,3 +287,35 @@
 .assessment-document-choices { display:grid; gap:4px; margin-left:0; }
 .assessment-document-choice-row { display:flex; align-items:flex-start; gap:5px; }
 .assessment-document-choice-label { flex:0 0 16px; font-weight:600; }
+
+/* Canonical assessment-paper header shared semantically with PDF/DOCX. */
+.assessment-document-continuation { display:none; }
+.assessment-document-identity { display:grid; justify-items:center; gap:2px; margin-bottom:9px; color:#202a33; font-size:8.5px; line-height:1.25; }
+.assessment-document-identity span { display:block; }
+.assessment-document-identity-department,.assessment-document-identity-school { font-weight:800; }
+.assessment-document-identity-department { font-size:9px; }
+.assessment-document-meta-table { display:grid; width:100%; margin-top:13px; border:1px solid #cbd2d9; text-align:left; }
+.assessment-document-meta-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.assessment-document-meta-row:last-child { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.assessment-document-answer_key .assessment-document-meta-row:last-child { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.assessment-document-meta-row + .assessment-document-meta-row { border-top:1px solid #d8dde2; }
+.assessment-document-meta-row > span { min-width:0; padding:6px 8px; color:#354451; font-size:8.8px; line-height:1.35; }
+.assessment-document-meta-row > span + span { border-left:1px solid #d8dde2; }
+.assessment-document-question-visual-large { width:min(100%,390px); max-width:390px; max-height:250px; }
+
+@media (max-width:680px) {
+  .assessment-document-meta-row,.assessment-document-meta-row:last-child,.assessment-document-answer_key .assessment-document-meta-row:last-child { grid-template-columns:1fr; }
+  .assessment-document-meta-row > span + span { border-top:1px solid #e4e8ec; border-left:0; }
+  .assessment-document-question-visual-large { max-width:100%; max-height:240px; }
+}
+
+@media print {
+  @page { margin:18mm 10mm 12mm; }
+  .assessment-document-continuation { position:fixed; z-index:0; top:-13mm; left:0; right:0; display:grid; justify-items:center; color:#222; font-size:8pt; line-height:1.25; }
+  .assessment-document-continuation span { color:#555; font-size:7.5pt; }
+  .assessment-document-header { position:relative; z-index:1; background:#fff; }
+  .assessment-document-identity { margin-bottom:2.5mm; font-size:7.5pt; }
+  .assessment-document-meta-table { margin-top:3mm; }
+  .assessment-document-meta-row > span { padding:1.7mm 2mm; font-size:7.5pt; }
+  .assessment-document-question-visual-large { width:100mm; max-width:100mm; max-height:68mm; }
+}

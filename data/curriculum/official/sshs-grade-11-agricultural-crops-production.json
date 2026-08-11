@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-agricultural-crops-production",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Agricultural Crops Production",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/169EYbp_rTyN0Ff6U7adNAX-pwy3EWNqG/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Agricultural-Crops-Production.pdf",
+    "fileId": "169EYbp_rTyN0Ff6U7adNAX-pwy3EWNqG",
+    "sha256": "17ab596658ec981c76d4771a4e02ed8fd8c03f91cf16c446e65a9cf9d08cb6c0",
+    "byteSize": 612105,
+    "pageCount": 20,
+    "pagesUsed": {
+      "from": 2,
+      "to": 11
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "AGRICULTURAL-CROPS11",
+    "name": "Agricultural Crops Production",
+    "description": "Official Grade 11 Agricultural Crops Production competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 9,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Agricultural Crops Production",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "- satellite",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Farm Tools, Implements, and Equipment",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pre-operative Checking of Tool, Implements, and Simple Equipment",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Kinds of Planting Materials",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Different Local Varieties of Crops",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Crop Requirements",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Nursery Work Operation",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Planting of Crops",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Plant Care Management Practices",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Irrigation System in Crop Production",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Fertilizer in Crops Production",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Pest and Diseases in Crops Production",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Methods of control procedure o physical o mechanical o biological o cultural o chemical o sanitation o Integrated Pest Management (IPM)",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Harvesting of Crops",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Post-Harvest Operations",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Price Monitoring",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Recordkeeping in Selling Operation",
+      "sortOrder": 18
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the overview in agricultural crops production",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the safety standards in agricultural crops production",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Classify the different farm tools, implements, and equipment according to work requirements",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform pre-operative checking of tools, farm implements and equipment in accordance with manufacturer’s manual",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Identify good quality planting materials according to kinds",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-2:item-2",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Identify varieties of crops produced in their locality",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-2:item-3",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Prepare growing media according to prescribed mixture and crop requirements",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-2:item-4",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform nursery operations according to industry standards",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-2:item-5",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform planting of crops based on enterprise protocols",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-2:item-6",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform plant care management practices",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-3:item-1",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss irrigation system in crops production",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-3:item-2",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Design irrigation system based on plant requirements",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-3:item-3",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform fertilizer application based on needed nutrients in crops production practicing Occupational Safety and Health Standards (OSHS) and Good Agricultural Practices (GAP)",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-3:item-4",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Analyze plant pests and diseases in crops production",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-3:item-5",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply prevention and control of pests and diseases in crops production",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-4:item-1",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform harvesting operations in crop production",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-4:item-2",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform post-harvest in crop production",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-4:item-3",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform selling of harvested crops in the locality",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:period-4:item-4",
+      "quarter": 4,
+      "domain": "D18",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Prepare crops production report in accordance with enterprise reporting procedures",
+      "sourcePage": 11,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "c0edc04e97ae7b62e415557a7fd27bf79feb09b304b60a0c7bc391459b63c5a5"
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-empowerment-technologies",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Empowerment Technologies",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1fx-pDWpMqKz_izH2Ge3Dw3MiMO0siiNj/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Empowerment Technologies.pdf",
+    "fileId": "1fx-pDWpMqKz_izH2Ge3Dw3MiMO0siiNj",
+    "sha256": "c3bcea312609fe19f01d07bd5b5f07eabd2862655fe574e266fe25fff89434ce",
+    "byteSize": 504913,
+    "pageCount": 14,
+    "pagesUsed": {
+      "from": 2,
+      "to": 13
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "EMPOWERMENT-TECHNO12",
+    "name": "Empowerment Technologies",
+    "description": "Official Grade 12 Empowerment Technologies competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "GREEN ICT AND SUSTAINABLE COMPUTING PRACTICES Introduction to Green ICT",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "MAINTENANCE AND OPTIMIZATION OF COMPUTER SYSTEMS Hardware Maintenance",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Digital File Management",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Data Backup and Recovery",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Security Measures",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "ADVANCED WORD PROCESSING SKILLS Advanced Formatting and Layouts",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "ADVANCED SPREADSHEET SKILLS ADVANCED SPREADSHEET FUNCTIONS Logical functions",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "ADVANCED PRESENTATION SKILLS Dynamic Visual Storytelling",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "ADVANCED EMAIL MANAGEMENT SKILLS Email Automation",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "ARTIFICIAL INTELLIGENCE Foundations of AI",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Applications of AI",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "AI Ethics and Social Implications",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "BLOCKCHAIN AND WEB3 TECHNOLOGIES Blockchain Fundamentals",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Internet of Things (IoT) Integration",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "NO-CODE AI DEVELOPMENT Introduction to No-Code AI Development",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "No Code Machine Learning Models",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "No-Code Mobile App Development with AI Integration",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "NO-CODE WEB DEVELOPMENT",
+      "sortOrder": 18
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the principles and practices of Green Information and Communications Technology (ICT) and sustainable computing.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "perform basic maintenance and optimization of computer systems.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "perform management of digital files.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform procedures in data backup and recovery.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "apply security measures to protect computer systems and data from cyber threats.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "apply advanced word processing skills in creating, formatting, and managing complex documents.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "apply advanced spreadsheet skills in analyzing, manipulating, and visualizing complex data.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-8",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "apply advanced presentation skills in creating visually engaging and interactive presentations.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-9",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "apply advanced email management skills to optimize productivity, security, and effectiveness in professional and personal contexts.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-10",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "discuss fundamental concepts of Artificial Intelligence (AI).",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-11",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "explain the applications of Artificial Intelligence (AI) in various fields and future careers.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-12",
+      "quarter": 1,
+      "domain": "D12",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "discuss AI Ethics and social implications.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-13",
+      "quarter": 1,
+      "domain": "D13",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "discuss concepts of Blockchain and Web3 Technologies.",
+      "sourcePage": 11,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-14",
+      "quarter": 1,
+      "domain": "D14",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "discuss IoT systems, concepts, components, and applications.",
+      "sourcePage": 11,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-15",
+      "quarter": 1,
+      "domain": "D15",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "discuss the concepts of No-Code AI development.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-16",
+      "quarter": 1,
+      "domain": "D16",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "develop machine learning models using no-code machine learning platforms.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-17",
+      "quarter": 1,
+      "domain": "D17",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "develop AI-integrated mobile applications using no-code platforms.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-18",
+      "quarter": 1,
+      "domain": "D18",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "develop functional websites using no-code web development tools to create an online platform for business ideas.",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "f960d2996b167c4ee7261d96f14111830323ba766cb78efa1faaabb6034ff7c1"
+  }
+}

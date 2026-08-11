@@ -1,0 +1,614 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-mabisang-komunikasyon",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Mabisang Komunikasyon",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1cfDXglHpZ81wkj0KAjiVvf2KWL9c8A4V/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "MABISANG-KOMUNIKASYON-a_o-JUN-9.pdf",
+    "fileId": "1cfDXglHpZ81wkj0KAjiVvf2KWL9c8A4V",
+    "sha256": "1f9120efeaf6f9e1173195900477936ab2f3911c1da8a9ec3f1ff216932499e1",
+    "byteSize": 348099,
+    "pageCount": 10,
+    "pagesUsed": {
+      "from": 4,
+      "to": 10
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "MABISANG-KOMUNIKAS11",
+    "name": "Mabisang Komunikasyon",
+    "description": "Official Grade 11 Mabisang Komunikasyon competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 8,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 9,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Pagbibigay-kahulugan sa mga tekstong pasalita, pasulat, at multimodal at kung paano ito hinuhubog ng awdyens, layon, at konteksto",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Mabisang pakikilahok sa interaktibong komunikasyon gamit ang angkop na berbal at di-berbal na mga estratehiya",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Malinaw at maayos na pagpapahayag ng mga ideya sa anyong pasalita, pasulat, at multimodal para sa tiyak na layon, awdyens, at konteksto",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pagninilay sa mga proseso ng pagbibigay-kahulugan, pakikilahok, at pagpapahayag sa personal at interpersonal na komunikasyon",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "kultural, mga kaugalian, at panlipunang pamantayan at dinamika",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "kultura",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "multimodal para sa tiyak na layon, awdyens, at konteksto",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Pagninilay sa mga proseso ng pagbibigay-kahulugan, pakikilahok, at pagpapahayag sa komunikasyong sosyal at kultural",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "hinuhubog ng awdyens, layon, at konteksto",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Mabisang pakikilahok sa interaktibong komunikasyon sa kontekstong akademiko at pampagsasanay",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "awdyens, at konteksto",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "pampagsasanay",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Mabisang pakikilahok sa interaktibong komunikasyon sa kontekstong pantrabaho at propesyonal",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "pantrabaho",
+      "sortOrder": 14
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy kung paano ginagamit nang may layunin ang wika at tono sa pagtalakay ng iba’t ibang personal at interpersonal na paksa",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nahihinuha ang mga pangunahing idea mula sa mga tekstong pasalita, pasulat, at multimodal (hal. naitala at aktuwal na personal na interaksyon)",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang nilalaman at layunin ng personal at interpersonal na komunikasyon, gaya ng pag-uusap at korespondensiya",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakagagamit ng angkop na wika, tono, at estruktura ayon sa awdyens, layon at konteksto sa pagtalakay ng iba’t ibang personal at interpersonal na paksa",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakagagamit ng magagalang na pananalita at mga estratehiya sa pagpapadaloy ng usapan (hal. pagpapasimula ng paksa, pagpapalit o pagkontrol ng daloy ng usapan, turn-taking, pagbibigay ng kumpirmasyon o back-channeling, pagbibigay ng tugon, at pagtatapos ng usapan)",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakagagamit ng angkop na di-berbal na mga estratehiya upang mapahusay ang kalidad ng komunikasyong personal at interpersonal",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maayos na personal at interpersonal na komunikasyon na nagpapakita ng malinaw na layunin at pag-unawa sa awdyens (hal. pagtatanong, pagkukwento, paglalahad ng obserbasyon, pagsasalaysay ng karanasan, o pagpapahayag ng opinyon)",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-8",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakalalahok sa komunikasyong intrapersonal (hal. pagsulat ng talaarawan o dyornal, pagbuo ng social media profile) upang mapagnilayan ang mga natutuhan at karanasan, makapagtakda ng layunin, at makagawa ng online na presensiya habang pinoprotektahan ang mga pribadong datos",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-9",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nakagagamit ng angkop at mabisang wika at estruktura (hal. paggamit ng mga panandang kohesyong gramatikal) sa iba't ibang layunin",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-10",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga proseso ng pagbibigay-kahulugan, pakikilahok, at pagpapahayag sa mga personal at interpersonal na konteksto na nagpapamalas ng kamalayan sa kanilang layunin",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-1:item-11",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Nakasusuri ng sariling pakikilahok sa komunikasyong personal at interpersonal na may pagtukoy sa mga kalakasan at mga aspektong nangangailangan pa ng paglinang upang mapaunlad ang kakayahang komunikatibo",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga nakapaloob na saloobin, paniniwala, o pananaw sa mga paksang sosyal at kultural sa iba’t ibang sitwasyong pangkomunikasyon (hal. talumpati, brodkast pangmidya, kultural na pagtatanghal)",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-2",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nagagamit ang iba't ibang estratehiya sa kritikal na pakikinig, pagbasa, at panonood, kabilang ang kamalayang kultural at sensibilidad upang bigyang-kahulugan ang iba't ibang anyo ng panitikan, midya, at komunikasyong dihital",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-3",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nahihinuha ang pangunahing mensahe, ipinahihiwatig na kahulugan, at pagkiling o bias sa mga komunikasyong pampubliko, sibiko, o kultural (hal. social media post, podcast, art exhibit, pista o festival)",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-4",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakagagamit ng angkop na berbal at di-berbal na mga estratehiya (hal. magagalang na pananalita, hudyat at estratehiya sa pagpapadaloy ng usapan) upang mabisang makipag-ugnayan tungkol sa iba’t ibang kontekstong sosyal at kultural",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-5",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipakikita ang sensibilidad sa mga panlipunang gampanin, pangkatang dinamika at kultural na pagkakakilanlan sa mga interaksyong face-to-face at online",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-6",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng mga tekstong public-facing (hal. blog, komentaryo, adbokasiyang post sa social media, o maikling opinyon o kolum) na nagsusulong ng pagiging ingklusibo, pagkakapantay-pantay, o kamalayang panlipunan",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-7",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakabubuo ng mga mapanuring rebyu ng mga tekstong may kabuluhang kultural (hal. pelikula, maikling kuwento, tula, serye sa telebisyon)",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-8",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakabubuo ng magkakaugnay na argumento o naratibong sumasalamin sa pag-unawa sa panlipunang pananagutan, pagkakaiba-iba, at mga kaugalian",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-9",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Naipaliliwanag kung paano nakaaapekto ang kamalayang kultural at sensibilidad sa mga proseso ng pagbibigay-kahulugan, pakikilahok, at pagpapahayag sa iba’t ibang kontekstong panlipunan",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-2:item-10",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Nakasusuri ng sariling pakikilahok sa komunikasyong panlipunan o interkultural na may pagtukoy sa mga kalakasan at mga aspektong nangangailangan ng paglinang sa pagsulong ng ingklusibo at etikal na diskurso",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-1",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy kung paanong ang nilalaman, estruktura, at wika ng mga pasalita, pasulat, o multimodal na tekstong akademiko at teknikal ay hinuhubog ng awdyens, layon, at konteksto",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-2",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nagagamit ang iba't ibang estratehiya sa kritikal na pakikinig, pagbasa, at panonood upang maunawaan ang mga tekstong akademiko at teknikal",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-3",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nabibigyang-kahulugan ang datos na nakalarawan sa mga multimodal na anyo (hal. tsart, talahanayan, pigura, atbp.)",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-4",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na mga estratehiya sa pag-unawa ng mga salitang di-pamilyar, kabilang na ang espesyalisadong termino",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-5",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakagagamit ng angkop na wika, tono, at estruktura ayon sa awdyens, layon at konteksto sa pagtalakay ng iba’t ibang paksang akademiko at teknikal",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-6",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakasusunod sa mga pamamaraan, panuto, o proseso sa anyong pasalita, pasulat, o multimodal (hal. pigura, dayagram, tsart, atbp.) upang matagumpay na maisakatuparan ang layunin o matamo ang inaasahang resulta",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-7",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nakikilahok nang may kabuluhan sa mga akademiko o teknikal na lektura, presentasyon, o diskusyon sa pamamagitan ng pagtatanong, pagbibigay ng puna o mungkahi, at angkop na pagtugon",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-8",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakikibahagi sa kolaboratibong gawaing akademiko at teknikal (hal. panukalang proyekto, teknikal na ulat, lektura, manwal, atbp.) upang magamit ang kaalaman at kakayahan ng bawat isa at makamit ang kolektibong layunin",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-9",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maayos na tekstong akademiko at teknikal na nagpapamalas ng kamalayan at pagsasaalang-alang sa awdyens at layon (hal. presentasyong may visual aid, sanaysay, ulat sa pananaliksik at pagsusuri, atbp.)",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-10",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga konsepto gamit ang angkop na bokabularyo at wikang akademiko at teknikal at representasyong multimodal (hal. dayagram, grap, tsart, infographic, atbp.)",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-11",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Nakagagawa ng dayagram, tsart, balangkas, buod, sinopsis, o paraphrase mula sa mga tekstong pasalita, pasulat, o multimodal",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-12",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nakagagamit ng mga etikal na pamantayan (hal. wastong pagsipi, deklarasyon ng paggamit ng AI, pag-iwas sa plagiarism, atbp.) sa pagbuo ng mas mahahabang akademiko at teknikal na tekstong pasalita, pasulat at multimodal",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-13",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga proseso ng pagbibigay-kahulugan, pakikilahok, at pagpapahayag sa mga kontekstong akademiko at pampagsasanay na nagpapamalas ng kamalayan sa kanilang layunin",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-3:item-14",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nakasusuri ng sariling pakikilahok sa kontekstong akademiko at pampagsasanay na may pagtukoy sa mga kalakasan at mga aspektong nangangailangan ng paglinang upang mapaunlad ang pagganap at mahubog ang panghabambuhay na pagkatuto",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-1",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naututukoy ang paggamit ng wika at tono nang may layunin sa pagtalakay ng iba't ibang propesyonal at pantrabahong paksa.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-2",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakikinig nang aktibo sa komunikasyong pantrabaho at propesyonal (hal. mga pulong, tawag sa telepono, presentasyon, panuto, atbp.) upang makapagtala ng tumpak at organisadong impormasyon bilang batayan sa pagsasakatuparan ng gawain at sanggunian sa hinaharap",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-3",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakagagamit ng angkop na wika, tono, at estruktura ayon sa awdyens, layon at konteksto sa pagtalakay ng iba’t ibang usaping propesyonal o pantrabaho",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-4",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nakikilahok nang may kabuluhan sa komunikasyong propesyonal o pantrabaho (hal. mga panayam, pulong, negosasyon, sesyon ng pagbibigay ng puna, atbp.) sa pamamagitan ng pagtatanong, pagbibigay ng puna o mungkahi, at angkop na pagtugon",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-5",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakikibahagi sa mga kolaboratibong gawaing pantrabaho o propesyonal (hal. paggawa ng panukala, ulat, presentasyon, o proyekto) upang magamit ang kaalaman at kakayahan ng bawat isa at makamit ang kolektibong layunin",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-6",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maayos na komunikasyong propesyonal o pantrabaho na nagpapamalas ng kamalayan sa awdyens at layon (hal. presentasyon na may visual aid, email, ulat, atbp.)",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-7",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Nagagamit ang angkop na kumbensiyon sa pagsulat (hal. anyo at disenyo, font, bulleting at numbering, bolding, italicization, atbp.) at tiyak at malinaw na wika upang makapagpahayag ng mabisang komunikasyong propesyonal at pantrabaho",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-8",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakabubuo ng mga propesyonal na profile, resumé, at aplikasyon sa trabaho o kolehiyo na angkop sa layon at awdyens",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-9",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang mga proseso ng pagbibigay-kahulugan, pakikilahok, at pagpapahayag sa mga kontekstong propesyonal at pantrabaho na nagpapamalas ng kamalayan sa kanilang layunin",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:period-4:item-10",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Nasusuri ang sariling kahandaang makilahok sa komunikasyong propesyonal at pantrabaho na may pagtukoy sa mga kalakasan at mga aspektong nangangailangan ng paglinang para sa aktuwal na aplikasyon sa mundo ng trabaho",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "1d575e7c6f0efb689b4abb99df7f82ff50f391dfba586c00bd3c0532a0eda120"
+  }
+}

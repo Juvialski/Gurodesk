@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-biology-3",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Biology 3",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1iHjB-NDDwMMM6gU_JYU_9LrXjggZjoYA/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Biology 3.pdf",
+    "fileId": "1iHjB-NDDwMMM6gU_JYU_9LrXjggZjoYA",
+    "sha256": "f8bd87faf1aaae8b42c5ab63415aba5b93a03088445d64ccc69acb5f5913ad7f",
+    "byteSize": 416880,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "BIOLOGY-312",
+    "name": "Biology 3",
+    "description": "Official Grade 12 Biology 3 competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Biological Macromolecules",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Structure of Genetic Molecules",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Gene Expression",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Mutations and Genetic Disorders",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Mendelian and Non-Mendelian Inheritance",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Chromosomal Aberrations",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Recombinant DNA Technology",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Sources of Genetic Variation",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "History of Life on Earth",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Development of Evolutionary Thought",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Mechanisms and Evidence of Evolution",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Species and Speciation",
+      "sortOrder": 12
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe the structure and biological functions of major biomolecules (carbohydrates, lipids, proteins, and nucleic acids) and explain their roles in metabolism and cellular processes;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "illustrate the molecular structures of DNA, RNA, and proteins and explain how their structures relate to their biological functions;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain the flow of genetic information from DNA to RNA to proteins through gene expression;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use diagrams or models to explain the processes of DNA replication, transcription, and translation;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-5",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain how different types of DNA mutations (e.g., substitution, insertion, deletion, and frameshift) affect gene expression and protein function;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "use information from secondary sources to investigate genetic disorders caused by mutations or abnormalities in gene expression;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-7",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "use Punnett squares and probability principles to predict genotypes and phenotypes in monohybrid and dihybrid crosses based on Mendelian inheritance;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-8",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain patterns of non-Mendelian inheritance, including incomplete dominance, codominance, multiple alleles, sex-linked, and sex-influenced traits; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-9",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain different types of chromosomal aberrations and their effects on inheritance, genetic variation, and human health.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-10",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe the basic processes involved in recombinant DNA technology;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-11",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "use information from secondary sources to explain applications of recombinant DNA technology in: a. medicine (e.g., recombinant insulin and vaccines); b. agriculture (e.g., genetically modified crops such as Bt corn and Golden Rice); and c. environmental conservation (e.g., bioremediation and oil spill cleanup);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-12",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "explain how mutations and genetic recombination generate genetic variation that may lead to evolutionary change in populations;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-13",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "describe key events in Earth’s history using the geologic time scale and identify the major groups of organisms that appeared during these periods;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-14",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "use information from secondary sources to trace the development of evolutionary thought from early ideas to modern evolutionary theory;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-15",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "compare different perspectives about the origin of life, including creation-based views and scientific explanations, and explain how scientific thought is applied to these perspectives;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-16",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "explain the mechanisms that produce evolutionary change in populations across generations, including natural selection, genetic drift, migration, and mutation;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-17",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "analyze different lines of evidence for evolution (e.g., fossil record, biogeography, comparative anatomy, embryology, and DNA/protein sequences) to infer evolutionary relationships among organisms;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-18",
+      "quarter": 1,
+      "domain": "D12",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "describe organisms based on biological species concept and reproductive isolation as one of many species concepts;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-19",
+      "quarter": 1,
+      "domain": "D12",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "differentiate the major modes of speciation, including allopatric, sympatric, and parapatric speciation; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:period-1:item-20",
+      "quarter": 1,
+      "domain": "D12",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "explain how evolutionary processes, including natural selection and speciation, have shaped the diversity of organisms present today.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "cec4c8fe423f3a172321ec4a406979a9a322a6c65e11e9505ef90b38ade0ac3e"
+  }
+}

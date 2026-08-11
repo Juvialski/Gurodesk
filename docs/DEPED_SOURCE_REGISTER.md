@@ -1,20 +1,34 @@
 # DepEd source register
 
-Verified/reviewed: 2026-08-08.
+Verified/reviewed: 2026-08-11.
 
 This file records source provenance and implementation decisions. It is not itself the curriculum database; canonical structured data lives in verified manifests and Supabase.
 
-## Active source used in Phase 2
+## Active official curriculum sources
 
-### MATATAG / Revised K to 10 — Mathematics Grades 1, 4 and 7
+### Revised K to 10 / MATATAG
 
 - Publisher: Department of Education, Philippines
-- Source type: Curriculum Guide
-- Official landing page: `https://www.deped.gov.ph/matatagcurriculumk147/`
-- Official PDF stored in manifest: `https://www.deped.gov.ph/wp-content/uploads/MATATAG-Mathematics-CG-Grades1-4-and-7.pdf`
-- Phase 2 imported coverage: Grade 7 Mathematics, curriculum-guide pages 30-33
-- Verified records: 52 competencies
-- GuroDesk decision: preserve the guide's Quarter 1-4 sequence.
+- Source type: 13 official curriculum-guide PDFs
+- Official program page: `https://www.deped.gov.ph/matatagcurriculumk147/`
+- Official regional curriculum repository used for the reviewed current files: `https://bukidnon.deped.gov.ph/matatag-curriculum/`
+- Imported coverage: 73 catalog entries represented by 80 manifests and 4,277 verified competencies. Grade 4–10 MAPEH is intentionally split into Music and Arts and Physical Education and Health source manifests.
+- GuroDesk decision: preserve official quarters and Kindergarten themes as curriculum-source periods. Do not infer school grading-term mappings.
+
+### Strengthened Senior High School Program
+
+- Publisher: Department of Education, Philippines
+- Source type: 116 official curriculum-guide PDFs: 94 Grade 11 and 22 Grade 12
+- Official program page: `https://www.deped.gov.ph/strengthened-shs-program/`
+- Official learning-resource portal: `https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program`
+- Imported coverage: all 116 current catalog entries represented by 116 manifests and 1,904 verified competencies.
+- GuroDesk decision: preserve Grade 11 source quarters. Grade 12 documents explicitly cover one term, so store one term and do not infer quarter or grading-term mappings.
+
+### Machine-verifiable register
+
+`data/curriculum/sources/official-source-register.json` is authoritative for the 129 reviewed files. It pins the source/landing URLs, official Drive file IDs where applicable, file names, editions, page counts, byte sizes, retrieval date, and SHA-256 hashes. `data/curriculum/sources/official-pack-index.json` maps those sources to 196 manifests, and every competency retains its PDF page.
+
+The reviewed source set totals 74,537,724 bytes. Source PDFs are verification inputs and are not committed to the repository.
 
 ## School-year grading calendar
 

@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-creative-composition-1",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Creative Composition 1",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1WJPQM0x7WLX1f-vd76es1Ow0keOkgmjc/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Creative-Composition-1.pdf",
+    "fileId": "1WJPQM0x7WLX1f-vd76es1Ow0keOkgmjc",
+    "sha256": "42fd1869de4523eb196257a4448dbc2de0aca0f84dc1eae7e4a3248c3e986b10",
+    "byteSize": 343542,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 2,
+      "to": 3
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CREATIVE-COMPOSITI11",
+    "name": "Creative Composition 1",
+    "description": "Official Grade 11 Creative Composition 1 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Inquiry",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Composition",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Reflection",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Explore the characteristics of hybrid forms of personal creative nonfiction to identify how creators blur genre boundaries in expressing identity and truth.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Examine the role of memory, perspective, and emotion in shaping narrative truth.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Identify distinguishing features of authorial style and personal voice across works to establish one’s voice (i.e., personal style, tone, personality, perspective).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Develop a consistent and authentic voice through diction, tone, and structural experimentation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply narrative techniques, such as sensory detail, pacing, dialogue, and reflection, to convey emotional truth and complexity.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Apply self-assessment, peer, and teacher feedback in revising drafts for coherence, impact, and ethical representation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Adapt different forms of delivery (bimodal or multimodal) and platforms (media) to present one’s own personal creative nonfiction to various audiences.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-1:item-8",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Assess one’s evolving voice by reviewing early drafts, peer feedback, and journal entries.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Compare how poets purposefully use and adapt structure and language in traditional, contemporary, and digital poetic forms.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Identify how poets use and play with conventions of genre to convey emotion, theme, or commentary.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Examine stylistic differences among poets and how they establish their individual voices.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:period-2:item-4",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Recognize ethical considerations (e.g., AI attribution, plagiarism, and poetic borrowing and influence) in developing one’s style.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "55c2903d110e93ad34ecec15709af5a7311f6dcb66ab158ae63afa8f5db836ca"
+  }
+}

@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-7-mapeh-physical-education-and-health",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG PE and Health CG 2023 Grades 4-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20PE%20and%20Health%20CG%202023%20Grades%204-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf",
+    "sha256": "31e3758e6260530bd41db71f6f7ea614ee6ceba6136b62f20aa62be88960943d",
+    "byteSize": 2192779,
+    "pageCount": 58,
+    "pagesUsed": {
+      "from": 33,
+      "to": 36
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 7",
+    "code": "MAPEH7",
+    "name": "MAPEH",
+    "description": "Official Grade 7 MAPEH — Physical Education and Health competency records.",
+    "component": "Physical Education and Health"
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 33,
+      "sourceLabel": "First Quarter"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 34,
+      "sourceLabel": "Second Quarter"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 35,
+      "sourceLabel": "Third Quarter"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 36,
+      "sourceLabel": "Fourth Quarter"
+    }
+  ],
+  "domains": [
+    {
+      "code": "PH-D01",
+      "name": "Characteristics of a Mentally Healthy Adolescent",
+      "sortOrder": 1
+    },
+    {
+      "code": "PH-D02",
+      "name": "Ways to Safeguard One’s Mental Health",
+      "sortOrder": 2
+    },
+    {
+      "code": "PH-D03",
+      "name": "Various Physical Activities that Help Safeguard Mental Health",
+      "sortOrder": 3
+    },
+    {
+      "code": "PH-D04",
+      "name": "Physical Activity Participation: Target Games",
+      "sortOrder": 4
+    },
+    {
+      "code": "PH-D05",
+      "name": "Family’s Role in Managing Adolescent’s Concerns",
+      "sortOrder": 5
+    },
+    {
+      "code": "PH-D06",
+      "name": "Assertive Family Behavior in Preventing and Managing Conflicts",
+      "sortOrder": 6
+    },
+    {
+      "code": "PH-D07",
+      "name": "Physical Activities to Strengthen Relationship with Family Members",
+      "sortOrder": 7
+    },
+    {
+      "code": "PH-D08",
+      "name": "Physical Activity Participation: Invasion Games",
+      "sortOrder": 8
+    },
+    {
+      "code": "PH-D09",
+      "name": "Importance of Healthy Eating During Adolescence",
+      "sortOrder": 9
+    },
+    {
+      "code": "PH-D10",
+      "name": "Common Adolescents’ Nutritional Concerns and Ways to Prevent Them",
+      "sortOrder": 10
+    },
+    {
+      "code": "PH-D11",
+      "name": "Healthy Eating and Physical Activity Participation",
+      "sortOrder": 11
+    },
+    {
+      "code": "PH-D12",
+      "name": "Physical Activity Participation: Dances Hispanic Influence Dances of the Lowland Christians",
+      "sortOrder": 12
+    },
+    {
+      "code": "PH-D13",
+      "name": "First Aid Concepts, Objectives, and Principles",
+      "sortOrder": 13
+    },
+    {
+      "code": "PH-D14",
+      "name": "Road Safety",
+      "sortOrder": 14
+    },
+    {
+      "code": "PH-D15",
+      "name": "First Aid for Musculoskeletal Issues/Injuries",
+      "sortOrder": 15
+    },
+    {
+      "code": "PH-D16",
+      "name": "Physical Activity Participation: Dances Dances Around the World",
+      "sortOrder": 16
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-1:item-1",
+      "quarter": 1,
+      "domain": "PH-D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss common adolescents’ concerns that can affect mental health;",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-1:item-2",
+      "quarter": 1,
+      "domain": "PH-D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply ways to safeguard their mental health;",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-1:item-3",
+      "quarter": 1,
+      "domain": "PH-D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "recognize the positive effects of physical activity participation on mental health;",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-1:item-4",
+      "quarter": 1,
+      "domain": "PH-D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform physical activities by applying principles and concepts of target games to solve tactical problems for active living; and",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-1:item-5",
+      "quarter": 1,
+      "domain": "PH-D04",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "execute appropriate skills of sports and the required fitness concepts of chosen target games in responding to tactical problems.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-2:item-1",
+      "quarter": 2,
+      "domain": "PH-D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss the important role of the family in managing adolescents’ health concerns;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-2:item-2",
+      "quarter": 2,
+      "domain": "PH-D06",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply effective strategies in preventing and managing conflicts in the family;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-2:item-3",
+      "quarter": 2,
+      "domain": "PH-D07",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze how physical activities can strengthen relationships with family members;",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-2:item-4",
+      "quarter": 2,
+      "domain": "PH-D08",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform physical activities by applying principles and concepts of invasion games to solve tactical problems; and",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-2:item-5",
+      "quarter": 2,
+      "domain": "PH-D08",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "execute appropriate skills of sports and the required fitness concepts of chosen invasion games in responding to tactical problems.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-3:item-1",
+      "quarter": 3,
+      "domain": "PH-D09",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the importance of healthy eating during adolescence;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-3:item-2",
+      "quarter": 3,
+      "domain": "PH-D10",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply ways to prevent adolescents’ nutritional concerns;",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-3:item-3",
+      "quarter": 3,
+      "domain": "PH-D11",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "relate healthy eating to physical activity participation; and",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-3:item-4",
+      "quarter": 3,
+      "domain": "PH-D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "practice technical and expressive skills to improve proficiency in genre and style-specific techniques in developing movement competence and physical activity participation.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-4:item-1",
+      "quarter": 4,
+      "domain": "PH-D13",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "discuss basic first aid concepts, objectives, principles, and procedures for managing common conditions;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-4:item-2",
+      "quarter": 4,
+      "domain": "PH-D14",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply self-management skills and practices for road and water safety;",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-4:item-3",
+      "quarter": 4,
+      "domain": "PH-D15",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "practice first aid procedures for injuries related to physical activities and other emergency situations; and",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mapeh-physical-education-and-health:period-4:item-4",
+      "quarter": 4,
+      "domain": "PH-D16",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "perform dances using genre and style specific techniques, expressive ideas, and skills to develop movement competence and physical activity participation.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2d0f946a7bf1f818156cda1993b1ecea5a5fd75885af88567c458ebf51c7ef77"
+  }
+}

@@ -1,0 +1,838 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-4-epp",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG EPP_TLE CG 2023 Grades 4 - 10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20EPP_TLE%20CG%202023%20Grades%204%20-%2010.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+    "sha256": "c084380893d493c840baa56882af535ac41581dec7eae6d1a594ed71c428ce90",
+    "byteSize": 2647383,
+    "pageCount": 184,
+    "pagesUsed": {
+      "from": 29,
+      "to": 45
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 4",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 4",
+    "code": "EPP4",
+    "name": "EPP",
+    "description": "Official Grade 4 EPP competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 29,
+      "sourceLabel": "Quarter I"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 31,
+      "sourceLabel": "Quarter II"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 40,
+      "sourceLabel": "Quarter III"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 43,
+      "sourceLabel": "Quarter IV"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Introduction to Computer",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Digital Citizenship",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Word Processing Software",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Presentation Software",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Desktop Publishing Software",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Spreadsheet Software",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Introduction to block coding",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Agrikultura, mga sangay nito sa paghahalaman at pamamaraan ng pagtatanim",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Kahalagahan ng Paghahalaman",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Mga batas, lokal na ordinansa, ahensya ng gobyerno at mga non-government organization (NGOs) na tumutulong at serbisyong kanilang naibibigay ukol sa paghahalaman",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Mga taong matagumpay sa paghahalaman at ang mga katangian na taglay nila",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Compost, organikong pataba at natural na pestisidyo",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Mga salik na dapat isaalang-alang sa paghahalaman",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Pagtatanim ng halaman sa natural na pamamaraan",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Paraan ng Pangangalaga ng mga pananim",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Pagpaparami ng halaman",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Paraan ng pag-aani, pag-iimbak at pangangalaga sa mga inaning tanim",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Pagbebenta ng mga inaning tanim",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Mga paraang maaaring gamitin sa pagbebenta (online at tradisyunal na pamamaraan)",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Tungkulin sa Sarili",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Angkop na pagkilos sa panahon ng pagdadalaga at pagbibinata",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Angkop na pananamit",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Tungkuling Pantahanan",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Mga hakbang sa pagsasaing",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "Mga kagamitan at consumable sa paghuhugas ng pinaglutuan at pinagkainan",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Mga hakbang sa paghuhugas ng pinaglutuan at pinagkainan",
+      "sortOrder": 26
+    },
+    {
+      "code": "D27",
+      "name": "Kagamitan at consumable sa paglilinis ng tahanan",
+      "sortOrder": 27
+    },
+    {
+      "code": "D28",
+      "name": "Pagliligpit ng mga kagamitan at consumables sa paglilinis ng tahanan",
+      "sortOrder": 28
+    },
+    {
+      "code": "D29",
+      "name": "Mga hakbang sa paglilinis ng silid-tulugan, sala, kusina at bakuran",
+      "sortOrder": 29
+    },
+    {
+      "code": "D30",
+      "name": "Kagamitan at consumables sa paglalaba (conventional at makabagong pamamaraan)",
+      "sortOrder": 30
+    },
+    {
+      "code": "D31",
+      "name": "Kasangkapan at materyales sa pagguhit",
+      "sortOrder": 31
+    },
+    {
+      "code": "D32",
+      "name": "Kasangkapan at materyales sa pagbuo ng proyekto",
+      "sortOrder": 32
+    },
+    {
+      "code": "D33",
+      "name": "System of Measurement",
+      "sortOrder": 33
+    },
+    {
+      "code": "D34",
+      "name": "Free-hand Drawing",
+      "sortOrder": 34
+    },
+    {
+      "code": "D35",
+      "name": "Lettering Styles",
+      "sortOrder": 35
+    },
+    {
+      "code": "D36",
+      "name": "Alphabet of lines",
+      "sortOrder": 36
+    },
+    {
+      "code": "D37",
+      "name": "Orthographic Drawing",
+      "sortOrder": 37
+    },
+    {
+      "code": "D38",
+      "name": "Isometric Drawing",
+      "sortOrder": 38
+    },
+    {
+      "code": "D39",
+      "name": "Recycling",
+      "sortOrder": 39
+    },
+    {
+      "code": "D40",
+      "name": "Pagbuo ng malikhaing proyekto mula sa recyclable materials",
+      "sortOrder": 40
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "naipaliliwanag ang kahalagahan ng computer at iba pang computing device",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "natatalakay ang mga bahagi at gamit ng computer at peripherals nito",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "natatalakay ang basic computer operations",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "natatalakay ang wastong posisyon, layo, at oras sa paggamit ng computer at iba pang computing devices",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "naipaliliwanag ang mga panuntunang pangkaligtasan sa paggamit ng Internet",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-6",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "nakagagawa ng word document",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-7",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "nakagagawa ng presentation document",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-8",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "nakagagawa ng desktop publishing document",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-9",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "nakagagawa ng spreadsheet document",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-10",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "nakagagawa ng algorithm para sa mga gawaing pang-araw-araw",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-1:item-11",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "nakagagawa ng basic process flow chart para sa mga gawaing pang-araw-araw",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-1",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "natatalakay ang kahulugan ng agrikultura, mga sangay nito sa paghahalaman",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-2",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "natatalakay ang mga pamamaraan ng pagtatanim ng halaman",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "nakikilala ang iba’t ibang alternatibong paraan ng paghahalaman",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-4",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "natatalakay ang mga kahalagahan at kabutihang dulot ng paghahalaman sa tao, hayop, at kalikasan o kapaligiran",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-5",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "natatalakay ang mga batas, lokal na ordinansa, ahensya ng gobyerno at mga non-government organization (NGOs), at serbisyong kanilang naibibigay ukol sa paghahalaman",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-6",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "nakikilala ang mga taong naging matagumpay sa paghahalaman sa komunidad at ang mga katangiang kanilang taglay",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-7",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "nakagagawa ng compost, organikong pataba, at natural na pestisidyo na magagamit sa paghahanda ng lupa at pangangalaga ng mga pananim",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-8",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "natatalakay ang mga salik na dapat isaalang-alang sa paghahalaman",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-9",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "naisasagawa ang pagtatanim ng piniling halaman sa natural na pamamaraan nang may pag-iingat",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-10",
+      "quarter": 2,
+      "domain": "D15",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "naipakikita ang mga paraan ng pangangalaga ng mga pananim (pre-care, during, post-care )",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-11",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "naipakikita ang papagpaparami ng halaman sa paraang sekswal at asekswal",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-12",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "natutukoy ang mga palatandaan o indikasyon na dapat isaalang alang sa pag-aani",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-13",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "naipakikita ang mga paraan ng pag-aani",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-14",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "naisasagawa ang mga paraan ng pag-aani, pag-iimbak, at pangangalaga ng inaning tanim",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-15",
+      "quarter": 2,
+      "domain": "D18",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "naisasagawa nang wasto ang pagbebenta ng mga inani",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-2:item-16",
+      "quarter": 2,
+      "domain": "D19",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "naisasagawa ang pagtutuos ng kinita at tubo gamit ang manwal na pagkukwenta o electronic spreadsheet tool",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-1",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "natutukoy ang mga pagbabagong pisikal sa sarili",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-2",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "naipaliliwanag ang mga kagamitan at consumables at gamit nito sa pangangalaga ng sarili",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-3",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "naisasagawa ang mga paraan sa pag-aayos at pangangalaga ng sarili",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-4",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "naipakikita ang tamang pagkilos sa panahon ng pagdadalaga at pagbibinata",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-5",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "nakapipili ng angkop na pananamit sa panahon ng pagdadalaga at pagbibinata",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-6",
+      "quarter": 3,
+      "domain": "D23",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "natutukoy ang mga kagamitan sa pagsasaing ng bigas (conventional at makabagong pamamaraan)",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-7",
+      "quarter": 3,
+      "domain": "D24",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "naisasagawa ang mga hakbang sa pagsasaing nang may pag-iingat",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-8",
+      "quarter": 3,
+      "domain": "D25",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "natutukoy ang mga kagamitan at consumable sa paghuhugas ng pinaglutuan at pinagkainan",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-9",
+      "quarter": 3,
+      "domain": "D26",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "naisasagawa ang mga hakbang sa paghuhugas ng pinaglutuan at pinagkainan nang may pag-iingat",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-10",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "natutukoy ang mga kagamitan at consumable sa paglilinis ng tahanan",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-11",
+      "quarter": 3,
+      "domain": "D28",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "naipaliliwanag ang mga pamamaraan ng pagliligpit ng mga kagamitan at consumable nang may pag-iingat",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-12",
+      "quarter": 3,
+      "domain": "D29",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "naisasagawa ang mga hakbang sa paglilinis ng tahanan at iba pang bahagi nito nang may pag-iingat",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-3:item-13",
+      "quarter": 3,
+      "domain": "D30",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "natutukoy ang mga kagamitan at consumables sa paglalaba (conventional at makabagong pamamaraan)",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-1",
+      "quarter": 4,
+      "domain": "D31",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "nakikilala ang mga kasangkapan at materyales sa pagguhit",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-2",
+      "quarter": 4,
+      "domain": "D32",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "nakikilala ang mga kasangkapan at materyales sa pagbuo ng proyekto",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-3",
+      "quarter": 4,
+      "domain": "D33",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "naisasagawa ang kasanayan sa pagsusukat",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-4",
+      "quarter": 4,
+      "domain": "D34",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "naisasagawa ang hakbang sa pagguhit ng larawan gamit ang basic sketching, outlining, and shading",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-5",
+      "quarter": 4,
+      "domain": "D35",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "naisusulat ang mga letra gamit ang lettering styles",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-6",
+      "quarter": 4,
+      "domain": "D36",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "naiguguhit ang alphabet of lines",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-7",
+      "quarter": 4,
+      "domain": "D37",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "nakikilala ang orthographic views",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-8",
+      "quarter": 4,
+      "domain": "D37",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "naisasagawa ang orthographic drawing",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-9",
+      "quarter": 4,
+      "domain": "D38",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "naisasagawa ang pagguhit ng isometric drawing",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-10",
+      "quarter": 4,
+      "domain": "D39",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "naipaliliwanag ang kahalagahan ng pagre-recycle",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-11",
+      "quarter": 4,
+      "domain": "D40",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "nakagagawa ng plano ng proyekto",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-12",
+      "quarter": 4,
+      "domain": "D40",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "nakabubuo ng recycled project/s nang may pag-iingat",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:period-4:item-13",
+      "quarter": 4,
+      "domain": "D40",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "natutuos ang gastos, presyo, at posibleng kita ng nabuong proyekto manually o gamit ang spreadsheet",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "55554cd010999c2b8fba982fa8f19d5cbdc24dddba926313c7193d6afde7b54e"
+  }
+}

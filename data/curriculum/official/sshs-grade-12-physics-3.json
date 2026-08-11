@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-physics-3",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Physics 3",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/17fEIvS0nOmxYICkR9OkrNttnN1xfASUg/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Physics 3.pdf",
+    "fileId": "17fEIvS0nOmxYICkR9OkrNttnN1xfASUg",
+    "sha256": "b56f4424d82f3ffe372462965222e46f863be70f62b9527ba235f9e6f02ccb19",
+    "byteSize": 389192,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "PHYSICS-312",
+    "name": "Physics 3",
+    "description": "Official Grade 12 Physics 3 competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Electrostatics",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Current Electricity",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Magnetism",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Electromagnetism",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the nature of charge and different charging processes;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "calculate the total electrostatic force on a point charge due to a system of charges in one-dimensional or two-dimensional spaces;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the nature of the electric field due to a single point charge;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "determine the magnitude and direction of the electrostatic force on a static point charge in a region of a constant electric field;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain the factors affecting electric potential and its distinction from electric potential energy;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "design and conduct an experiment to graphically validate the relationship among current, resistance, and voltage in direct-current circuits (series, parallel, and combination) as stated in Ohm’s Law;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain how the geometric properties of a capacitor, particularly plate area and plate separation, affect capacitance;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "differentiate series and parallel capacitor configurations and describe their effects on the circuit’s total capacitance; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve problems involving Ohm’s Law, resistance, and capacitance in a circuit.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-10",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe how the alignment of magnetic domains in materials produces magnetism and how this relates to magnetic and non-magnetic materials;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-11",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "explain the characteristics and significance of Earth’s magnetic field, including its role in navigation and its uses and effects on living organisms;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-12",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "calculate the magnetic force acting on a moving electric charge and a current-carrying conductor in a uniform magnetic field;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-13",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "interpret diagrams and relationships describing the magnetic fields produced by current-carrying conductors and solenoids.;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-14",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "explain how different factors affect the magnitude of an induced electromotive force based on Faraday’s law of electromagnetic induction;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-15",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "interpret Lenz’s Law because of the conservation of energy in electromagnetic induction;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-16",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "analyze context-rich problems using Faraday’s law of electromagnetic induction;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-17",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "explain the difference between direct current (DC) and alternating current (AC) and their applications;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-18",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "explain the working principles of electric motors, electric generators, and transformers using electromagnetic induction; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:period-1:item-19",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "describe how electromagnetic induction is applied in technologies such as maglev trains, metal detectors, traffic sensors, and magnetic cards.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "a4a1cbc93cbbba1b3e3ac489a26b2828b4d30e340fdb4ed82fe706dd789b5c05"
+  }
+}

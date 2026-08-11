@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-business-3-business-economics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Business 3 - Business Economics",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1dmTq2Jr7WV1gh1eAEWOAUzxxcIQcYNm-/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Business-3-Business-Economics.pdf",
+    "fileId": "1dmTq2Jr7WV1gh1eAEWOAUzxxcIQcYNm-",
+    "sha256": "6fc820f6e2e74a270d66b6f7f6b53bea615b6b03ba35a8e3328021125db159e8",
+    "byteSize": 300061,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "BUSINESS-3-BUSINES11",
+    "name": "Business 3 - Business Economics",
+    "description": "Official Grade 11 Business 3 - Business Economics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Definition and Basic Principles of Economics Economic Indicators",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Managing Market Structures",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Applying the Market Forces of Demand and Supply",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Analysis of Consumer Expenditures",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Government Interventions",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Demographic Challenges in the Business Environment",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Dynamics of labor supply and demand in different industries",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Impacts of Inflation",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Global Trade and Economic Integration",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Digital Markets, Technology, and Innovation",
+      "sortOrder": 10
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "define the fundamental concepts and basic principles of economics",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "examine the basic economic problem in relation to economic goals and business decision making",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "demonstrate the steps in effective, efficient, and data-driven decision making",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "discuss the market structure and its characteristics",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "analyze the market force of demand and supply to determine optimal pricing and output decisions for a firm",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "analyze the cost-minimizing and profit maximizing strategies of the firm for efficacy of short-run and long-run production",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "evaluate the impact of elasticity on revenue and its role in optimal pricing decisions",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "analyze consumer expenditures and their effect on consumer behavior",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "analyze government policies",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply the concept of Pareto Principle, cost-benefit, and risk-benefit analysis in business decision making",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze the demographic challenges in the business environment",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "discuss how wages are determined in relation to the dynamics of labor supply and demand",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "discuss the impacts of inflation",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "analyze impacts of changes in exchange rates, international trade organizations, and other trade barriers on domestic and international markets",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "assess the factors contributing to the rise of emerging markets, multinational corporations and conglomerates, and business process outsourcing",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "evaluate the challenges, opportunities and impact of technological advancement and innovation on the emergence of digital markets and the knowledge economy",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "116f2c55d87298af1c524971620c5210d6f5541b7b39d3bdc86c5feee96e5a5c"
+  }
+}

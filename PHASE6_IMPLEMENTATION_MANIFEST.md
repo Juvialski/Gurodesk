@@ -2,6 +2,8 @@
 
 Date: 2026-08-10
 
+Historical checkpoint: the catalog-only limitations recorded below were resolved by the 2026-08-11 complete official curriculum pack. See `docs/OFFICIAL_CURRICULUM_IMPLEMENTATION_MANIFEST.md` and `CODEX_HANDOVER.md` for current coverage and deployment status.
+
 ## Source of truth
 
 Phase 6 is based on the uploaded `gurodesk-generation-visual-final.zip`, which contains the assessment generation/visual work completed after GitHub `main` commit `b30cd6084b011523b717c2242e1525d0486e5449`.

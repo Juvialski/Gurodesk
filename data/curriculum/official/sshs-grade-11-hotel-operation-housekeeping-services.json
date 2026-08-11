@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-hotel-operation-housekeeping-services",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Hotel Operation (Housekeeping Services)",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1jC5_OtRzuzd5QGyWLHBKx5cC5pqXVoQp/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Hotel-Operation-Housekeeping-Services-a_o-Jun-9.pdf",
+    "fileId": "1jC5_OtRzuzd5QGyWLHBKx5cC5pqXVoQp",
+    "sha256": "ef3bafd99c8c77ef9fd7a70efafa7c662eedd23b9ab8f205154f9fef2e706d81",
+    "byteSize": 353151,
+    "pageCount": 14,
+    "pagesUsed": {
+      "from": 2,
+      "to": 11
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "HOTEL-OPERATION-HO11",
+    "name": "Hotel Operation (Housekeeping Services)",
+    "description": "Official Grade 11 Hotel Operation (Housekeeping Services) competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 9,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Types of Hotel Guests",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Fundamentals of Housekeeping Services",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Trends and Innovations in Housekeeping Services",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "The Housekeeping Department",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Classification of Guestroom and Status",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Types of Room According to Bed Type:",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Housekeeping Tools, Equipment, and Supplies",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Hotel Furniture, Fixtures, and fittings",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Guestroom Cleaning Procedures",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "o reception o restaurant/bar/coffee shop o restrooms o hallways Maintenance of public areas in a hotel",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Types of Linens",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "The Laundry Operation",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Ironing Operations",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Customer Relation",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Facility Evaluation",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Housekeeping Safety and Security",
+      "sortOrder": 17
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the overview of hotel services",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Compare the types of hotels according to their classification and accommodation products",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Differentiate types of hotel guests",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss the fundamentals of housekeeping services",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-2:item-1",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Analyze the trends in housekeeping services",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-2:item-2",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the organizational structure of the housekeeping department and its functions",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-2:item-3",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss the classification of guestrooms and status",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-2:item-4",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Evaluate the types of rooms according to bed type, layout, amenities, and special features",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-3:item-1",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Demonstrate cleaning methods and techniques using tools, supplies, and equipment with applied ergonomics, environmental sustainability, and best practices",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-3:item-2",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the care and maintenance of the hotel furniture, fixtures, and fittings",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-3:item-3",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform guestrooms cleaning procedures according to room state lobb",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-3:item-4",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Apply procedures in cleaning hotel common areas",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-4:item-1",
+      "quarter": 4,
+      "domain": "D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Identify type of hotel linens and materials",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-4:item-2",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform linen laundry operations based on the types of linen",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-4:item-3",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform ironing operations by applying ironing techniques",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-4:item-4",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Show a personalized and specialist service to guests",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-4:item-5",
+      "quarter": 4,
+      "domain": "D15",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Demonstrate strategies for handling customer complaints and intoxicated guests",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-4:item-6",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Evaluate the purpose of monitoring and evaluation using housekeeping forms and reports",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:period-4:item-7",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Discuss common safety hazards in the housekeeping environment.",
+      "sourcePage": 11,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "a7c8a3223e8bdc7811ddf612504c54cd17471796104c636ae5128e64bea59639"
+  }
+}

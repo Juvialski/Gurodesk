@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Commercial Air Conditioning Installation and Servicing",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1e_L5AJzXeqyQOmrC44EKkAlzAlTGsArY/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Commercial-Air-Conditioning-Installation-and-Servicing_.pdf",
+    "fileId": "1e_L5AJzXeqyQOmrC44EKkAlzAlTGsArY",
+    "sha256": "8dd01ee86633db69b2c35655b2f8b3cbc8f496cdd3c00c52d00cb9a20732def6",
+    "byteSize": 490793,
+    "pageCount": 10,
+    "pagesUsed": {
+      "from": 2,
+      "to": 6
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "COMMERCIAL-AIR-CON11",
+    "name": "Commercial Air Conditioning Installation and Servicing",
+    "description": "Official Grade 11 Commercial Air Conditioning Installation and Servicing competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Pre-installation procedure for commercial air-conditioning units",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Installation of commercial air-conditioning units",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Service and maintenance of the commercial air-conditioning units Cleaning procedure of the air filter",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pre-troubleshooting of commercial air conditioning units",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Troubleshooting of commercial air-condition units",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Commissioning of commercial air conditioning units",
+      "sortOrder": 6
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform pre-installation procedure for the ccommercial air-conditioning units",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Perform installation of commercial air-conditioning units",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:period-2:item-1",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform service and maintenance of the commercial air-conditioning units",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:period-2:item-2",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss pre-troubleshooting of commercial air-conditioning units",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:period-2:item-3",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform troubleshooting of commercial air-conditioning units",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:period-2:item-4",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform commissioning of commercial air conditioning units",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "96703abe0ed2e12ae9d70753559414b4ccd87e14cd2b93273f2eeaba533e1f86"
+  }
+}

@@ -1,0 +1,643 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-7-mathematics",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG Mathematics CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20Mathematics%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+    "sha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+    "byteSize": 1754867,
+    "pageCount": 73,
+    "pagesUsed": {
+      "from": 52,
+      "to": 55
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2024-2025",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2024-2025",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 7",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 7",
+    "code": "MATHEMATICS7",
+    "name": "Mathematics",
+    "description": "Official Grade 7 Mathematics competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 52,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 53,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 54,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 55,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Measurement and Geometry (MG)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Number and Algebra (NA)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Data and Probability (DP)",
+      "sortOrder": 3
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "draw and describe regular and irregular polygons with 5, 6, 8, or 10 sides, based on measurements of sides and angles, using a ruler and protractor.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "draw triangles, quadrilaterals, and regular polygons (5, 6, 8, or 10 sides) with given angle measures.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe and explain the relationships between angle pairs based on their measures.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "classify polygons according to the number of sides, whether they are regular or irregular, and whether they are convex or non-convex.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "deduce the relationship between the exterior angle and adjacent interior angle of a polygon.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "determine the measures of angles and the number of sides of polygons.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "solve problems involving: a. percentage increase, and b. percentage decrease.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "solve money problems involving percentages (e. g., discount, commission, sales tax, simple interest).",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "create a financial plan.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "identify and explain the uses of rates.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "solve problems involving rates (e.g., speed).",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "describe given rational numbers as fractions, decimals, or percentages.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "order rational numbers on a number line.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-1:item-14",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "perform operations on rational numbers.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "determine the square roots of perfect squares and the cube roots of perfect cubes.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify irrational numbers involving square roots and cube roots, and their locations on the number line.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-3",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "convert units of measure within the International System of Units (SI) and across different systems of measure.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-4",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "explain inductively the volume of a cylinder using the area of a circle, leading to the identification of the formula.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-5",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "find the volume of a cylinder.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-6",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "solve problems involving the volumes of cylinders.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-7",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explore inductively the volume of square and rectangular pyramids using rectangular prisms, leading to the identification of the formula.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-8",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "estimate volumes of square and rectangular pyramids.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-9",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve problems involving volumes of square or rectangular pyramids.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "describe sets and their subsets, the union of sets, and the intersection of sets",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-11",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "illustrate sets and their subsets, the union of sets, and the intersection of sets, through the use of Venn diagrams.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-2:item-12",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "illustrate the different subsets of real numbers.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-1",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "investigate different data collection and sampling techniques.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-2",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "organize statistical data in a frequency distribution table.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-3",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "use appropriate graphs to represent organized data: pie graph, bar graph, line graph, and stem-and-leaf plot.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-4",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "interpret statistical graphs.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "describe the set of integers.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "use positive and negative numbers to describe directions or opposites in real-life situations.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-7",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "locate integers on the number line.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-8",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "compare and order integers.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-9",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "add and subtract integers; using concrete models (e.g., counters, integer chips), pictorial models (e.g., bar models, number lines), and with integers written as numerals.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-10",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "multiply and divide integers.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-11",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "simplify numerical expressions involving integers using number properties and the order of operations (GEMDAS).",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-3:item-12",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "identify the absolute value of an integer, and its meaning on the number line.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-1",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "solve simple equations represented by bar models to find unknowns.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-2",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "distinguish a variable from a constant in an algebraic expression.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "evaluate algebraic expressions given the value/s of the variable/s.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-4",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "translate verbal phrases into algebraic expressions.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-5",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "illustrate the properties of equality.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-6",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "solve one variable in terms of the other variables in a formula.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-7",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "write equations in algebraic form.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-8",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "find the value of an unknown in an equation where the unknown is non-negative.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-9",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "solve problems involving algebraic expressions and formulas",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-10",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "collect data from experiments (e.g., number of heads obtained when tossing a coin, a number of times, number of prime numbers obtained when rolling a die a number of times).",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-11",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "express outcomes in words and/or symbols, and represents outcomes in tables and/or graphs.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-12",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve problems using the outcomes of experiments.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-13",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "write numbers in scientific notation to represent very large or very small numbers, and vice versa.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:period-4:item-14",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "perform operations on numbers expressed in scientific notation.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "c41fa8f9181b3a645729a63c27211c04d45d68f51015a0bc2d106a5eb97de24a"
+  }
+}

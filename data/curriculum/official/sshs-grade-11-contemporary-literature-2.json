@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-contemporary-literature-2",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Contemporary Literature 2",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1jFlNEH-tiLVCFQ2l8NSp8HOg0wKd3hIq/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Contemporary-Literature-2.pdf",
+    "fileId": "1jFlNEH-tiLVCFQ2l8NSp8HOg0wKd3hIq",
+    "sha256": "a0bb3c6875e42e7f7e0ba059ce83fa061cd9767e66202253c2ab651b71156e40",
+    "byteSize": 267259,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 3,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "CONTEMPORARY-LITER11",
+    "name": "Contemporary Literature 2",
+    "description": "Official Grade 11 Contemporary Literature 2 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "General",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Demonstrating knowledge and appreciation of literature and its purposes",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Engaging flexibly with literary texts to produce personal and critical responses",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Reflecting on the impact and value of literature along one’s personal literary journey",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the concept of literature as a conversation across texts, contexts, and time periods.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explore adaptations of canonical or historical literary texts into contemporary forms, including film or TV series.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Identify how global and local media adaptations reflect evolving values or social norms.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Demonstrate understanding of how composers use forms and features (e.g., film/TV language) to transform, repurpose and recontextualize original texts for new audiences.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Compare and contrast original literary texts with their adapted versions (e.g., Shakespearean play and film, novella and TV series)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Identify how techniques of transformation (e.g., intertextual references, narrative shifts, motifs or symbols, updated setting, or character changes) establish connections between the original work and the adaptation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Respond creatively and critically to adaptations (e.g., rewriting scenes, storyboard pitches, comparative written or video essays).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Explain how adaptations can open new interpretive possibilities, challenge dominant readings, and raise ethical considerations (e.g., plagiarism or borrowing).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Participate in collaborative analysis and interactive activities (e.g., panel discussions, genre re-imaginings) around interpretations of adapted works.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Reflect on how the comparative study of original texts and their adapted versions enhances understanding and appreciation of both texts.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Review one’s interaction with literary texts, identifying strengths and areas for growth to cultivate awareness of intertextuality and changing norms and values.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-1",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the emerging purposes and value of digital literature (e.g., hypertext fiction, interactive storytelling, social media poetry).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explore the works of contemporary literary innovators pushing genre or form boundaries, especially from the Philippines and Asia-Pacific.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Identify how technological and social changes influence the evolution of literary forms.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Demonstrate understanding and appreciation of how creators purposefully use textual innovations (e.g., multimodality, hybridity, user interactivity) in digital texts to engage and reach contemporary audiences.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-5",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Engage with digital and experimental literary texts using interactive platforms (e.g., webcomics, augmented narratives, text-based games).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-6",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Identify key themes in innovative literature (e.g., AI, surveillance, virtual identity, gender, climate futures).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-7",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Explain how digital storytelling adapts traditional literary elements (e.g., plot, character, setting, time), challenges dominant narratives, and raises ethical considerations (e.g. AI-generated texts).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-8",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Respond creatively and critically to digital and experimental texts (e.g., school-based lit fest, creative essay forms, adapting the adaptation).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-9",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Participate in multimodal critiques (e.g., podcast reviews, screen recordings with commentary, digital annotation), considering alternative perspectives of literature (e.g., digital humanities, ecocriticism, queer theory).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-10",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Reflect on how new literary forms shape one’s role as reader, viewer, and creator in a digital age.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:period-2:item-11",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Review one’s interaction with digital literary texts, identifying strengths and areas for growth to cultivate new ways of thinking, imagining and expressing.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2f1c3f14860fa0c159cfde9590a0ffc8f920b51047a6525fed8c28833c9dbca0"
+  }
+}

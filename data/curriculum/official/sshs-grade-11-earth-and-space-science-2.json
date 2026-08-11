@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-earth-and-space-science-2",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Earth and Space Science 2",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1EDVlmLJQ0DwV2DifZEwh0HiTZ_oBTfO4/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Earth-and-Space-Science-2.pdf",
+    "fileId": "1EDVlmLJQ0DwV2DifZEwh0HiTZ_oBTfO4",
+    "sha256": "6afb4cbde906c883605596e5d0ccb3df3cb2ab7025a2f1505aef2107049f77aa",
+    "byteSize": 366504,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "EARTH-AND-SPACE-SC11",
+    "name": "Earth and Space Science 2",
+    "description": "Official Grade 11 Earth and Space Science 2 competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Evolution of Earth’s landmasses and ocean basins",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Plate tectonics and the Philippine archipelago",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Earth’s Systems",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Biogeochemical cycles",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Surface Water and Groundwater Systems",
+      "sortOrder": 5
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "use secondary sources to assess the continental drift and seafloor spreading theories in providing evidence for plate movement, including continental jigsaw patterns, fossil correlations across continents, similarities in rock types and other geological features, and patterns of ancient climate;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "identify Earth's major tectonic plates on a map showing relative movements at the three types of plate boundaries: a. divergent plate boundaries (oceanic ridges) b. convergent plate boundaries (mountain ranges and the process of subduction) c. transform plate boundaries",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "construct models to explain how plate movements drive the formation of geological features such as folds, faults, trenches, volcanoes, rift valleys, and mountain ranges;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "describe how the movement of tectonic plates is generally what provides the stress that causes rocks beneath the Earth’s surface",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-4:item-1",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe the flow of matter and energy between and among the Earth's subsystems in sustaining and supporting the ecological balance on the planet;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-4:item-2",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze the importance of the biogeochemical (carbon-oxygen and water) cycles in regulating energy flow and maintaining Earth's systems that are necessary to support life;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-4:item-3",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe the distribution of Earth's water resources and their varying availability across different regions of the Philippines;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-4:item-4",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "characterize running water, groundwater, and subsurface water, highlighting their roles in the water cycle using local examples;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-4:item-5",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "explain the importance of surface water and groundwater systems in supporting ecosystems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-4:item-6",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "construct models to explain the movement and distribution of groundwater within aquifers, including the processes that affect its flow, recharge, shortage, and storage;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-4:item-7",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe and evaluate how Philippine water and other resources are being monitored through various government agencies; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:period-4:item-8",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "propose sustainable ways of conserving and protecting water resources caused by human activities.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "eb37ec4a23a804360ff9ddefb128d90c10161986378c121408be2d4b11e75717"
+  }
+}

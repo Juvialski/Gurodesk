@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-technical-drafting",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Technical Drafting",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1oSHH-kjWCx4uuJ0G2BK3QTksiVGeinUu/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Technical-Drafting_.pdf",
+    "fileId": "1oSHH-kjWCx4uuJ0G2BK3QTksiVGeinUu",
+    "sha256": "3a83b94f82d02d1969941a9b07f1151849452572639f7ce2fd44b8a628c894cd",
+    "byteSize": 280151,
+    "pageCount": 10,
+    "pagesUsed": {
+      "from": 2,
+      "to": 7
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "TECHNICAL-DRAFTING11",
+    "name": "Technical Drafting",
+    "description": "Official Grade 11 Technical Drafting competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Technical Drafting Fundamentals",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Tools, Materials and Equipment in Manual Drafting",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Mensuration and Calculation o Systems of Measurement",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "o Linear measurement o Unit conversion o Scale and Proportions o Coordinates system",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Architectural Layout and Details",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Structural Layout and Details",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Electrical and Electronic Layout and Details",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Sanitary and Plumbing Layout and Details",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Mechanical Layout and Details",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Computer-Aided Design (CAD) Software o Installation Procedures o Interface and Toolbars o Layers, Color, Line Types, Line Weight and Layer Description in CAD o Drawing and Modifica",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "2D geometries and shapes o Line o Arc o Spline o Basic Shapes o Dimensioning, Coordinates, and Annotation Tools",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "3D Computer Aided Design User Interface o Interface and Toolbars o 3D Drawing and Modification Commands",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "3D Geometries o cylindrical o rectangular o cube o spherical o conical and pyramid",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "2D Architectural Layout and Details",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "2D Structural Layout and Details",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "2D Electrical and Electronic Layout and Details",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "2D Sanitary and Plumbing Layout and Details",
+      "sortOrder": 17
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss technical drafting fundamentals",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explain tools, materials and equipment in manual drafting",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform mensuration and calculation",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform manual drafting conversions",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Create architectural layout and details",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-2:item-1",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Create structural layout and details",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Create electrical and electronic layout and details",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create sanitary and plumbing layout and details",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-2:item-4",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Create mechanical layout and details",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-3:item-1",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Perform installation and exploration of the Computer-Aided Design (CAD) Software",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-3:item-2",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Create 2D geometries and shapes",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-3:item-3",
+      "quarter": 3,
+      "domain": "D12",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss 3D Computer Aided Design User Interface",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-3:item-4",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Create 3D Geometry",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-3:item-5",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Create 2D architectural layout and details",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-3:item-6",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Create 2D structural layout and details",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-4:item-1",
+      "quarter": 4,
+      "domain": "D16",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Create 2D electrical and electronic layout and details",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-4:item-2",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Create 2D sanitary and plumbing layout and details",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:period-4:item-3",
+      "quarter": 4,
+      "domain": "D17",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Create a 2D mechanical layout and details",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "2b699ce1a008dd2d4e7f935be8b09f51ef1e4c29d98c680fe77c6c6fbd5d3bae"
+  }
+}

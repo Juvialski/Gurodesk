@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Filipino 1 - Wika at Komunikasyon sa Akademikong Filipino",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1BGrSRuN51gmWoC6Dpi2HGUbsdw1OZ8gH/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Filipino-1-Wika-at-Komunikasyon-sa-Akademikong-Filipino.pdf",
+    "fileId": "1BGrSRuN51gmWoC6Dpi2HGUbsdw1OZ8gH",
+    "sha256": "9e78b3961d63dfdd1943f84a2c0d61f65742d3e183a523b9a3c642eedcbb882f",
+    "byteSize": 419305,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 6
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "FILIPINO-1-WIKA-AT11",
+    "name": "Filipino 1 - Wika at Komunikasyon sa Akademikong Filipino",
+    "description": "Official Grade 11 Filipino 1 - Wika at Komunikasyon sa Akademikong Filipino competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Batayang Kaalaman sa Wika",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "C. Gamit at Tungkulin ng Wika",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "D. Barayti ng Wika",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pag-unlad ng Wikang Filipino",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Mga Sitwasyong Pangwika sa Pilipinas",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Pinal na Awtput: Kritikal na Sanaysay",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Konseptong Pangkomunikasyon",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Kakayahang Komunikatibo",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Akademikong Filipino",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Mga Tuntunin at Hakbang sa Pagsasagawa ng Kritikal na Talakayan Gamit ang Mungkahing Moda ng diskurso (hal., FGD, Forum, Mobile Journalism, Debate, Blog, Vlog, Video Conference, Po",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Pinal na Awtput: Pagsasagawa ng Kritikal na",
+      "sortOrder": 11
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang kahulugan, kahalagahan at katangian ng wika sa komunikasyon at ang papel nito sa lipunan",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang gamit at tungkulin ng wika sa sarili, pamilya, lipunan, bansa, at daigdig",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naibabahagi ang mga halimbawang sitwasyon na nagpapakita ng gamit at tungkulin ng wika",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naihahambing ang paggamit sa barayti ng wika ayon sa mga piling sitwasyong napakinggan, nabasa, at napanood",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nasusuri ang barayti ng wika na ginamit sa teksto batay sa layon, konteksto, at target awdyens",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-6",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naiuugnay ang mga konseptong pangwika sa iba’t ibang sitwasyong pangkomunikasyon batay sa sariling kaalaman, pananaw, at mga karanasan",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-7",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naiisa-isa ang mga sanhi at bunga ng mahahalagang pangyayari sa pag-unlad ng wikang Filipino",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-8",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang sistema ng pagsulat at ang mga batayang tuntunin sa pagbabaybay sa Filipino",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-9",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga sitwasyong pangwika sa Pilipinas mula sa mga napakinggan, nabasa at napanood",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-1:item-10",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Nakasusulat ng kritikal na sanaysay na tumatalakay sa sitwasyon ng wikang Filipino sa lipunang Pilipino",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-2:item-1",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang kahulugan, kahalagahan, uri, antas, elemento, at proseso ng komunikasyon",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-2:item-2",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nailalapat ang mga konseptong pangkomunikasyon sa iba’t ibang sitwasyon",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-2:item-3",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang kahulugan at kahalagahan ng kakayahang komunikatibo",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-2:item-4",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang kahulugan, kahalagahan at katangian ng akademikong Filipino",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-2:item-5",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang intelektuwalisasyon ng wikang Filipino sa iba’t ibang disiplina",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-2:item-6",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nasusuri ang paggamit ng akademikong Filipino sa mga sulatín sa iba’t ibang disiplina",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-2:item-7",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga tuntunin at hakbang sa pagsasagawa ng kritikal na talakayan gamit ang iba’t ibang mungkahing moda ng diskurso",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:period-2:item-8",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Nakapagsasagawa ng kritikal na talakayan tungkol sa isang napapanahong usaping panlipunan mensahe o nilalaman na ibinabahagi ng mga performer, speaker, o content creator (McQuail, 2010).",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "fa1c6d473b5466bd87f6c8eb09799ecd6be0c7acea477ca13ea8ee4dab878694"
+  }
+}

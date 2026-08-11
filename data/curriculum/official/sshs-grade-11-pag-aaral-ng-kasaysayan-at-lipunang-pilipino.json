@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Pag-aaral ng Kasaysayan at Lipunang Pilipino",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1zEMvXIid7LrXqNeA4BrtZa6SFwY5HYH3/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "PAG-AARAL-NG-KASAYSAYAN-AT-LIPUNANG-PILIPINO.pdf",
+    "fileId": "1zEMvXIid7LrXqNeA4BrtZa6SFwY5HYH3",
+    "sha256": "1e81d5650bb00cb456b5a161d3444c6830543032b5fd0beaf960dc20e3ee9377",
+    "byteSize": 316395,
+    "pageCount": 8,
+    "pagesUsed": {
+      "from": 2,
+      "to": 8
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "PAG-AARAL-NG-KASAY11",
+    "name": "Pag-aaral ng Kasaysayan at Lipunang Pilipino",
+    "description": "Official Grade 11 Pag-aaral ng Kasaysayan at Lipunang Pilipino competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Mga Palatandaan at Katangian ng Kamalayang Pangkasaysayan",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Ugnayan ng Heograpiya at Kultura",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Kalinangang Pilipino",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Mga Anyo ng Pakikibaka at Pakikiangkop sa Pag-usbong ng Kamalayang Pilipino",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "C. Mga Piling Kolektibong Karanasan ng Pakikiangkop sa Panahon ng Pagsasarili",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "D. Pagsasakonteksto ng Kasalukuyang Anyo ng Pakikibaka at Pakikiangkop",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Pagtanggap at Pagpili sa Kamalayan para sa Likás-Kayang Pag-unlad",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Mga Pagsusulong ng Likás-Kayang Pag-unlad",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Mga Piling Programang Panlipunang Nagsusulong ng Likás-Kayang Pag-unlad",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Ugnayan ng Likás-Kayang Pag-unlad at Katarungang Panlipunan bilang Tugon sa Hindi Pagkakapantay-pantay",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Konsepto, Katuturan, at Kahalagahan ng Pagkamamamayan",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Ambag at Tunguhin ng Kabataang Mamamayan sa Pagtatamo ng Likás-Kayang Pag-unlad",
+      "sortOrder": 12
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang kahulugan at katuturan ng kamalayang pangkasaysayan",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang ugnayan ng heograpiya at kultura sa kamalayang pangkasaysayan gamit ang piling mga pamayanan at karanasan",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naiuugnay ang mga kultura at kamalayang pangkasaysayan sa sariling konteksto at karanasan",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang umiiral na paniniwala at pananampalataya ng kalinangang Pilipino",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naiuugnay ang personal at panlipunang paniniwala at pananampalataya sa kamalayang pangkasaysayan",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-2:item-1",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naipaliliwanag ang kahulugan at katuturan ng pakikibaka bilang salik sa pag-usbong ng kamalayang Pilipino",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-2:item-2",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga kolektibong karanasan ng pakikibaka laban sa mga dayuhan gamit ang piling kaso (cases) sa kasaysayan",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-2:item-3",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Natataya ang bunga ng mga kilusang panlipunan tulad ng kilusang agraryo, propaganda, at himagsikan sa pagsusulong ng kamalayang Pilipino",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-2:item-4",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nasusuri ang kolektibong karanasan ng pakikiangkop sa panahon ng pagsasarili gamit ang piling kaso (cases)",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-2:item-5",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Natataya ang bunga ng pakikiangkop ng mga Pilipino sa pagsulong ng kamalayang Pilipino",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-2:item-6",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naiuugnay ang personal sa pangkalahatang karanasan ng pakikibaka at pakikiangkop",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-3:item-1",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga konseptong kaugnay ng likás-kayang pag-unlad",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-3:item-2",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga opisyal na dokumentong nagsusulong ng likás-kayang pag-unlad",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-3:item-3",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nasusuri ang mga piling programang panlipunang nagsusulong ng likás-kayang pag-unlad",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-3:item-4",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang likás-kayang pag-unlad bilang pundasyon ng pagsasakatuparan ng katarungang panlipunan",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-4:item-1",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natatalakay ang mga kaisipang kaugnay sa pagkamamamayan",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-4:item-2",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nasusuri ang pangkalahatang karapatan at tungkulin ng mamamayan sa pagtatamo ng pambansang kaunlaran",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-4:item-3",
+      "quarter": 4,
+      "domain": "D12",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasagawa ng mga hakbang ng pakikiisa tungo sa pambansang kaunlaran",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:period-4:item-4",
+      "quarter": 4,
+      "domain": "D12",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Napahahalagahan ang bahagi ng bawat mamamayan sa pagtatamo ng pambansang kaunlaran",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "e60a09f298560eda0079c213b3e126fd3b4afba7e6571d6f9bfd0a8c2483624e"
+  }
+}

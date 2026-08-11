@@ -1,4 +1,33 @@
-# GuroDesk handover — complete through Phase 5.5
+# GuroDesk handover — assessment/export stabilization and official curriculum pack complete
+
+## 2026-08-11 — Complete official curriculum ingestion
+
+Phase B is complete from the green Phase A commit `b2cc5c8cc392c17540de4162aa7fd76483566db7`.
+
+- All 189 current national catalog entries are backed by 196 verified manifests and 6,181 detailed competencies from 129 pinned official DepEd PDFs. Revised K to 10 / MATATAG contributes 80 manifests and 4,277 competencies; Strengthened SHS Grade 11 contributes 94 and 1,552; Grade 12 contributes 22 and 352.
+- The seven extra manifests are the intentional split of Grade 4–10 MAPEH into the separately published Music and Arts and Physical Education and Health guides.
+- Every source records its official URL/landing page, file ID where applicable, file name, edition, pages, bytes, retrieval date, and SHA-256. Every competency records stable identity, source order, exact source page, verification status, and participates in a manifest payload hash. The 129 source PDFs are verification inputs and are not committed.
+- K to 10 quarters/Kindergarten themes, Grade 11 quarters, and Grade 12's explicit one-term scope are preserved as source periods. No grading-calendar or pacing mapping is inferred.
+- The Filipino source's published summary disagrees with five grades' detailed row tables. GuroDesk retains the detailed rows and records both totals under `verification.sourceConsistency`; it does not force or invent records.
+- `supabase/seeds/official-curriculum-complete.sql` is a generated 196-pack, 6,181-competency idempotent seed in one transaction. It preserves legacy Grade 7 Mathematics identities, uses stable update/insert keys, and removes stale rows only within the imported official pack scope.
+- No migration was added; migration count remains 26. Apply migrations 001–026, import the aggregate seed with stop-on-error enabled, rerun it on staging to confirm idempotency, and then deploy the frontend. Phase B changes no Edge Function.
+- `npm run test:ci` passed all three TypeScript checks, 35 validator commands, 229 unit tests across 22 files, and the production Vite bundle with 2,048 modules transformed. All 129 local source hashes also passed. Docker and `psql` were unavailable, so database execution, authenticated integration, seed-idempotency, and Chromium E2E checks remain CI/staging-owned.
+
+See `docs/OFFICIAL_CURRICULUM_IMPLEMENTATION_MANIFEST.md` for the source, extraction, integrity, known-source-variance, deployment, and verification record. The complete handoff archive is `gurodesk-assessment-curriculum-complete.zip`.
+
+## 2026-08-11 — Canonical assessment paper and durable visual enrichment
+
+Phase A of the 2026-08-11 continuation handoff is complete from `main` commit `46a912fb0ed0a8571c9820dec596f96ea32697d2`.
+
+- `assessmentExportPresentation.ts` is now the renderer-neutral paper contract used by preview, browser print, PDF, and DOCX. It centrally owns official/school identity, metadata, instructions, section hierarchy, all eleven question-type response policies, annotations, visual sizing, and continuation labels.
+- The canonical Test 4 regression fixture contains 20 items, 41 points, all eleven question types, and five visuals. PDF and LibreOffice-rendered DOCX output were visually inspected after fixing point-label overlap, collapsed response lines, matching-block pagination, and Word inter-run spacing.
+- Question generation and visual enrichment are separate durable phases. Completed questions are checkpointed before the sequential visual pass. Helpful visual failure preserves the question; missing required visuals block finalization; provider boundaries pause the remaining batch.
+- Persisted `_visualPlan` metadata binds visual status to a deterministic question/answer source hash. Save/load, duplication, bounded history, resume recovery, and visual-only regeneration preserve questions and invalidate stale visuals after material edits.
+- The authenticated visual Edge operation compares browser prompt/answer data with the authoritative saved item before any provider request. GuroDesk continues to own all executable SVG/TikZ/export markup.
+- No migration was added; migration count remains 26. Redeploy the frontend and `assessment-question-generator` from the same commit.
+- `npm run test:ci` passed: all three TypeScript checks, 33 validators, 229 unit tests across 22 files, and the production bundle. Docker/`psql` were unavailable, so database, authenticated integration, and Chromium E2E execution remain CI-owned.
+
+See `ASSESSMENT_EXPORT_VISUAL_IMPLEMENTATION_MANIFEST.md` for the full implementation and verification record. The Phase A source archive is `gurodesk-assessment-export-visual-stable.zip`. Phase B was built from this green checkpoint without fabricating or paraphrasing official competencies.
 
 ## Release boundary
 

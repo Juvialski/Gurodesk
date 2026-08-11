@@ -1,0 +1,514 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-6-gmrc",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG GMRC and VE CG 2023 Grades 1-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20GMRC%20and%20VE%20CG%202023%20Grades%201-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG GMRC and VE CG 2023 Grades 1-10.pdf",
+    "sha256": "0d32f2ecdec894ac1b837244b857d4823ed2806a11e3fe456cb2a5d2c7f7fcfa",
+    "byteSize": 2540394,
+    "pageCount": 296,
+    "pagesUsed": {
+      "from": 156,
+      "to": 183
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 6",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 6",
+    "code": "GMRC6",
+    "name": "GMRC",
+    "description": "Official Grade 6 GMRC competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 156,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 163,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 170,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 177,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Pagkilala sa Sarili bilang Nilikha na May Dignidad",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Paglinang ng Positibong Pagtingin sa Sarili",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Mapanagutang Pagpapasiya ng Sarili Kasama ang Kapuwa",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Sariling Pakikipag-ugnayan sa Diyos Bilang Indikasyon ng Pananampalataya",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Mga Sariling Kilos ng Pagmamahal Bilang Indikasyon ng Pananampalataya sa Diyos",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Sariling Pagtitipid ng Enerhiya upang Mapangalagaan ang Kalikasan",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Sariling Pagkilala sa Mga Pilipinong may Mahalagang Kontribusyon sa Bayan",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Ugnayan ng Sarili sa mga mas Matanda at Nakatatanda o May Gulang (Elderly) sa Pamilya",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Wastong Pagpapahayag ng Saloobin sa Pamilya",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Pagtupad ng mga Tungkulin sa Pamilya",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Sama-samang Pagsamba ng Pamilya",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Paglilingkod ng Pamilya Bilang Indikasyon ng Pananampalataya sa Diyos",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Pagsunod ng Pamilya sa mga Batas-Pangkapaligiran",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Pakikipagbayanihan ng Pamilya sa mga Gawaing-Pampamayanan",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Sariling Pagtugon sa Pambubulas ng Kapuwa",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Mapanagutang Pagtugon sa Iba’t Ibang Emosyon ng Kapuwa",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Pagiging Patas sa Kapuwa",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Pagpapaunlad ng Pananampalataya Tungo sa Pakikipagkapuwa",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Papel ng Espirituwalidad sa Pakikipagkapuwa",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Pagiging Mabuting Katiwala ng Kalikasan Bilang Huwaran ng Kapuwa",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Mga Musika o Sayaw ng Lahi na Maipagmamalaki ng Kapuwa-Pilipino",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Sariling Pagkalinga sa mga Napapabayaan ng Lipunan",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Pananagutan sa Sariling Kilos sa Pamayanan",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Sariling Pakikipag-ugnayan sa mga Awtoridad sa Pamayanan",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "Mga Kawanggawa sa Pamayanan na Bunga ng Pananampalataya",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Mga Tradisyon at Gawain sa Pamayanan na Mula sa Pananampalataya",
+      "sortOrder": 26
+    },
+    {
+      "code": "D27",
+      "name": "Mga Isyung Pangkapaligiran ng Pamayanan",
+      "sortOrder": 27
+    },
+    {
+      "code": "D28",
+      "name": "Pagkilala sa Pagkabukod-tangi ng Lahing Pilipino",
+      "sortOrder": 28
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagpapahalaga sa sarili sa pamamagitan ng pagbabahagi ng talento at pagpapaunlad ng mga gawi a. Natutukoy ang mga sariling kilos ng pagkilala sa sarili bilang nilikha na may dignidad b. Napatutunayan na ang pagkilala sa sarili bilang nilikha na may dignidad ay nagmumula sa kaniyang pagkabukod-tangi sa lahat ng nilalang at ito ang batayan ng paggalang sa sarili at kapuwa c. Nailalapat ang mga sariling kilos ng pagkilala sa sarili bilang nilikha na may dignidad (hal. pagpapaunlad ng sariling talento)",
+      "sourcePage": 156,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging-totoo sa pamamagitan ng pagpapaunlad ng sariling katangian, kakayahan, at mga pagpapahalaga a. Naiisa-isa ang mga paraan ng paglinang ng positibong pagtingin sa sarili b. Naipaliliwanag na ang paglinang ng positibong pagtingin sa sarili ay tungkulin ng bawat isa katuwang ang pamilya upang mapatatag ang sariling pagkatao, mga katangian, kakayahan, at pagpapahalaga c. Naisasakilos ang mga paraan ng paglinang ng positibong pagtingin sa sarili",
+      "sourcePage": 157,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang maingat na paghuhusga sa pamamagitan ng pagtitimbang-timbang ng mga opsiyon upang matukoy ang higit na magpapabuti sa kaniya bilang tao a. Natutukoy ang mga hakbang sa mapanagutang pagpapasiya b. Naipaliliwanag na ang mapanagutang pagpapasiya ng sarili kasama ang kapuwa ay naglilinang ng kasanayang pumili na magpapabuti sa kaniya bilang tao o makatutulong sa pagkamit ng higit na makabubuti sa karamihan c. Nailalapat ang mga hakbang sa mapanagutang pagpapasiya",
+      "sourcePage": 158,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pananampalataya sa pamamagitan ng palagiang pananalangin kasama ang pamilya a. Natutukoy ang mga paraan ng sariling pakikipag-ugnayan sa Diyos bilang indikasyon ng pananampalataya b. Naipaliliwanag na ang sariling pakikipag-ugnayan sa Diyos bilang indikasyon ng pananampalataya ay nagdudulot ng mas malalim na pagkilala, pag-unawa, at pagtitiwala sa Kaniya na nagpapatatag ng kalooban sa harap ng anumang hamon sa buhay c. Naisasakilos ang mga sariling paraan ng pakikipag-ugnayan sa Diyos bilang indikasyon ng pananampalataya",
+      "sourcePage": 159,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasanay ng pagiging mapagmalasakit sa pamamagitan ng pagbibigay-priyoridad sa kapakanan ng kasapi ng pamilya (hal. paggising nang mas maaga para ipagluto ang magulang) a. Nakatutukoy ng mga sariling kilos ng pagmamahal sa pamilya bilang indikasyon ng pananampalataya sa Diyos b. Napatutunayan na ang sariling kilos ng pagmamahal bilang indikasyon ng pananampalataya sa Diyos ay pagkalinga sa kapuwa na nagpapadaloy ng kaniyang mabuting pagkatao c. Nailalapat ang sariling kilos ng pagmamahal sa pamilya bilang indikasyon ng pananampalataya sa Diyos",
+      "sourcePage": 160,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagmalasakit sa pamamagitan ng palagiang pagtatasa ng mga situwasyon na mangangailangan ng pagtitipid ng enerhiya a. Naiisa-isa ang mga paraan ng sariling pagtitipid ng enerhiya upang mapangalagaan ang kalikasan b. Naipaliliwanag na ang sariling pagtitipid ng enerhiya upang mapangalagaan ang kalikasan ay nakatutulong sa pagbawas ng paggamit nito (hal. fossil fuel) at pagpapanatili ng kalusugan ng mga nilalang na may buhay c. Naisasakilos ang paraan ng sariling pagtitipid ng enerhiya upang mapangalagaan ang kalikasan (hal. pagtanggal ng plug sa outlet ng appliance pagkatapos gamitin ito)",
+      "sourcePage": 161,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagpasalamat sa pamamagitan ng gawaing nagtatampok sa kanilang mga kontribusyon a. Naiisa-isa ang mga kontribusyon ng mga Pilipinong may mahahalagang ambag sa bayan (mga indibidwal, grupo, at organisasyon) b. Napatutunayan na ang sariling pagkilala sa mga Pilipinong may mahalagang kontribusyon sa bayan (mga indibidwal, grupo, at organisasyon) ay nagdudulot ng inspirasyon upang tularan ang kanilang mga mabuting halimbawa at nagawa sa bayan c. Nailalapat ang mga sariling paraan ng pagkilala sa mga Pilipinong may mahahalagang kontribusyon sa bayan (mga indibidwal, grupo, at organisasyon)",
+      "sourcePage": 162,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-2:item-1",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang kagandahang-loob sa pamamagitan ng mga angkop na salita o gesture, pag-alaala at pag-alalay kung kinakailangan a. Nakakikilala ng mga wastong paraan ng pakikipag-ugnayan sa mga mas matanda (elders) at nakatatanda o may gulang (elderly) sa pamilya b. Naipaliliwanag na ang ugnayan ng sarili sa mga mas matanda (elders) at nakatatanda o may gulang (elderly) sa pamilya ay sumasalamin ng pagpapahalaga at pagkilala sa kanilang dignidad, karanasan, at karunungan na magsisilbing gabay sa mga pagpapasiya at pagbuo ng mga pananaw sa iba’t ibang isyu c. Nailalapat ang mga wastong paraan ng pakikipag-ugnayan sa mga mas matanda (elders) at nakatatanda o may gulang (elderly) sa pamilya",
+      "sourcePage": 163,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-2:item-2",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naisasakilos ang pagiging mapagpasensiya sa pamamagitan ng positibong pagtanggap sa mga mapanghamong situwasyon kasama ang pamilya a. Naiisa-isa ang mga paraan ng wastong pagpapahayag ng saloobin sa pamilya b. Naipaliliwanag na ang wastong pagpapahayag ng saloobin sa pamilya ay nakalilinang ng kalusugang pangkaisipan na mahalaga sa paglinang ng positibong pagtingin sa sarili c. Nailalapat ang sariling paraan ng wastong pagpapahayag ng saloobin sa pamilya",
+      "sourcePage": 164,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-2:item-3",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging masipag sa pamamagitan ng palagiang paggawa ng mga tungkulin sa pamilya ayon sa iskedyul ng mga gawain a. Natutukoy ang mga paraan ng pagtupad ng mga tungkulin sa pamilya b. Naipaliliwanag na ang pagtupad ng mga tungkulin sa pamilya ay nagdudulot ng pagpapabuti ng mga gawi sa pamamagitan ng kusang pagsasakatuparan ng mga gawaing inaasahan sa pamilya na may pagtanggap sa kahihinatnan nito c. Naisasakilos ang pagtupad ng mga tungkulin sa pamilya ayon sa iskedyul ng mga gawain",
+      "sourcePage": 165,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-2:item-4",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pakikiisa sa pamamagitan ng panghihikayat sa bawat kasapi ng pamilya sa sama-samang pagsamba a. Natutukoy ang mga paraan ng sama-samang pagsamba ng pamilyang kinabibilangan b. Nahihinuha na ang sama-samang pagsamba ng pamilya ay nakatutulong sa pagpapatibay ng tiwala sa isa’t isa, pagpapatatag ng buhay-panalangin bilang pamilya at samahan sa pamilya c. Nakalalahok sa sama-samang pagsamba ng pamilyang kinabibilangan",
+      "sourcePage": 166,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-2:item-5",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapagkawang-gawa sa pamamagitan ng pakikilahok sa mga gawain ng pagtulong ng pamilya sa mga nangangailangan a. Naiisa-isa ang mga paraan ng paglilingkod ng pamilya sa mga nangangailangan bilang indikasyon ng pananampalataya sa Diyos b. Nahihinuha na ang paglilingkod ng pamilya sa mga nangangailangan bilang indikasyon ng pananampalataya sa Diyos ay ang kolektibong pag-aalay ng sarili sa kapuwa at paraan ng pagtupad ng misyon ng tao na magmahal c. Naisasakilos ang mga paraan ng paglilingkod ng pamilya sa mga nangangailangan bilang indikasyon ng pananampalataya sa Diyos",
+      "sourcePage": 167,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-2:item-6",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapanagutan sa pamamagitan ng panghihikayat sa pamilya na tumalima sa batas-pangkapaligiran na angkop sa bayan na kinabibilangan a. Natutukoy ang mga paraan ng pagsunod ng pamilya sa mga batas-pangkapaligiran na angkop sa bayan na kinabibilangan b. Naipaliliwanag na ang pagsunod ng pamilya sa mga batas-pangkapaligiran ay mahalaga upang mapanatili ang kaligtasan, kalusugan, at kapakinabangan ng bawat kasapi mula sa kalikasan c. Naisasakilos ang mga sariling paraan ng pagsunod ng pamilya sa mga batas-pangkapaligiran na angkop sa bayan na kinabibilangan",
+      "sourcePage": 168,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-2:item-7",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pakikiisa sa pamamagitan ng panghihikayat sa pamilya na makipagbayanihan sa mga gawaing-pampamayanan ayon sa kanilang kakayahan a. Nakakikilala ng mga gawain ng pakikipagbayanihan ng pamilyang kinabibilangan sa mga gawaing-pampamayanan b. Naipaliliwanag na ang pakikipagbayanihan ng pamilya sa mga gawaing-pampamayanan ay pagpapakita ng bolunterismo ng mag-anak upang makapagbahagi sa pagpapabuti ng pamayanang kinabibilangan c. Nailalapat ang sariling paraan ng pakikipagbayanihan ng pamilyang kinabibilangan sa mga gawaing-pampamayanan",
+      "sourcePage": 169,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-3:item-1",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa lakas ng loob sa pamamagitan ng paninindigan o hayagang pag-ayaw sa mga kilos o pananalita ng pambubulas a. Natutukoy ang mga wastong paraan ng pagtugon sa pambubulas ng kapuwa b. Naipaliliwanag na ang sariling pagtugon sa pambubulas ng kapuwa ay paraan upang mapangalagaan ang sarili o ang ibang tao nang hindi nananakit o nagiging marahas tungo sa mapayapang ugnayan c. Nailalapat ang mga wastong paraan ng pamamahala sa sarili sa panahon ng pambubulas",
+      "sourcePage": 170,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-3:item-2",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Naipakikita ang pagiging mapagpasensiya sa pamamagitan ng pagninilay sa kahihinatnan ng kilos na dulot ng emosyon a. Nailalarawan ang mga sariling paraan ng mapanagutang pagtugon sa iba’t ibang emosyon ng kapuwa b. Naipaliliwanag na ang mapanagutang pagtugon sa iba’t ibang emosyon ng kapuwa ay nakatutulong sa pagpapanatili ng sariling kalusugang pangkaisipan na nagtitiyak sa pagpapabuti ng ugnayan sa kapuwa c. Naisasakilos ang mga sariling paraan ng mapanagutang pagtugon sa iba’t ibang emosyon ng kapuwa",
+      "sourcePage": 171,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-3:item-3",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging makatarungan sa pamamagitan ng pagiging sensitibo sa mga pangangailangan ng kapuwa a. Natutukoy ang mga kilos ng pagiging patas sa kapuwa b. Naipaliliwanag na ang pagiging patas sa kapuwa ay pagtrato, pagtugon, at pagtulong sa isang tao ayon sa kaniyang pangangailangan upang mapadaloy ang kabutihan at kapayapaan sa pakikipagkapuwa c. Nailalapat ang mga sariling kilos ng pagiging patas sa kapuwa",
+      "sourcePage": 172,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-3:item-4",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pananalig sa Diyos sa pamamagitan ng pagbabasa ng aklat ng sariling pananampalataya, pagbabahagi sa kapuwa ng mga aral mula rito o pagkalinga sa kapuwa ayon sa kakayahan a. Naiisa-isa ang mga paraan ng pagpapaunlad ng pananampalataya tungo sa pakikipagkapuwa b. Naipaliliwanag na ang pagpapaunlad ng pananampalataya tungo sa pakikipagkapuwa ay nakatutulong sa pagpapabuti ng paniniwala sa kapangyarihan, karunungan at pagmamahal ng Diyos sa sarili at kapuwa upang lubusang magtiwala sa Kaniya sa harap ng mga hamon sa buhay c. Naisasakilos ang mga paraan ng pagpapaunlad ng pananampalataya tungo sa pakikipagkapuwa",
+      "sourcePage": 173,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-3:item-5",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagmalasakit sa pamamagitan ng mga kilos ng pagdamay sa pagdurusa ng kapuwa a. Natutukoy ang papel ng espirituwalidad sa pakikipagkapuwa b. Naipaliliwanag na ang papel ng espirituwalidad sa pakikipagkapuwa ay ang pagpapanatili ng pagkakaisa, kapayapaan, at pagdadamayan sa panahon ng pangangailangan ng bawat isa bilang indikasyon ng pagmamahal at paghahanap ng makabuluhang dahilan ng pag-iral sa lipunan c. Nailalapat ang papel ng espirituwalidad sa pakikipagkapuwa",
+      "sourcePage": 174,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-3:item-6",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagmalasakit sa pamamagitan ng palagiang pagtitiyak na walang magiging sanhi ng anumang sakuna sa loob at labas ng tahanan at paaralan a. Natutukoy ang mga katangian ng pagiging mabuting katiwala ng kalikasan b. Naipaliliwanag na ang pagiging mabuting katiwala ng kalikasan bilang huwaran ng kapuwa ay pagpapalaganap at pagtitiyak ng kaligtasan at pagpapayaman nito para sa susunod na henerasyon c. Naisasakilos ang mga katangian ng pagiging mabuting katiwala ng kalikasan bilang huwaran ng kapuwa",
+      "sourcePage": 175,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-3:item-7",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang nasyonalismo sa pamamagitan ng pagkiling sa mga musika o sayaw ng lahi sa mga angkop na sitwasiyon o pagdiriwang a. Naiuugnay ang mga musika o sayaw ng lahi na maipagmamalaki ng kapuwa-Pilipino sa mga pagpapahalaga at kultura b. Naipaliliwanag na ang mga musika o sayaw ng lahi na maipagmamalaki ng kapuwa-Pilipino ay sumasalamin sa ating kaugalian, pamumuhay, at paniniwala, kaya dapat pangalagaan at panatilihin upang maipasa sa susunod na henerasyon c. Naisasakilos ang mga paraan ng pagtataguyod ng mga musika o sayaw ng lahi na maipagmamalaki ng kapuwa-Pilipino",
+      "sourcePage": 176,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-4:item-1",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging mapagmalasakit sa pamamagitan ng pagbabahagi ng tulong ayon sa kaniyang kakayahan sa iba’t ibang pagkakataon a. Nakapagpapahayag ng mga paraan ng pagkalinga sa mga napapabayaan ng lipunan b. Napatutunayan na ang sariling pagkalinga sa mga napapabayaan ng lipunan ay bahagi ng tungkuling itaguyod ang kapakanan ng mga pangkat ng tao at pagsusulong ng kanilang mga isyu na hindi nabibigyang-halaga o pansin c. Naisasakilos ang mga paraan ng pagkalinga sa mga napapabayaan ng lipunan",
+      "sourcePage": 177,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-4:item-2",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Nakapagsasanay sa pagiging mapanagutan sa pamamagitan ng kusang-loob na pagwawasto sa mga nagawang mali at pagtataguyod ng mga mabuting gawi a. Nakapagsasalaysay ng mga pananagutan sa sariling kilos sa pamayanan b. Napagtitibay na ang pananagutan sa sariling kilos sa pamayanan ay nagbubunsod sa kaniya na pag-isipang mabuti bago isakilos ang bawat pasiya at maging handa sa kahihinatnan nito c. Naipakikita ang mga pananagutan sa sariling kilos sa pamayanan",
+      "sourcePage": 178,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-4:item-3",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pagiging magalang sa pamamagitan ng pagkilala sa mga kapangyarihan at tungkulin ng mga awtoridad sa pamayanan a. Nailalarawan ang mga wastong pakikipag-ugnayan sa mga awtoridad sa pamayanan b. Naipaliliwanag na ang sariling pakikipag-ugnayan sa mga awtoridad sa pamayanan ay mahalaga sa wastong pagtugon sa mga pangangailangan sa serbisyo lalo na sa panahon ng mga sakuna o kalamidad a. Naisasakilos ang wastong pakikipag-ugnayan sa mga awtoridad sa pamayanan",
+      "sourcePage": 179,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-4:item-4",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pananalig sa Diyos sa pamamagitan ng pagpapalaganap ng mga kawanggawa sa pamayanang kinabibilangan a. Nakakikilala ng mga kawanggawa sa pamayanan na bunga ng pananampalataya b. Naipaliliwanag na ang mga kawanggawa sa pamayanan na bunga ng pananampalataya ay sumasalamin sa pagtalima sa mga kautusan ng kanilang paniniwala na mag-ambag tungo sa ikabubuti ng mga tao sa lipunan c. Nakalalahok sa mga gawain ng kawanggawa sa pamayanan na bunga ng pananampalataya ayon sa kaniyang kakayahan",
+      "sourcePage": 180,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-4:item-5",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pakikiisa sa pamamagitan ng pagkukusang ibahagi ang mga tradisyon at gawain ng sariling pananampalataya at pakikinig sa mga katumbas nito sa kapuwa a. Nailalarawan ang mga tradisyon sa pamayanan na mula sa pananampalataya b. Napatutunayan na ang mga tradisyon at gawain sa pamayanan na mula sa pananampalataya ay nagbubuklod, nagtitiyak ng kaligtasan, at bumubuo ng positibong pagkakakilanlan ng mga tao sa lipunan c. Naisasakilos ang mga tradisyon at gawain sa pamayanan na mula sa pananampalatayang kinabibilangan ayon sa kaniyang kakayahan",
+      "sourcePage": 181,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-4:item-6",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang pakikiisa sa pamamagitan ng pagiging bahagi ng mga programa o gawaing tumutugon sa mga isyung pangkapaligiran ayon sa kaniyang kakayahan a. Natutukoy ang mga tungkulin ng mga mamamayan sa mga isyung pangkapaligiran b. Nakapagsusuri na ang mga isyung pangkapaligiran ng pamayanan ay kagyat na kinakailangang tugunan ng bawat mamayanan upang maiwasan ang pagkasira at pagkaubos ng kalikasan na hahantong sa kapahamakan ng buhay, kabuhayan, kultura, at kawalan ng kapayapaan c. Naisasakilos ang mga tungkulin ng mga mamamayan sa mga isyung pangkapaligiran",
+      "sourcePage": 182,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-gmrc:period-4:item-7",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naisasabuhay ang nasyonalismo sa pamamagitan ng pagpapalaganap ng mga bukod-tanging katangian ng mga Pilipino a. Nakakikilala ng mga katangian na nagpapabukod-tangi sa lahing Pilipino b. Napatitibay na ang pagkilala sa pagkabukod-tangi ng lahing Pilipino ay naglalayong patatagin ang pagkakakilanlan bilang isang Pilipino sa pamamagitan ng pagdakila at pagpapayaman nito c. Nailalapat ang mga katangian na nagpapabukod-tangi sa lahing Pilipino ayon sa kaniyang kakayahan",
+      "sourcePage": 183,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "e4e0b7923153b2bd1c33aa8937bd4ea2b4c2f4e2e128a007b741d26c142b841c"
+  }
+}

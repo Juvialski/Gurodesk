@@ -1,5 +1,5 @@
 import type { TosContent, TosRecord } from './tos'
-import type { AssessmentVisual } from './assessmentVisual'
+import type { AssessmentVisual, AssessmentVisualRequirement, AssessmentVisualStatus } from './assessmentVisual'
 
 export type AssessmentStatus = 'draft' | 'final' | 'archived'
 
@@ -234,6 +234,15 @@ export type AssessmentItem = {
   history?: AssessmentItemVersion[]
   /** Optional teacher-authored geometry/diagram visual, orthogonal to the question type. */
   visual?: AssessmentVisual
+  /** Persisted plan from question generation or conservative local heuristics. */
+  visualRequirement?: AssessmentVisualRequirement
+  visualIntent?: string
+  visualStatus?: AssessmentVisualStatus
+  visualAttempts?: number
+  visualError?: string
+  /** Hash of question type, prompt, and structured answer used for this visual. */
+  visualSourceHash?: string
+  visualUpdatedAt?: string
 }
 
 export type AssessmentQaState =
@@ -259,6 +268,13 @@ export type AssessmentItemVersion = {
   points?: number | null
   qaState?: AssessmentQaState
   visual?: AssessmentVisual
+  visualRequirement?: AssessmentVisualRequirement
+  visualIntent?: string
+  visualStatus?: AssessmentVisualStatus
+  visualAttempts?: number
+  visualError?: string
+  visualSourceHash?: string
+  visualUpdatedAt?: string
 }
 
 export type AssessmentQuestionTypeMode = 'auto_balanced' | 'fixed_counts' | 'percentages' | 'manual_per_item'

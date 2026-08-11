@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-physics-4",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Physics 4",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/15I30c5m6zBK7HXHLyM438CRQrIxK7RLB/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Physics 4.pdf",
+    "fileId": "15I30c5m6zBK7HXHLyM438CRQrIxK7RLB",
+    "sha256": "b30af74a6a1a470fed207e3211f0fab9241e04ec373c8cff2d92d10bcc2fcbfe",
+    "byteSize": 393465,
+    "pageCount": 6,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "PHYSICS-412",
+    "name": "Physics 4",
+    "description": "Official Grade 12 Physics 4 competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Mechanical Waves",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Atomic Structure and Nuclear Composition",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Radioactive Decay and Half-life",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Nuclear Reactions and Technologies",
+      "sortOrder": 4
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "differentiate mechanical waves and electromagnetic waves based on nature of propagation and examples;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "characterize waves based their parts (crest, trough, compression, rarefaction) and properties (wavelength, amplitude, frequency, period);",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "describe light as an electromagnetic wave and relate its properties, such as wavelength and frequency, to its behavior when interacting with different media;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "analyze how waves interact with different media and obstacles through reflection, refraction, diffraction, and interference;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "determine the type, orientation, position, and magnification of images formed by spherical mirrors and thin lenses using ray diagrams and mathematical equations;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "describe how the properties of sound, such as pitch, loudness, and quality (timbre), are related to wave characteristics;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "use the properties of sound to explain real-world scenarios such as echoes, soundproofing, acoustics, and noise cancellation;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "explain how the properties of light are applied in modern technologies such as fiber-optic communication, laser-based devices, optical sensors, and medical imaging systems; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "explain frequency shifts in sound and light caused by relative motion between sources and observers using the Doppler effect in contexts such as moving vehicles, stellar motion, and atmospheric monitoring.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "explain the structure of the atom in terms of the nucleus, electrons, protons, and neutrons, and the quark composition of nucleons;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-11",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "describe how protons and neutrons are composed of quarks and relate this to the study of particle physics and particle accelerators;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-12",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "explain the concept of binding energy, strong nuclear force and its role in nuclear stability, and occurrence of radioactivity;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-13",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "analyze properties and use of specific elements and their isotopes using the periodic table of elements and chart of nuclides;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-14",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "apply dosimetric quantities and units to distinguish ionizing from nonionizing radiation and assess radiation safety;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-15",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "analyze the processes of radioactive decay, including alpha, beta, and gamma decay;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-16",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "calculate the half-life of radioactive substances and binding energy and mass energy in nuclear reactions;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-17",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "compare nuclear fission and fusion in terms of their principles and implications for energy production, safety, and radioactive waste management;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-18",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "describe the interaction of radiation with matter and its applications in medicine, agriculture, industries, and environmental monitoring; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:period-1:item-19",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "use secondary sources to explain the principles of particle accelerators, reactors, and cyclotrons and their uses.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "cbfcec9a1d5f41f24472ad575b24bb4646c686a19a30f61556a8c76f874604c6"
+  }
+}

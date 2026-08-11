@@ -12,6 +12,7 @@ import type {
   QuestionType,
 } from '../types/assessment'
 import type { TosContent, TosRecord } from '../types/tos'
+import { withResolvedAssessmentVisualPlan } from './assessmentVisualPlanning'
 
 function normalizeItemPoints(item: Partial<AssessmentItem>) {
   const raw: unknown = item.pointsPossible ?? item.points
@@ -258,7 +259,7 @@ export function normalizeAssessmentBlueprint(input: AssessmentBlueprint): Assess
   result.curriculumPeriodLabels = [...(result.curriculumPeriodLabels ?? [])]
   result.totalItems = Number(result.totalItems)
   result.settings = normalizeSettings(result.settings)
-  result.items = (result.items ?? []).map((item, index) => ({
+  result.items = (result.items ?? []).map((item, index) => withResolvedAssessmentVisualPlan({
     ...item,
     id: item.id || stableId('assessment-item'),
     itemNumber: Number(item.itemNumber ?? index + 1),

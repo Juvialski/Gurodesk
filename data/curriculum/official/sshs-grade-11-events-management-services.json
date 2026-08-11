@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-events-management-services",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Events Management Services",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1CRoQxUDSK-81Sbzw6as7dqGusPso56Eg/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Events-Management-Services.pdf",
+    "fileId": "1CRoQxUDSK-81Sbzw6as7dqGusPso56Eg",
+    "sha256": "eabc40e2e736c679925603b5fcf57934f6212abc566fa76750ce21ce74f6490a",
+    "byteSize": 639576,
+    "pageCount": 22,
+    "pagesUsed": {
+      "from": 2,
+      "to": 15
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "EVENTS-MANAGEMENT-11",
+    "name": "Events Management Services",
+    "description": "Official Grade 11 Events Management Services competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 12,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 15,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Foundational Concepts of Events Management",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Career Paths and Opportunities",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Goal Setting for the Event Concept and Theme",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Legal Basis and Frameworks in Event Management",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Ethical Considerations",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Transparency and honesty",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Contractor Management and Protocol",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Managing Indoor Event",
+      "sortOrder": 8
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-events-management-services:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the history and evolution of event management.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-events-management-services:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Identify career opportunities in events management.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-events-management-services:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Explain the importance of event concepts and themes in preparing an event proposal. Prepare a SOAR analysis for the event proposal.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-events-management-services:period-3:item-1",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the legal and regulatory requirements of different events",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-events-management-services:period-3:item-2",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Explain the ethical considerations in event management.",
+      "sourcePage": 14,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-events-management-services:period-3:item-3",
+      "quarter": 3,
+      "domain": "D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "develop checklist of legal documents for an event.",
+      "sourcePage": 14,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-events-management-services:period-4:item-1",
+      "quarter": 4,
+      "domain": "D07",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss managing contractors for an event",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-events-management-services:period-4:item-2",
+      "quarter": 4,
+      "domain": "D08",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Execute an even following contractor protocols",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "0eac0769d962be05871c45ded5b078064ec0ff08798e9075979080bc4892b8bb"
+  }
+}

@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-effective-communication",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Effective Communication",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/18_mC0zMVdc7LU02KFGaPxxGbvfX-6vsb/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "EFFECTIVE-COMMUNICATION.pdf",
+    "fileId": "18_mC0zMVdc7LU02KFGaPxxGbvfX-6vsb",
+    "sha256": "a9a72252789579bee0a73efa1968b35cc0d66ab72df08bfc2a180b29a0f672c8",
+    "byteSize": 355092,
+    "pageCount": 9,
+    "pagesUsed": {
+      "from": 3,
+      "to": 9
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "EFFECTIVE-COMMUNIC11",
+    "name": "Effective Communication",
+    "description": "Official Grade 11 Effective Communication competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 3,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 5,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 8,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "audience, purpose, and context",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Engaging effectively in personal and interpersonal communication using appropriate verbal and non-verbal strategies",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "interpersonal purposes, audiences, and contexts",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "communication",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "social norms and dynamics",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Engaging effectively in social communication using culturally appropriate verbal and non-verbal strategies",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "and cultural purposes, audiences, and contexts",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Reflecting on the processes of interpretation, engagement, and expression in social and cultural communication",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Engaging effectively in interactive communication in academic and training contexts",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "purposes, audiences, and contexts",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Reflecting on the processes of interpretation, engagement, and expression in academic and technical communication",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "shaped by audience, purpose, and context",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Engaging effectively in interactive communication in workplace and professional contexts",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "professional purposes, audiences, and contexts",
+      "sortOrder": 14
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Determine how language and tone are used purposefully in discussing a variety of personal and interpersonal topics.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Extract main points from spoken, written, and multimodal texts (e.g., recorded and live extended personal interactions).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Analyze the content and intent of personal and interpersonal communication (e.g., conversation and correspondence).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Use language, tone, and structure appropriately for audience, purpose, and context in discussing a variety of personal and interpersonal topics.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Use politeness markers and conversation management signals and strategies (e.g., topic nomination, topic shift/control, turn-taking, back-channeling, feedback-giving, and topic termination).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Use appropriate non-verbal strategies to enhance the quality of personal and interpersonal conversation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-7",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Compose well-structured personal and interpersonal communication, showing awareness of audience and purpose (e.g., reporting observations, narrating experiences, or articulating opinions).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-8",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Engage in intrapersonal communication (e.g., diary writing, journaling, building a social media profile) to reflect on learning and experiences, set goals, and establish an online presence while safeguarding privacy.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-9",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Employ language and structure (e.g., use of transition/cohesive devices) appropriately and effectively for a variety of purposes.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-10",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Describe processes of interpretation, engagement, and expression used for communication in personal and interpersonal contexts, demonstrating awareness of their purposes.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-1:item-11",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Review one’s participation in personal and interpersonal communication, identifying strengths and areas for growth to improve communicative competence and personal effectiveness.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-1",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Recognize underlying attitudes, assumptions, or perspectives related to social or cultural topics in various culturally significant communication events (e.g., speeches, media broadcasts, cultural performances).",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-2",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Use critical listening, reading, and viewing strategies, including cultural awareness and sensitivity, to interpret various forms of literary, media and digital communication.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-3",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Identify main messages, implied meanings, and biases in public, civic, or culturally significant communication events (e.g., social media, podcasts, art exhibitions, festivals).",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-4",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Use culturally appropriate verbal and non-verbal strategies (e.g., politeness markers, conversation management signals and strategies) to communicate effectively in navigating diverse social and cultural settings.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-5",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Demonstrate sensitivity to social roles, group dynamics, and cultural identities in face-to-face and online interactions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-6",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Compose public-facing texts (e.g., blogs, commentaries, social media advocacy posts, or short opinion pieces) that promote inclusivity, equity, or social awareness.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-7",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Compose critical reviews of culturally significant texts (e.g., films, short stories, poetry, television series).",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-8",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Construct coherent arguments or narratives that reflect understanding of social responsibility, diversity, and shared values.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-2:item-9",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Describe how cultural awareness and sensitivity influence processes of interpretation, engagement, and expression in diverse social contexts.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Identify how content, structure, and language of spoken, written, and multimodal academic and technical texts are shaped by audience, purpose, and context.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-2",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Use critical listening, reading, and viewing strategies in comprehending academic and technical texts.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-3",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Interpret data represented in multimodal forms (e.g., charts, tables, figures).",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-4",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Employ appropriate strategies in understanding unfamiliar vocabulary, including specialized terminology.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-5",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Use language, tone, and structure appropriately for audience, purpose, and context in discussing a variety of academic and technical topics.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-6",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Follow procedures, instructions, or processes in spoken, written, or multimodal forms (e.g., figures, diagrams, charts) to successfully achieve outcomes.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-7",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Participate constructively in academic or technical lectures, presentations, or discussions by formulating and asking questions, providing feedback, and responding appropriately.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-8",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Collaborate on academic and technical tasks (e.g., project proposals, technical reports, lectures, manuals) to leverage individual knowledge and skills and optimize common goals.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-9",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Compose well-structured academic and technical texts, showing awareness of audience and purpose (e.g., presentations with visual aids, essays, research and analysis reports).",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-10",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Explain concepts using appropriate academic and technical vocabulary and language, and multimodal representations (e.g., diagrams, graphs, charts, infographics).",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-11",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Condense spoken, written, or multimodal texts into diagrams, charts, outline, summary, synopsis, or paraphrase.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-12",
+      "quarter": 3,
+      "domain": "D10",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Employ ethical considerations (e.g., citation methods, AI attribution/declaration, avoiding plagiarism) in producing extended spoken, written, or multimodal academic and technical texts.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-13",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Describe processes of interpretation, engagement, and expression used for communication in academic and training contexts, demonstrating awareness of their purposes.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-3:item-14",
+      "quarter": 3,
+      "domain": "D11",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Review one’s readiness to participate in academic and technical communication, identifying strengths and areas for growth to improve performance and shape life-long learning.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-1",
+      "quarter": 4,
+      "domain": "D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Identify how content, structure, and language of spoken, written, and multimodal workplace and professional communication are shaped by audience, purpose, and context.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-2",
+      "quarter": 4,
+      "domain": "D12",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Listen actively to workplace and professional communication (e.g., meetings, phone calls, presentations, instructions) to take accurate, well-organized notes for future reference and task completion.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-3",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Use language, tone, and structure appropriately for audience, purpose, and context in discussing workplace and professional matters.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-4",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Participate constructively in workplace and professional communication (e.g., conversations, meetings, negotiations, interviews, feedback sessions) by formulating and asking questions, providing feedback, and responding appropriately.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-5",
+      "quarter": 4,
+      "domain": "D13",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Collaborate on workplace and professional tasks (e.g., proposals, reports, presentations, projects) to leverage individual knowledge and skills, and optimize common goals.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-6",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Compose well-structured workplace and professional communication, showing awareness of audience and purpose (e.g., presentations with visual aids, emails, reports).",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-7",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Use appropriate conventions (e.g., layout, font choice, bullets, bolds, italics) and concise language to deliver effective workplace and professional communication.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-8",
+      "quarter": 4,
+      "domain": "D14",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Produce professional profiles, resumés, and job and college applications, tailored for purpose and audience.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-9",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Describe processes of interpretation, engagement, and expression used for communication in professional and workplace contexts, demonstrating awareness of their purposes.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:period-4:item-10",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Review one’s readiness to participate in professional and workplace communication, identifying strengths and areas for sustained career growth.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "947109d1c29eb8ed4922c8da3fe3156572da89ac2dbdac3492cd5a74fa1ab153"
+  }
+}

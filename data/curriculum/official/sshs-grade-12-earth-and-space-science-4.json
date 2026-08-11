@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-earth-and-space-science-4",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Earth and Space Science 4",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1j8XpAsdYOjP94p8f7I6CyW-D-9J4Raap/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Earth and Space Science 4.pdf",
+    "fileId": "1j8XpAsdYOjP94p8f7I6CyW-D-9J4Raap",
+    "sha256": "a4c1d0084bab32f0ef3eb0ee2e683e4e3f506b204e73fb27cbe880836f647f31",
+    "byteSize": 420992,
+    "pageCount": 5,
+    "pagesUsed": {
+      "from": 2,
+      "to": 5
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "EARTH-AND-SPACE-SC12",
+    "name": "Earth and Space Science 4",
+    "description": "Official Grade 12 Earth and Space Science 4 competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Natural hazards and disaster formation",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "formation",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Hazard mapping and disaster risk assessment",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Disaster risk reduction strategies",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Disaster governance and community resilience",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Energy systems and sustainability",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Land subsidence and groundwater management",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Slope stability and geotechnical risk",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Sustainable infrastructure and community resilience",
+      "sortOrder": 9
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "describe different types of geological and hydrometeorological hazards and their causes;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "explain how natural hazards become disasters by analyzing exposure, vulnerability, and capacity of communities;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "explain the components of disaster risk, including hazard, exposure, vulnerability, and capacity;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "use hazard maps and geospatial data to identify areas at risk in a local community;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-5",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "conduct a basic disaster risk assessment for a selected community using available hazard maps and risk assessment tools;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-6",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "compare structural and nature-based solutions used to mitigate disaster risks, including seismic retrofitting, flood barriers, dams, and mangrove restoration;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-7",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "describe disaster risk reduction and management strategies used at the community, local government, and national levels;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-8",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "use the provisions of Republic Act 10121 to explain how local DRRM councils implement disaster preparedness and response measures;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-9",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "use hazard exposure data and historical disaster records to describe the effectiveness of existing community",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-10",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "create evidence-based strategies to improve disaster preparedness and risk reduction in a local community.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-11",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "explain how energy production and consumption influence climate change and environmental sustainability in the Philippines;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-12",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "use information from Department of Energy (DOE) to describe the current Philippine energy mix and explain its environmental and socio-economic implications;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-13",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "use information from Department of Energy (DOE) and the International Renewable Energy Agency environmental trade-offs, and socio-economic implications of solar, geothermal, and wind energy in the Philippine context;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-14",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "explain the strategies for increasing the share of renewable energy in the Philippine energy system;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-15",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "explain how human land-use practices, including groundwater extraction and deforestation, influence geologic and environmental hazards;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-16",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "investigate ground subsidence associated with groundwater over-extraction using geospatial and monitoring data from PHIVOLCS and NAMRIA",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-17",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "use available geotechnical and hazard data to assess slope stability risks in a Philippine upland community",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-18",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "explain appropriate geotechnical and land management interventions to reduce landslide and subsidence risks;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-19",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "evaluate how sustainable infrastructure, renewable energy systems, and land-use planning contribute to disaster-resilient communities; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:period-1:item-20",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "create a community-level resilience plan integrating sustainable energy, responsible land management, and disaster risk reduction strategies.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "14ce30487d0aba6d38e06b9f9555bdcac71a58082fd86a2dc74800294cb83a96"
+  }
+}

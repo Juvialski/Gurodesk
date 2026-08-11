@@ -1,0 +1,987 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-3-filipino",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "sourceConsistency": {
+      "detailedTableCountsByQuarter": [
+        21,
+        21,
+        21,
+        21
+      ],
+      "publishedSummaryCountsByQuarter": [
+        21,
+        21,
+        21,
+        22
+      ],
+      "status": "official_source_variance",
+      "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    }
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG FILIPINO CG 2023 Grades 2-10",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20FILIPINO%20CG%202023%20Grades%202-10.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+    "sha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+    "byteSize": 2192086,
+    "pageCount": 172,
+    "pagesUsed": {
+      "from": 39,
+      "to": 54
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 3",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 3",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 3",
+    "code": "FILIPINO3",
+    "name": "Filipino",
+    "description": "Official Grade 3 Filipino competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 39,
+      "sourceLabel": "Unang Markahan"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 43,
+      "sourceLabel": "Ikalawang Markahan"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 47,
+      "sourceLabel": "Ikatlong Markahan"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 51,
+      "sourceLabel": "Ikaapat na Markahan"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Palabigkasan at Pag-aaral ng Salita (tunog-salita)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Paglinang ng Talasalitaan (salita)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Gramatika (pangungusap)",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Pag-unawa at Pagsusuri ng Teksto (diskurso)",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Pagbuo ng Teksto (diskurso)",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Palabigkasan at",
+      "sortOrder": 6
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang sight words na kabilang sa Filipino",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy nang wasto ang mga salitang madalas gamitin o high frequency words",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salita na high frequency tungkol sa: a. sarili at bansa b. tiyak na paksang may tuon sa nilalaman (hal. sitwasyong pambansa)",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang may tiyak na tuong pangnilalaman (GMRC at MAKABANSA)",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Natutukoy ang kahulugan ng mga salita ayon sa konteksto a. salitang tumutukoy sa ngalan ng tao, bagay, hayop, lugar, at pangyayari ● salitang dinaglat b. salitang pamalit sa ngalan ng tao, bagay, hayop, lugar, at pangyayari ● pamatlig c. salitang naglalarawan ● ngalan ng tao, bagay, hayop, lugar, at pangyayari d. salitang kilos e. salitang pangkayarian ● pangatnig ● pang-angkop",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nababasa nang wasto ang mga natutuhang salita",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naisusulat nang maayos at wasto ang mga natutuhang salita",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Natutukoy ang salitang-ugat ng mga natutuhang salita na high frequency o madalas gamitin",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nakikilala ang kahulugan ng mga salita a. magkasingkahulugan b. magkasalungat",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-10",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga bahagi ng payak na pangungusap a. simuno b. panaguri",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-11",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga pananda sa teksto a. hudyat ng pag-iisa-isa-paglalarawan b. hudyat ng pagsusunod-sunod",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-12",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nababasa nang may tatas (may damdamin at tamang bilis) ang mga pangungusap",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-13",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Nauunawaan ang pinakinggan o binasang tekstong naratibo (kuwentong pambata, kuwentong-bayan, pabula, alamat, at parabula mula sa Banal na Aklat) a. Naibibigay ang elemento ng teksto b. Natutukoy ang damdamin ng tauhan sa mga pangyayari c. Nakikilala ang katangian ng tauhan d. Naibibigay ang suliranin at solusyon e. Naisasaayos ang pagkasusunod-sunod ng limang pangyayari f. Naibibigay ang sanhi at bunga g. Naibibigay ang posibleng wakas h. Nakabubuod ng teksto i. Naiuugnay ang sariling karanasan sa kuwento j. Natutukoy ang nagsasalaysay sa teksto k. Naibibigay ang mensahe ng teksto",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-14",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nauunawaan ang pinakinggan o binasang tekstong impormatibo (patalastas, babala, balita, ulat-panahon/ pangyayaring pangkalikasan sa bansa) a. Naibibigay ang limang mahahalagang detalye b. Natutukoy ang suliranin at solusyon c. Natutukoy ang naglalahad sa teksto d. Naibibigay ang nais ipabatid ng awtor e. Naibibigay ang mahahalagang impormasyon (paksa, pangunahing ideya, sumusuportang detalye) f. Natutukoy ang huwaran ng organisasyon ng tekstong impormatibo ● pag-iisa-isa-paglalarawan ● pagsusunod-sunod g. Naibibigay ang kongklusyon h. Naibibigay ang mensahe ng teksto",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-15",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nagagamit ang magagalang na pananalita sa pagbati at ekspresyon sa iba’t ibang sitwasyon a. wikang ginagamit sa pakikipag-usap sa paaralan (academic language)",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-16",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salita na high frequency at mga salitang may tiyak na tuong pangnilalaman (GMRC at MAKABANSA) sa pagbuo ng maikling talata",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-17",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talatang naglalarawan ng karanasan tungkol sa: a. sarili at bansa b. tiyak na paksang may tuon sa nilalaman",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-18",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata gamit ang payak at tambalang pangungusap sa pagpapahayag ng reaksiyon sa mga pangyayari sa teksto",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-19",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata sa pagpapahayag ng reaksiyon sa paksa, pangunahing ideya at sumusuportang detalye sa teksto",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-20",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "Nakabubuod ng tekstong naratibo",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-1:item-21",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "Nakapagpapahayag ng ideya batay sa huwaran ng organisasyon ng tekstong impormatibo a. pag-iisa-isa-paglalarawan b. pagsusunod-sunod",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang sight words na kabilang sa Filipino",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-2",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy nang wasto ang mga salitang madalas gamitin o high frequency words",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salita na high frequency tungkol sa: a. sarili at bansa b. tiyak na paksang may tuon sa nilalaman (hal. sitwasyong pambansa)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang may tiyak na tuong pangnilalaman (GMRC at MAKABANSA)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Natutukoy ang kahulugan ng mga salita ayon sa konteksto a. salitang tumutukoy sa mgalan ng tao, bagay, hayop, lugar, at pangyayari • salitang dinaglat b. salitang naglalarawan • sa paraan, panahon, at pinangyarihan ng kilos c. salitang pangkayarian ● pangatnig ● pang-angkop ● pang-ukol",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nababasa nang wasto ang mga natutuhang salita",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naisusulat nang maayos at wasto ang mga natutuhang salita",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Natutukoy ang salitang-ugat ng mga natutuhang salita na high frequency o madalas gamitin",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nakikilala ang kahulugan ng mga salita: a. magkasingkahulugan b. magkasalungat",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-10",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Natutukoy ang sugnay na nakapag-iisa sa tambalang pangungusap",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-11",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga pananda sa teksto a. hudyat ng pag-iisa-isa-paglalarawan b. hudyat ng pagsusunod-sunod",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-12",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nababasa nang may tatas (may damdamin at tamang bilis) ang mga pangungusap",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-13",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Nauunawaan ang pinakinggan o binasang tekstong naratibo (kuwentong pambata, kuwentong-bayan, pabula, alamat, at parabula mula sa Banal na Aklat) a. Naibibigay ang elemento ng teksto b. Natutukoy ang damdamin ng tauhan sa mga pangyayari c. Nakikilala ang katangian ng tauhan d. Naibibigay ang suliranin at solusyon e. Naisasaayos ang pagkakasunod-sunod ng limang pangyayari f. Naibibigay ang sanhi at bunga g. Naibibigay ang posibleng wakas h. Nakabubuod ng teksto i. Naiuugnay ang sariling karanasan sa kuwento j. Natutukoy ang nagsasalaysay sa teksto k. Naibibigay ang mensahe ng teksto",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-14",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nauunawaan ang pinakinggan o binasang tekstong impormatibo (patalastas, babala, balita, ulat-panahon/pangyayaring pangkalikasan sa bansa a. Naibibigay ang limang mahahalagang detalye b. Natutukoy ang suliranin at solusyon c. Natutukoy ang naglalahad sa teksto d. Naibibigay ang nais ipabatid ng awtor e. Naibibigay ang mahahalagang impormasyon (paksa, pangunahing ideya, sumusuportang detalye) f. Natutukoy ang huwaran ng organisasyon ng tekstong impormatibo ● pag-iisa-isa-paglalarawan ● pagsusunod-sunod g. Naibibigay ang kongklusyon",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-15",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nagagamit ang magagalang napananalita sa pagbati at ekspresyon sa iba’t ibang sitwasyon a. wikang ginagamit sa iba’t ibang asignatura (academic language)",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-16",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salita na high frequency at mga salitang may tiyak na tuong pangnilalaman (GMRC at MAKABANSA) sa pagbuo ng maikling talata",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-17",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata gamit ang tambalang pangungusap na naglalarawan ng karanasan tungkol sa: a. sarili at bansa b. tiyak na paksang may tuon sa nilalaman",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-18",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata sa pagpapahayag ng reaksiyon sa mga suliranin sa teksto",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-19",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata sa pagpapahayag ng reaksiyon sa paksa, pangunahing ideya, sumusuportang detalye at suliranin sa teksto",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-20",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "Nakabubuod ng tekstong naratibo",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-2:item-21",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "Nakapagpapahayag ng ideya batay sa huwaran ng organisasyon ng tekstong impormatibo a. pag-iisa-isa-paglalarawan b. pagsusunod-sunod",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang sight words na kabilang sa Filipino",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy nang wasto ang mga salita na madalas gamitin o high frequency",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salita na high frequency tungkol sa: a. sarili at bansa b. tiyak na paksang may tuon sa nilalaman (hal. sitwasyong pambansa)",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang may tiyak na tuong pangnilalaman (GMRC at MAKABANSA)",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Natutukoy ang kahulugan ng mga salita ayon sa konteksto a. salitang tumutukoy sa ngalan ng tao, bagay, hayop, lugar, at pangyayari ● salitang dinaglat b. salitang naglalarawan ● sa paraan, panahon, at pinangyarihan ng kilos c. salitang pangkayarian ● pangatnig ● pang-angkop ● pang-ukol",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nababasa nang wasto ang mga natutuhang salita",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-7",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naisusulat nang maayos at wasto ang mga natutuhang salita",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-8",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Natutukoy ang salitang-ugat ng mga natutuhang salita na high frequency o madalas gamitin",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-9",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nakikilala ang kahulugan ng mga salita: a. magkasingkahulugan b. magkasalungat",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Natutukoy ang tambalang pangungusap batay sa mga pananda na nag-uugnay sa sugnay na nakapag-iisa",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-11",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga pananda sa teksto a. hudyat ng pag-iisa-isa-paglalarawan b. hudyat ng pagsusunod-sunod",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-12",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nababasa nang may tatas (may damdamin at tamang bilis) ang mga pangungusap",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-13",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Nauunawaan ang pinakinggan o binasang tekstong naratibo (kuwentong pambata, kuwentong-bayan, pabula, alamat, at parabula mula sa Banal na Aklat) a. Naibibigay ang elemento ng teksto b. Natutukoy ang damdamin ng tauhan sa mga pangyayari c. Nakikilala ang katangian ng tauhan d. Naibibigay ang suliranin at solusyon e. Naisasaayos ang pagkakasunod-sunod ng lima hanggang anim na pangyayari f. Naibibigay ang sanhi at bunga g. Naibibigay ang posibleng wakas h. Nakabubuod ng teksto i. Naiuugnay ang sariling karanasan sa kuwento j. Natutukoy ang nagsasalaysay sa teksto k.Naibibigay ang mensahe ng teksto",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-14",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nauunawaan ang pinakinggan o binasang tekstong impormatibo (balita, ulat-panahon/ pangyayaring pangkalikasan, grap at mapa na ginagamit sa bansa) a. Naibibigay ang anim hanggang pitong mahahalagang detalye b. Natutukoy ang suliranin at solusyon c. Natutukoy ang naglalahad sa teksto d. Naibibigay ang nais ipabatid ng awtor e. Naibibigay ang mahahalagang impormasyon (paksa, pangunahing ideya, sumusuportang detalye) f. Natutukoy ang huwaran ng organisasyon ng tekstong impormatibo ● pag-iisa-isa-paglalarawan ● pagsusunod-sunod g. Naibibigay ang kongklusyon h. Naibibigay ang mensahe ng teksto",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-15",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nagagamit ang magagalang na pananalita sa pagbati at ekspresyon sa iba’t ibang sitwasyon a. wikang ginagamit sa iba’t ibang asignatura (academic language)",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-16",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salita na high frequency at mga salitang may tiyak na tuong pangnilalaman (GMRC at MAKABANSA) sa pagbuo ng maikling talata",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-17",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata gamit ang tambalang pangungusap na naglalarawan ng karanasan tungkol sa: a. sarili at bansa b. tiyak na paksang may tuon sa nilalaman",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-18",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata sa pagpapahayag ng reaksiyon sa mga suliranin sa teksto",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-19",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata sa pagpapahayag ng reaksiyon sa paksa, pangunahing ideya, sumusuportang detalye at suliranin sa teksto",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-20",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "Nakabubuod ng tekstong naratibo",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-3:item-21",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "Nakapagpapahayag ng ideya batay sa huwaran ng organisasyon ng tekstong impormatibo a. pag-iisa-isa-paglalarawan b. pagsusunod-sunod",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-1",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Natutukoy ang sight words na kabilang sa Filipino",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-2",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Natutukoy nang wasto ang mga salitang madalas gamitin o high frequency",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salita na high frequency tungkol sa: a. sarili at bansa b. tiyak na paksang may tuon sa nilalaman (hal. sitwasyong pambansa)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-4",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salitang may tiyak na tuong pangnilalaman (GMRC at MAKABANSA)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-5",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Natutukoy ang kahulugan ng mga salita ayon sa konteksto a. salitang pangkayarian ● pangatnig ● pang-angkop ● pang-ukol",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-6",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Nababasa nang wasto ang mga natutuhang salita",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-7",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Naisusulat nang maayos at wasto ang mga natutuhang salita",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-8",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Natutukoy ang salitang-ugat ng mga natutuhang salita na high frequency o madalas gamitin",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-9",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Nakikilala ang kahulugan ng mga salita: a. denotasyon b. konotasyon",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-10",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Natutukoy ang tambalang pangungusap batay sa mga pananda na nag-uugnay sa sugnay na nakapag-iisa",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-11",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Natutukoy ang mga pananda sa teksto a. hudyat ng pag-iisa-isa-paglalarawan b. hudyat ng pagsusunod-sunod c. pagpapaliwanag",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-12",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "Nababasa nang may tatas (may damdamin at tamang bilis) ang mga pangungusap",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-13",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "Nauunawaan ang pinakinggan o binasang tekstong naratibo (kuwentong pambata, kuwentong-bayan, pabula, alamat, at parabula mula sa Banal na Aklat) a. Naibibigay ang elemento ng teksto b. Natutukoy ang damdamin ng tauhan sa mga pangyayari c. Nakikilala ang katangian ng tauhan d. Naibibigay ang suliranin at solusyon e. Naisasaayos ang pagkunud-sunod ng anim hanggang pitong pangyayari f. Naibibigay ang sanhi at bunga g. Naibibigay ang posibleng wakas h. Nakabubuod ng teksto i. Naiuugnay ang sariling karanasan sa kuwento j. Natutukoy ang nagsasalaysay sa teksto k. Naibibigay ang mensahe ng teksto",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-14",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "Nauunawaan ang pinakinggan o binasang tekstong impormatibo (balita, ulat-panahon/ pangyayaring pangkalikasan, grap, at mapa na ginagamit sa bansa) a. Naibibigay ang limang mahahalagang detalye b. Natutukoy ang suliranin at solusyon c. Natutukoy ang naglalahad sa teksto d. Naibibigay ang nais ipabatid ng awtor e. Naibibigay ang mahahalagang impormasyon (paksa, pangunahing ideya, sumusuportang detalye) f. Natutukoy ang huwaran ng organisasyon ng tekstong impormatibo ● pag-iisa-isa-paglalarawan ● pagsusunod-sunod ● pagpapaliwanag g. Naibibigay ang kongklusyon h. Naibibigay ang mensahe ng teksto",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-15",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "Nagagamit ang magagalang na pananalita sa pagbati at ekspresyon sa iba’t ibang sitwasyon a. wikang ginagamit sa pakikipag-usap sa paaralan (academic language)",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-16",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "Nagagamit ang mga salita na high frequency at mga salitang may tiyak na tuong pangnilalaman (GMRC at MAKABANSA) sa pagbuo ng maikling talata",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-17",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata gamit ang hugnayang pangungusap na naglalarawan ng karanasan tungkol sa: a. sarili at bansa b. tiyak na paksang may tuon sa nilalaman",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-18",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata sa pagpapahayag ng reaksiyon sa mga tema at suliranin sa teksto",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-19",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "Nakabubuo ng maikling talata sa pagpapahayag ng reaksiyon sa paksa, pangunahing ideya at sumusuportang detalye sa teksto",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-20",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "Nakabubuod ng tekstong naratibo",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:period-4:item-21",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "Nakapagpapahayag ng ideya batay sa huwaran ng organisasyon ng tekstong impormatibo a. pag-iisa-isa-paglalarawan b. pagsusunod-sunod c. pagpapaliwanag",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "af651132957a9145f1c03a30cc03fec0583183fa5df69ccb7ef65a2f96e70bfc"
+  }
+}

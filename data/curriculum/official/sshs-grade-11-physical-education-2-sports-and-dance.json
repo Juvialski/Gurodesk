@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-physical-education-2-sports-and-dance",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Physical Education 2 - Sports and Dance",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1hcslL8XX52Co2ctXijaYU0IyfjbkBVpT/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Physical-Education-2-Sports-and-Dance.pdf",
+    "fileId": "1hcslL8XX52Co2ctXijaYU0IyfjbkBVpT",
+    "sha256": "172700acfae0bd6d1024823fb181c6163f8fba70e0e04d77f06f7acc28fa6026",
+    "byteSize": 441024,
+    "pageCount": 9,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "PHYSICAL-EDUCATION11",
+    "name": "Physical Education 2 - Sports and Dance",
+    "description": "Official Grade 11 Physical Education 2 - Sports and Dance competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Sport-Specific Skills",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Benefits of Engaging in Sports Activities",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Steps in Organizing Sports Events",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Benefits",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Dance",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Choreography",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Steps in Organizing Dance Activities",
+      "sortOrder": 7
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "assess skill-related fitness components to enhance performance in a specific sport",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "analyze the significance of active participation in sports in promoting holistic well-being and fostering lifelong fitness habits",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "execute sport-specific skills to enhance health and performance",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:period-1:item-4",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "manage sports events to promote active participation for community wellness",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:period-2:item-1",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "explain the value of optimizing one’s health through dance activity participation",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:period-2:item-2",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "differentiate dance genres using elements of dances, movements, styles, and techniques",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:period-2:item-3",
+      "quarter": 2,
+      "domain": "D06",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "apply the creative process to develop dance choreography using the various elements of dance",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:period-2:item-4",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "manage dance activities, showcasing refined presentation skills across diverse contexts and performance settings",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "047662f185572529d45b96d14fad6cf997e8734849db3c55cde1cbaa74957902"
+  }
+}

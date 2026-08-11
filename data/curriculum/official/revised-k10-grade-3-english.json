@@ -1,0 +1,1311 @@
+{
+  "schemaVersion": 2,
+  "slug": "revised-k10-grade-3-english",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "MATATAG English CG 2023 Grades 2-10 (withAppendices)",
+    "issuanceCode": null,
+    "sourceUrl": "https://depedph-my.sharepoint.com/personal/ouct_deped_gov_ph/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides%2FFINAL%20MATATAG%20English%20CG%202023%20Grades%202-10%20%28withAppendices%29.pdf&parent=%2Fpersonal%2Fouct_deped_gov_ph%2FDocuments%2FMATATAG%20Curriculum%20Guides",
+    "landingPageUrl": "https://bukidnon.deped.gov.ph/matatag-curriculum/",
+    "publishedOn": null,
+    "edition": "August 2023",
+    "publisher": "Department of Education",
+    "fileName": "FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+    "fileId": "/personal/ouct_deped_gov_ph/Documents/MATATAG Curriculum Guides/FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+    "sha256": "db4a5c2b7389f9237b21ee19873faf9b950fe55b9f0918db336269f112dc897c",
+    "byteSize": 6187245,
+    "pageCount": 255,
+    "pagesUsed": {
+      "from": 61,
+      "to": 76
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "REVISED-K10-MATATAG",
+    "name": "Revised K to 10 / MATATAG Curriculum",
+    "framework": "Revised K to 10 Curriculum",
+    "effectiveFromSchoolYear": "2025-2026",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2025-2026",
+      "gradeLevel": "Grade 3",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    },
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 3",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 3",
+    "code": "ENGLISH3",
+    "name": "English",
+    "description": "Official Grade 3 English competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 61,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 65,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 69,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 73,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Phonics and Word Study (sounds to words)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Vocabulary and Word Knowledge (words)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Grammar Awareness and Grammatical Structures (sentences)",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Comprehending and Analyzing Text (discourse)",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Creating and Composing Text (discourse)",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "EN3CCT-IV-4 Use basic sight words, high frequency, and content-specific",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "EN3CCT-IV-5 Compose texts to react to the character, setting, or events in a",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "EN3CCT-IV-6 Compose texts to react to a topic.",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "EN3CCT-IV-7 Make a summary of narrative text.",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "EN3CCT-IV-8 Express ideas using text types.",
+      "sortOrder": 10
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN3PWS-I-1",
+      "text": "Identify Grade 3 level-appropriate sight words.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN3PWS-I-2",
+      "text": "Read words accurately and automatically according to word patterns (initial, final, medial).",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-3",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN3VWK-I-1",
+      "text": "Identify high-frequency words accurately.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-4",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN3VWK-I-2",
+      "text": "Use vocabulary referring to:",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-5",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN3VWK-I-3",
+      "text": "Use content-specific words.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-6",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN3VWK-I-4",
+      "text": "Identify words with different functions. a. interrogative pronouns b. possessive pronouns c. demonstrative pronouns",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-7",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN3VWK-I-5",
+      "text": "Identify the synonyms and antonyms of words.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-8",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN3VWK-I-6",
+      "text": "Read words correctly for meaning (based on word patterns).",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-9",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": "EN3VWK-I-7",
+      "text": "Write words legibly and correctly (based on word patterns).",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-10",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": "EN3VWK-I-8",
+      "text": "Identify roots of high frequency words (nouns, verbs, and adjectives).",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-11",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN3GAGS-I-1",
+      "text": "Identify sentences and non-sentences.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-12",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN3GAGS-I-2",
+      "text": "Use simple sentences to express ideas about regional themes.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-13",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN3GAGS-I-3",
+      "text": "Use simple sentences with proper intonation (pitch, juncture, rhythm).",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-14",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": "EN3GAGS-I-4",
+      "text": "Sequence words to represent meaning in simple sentences.",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-15",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 15,
+      "competencyCode": "EN3GAGS-I-5",
+      "text": "Identify the parts of simple sentences: (who/what, what are they doing, when/where/how).",
+      "sourcePage": 62,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-16",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 16,
+      "competencyCode": "EN3GAGS-I-6",
+      "text": "Use correct capitalization and punctuation for simple sentences.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-17",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 17,
+      "competencyCode": "EN3GAGS-I-7",
+      "text": "Identify discourse markers for a given text type.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-18",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 18,
+      "competencyCode": "EN3CAT-I-1",
+      "text": "Read grade level sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-19",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 19,
+      "competencyCode": "EN3CAT-I-2",
+      "text": "Comprehend stories.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-20",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 20,
+      "competencyCode": "EN3CAT-I-3",
+      "text": "Comprehend informational texts. a. time order and procedural b. description c. explanation",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-21",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 21,
+      "competencyCode": "EN3CCT-I-1",
+      "text": "Use common expressions and polite greetings appropriate to a given situation.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-22",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 22,
+      "competencyCode": "EN3CCT-I-2",
+      "text": "Use own words in retelling myths, legends, fables, and narrative poems.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-23",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 23,
+      "competencyCode": "EN3CCT-I-3",
+      "text": "Express ideas about one’s experiences.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-24",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 24,
+      "competencyCode": "EN3CCT-I-4",
+      "text": "Use basic sight words, high frequency, and content-specific words.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-25",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 25,
+      "competencyCode": "EN3CCT-I-5",
+      "text": "Compose texts to react to the character, setting, or events in a story.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-26",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 26,
+      "competencyCode": "EN3CCT-I-6",
+      "text": "Compose texts to react to a topic.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-27",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 27,
+      "competencyCode": "EN3CCT-I-7",
+      "text": "Make a summary of narrative text.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-1:item-28",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 28,
+      "competencyCode": "EN3CCT-I-8",
+      "text": "Express ideas using text types.",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-1",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN3PWS-II-1",
+      "text": "Identify Grade 3 level-appropriate sight words.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-2",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": "EN3PWS-II-2",
+      "text": "Read words accurately and automatically according to word patterns (initial, final, medial).",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-3",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN3VWK-II-1",
+      "text": "Identify high-frequency words accurately.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-4",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN3VWK-II-2",
+      "text": "Use vocabulary referring to:",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-5",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN3VWK-II-3",
+      "text": "Use content-specific words.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-6",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN3VWK-II-4",
+      "text": "Identify words with different functions. a. possessive pronouns b. demonstrative pronouns",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-7",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN3VWK-II-5",
+      "text": "Identify the synonyms and antonyms of words.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-8",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN3VWK-II-6",
+      "text": "Read words correctly for meaning (based on word patterns).",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-9",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": "EN3VWK-II-7",
+      "text": "Write words legibly and correctly (based on word patterns).",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-10",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 10,
+      "competencyCode": "EN3VWK-II-8",
+      "text": "Identify roots of high frequency words (nouns, verbs, and adjectives).",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-11",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN3GAGS-II-1",
+      "text": "Identify sentences and non-sentences.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-12",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN3GAGS-II-2",
+      "text": "Use simple sentences to express ideas about regional themes.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-13",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN3GAGS-II-3",
+      "text": "Use simple sentences with proper intonation (pitch, juncture, rhythm).",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-14",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": "EN3GAGS-II-4",
+      "text": "Sequence words to represent meaning in simple sentences.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-15",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 15,
+      "competencyCode": "EN3GAGS-II-5",
+      "text": "Identify the parts of simple sentences: (who/what, what are they doing, when/where/how).",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-16",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 16,
+      "competencyCode": "EN3GAGS-II-6",
+      "text": "Use correct capitalization and punctuation for simple sentences.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-17",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 17,
+      "competencyCode": "EN3GAGS-II-7",
+      "text": "Identify in a compound sentence:",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-18",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 18,
+      "competencyCode": "EN3GAGS-II-8",
+      "text": "Use correct capitalization and punctuation in compound sentences.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-19",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 19,
+      "competencyCode": "EN3GAGS-II-9",
+      "text": "Identify discourse markers for a given text type.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-20",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 20,
+      "competencyCode": "EN3CAT-II-1",
+      "text": "Read grade level sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-21",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 21,
+      "competencyCode": "EN3CAT-II-2",
+      "text": "Comprehend stories.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-22",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 22,
+      "competencyCode": "EN3CAT-II-3",
+      "text": "Comprehend informational texts. a. time order and procedural b. description c. explanation",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-23",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 23,
+      "competencyCode": "EN3CCT-II-1",
+      "text": "Use common expressions and polite greetings appropriate to a given situation.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-24",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 24,
+      "competencyCode": "EN3CCT-II-2",
+      "text": "Use own words in retelling myths, legends, fables, and narrative poems.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-25",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 25,
+      "competencyCode": "EN3CCT-II-3",
+      "text": "Express ideas about one’s experiences.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-26",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 26,
+      "competencyCode": "EN3CCT-II-4",
+      "text": "Use basic sight words, high frequency, and content-specific words.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-27",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 27,
+      "competencyCode": "EN3CCT-II-5",
+      "text": "Compose texts to react to the character, setting, or events in a story.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-28",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 28,
+      "competencyCode": "EN3CCT-II-6",
+      "text": "Compose texts to react to a topic.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-29",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 29,
+      "competencyCode": "EN3CCT-II-7",
+      "text": "Make a summary of narrative text.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-2:item-30",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 30,
+      "competencyCode": "EN3CCT-II-8",
+      "text": "Express ideas using text types.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-1",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN3PWS-III-1",
+      "text": "Identify Grade 3 level-appropriate sight words.",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-2",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": "EN3VWK-III-1",
+      "text": "Identify high-frequency words accurately.",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-3",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN3VWK-III-2",
+      "text": "Use vocabulary referring to:",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-4",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN3VWK-III-3",
+      "text": "Use content-specific words.",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-5",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN3VWK-III-4",
+      "text": "Identify words with different functions.",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-6",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN3VWK-III-5",
+      "text": "Identify the synonyms and antonyms of words.",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-7",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN3VWK-III-6",
+      "text": "Read words correctly for meaning (based on word patterns).",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-8",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN3VWK-III-7",
+      "text": "Write words legibly and correctly (based on word patterns).",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-9",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": "EN3VWK-III-8",
+      "text": "Identify roots of high frequency words (nouns, verbs, and adjectives).",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-10",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN3GAGS-III-1",
+      "text": "Identify sentences and non-sentences.",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-11",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN3GAGS-III-2",
+      "text": "Use simple sentences to express ideas about national themes.",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-12",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN3GAGS-III-3",
+      "text": "Use simple sentences with proper intonation (pitch, juncture, rhythm).",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-13",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN3GAGS-III-4",
+      "text": "Sequence words to represent meaning in simple sentences.",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-14",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": "EN3GAGS-III-5",
+      "text": "Identify the parts of simple sentences: (who/what, what are they doing, when/where/how).",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-15",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 15,
+      "competencyCode": "EN3GAGS-III-6",
+      "text": "Use correct capitalization and punctuation for simple sentences.",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-16",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 16,
+      "competencyCode": "EN3GAGS-III-7",
+      "text": "Identify in a compound sentence:",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-17",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 17,
+      "competencyCode": "EN3GAGS-III-8",
+      "text": "Use correct capitalization and punctuation in compound sentences.",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-18",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 18,
+      "competencyCode": "EN3GAGS-III-9",
+      "text": "Identify discourse markers for a given text type.",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-19",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 19,
+      "competencyCode": "EN3CAT-III-1",
+      "text": "Read grade level sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-20",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 20,
+      "competencyCode": "EN3CAT-III-2",
+      "text": "Comprehend stories.",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-21",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 21,
+      "competencyCode": "EN3CAT-III-3",
+      "text": "Comprehend informational texts. a. time order and procedural b. description c. explanation",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-22",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 22,
+      "competencyCode": "EN3CCT-III-1",
+      "text": "Use common expressions and polite greetings appropriate to a given situation.",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-23",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 23,
+      "competencyCode": "EN3CCT-III-2",
+      "text": "Use own words in retelling myths, legends, fables, and narrative poems.",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-24",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 24,
+      "competencyCode": "EN3CCT-III-3",
+      "text": "Express ideas about one’s experiences.",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-25",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 25,
+      "competencyCode": "EN3CCT-III-4",
+      "text": "Use basic sight words, high frequency, and content-specific words.",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-26",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 26,
+      "competencyCode": "EN3CCT-III-5",
+      "text": "Compose texts to react to the character, setting, or events in a story.",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-27",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 27,
+      "competencyCode": "EN3CCT-III-6",
+      "text": "Compose texts to react to a topic.",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-28",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 28,
+      "competencyCode": "EN3CCT-III-7",
+      "text": "Make a summary of narrative text.",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-3:item-29",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 29,
+      "competencyCode": "EN3CCT-III-8",
+      "text": "Express ideas using text types.",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-1",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": "EN3PWS-IV-1",
+      "text": "Identify Grade 3 level-appropriate sight words.",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-2",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": "EN3VWK-IV-1",
+      "text": "Identify high-frequency words accurately.",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-3",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "competencyCode": "EN3VWK-IV-2",
+      "text": "Use vocabulary referring to:",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-4",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "competencyCode": "EN3VWK-IV-3",
+      "text": "Use content-specific words.",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-5",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "competencyCode": "EN3VWK-IV-4",
+      "text": "Identify words with different functions.",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-6",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 6,
+      "competencyCode": "EN3VWK-IV-5",
+      "text": "Identify the synonyms and antonyms of words.",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-7",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 7,
+      "competencyCode": "EN3VWK-IV-6",
+      "text": "Read words correctly for meaning (based on word patterns).",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-8",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 8,
+      "competencyCode": "EN3VWK-IV-7",
+      "text": "Write words legibly and correctly (based on word patterns).",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-9",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 9,
+      "competencyCode": "EN3VWK-IV-8",
+      "text": "Identify roots of high frequency words (nouns, verbs, and adjectives).",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-10",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 10,
+      "competencyCode": "EN3GAGS-IV-1",
+      "text": "Identify sentences and non-sentences.",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-11",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 11,
+      "competencyCode": "EN3GAGS-IV-2",
+      "text": "Use simple sentences to express ideas about national themes.",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-12",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 12,
+      "competencyCode": "EN3GAGS-IV-3",
+      "text": "Use simple sentences with proper intonation (pitch, juncture, rhythm).",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-13",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 13,
+      "competencyCode": "EN3GAGS-IV-4",
+      "text": "Sequence words to represent meaning in simple sentences.",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-14",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 14,
+      "competencyCode": "EN3GAGS-IV-5",
+      "text": "Identify the parts of simple sentences: (who/what, what are they doing, when/where/how).",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-15",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 15,
+      "competencyCode": "EN3GAGS-IV-6",
+      "text": "Use correct capitalization and punctuation for simple sentences.",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-16",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 16,
+      "competencyCode": "EN3GAGS-III-7",
+      "text": "Identify in a compound sentence:",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-17",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 17,
+      "competencyCode": "EN3GAGS-III-8",
+      "text": "Use correct capitalization and punctuation in compound sentences.",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-18",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 18,
+      "competencyCode": "EN3GAGS-IV-9",
+      "text": "Identify discourse markers for a given text type.",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-19",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 19,
+      "competencyCode": "EN3CAT-IV-1",
+      "text": "Read grade level sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-20",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 20,
+      "competencyCode": "EN3CAT-IV-2",
+      "text": "Comprehend stories.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-21",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 21,
+      "competencyCode": "EN3CAT-IV-3",
+      "text": "Comprehend informational texts. a. time order and procedural b. description c. explanation",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-22",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 22,
+      "competencyCode": "EN3CCT-IV-1",
+      "text": "Use common expressions and polite greetings appropriate to a given situation.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-23",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 23,
+      "competencyCode": "EN3CCT-IV-2",
+      "text": "Use own words in retelling myths, legends, fables, and narrative poems.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-24",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 24,
+      "competencyCode": "EN3CCT-IV-3",
+      "text": "Express ideas about one’s experiences.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-25",
+      "quarter": 4,
+      "domain": "D06",
+      "sortOrder": 25,
+      "competencyCode": "EN3CCT-IV-4",
+      "text": "Use basic sight words, high frequency, and content-specific words.",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-26",
+      "quarter": 4,
+      "domain": "D07",
+      "sortOrder": 26,
+      "competencyCode": "EN3CCT-IV-5",
+      "text": "Compose texts to react to the character, setting, or events in a story.",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-27",
+      "quarter": 4,
+      "domain": "D08",
+      "sortOrder": 27,
+      "competencyCode": "EN3CCT-IV-6",
+      "text": "Compose texts to react to a topic.",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-28",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 28,
+      "competencyCode": "EN3CCT-IV-7",
+      "text": "Make a summary of narrative text.",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:period-4:item-29",
+      "quarter": 4,
+      "domain": "D10",
+      "sortOrder": 29,
+      "competencyCode": "EN3CCT-IV-8",
+      "text": "Express ideas using text types.",
+      "sourcePage": 76,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "d96c53bd0b5b9ceee7999bcd4c6727c64f5a2c4fc72cb224ee1f30c5ae48fd12"
+  }
+}

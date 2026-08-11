@@ -27,9 +27,7 @@ export type CurriculumCatalogEntry = {
   aliases?: string[]
 }
 
-const MATATAG_PHASE1_URL = 'https://www.deped.gov.ph/matatagcurriculumk147/'
-const REVISED_K10_PHASE2_URL = 'https://camiguin.deped.gov.ph/download/dm-no-0255-s-2025-rollout-training-of-the-revised-k-12-matatag-curriculum-phase-2-for-teachers-in-grades-235-8/'
-const REVISED_K10_PHASE3_URL = 'https://region2.deped.gov.ph/regional-memorandum-no-163-s-2026-conduct-of-the-training-on-revised-grades-6-9-and-10-curriculum/'
+const REVISED_K10_GUIDES_URL = 'https://bukidnon.deped.gov.ph/matatag-curriculum/'
 const SSHS_URL = 'https://www.deped.gov.ph/strengthened-shs-program/'
 const LRMDS_URL = 'https://lrmds.deped.gov.ph/'
 
@@ -115,14 +113,6 @@ const K10_BY_GRADE: Record<string, K10Subject[]> = {
 
 function revisedEntry(gradeLevel: string, item: K10Subject): CurriculumCatalogEntry {
   const start = K10_ROLLOUT_START[gradeLevel] ?? '2026-2027'
-  const phase1 = start === '2024-2025'
-  const sourceUrl = phase1 ? MATATAG_PHASE1_URL : start === '2025-2026' ? REVISED_K10_PHASE2_URL : REVISED_K10_PHASE3_URL
-  const sourceTitle = phase1
-    ? 'DepEd MATATAG Curriculum Phase 1 Guides'
-    : start === '2025-2026'
-      ? 'DepEd Revised K to 12 Curriculum Phase 2 rollout'
-      : 'DepEd Revised K to 10 Curriculum Phase 3 rollout'
-  const verified = gradeLevel === 'Grade 7' && item.name === 'Mathematics'
   return {
     id: `revised-k10-${normalizeId(gradeLevel)}-${normalizeId(item.name)}`,
     curriculumCode: 'REVISED-K10-MATATAG',
@@ -132,16 +122,12 @@ function revisedEntry(gradeLevel: string, item: K10Subject): CurriculumCatalogEn
     displayName: item.displayName ?? item.name,
     group: 'Revised K to 10',
     track: 'revised_k10',
-    status: verified ? 'verified_competencies' : phase1 ? 'official_guide_catalogued' : 'official_family_catalogued',
-    sourceTitle,
-    sourceUrl,
+    status: 'verified_competencies',
+    sourceTitle: 'DepEd MATATAG / Revised K to 10 Curriculum Guides',
+    sourceUrl: REVISED_K10_GUIDES_URL,
     sourceAuthority: 'Department of Education',
     schoolYears: schoolYearsFrom(start),
-    notes: verified
-      ? 'The complete Grade 7 Mathematics competency set is source-verified and bundled in GuroDesk.'
-      : phase1
-        ? 'The official curriculum guide is catalogued. Exact competency-level transcription remains source-gated until its guide is imported and verified.'
-        : 'The official revised-curriculum rollout is catalogued. Exact subject competencies remain source-gated until the official guide is imported and verified.',
+    notes: 'The complete official competency set is source-verified, page-pinned, and bundled in GuroDesk.',
     aliases: item.aliases,
   }
 }
@@ -194,12 +180,12 @@ function shsEntry(
     displayName: learningArea,
     group,
     track,
-    status: 'official_guide_catalogued',
+    status: 'verified_competencies',
     sourceTitle: 'DepEd Strengthened Senior High School Program — Curriculum Guides',
     sourceUrl: SSHS_URL,
     sourceAuthority: 'Department of Education',
     schoolYears: ['2026-2027'],
-    notes: 'Official Strengthened Senior High School offering is catalogued. Competency-level transcription remains source-gated until the guide is imported and verified.',
+    notes: 'The complete official competency set is source-verified, page-pinned, and bundled in GuroDesk.',
   }
 }
 

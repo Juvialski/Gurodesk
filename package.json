@@ -11,8 +11,13 @@
     "typecheck:tests": "tsc -p tsconfig.tests.json --noEmit --pretty false",
     "typecheck:e2e": "tsc -p tsconfig.e2e.json --noEmit --pretty false",
     "preview": "vite preview --host 0.0.0.0",
-    "curriculum:validate": "node scripts/validate-curriculum.mjs data/curriculum/*.json",
-    "curriculum:generate:g7math": "node scripts/generate-curriculum-sql.mjs data/curriculum/matatag-grade7-mathematics.json supabase/seeds/matatag-grade7-mathematics.sql",
+    "curriculum:catalog:snapshot": "node scripts/curriculum/export-official-catalog.mjs",
+    "curriculum:validate": "node scripts/validate-curriculum.mjs data/curriculum/official/*.json && node scripts/validate-official-curriculum-coverage.mjs",
+    "curriculum:verify:sources": "node scripts/verify-official-curriculum-sources.mjs",
+    "curriculum:generate:files": "node scripts/generate-all-curriculum-sql.mjs data/curriculum/official supabase/seeds/generated",
+    "curriculum:generate:bundle": "node scripts/generate-official-curriculum-bundle.mjs data/curriculum/official supabase/seeds/official-curriculum-complete.sql",
+    "curriculum:check:bundle": "node scripts/check-official-curriculum-bundle.mjs",
+    "curriculum:generate:all": "npm run curriculum:generate:bundle",
     "validate:phase2": "node scripts/check-phase2.mjs",
     "validate:phase3": "node scripts/check-phase3.mjs",
     "validate:byok": "node scripts/check-byok.mjs",
@@ -48,8 +53,7 @@
     "test:release": "bash scripts/test-release.sh",
     "validate:phase6": "node scripts/check-phase6-curriculum.mjs && node scripts/check-phase6-custom-curriculum.mjs",
     "validate:phase6:curriculum": "node scripts/check-phase6-curriculum.mjs",
-    "validate:phase6:custom": "node scripts/check-phase6-custom-curriculum.mjs",
-    "curriculum:generate:all": "node scripts/generate-all-curriculum-sql.mjs data/curriculum supabase/seeds/generated"
+    "validate:phase6:custom": "node scripts/check-phase6-custom-curriculum.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

@@ -1,0 +1,559 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-manual-metal-arc-welding",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Manual Metal Arc Welding",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/13VIzrtD9pqTiITY__t_smQ6ugVFJgLJ4/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Manual-Metal-Arc-Welding_.pdf",
+    "fileId": "13VIzrtD9pqTiITY__t_smQ6ugVFJgLJ4",
+    "sha256": "7dce252bcdecca8aeec30b191f8de5f95b1ed5b5fb2d731d9181d18690c8fb61",
+    "byteSize": 323798,
+    "pageCount": 13,
+    "pagesUsed": {
+      "from": 2,
+      "to": 8
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "MANUAL-METAL-ARC-W11",
+    "name": "Manual Metal Arc Welding",
+    "description": "Official Grade 11 Manual Metal Arc Welding competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 4,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 7,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Overview of Manual Metal Arc Welding Process (MMAW)",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Weld Joint Design (but not limited to the following)",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "technical drawing, sketches and welding symbols",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Welding Procedure Specification (WPS) (but not limited to the following)",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "Occupational Safety and Health (OSH)",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Procedures in setting up welding machine, accessories, positioner, jigs and fixtures",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Stringer and weave bead",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Stringer and weave bead patterns in carbon steel plates (but not limited to the following)",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Visual weld inspection",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Joint Fit-up Procedures",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "Fillet welding in carbon steel plates",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Fillet welding",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Fillet Welding Procedures in Carbon Steel Plates in PA (1F) Position",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Fillet Welding Procedures in Carbon Steel Plates in PC (2F) Position",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Fillet Welding Procedures in Carbon Steel Plates in PF (3F) Position",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Fillet Welding Procedures in Carbon Steel Plates in PE (4F) Position",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "Service Cost",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Groove welding in carbon steel plates",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Groove Welding Procedures in Carbon Steel Plates in Flat (1G) Position",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Groove Welding Procedures in Carbon Steel Plates in Horizontal (2G) Position",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Groove Welding Procedures in Carbon Steel Plates in Vertical (3G) Position",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Groove Welding Procedures in Carbon Steel Plates in Overhead (4G) Position",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Groove welding in carbon steel pipes",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Groove Welding Procedures in Carbon Steel Pipes in Flat (1G) Position",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "Groove Welding Procedures in Carbon Steel Pipes in Horizontal (2G) Position",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Groove Welding Procedures in Carbon Steel Pipes in overhead. vertical and flat (5G) positions",
+      "sortOrder": 26
+    },
+    {
+      "code": "D27",
+      "name": "Groove Welding Procedures in Carbon Steel Pipes in overhead, vertical, horizontal and flat (6G) positions",
+      "sortOrder": 27
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the overview of manual metal arc welding process",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the weld joint design",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Interpret technical drawing, sketches and welding symbols in reading blueprints/plans",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss welding procedure specification (WPS)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "discuss occupational safety and health (OSH)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform setting-up welding machine, accessories, positioners, jigs and fixtures",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Prepare tools, materials and equipment for stringer and weave beads",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-8",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Perform stringer and weave bead patterns in carbon steel plates",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-9",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Perform visual weld inspection",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-1:item-10",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Apply joint fit-up of the workpiece/weld specimen",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-2:item-1",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss fillet welding in carbon steel plates and the prescribed welding positions; PA (1F), PC (2F), PF (3F) and PE (4F)",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-2:item-2",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Prepare tools, materials and equipment for fillet welding",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-2:item-3",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform fillet welding in carbon steel plates PA (1F) position",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-2:item-4",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform fillet welding in carbon steel plates in PC (2F) position",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-2:item-5",
+      "quarter": 2,
+      "domain": "D15",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform fillet welding in carbon steel plates in PF (3F) position",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-2:item-6",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform fillet welding in carbon steel plates in PE (4F) position",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-2:item-7",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform visual weld inspection",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-2:item-8",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Compute the service cost based on the job requirements",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-3:item-1",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss groove welding in carbon steel plates and the prescribed welding positions; PA (1G), PC (2G), PF (3G) and PE (4G)",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-3:item-2",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Prepare tools, materials and equipment for groove welding carbon steel plates",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-3:item-3",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform groove welding in carbon steel plates in PA (1G) position",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-3:item-4",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform groove welding in carbon steel plates in PC (2G) position",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-3:item-5",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform groove welding in carbon steel plates in a PF (3G) position",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-3:item-6",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform groove welding in carbon steel plates in the PE (4G) position",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-3:item-7",
+      "quarter": 3,
+      "domain": "D09",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform visual weld inspection",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-3:item-8",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Compute the service cost based on the job requirements",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-4:item-1",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss groove welding in carbon steel plates and the prescribed welding positions; PA (1G), PC (2G), PH (5G) and H-LO45 (6G)",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-4:item-2",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Prepare tools, materials and equipment for groove welding in carbon steel pipes",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-4:item-3",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform groove welding in carbon steel pipes in PA (1G) position",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-4:item-4",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Perform groove welding in carbon steel pipes PC (2G) position",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-4:item-5",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Perform groove welding in carbon steel pipes PH (5G) position",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-4:item-6",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Perform groove welding in carbon steel pipes H-LO45 (6G) position",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:period-4:item-7",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform visual weld inspection",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "b671a5188784dcf5a760dd3d8b2f156c8196dcf5f00c9f7d086771f140b3cd7b"
+  }
+}

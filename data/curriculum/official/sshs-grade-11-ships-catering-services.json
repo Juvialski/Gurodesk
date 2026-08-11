@@ -1,0 +1,569 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-11-ships-catering-services",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Ships Catering Services",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/18WPAAgn19pXxEh3oBFilqXgsOPqi3GxD/view",
+    "landingPageUrl": "https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Ships-Catering-Services_.pdf",
+    "fileId": "18WPAAgn19pXxEh3oBFilqXgsOPqi3GxD",
+    "sha256": "09d5f60a160b17b8bd862c2337e167f8dcf7b698d252b2199a15d54c5edbf370",
+    "byteSize": 391122,
+    "pageCount": 17,
+    "pagesUsed": {
+      "from": 2,
+      "to": 13
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 11",
+      "implementationStatus": "full",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 11",
+    "code": "SHIPS-CATERING-SER11",
+    "name": "Ships Catering Services",
+    "description": "Official Grade 11 Ships Catering Services competency records."
+  },
+  "periods": [
+    {
+      "label": "Quarter 1",
+      "sequence": 1,
+      "periodType": "quarter",
+      "sourcePage": 2,
+      "sourceLabel": "Quarter 1"
+    },
+    {
+      "label": "Quarter 2",
+      "sequence": 2,
+      "periodType": "quarter",
+      "sourcePage": 6,
+      "sourceLabel": "Quarter 2"
+    },
+    {
+      "label": "Quarter 3",
+      "sequence": 3,
+      "periodType": "quarter",
+      "sourcePage": 9,
+      "sourceLabel": "Quarter 3"
+    },
+    {
+      "label": "Quarter 4",
+      "sequence": 4,
+      "periodType": "quarter",
+      "sourcePage": 11,
+      "sourceLabel": "Quarter 4"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "Regulatory Bodies",
+      "sortOrder": 1
+    },
+    {
+      "code": "D02",
+      "name": "Mental Health Importance of Mental Health Factors Affecting the Mental and Emotional Behaviors of Seafarers",
+      "sortOrder": 2
+    },
+    {
+      "code": "D03",
+      "name": "Career Readiness and Opportunities",
+      "sortOrder": 3
+    },
+    {
+      "code": "D04",
+      "name": "Types of Vessels",
+      "sortOrder": 4
+    },
+    {
+      "code": "D05",
+      "name": "History of Catering Ship’s Catering Operations",
+      "sortOrder": 5
+    },
+    {
+      "code": "D06",
+      "name": "Cultural Diversity",
+      "sortOrder": 6
+    },
+    {
+      "code": "D07",
+      "name": "Ships Galley",
+      "sortOrder": 7
+    },
+    {
+      "code": "D08",
+      "name": "Frameworks of Food Safety Onboard Ship",
+      "sortOrder": 8
+    },
+    {
+      "code": "D09",
+      "name": "Marine Pollution (MARPOL) Annex V Shipboard Generated Garbage based on MARPOL Annex V",
+      "sortOrder": 9
+    },
+    {
+      "code": "D10",
+      "name": "Special Areas under MARPOL Annex V",
+      "sortOrder": 10
+    },
+    {
+      "code": "D11",
+      "name": "The Black Sea",
+      "sortOrder": 11
+    },
+    {
+      "code": "D12",
+      "name": "Ship’s Provisions",
+      "sortOrder": 12
+    },
+    {
+      "code": "D13",
+      "name": "Receiving and Inspecting Provisions and Supplies",
+      "sortOrder": 13
+    },
+    {
+      "code": "D14",
+      "name": "Types of Mess Hall",
+      "sortOrder": 14
+    },
+    {
+      "code": "D15",
+      "name": "Steps of Food Service in Mess Halls",
+      "sortOrder": 15
+    },
+    {
+      "code": "D16",
+      "name": "Replenish Pantry Area",
+      "sortOrder": 16
+    },
+    {
+      "code": "D17",
+      "name": "o coffee o cold cuts o instant foods",
+      "sortOrder": 17
+    },
+    {
+      "code": "D18",
+      "name": "Types of Cabins",
+      "sortOrder": 18
+    },
+    {
+      "code": "D19",
+      "name": "Cabin Housekeeping Services",
+      "sortOrder": 19
+    },
+    {
+      "code": "D20",
+      "name": "Cleaning Public Areas",
+      "sortOrder": 20
+    },
+    {
+      "code": "D21",
+      "name": "Victualing Importance of Victualing",
+      "sortOrder": 21
+    },
+    {
+      "code": "D22",
+      "name": "Menu Planning",
+      "sortOrder": 22
+    },
+    {
+      "code": "D23",
+      "name": "Recipe Reduction and Quantification",
+      "sortOrder": 23
+    },
+    {
+      "code": "D24",
+      "name": "Impact of Various Weather Conditions on Its Functionality and Safety Galley Environments Based on Weather Conditions",
+      "sortOrder": 24
+    },
+    {
+      "code": "D25",
+      "name": "Galley Layout, Design, and Advantages",
+      "sortOrder": 25
+    },
+    {
+      "code": "D26",
+      "name": "Tools and Equipment in Catering Operations",
+      "sortOrder": 26
+    },
+    {
+      "code": "D27",
+      "name": "Cooking Methods and Techniques",
+      "sortOrder": 27
+    },
+    {
+      "code": "D28",
+      "name": "Baking Tools & Equipment",
+      "sortOrder": 28
+    },
+    {
+      "code": "D29",
+      "name": "Bread Products",
+      "sortOrder": 29
+    },
+    {
+      "code": "D30",
+      "name": "Kinds of Pastry",
+      "sortOrder": 30
+    },
+    {
+      "code": "D31",
+      "name": "Crust and Fillings",
+      "sortOrder": 31
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the regulatory bodies and conventions in the shipping industry",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-2",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the stressors and emotional challenges of seafarers",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-3",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Identify the career paths and their roles in the ship's catering services",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-4",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Discuss the types of vessels, their parts, and the terminologies used for ship navigation and direction",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-5",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Discuss the history of catering practices in maritime contexts and ship’s catering operations",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-6",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Discuss the cultural diversity in the ship’s catering",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-7",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Discuss ships galley personnel",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-8",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Explain the importance of HACCP, OSH, and MLC 2006 aboard vessels",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-9",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Explain the importance of Marine Pollution (MARPOL) regulations in protecting the marine environment from ship-generated waste",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-10",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Identify the special areas under MARPOL Annex and the garbage disposal procedures",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-1:item-11",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "Demonstrate waste disposal practices in compliance with MARPOL regulations to ensure environmental sustainability",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-1",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Explain the importance of ship provisioning and the roles of ship chandlers in ensuring the efficient supply of provisions for maritime operations",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-2",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the process and importance of receiving, inspecting and storing of provisions and supplies",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-3",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss the types of mess halls",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-4",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Apply the steps in the mess hall table setting",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-5",
+      "quarter": 2,
+      "domain": "D15",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Apply the steps in providing food service in mess halls",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-6",
+      "quarter": 2,
+      "domain": "D16",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Discuss the importance of replenishing the pantry area",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-7",
+      "quarter": 2,
+      "domain": "D17",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Demonstrate good housekeeping onboard the vessels",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-8",
+      "quarter": 2,
+      "domain": "D18",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "Compare the types of cabins based on purpose, size, and amenities",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-9",
+      "quarter": 2,
+      "domain": "D19",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "Apply the procedures and standards for cabin housekeeping services",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-2:item-10",
+      "quarter": 2,
+      "domain": "D20",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "Apply cleaning techniques for public areas",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-3:item-1",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Explain the significance of victualing of maritime operations",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-3:item-2",
+      "quarter": 3,
+      "domain": "D22",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Discuss the considerations of menu planning",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-3:item-3",
+      "quarter": 3,
+      "domain": "D23",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Perform quantification and reduction of recipes for meal preparations",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-3:item-4",
+      "quarter": 3,
+      "domain": "D24",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Analyze the functions of galley in maritime operations",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-3:item-5",
+      "quarter": 3,
+      "domain": "D25",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "Describe different galley layouts based on operational efficiency and safety",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-3:item-6",
+      "quarter": 3,
+      "domain": "D26",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "Identify the tools and equipment used in catering operations aboard ships",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-3:item-7",
+      "quarter": 3,
+      "domain": "D27",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "Perform methods of cooking based on the planned menu",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-4:item-1",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "Discuss the fundamentals in baking",
+      "sourcePage": 11,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-4:item-2",
+      "quarter": 4,
+      "domain": "D29",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "Prepare bread products following safety",
+      "sourcePage": 11,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-4:item-3",
+      "quarter": 4,
+      "domain": "D30",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "Discuss the characteristics of pastries",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ships-catering-services:period-4:item-4",
+      "quarter": 4,
+      "domain": "D31",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "Prepare crust, fillings and, coating for pastry products",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "008a579970d276649c908819e1c76cbed93cccdb5a269142c1a82cc8c282867d"
+  }
+}

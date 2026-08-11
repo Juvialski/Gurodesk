@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 2,
+  "slug": "sshs-grade-12-basic-calculus",
+  "verification": {
+    "status": "verified",
+    "verifiedOn": "2026-08-11",
+    "method": "deterministic table extraction with structural source checks",
+    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+  },
+  "source": {
+    "sourceType": "curriculum_guide",
+    "title": "Strengthened SHS Curriculum Guide: Basic Calculus",
+    "issuanceCode": null,
+    "sourceUrl": "https://drive.google.com/file/d/1MAvh4NdHcLyYGN7z5QnNB-PbXQ4Kd_yf/view",
+    "landingPageUrl": "https://www.deped.gov.ph/strengthened-shs-program/",
+    "publishedOn": null,
+    "edition": "Strengthened SHS",
+    "publisher": "Department of Education",
+    "fileName": "Basic Calculus.pdf",
+    "fileId": "1MAvh4NdHcLyYGN7z5QnNB-PbXQ4Kd_yf",
+    "sha256": "1ddff539672b3b310ffae0bb6552b8476c8b2f6bf8c85a3f75cc355dac0f5181",
+    "byteSize": 337861,
+    "pageCount": 4,
+    "pagesUsed": {
+      "from": 2,
+      "to": 4
+    },
+    "retrievedOn": "2026-08-11"
+  },
+  "curriculumVersion": {
+    "code": "STRENGTHENED-SHS-2026",
+    "name": "Strengthened Senior High School Curriculum",
+    "framework": "Strengthened Senior High School Program",
+    "effectiveFromSchoolYear": "2026-2027",
+    "effectiveToSchoolYear": null,
+    "status": "active",
+    "implementationNotes": "Official source sequence is preserved as curriculum quarters/themes; school grading-period mapping remains separate."
+  },
+  "applicability": [
+    {
+      "schoolYear": "2026-2027",
+      "gradeLevel": "Grade 12",
+      "implementationStatus": "pilot",
+      "priority": 10,
+      "notes": "Official DepEd implementation coverage."
+    }
+  ],
+  "subject": {
+    "gradeLevel": "Grade 12",
+    "code": "BASIC-CALCULUS12",
+    "name": "Basic Calculus",
+    "description": "Official Grade 12 Basic Calculus competency records."
+  },
+  "periods": [
+    {
+      "label": "Term 1",
+      "sequence": 1,
+      "periodType": "term",
+      "sourcePage": 2,
+      "sourceLabel": "One term"
+    }
+  ],
+  "domains": [
+    {
+      "code": "D01",
+      "name": "NUMBER AND ALGEBRA (NA)",
+      "sortOrder": 1
+    }
+  ],
+  "performanceStandards": [],
+  "competencies": [
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-1",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "competencyCode": null,
+      "text": "illustrate the limit of a function using a table of values and its graphical representation, emphasizing the behavior of a function as it approaches a specific point.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-2",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "competencyCode": null,
+      "text": "apply limit laws to evaluate left-hand limits, right-hand limits, and limits of polynomial, rational, radical, exponential, and logarithmic functions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-3",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "competencyCode": null,
+      "text": "analyze continuity at a point by determining whether a function is continuous at a given number.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-4",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "competencyCode": null,
+      "text": "examine the continuity of a function over an interval.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-5",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "competencyCode": null,
+      "text": "solve problems involving continuity of functions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-6",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "competencyCode": null,
+      "text": "define and illustrate the tangent line to the graph of a function at a given point.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-7",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 7,
+      "competencyCode": null,
+      "text": "explain the derivative as rate of change and as slope of a tangent line.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-8",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "competencyCode": null,
+      "text": "apply the definition to calculate the derivative of a function at a given number.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-9",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "competencyCode": null,
+      "text": "determine the relationship between differentiability and continuity of a function.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-10",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "competencyCode": null,
+      "text": "apply differentiation rules to compute the derivatives of algebraic, exponential, and logarithmic functions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-11",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 11,
+      "competencyCode": null,
+      "text": "calculate derivatives using the Chain Rule and implicit differentiation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-12",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 12,
+      "competencyCode": null,
+      "text": "solve problems involving the Chain Rule and implicit differentiation of functions, including logarithmic functions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-13",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 13,
+      "competencyCode": null,
+      "text": "solve problems involving rates of change and related rates.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-14",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 14,
+      "competencyCode": null,
+      "text": "solve optimization problems.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-15",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 15,
+      "competencyCode": null,
+      "text": "define and illustrate an antiderivative of a function.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-16",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 16,
+      "competencyCode": null,
+      "text": "explain the relationship between derivatives and antiderivatives.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-17",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 17,
+      "competencyCode": null,
+      "text": "compute the general antiderivatives of polynomial, radical, rational, and exponential functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-18",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 18,
+      "competencyCode": null,
+      "text": "compute antiderivatives using the substitution rule.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-19",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 19,
+      "competencyCode": null,
+      "text": "solve problems involving antidifferentiation.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-20",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 20,
+      "competencyCode": null,
+      "text": "illustrate the definite integral as the limit of Riemann sums.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-21",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 21,
+      "competencyCode": null,
+      "text": "compute the definite integral of a function using the Fundamental Theorem of Calculus.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-22",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 22,
+      "competencyCode": null,
+      "text": "compute the definite integral of a function using the substitution rule.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:period-1:item-23",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 23,
+      "competencyCode": null,
+      "text": "solve problems involving areas of plane regions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "integrity": {
+    "extractorVersion": "official-curriculum-v1",
+    "normalization": "Unicode NFC; whitespace normalized; source wording retained",
+    "competencyPayloadSha256": "7d22dbf1404b8c8e05c083c52a940e27d826f74805ba09c065b3ae36b703d925"
+  }
+}

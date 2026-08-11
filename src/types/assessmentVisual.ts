@@ -19,6 +19,7 @@ export type AssessmentVisualColor =
 export type AssessmentVisualStrokeWidth = 1 | 2 | 3
 
 export type AssessmentVisualRequirement = 'none' | 'helpful' | 'required'
+export type AssessmentVisualStatus = 'not_required' | 'pending' | 'running' | 'succeeded' | 'failed' | 'stale'
 export type AssessmentVisualTextSize = 'small' | 'medium' | 'large'
 export type AssessmentVisualTextAnchor = 'start' | 'middle' | 'end'
 
