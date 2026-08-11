@@ -756,14 +756,17 @@ function visualCandidateForItem(item: AssessmentItem, requirement: 'helpful' | '
 /** Pass 2: generate only diagrams, strictly one item at a time. A failed
  * optional diagram never replaces or discards its already-saved question. */
 export async function enrichAssessmentVisualsSequentially(options: AssessmentVisualEnrichmentOptions): Promise<AssessmentVisualEnrichmentSummary> {
-  const selected = options.itemIds?.length ? new Set(options.itemIds) : null
+  // An explicit empty list means "generate none". Only an omitted list means
+  // all currently eligible items; this keeps a completed/resumed checkpoint
+  // from accidentally restarting every visual on the paper.
+  const selected = options.itemIds ? new Set(options.itemIds) : null
   const maxAttempts = Math.max(1, Math.min(5, Math.floor(options.maxAttempts ?? 2)))
   const generate = options.generate ?? generateAssessmentVisualSuggestion
   const candidates = options.assessment.items
     .filter((item) => (!selected || selected.has(item.id)) && item.prompt.trim() && item.authorshipState !== 'empty' && item.locked !== true && item.qaState !== 'locked')
-    .map((item) => withResolvedAssessmentVisualPlan(item))
+    .map((item) => withResolvedAssessmentVisualPlan(item, { force: options.force }))
     .filter((item) => {
-      const plan = assessmentVisualPlanForItem(item)
+      const plan = assessmentVisualPlanForItem(item, { force: options.force })
       if (plan.requirement === 'none') return false
       if (!options.force && plan.current) return false
       return options.force || plan.attempts < maxAttempts
@@ -794,7 +797,7 @@ export async function enrichAssessmentVisualsSequentially(options: AssessmentVis
       for (const pending of candidates.slice(index)) { summary.cancelled += 1; progress(pending, 'cancelled') }
       break
     }
-    const plan = assessmentVisualPlanForItem(source)
+    const plan = assessmentVisualPlanForItem(source, { force: options.force })
     if (plan.requirement === 'none') continue
     const requirement = plan.requirement
     summary.attempted += 1

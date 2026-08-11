@@ -4,7 +4,7 @@ import {
   type AssessmentPaperAnnotation,
   type AssessmentPaperQuestion,
 } from '../lib/assessmentExportPresentation'
-import { AssessmentSvgDiagram } from './AssessmentDiagram'
+import { AssessmentDiagram } from './AssessmentDiagram'
 
 function visibleAnnotation(annotation: AssessmentPaperAnnotation, options: { showCompetency: boolean; showCognitive: boolean; showRationale: boolean }) {
   if (annotation.kind === 'competency') return options.showCompetency
@@ -29,7 +29,7 @@ function QuestionCore({ question }: { question: AssessmentPaperQuestion }) {
   return <div className="assessment-document-question-core">
     <div className="assessment-document-question-head"><strong>{question.numberLabel}</strong>{question.pointLabel && <small>{question.pointLabel}</small>}</div>
     <p className="assessment-document-prompt">{question.prompt}</p>
-    {question.visual && <AssessmentSvgDiagram visual={question.visual} className={`assessment-document-question-visual ${question.visualScale === 'cartesian' ? 'assessment-document-question-visual-cartesian' : question.visualScale === 'large' ? 'assessment-document-question-visual-large' : ''}`} />}
+    {question.visual && <AssessmentDiagram visual={question.visual} className={`assessment-document-question-visual ${question.visualScale === 'cartesian' ? 'assessment-document-question-visual-cartesian' : question.visualScale === 'large' ? 'assessment-document-question-visual-large' : ''}`} />}
     {question.subparts.length > 0 && <ol className="assessment-document-subparts" type="a">{question.subparts.map((part) => <li key={`${part.label}-${part.prompt}`}>{part.prompt} <small>({part.pointLabel})</small></li>)}</ol>}
     {(question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') && <div className="assessment-document-choices">{question.choices.map((choice) => <div className="assessment-document-choice-row" key={`${choice.label}-${choice.text}`}><span className="assessment-document-choice-label">{choice.label}.</span>{choice.checkbox && <span className="assessment-document-checkbox" />}{choice.text}</div>)}</div>}
     {question.questionType === 'matching' && <div className="assessment-document-matching-grid"><div><strong>{question.matching.columnALabel}</strong>{question.matching.prompts.map((prompt) => <div key={`${prompt.label}-${prompt.text}`}>_____ {prompt.label}. {prompt.text}</div>)}</div><div><strong>{question.matching.columnBLabel}</strong>{question.matching.choices.map((choice) => <div key={`${choice.label}-${choice.text}`}>{choice.label}. {choice.text}</div>)}</div></div>}
@@ -58,7 +58,7 @@ export function AssessmentDocumentView({ model, showCompetency = false, showCogn
           return <div key={question.key} className="assessment-document-question-wrapper">
             <section className={`assessment-document-question assessment-question-${question.questionType} ${question.keepTogether ? 'assessment-question-keep' : 'assessment-question-flow'}`}>
               {!isAnswerKey && <><QuestionCore question={question} /><StudentResponse question={question} />{!isStudent && annotations.map((annotation) => <p className="assessment-document-annotation" data-annotation-kind={annotation.kind} key={`${annotation.kind}-${annotation.label}`}><strong>{annotation.label}:</strong> {annotation.text}</p>)}</>}
-              {isAnswerKey && <><div className="assessment-document-question-head"><strong>{question.numberLabel}</strong>{question.pointLabel && <small>{question.pointLabel}</small>}</div>{annotations.map((annotation) => <div className={annotation.kind === 'answer' ? 'assessment-document-answer-key' : 'assessment-document-annotation'} data-annotation-kind={annotation.kind} key={`${annotation.kind}-${annotation.label}`}><strong>{annotation.label}:</strong> {annotation.text}</div>)}{question.visual && <AssessmentSvgDiagram visual={question.visual} className={`assessment-document-question-visual ${question.visualScale === 'cartesian' ? 'assessment-document-question-visual-cartesian' : question.visualScale === 'large' ? 'assessment-document-question-visual-large' : ''}`} />}</>}
+              {isAnswerKey && <><div className="assessment-document-question-head"><strong>{question.numberLabel}</strong>{question.pointLabel && <small>{question.pointLabel}</small>}</div>{annotations.map((annotation) => <div className={annotation.kind === 'answer' ? 'assessment-document-answer-key' : 'assessment-document-annotation'} data-annotation-kind={annotation.kind} key={`${annotation.kind}-${annotation.label}`}><strong>{annotation.label}:</strong> {annotation.text}</div>)}{question.visual && <AssessmentDiagram visual={question.visual} className={`assessment-document-question-visual ${question.visualScale === 'cartesian' ? 'assessment-document-question-visual-cartesian' : question.visualScale === 'large' ? 'assessment-document-question-visual-large' : ''}`} />}</>}
             </section>
           </div>
         })}

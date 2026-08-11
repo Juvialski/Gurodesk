@@ -17,10 +17,10 @@ for (const route of deepRoutes) {
 
     const response = await appPage.goto(route.path, { waitUntil: 'domcontentloaded' })
     expect(response?.status(), `${route.path} should be served by the local Vite fallback`).toBe(200)
-    await expect(appPage.getByRole('heading', { name: route.heading })).toBeVisible({ timeout: 30_000 })
+    await expect(appPage.getByRole('heading', { name: route.heading, level: 1 })).toBeVisible({ timeout: 30_000 })
 
     const refreshed = await appPage.reload({ waitUntil: 'domcontentloaded' })
     expect(refreshed?.status(), `${route.path} refresh should be served by the local Vite fallback`).toBe(200)
-    await expect(appPage.getByRole('heading', { name: route.heading })).toBeVisible({ timeout: 30_000 })
+    await expect(appPage.getByRole('heading', { name: route.heading, level: 1 })).toBeVisible({ timeout: 30_000 })
   })
 }

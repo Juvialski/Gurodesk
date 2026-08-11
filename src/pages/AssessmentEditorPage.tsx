@@ -14,7 +14,7 @@ import { autoPrepareAssessmentPaper } from '../lib/assessmentAutoPrepare'
 import { lockAssessmentItem, recoverSingleFillBlankStructure, unlockAssessmentItem } from '../lib/assessmentItemLifecycle'
 import { beginAssessmentVisualGeneration, checkpointAssessmentGenerationFailure, checkpointAssessmentGenerationSuccess, checkpointAssessmentVisualFailure, checkpointAssessmentVisualSuccess, checkpointFailures, checkpointVisualFailures, clearAssessmentGenerationCheckpoint, completeAssessmentGenerationCheckpoint, createAssessmentGenerationCheckpoint, loadAssessmentGenerationCheckpoint, pauseAssessmentGenerationCheckpoint, pendingAssessmentGenerationItemIds, pendingAssessmentVisualItemIds, recoverAssessmentGenerationItems, resumeAssessmentGenerationCheckpoint, saveAssessmentGenerationCheckpoint, type AssessmentGenerationCheckpoint, type AssessmentGenerationFailure } from '../lib/assessmentGenerationResume'
 import { assessmentUsageEstimate, type AssessmentUsageEstimate } from '../lib/assessmentRequestScheduler'
-import { assessmentVisualPlanForItem, assessmentVisualSourceHash, invalidateAssessmentVisualAfterContentEdit, withResolvedAssessmentVisualPlan } from '../lib/assessmentVisualPlanning'
+import { assessmentVisualItemIdsForAssessment, assessmentVisualPlanForItem, assessmentVisualSourceHash, invalidateAssessmentVisualAfterContentEdit, resolveAssessmentVisualPlans, withResolvedAssessmentVisualPlan } from '../lib/assessmentVisualPlanning'
 import { validateAssessmentItemDeterministic, verifierRequiresRepair } from '../lib/assessmentQa'
 import { applyQuestionTypeDistributionToEmptySlots } from '../lib/assessmentDistribution'
 import { reviewAssessmentForFinalization, finalReviewMessages, type AssessmentFinalReview } from '../lib/assessmentFinalReview'
@@ -125,7 +125,9 @@ export function AssessmentEditorPage() {
       if (!active) return
       if (!next) throw new Error('Assessment not found or you do not have access to it.')
       const normalized = normalizeAssessment(next)
-      setRecordValue(normalized); recordRef.current = normalized; setTitle(normalized.title === 'Untitled assessment' ? '' : normalized.title); setInstructions(normalized.instructions); setSelectedIndex(0); setSuggestions({}); setError(''); refreshUsageEstimates()
+      const balanced = resolveAssessmentVisualPlans(normalized.items)
+      const planned = { ...normalized, items: balanced.items }
+      setRecordValue(planned); recordRef.current = planned; setTitle(planned.title === 'Untitled assessment' ? '' : planned.title); setInstructions(planned.instructions); setSelectedIndex(0); setSuggestions({}); setError(''); refreshUsageEstimates()
     }).catch((nextError) => { if (active) setError(extractErrorMessage(nextError, 'Unable to open the assessment editor.')) }).finally(() => { if (active) setLoading(false) })
     return () => { active = false }
   }, [id, user?.id, isDemo])
@@ -260,14 +262,16 @@ export function AssessmentEditorPage() {
     const source = sourceOverride ?? recordRef.current
     if (!source || source.status !== 'draft') return null
     const normalized = normalizeAssessment(source)
-    const next = recordWithItems(source, normalized.items, 'draft', title.trim(), instructions)
+    const balanced = resolveAssessmentVisualPlans(normalized.items)
+    const next = recordWithItems(source, balanced.items, 'draft', title.trim(), instructions)
     setSaving(true); setError('')
     try { const saved = await saveAssessmentDocument(next, isDemo); recordRef.current = saved; setRecordValue(saved); setTitle(saved.title); setInstructions(saved.instructions); return saved } catch (nextError) { setError(extractErrorMessage(nextError, 'Unable to save the draft before generation.')); return null } finally { setSaving(false) }
   }
 
   async function save(status: 'draft' | 'final' = 'draft') {
     if (!recordValue || !view || readOnly) return
-    const next = recordWithItems(recordValue, view.items, status, title.trim(), instructions)
+    const balanced = resolveAssessmentVisualPlans(view.items)
+    const next = recordWithItems(recordValue, balanced.items, status, title.trim(), instructions)
     if (status === 'final') {
       const initialReview = reviewAssessmentForFinalization(next)
       const finalReview = warningsAccepted ? reviewAssessmentForFinalization(next, { acknowledgedWarningCodes: initialReview.warnings.map((entry) => entry.code) }) : initialReview
@@ -512,14 +516,21 @@ export function AssessmentEditorPage() {
       const persisted = await saveForGeneration(start)
       if (!persisted) return
       const persistedView = normalizeAssessment(persisted)
-      const plannedIds = itemIds?.length
-        ? itemIds
-        : persistedView.items.filter((item) => assessmentVisualPlanForItem(item).eligible && !isLocked(item)).map((item) => item.id)
+      const balanced = resolveAssessmentVisualPlans(persistedView.items)
+      const balancedIds = new Set(assessmentVisualItemIdsForAssessment(balanced.items))
+      const requestedIds = itemIds?.length
+        ? itemIds.filter((itemId) => balancedIds.has(itemId))
+        : [...balancedIds]
+      const checkpointIds = checkpoint?.phase === 'visuals' && checkpoint.visualItemIds.length
+        ? checkpoint.visualItemIds.filter((itemId) => balancedIds.has(itemId))
+        : requestedIds
+      const plannedIds = requestedIds.length ? requestedIds : checkpointIds
       checkpoint = checkpoint
-        ? beginAssessmentVisualGeneration(resumeAssessmentGenerationCheckpoint(checkpoint), checkpoint.phase === 'visuals' && checkpoint.visualItemIds.length ? checkpoint.visualItemIds : plannedIds)
+        ? beginAssessmentVisualGeneration(resumeAssessmentGenerationCheckpoint(checkpoint), checkpointIds)
         : beginAssessmentVisualGeneration(createAssessmentGenerationCheckpoint({ assessmentId: persisted.id, userId: user.id, itemIds: [] }), plannedIds)
       saveAssessmentGenerationCheckpoint(checkpoint)
-      const pendingIds = itemIds ?? pendingAssessmentVisualItemIds(checkpoint)
+      const pendingIds = (itemIds?.length ? itemIds : pendingAssessmentVisualItemIds(checkpoint))
+        .filter((itemId) => balancedIds.has(itemId))
       setBatchProgress({ processed: 0, total: pendingIds.length, succeeded: 0, failed: 0, cancelled: 0, remaining: pendingIds.length })
       setBatchMessage(pendingIds.length ? `Questions saved. Enriching ${pendingIds.length} visual${pendingIds.length === 1 ? '' : 's'} sequentially…` : 'Questions saved. No visual enrichment requests are needed; running paper QA…')
       const summary = await enrichAssessmentVisualsSequentially({

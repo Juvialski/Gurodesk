@@ -141,7 +141,11 @@ const visualPointSchema: GeminiSchema = objectSchema(
  */
 const visualElementSchema: GeminiSchema = objectSchema(
   {
-    type: { type: 'STRING', enum: ['point', 'segment', 'dashedSegment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow', 'cartesianAxes', 'cartesianPlot'] },
+    type: {
+      type: 'STRING',
+      enum: ['point', 'segment', 'dashedSegment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow', 'cartesianAxes', 'cartesianPlot'],
+      description: 'Primitive discriminator. Use the exact canonical key grammar from the prompt for the selected type.',
+    },
     x: { type: 'NUMBER' },
     y: { type: 'NUMBER' },
     x1: { type: 'NUMBER' },
@@ -156,7 +160,10 @@ const visualElementSchema: GeminiSchema = objectSchema(
     angle: { type: 'NUMBER' },
     size: { type: 'NUMBER' },
     vertex: visualPointSchema,
-    points: { type: 'ARRAY', minItems: 3, maxItems: 12, items: visualPointSchema },
+    // Polygon validation requires 3-12 canvas points, while cartesianPlot
+    // accepts 2-160 mathematical points. The provider schema cannot express
+    // that discriminator-dependent range; the strict Edge validator does.
+    points: { type: 'ARRAY', minItems: 2, maxItems: 160, items: visualPointSchema },
     text: { type: 'STRING' },
     count: { type: 'INTEGER', enum: [1, 2, 3] },
     axisId: { type: 'STRING' },
@@ -182,9 +189,13 @@ const visualElementSchema: GeminiSchema = objectSchema(
   ['type'],
 )
 
-const visualSchema: GeminiSchema = {
+/**
+ * Provider schema used only by the dedicated visual request. Normal question
+ * generation deliberately remains JSON-MIME-only because attaching the full
+ * assessment answer schema caused production INVALID_ARGUMENT failures.
+ */
+export const visualResponseSchema: GeminiSchema = {
   type: 'OBJECT',
-  nullable: true,
   properties: {
     id: { type: 'STRING' },
     kind: { type: 'STRING', enum: ['geometry'] },
@@ -192,7 +203,13 @@ const visualSchema: GeminiSchema = {
     width: { type: 'NUMBER' },
     height: { type: 'NUMBER' },
     altText: { type: 'STRING' },
-    primitives: { type: 'ARRAY', minItems: 1, maxItems: 80, items: visualElementSchema },
+    primitives: {
+      type: 'ARRAY',
+      minItems: 1,
+      maxItems: 80,
+      items: visualElementSchema,
+      description: 'Canonical GuroDesk visual primitives only. Never use endpoint objects, vertices, tuple coordinates, SVG, or TikZ here.',
+    },
   },
   required: ['id', 'kind', 'version', 'width', 'height', 'altText', 'primitives'],
   propertyOrdering: ['id', 'kind', 'version', 'width', 'height', 'altText', 'primitives'],

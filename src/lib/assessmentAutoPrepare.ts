@@ -2,7 +2,7 @@ import type { AssessmentItem, AssessmentRecord } from '../types/assessment'
 import { applyAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, generateAssessmentVisualSuggestion, generateMissingAssessmentItems, type AssessmentItemCandidate } from './assessmentGeneration'
 import { unlockAssessmentItem } from './assessmentItemLifecycle'
 import { reviewAssessmentForFinalization, type AssessmentFinalReview } from './assessmentFinalReview'
-import { assessmentVisualPlanForItem, assessmentVisualSourceHash } from './assessmentVisualPlanning'
+import { assessmentVisualPlanForItem, assessmentVisualSourceHash, resolveAssessmentVisualPlans } from './assessmentVisualPlanning'
 
 const AUTO_IGNORED_HARD_CODES = new Set(['teacher-review'])
 const AUTO_REPAIRABLE_AUTHORSHIP = new Set(['ai_suggestion', 'teacher_accepted'])
@@ -130,7 +130,11 @@ export async function autoPrepareAssessmentPaper(args: {
   const generateItem = args.generateItem ?? generateAssessmentItemSuggestion
   const generateVisual = args.generateVisual ?? generateAssessmentVisualSuggestion
   const enrichVisuals = args.enrichVisuals ?? enrichAssessmentVisualsSequentially
-  let working = args.assessment
+  // Resolve the whole paper before the first pass. This persists optional
+  // candidates that are intentionally skipped as none/not_required, while
+  // required prompts and existing teacher visuals remain untouched.
+  const initialVisualBalance = resolveAssessmentVisualPlans(args.assessment.items)
+  let working: AssessmentRecord = { ...args.assessment, items: initialVisualBalance.items }
   let generated = 0
   let regenerated = 0
   let providerPaused = false
@@ -164,7 +168,11 @@ export async function autoPrepareAssessmentPaper(args: {
       if (providerPaused || args.signal?.aborted) break
     }
 
-    const visualCandidates = working.items.filter((item) => !item.locked && item.qaState !== 'locked' && assessmentVisualPlanForItem(item).eligible)
+    const visualBalance = resolveAssessmentVisualPlans(working.items)
+    working = { ...working, items: visualBalance.items }
+    await args.onCheckpoint?.(working)
+    const visualIds = new Set([...visualBalance.requiredItemIds, ...visualBalance.optionalItemIds])
+    const visualCandidates = working.items.filter((item) => visualIds.has(item.id) && !item.locked && item.qaState !== 'locked' && assessmentVisualPlanForItem(item).eligible)
     if (visualCandidates.length) {
       args.onProgress?.({ phase: 'visual', round, message: `Enriching ${visualCandidates.length} diagram${visualCandidates.length === 1 ? '' : 's'} sequentially.` })
       const visualSummary = await enrichVisuals({

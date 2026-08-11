@@ -69,6 +69,209 @@ function angles(value: Row, path: string, errors: string[]) {
   }
 }
 
+function normalizedPoint(value: unknown): Row | null {
+  const candidate = object(value)
+  if (candidate && keys(candidate).length === 2 && keys(candidate).every((key) => key === 'x' || key === 'y') && finite(candidate.x) && finite(candidate.y)) {
+    return { x: candidate.x, y: candidate.y }
+  }
+  if (Array.isArray(value) && value.length === 2 && finite(value[0]) && finite(value[1])) {
+    return { x: value[0], y: value[1] }
+  }
+  return null
+}
+
+function normalizedPointList(value: unknown) {
+  if (!Array.isArray(value)) return value
+  return value.map((entry) => normalizedPoint(entry) ?? entry)
+}
+
+function adoptEndpointAliases(candidate: Row, firstKey: 'start' | 'from', secondKey: 'end' | 'to') {
+  if (!has(candidate, firstKey) && !has(candidate, secondKey)) return
+  const first = normalizedPoint(candidate[firstKey])
+  const second = normalizedPoint(candidate[secondKey])
+  const lacksCanonicalEndpoints = !['x1', 'y1', 'x2', 'y2'].some((key) => has(candidate, key))
+  if (!first || !second || !lacksCanonicalEndpoints) return
+  candidate.x1 = first.x
+  candidate.y1 = first.y
+  candidate.x2 = second.x
+  candidate.y2 = second.y
+  delete candidate[firstKey]
+  delete candidate[secondKey]
+}
+
+/**
+ * Normalize a deliberately tiny set of harmless provider aliases before the
+ * strict visual validator runs. This is not a permissive parser: conflicting
+ * aliases, unknown properties, unknown primitive types, and invalid values are
+ * retained so validation still rejects them.
+ */
+export function normalizeAssessmentVisualProviderOutput(value: unknown): unknown {
+  const source = object(value)
+  if (!source) return value
+  const result: Row = { ...source }
+  if (!Array.isArray(source.primitives)) return result
+  result.primitives = source.primitives.map((rawPrimitive) => {
+    const sourcePrimitive = object(rawPrimitive)
+    if (!sourcePrimitive) return rawPrimitive
+    const candidate: Row = { ...sourcePrimitive }
+    const aliasTypes: Record<string, string> = {
+      line: 'segment',
+      dashedLine: 'dashedSegment',
+      label: 'textLabel',
+    }
+    if (typeof candidate.type === 'string' && aliasTypes[candidate.type]) candidate.type = aliasTypes[candidate.type]
+
+    if (candidate.type === 'polygon' && has(candidate, 'vertices') && !has(candidate, 'points')) {
+      candidate.points = normalizedPointList(candidate.vertices)
+      delete candidate.vertices
+    } else if (has(candidate, 'points')) {
+      candidate.points = normalizedPointList(candidate.points)
+    }
+
+    if (['segment', 'dashedSegment', 'arrow', 'tickMark', 'equalSideMark', 'parallelMark'].includes(String(candidate.type))) {
+      adoptEndpointAliases(candidate, 'start', 'end')
+      adoptEndpointAliases(candidate, 'from', 'to')
+    }
+
+    if (['circle', 'arc'].includes(String(candidate.type)) && has(candidate, 'center') && !has(candidate, 'cx') && !has(candidate, 'cy')) {
+      const center = normalizedPoint(candidate.center)
+      if (center) {
+        candidate.cx = center.x
+        candidate.cy = center.y
+        delete candidate.center
+      }
+    }
+
+    if (candidate.type === 'angleArc' && Array.isArray(candidate.vertex)) {
+      candidate.vertex = normalizedPoint(candidate.vertex) ?? candidate.vertex
+    }
+
+    if (['point', 'textLabel', 'perpendicularMark'].includes(String(candidate.type)) && has(candidate, 'position') && !has(candidate, 'x') && !has(candidate, 'y')) {
+      const position = normalizedPoint(candidate.position)
+      if (position) {
+        candidate.x = position.x
+        candidate.y = position.y
+        delete candidate.position
+      }
+    }
+    return candidate
+  })
+  return result
+}
+
+type Coordinate = { x: number; y: number }
+
+function coordinateValue(value: unknown): Coordinate | null {
+  const candidate = object(value)
+  return candidate && finite(candidate.x) && finite(candidate.y) ? { x: candidate.x, y: candidate.y } : null
+}
+
+function distance(first: Coordinate, second: Coordinate) {
+  return Math.hypot(second.x - first.x, second.y - first.y)
+}
+
+function signedArea(points: Coordinate[]) {
+  return points.reduce((sum, point, index) => {
+    const next = points[(index + 1) % points.length]
+    return sum + point.x * next.y - next.x * point.y
+  }, 0) / 2
+}
+
+function orientation(first: Coordinate, second: Coordinate, third: Coordinate) {
+  return (second.x - first.x) * (third.y - first.y) - (second.y - first.y) * (third.x - first.x)
+}
+
+function between(value: number, first: number, second: number) {
+  return value >= Math.min(first, second) - 1e-7 && value <= Math.max(first, second) + 1e-7
+}
+
+function segmentsIntersect(a: Coordinate, b: Coordinate, c: Coordinate, d: Coordinate) {
+  const abC = orientation(a, b, c); const abD = orientation(a, b, d)
+  const cdA = orientation(c, d, a); const cdB = orientation(c, d, b)
+  if ((abC > 1e-7 && abD < -1e-7 || abC < -1e-7 && abD > 1e-7)
+    && (cdA > 1e-7 && cdB < -1e-7 || cdA < -1e-7 && cdB > 1e-7)) return true
+  if (Math.abs(abC) <= 1e-7 && between(c.x, a.x, b.x) && between(c.y, a.y, b.y)) return true
+  if (Math.abs(abD) <= 1e-7 && between(d.x, a.x, b.x) && between(d.y, a.y, b.y)) return true
+  if (Math.abs(cdA) <= 1e-7 && between(a.x, c.x, d.x) && between(a.y, c.y, d.y)) return true
+  if (Math.abs(cdB) <= 1e-7 && between(b.x, c.x, d.x) && between(b.y, c.y, d.y)) return true
+  return false
+}
+
+function polygonSelfIntersects(points: Coordinate[]) {
+  for (let first = 0; first < points.length; first += 1) {
+    const firstNext = (first + 1) % points.length
+    for (let second = first + 1; second < points.length; second += 1) {
+      const secondNext = (second + 1) % points.length
+      if (first === second || firstNext === second || secondNext === first) continue
+      if (segmentsIntersect(points[first], points[firstNext], points[second], points[secondNext])) return true
+    }
+  }
+  return false
+}
+
+function visualQuality(candidate: Row, width: number, height: number, errors: string[]) {
+  if (!Array.isArray(candidate.primitives)) return
+  const minimumLength = Math.max(10, Math.min(width, height) * 0.035)
+  const minimumRadius = Math.max(8, Math.min(width, height) * 0.025)
+  const footprint: Coordinate[] = []
+  let structuralPrimitives = 0
+  const axes = new Map<string, Row>()
+
+  candidate.primitives.forEach((rawPrimitive, index) => {
+    const value = object(rawPrimitive)
+    if (!value) return
+    const path = `visual.primitives[${index}]`
+    if (['segment', 'dashedSegment', 'arrow'].includes(String(value.type)) && [value.x1, value.y1, value.x2, value.y2].every(finite)) {
+      structuralPrimitives += 1
+      const first = { x: value.x1 as number, y: value.y1 as number }; const second = { x: value.x2 as number, y: value.y2 as number }
+      footprint.push(first, second)
+      if (distance(first, second) < minimumLength) errors.push(`${path} is too short to remain readable in a printed test.`)
+    } else if (value.type === 'polygon' && Array.isArray(value.points)) {
+      const points = value.points.map(coordinateValue)
+      if (points.every((entry): entry is Coordinate => entry !== null) && points.length >= 3) {
+        structuralPrimitives += 1
+        footprint.push(...points)
+        if (points.some((point, pointIndex) => distance(point, points[(pointIndex + 1) % points.length]) < minimumLength)) errors.push(`${path} contains a tiny or repeated edge.`)
+        if (Math.abs(signedArea(points)) < Math.max(100, width * height * 0.003)) errors.push(`${path} is degenerate or too small to read.`)
+        if (polygonSelfIntersects(points)) errors.push(`${path} is self-crossing; use a simple polygon unless the question explicitly needs intersecting segments.`)
+      }
+    } else if ((value.type === 'circle' || value.type === 'arc') && finite(value.cx) && finite(value.cy) && finite(value.radius)) {
+      structuralPrimitives += 1
+      const radiusValue = value.radius as number
+      footprint.push({ x: (value.cx as number) - radiusValue, y: (value.cy as number) - radiusValue }, { x: (value.cx as number) + radiusValue, y: (value.cy as number) + radiusValue })
+      if (radiusValue < minimumRadius) errors.push(`${path} is too small to remain readable in a printed test.`)
+    } else if (value.type === 'cartesianAxes' && finite(value.x) && finite(value.y) && finite(value.width) && finite(value.height)) {
+      structuralPrimitives += 1
+      footprint.push({ x: value.x as number, y: value.y as number }, { x: (value.x as number) + (value.width as number), y: (value.y as number) + (value.height as number) })
+      if ((value.width as number) < width * 0.35 || (value.height as number) < height * 0.35) errors.push(`${path} is too small for readable axes, ticks, and labels.`)
+      if (typeof value.axisId === 'string') axes.set(value.axisId.normalize('NFKC').trim(), value)
+    } else if (value.type === 'cartesianPlot') {
+      structuralPrimitives += 1
+    }
+  })
+
+  candidate.primitives.forEach((rawPrimitive, index) => {
+    const value = object(rawPrimitive)
+    if (!value || value.type !== 'cartesianPlot' || !Array.isArray(value.points) || typeof value.axisId !== 'string') return
+    const points = value.points.map(coordinateValue)
+    const axis = axes.get(value.axisId.normalize('NFKC').trim())
+    if (!axis || !points.every((entry): entry is Coordinate => entry !== null) || points.length < 2) return
+    const xValues = points.map((point) => point.x); const yValues = points.map((point) => point.y)
+    const xRange = finite(axis.xMin) && finite(axis.xMax) ? (axis.xMax as number) - (axis.xMin as number) : 0
+    const yRange = finite(axis.yMin) && finite(axis.yMax) ? (axis.yMax as number) - (axis.yMin as number) : 0
+    const xCoverage = xRange > 0 ? (Math.max(...xValues) - Math.min(...xValues)) / xRange : 0
+    const yCoverage = yRange > 0 ? (Math.max(...yValues) - Math.min(...yValues)) / yRange : 0
+    if (Math.max(xCoverage, yCoverage) < 0.08) errors.push(`visual.primitives[${index}] is degenerate or too small to read on its Cartesian axes.`)
+  })
+
+  if (structuralPrimitives === 0) errors.push('visual.primitives must include meaningful mathematical line work, a shape, or Cartesian axes; labels and marks alone are not a diagram.')
+  if (footprint.length) {
+    const xs = footprint.map((point) => point.x); const ys = footprint.map((point) => point.y)
+    const contentDiagonal = Math.hypot(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys))
+    if (contentDiagonal < Math.max(48, Math.hypot(width, height) * 0.18)) errors.push('visual content is too small for the canvas and would print poorly.')
+  }
+}
+
 function primitive(value: unknown, width: number, height: number, index: number, errors: string[]) {
   const path = `visual.primitives[${index}]`
   const candidate = object(value)
@@ -176,7 +379,8 @@ export function validateAssessmentVisual(value: unknown): AssessmentVisualValida
   if (candidate.version !== 1) errors.push('visual.version must be 1.')
   if (!bounded(candidate.width, ASSESSMENT_VISUAL_LIMITS.minWidth, ASSESSMENT_VISUAL_LIMITS.maxWidth)) errors.push('visual.width is invalid.')
   if (!bounded(candidate.height, ASSESSMENT_VISUAL_LIMITS.minHeight, ASSESSMENT_VISUAL_LIMITS.maxHeight)) errors.push('visual.height is invalid.')
-  if (!plainText(candidate.altText, ASSESSMENT_VISUAL_LIMITS.maxAltTextLength)) errors.push('visual.altText is invalid.')
+  if (!plainText(candidate.altText, ASSESSMENT_VISUAL_LIMITS.maxAltTextLength)
+    || /^(?:image|diagram)$/iu.test(typeof candidate.altText === 'string' ? candidate.altText.normalize('NFKC').trim() : '')) errors.push('visual.altText must be useful observable plain text, not a generic image label.')
   if (!Array.isArray(candidate.primitives) || candidate.primitives.length < 1 || candidate.primitives.length > ASSESSMENT_VISUAL_LIMITS.maxPrimitives) errors.push('visual.primitives count is invalid.')
   if (Array.isArray(candidate.primitives) && finite(candidate.width) && finite(candidate.height)) {
     candidate.primitives.forEach((entry, index) => primitive(entry, candidate.width as number, candidate.height as number, index, errors))
@@ -203,6 +407,7 @@ export function validateAssessmentVisual(value: unknown): AssessmentVisualValida
         }
       }
     })
+    visualQuality(candidate, candidate.width as number, candidate.height as number, errors)
   }
   return { valid: errors.length === 0, errors }
 }

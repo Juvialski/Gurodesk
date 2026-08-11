@@ -98,7 +98,7 @@ export default defineConfig({
     },
     {
       name: 'chromium',
-      testIgnore: /auth\.setup\.ts/,
+      testIgnore: [/auth\.setup\.ts/, /navigation-phone\.spec\.ts/],
       dependencies: ['setup'],
       use: {
         ...devices['Desktop Chrome'],
@@ -110,8 +110,8 @@ export default defineConfig({
       testMatch: /navigation-phone\.spec\.ts/,
       dependencies: ['setup'],
       use: {
-        ...devices['iPhone 12'],
-        viewport: { width: 390, height: 844 },
+        ...devices['Pixel 5'],
+        browserName: 'chromium',
         storageState: authFile,
       },
     },

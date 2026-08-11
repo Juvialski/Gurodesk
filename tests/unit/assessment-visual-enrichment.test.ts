@@ -3,9 +3,12 @@ import { enrichAssessmentVisualsSequentially } from '../../src/lib/assessmentGen
 import { assessmentVisualSemanticFindings } from '../../src/lib/assessmentFinalQa'
 import { ASSESSMENT_VISUAL_FIXTURES } from '../../src/lib/assessmentVisualFixtures'
 import {
+  assessmentVisualItemIdsForAssessment,
   assessmentVisualPlanForItem,
   assessmentVisualSourceHash,
   invalidateAssessmentVisualAfterContentEdit,
+  promptRequiresAssessmentVisual,
+  resolveAssessmentVisualPlans,
   withResolvedAssessmentVisualPlan,
 } from '../../src/lib/assessmentVisualPlanning'
 import type { AssessmentItem } from '../../src/types/assessment'
@@ -71,6 +74,19 @@ describe('separate sequential assessment visual enrichment', () => {
     }
   })
 
+  it('treats an explicit empty work list as no visual work', async () => {
+    const item = plannedVisualItem(1)
+    const generate = vi.fn()
+    const summary = await enrichAssessmentVisualsSequentially({
+      assessment: assessmentRecord([item]),
+      demo: false,
+      itemIds: [],
+      generate,
+    })
+    expect(generate).not.toHaveBeenCalled()
+    expect(summary).toMatchObject({ eligible: 0, attempted: 0, succeeded: 0, failed: 0 })
+  })
+
   it('keeps an optional question when its helpful visual fails', async () => {
     const item = plannedVisualItem(1, 'helpful')
     const summary = await enrichAssessmentVisualsSequentially({
@@ -133,5 +149,130 @@ describe('separate sequential assessment visual enrichment', () => {
     expect(edited.visualStatus).toBe('stale')
     expect(assessmentVisualPlanForItem(edited).current).toBe(false)
   })
-})
 
+  it('does not force a diagram because a question merely says polygon', () => {
+    const item = assessmentItem('multiple_choice', {
+      prompt: 'What is a polygon?',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+    })
+    expect(promptRequiresAssessmentVisual(item.prompt)).toBe(false)
+    expect(assessmentVisualPlanForItem(item)).toMatchObject({ requirement: 'none', status: 'not_required', eligible: false })
+  })
+
+  it('caps optional diagrams at roughly one per four questions and spreads them across competencies', () => {
+    const items = Array.from({ length: 8 }, (_, index) => assessmentItem('multiple_choice', {
+      id: 'balanced-' + (index + 1),
+      itemNumber: index + 1,
+      prompt: 'Compare the vertical angles in relationship ' + (index + 1) + '.',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+      competencySnapshot: {
+        ...assessmentItem().competencySnapshot,
+        id: index < 4 ? 'competency-a' : 'competency-b',
+      },
+    }))
+    const balance = resolveAssessmentVisualPlans(items)
+    expect(balance.optionalBudget).toBe(2)
+    expect(balance.optionalItemIds).toEqual(['balanced-1', 'balanced-5'])
+    expect(balance.skippedOptionalItemIds).toHaveLength(6)
+    expect(balance.items.filter((item) => item.visualRequirement === 'none' && item.visualStatus === 'not_required')).toHaveLength(6)
+    expect(assessmentVisualItemIdsForAssessment(items)).toEqual(balance.optionalItemIds)
+  })
+
+  it('always keeps genuinely required prompts in the work list', () => {
+    const items = Array.from({ length: 8 }, (_, index) => assessmentItem('multiple_choice', {
+      id: 'required-balance-' + (index + 1),
+      itemNumber: index + 1,
+      prompt: index === 3
+        ? 'Use the diagram shown to identify the marked angle.'
+        : 'Compare the vertical angles in relationship ' + (index + 1) + '.',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+    }))
+    const balance = resolveAssessmentVisualPlans(items)
+    expect(balance.requiredItemIds).toEqual(['required-balance-4'])
+    expect(assessmentVisualItemIdsForAssessment(items)).toContain('required-balance-4')
+    expect(balance.items[3]).toMatchObject({ visualRequirement: 'required', visualStatus: 'pending' })
+  })
+
+  it('does not fill the optional budget with near-identical questions from one competency', () => {
+    const items = Array.from({ length: 8 }, (_, index) => assessmentItem('multiple_choice', {
+      id: 'repeat-' + (index + 1),
+      itemNumber: index + 1,
+      prompt: 'Compare the vertical angles in the parallel lines.',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+    }))
+    const balance = resolveAssessmentVisualPlans(items)
+    expect(balance.optionalBudget).toBe(2)
+    expect(balance.optionalItemIds).toEqual(['repeat-1'])
+    expect(balance.items.filter((item) => item.visualRequirement === 'none')).toHaveLength(7)
+  })
+
+  it('preserves an existing visual even when the optional budget is already occupied', () => {
+    const existing = withResolvedAssessmentVisualPlan(assessmentItem('multiple_choice', {
+      id: 'existing-visual',
+      itemNumber: 1,
+      prompt: 'Compare the vertical angles in the parallel lines.',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+      visual: ASSESSMENT_VISUAL_FIXTURES.marksAndLabels,
+      visualRequirement: 'helpful',
+    }))
+    const pending = assessmentItem('multiple_choice', {
+      id: 'pending-visual',
+      itemNumber: 2,
+      prompt: 'Compare the adjacent angles in the parallel lines.',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+    })
+    const balance = resolveAssessmentVisualPlans([existing, pending, ...Array.from({ length: 6 }, (_, index) => assessmentItem('multiple_choice', {
+      id: 'plain-' + index,
+      itemNumber: index + 3,
+      prompt: 'State the vertical angles relationship ' + index + '.',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+    }))])
+    expect(balance.items[0].visual).toEqual(existing.visual)
+    expect(balance.items[0].visualStatus).toBe('succeeded')
+    expect(balance.items[0].visualRequirement).toBe('helpful')
+  })
+
+  it('marks skipped optional plans as settled while allowing explicit force to recover them', () => {
+    const items = Array.from({ length: 8 }, (_, index) => assessmentItem('multiple_choice', {
+      id: 'force-' + (index + 1),
+      itemNumber: index + 1,
+      prompt: 'Compare the vertical angles in relationship ' + (index + 1) + '.',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+    }))
+    const balance = resolveAssessmentVisualPlans(items)
+    const skipped = balance.items.find((item) => item.id === 'force-8')
+    expect(skipped).toMatchObject({ visualRequirement: 'none', visualStatus: 'not_required' })
+    expect(assessmentVisualPlanForItem(skipped!)).toMatchObject({ requirement: 'none', eligible: false })
+    expect(assessmentVisualPlanForItem(skipped!, { force: true })).toMatchObject({ requirement: 'helpful', eligible: true })
+  })
+
+  it('lets explicit regeneration enrich a balanced-out optional item', async () => {
+    const items = Array.from({ length: 8 }, (_, index) => assessmentItem('multiple_choice', {
+      id: 'forced-enrichment-' + (index + 1),
+      itemNumber: index + 1,
+      prompt: 'Compare the vertical angles in relationship ' + (index + 1) + '.',
+      authorshipState: 'teacher_accepted',
+      qaState: 'verified',
+    }))
+    const skipped = resolveAssessmentVisualPlans(items).items[7]
+    const generate = vi.fn(async () => ({ visual: ASSESSMENT_VISUAL_FIXTURES.marksAndLabels, model: 'test', fallbackUsed: false, requestsUsed: 1 }))
+    const summary = await enrichAssessmentVisualsSequentially({
+      assessment: assessmentRecord([skipped]),
+      demo: false,
+      itemIds: [skipped.id],
+      force: true,
+      generate,
+    })
+    expect(generate).toHaveBeenCalledOnce()
+    expect(summary).toMatchObject({ eligible: 1, attempted: 1, succeeded: 1, failed: 0 })
+    expect(summary.results[0]).toMatchObject({ id: skipped.id, visualRequirement: 'helpful', visualStatus: 'succeeded' })
+  })
+})

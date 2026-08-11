@@ -52,6 +52,8 @@ describe('canonical Test 4 assessment paper', () => {
       const preview = renderToStaticMarkup(<AssessmentDocumentView model={model} showCompetency showCognitive showRationale />)
       const print = assessmentPrintHtml(model)
       expect(preview).toContain('data-paper-model="assessment-paper-v1"')
+      expect(preview).toContain('assessment-tikz-shell')
+      expect(preview).toContain('text/tikz')
       expect(print).toContain('data-paper-model="assessment-paper-v1"')
       expect(preview).toContain(canonical.header.documentTitle)
       expect(print).toContain(canonical.header.documentTitle)

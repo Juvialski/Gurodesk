@@ -1,10 +1,10 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
-import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId, type AssessmentQuestionType, verifierResponseSchema } from '../_shared/ai-models.ts'
+import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId, type AssessmentQuestionType, type GeminiSchema, verifierResponseSchema, visualResponseSchema } from '../_shared/ai-models.ts'
 import { AssessmentContractError, validateAssessmentCandidate as validateAssessmentCandidateContract, type ImmutableAssessmentContext } from '../_shared/assessment-contract.ts'
 import { callGemini, GeminiHttpError, GeminiResponseError, isFallbackEligibleStatus, parseGeminiJson } from '../_shared/gemini.ts'
-import { validateAssessmentVisual } from '../_shared/assessment-visual.ts'
+import { normalizeAssessmentVisualProviderOutput, validateAssessmentVisual } from '../_shared/assessment-visual.ts'
 
 type QuestionType = AssessmentQuestionType
 type Operation = 'generate' | 'verify' | 'repair' | 'visual'
@@ -27,6 +27,19 @@ function onlyKeys(value: Row, keys: string[]) { return Object.keys(value).every(
 function stableValue(value: unknown): unknown { if (Array.isArray(value)) return value.map(stableValue); if (!value || typeof value !== 'object') return value; return Object.fromEntries(Object.entries(value as Row).sort(([left], [right]) => left.localeCompare(right, 'en')).map(([key, entry]) => [key, stableValue(entry)])) }
 function stableJson(value: unknown) { return JSON.stringify(stableValue(value)) }
 function savedAnswerForVisual(value: unknown) { const answer = { ...object(value) }; delete answer._visual; delete answer._visualPlan; return answer }
+const QUESTION_PROVIDER_KEYS = ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent', 'visual'] as const
+const REQUIRED_QUESTION_PROVIDER_KEYS = ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent'] as const
+
+/**
+ * Gemini occasionally appends harmless explanatory envelope fields despite an
+ * exact-keys prompt. Once every canonical field is present, project only the
+ * known top-level envelope. Nested answer fields still go through the full
+ * strict per-type contract and are never dropped or guessed here.
+ */
+function canonicalQuestionProviderEnvelope(value: Row) {
+  if (!REQUIRED_QUESTION_PROVIDER_KEYS.every((key) => Object.prototype.hasOwnProperty.call(value, key))) return value
+  return Object.fromEntries(QUESTION_PROVIDER_KEYS.filter((key) => Object.prototype.hasOwnProperty.call(value, key)).map((key) => [key, value[key]]))
+}
 
 function validateCandidate(value: unknown, questionType: QuestionType, resources: string[], rationaleRequired = true, immutableContext?: ImmutableAssessmentContext) {
   // The shared Edge-safe contract is authoritative for every live path.
@@ -78,7 +91,8 @@ function buildGenerationPrompt(type: QuestionType, immutable: Row, language: str
     `questionType must be exactly "${type}".`,
     answerShapeInstruction(type),
     `referencedResources must be ${resources.length ? 'an array containing only exact teacher-listed resource strings actually used' : 'an empty array [] because the teacher supplied no resources'}.`,
-    'visualRequirement must be exactly "none", "helpful", or "required". Use "required" only when the learner genuinely cannot answer the finished prompt without a diagram/graph. Use "helpful" only when a diagram improves readability but the prompt remains fully solvable without it. Otherwise use "none".',
+    'A normal classroom test does not attach a visual to every item. Default visualRequirement to "none". Use "required" only when the learner genuinely cannot answer the finished prompt without a mathematical diagram, table, number line, or graph. Use "helpful" only when a mathematical visual materially improves readability while the prompt remains fully solvable without it. Never request decorative pictures, clip art, icons, or a visual merely to make the page look interesting.',
+    'Across an ordinary mixed assessment, most questions should remain visualRequirement "none"; visuals belong only on competencies and prompts that genuinely benefit from seeing mathematical structure.',
     'visualIntent must be an empty string when visualRequirement is "none"; otherwise give a concise observable description of the diagram/graph needed. Do not include the correct answer or conclusion in visualIntent.',
     'Do not return visual geometry, TikZ, SVG, HTML, scripts, raster data, formula code, or coordinates in this question-generation response. GuroDesk requests the visual separately after the question contract is valid.',
     'Rationale is for teacher review and must be at least one clear sentence; it must not claim official approval.',
@@ -122,7 +136,7 @@ function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, i
 function buildVisualPrompt(type: QuestionType, immutable: Row, candidate: Row, visualIntent: string, issues: string[]) {
   const requirement = clean(candidate.visualRequirement, 20) || 'required'
   return [
-    'Design exactly one safe, print-friendly mathematical assessment visual for an already-valid question. Return strict JSON only.',
+    'Design exactly one precise, textbook-quality mathematical assessment visual for an already-valid question. Return strict JSON only. GuroDesk will compile this validated geometry into real TikZ; you supply data, never TikZ code.',
     'This is a dedicated visual pass. Do not rewrite the learner prompt, answer, rationale, item number, competency, cognitive category, question type, or points.',
     `Fixed item number: ${Number(immutable.itemNumber)}`,
     `Fixed competency: ${clean(immutable.competencyText)}`,
@@ -134,11 +148,23 @@ function buildVisualPrompt(type: QuestionType, immutable: Row, candidate: Row, v
     `Visual requirement: ${requirement}`,
     `Visual intent: ${visualIntent || clean(candidate.visualIntent, 500)}`,
     ...(issues.length ? [`Previous deterministic visual issues to repair: ${issues.join(' | ')}`] : []),
-    'Return exactly one AssessmentVisual JSON object with keys id, kind, version, width, height, altText, primitives.',
-    'kind must be "geometry" and version must be 1. Keep the canvas compact and readable for A4/Letter Word and PDF export.',
-    'Use only the bounded primitive types supported by GuroDesk: point, segment, polygon, circle, arc, angleArc, textLabel, tickMark, equalSideMark, parallelMark, perpendicularMark, arrow, dashedSegment, cartesianAxes, cartesianPlot.',
+    'Return exactly one AssessmentVisual JSON object with exactly these top-level keys: id, kind, version, width, height, altText, primitives. Do not wrap it in a visual property.',
+    'Set kind to "geometry", version to 1, width to 600, and height to 360. Keep important line work inside the safe area x=48..552 and y=42..318 so labels and arrowheads do not clip in A4/Letter output.',
+    'Use only these canonical primitive grammars (optional style keys are color, fill where listed, strokeWidth, textSize, anchor, count, showGrid, showPoints, or dashed where listed):',
+    'point: {"type":"point","x":number,"y":number,"radius":number?}.',
+    'segment/dashedSegment/arrow: {"type":"segment","x1":number,"y1":number,"x2":number,"y2":number}. Use the corresponding exact type string.',
+    'polygon: {"type":"polygon","points":[{"x":number,"y":number}, ...]}. Use 3–12 vertices in boundary order and one polygon primitive for a closed shape.',
+    'circle: {"type":"circle","cx":number,"cy":number,"radius":number}. arc uses the same center/radius plus startAngle and endAngle numbers.',
+    'angleArc: {"type":"angleArc","vertex":{"x":number,"y":number},"radius":number,"startAngle":number,"endAngle":number}.',
+    'textLabel: {"type":"textLabel","x":number,"y":number,"text":"plain text"}.',
+    'tickMark/equalSideMark/parallelMark: {"type":"equalSideMark","x1":number,"y1":number,"x2":number,"y2":number,"count":1|2|3}. Use the corresponding exact type string and make endpoints match the marked side.',
+    'perpendicularMark: {"type":"perpendicularMark","x":number,"y":number,"angle":number,"size":number}.',
+    'cartesianAxes: {"type":"cartesianAxes","axisId":"axes-1","x":number,"y":number,"width":number,"height":number,"xMin":number,"xMax":number,"yMin":number,"yMax":number,"xTick":number,"yTick":number,"showGrid":boolean,"xLabel":"x","yLabel":"y"}. Bounds must increase and straddle zero.',
+    'cartesianPlot: {"type":"cartesianPlot","axisId":"axes-1","points":[{"x":number,"y":number}, ...],"showPoints":boolean}. Supply 2–160 sampled mathematical coordinates inside the referenced axis bounds.',
+    'Never use start/end, from/to, vertices, center, position, point arrays such as [x,y], or any field not listed for that primitive. Every coordinate point must be an object with exactly x and y.',
+    'Use restrained black/blue textbook line work, normally strokeWidth 2 for the main figure and 1 for grids/marks. Do not create tiny shapes, repeated vertices, self-crossing polygons, overlapping labels, labels on top of strokes, or a canvas dominated by empty space.',
+    'Use labels only when the prompt needs them. Place vertex labels just outside the shape with clear separation; do not place opaque labels across a segment or angle arc. Do not add a title, legend, decoration, clip art, or answer hint.',
     'For coordinate graphs use cartesianAxes plus cartesianPlot sampled numeric points. Never return a formula/expression/code field and never ask GuroDesk to evaluate model-supplied math code.',
-    'Use restrained textbook geometry. Keep labels outside lines/angle arcs, avoid overlap, and include only observable labels needed by the question.',
     'altText must describe only observable features of the diagram and must not reveal the classification, accepted answer, final value, method, or conclusion the learner is supposed to determine.',
     'Never return TikZ, TeX commands, SVG, HTML, JavaScript, scripts, URLs, raster/base64 data, arbitrary colours, or executable content. GuroDesk deterministically translates validated JSON to TikZ/SVG itself.',
   ].join('\n')
@@ -152,6 +178,7 @@ async function callWithLiteFallback(
   prompt: string,
   questionType: QuestionType,
   maxOutputTokens?: number,
+  responseSchema?: GeminiSchema,
 ) {
   let modelUsed: AiModelId = settings.preferredModel
   let fallbackUsed = false
@@ -161,7 +188,7 @@ async function callWithLiteFallback(
   // Exact question-type/visual validation happens server-side after parsing;
   // the model/type-specific budget is selected in generationConfigFor().
   const config = maxOutputTokens
-    ? { responseMimeType: 'application/json', maxOutputTokens }
+    ? { responseMimeType: 'application/json', maxOutputTokens, ...(responseSchema ? { responseSchema } : {}) }
     : { questionType, responseMimeType: 'application/json' }
 
   try {
@@ -285,14 +312,16 @@ Deno.serve(async (req) => {
       // Visual JSON has its own bounded budget regardless of question type.
       // This avoids starving coordinate/geometry diagrams on short-answer types
       // while preventing an essay slot from inheriting the full 12k budget.
-      const visualOutput = await callWithLiteFallback(apiKey, settings, buildVisualPrompt(serverType, immutable, approved, visualIntent, list(body.issues, 8, 500)), serverType, 8192)
+      const visualOutput = await callWithLiteFallback(apiKey, settings, buildVisualPrompt(serverType, immutable, approved, visualIntent, list(body.issues, 8, 500)), serverType, 8192, visualResponseSchema)
       responseModel = visualOutput.modelUsed; fallbackUsed = visualOutput.fallbackUsed
       const parsedVisual = parseJson(visualOutput.output)
       const rawVisual = Object.prototype.hasOwnProperty.call(parsedVisual, 'visual') ? parsedVisual.visual : parsedVisual
-      const visualCheck = validateAssessmentVisual(rawVisual)
+      const normalizedVisual = normalizeAssessmentVisualProviderOutput(rawVisual)
+      if (normalizedVisual === null || !normalizedVisual || typeof normalizedVisual !== 'object' || Array.isArray(normalizedVisual)) throw new AssessmentContractError('The dedicated visual response did not contain a diagram object.', 'VISUAL_INVALID')
+      const visualCheck = validateAssessmentVisual(normalizedVisual)
       if (!visualCheck.valid) throw new AssessmentContractError(`The dedicated visual response was invalid. ${visualCheck.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
       // Re-run the shared candidate contract with the returned diagram so answer-leaking alt text is neutralized at the same boundary as legacy visuals.
-      const combined = validateCandidate({ ...approved, visual: rawVisual }, serverType, resources, false, immutable)
+      const combined = validateCandidate({ ...approved, visual: normalizedVisual }, serverType, resources, false, immutable)
       auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload)
       return json({ assessmentId, itemId, questionType: serverType, visual: combined.visual ?? null, model: responseModel, fallbackUsed, providerRequestCount: visualOutput.providerRequestCount })
     }
@@ -301,8 +330,8 @@ Deno.serve(async (req) => {
     }
     let candidate: Row
     let providerRequestCount = 0
-    if (operation === 'repair') { candidateValidationStarted = true; const current = validateCandidate(body.candidate, serverType, resources, false, immutable); const repairSettings = { ...settings, preferredModel: isLiteModel(settings.preferredModel) ? settings.preferredModel : DEFAULT_MODEL, fallbackModel: isLiteModel(settings.preferredModel) && settings.preferredModel !== DEFAULT_MODEL ? DEFAULT_MODEL : DEFAULT_FALLBACK_MODEL }; const output = await callWithLiteFallback(apiKey, repairSettings, buildRepairPrompt(serverType, immutable, current, list(body.issues, 8, 500), list(body.repairGuidance, 8, 700)), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidate = validateCandidate(parseJson(output.output), serverType, resources, true, immutable) }
-    else { const teacherContext = clean(body.teacherContext, 1200); const output = await callWithLiteFallback(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidateValidationStarted = true; candidate = validateCandidate(parseJson(output.output), serverType, resources, true, immutable) }
+    if (operation === 'repair') { candidateValidationStarted = true; const current = validateCandidate(body.candidate, serverType, resources, false, immutable); const repairSettings = { ...settings, preferredModel: isLiteModel(settings.preferredModel) ? settings.preferredModel : DEFAULT_MODEL, fallbackModel: isLiteModel(settings.preferredModel) && settings.preferredModel !== DEFAULT_MODEL ? DEFAULT_MODEL : DEFAULT_FALLBACK_MODEL }; const output = await callWithLiteFallback(apiKey, repairSettings, buildRepairPrompt(serverType, immutable, current, list(body.issues, 8, 500), list(body.repairGuidance, 8, 700)), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidate = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(output.output)), serverType, resources, true, immutable) }
+    else { const teacherContext = clean(body.teacherContext, 1200); const output = await callWithLiteFallback(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidateValidationStarted = true; candidate = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(output.output)), serverType, resources, true, immutable) }
     candidateValidationStarted = true; auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, candidate, approvedResources: resources, model: responseModel, fallbackUsed, providerRequestCount, editable: true })
   } catch (error) {
     if (auditPayload) { auditPayload.outcome = candidateValidationStarted ? 'rejected' : 'error'; const supabaseUrl = Deno.env.get('SUPABASE_URL'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (supabaseUrl && serviceRole) await audit(createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }), auditPayload) }

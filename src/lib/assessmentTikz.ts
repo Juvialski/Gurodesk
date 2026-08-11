@@ -53,12 +53,6 @@ function polar(cx: number, cy: number, radius: number, angle: number) {
   return { x: cx + radius * Math.cos(radians), y: cy + radius * Math.sin(radians) }
 }
 
-function arcPoints(cx: number, cy: number, radius: number, startAngle: number, endAngle: number) {
-  const span = endAngle - startAngle
-  const steps = Math.max(8, Math.ceil(Math.abs(span) / 10))
-  return Array.from({ length: steps + 1 }, (_, index) => polar(cx, cy, radius, startAngle + span * index / steps))
-}
-
 function segmentBasis(element: { x1: number; y1: number; x2: number; y2: number }) {
   const dx = element.x2 - element.x1
   const dy = element.y2 - element.y1
@@ -179,8 +173,14 @@ function primitiveTikz(element: AssessmentVisualElement, axes: Map<string, Asses
       const style = [`draw=${stroke}`, `line width=${lw}`, element.fill ? `fill=${color(element.fill)}!8` : 'fill=none'].join(',')
       return [`\\draw[${style}] ${point(element.cx, element.cy)} circle (${n(element.radius)}pt);`]
     }
-    case 'arc': return [`\\draw[draw=${stroke},line width=${lw},line cap=round] ${arcPoints(element.cx, element.cy, element.radius, element.startAngle, element.endAngle).map((entry) => point(entry.x, entry.y)).join(' -- ')};`]
-    case 'angleArc': return [`\\draw[draw=${stroke},line width=${lw},line cap=round] ${arcPoints(element.vertex.x, element.vertex.y, element.radius, element.startAngle, element.endAngle).map((entry) => point(entry.x, entry.y)).join(' -- ')};`]
+    case 'arc': {
+      const start = polar(element.cx, element.cy, element.radius, element.startAngle)
+      return [`\\draw[draw=${stroke},line width=${lw},line cap=round] ${point(start.x, start.y)} arc[start angle=${n(element.startAngle)},end angle=${n(element.endAngle)},radius=${n(element.radius)}pt];`]
+    }
+    case 'angleArc': {
+      const start = polar(element.vertex.x, element.vertex.y, element.radius, element.startAngle)
+      return [`\\draw[draw=${stroke},line width=${lw},line cap=round] ${point(start.x, start.y)} arc[start angle=${n(element.startAngle)},end angle=${n(element.endAngle)},radius=${n(element.radius)}pt];`]
+    }
     case 'textLabel': return [`\\node[anchor=${ANCHOR[element.anchor ?? 'start']},font=${TEXT_SIZE[element.textSize ?? 'medium']},text=${stroke},fill=white,fill opacity=.94,text opacity=1,inner sep=1.2pt] at ${point(element.x, element.y)} {${escapeTikzText(element.text)}};`]
     case 'perpendicularMark': {
       const radians = element.angle * Math.PI / 180
@@ -208,11 +208,17 @@ export function assessmentVisualTikzSource(visual: AssessmentVisual): string {
   if (!validateAssessmentVisual(visual).valid) return ''
   const axes = new Map<string, AssessmentVisualCartesianAxes>()
   for (const element of visual.primitives) if (element.type === 'cartesianAxes') axes.set(element.axisId, element)
-  const body = visual.primitives.flatMap((element) => primitiveTikz(element, axes)).join('\n')
-  return [
+  const bodyLines = visual.primitives.flatMap((element) => primitiveTikz(element, axes)).filter(Boolean)
+  if (!bodyLines.length) return ''
+  const source = [
     '\\begin{tikzpicture}[x=1pt,y=-1pt,line cap=round,line join=round]',
     `\\path[use as bounding box] (0,0) rectangle (${n(visual.width)},${n(visual.height)});`,
-    body,
+    ...bodyLines,
     '\\end{tikzpicture}',
   ].join('\n')
+  // This final invariant is intentionally redundant with visual validation:
+  // never hand TikZJax a blank/partial source if a future primitive serializer
+  // is changed without a matching compiler update.
+  if (!source.includes('\\begin{tikzpicture}') || !source.includes('\\end{tikzpicture}') || !/\\(?:draw|fill|node)\[/u.test(source)) return ''
+  return source
 }

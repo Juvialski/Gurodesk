@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { assessmentVisualTikzSource } from '../lib/assessmentTikz'
 import type { AssessmentVisual } from '../types/assessmentVisual'
 
@@ -9,8 +9,23 @@ function escapeHtmlAttribute(value: string) {
   return value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
+function escapeHtmlText(value: string) {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+/** JSON embedded in an inline script must not be able to terminate that tag. */
+function safeScriptJson(value: string) {
+  return JSON.stringify(value)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029')
+}
+
 function tikzFrameDocument(visual: AssessmentVisual, source: string, token: string) {
-  const tokenJson = JSON.stringify(token)
+  const tokenJson = safeScriptJson(token)
+  const altJson = safeScriptJson(visual.altText)
   const alt = escapeHtmlAttribute(visual.altText)
   return `<!doctype html>
 <html>
@@ -35,14 +50,26 @@ function tikzFrameDocument(visual: AssessmentVisual, source: string, token: stri
   let readyTimer = 0;
   function usableSvg() {
     const svg = document.querySelector('svg');
-    if (!svg || !svg.isConnected || !svg.querySelector('path,polyline,polygon,line,circle,ellipse,text,g')) return null;
+    if (!svg || !svg.isConnected) return null;
+    const marks = Array.from(svg.querySelectorAll('path,polyline,polygon,line,circle,ellipse,text'));
+    if (!marks.length) return null;
+    const hasVisibleMark = marks.some((mark) => {
+      if (mark.tagName.toLowerCase() === 'text' && (mark.textContent || '').trim()) return true;
+      try {
+        const box = mark.getBBox();
+        return Number.isFinite(box.width) && Number.isFinite(box.height) && (box.width > 0.25 || box.height > 0.25);
+      } catch (_) { return false; }
+    });
+    if (!hasVisibleMark) return null;
+    const viewBox = svg.viewBox && svg.viewBox.baseVal;
+    if (viewBox && (!(viewBox.width > 0) || !(viewBox.height > 0))) return null;
     return svg;
   }
   function inspect() {
     const svg = usableSvg();
     if (!svg) return false;
     svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', ${JSON.stringify(visual.altText)});
+    svg.setAttribute('aria-label', ${altJson});
     svg.style.width = '100%';
     svg.style.height = '100%';
     svg.style.maxWidth = '100%';
@@ -58,21 +85,22 @@ function tikzFrameDocument(visual: AssessmentVisual, source: string, token: stri
     return true;
   }
   new MutationObserver(inspect).observe(document.documentElement, { childList: true, subtree: true });
-  window.addEventListener('load', () => { inspect(); setTimeout(() => { if (!usableSvg()) finish('error'); }, 12000); });
-  window.addEventListener('error', () => finish('error'));
+  window.addEventListener('load', () => { inspect(); setTimeout(() => { if (!usableSvg()) finish('error'); }, 18000); });
+  window.addEventListener('error', () => finish('error'), true);
 })();
 </script>
 <script src="${TIKZJAX_SCRIPT}" defer></script>
 </head>
 <body aria-label="${alt}">
-<script type="text/tikz">${source}</script>
+<script type="text/tikz">${escapeHtmlText(source)}</script>
 </body>
 </html>`
 }
 
 export function AssessmentTikzDiagram({ visual, className = '', fallback }: { visual: AssessmentVisual; className?: string; fallback: ReactNode }) {
   const source = useMemo(() => assessmentVisualTikzSource(visual), [visual])
-  const token = useMemo(() => `tikz-${visual.id}-${Math.random().toString(36).slice(2, 10)}`, [visual.id])
+  const token = useMemo(() => `tikz-${visual.id}-${Math.random().toString(36).slice(2, 10)}`, [source, visual.id])
+  const frameRef = useRef<HTMLIFrameElement>(null)
   const [state, setState] = useState<'loading' | 'ready' | 'error'>(source ? 'loading' : 'error')
   const srcDoc = useMemo(() => source ? tikzFrameDocument(visual, source, token) : '', [source, token, visual])
 
@@ -83,7 +111,7 @@ export function AssessmentTikzDiagram({ visual, className = '', fallback }: { vi
   useEffect(() => {
     const listener = (event: MessageEvent) => {
       const data = event.data as { type?: string; token?: string; state?: string } | null
-      if (!data || data.type !== 'gurodesk-tikz-render' || data.token !== token) return
+      if (event.source !== frameRef.current?.contentWindow || !data || data.type !== 'gurodesk-tikz-render' || data.token !== token) return
       if (data.state === 'ready') setState('ready')
       else if (data.state === 'error') setState('error')
     }
@@ -91,12 +119,13 @@ export function AssessmentTikzDiagram({ visual, className = '', fallback }: { vi
     return () => window.removeEventListener('message', listener)
   }, [token])
 
-  return <div className={`assessment-tikz-shell ${className}`.trim()} data-renderer={state === 'ready' ? 'tikz' : 'svg-fallback'}>
+  return <div className={`assessment-tikz-shell${state === 'ready' ? ' is-tikz-ready' : ''} ${className}`.trim()} data-renderer={state === 'ready' ? 'tikz' : state === 'loading' ? 'tikz-loading' : 'svg-fallback'}>
     {/* Keep the deterministic renderer mounted underneath TikZ permanently.
         This prevents a transient/blank TikZ iframe from making the diagram
         disappear after the fallback was already visible. */}
     <div className="assessment-tikz-fallback" aria-hidden={state === 'ready'}>{fallback}</div>
     {source && state !== 'error' && <iframe
+      ref={frameRef}
       className={`assessment-tikz-frame${state === 'ready' ? ' is-ready' : ''}`}
       title={visual.altText}
       sandbox="allow-scripts"
