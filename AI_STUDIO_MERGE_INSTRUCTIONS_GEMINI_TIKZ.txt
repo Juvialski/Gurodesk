@@ -1,0 +1,12 @@
+GURODESK GEMINI DIRECT TIKZ HOTFIX — OVERLAY INSTRUCTIONS
+
+1. Start from the CURRENT GuroDesk main / current AI Studio project.
+2. Upload/extract the hotfix ZIP at the project ROOT.
+3. Allow matching files to be replaced by the files in this overlay.
+4. DO NOT delete or replace files that are not present in the overlay.
+5. Push the resulting changes to GitHub main.
+6. Wait for GitHub CI, Render, and the connected Supabase production deployment.
+7. Because Edge Function source changed in this overlay, Supabase should deploy assessment-question-generator automatically from main.
+8. Create a BRAND-NEW geometry-heavy assessment for the live test. A 20-item normal paper should request no more than roughly 5 optional diagrams unless a prompt explicitly depends on a shown/provided figure.
+
+No SQL migration is included or required.

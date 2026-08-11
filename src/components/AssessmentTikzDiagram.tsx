@@ -1,16 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { assessmentVisualTikzSource } from '../lib/assessmentTikz'
 import type { AssessmentVisual } from '../types/assessmentVisual'
+import { cacheAssessmentTikzRenderedSvg } from '../lib/assessmentTikzRenderCache'
 
 const TIKZJAX_SCRIPT = 'https://tikzjax.com/v1/tikzjax.js'
 const TIKZJAX_FONTS = 'https://tikzjax.com/v1/fonts.css'
 
 function escapeHtmlAttribute(value: string) {
   return value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-}
-
-function escapeHtmlText(value: string) {
-  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
 /** JSON embedded in an inline script must not be able to terminate that tag. */
@@ -26,6 +23,7 @@ function safeScriptJson(value: string) {
 function tikzFrameDocument(visual: AssessmentVisual, source: string, token: string) {
   const tokenJson = safeScriptJson(token)
   const altJson = safeScriptJson(visual.altText)
+  const sourceJson = safeScriptJson(source)
   const alt = escapeHtmlAttribute(visual.altText)
   return `<!doctype html>
 <html>
@@ -45,7 +43,9 @@ function tikzFrameDocument(visual: AssessmentVisual, source: string, token: stri
   function finish(state) {
     if (settled) return;
     settled = true;
-    parent.postMessage({ type: 'gurodesk-tikz-render', token, state }, '*');
+    const svg = state === 'ready' ? usableSvg() : null;
+    const markup = svg ? new XMLSerializer().serializeToString(svg) : '';
+    parent.postMessage({ type: 'gurodesk-tikz-render', token, state, svg: markup }, '*');
   }
   let readyTimer = 0;
   function usableSvg() {
@@ -92,7 +92,14 @@ function tikzFrameDocument(visual: AssessmentVisual, source: string, token: stri
 <script src="${TIKZJAX_SCRIPT}" defer></script>
 </head>
 <body aria-label="${alt}">
-<script type="text/tikz">${escapeHtmlText(source)}</script>
+<script>
+(() => {
+  const node = document.createElement('script');
+  node.type = 'text/tikz';
+  node.textContent = ${sourceJson};
+  document.body.appendChild(node);
+})();
+</script>
 </body>
 </html>`
 }
@@ -110,27 +117,30 @@ export function AssessmentTikzDiagram({ visual, className = '', fallback }: { vi
 
   useEffect(() => {
     const listener = (event: MessageEvent) => {
-      const data = event.data as { type?: string; token?: string; state?: string } | null
+      const data = event.data as { type?: string; token?: string; state?: string; svg?: string } | null
       if (event.source !== frameRef.current?.contentWindow || !data || data.type !== 'gurodesk-tikz-render' || data.token !== token) return
-      if (data.state === 'ready') setState('ready')
+      if (data.state === 'ready') {
+        if (typeof data.svg === 'string' && data.svg) cacheAssessmentTikzRenderedSvg(visual, data.svg)
+        setState('ready')
+      }
       else if (data.state === 'error') setState('error')
     }
     window.addEventListener('message', listener)
     return () => window.removeEventListener('message', listener)
-  }, [token])
+  }, [token, visual])
 
   return <div className={`assessment-tikz-shell${state === 'ready' ? ' is-tikz-ready' : ''} ${className}`.trim()} data-renderer={state === 'ready' ? 'tikz' : state === 'loading' ? 'tikz-loading' : 'svg-fallback'}>
     {/* Keep the deterministic renderer mounted underneath TikZ permanently.
         This prevents a transient/blank TikZ iframe from making the diagram
         disappear after the fallback was already visible. */}
     <div className="assessment-tikz-fallback" aria-hidden={state === 'ready'}>{fallback}</div>
+    {state === 'error' && visual.tikzCode && visual.primitives.length === 0 && <div className="assessment-tikz-render-error" role="status">Diagram preview unavailable. Regenerate this diagram.</div>}
     {source && state !== 'error' && <iframe
       ref={frameRef}
       className={`assessment-tikz-frame${state === 'ready' ? ' is-ready' : ''}`}
       title={visual.altText}
       sandbox="allow-scripts"
       srcDoc={srcDoc}
-      loading="lazy"
       referrerPolicy="no-referrer"
     />}
   </div>

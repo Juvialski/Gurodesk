@@ -6,6 +6,7 @@ import { useApp } from '../contexts/AppContext'
 import { downloadAssessmentDocx, downloadAssessmentPdf } from '../lib/assessmentExport'
 import { buildAssessmentExportModel } from '../lib/assessmentExportModel'
 import { loadAssessmentDocument } from '../lib/assessmentRepository'
+import { waitForAssessmentTikzRenders } from '../lib/assessmentTikzRenderCache'
 import { loadTeacherExportPreferences } from '../lib/repository'
 import type { AssessmentExportMode, AssessmentExportModel, AssessmentExportOptions } from '../types/assessmentExport'
 import type { AssessmentRecord } from '../types/assessment'
@@ -22,7 +23,9 @@ export function AssessmentPrintPreviewPage() {
   const [showRationale, setShowRationale] = useState(false)
   const [loading, setLoading] = useState(true)
   const [downloading, setDownloading] = useState<'pdf' | 'docx' | ''>('')
+  const [printing, setPrinting] = useState(false)
   const [error, setError] = useState('')
+  const [actionError, setActionError] = useState('')
 
   useEffect(() => {
     if (!user || !id) return
@@ -60,17 +63,40 @@ export function AssessmentPrintPreviewPage() {
 
   const model = useMemo<AssessmentExportModel | null>(() => assessment && options ? buildAssessmentExportModel(assessment, options) : null, [assessment, options])
 
+  async function waitForDiagrams() {
+    if (!model) return false
+    const visuals = model.questions.flatMap((question) => question.visual ? [question.visual] : [])
+    return waitForAssessmentTikzRenders(visuals, 15000)
+  }
+
   async function download(kind: 'pdf' | 'docx') {
     if (!model || !preferences) return
     setDownloading(kind)
-    setError('')
+    setActionError('')
     try {
+      const diagramsReady = await waitForDiagrams()
+      if (!diagramsReady) throw new Error('One or more TikZ diagrams have not finished rendering. Wait until the diagrams are visible, then retry the export.')
       if (kind === 'pdf') downloadAssessmentPdf(model, preferences.paperSize)
       else await downloadAssessmentDocx(model, preferences.paperSize)
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : 'Unable to build this export.')
+      setActionError(nextError instanceof Error ? nextError.message : 'Unable to build this export.')
     } finally {
       setDownloading('')
+    }
+  }
+
+  async function printDocument() {
+    if (!model) return
+    setPrinting(true)
+    setActionError('')
+    try {
+      const diagramsReady = await waitForDiagrams()
+      if (!diagramsReady) throw new Error('One or more TikZ diagrams have not finished rendering. Wait until the diagrams are visible, then retry printing.')
+      window.print()
+    } catch (nextError) {
+      setActionError(nextError instanceof Error ? nextError.message : 'Unable to prepare this document for printing.')
+    } finally {
+      setPrinting(false)
     }
   }
 
@@ -79,7 +105,7 @@ export function AssessmentPrintPreviewPage() {
 
   return <div className={`print-preview-page assessment-preview-page assessment-preview-${mode}`}>
     <style>{`@media print { @page { size: ${preferences?.paperSize ?? 'a4'}; margin: 0; } }`}</style>
-    <div className="print-preview-toolbar no-print"><Link className="button ghost" to={`/assessments/${assessment.id}`}><ArrowLeft size={16} /> Back to editor</Link><div className="print-preview-title"><strong>Assessment preview</strong><small>{mode === 'student' ? 'Student copy' : mode === 'teacher' ? 'Teacher copy' : 'Answer key'} · {preferences.paperSize.toUpperCase()}</small></div><div className="assessment-preview-actions"><button className="button ghost" type="button" onClick={() => window.print()}><Printer size={16} /> Print</button><button className="button primary" type="button" disabled={Boolean(downloading)} onClick={() => void download('docx')}><Download size={16} /> {downloading === 'docx' ? 'Building Word…' : 'Download Word (.docx)'}</button><button className="button secondary" type="button" disabled={Boolean(downloading)} onClick={() => void download('pdf')}><Download size={16} /> {downloading === 'pdf' ? 'Building PDF…' : 'PDF'}</button></div></div>
+    <div className="print-preview-toolbar no-print"><Link className="button ghost" to={`/assessments/${assessment.id}`}><ArrowLeft size={16} /> Back to editor</Link><div className="print-preview-title"><strong>Assessment preview</strong><small>{mode === 'student' ? 'Student copy' : mode === 'teacher' ? 'Teacher copy' : 'Answer key'} · {preferences.paperSize.toUpperCase()}</small></div><div className="assessment-preview-actions"><button className="button ghost" type="button" disabled={printing || Boolean(downloading)} onClick={() => void printDocument()}><Printer size={16} /> {printing ? 'Preparing…' : 'Print'}</button><button className="button primary" type="button" disabled={printing || Boolean(downloading)} onClick={() => void download('docx')}><Download size={16} /> {downloading === 'docx' ? 'Building Word…' : 'Download Word (.docx)'}</button><button className="button secondary" type="button" disabled={printing || Boolean(downloading)} onClick={() => void download('pdf')}><Download size={16} /> {downloading === 'pdf' ? 'Building PDF…' : 'PDF'}</button></div></div>{actionError && <div className="assessment-preview-action-error no-print" role="alert">{actionError}</div>}
     <div className="assessment-preview-controls no-print"><div className="assessment-mode-tabs" role="tablist" aria-label="Preview mode">{(['student', 'teacher', 'answer_key'] as AssessmentExportMode[]).map((option) => <button key={option} role="tab" aria-selected={mode === option} className={mode === option ? 'selected' : ''} type="button" onClick={() => setMode(option)}>{option === 'student' ? 'Student' : option === 'teacher' ? 'Teacher' : 'Answer key'}</button>)}</div>{mode === 'teacher' && <div className="assessment-preview-toggles"><label><input type="checkbox" checked={showCompetency} onChange={(event) => setShowCompetency(event.target.checked)} /> Competency</label><label><input type="checkbox" checked={showCognitive} onChange={(event) => setShowCognitive(event.target.checked)} /> Cognitive category</label><label><input type="checkbox" checked={showRationale} onChange={(event) => setShowRationale(event.target.checked)} /> Rationale</label></div>}<p>{mode === 'student' ? 'Student preview hides answers, mappings, AI metadata, IDs, and GuroDesk branding.' : mode === 'teacher' ? 'Teacher preview includes answer and review context according to the toggles.' : 'Answer key is derived from the saved structured answers.'}</p></div>
     <div className="print-preview-stage assessment-print-stage"><AssessmentDocumentView model={model} showCompetency={showCompetency} showCognitive={showCognitive} showRationale={showRationale} /></div>
   </div>

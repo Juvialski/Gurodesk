@@ -129,91 +129,11 @@ const choicesSchema = (minItems = 2, maxItems = 6): GeminiSchema => ({
   items: choiceSchema,
 })
 
-const visualPointSchema: GeminiSchema = objectSchema(
-  { x: { type: 'NUMBER' }, y: { type: 'NUMBER' } },
-  ['x', 'y'],
-)
-
 /**
- * Visuals deliberately use one bounded object schema rather than oneOf. The
- * Gemini responseSchema subset does not reliably support union keywords;
- * strict per-element discrimination is performed by the Edge validator.
+ * Assessment diagrams intentionally do not use Gemini responseSchema.
+ * The dedicated visual call now returns raw TikZ text and validates it through
+ * the separate TikZ safety boundary before persistence/rendering.
  */
-const visualElementSchema: GeminiSchema = objectSchema(
-  {
-    type: {
-      type: 'STRING',
-      enum: ['point', 'segment', 'dashedSegment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow', 'cartesianAxes', 'cartesianPlot'],
-      description: 'Primitive discriminator. Use the exact canonical key grammar from the prompt for the selected type.',
-    },
-    x: { type: 'NUMBER' },
-    y: { type: 'NUMBER' },
-    x1: { type: 'NUMBER' },
-    y1: { type: 'NUMBER' },
-    x2: { type: 'NUMBER' },
-    y2: { type: 'NUMBER' },
-    cx: { type: 'NUMBER' },
-    cy: { type: 'NUMBER' },
-    radius: { type: 'NUMBER' },
-    startAngle: { type: 'NUMBER' },
-    endAngle: { type: 'NUMBER' },
-    angle: { type: 'NUMBER' },
-    size: { type: 'NUMBER' },
-    vertex: visualPointSchema,
-    // Polygon validation requires 3-12 canvas points, while cartesianPlot
-    // accepts 2-160 mathematical points. The provider schema cannot express
-    // that discriminator-dependent range; the strict Edge validator does.
-    points: { type: 'ARRAY', minItems: 2, maxItems: 160, items: visualPointSchema },
-    text: { type: 'STRING' },
-    count: { type: 'INTEGER', enum: [1, 2, 3] },
-    axisId: { type: 'STRING' },
-    width: { type: 'NUMBER' },
-    height: { type: 'NUMBER' },
-    xMin: { type: 'NUMBER' },
-    xMax: { type: 'NUMBER' },
-    yMin: { type: 'NUMBER' },
-    yMax: { type: 'NUMBER' },
-    xTick: { type: 'NUMBER' },
-    yTick: { type: 'NUMBER' },
-    showGrid: { type: 'BOOLEAN' },
-    xLabel: { type: 'STRING' },
-    yLabel: { type: 'STRING' },
-    showPoints: { type: 'BOOLEAN' },
-    dashed: { type: 'BOOLEAN' },
-    color: { type: 'STRING', enum: ['ink', 'blue', 'red', 'green', 'gold', 'purple', 'gray'] },
-    fill: { type: 'STRING', enum: ['ink', 'blue', 'red', 'green', 'gold', 'purple', 'gray'] },
-    strokeWidth: { type: 'INTEGER', enum: [1, 2, 3] },
-    textSize: { type: 'STRING', enum: ['small', 'medium', 'large'] },
-    anchor: { type: 'STRING', enum: ['start', 'middle', 'end'] },
-  },
-  ['type'],
-)
-
-/**
- * Provider schema used only by the dedicated visual request. Normal question
- * generation deliberately remains JSON-MIME-only because attaching the full
- * assessment answer schema caused production INVALID_ARGUMENT failures.
- */
-export const visualResponseSchema: GeminiSchema = {
-  type: 'OBJECT',
-  properties: {
-    id: { type: 'STRING' },
-    kind: { type: 'STRING', enum: ['geometry'] },
-    version: { type: 'INTEGER', enum: [1] },
-    width: { type: 'NUMBER' },
-    height: { type: 'NUMBER' },
-    altText: { type: 'STRING' },
-    primitives: {
-      type: 'ARRAY',
-      minItems: 1,
-      maxItems: 80,
-      items: visualElementSchema,
-      description: 'Canonical GuroDesk visual primitives only. Never use endpoint objects, vertices, tuple coordinates, SVG, or TikZ here.',
-    },
-  },
-  required: ['id', 'kind', 'version', 'width', 'height', 'altText', 'primitives'],
-  propertyOrdering: ['id', 'kind', 'version', 'width', 'height', 'altText', 'primitives'],
-}
 
 const answerSchemas: Record<AssessmentQuestionType, GeminiSchema> = {
   multiple_choice: objectSchema(

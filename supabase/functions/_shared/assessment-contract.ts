@@ -164,10 +164,20 @@ function containsAnswerTerm(value: string, terms: string[]) {
   return terms.some((term) => normalized.includes(` ${term} `))
 }
 
+function directTikzNodeTexts(source: string) {
+  // Only node bodies are learner-facing text. Path coordinates/options may
+  // contain the same number as a correct answer without revealing that answer.
+  return [...source.matchAll(/(?:\\node|\bnode)\b[^;{}]*\{([^{}]{1,240})\}/gu)]
+    .map((match) => match[1] ?? '')
+    .filter(Boolean)
+}
+
 function visualTextRevealsAnswer(value: unknown, terms: string[]) {
   if (!terms.length) return false
   const visual = object(value)
-  if (!visual || !Array.isArray(visual.primitives)) return false
+  if (!visual) return false
+  if (typeof visual.tikzCode === 'string' && directTikzNodeTexts(visual.tikzCode).some((label) => containsAnswerTerm(label, terms))) return true
+  if (!Array.isArray(visual.primitives)) return false
   return visual.primitives.map(object).some((primitive) =>
     primitive?.type === 'textLabel'
     && typeof primitive.text === 'string'
@@ -186,6 +196,7 @@ function stripAnswerLeakingParentheticals(value: string, terms: string[]) {
 function neutralVisualAltText(value: unknown) {
   const visual = object(value)
   const primitives = visual && Array.isArray(visual.primitives) ? visual.primitives.map(object).filter((entry): entry is Row => Boolean(entry)) : []
+  if (visual && typeof visual.tikzCode === 'string' && !primitives.length) return 'A mathematical diagram accompanying the question.'
   const axes = primitives.filter((entry) => entry.type === 'cartesianAxes').length
   const plots = primitives.filter((entry) => entry.type === 'cartesianPlot').length
   if (axes) return plots ? 'A Cartesian coordinate graph with plotted data and labeled axes.' : 'A Cartesian coordinate plane with labeled axes.'

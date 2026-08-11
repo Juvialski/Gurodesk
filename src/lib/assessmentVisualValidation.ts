@@ -4,6 +4,7 @@ import type {
   AssessmentVisualElement,
 } from '../types/assessmentVisual'
 import { ASSESSMENT_VISUAL_PALETTE, ASSESSMENT_VISUAL_TYPES } from '../types/assessmentVisual'
+import { validateAssessmentTikzSource } from './assessmentTikzSafety'
 
 export const ASSESSMENT_VISUAL_LIMITS = {
   minWidth: 64,
@@ -247,15 +248,17 @@ export function validateAssessmentVisual(value: unknown): AssessmentVisualValida
   const errors: string[] = []
   const candidate = object(value)
   if (!candidate) return { valid: false, errors: ['A visual must be an object.'] }
-  unexpectedKeys(candidate, ['id', 'kind', 'version', 'width', 'height', 'altText', 'primitives'], 'visual', errors)
+  unexpectedKeys(candidate, ['id', 'kind', 'version', 'width', 'height', 'altText', 'tikzCode', 'primitives'], 'visual', errors)
   if (!plainText(candidate.id, ASSESSMENT_VISUAL_LIMITS.maxIdLength)) errors.push('visual.id must be bounded plain text.')
   if (candidate.kind !== 'geometry') errors.push("visual.kind must be 'geometry'.")
   if (candidate.version !== 1) errors.push('visual.version must be 1.')
   if (!bounded(candidate.width, ASSESSMENT_VISUAL_LIMITS.minWidth, ASSESSMENT_VISUAL_LIMITS.maxWidth)) errors.push(`visual.width must be between ${ASSESSMENT_VISUAL_LIMITS.minWidth} and ${ASSESSMENT_VISUAL_LIMITS.maxWidth}.`)
   if (!bounded(candidate.height, ASSESSMENT_VISUAL_LIMITS.minHeight, ASSESSMENT_VISUAL_LIMITS.maxHeight)) errors.push(`visual.height must be between ${ASSESSMENT_VISUAL_LIMITS.minHeight} and ${ASSESSMENT_VISUAL_LIMITS.maxHeight}.`)
   if (!plainText(candidate.altText, ASSESSMENT_VISUAL_LIMITS.maxAltTextLength) || /^(image|diagram)$/iu.test(typeof candidate.altText === 'string' ? candidate.altText.normalize('NFKC').trim() : '')) errors.push('visual.altText must be bounded, useful plain text (not a generic image label).')
-  if (!Array.isArray(candidate.primitives) || candidate.primitives.length < 1 || candidate.primitives.length > ASSESSMENT_VISUAL_LIMITS.maxElements) errors.push(`visual.primitives must contain 1–${ASSESSMENT_VISUAL_LIMITS.maxElements} primitives.`)
-  if (Array.isArray(candidate.primitives) && finite(candidate.width) && finite(candidate.height)) {
+  const directTikz = candidate.tikzCode === undefined ? null : validateAssessmentTikzSource(candidate.tikzCode)
+  if (directTikz && !directTikz.valid) errors.push(`visual.tikzCode is invalid. ${directTikz.errors.slice(0, 2).join(' ')}`)
+  if (!Array.isArray(candidate.primitives) || candidate.primitives.length > ASSESSMENT_VISUAL_LIMITS.maxElements || (!directTikz && candidate.primitives.length < 1)) errors.push(`visual.primitives must contain ${directTikz ? `0–${ASSESSMENT_VISUAL_LIMITS.maxElements}` : `1–${ASSESSMENT_VISUAL_LIMITS.maxElements}`} primitives.`)
+  if (Array.isArray(candidate.primitives) && candidate.primitives.length && finite(candidate.width) && finite(candidate.height)) {
     candidate.primitives.forEach((entry, index) => visualElement(entry, candidate.width as number, candidate.height as number, index, errors))
     const axes = new Map<string, UnknownRecord>()
     candidate.primitives.forEach((entry, index) => {
@@ -300,6 +303,7 @@ export function assertAssessmentVisual(value: unknown): asserts value is Assessm
  * student preview, SVG, and DOCX accessibility metadata cannot reveal answers.
  */
 export function neutralAssessmentVisualAltText(visual: AssessmentVisual) {
+  if (visual.tikzCode && visual.primitives.length === 0) return 'A mathematical diagram accompanying the question.'
   const axes = visual.primitives.filter((entry) => entry.type === 'cartesianAxes').length
   const plots = visual.primitives.filter((entry) => entry.type === 'cartesianPlot').length
   if (axes) return plots ? 'A Cartesian coordinate graph with plotted data and labeled axes.' : 'A Cartesian coordinate plane with labeled axes.'

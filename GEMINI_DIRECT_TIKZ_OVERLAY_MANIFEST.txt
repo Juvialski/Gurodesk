@@ -1,0 +1,22 @@
+GuroDesk Gemini Direct TikZ Overlay — 2026-08-11
+
+Purpose:
+- Gemini authors raw TikZ in a separate visual-only AI call.
+- GuroDesk validates/sandboxes/renders; it does not synthesize new AI TikZ.
+- One Gemini correction pass is allowed when raw TikZ fails the safe subset.
+- Exact TikZJax SVG is cached for DOCX; 4x raster is cached for PDF.
+- Print/PDF/DOCX waits for direct TikZ rendering.
+- Provider "required" metadata cannot bypass visual balance unless the learner prompt truly depends on a figure.
+- 20 ordinary questions => up to 5 optional visual calls, plus genuinely required figure-dependent questions.
+
+No database migration.
+Apply as an overlay onto CURRENT main; do not replace the whole project with an older tree.
+
+Validation completed before packaging:
+- assessment math visual/workflow validator: PASS
+- changed client/test TypeScript syntax (tsc --noCheck): PASS
+- changed Edge Function TypeScript syntax (tsc --noCheck): PASS
+- runtime visual balance smoke: 20 provider-required ordinary prompts => budget 5 / required 0 / optional 5
+- runtime TikZ safety smoke: valid bounded TikZ accepted; blocked file input rejected
+
+Full npm/Vitest/Playwright could not be run in the local packaging container because the package cache was incomplete; GitHub CI remains the full integration check.

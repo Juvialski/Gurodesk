@@ -2,6 +2,7 @@ import { jsPDF } from 'jspdf'
 import { ASSESSMENT_VISUAL_PALETTE } from '../types/assessmentVisual'
 import type { AssessmentVisual, AssessmentVisualCartesianAxes, AssessmentVisualColor, AssessmentVisualElement } from '../types/assessmentVisual'
 import { validateAssessmentVisual } from './assessmentVisualValidation'
+import { getAssessmentTikzRenderedPng, getAssessmentTikzRenderedSvg } from './assessmentTikzRenderCache'
 
 export type AssessmentVisualRenderTarget = {
   x: number
@@ -159,6 +160,7 @@ function svgElement(element: AssessmentVisualElement, index: number, axes: Map<s
  */
 export function assessmentVisualSvgMarkup(visual: AssessmentVisual): string {
   if (!validateAssessmentVisual(visual).valid) return ''
+  if (visual.tikzCode) return getAssessmentTikzRenderedSvg(visual)
   const axes = new Map<string, AssessmentVisualCartesianAxes>()
   visual.primitives.forEach((element) => { if (element.type === 'cartesianAxes') axes.set(element.axisId, element) })
   const body = visual.primitives.map((element, index) => svgElement(element, index, axes)).join('')
@@ -222,6 +224,12 @@ function drawCartesianAxesPdf(doc: jsPDF, visual: AssessmentVisual, target: Asse
 /** Draw validated primitives directly into the dedicated jsPDF document. */
 export function drawAssessmentVisualPdf(doc: jsPDF, visual: AssessmentVisual, target: AssessmentVisualRenderTarget): boolean {
   if (!validateAssessmentVisual(visual).valid || target.width <= 0 || target.height <= 0) return false
+  if (visual.tikzCode) {
+    const png = getAssessmentTikzRenderedPng(visual)
+    if (!png) return false
+    doc.addImage(png, 'PNG', target.x, target.y, target.width, target.height, undefined, 'FAST')
+    return true
+  }
   const scale = Math.min(target.width / visual.width, target.height / visual.height)
   const axes = new Map<string, AssessmentVisualCartesianAxes>()
   visual.primitives.forEach((element) => { if (element.type === 'cartesianAxes') axes.set(element.axisId, element) })

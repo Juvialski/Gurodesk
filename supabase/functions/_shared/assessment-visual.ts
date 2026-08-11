@@ -1,3 +1,4 @@
+import { validateAssessmentTikzSource } from './tikz-safety.ts'
 /**
  * Edge-safe assessment visual contract.  This intentionally mirrors the
  * renderer-owned visual model without importing the browser bundle into an
@@ -373,7 +374,7 @@ export function validateAssessmentVisual(value: unknown): AssessmentVisualValida
   if (value === null) return { valid: true, errors }
   const candidate = object(value)
   if (!candidate) return { valid: false, errors: ['visual must be null or an object.'] }
-  unexpected(candidate, ['id', 'kind', 'version', 'width', 'height', 'altText', 'primitives'], 'visual', errors)
+  unexpected(candidate, ['id', 'kind', 'version', 'width', 'height', 'altText', 'tikzCode', 'primitives'], 'visual', errors)
   if (!plainText(candidate.id, ASSESSMENT_VISUAL_LIMITS.maxIdLength)) errors.push('visual.id is invalid.')
   if (candidate.kind !== 'geometry') errors.push('visual.kind must be geometry.')
   if (candidate.version !== 1) errors.push('visual.version must be 1.')
@@ -381,8 +382,10 @@ export function validateAssessmentVisual(value: unknown): AssessmentVisualValida
   if (!bounded(candidate.height, ASSESSMENT_VISUAL_LIMITS.minHeight, ASSESSMENT_VISUAL_LIMITS.maxHeight)) errors.push('visual.height is invalid.')
   if (!plainText(candidate.altText, ASSESSMENT_VISUAL_LIMITS.maxAltTextLength)
     || /^(?:image|diagram)$/iu.test(typeof candidate.altText === 'string' ? candidate.altText.normalize('NFKC').trim() : '')) errors.push('visual.altText must be useful observable plain text, not a generic image label.')
-  if (!Array.isArray(candidate.primitives) || candidate.primitives.length < 1 || candidate.primitives.length > ASSESSMENT_VISUAL_LIMITS.maxPrimitives) errors.push('visual.primitives count is invalid.')
-  if (Array.isArray(candidate.primitives) && finite(candidate.width) && finite(candidate.height)) {
+  const directTikz = candidate.tikzCode === undefined ? null : validateAssessmentTikzSource(candidate.tikzCode)
+  if (directTikz && !directTikz.valid) errors.push(`visual.tikzCode is invalid. ${directTikz.errors.slice(0, 2).join(' ')}`)
+  if (!Array.isArray(candidate.primitives) || candidate.primitives.length > ASSESSMENT_VISUAL_LIMITS.maxPrimitives || (!directTikz && candidate.primitives.length < 1)) errors.push('visual.primitives count is invalid.')
+  if (Array.isArray(candidate.primitives) && candidate.primitives.length && finite(candidate.width) && finite(candidate.height)) {
     candidate.primitives.forEach((entry, index) => primitive(entry, candidate.width as number, candidate.height as number, index, errors))
     const axes = new Map<string, Row>()
     candidate.primitives.forEach((entry, index) => {

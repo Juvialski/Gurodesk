@@ -74,11 +74,9 @@ type AssessmentVisualPlanOptions = {
 
 function suppressedOptionalPlan(item: AssessmentItem, sourceHash: string) {
   /*
-   * 'none + not_required' is our persisted decision that this optional visual
-   * was intentionally skipped by the paper-level balance. It is valid only for
-   * the exact question content that produced it. Empty blueprint slots and
-   * newly generated/edited questions have a different source hash and must be
-   * reconsidered instead of inheriting an old suppression decision.
+   * 'none + not_required' is a balance decision only for the exact question
+   * content that produced it. Empty blueprint slots and newly generated/edited
+   * questions must be reconsidered instead of inheriting stale suppression.
    */
   return Boolean(item.prompt.trim())
     && !item.visual
@@ -94,12 +92,16 @@ export function assessmentVisualPlanForItem(item: AssessmentItem, options: Asses
   const promptRequired = promptRequiresAssessmentVisual(item.prompt)
   const suppressed = !options.force && !options.ignoreSuppression && suppressedOptionalPlan(item, sourceHash) && !promptRequired
   const helpful = assessmentContentWouldBenefitFromVisual(item)
+  // Only the learner-facing stem can make a diagram genuinely required. Gemini
+  // planning metadata is advisory: an over-eager `required` from the question
+  // pass is demoted to `helpful` unless the prompt itself depends on a shown/
+  // provided figure. This keeps optional visuals inside the paper-level budget.
   const requirement: AssessmentVisualRequirement = promptRequired
     ? 'required'
     : suppressed
       ? 'none'
       : storedRequirement === 'required' || storedRequirement === 'helpful'
-        ? storedRequirement
+        ? 'helpful'
         : helpful || Boolean(item.visual)
           ? 'helpful'
           : 'none'
@@ -169,8 +171,7 @@ function optionalVisualBudget(itemCount: number, options: AssessmentVisualBalanc
 }
 
 function planItem(item: AssessmentItem, plan: AssessmentVisualPlan, keep: boolean): AssessmentItem {
-  // Do not persist a paper-level "skip" decision for an empty question slot.
-  // Once question content exists the planner can make a meaningful decision.
+  // Never persist a paper-level skip decision for an empty blueprint slot.
   if (!item.prompt.trim() && !item.visual) {
     return {
       ...item,

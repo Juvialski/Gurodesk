@@ -6,6 +6,7 @@ import type {
   AssessmentVisualElement,
 } from '../types/assessmentVisual'
 import { validateAssessmentVisual } from './assessmentVisualValidation'
+import { validateAssessmentTikzSource } from './assessmentTikzSafety'
 
 const TIKZ_COLOR: Readonly<Record<AssessmentVisualColor, string>> = {
   ink: 'black',
@@ -201,11 +202,16 @@ function primitiveTikz(element: AssessmentVisualElement, axes: Map<string, Asses
 }
 
 /**
- * Convert only the validated GuroDesk visual DSL into TikZ. Gemini never writes
- * executable TikZ, so the TeX runtime receives a small deterministic command set.
+ * New assessment visuals use the validated TikZ produced by Gemini's dedicated
+ * visual call. Legacy structured visuals still compile through the old
+ * deterministic serializer so previously saved assessments remain compatible.
  */
 export function assessmentVisualTikzSource(visual: AssessmentVisual): string {
   if (!validateAssessmentVisual(visual).valid) return ''
+  if (visual.tikzCode) {
+    const direct = validateAssessmentTikzSource(visual.tikzCode)
+    return direct.valid ? direct.source : ''
+  }
   const axes = new Map<string, AssessmentVisualCartesianAxes>()
   for (const element of visual.primitives) if (element.type === 'cartesianAxes') axes.set(element.axisId, element)
   const bodyLines = visual.primitives.flatMap((element) => primitiveTikz(element, axes)).filter(Boolean)

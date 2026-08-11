@@ -150,10 +150,19 @@ function conciseAcceptedAnswerTerms(item: AssessmentItem) {
   return [...new Set(values.map(semanticAnswerText).filter((value) => value.length >= 1 && value.length <= 120))]
 }
 
+function directTikzLabelTexts(source: string) {
+  // Inspect only learner-visible node bodies. Coordinates/options are not text
+  // and can legitimately contain numbers that also happen to be an answer.
+  return [...source.matchAll(/(?:\\node|\bnode)\b[^;{}]*\{([^{}]{1,240})\}/gu)]
+    .map((match) => match[1] ?? '')
+    .filter(Boolean)
+}
+
 function learnerVisualContainsAnswer(item: AssessmentItem, visual: AssessmentVisual) {
   const terms = conciseAcceptedAnswerTerms(item)
   if (!terms.length) return false
-  const learnerFacing = [visual.altText, ...labelTexts(visual)].map((value) => ` ${semanticAnswerText(value)} `)
+  const directLabels = visual.tikzCode ? directTikzLabelTexts(visual.tikzCode) : []
+  const learnerFacing = [visual.altText, ...labelTexts(visual), ...directLabels].map((value) => ` ${semanticAnswerText(value)} `)
   return terms.some((term) => learnerFacing.some((value) => value.includes(` ${term} `)))
 }
 
@@ -173,6 +182,10 @@ export function assessmentVisualSemanticFindings(item: AssessmentItem): QaFindin
   if (learnerVisualContainsAnswer(item, visual)) {
     findings.push({ code: 'visual-answer-leak', message: 'The learner-facing diagram label or accessibility text reveals an accepted answer.', severity: 'error' })
   }
+  // Direct Gemini TikZ is syntactically/safety validated but is not projected
+  // back into the legacy primitive geometry model. Avoid false polygon/label
+  // mismatch findings that would otherwise inspect an intentionally empty DSL.
+  if (visual.tikzCode && visual.primitives.length === 0) return findings
   const poly = polygon(visual)
   if (poly) {
     const expectedSides = claimedSideCount(item.prompt)

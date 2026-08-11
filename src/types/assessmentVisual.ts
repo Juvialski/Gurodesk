@@ -1,10 +1,10 @@
 /**
  * Safe, print-friendly assessment diagrams.
  *
- * The visual schema is intentionally small.  It is a data model, not an
- * SVG/HTML escape hatch: renderers choose every stroke, colour, marker, and
- * font themselves.  Coordinates are expressed in the visual's fixed logical
- * canvas and are validated before they reach a renderer.
+ * Legacy visuals use a small structured data model. New AI visuals may carry
+ * one separately generated TikZ picture, validated by a strict safety boundary
+ * and rendered only inside the sandboxed TikZJax runtime. SVG/HTML/JS remain
+ * forbidden provider payloads.
  */
 
 export type AssessmentVisualColor =
@@ -214,6 +214,8 @@ export type AssessmentVisual = {
   width: number
   height: number
   altText: string
+  /** Gemini-authored TikZ from the dedicated visual call. Direct TikZ is primary for new visuals; primitives remain for legacy/fallback records. */
+  tikzCode?: string
   primitives: AssessmentVisualElement[]
 }
 

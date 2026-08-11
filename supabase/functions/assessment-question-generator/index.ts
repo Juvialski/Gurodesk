@@ -1,10 +1,11 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
-import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId, type AssessmentQuestionType, type GeminiSchema, verifierResponseSchema, visualResponseSchema } from '../_shared/ai-models.ts'
+import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId, type AssessmentQuestionType, type GeminiSchema, verifierResponseSchema } from '../_shared/ai-models.ts'
 import { AssessmentContractError, validateAssessmentCandidate as validateAssessmentCandidateContract, type ImmutableAssessmentContext } from '../_shared/assessment-contract.ts'
 import { callGemini, GeminiHttpError, GeminiResponseError, isFallbackEligibleStatus, parseGeminiJson } from '../_shared/gemini.ts'
-import { normalizeAssessmentVisualProviderOutput, validateAssessmentVisual } from '../_shared/assessment-visual.ts'
+import { validateAssessmentVisual } from '../_shared/assessment-visual.ts'
+import { validateAssessmentTikzSource } from '../_shared/tikz-safety.ts'
 
 type QuestionType = AssessmentQuestionType
 type Operation = 'generate' | 'verify' | 'repair' | 'visual'
@@ -136,37 +137,27 @@ function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, i
 function buildVisualPrompt(type: QuestionType, immutable: Row, candidate: Row, visualIntent: string, issues: string[]) {
   const requirement = clean(candidate.visualRequirement, 20) || 'required'
   return [
-    'Design exactly one precise, textbook-quality mathematical assessment visual for an already-valid question. Return strict JSON only. GuroDesk will compile this validated geometry into real TikZ; you supply data, never TikZ code.',
-    'This is a dedicated visual pass. Do not rewrite the learner prompt, answer, rationale, item number, competency, cognitive category, question type, or points.',
+    'Create exactly one high-quality TikZ diagram for an already-valid school assessment question.',
+    'This is a SEPARATE VISUAL-ONLY CALL. Do not rewrite the learner prompt, answer, rationale, item number, competency, cognitive category, question type, or points.',
+    'Return ONLY raw TikZ source beginning with \\begin{tikzpicture} and ending with \\end{tikzpicture}. Do not return JSON, Markdown fences, prose, SVG, HTML, or a LaTeX document wrapper.',
+    'Use only self-contained core TikZ commands that TikZJax can render without extra packages: \\draw, \\fill, \\filldraw, \\node, \\coordinate, \\path, \\clip, and scope environments.',
+    'Do NOT use \\documentclass, \\usepackage, \\usetikzlibrary, \\input, \\include, \\includegraphics, URLs, file I/O, macro definitions, shell commands, \\foreach, loops, pgfplots, or external resources.',
+    'Use a fixed 5:3 canvas. Immediately after \\begin{tikzpicture}, include \\path[use as bounding box] (0,0) rectangle (10,6); and keep all visible content comfortably inside that box.',
+    'Prefer explicit coordinates and explicit drawing commands. Keep the code concise and deterministic.',
+    'Use a clean textbook style: black/gray main strokes, restrained blue only when useful, readable labels, generous spacing, no decorative clip art, no unnecessary title, and no overlapping text.',
+    'For geometry, draw the actual mathematical relationships accurately. Use arcs, right-angle marks, equal-side tick marks, arrows, dashed construction lines, and labels when they help the learner interpret the question.',
+    'For coordinate graphs, draw axes, ticks, labels, and the required curve/points directly with TikZ commands; do not rely on pgfplots.',
+    'Do not reveal the accepted answer, final numeric result, classification, or solution method in the diagram or labels. The diagram must support the question without solving it for the learner.',
     `Fixed item number: ${Number(immutable.itemNumber)}`,
     `Fixed competency: ${clean(immutable.competencyText)}`,
     `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
     `Fixed question type: ${type}`,
     `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
     `Learner prompt: ${clean(candidate.prompt, 2000)}`,
-    `Structured answer (teacher-only context; never reveal it in labels/alt text): ${JSON.stringify(candidate.answer)}`,
+    `Teacher-only answer context (NEVER reveal this in the diagram): ${JSON.stringify(candidate.answer)}`,
     `Visual requirement: ${requirement}`,
     `Visual intent: ${visualIntent || clean(candidate.visualIntent, 500)}`,
-    ...(issues.length ? [`Previous deterministic visual issues to repair: ${issues.join(' | ')}`] : []),
-    'Return exactly one AssessmentVisual JSON object with exactly these top-level keys: id, kind, version, width, height, altText, primitives. Do not wrap it in a visual property.',
-    'Set kind to "geometry", version to 1, width to 600, and height to 360. Keep important line work inside the safe area x=48..552 and y=42..318 so labels and arrowheads do not clip in A4/Letter output.',
-    'Use only these canonical primitive grammars (optional style keys are color, fill where listed, strokeWidth, textSize, anchor, count, showGrid, showPoints, or dashed where listed):',
-    'point: {"type":"point","x":number,"y":number,"radius":number?}.',
-    'segment/dashedSegment/arrow: {"type":"segment","x1":number,"y1":number,"x2":number,"y2":number}. Use the corresponding exact type string.',
-    'polygon: {"type":"polygon","points":[{"x":number,"y":number}, ...]}. Use 3–12 vertices in boundary order and one polygon primitive for a closed shape.',
-    'circle: {"type":"circle","cx":number,"cy":number,"radius":number}. arc uses the same center/radius plus startAngle and endAngle numbers.',
-    'angleArc: {"type":"angleArc","vertex":{"x":number,"y":number},"radius":number,"startAngle":number,"endAngle":number}.',
-    'textLabel: {"type":"textLabel","x":number,"y":number,"text":"plain text"}.',
-    'tickMark/equalSideMark/parallelMark: {"type":"equalSideMark","x1":number,"y1":number,"x2":number,"y2":number,"count":1|2|3}. Use the corresponding exact type string and make endpoints match the marked side.',
-    'perpendicularMark: {"type":"perpendicularMark","x":number,"y":number,"angle":number,"size":number}.',
-    'cartesianAxes: {"type":"cartesianAxes","axisId":"axes-1","x":number,"y":number,"width":number,"height":number,"xMin":number,"xMax":number,"yMin":number,"yMax":number,"xTick":number,"yTick":number,"showGrid":boolean,"xLabel":"x","yLabel":"y"}. Bounds must increase and straddle zero.',
-    'cartesianPlot: {"type":"cartesianPlot","axisId":"axes-1","points":[{"x":number,"y":number}, ...],"showPoints":boolean}. Supply 2–160 sampled mathematical coordinates inside the referenced axis bounds.',
-    'Never use start/end, from/to, vertices, center, position, point arrays such as [x,y], or any field not listed for that primitive. Every coordinate point must be an object with exactly x and y.',
-    'Use restrained black/blue textbook line work, normally strokeWidth 2 for the main figure and 1 for grids/marks. Do not create tiny shapes, repeated vertices, self-crossing polygons, overlapping labels, labels on top of strokes, or a canvas dominated by empty space.',
-    'Use labels only when the prompt needs them. Place vertex labels just outside the shape with clear separation; do not place opaque labels across a segment or angle arc. Do not add a title, legend, decoration, clip art, or answer hint.',
-    'For coordinate graphs use cartesianAxes plus cartesianPlot sampled numeric points. Never return a formula/expression/code field and never ask GuroDesk to evaluate model-supplied math code.',
-    'altText must describe only observable features of the diagram and must not reveal the classification, accepted answer, final value, method, or conclusion the learner is supposed to determine.',
-    'Never return TikZ, TeX commands, SVG, HTML, JavaScript, scripts, URLs, raster/base64 data, arbitrary colours, or executable content. GuroDesk deterministically translates validated JSON to TikZ/SVG itself.',
+    ...(issues.length ? [`Previous visual issues to avoid: ${issues.join(' | ')}`] : []),
   ].join('\n')
 }
 
@@ -217,6 +208,44 @@ async function callWithLiteFallback(
     }
   }
 }
+async function callTikzWithLiteFallback(
+  apiKey: string,
+  settings: ReturnType<typeof resolveSettings>,
+  prompt: string,
+) {
+  let modelUsed: AiModelId = settings.preferredModel
+  let fallbackUsed = false
+  let providerRequestCount = 0
+  // Deliberately do not send responseMimeType or responseSchema here. Raw text
+  // is the provider default and avoids the structured-output configuration that
+  // previously caused production HTTP 400 failures for diagram enrichment.
+  const config = { maxOutputTokens: 8192 }
+  try {
+    providerRequestCount += 1
+    const output = await callGemini(apiKey, settings.preferredModel, prompt, config)
+    return { output, modelUsed, fallbackUsed, providerRequestCount }
+  } catch (error) {
+    if (
+      !(error instanceof GeminiHttpError)
+      || !isFallbackEligibleStatus(error.status)
+      || !fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)
+    ) {
+      if (error instanceof GeminiHttpError || error instanceof GeminiResponseError) error.providerRequestCount = providerRequestCount
+      throw error
+    }
+    modelUsed = settings.fallbackModel
+    fallbackUsed = true
+    providerRequestCount += 1
+    try {
+      const output = await callGemini(apiKey, settings.fallbackModel, prompt, config)
+      return { output, modelUsed, fallbackUsed, providerRequestCount }
+    } catch (fallbackError) {
+      if (fallbackError instanceof GeminiHttpError || fallbackError instanceof GeminiResponseError) fallbackError.providerRequestCount = providerRequestCount
+      throw fallbackError
+    }
+  }
+}
+
 function oppositeLiteModel(settings: ReturnType<typeof resolveSettings>, generatorModel = ''): LiteAiModelId { if (generatorModel === DEFAULT_MODEL) return DEFAULT_FALLBACK_MODEL; if (generatorModel === DEFAULT_FALLBACK_MODEL) return DEFAULT_MODEL; if (isLiteModel(settings.preferredModel)) return settings.preferredModel === DEFAULT_MODEL ? DEFAULT_FALLBACK_MODEL : DEFAULT_MODEL; return DEFAULT_MODEL }
 type AuditPayload = { userId: string; assessmentId: string; itemId: string; questionType: QuestionType; alternative: boolean; model: string; fallbackUsed: boolean; outcome: 'success' | 'rejected' | 'error' | 'cancelled' }
 async function audit(admin: ReturnType<typeof createClient>, payload: AuditPayload) { try { await admin.from('assessment_ai_audit_events').insert({ user_id: payload.userId, assessment_document_id: payload.assessmentId, assessment_item_id: payload.itemId, question_type: payload.questionType, alternative: payload.alternative, provider: 'google', model: payload.model, fallback_used: payload.fallbackUsed, outcome: payload.outcome }) } catch { /* Metadata audit failure never changes teacher work. */ } }
@@ -231,7 +260,7 @@ function errorMessage(error: unknown) {
   if (error instanceof GeminiHttpError) {
     if (error.status === 429) return 'Gemini provider limit reached. Your saved assessment work is preserved; generation is paused. Try again later.'
     if (error.status === 401 || error.status === 403) return 'The saved Gemini credential was rejected. Your assessment draft remains unchanged.'
-    if (error.status === 400) return 'Gemini rejected the structured request configuration. Your draft remains unchanged; please try again.'
+    if (error.status === 400) return 'Gemini rejected this assessment AI request. Your draft remains unchanged; please try again.'
     if (error.status === 404) return 'The selected Gemini model is not available for this API key. Your draft remains unchanged.'
     if ([500, 502, 503, 504].includes(error.status)) return 'Gemini is temporarily unavailable. Your assessment draft remains unchanged; please try again shortly.'
   }
@@ -309,21 +338,49 @@ Deno.serve(async (req) => {
       }
       const visualIntent = clean(body.visualIntent, 500) || clean(approved.visualIntent, 500)
       if (!visualIntent) return json({ error: 'A visual request needs a concise visual intent.' }, 400)
-      // Visual JSON has its own bounded budget regardless of question type.
-      // This avoids starving coordinate/geometry diagrams on short-answer types
-      // while preventing an essay slot from inheriting the full 12k budget.
-      const visualOutput = await callWithLiteFallback(apiKey, settings, buildVisualPrompt(serverType, immutable, approved, visualIntent, list(body.issues, 8, 500)), serverType, 8192, visualResponseSchema)
+      // The visual pass deliberately uses plain text instead of Gemini responseSchema.
+      // Gemini authors the TikZ itself; GuroDesk only validates/sandboxes and renders it.
+      const visualPrompt = buildVisualPrompt(serverType, immutable, approved, visualIntent, list(body.issues, 8, 500))
+      let visualOutput = await callTikzWithLiteFallback(apiKey, settings, visualPrompt)
+      let visualProviderRequestCount = visualOutput.providerRequestCount
       responseModel = visualOutput.modelUsed; fallbackUsed = visualOutput.fallbackUsed
-      const parsedVisual = parseJson(visualOutput.output)
-      const rawVisual = Object.prototype.hasOwnProperty.call(parsedVisual, 'visual') ? parsedVisual.visual : parsedVisual
-      const normalizedVisual = normalizeAssessmentVisualProviderOutput(rawVisual)
-      if (normalizedVisual === null || !normalizedVisual || typeof normalizedVisual !== 'object' || Array.isArray(normalizedVisual)) throw new AssessmentContractError('The dedicated visual response did not contain a diagram object.', 'VISUAL_INVALID')
-      const visualCheck = validateAssessmentVisual(normalizedVisual)
-      if (!visualCheck.valid) throw new AssessmentContractError(`The dedicated visual response was invalid. ${visualCheck.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
-      // Re-run the shared candidate contract with the returned diagram so answer-leaking alt text is neutralized at the same boundary as legacy visuals.
-      const combined = validateCandidate({ ...approved, visual: normalizedVisual }, serverType, resources, false, immutable)
+      let tikz = validateAssessmentTikzSource(visualOutput.output)
+      if (!tikz.valid) {
+        // One bounded provider-authored correction pass is allowed. GuroDesk
+        // never rewrites or synthesizes TikZ itself; it only reports the
+        // validator failures and asks Gemini to author a fresh safe picture.
+        const retryPrompt = [
+          visualPrompt,
+          '',
+          'CORRECTION PASS: Your previous TikZ was rejected before rendering.',
+          `Validator feedback: ${tikz.errors.slice(0, 6).join(' | ')}`,
+          'Generate a fresh diagram from scratch that satisfies every rule above. Return raw TikZ only; do not explain the correction.',
+        ].join('\n')
+        const retryOutput = await callTikzWithLiteFallback(apiKey, settings, retryPrompt)
+        visualProviderRequestCount += retryOutput.providerRequestCount
+        responseModel = retryOutput.modelUsed
+        fallbackUsed = fallbackUsed || retryOutput.fallbackUsed
+        visualOutput = retryOutput
+        tikz = validateAssessmentTikzSource(retryOutput.output)
+      }
+      if (!tikz.valid) throw new AssessmentContractError(`Gemini returned unsafe or unusable TikZ after one correction pass. ${tikz.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
+      const directVisual = {
+        id: `tikz-${itemId}`,
+        kind: 'geometry',
+        version: 1,
+        width: 600,
+        height: 360,
+        altText: 'A mathematical diagram accompanying the question.',
+        tikzCode: tikz.source,
+        primitives: [],
+      }
+      const visualCheck = validateAssessmentVisual(directVisual)
+      if (!visualCheck.valid) throw new AssessmentContractError(`The dedicated TikZ response was invalid. ${visualCheck.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
+      // Re-run the shared candidate contract so the same immutable/answer-leak
+      // boundary applies to a direct TikZ visual as to legacy structured visuals.
+      const combined = validateCandidate({ ...approved, visual: directVisual }, serverType, resources, false, immutable)
       auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload)
-      return json({ assessmentId, itemId, questionType: serverType, visual: combined.visual ?? null, model: responseModel, fallbackUsed, providerRequestCount: visualOutput.providerRequestCount })
+      return json({ assessmentId, itemId, questionType: serverType, visual: combined.visual ?? null, model: responseModel, fallbackUsed, providerRequestCount: visualProviderRequestCount })
     }
     if (operation === 'verify') {
       candidateValidationStarted = true; const approved = validateCandidate(body.candidate, serverType, resources, false, immutable); const verifierModel = oppositeLiteModel(settings, clean(body.generatorModel, 120)); const verifierOutput = await callGemini(apiKey, verifierModel, buildVerifierPrompt(serverType, immutable, approved), { maxOutputTokens: 4096, responseMimeType: 'application/json', responseSchema: verifierResponseSchema }); responseModel = verifierModel; const verifier = parseJson(verifierOutput); const required = ['status', 'answerValid', 'competencyAligned', 'cognitiveAlignment', 'ambiguityDetected', 'factualOrMathIssue', 'issues', 'repairGuidance']; if (!onlyKeys(verifier, required) || !['pass', 'needs_repair'].includes(String(verifier.status)) || typeof verifier.answerValid !== 'boolean' || typeof verifier.competencyAligned !== 'boolean' || !['good', 'questionable'].includes(String(verifier.cognitiveAlignment)) || typeof verifier.ambiguityDetected !== 'boolean' || typeof verifier.factualOrMathIssue !== 'boolean' || !Array.isArray(verifier.issues) || !Array.isArray(verifier.repairGuidance)) throw new Error('The verifier response did not match the required structured contract.'); auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, verifier: { ...verifier, issues: list(verifier.issues, 12, 500), repairGuidance: list(verifier.repairGuidance, 12, 700) }, model: responseModel, fallbackUsed: false, providerRequestCount: 1, editable: true })
@@ -344,7 +401,7 @@ Deno.serve(async (req) => {
       finishReason: error instanceof GeminiResponseError ? error.finishReason : undefined,
     })
     const providerStatus = error instanceof GeminiHttpError ? error.status : 0
-    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-10-json-mime-only-v2' }
+    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-11-direct-tikz-v1' }
     if (providerStatus) body.providerStatus = providerStatus
     if (error instanceof GeminiResponseError && error.finishReason) body.finishReason = error.finishReason
     if ((error instanceof GeminiHttpError || error instanceof GeminiResponseError) && error.providerRequestCount) body.providerRequestCount = error.providerRequestCount

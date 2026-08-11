@@ -189,7 +189,9 @@ export function AssessmentSvgDiagram({ visual, className = '' }: { visual?: Asse
 
 export function AssessmentDiagram({ visual, className = '' }: { visual?: AssessmentVisual; className?: string }) {
   if (!visual || !validateAssessmentVisual(visual).valid) return null
-  const fallback = <AssessmentSvgDiagram visual={visual} />
+  const fallback = visual.tikzCode && visual.primitives.length === 0
+    ? <div className="assessment-tikz-placeholder" role="img" aria-label={visual.altText}>Preparing diagram…</div>
+    : <AssessmentSvgDiagram visual={visual} />
   return <AssessmentTikzDiagram visual={visual} className={className} fallback={fallback} />
 }
 
@@ -201,6 +203,7 @@ function appendElement(visual: AssessmentVisual, element: AssessmentVisualElemen
 export function AssessmentVisualEditor({ visual, disabled = false, onChange }: { visual?: AssessmentVisual; disabled?: boolean; onChange: (visual: AssessmentVisual | undefined) => void }) {
   const validation = visual ? validateAssessmentVisual(visual) : null
   if (!visual) return <div className="assessment-visual-editor" data-testid="assessment-visual-editor"><div className="assessment-visual-editor-heading"><div><span className="assessment-field-label">Math visual</span><small>Add a safe, print-friendly TikZ-backed diagram or Cartesian graph.</small></div><button className="button secondary" type="button" disabled={disabled} onClick={() => onChange(ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon)}>Add diagram</button></div></div>
+  const directTikz = Boolean(visual.tikzCode)
   const addPoint = () => onChange(appendElement(visual, { type: 'point', x: visual.width / 2, y: visual.height / 2, color: 'red', radius: 4 }))
   const addLabel = () => onChange(appendElement(visual, { type: 'textLabel', x: visual.width / 2, y: Math.max(18, visual.height / 2 - 14), text: 'A', color: 'ink', textSize: 'medium', anchor: 'middle' }))
   const addPolygon = () => onChange(appendElement(visual, { type: 'polygon', points: [{ x: 70, y: 55 }, { x: visual.width - 70, y: 55 }, { x: visual.width / 2, y: visual.height / 2 }, { x: visual.width - 70, y: visual.height - 55 }, { x: 70, y: visual.height - 55 }], color: 'ink', strokeWidth: 2 }))
@@ -210,13 +213,13 @@ export function AssessmentVisualEditor({ visual, disabled = false, onChange }: {
     <AssessmentDiagram visual={visual} />
     <label className="assessment-visual-alt">Useful alt text<input disabled={disabled} value={visual.altText} onChange={(event) => onChange({ ...visual, altText: event.target.value })} maxLength={240} /></label>
     <div className="assessment-visual-editor-actions">
-      <button className="button ghost" type="button" disabled={disabled || visual.primitives.length >= 80} onClick={addPolygon}>Add polygon</button>
-      <button className="button ghost" type="button" disabled={disabled || visual.primitives.length >= 80} onClick={addPoint}>Add point</button>
-      <button className="button ghost" type="button" disabled={disabled || visual.primitives.length >= 80} onClick={addLabel}>Add label</button>
+      <button className="button ghost" type="button" disabled={disabled || directTikz || visual.primitives.length >= 80} onClick={addPolygon}>Add polygon</button>
+      <button className="button ghost" type="button" disabled={disabled || directTikz || visual.primitives.length >= 80} onClick={addPoint}>Add point</button>
+      <button className="button ghost" type="button" disabled={disabled || directTikz || visual.primitives.length >= 80} onClick={addLabel}>Add label</button>
       <button className="button ghost" type="button" disabled={disabled} onClick={replaceWithGraph}>Use Cartesian graph</button>
       <button className="button ghost danger" type="button" disabled={disabled} onClick={() => onChange(undefined)}>Remove diagram</button>
     </div>
     {validation && !validation.valid && <small className="assessment-visual-error">{validation.errors.join(' ')}</small>}
-    <small className="assessment-field-help">Math visuals are compiled from GuroDesk's validated visual data into deterministic TikZ. Gemini never supplies executable TikZ/SVG/HTML; the built-in SVG/PDF renderer remains the offline/export fallback.</small>
+    <small className="assessment-field-help">New AI diagrams are created by Gemini in a separate TikZ-only call, validated by GuroDesk, and rendered inside a sandboxed TikZJax frame. Older/manual structured diagrams remain supported. To edit geometry manually, replace the AI diagram with a manual graph/diagram first.</small>
   </fieldset>
 }
