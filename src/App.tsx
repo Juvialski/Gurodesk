@@ -1,10 +1,7 @@
-import { FileBarChart, Files } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { CircleHelp, FileBarChart, Files } from 'lucide-react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { useApp } from './contexts/AppContext'
-import { loadAiCredentialStatus } from './lib/repository'
-import { AiSetupRequiredPage } from './pages/AiSetupRequiredPage'
 import { AssessmentEditorPage } from './pages/AssessmentEditorPage'
 import { AssessmentNewPage } from './pages/AssessmentNewPage'
 import { AssessmentPrintPreviewPage } from './pages/AssessmentPrintPreviewPage'
@@ -12,6 +9,7 @@ import { AssessmentsPage } from './pages/AssessmentsPage'
 import { AuthPage } from './pages/AuthPage'
 import { ClassesPage } from './pages/ClassesPage'
 import { CurriculumPage } from './pages/CurriculumPage'
+import { CreateHubPage } from './pages/CreateHubPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { FeaturePlaceholderPage } from './pages/FeaturePlaceholderPage'
 import { LessonPlansPage } from './pages/LessonPlansPage'
@@ -42,6 +40,7 @@ function WorkspaceRoutes() {
       <Route path="results/:id/print" element={<ResultsPrintPreviewPage />} />
       <Route element={<AppShell />}>
         <Route index element={<DashboardPage />} />
+        <Route path="create" element={<CreateHubPage />} />
         <Route path="classes" element={<ClassesPage />} />
         <Route path="curriculum" element={<CurriculumPage />} />
         <Route path="lesson-plans" element={<LessonPlansPage />} />
@@ -61,6 +60,9 @@ function WorkspaceRoutes() {
         <Route path="tos/:id" element={<TosEditorPage />} />
         <Route path="paperwork" element={<FeaturePlaceholderPage eyebrow="Teacher paperwork" title="Paperwork" description="Show only the forms and reports relevant to the teacher's role, assignment, and active DepEd policy version." phase="Phase 6" icon={FileBarChart} bullets={['Role-aware paperwork matrix', 'Reusable teacher data', 'Policy-version aware templates', 'Clear LIS boundaries']} />} />
         <Route path="files" element={<FeaturePlaceholderPage eyebrow="Documents" title="My Files" description="Saved lesson plans already support Word/PDF exports. This area will become the unified library for lessons, TOS files, test papers, reports, and export versions." phase="Phase 3.6+" icon={Files} bullets={['Saved documents', 'Versions', 'Search and filters', 'Exports']} />} />
+        <Route path="documents" element={<Navigate to="/files" replace />} />
+        <Route path="templates" element={<Navigate to="/tos" replace />} />
+        <Route path="help" element={<FeaturePlaceholderPage eyebrow="Support" title="Help" description="Find plain-language guidance for the teacher workflows in GuroDesk." phase="the next release" icon={CircleHelp} bullets={['Workflow guidance', 'Accessibility help', 'Export support', 'Contact options']} />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
@@ -69,24 +71,7 @@ function WorkspaceRoutes() {
 }
 
 function SignedInExperience() {
-  const { profile, isDemo } = useApp()
-  const [aiGate, setAiGate] = useState<'checking' | 'required' | 'ready'>(isDemo ? 'ready' : 'checking')
-
-  useEffect(() => {
-    let mounted = true
-    if (isDemo) {
-      setAiGate('ready')
-      return () => { mounted = false }
-    }
-    setAiGate('checking')
-    loadAiCredentialStatus(false)
-      .then((status) => { if (mounted) setAiGate(status.configured ? 'ready' : 'required') })
-      .catch(() => { if (mounted) setAiGate('required') })
-    return () => { mounted = false }
-  }, [isDemo])
-
-  if (aiGate === 'checking') return <LoadingScreen label="Checking Gemini setup…" />
-  if (aiGate === 'required') return <AiSetupRequiredPage onConfigured={() => setAiGate('ready')} />
+  const { profile } = useApp()
   if (!profile || !profile.onboardingCompleted) return <OnboardingPage />
   return <WorkspaceRoutes />
 }

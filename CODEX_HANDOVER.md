@@ -331,3 +331,35 @@ Static release guards cover the separated visual operation, one-retry visual-onl
 - Independent opposite-Lite verification is now automatic only for high-risk items; medium-risk items still receive deterministic QA without an extra Gemini request.
 - CI fixes included: batch-regression callback returns `void`, and the Source TOS Playwright assertion targets the actually visible context/title rather than a hidden responsive duplicate.
 - No migration was added.
+
+## Major Simple-first UI/UX upgrade — 2026-08-11
+
+- The application shell is task-oriented: desktop sidebar plus a phone bottom
+  bar for Home, Create, Classes, Results, and More. Existing deep links and
+  print/export routes remain valid.
+- Home and Create use real workspace/repository state. They never synthesize
+  activity metrics or bypass workflow prerequisites.
+- Workspace context remembers only explicit assignment/section choices, is
+  scoped by authenticated user, validates active ownership on each consumer,
+  and never infers competency or grading-term/curriculum-period mappings.
+- Assessment, TOS, Lesson Plan, Results, and Curriculum now default to guided
+  Simple views while retaining the same records, repositories, and full
+  Customize/Manage surfaces.
+- Gemini setup is optional and feature-local. Manual classes, curriculum,
+  documents, TOS, lessons, assessments, and results remain accessible without
+  a Gemini key. Existing BYOK/server-only safeguards are unchanged.
+- Automatic assessment preparation may generate, enrich, repair, and save a
+  structurally checked **draft only**. AI suggestions remain `Needs review`.
+  Only the explicit teacher action (`I reviewed — finalize test` in Simple or
+  `Accept, verify & finalize all` in Customize) may accept, lock, and finalize.
+- Settings hashes, phone/context dialog focus management, 44px mode controls,
+  and Results roster-loading race protection were added after final audits.
+- `npm run test:ci` passes with all 35 validators and 238 unit tests. Full
+  browser/Supabase E2E remains to be run in an environment with Chromium and
+  `E2E_SUPABASE_*` configured.
+- No migration, Edge Function, official curriculum data, scoring, RLS, BYOK,
+  or canonical assessment export contract changed. Deploy the frontend only.
+
+See `docs/UI_UPGRADE_IMPLEMENTATION_MANIFEST_20260811.md` and
+`UI_UPGRADE_VALIDATION_REPORT_20260811.md` for the complete scope and release
+evidence.

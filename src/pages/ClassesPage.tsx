@@ -7,6 +7,7 @@ import { GRADE_LEVELS } from '../data/constants'
 import { curriculumCatalogGroups, findCurriculumCatalogEntry, learningAreasForGrade } from '../data/curriculumCatalog'
 import { listCustomCurriculumChoices } from '../lib/customCurriculumRepository'
 import type { CurriculumSourceKind, CustomCurriculumChoice } from '../types/customCurriculum'
+import '../workflows.css'
 
 function sourceLabel(kind: CurriculumSourceKind) {
   if (kind === 'hybrid') return 'DepEd + school enrichment'
@@ -19,16 +20,17 @@ export function ClassesPage() {
   const [open, setOpen] = useState(false)
   const [gradeLevel, setGradeLevel] = useState('Grade 7')
   const [learningArea, setLearningArea] = useState('Mathematics')
-  const [sectionsText, setSectionsText] = useState('')
+  const [sectionDraft, setSectionDraft] = useState('')
+  const [sections, setSections] = useState<string[]>([])
   const [sourceKind, setSourceKind] = useState<CurriculumSourceKind>('official')
   const [curriculumVersionId, setCurriculumVersionId] = useState('')
   const [customChoices, setCustomChoices] = useState<CustomCurriculumChoice[]>([])
   const [message, setMessage] = useState<string | null>(null)
+  const [customizeCurriculum, setCustomizeCurriculum] = useState(false)
   const schoolYear = profile?.schoolYear ?? '2026-2027'
   const officialAreas = useMemo(() => learningAreasForGrade(gradeLevel, schoolYear), [gradeLevel, schoolYear])
   const officialGroups = useMemo(() => curriculumCatalogGroups(gradeLevel, schoolYear), [gradeLevel, schoolYear])
   const selectedOfficialEntry = sourceKind === 'official' ? findCurriculumCatalogEntry(gradeLevel, learningArea, schoolYear) : null
-  const sections = useMemo(() => sectionsText.split(',').map((x) => x.trim()).filter(Boolean), [sectionsText])
   const filteredChoices = useMemo(
     () => customChoices.filter((choice) => choice.originKind === sourceKind),
     [customChoices, sourceKind],
@@ -64,7 +66,9 @@ export function ClassesPage() {
   }, [curriculumVersionId, filteredChoices, sourceKind])
 
   async function add() {
-    if (!user || sections.length === 0) {
+    const pendingSection = sectionDraft.trim().replace(/\s+/g, ' ')
+    const nextSections = pendingSection && !sections.includes(pendingSection) ? [...sections, pendingSection] : sections
+    if (!user || nextSections.length === 0) {
       setMessage('Add at least one section.')
       return
     }
@@ -81,33 +85,42 @@ export function ClassesPage() {
       schoolYear,
       gradeLevel: selectedChoice?.gradeLevel ?? gradeLevel,
       learningArea: selectedChoice?.learningArea ?? learningArea,
-      sections,
+      sections: nextSections,
       isActive: true,
       curriculumSourceKind: sourceKind,
       curriculumVersionId: sourceKind === 'official' ? null : selectedChoice?.versionId ?? null,
     })
-    setSectionsText('')
+    setSections([])
+    setSectionDraft('')
     setOpen(false)
     setMessage(null)
+  }
+
+  function addSection(value = sectionDraft) {
+    const next = value.trim().replace(/\s+/g, ' ')
+    if (!next) return
+    setSections((current) => current.includes(next) ? current : [...current, next])
+    setSectionDraft('')
   }
 
   return (
     <>
       <PageHeader
         eyebrow="Teaching setup"
-        title="My Classes"
-        description="Attach each class to official DepEd, a private school curriculum, or a DepEd + school-enrichment version."
-        actions={<button className="button primary" onClick={() => setOpen(!open)}><Plus size={17} /> Add assignment</button>}
+        title="Classes"
+        description="Add the classes you teach. Official curriculum is resolved from your grade, learning area, and school year."
+        actions={<button aria-label="Add assignment" className="button primary" onClick={() => setOpen(!open)}><Plus size={17} /> Add class</button>}
       />
 
       {open && (
         <div className="panel inline-form-panel">
+          <div className="workflow-class-intro"><strong>Set up an official class</strong><p>Choose a grade, learning area, and one or more sections. GuroDesk will resolve the verified curriculum for {schoolYear}.</p></div>
           <div className="form-grid three">
-            <label>Curriculum source<select value={sourceKind} onChange={(e) => setSourceKind(e.target.value as CurriculumSourceKind)}>
+            {customizeCurriculum && <label>Curriculum source<select value={sourceKind} onChange={(e) => setSourceKind(e.target.value as CurriculumSourceKind)}>
               <option value="official">Official DepEd</option>
               <option value="custom">My / school curriculum</option>
               <option value="hybrid">DepEd + school enrichment</option>
-            </select></label>
+            </select></label>}
 
             {sourceKind === 'official' ? <>
               <label>Grade level<select value={gradeLevel} onChange={(e) => setGradeLevel(e.target.value)}>{GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}</select></label>
@@ -118,8 +131,9 @@ export function ClassesPage() {
                 {filteredChoices.map((choice) => <option key={choice.versionId} value={choice.versionId}>{choice.gradeLevel} · {choice.learningArea} · {choice.name} · r{choice.revisionNumber}</option>)}
               </select></label>
             )}
-            <label>Sections<input value={sectionsText} onChange={(e) => setSectionsText(e.target.value)} placeholder="Rizal, Mabini" /></label>
+            <label className="workflow-sections-field">Sections<span className="workflow-input-row"><input value={sectionDraft} onChange={(e) => setSectionDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addSection() } }} placeholder="e.g. Rizal" /><button type="button" className="button secondary" onClick={() => addSection()}>Add</button></span><span className="workflow-chip-row workflow-section-chips">{sections.map((section) => <button type="button" key={section} className="workflow-chip selected" onClick={() => setSections((current) => current.filter((item) => item !== section))}>{section} <span aria-hidden="true">×</span></button>)}</span><small>Press Enter or Add for each section.</small></label>
           </div>
+          <button type="button" className="text-button workflow-advanced-link" onClick={() => setCustomizeCurriculum((value) => { if (value) setSourceKind('official'); return !value })}>{customizeCurriculum ? 'Use official curriculum setup' : 'Change curriculum type'} </button>
           {sourceKind === 'official' && selectedOfficialEntry && (
             <div className="custom-curriculum-assignment-help"><BookMarked size={15} /><span>{selectedOfficialEntry.status === 'verified_competencies' ? 'Verified competency pack ready' : selectedOfficialEntry.status === 'transitional' ? 'Official transition catalog entry; exact competencies remain source-gated' : 'Official curriculum catalogued; exact competencies remain source-gated until imported'}</span></div>
           )}
@@ -128,7 +142,7 @@ export function ClassesPage() {
           )}
           {selectedChoice && sourceKind !== 'official' && <div className="custom-curriculum-assignment-help"><School size={15} /><span>{selectedChoice.organizationName || 'Private curriculum'} · {selectedChoice.schoolYear} · {sourceLabel(sourceKind)}</span></div>}
           {message && <div className="form-message error">{message}</div>}
-          <div className="inline-actions"><button className="button ghost" onClick={() => setOpen(false)}>Cancel</button><button className="button secondary" onClick={() => void add()}>Save assignment</button></div>
+          <div className="inline-actions"><button className="button ghost" onClick={() => setOpen(false)}>Cancel</button><button aria-label="Save assignment" className="button secondary" onClick={() => void add()}>Save class</button></div>
         </div>
       )}
 

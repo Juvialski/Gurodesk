@@ -105,5 +105,15 @@ export default defineConfig({
         storageState: authFile,
       },
     },
+    {
+      name: 'phone',
+      testMatch: /navigation-phone\.spec\.ts/,
+      dependencies: ['setup'],
+      use: {
+        ...devices['iPhone 12'],
+        viewport: { width: 390, height: 844 },
+        storageState: authFile,
+      },
+    },
   ],
 })

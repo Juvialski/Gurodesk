@@ -9,9 +9,12 @@ export const authStateFile = process.env.E2E_AUTH_STATE_FILE?.trim()
   || path.join(os.tmpdir(), 'gurodesk-playwright-auth.json')
 
 const mockedAiStatus = {
-  configured: true,
-  keyLast4: 'e2e!',
-  verifiedAt: '2026-01-01T00:00:00.000Z',
+  // Keep the E2E teacher explicitly unconfigured. Ordinary workspace and
+  // manual workflows must still open; AI setup is covered only when a feature
+  // asks for it.
+  configured: false,
+  keyLast4: null,
+  verifiedAt: null,
   preferredModel: 'gemini-3.5-flash-lite',
   fallbackModel: 'gemini-3.1-flash-lite',
   fallbackEnabled: true,
@@ -57,8 +60,8 @@ function isAiSettingsRequest(requestUrl: string) {
 /**
  * Install the test-only network boundary before the first navigation.
  *
- * The app still uses the local Supabase REST/Auth APIs for this suite. Only
- * the setup status call is fulfilled so a test account can enter the
+ * The app still uses the local Supabase REST/Auth APIs for this suite. The
+ * feature-local setup status call is fulfilled so a test account can enter the
  * workspace without a Gemini key; all generation/verification functions and
  * direct Gemini hosts are aborted.
  */
@@ -111,22 +114,31 @@ async function completeOnboarding(page: Page) {
   await page.getByLabel('School name').fill(process.env.E2E_SCHOOL_NAME?.trim() || 'Playwright Local School')
   await page.getByRole('button', { name: 'Continue' }).click()
 
-  await expect(page.getByRole('heading', { name: 'Your teaching load' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'What do you teach?' })).toBeVisible()
   await page.getByLabel('Sections').fill(process.env.E2E_SECTIONS?.trim() || 'E2E Section')
   await page.getByRole('button', { name: 'Add assignment' }).click()
   await expect(page.getByText('Grade 7 · Mathematics', { exact: true })).toBeVisible()
-  await page.getByRole('button', { name: 'Open workspace' }).click()
+
+  // AI setup is a four-step, optional onboarding decision. The local E2E
+  // suite deliberately exercises the non-AI path so ordinary workspace entry
+  // remains covered without configuring a provider key.
+  await page.getByRole('button', { name: 'Continue', exact: true }).click()
+  await expect(page.getByRole('heading', { name: 'Optional AI setup' })).toBeVisible()
+  await page.getByRole('button', { name: 'Set up later', exact: true }).first().click()
+  await expect(page.getByRole('heading', { name: 'You’re ready to go' })).toBeVisible()
+  await page.getByRole('button', { name: 'Open workspace', exact: true }).click()
 }
 
 async function ensureGrade7MathematicsAssignment(page: Page) {
   await page.goto('/classes')
-  await expect(page.getByRole('heading', { name: 'My Classes' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Classes' })).toBeVisible()
 
   const matchingRows = page.getByRole('row').filter({ hasText: 'Grade 7' }).filter({ hasText: 'Mathematics' })
   if (await matchingRows.count() === 0) {
-    await page.getByRole('button', { name: 'Add assignment' }).click()
+    await page.getByRole('button', { name: 'Add class' }).click()
     await page.getByLabel('Sections').fill(process.env.E2E_SECTIONS?.trim() || 'E2E Section')
-    await page.getByRole('button', { name: 'Save assignment' }).click()
+    await page.locator('.workflow-sections-field').getByRole('button', { name: 'Add', exact: true }).click()
+    await page.getByRole('button', { name: 'Save class', exact: true }).click()
     await expect(page.getByRole('row').filter({ hasText: 'Grade 7' }).filter({ hasText: 'Mathematics' })).toHaveCount(1)
   }
 
@@ -137,14 +149,14 @@ async function ensureGrade7MathematicsAssignment(page: Page) {
 export async function loginAndOpenWorkspace(page: Page) {
   await page.goto('/')
 
-  if (await visible(page, 'heading', /Good day/i)) {
+  if (await visible(page, 'heading', /Good (?:morning|afternoon|evening)/i)) {
     await ensureGrade7MathematicsAssignment(page)
     return
   }
 
   if (await visible(page, 'heading', 'About you')) {
     await completeOnboarding(page)
-    await expect(page.getByRole('heading', { name: /Good day/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Good (?:morning|afternoon|evening)/i })).toBeVisible()
     return
   }
 
@@ -153,17 +165,11 @@ export async function loginAndOpenWorkspace(page: Page) {
   await page.getByLabel('Password').fill(process.env.E2E_PASSWORD!.trim())
   await page.getByRole('button', { name: /^Sign in/ }).click()
 
-  // The ai-settings route is mocked above. Seeing this gate means the app was
-  // not wired to the local test boundary and should be diagnosed explicitly.
-  if (await visible(page, 'heading', /Connect Gemini before opening your workspace/i, 5_000)) {
-    throw new Error('The signed-in app reached the Gemini setup gate; verify that local ai-settings mocking is active.')
-  }
-
   if (await visible(page, 'heading', 'About you', 20_000)) {
     await completeOnboarding(page)
   }
 
-  await expect(page.getByRole('heading', { name: /Good day/i })).toBeVisible({ timeout: 30_000 })
+  await expect(page.getByRole('heading', { name: /Good (?:morning|afternoon|evening)/i })).toBeVisible({ timeout: 30_000 })
   await ensureGrade7MathematicsAssignment(page)
 }
 
@@ -173,9 +179,34 @@ export async function openAssessmentList(page: Page) {
   await expect(page.getByText(/Finalized TOS → teacher-reviewed items/)).toBeVisible()
 }
 
+/**
+ * Existing export/assessment regression cases exercise the full question
+ * editor (choices, diagrams, and persistence). New assessments open in the
+ * guided Simple view, so switch modes through the user-facing toggle instead
+ * of coupling those tests to an implementation default.
+ */
+export async function switchToAssessmentCustomize(page: Page) {
+  const toggle = page.getByRole('group', { name: 'Editing mode' })
+  const customize = toggle.getByRole('button', { name: 'Customize', exact: true })
+  await expect(customize).toBeVisible({ timeout: 30_000 })
+  if (await customize.getAttribute('aria-pressed') !== 'true') await customize.click()
+  await expect(customize).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByRole('heading', { name: 'Assessment editor' })).toBeVisible({ timeout: 30_000 })
+}
+
 export async function createFinalizedTos(page: Page, title: string, competencyText?: string | RegExp) {
   await page.goto('/tos/new')
   await expect(page.getByRole('heading', { name: 'New TOS' })).toBeVisible({ timeout: 30_000 })
+
+  // Finalization coverage still exercises the full allocation editor. New TOS
+  // records intentionally start in Simple mode, so opt into Customize through
+  // the same public control a teacher uses.
+  const editorMode = page.getByRole('group', { name: 'Editing mode' })
+  const customize = editorMode.getByRole('button', { name: 'Customize', exact: true })
+  await expect(customize).toBeVisible({ timeout: 30_000 })
+  if (await customize.getAttribute('aria-pressed') !== 'true') await customize.click()
+  await expect(customize).toHaveAttribute('aria-pressed', 'true')
+
   await page.getByLabel('TOS title').fill(title)
 
   // School grading term is intentionally independent from the curriculum-guide

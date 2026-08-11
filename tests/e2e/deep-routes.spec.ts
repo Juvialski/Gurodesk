@@ -1,9 +1,12 @@
 import { expect, loginAndOpenWorkspace, test } from './fixtures'
 
 const deepRoutes = [
+  { path: '/create', heading: 'What do you want to create?' },
+  { path: '/documents', heading: 'My Files' },
+  { path: '/classes', heading: 'Classes' },
   { path: '/assessments', heading: 'Assessments' },
   { path: '/tos', heading: 'Table of Specifications' },
-  { path: '/curriculum', heading: 'Curriculum Navigator' },
+  { path: '/curriculum', heading: 'My Curriculum' },
   { path: '/results', heading: 'Results' },
   { path: '/settings', heading: 'Settings' },
 ] as const
@@ -21,4 +24,3 @@ for (const route of deepRoutes) {
     await expect(appPage.getByRole('heading', { name: route.heading })).toBeVisible({ timeout: 30_000 })
   })
 }
-

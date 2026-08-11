@@ -1,4 +1,4 @@
-import { createFinalizedTos, expect, loginAndOpenWorkspace, test } from './fixtures'
+import { createFinalizedTos, expect, loginAndOpenWorkspace, switchToAssessmentCustomize, test } from './fixtures'
 
 test('saves an assessment, reloads it, and keeps preview/export geometry usable without live AI', async ({ appPage }) => {
   await loginAndOpenWorkspace(appPage)
@@ -16,7 +16,7 @@ test('saves an assessment, reloads it, and keeps preview/export geometry usable 
   await appPage.getByRole('button', { name: 'Create draft' }).click()
   await expect(appPage).toHaveURL(/\/assessments\/[0-9a-f-]+$/)
   const assessmentId = new URL(appPage.url()).pathname.split('/').pop()!
-  await expect(appPage.getByRole('heading', { name: 'Assessment editor' })).toBeVisible({ timeout: 30_000 })
+  await switchToAssessmentCustomize(appPage)
 
   await appPage.getByLabel('Question / prompt').fill(promptText)
   // Use the deterministic editor fixture so this E2E covers visual persistence
@@ -59,7 +59,7 @@ test('saves an assessment, reloads it, and keeps preview/export geometry usable 
   expect(mobileOverflow.scrollWidth).toBeLessThanOrEqual(mobileOverflow.clientWidth + 1)
 
   await appPage.goto(`/assessments/${assessmentId}`)
-  await expect(appPage.getByRole('heading', { name: 'Assessment editor' })).toBeVisible({ timeout: 30_000 })
+  await switchToAssessmentCustomize(appPage)
   await expect(appPage.getByLabel('Question / prompt')).toHaveValue(promptText)
   await expect(appPage.getByTestId('assessment-visual-editor').locator('svg.assessment-diagram')).toBeVisible()
 })

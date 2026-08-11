@@ -4,7 +4,9 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AiAssistTextarea } from '../components/AiAssistTextarea'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
+import { SimpleAdvancedToggle } from '../components/ui/SimpleAdvancedToggle'
 import { useApp } from '../contexts/AppContext'
+import { useWorkspaceSelection } from '../hooks/useWorkspaceSelection'
 import { buildAiDeclaration, LESSON_PLANNING_POLICY } from '../data/lessonPlanningPolicy'
 import { createBlankLessonPlan } from '../lib/lessonPlanFactory'
 import { validateLessonPlan } from '../lib/lessonPlanValidation'
@@ -18,7 +20,9 @@ import {
 } from '../lib/repository'
 import type { CurriculumNavigatorBundle, SchoolYearCalendar } from '../types/curriculum'
 import type { AiSupportType, LessonAiSupportResponse, LessonPlanContent, LessonPlanRecord, LessonQuickDraft } from '../types/lessonPlan'
-import { createDefaultTeacherLessonPreferences, type TeacherLessonPreferences } from '../types/teachingSetup'
+import { createDefaultTeacherLessonPreferences, LESSON_LANGUAGE_OPTIONS, type TeacherLessonPreferences } from '../types/teachingSetup'
+import type { TeacherAssignment } from '../types/app'
+import '../workflows.css'
 
 const QUICK_DRAFT_LABELS: Array<[keyof LessonQuickDraft, string]> = [
   ['lessonTitle', 'Lesson title'],
@@ -34,15 +38,112 @@ const QUICK_DRAFT_LABELS: Array<[keyof LessonQuickDraft, string]> = [
   ['extendedLearning', 'Extended learning'],
 ]
 
+type LessonSimpleFlowProps = {
+  plan: LessonPlanRecord
+  assignment: TeacherAssignment | null
+  bundle: CurriculumNavigatorBundle | null
+  calendar: SchoolYearCalendar | null
+  visibleCompetencies: CurriculumNavigatorBundle['competencies']
+  filteredCompetencies: CurriculumNavigatorBundle['competencies']
+  competencyPickerOpen: boolean
+  competencySearch: string
+  simpleLanguage: string
+  quickDraftLoading: boolean
+  quickDraftMessage: string | null
+  quickDraftPreview: LessonAiSupportResponse | null
+  onUpdateContent: (mutator: (content: LessonPlanContent) => void) => void
+  onSelectPeriod: (label: string) => void
+  onSelectCompetency: (id: string) => void
+  onToggleCompetencyPicker: () => void
+  onCloseCompetencyPicker: () => void
+  onCompetencySearchChange: (value: string) => void
+  onLanguageChange: (value: string) => void
+  onPrepare: () => void
+  onDiscardDraft: () => void
+  onApplyDraft: () => void
+}
+
+function LessonSimpleFlow({
+  plan,
+  assignment,
+  bundle,
+  calendar,
+  visibleCompetencies,
+  filteredCompetencies,
+  competencyPickerOpen,
+  competencySearch,
+  simpleLanguage,
+  quickDraftLoading,
+  quickDraftMessage,
+  quickDraftPreview,
+  onUpdateContent,
+  onSelectPeriod,
+  onSelectCompetency,
+  onToggleCompetencyPicker,
+  onCloseCompetencyPicker,
+  onCompetencySearchChange,
+  onLanguageChange,
+  onPrepare,
+  onDiscardDraft,
+  onApplyDraft,
+}: LessonSimpleFlowProps) {
+  return (
+    <section className="workflow-simple-shell lesson-simple-flow">
+      <div className="workflow-intro">
+        <div>
+          <span className="eyebrow">Guided setup</span>
+          <h2>Prepare a lesson plan</h2>
+          <p>Choose one verified competency, set the time and language, then review a draft grounded in your choices.</p>
+        </div>
+        <span className="workflow-step-count">3 short steps</span>
+      </div>
+
+      <div className="workflow-step-card">
+        <div className="workflow-step-heading"><span>1</span><div><strong>Class and timing</strong><small>Curriculum-guide period and school grading term are shown separately.</small></div></div>
+        <div className="workflow-context-banner"><strong>{assignment?.gradeLevel} {assignment?.learningArea}</strong><span>{assignment?.sections.join(' · ') || 'Class sections'} · {plan.content.schoolYear}</span></div>
+        <div className="workflow-chip-group"><span className="workflow-field-label">Curriculum-guide period</span><div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.curriculumPeriodLabel === period.label} className={`workflow-chip ${plan.content.curriculumPeriodLabel === period.label ? 'selected' : ''}`} onClick={() => onSelectPeriod(period.label)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div></div>
+        <div className="workflow-chip-group"><span className="workflow-field-label">School grading term</span><div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.gradingTermLabel === period.label} className={`workflow-chip ${plan.content.gradingTermLabel === period.label ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">Loading grading terms…</span>}</div></div>
+        <div className="workflow-chip-group"><span className="workflow-field-label">Lesson length</span><div className="workflow-chip-row">{[45, 60, 90].map((minutes) => <button type="button" key={minutes} aria-pressed={plan.content.durationMinutes === minutes} className={`workflow-chip ${plan.content.durationMinutes === minutes ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.durationMinutes = minutes })}>{minutes} min</button>)}</div></div>
+      </div>
+
+      <div className="workflow-step-card">
+        <div className="workflow-step-heading"><span>2</span><div><strong>Choose one competency</strong><small>Select the exact verified competency you want this lesson to address.</small></div></div>
+        <button type="button" className={`workflow-picker-trigger ${competencyPickerOpen ? 'open' : ''}`} aria-expanded={competencyPickerOpen} onClick={onToggleCompetencyPicker}><span>{plan.content.competency.text || (bundle === null ? 'Loading verified competencies…' : visibleCompetencies.length ? 'Choose a verified competency' : 'No verified competencies available')}</span><span aria-hidden="true">⌄</span></button>
+        {competencyPickerOpen && <div className="workflow-picker-panel"><label className="workflow-search"><SearchIcon /><span className="sr-only">Search verified competencies</span><input value={competencySearch} onChange={(event) => onCompetencySearchChange(event.target.value)} placeholder="Search competency text or code" autoFocus /></label><div className="workflow-picker-summary"><span>{filteredCompetencies.length} verified {filteredCompetencies.length === 1 ? 'competency' : 'competencies'}</span><button type="button" onClick={onCloseCompetencyPicker}>Close</button></div><div className="workflow-competency-list">{filteredCompetencies.map((item) => <button type="button" key={item.id} aria-pressed={plan.content.competency.id === item.id} className={`workflow-competency-option ${plan.content.competency.id === item.id ? 'selected' : ''}`} onClick={() => onSelectCompetency(item.id)}><span className="workflow-checkbox" aria-hidden="true">{plan.content.competency.id === item.id ? <CheckCircle2 size={15} /> : null}</span><span>{item.competencyCode && <small>{item.competencyCode}</small>}<strong>{item.competencyText}</strong></span></button>)}{!filteredCompetencies.length && <div className="workflow-empty">No verified competency matches “{competencySearch}”.</div>}</div></div>}
+        {plan.content.competency.text && <div className="workflow-grounding"><ShieldCheck size={16} /><div><strong>{plan.content.competency.code || 'Verified competency'}</strong><p>{plan.content.competency.text}</p><small>{plan.content.competency.sourceTitle}{plan.content.competency.sourcePage ? ` · source p. ${plan.content.competency.sourcePage}` : ''}</small></div></div>}
+      </div>
+
+      <div className="workflow-step-card">
+        <div className="workflow-step-heading"><span>3</span><div><strong>Choose the lesson language</strong><small>These choices guide the optional AI draft; you still review every suggestion.</small></div></div>
+        <div className="workflow-chip-row workflow-language-chips">{LESSON_LANGUAGE_OPTIONS.filter((item) => ['English', 'Filipino', 'English + Filipino'].includes(item.value)).map((item) => <button type="button" key={item.value} aria-pressed={simpleLanguage === item.value} className={`workflow-chip ${simpleLanguage === item.value ? 'selected' : ''}`} onClick={() => onLanguageChange(item.value)}>{item.label}</button>)}</div>
+      </div>
+
+      {quickDraftMessage && <div className="workflow-warning">{quickDraftMessage}</div>}
+      {quickDraftPreview?.draft && <div className="workflow-review-card"><div className="workflow-review-heading"><div><strong>Review your lesson plan draft</strong><small>Only empty planning fields are suggested. Check that each idea fits your real class.</small></div><span>{quickDraftPreview.model === 'demo-local-preview' ? 'Preview' : 'AI draft'}</span></div><div className="workflow-review-list">{QUICK_DRAFT_LABELS.map(([key, label]) => quickDraftPreview.draft?.[key] ? <div key={key}><strong>{label}</strong><p>{quickDraftPreview.draft[key]}</p></div> : null)}</div><div className="workflow-actions"><button type="button" className="button ghost" onClick={onDiscardDraft}>Discard</button><button type="button" className="button primary" onClick={onApplyDraft}><CheckCircle2 size={15} /> Apply to empty fields</button></div></div>}
+      <div className="workflow-actions lesson-simple-actions"><button type="button" className="button primary" disabled={quickDraftLoading || !plan.content.competency.id} onClick={onPrepare}>{quickDraftLoading ? 'Preparing…' : 'Prepare lesson plan'} <ArrowRightIcon /></button></div>
+      <p className="workflow-footnote">AI assistance is optional. Your existing text is never overwritten, and resources or references are not invented. Review and adapt the draft before using it.</p>
+    </section>
+  )
+}
+
+function SearchIcon() {
+  return <span aria-hidden="true" className="workflow-search-icon">⌕</span>
+}
+
+function ArrowRightIcon() {
+  return <span aria-hidden="true" className="workflow-arrow">→</span>
+}
+
 export function LessonPlanEditorPage() {
   const { id } = useParams()
   const isNew = !id || id === 'new'
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const { user, assignments, isDemo } = useApp()
+  const { selection, updateSelection } = useWorkspaceSelection(user?.id)
   const requestedAssignmentId = searchParams.get('assignment') ?? ''
   const requestedCompetencyId = searchParams.get('competency') ?? ''
-  const [assignmentId, setAssignmentId] = useState(requestedAssignmentId || assignments[0]?.id || '')
+  const [assignmentId, setAssignmentId] = useState(requestedAssignmentId || selection.assignmentId || assignments[0]?.id || '')
   const [plan, setPlan] = useState<LessonPlanRecord | null>(null)
   const [bundle, setBundle] = useState<CurriculumNavigatorBundle | null>(null)
   const [calendar, setCalendar] = useState<SchoolYearCalendar | null>(null)
@@ -56,8 +157,32 @@ export function LessonPlanEditorPage() {
   const [quickDraftMessage, setQuickDraftMessage] = useState<string | null>(null)
   const [competencyPickerOpen, setCompetencyPickerOpen] = useState(false)
   const [competencySearch, setCompetencySearch] = useState('')
+  const [simpleLanguage, setSimpleLanguage] = useState('English')
+  const [viewMode, setViewMode] = useState<'simple' | 'advanced'>(() => {
+    try {
+      return localStorage.getItem('gurodesk.lesson-plan.view-mode') === 'advanced' ? 'advanced' : 'simple'
+    } catch {
+      return 'simple'
+    }
+  })
 
   const assignment = assignments.find((item) => item.id === assignmentId) ?? null
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('gurodesk.lesson-plan.view-mode', viewMode)
+    } catch {
+      // Local preference is optional; the editor remains fully usable.
+    }
+  }, [viewMode])
+
+  useEffect(() => {
+    if (['English', 'Filipino', 'English + Filipino'].includes(preferences.languagePreference)) setSimpleLanguage(preferences.languagePreference)
+  }, [preferences.languagePreference])
+
+  useEffect(() => {
+    if (assignmentId) updateSelection({ assignmentId })
+  }, [assignmentId, updateSelection])
 
   function freshPlan(userId: string, targetAssignment: (typeof assignments)[number]) {
     const next = createBlankLessonPlan(userId, targetAssignment)
@@ -165,6 +290,7 @@ export function LessonPlanEditorPage() {
       if (!current) return current
       const next = structuredClone(current)
       mutator(next.content)
+      updateSelection({ assignmentId, curriculumPeriodId: next.content.curriculumPeriodLabel ? (bundle?.periods.find((item) => item.label === next.content.curriculumPeriodLabel)?.id ?? null) : null })
       next.title = next.content.lessonTitle || `${next.content.gradeLevel} ${next.content.learningArea} lesson`
       next.schoolYear = next.content.schoolYear
       next.academicPeriodLabel = next.content.curriculumPeriodLabel || null
@@ -333,7 +459,7 @@ export function LessonPlanEditorPage() {
     learnerContext: plan.content.learnerContext || preferences.typicalClassProfile,
     currentFormativeAssessment: plan.content.assessingLearning.formativeAssessments,
     teachingSetup: {
-      languagePreference: preferences.languagePreference,
+      languagePreference: simpleLanguage,
       localLanguageName: preferences.localLanguageName,
       typicalClassProfile: preferences.typicalClassProfile,
       availableTechnology: preferences.availableTechnology,
@@ -352,10 +478,37 @@ export function LessonPlanEditorPage() {
       <PageHeader
         eyebrow="ILAW lesson planning · Phase 3.6.3"
         title={isNew ? 'New lesson plan' : plan.title || 'Lesson plan'}
-        description="Start from verified curriculum. GuroDesk can prepare optional objectives, activities, assessment, and ways-forward suggestions; you choose and adapt the final plan. Resources and references stay teacher-verified."
-        actions={<div className="editor-header-actions"><Link to="/lesson-plans" className="button ghost"><ArrowLeft size={15} /> Back</Link><button className="button primary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button></div>}
+        description="Choose one verified competency, prepare an optional draft, and review it before teaching. The full ILAW editor remains available whenever you need it."
+        actions={<div className="editor-header-actions"><SimpleAdvancedToggle mode={viewMode} onChange={setViewMode} /> <Link to="/lesson-plans" className="button ghost"><ArrowLeft size={15} /> Back</Link><button className="button primary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button></div>}
       />
 
+      {viewMode === 'simple' ? <LessonSimpleFlow
+        plan={plan}
+        assignment={assignment}
+        bundle={bundle}
+        calendar={calendar}
+        visibleCompetencies={visibleCompetencies}
+        filteredCompetencies={filteredCompetencies}
+        competencyPickerOpen={competencyPickerOpen}
+        competencySearch={competencySearch}
+        simpleLanguage={simpleLanguage}
+        quickDraftLoading={quickDraftLoading}
+        quickDraftMessage={quickDraftMessage}
+        quickDraftPreview={quickDraftPreview}
+        onUpdateContent={updateContent}
+        onSelectPeriod={selectCurriculumPeriod}
+        onSelectCompetency={selectCompetency}
+        onToggleCompetencyPicker={() => setCompetencyPickerOpen((open) => !open)}
+        onCloseCompetencyPicker={() => { setCompetencyPickerOpen(false); setCompetencySearch('') }}
+        onCompetencySearchChange={setCompetencySearch}
+        onLanguageChange={(value) => {
+          setSimpleLanguage(value)
+          setPreferences((current) => ({ ...current, languagePreference: value }))
+        }}
+        onPrepare={() => void prepareQuickDraft()}
+        onDiscardDraft={() => setQuickDraftPreview(null)}
+        onApplyDraft={applyQuickDraft}
+      /> : <>
       <section className="policy-banner panel warning">
         <span className="policy-banner-icon"><ShieldCheck size={20} /></span>
         <div><strong>AI suggestions are starting points</strong><p>{LESSON_PLANNING_POLICY.aiRule} GuroDesk never auto-fills specific books, page numbers, materials, or devices.</p></div>
@@ -514,6 +667,7 @@ export function LessonPlanEditorPage() {
           </section>
         </aside>
       </div>
+      </>}
     </>
   )
 }

@@ -1,105 +1,65 @@
-import {
-  BookMarked,
-  CalendarDays,
-  ChartNoAxesColumnIncreasing,
-  ClipboardCheck,
-  FileBarChart,
-  FileText,
-  Files,
-  GraduationCap,
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  School,
-  Settings,
-  TableProperties,
-  X,
-} from 'lucide-react'
-import { useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { FileText, GraduationCap } from 'lucide-react'
+import { Outlet, useLocation } from 'react-router-dom'
+import { useWorkspaceSelection } from '../hooks/useWorkspaceSelection'
 import { useApp } from '../contexts/AppContext'
 import { Brand } from './Brand'
-import { StatusBadge } from './StatusBadge'
+import { ResponsiveNavigation } from './navigation/ResponsiveNavigation'
+import { WorkspaceContextBar } from './workspace/WorkspaceContextBar'
 
-const nav = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/classes', label: 'My Classes', icon: School },
-  { to: '/curriculum', label: 'Curriculum', icon: BookMarked },
-  { to: '/lesson-plans', label: 'Lesson Plans', icon: CalendarDays },
-  { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
-  { to: '/results', label: 'Results', icon: ChartNoAxesColumnIncreasing },
-  { to: '/tos', label: 'TOS Builder', icon: TableProperties },
-  { to: '/paperwork', label: 'Paperwork', icon: FileBarChart },
-  { to: '/files', label: 'My Files', icon: Files },
-]
+function breadcrumbLabel(pathname: string) {
+  if (pathname === '/') return 'Home'
+  const labels: Record<string, string> = {
+    classes: 'Classes',
+    curriculum: 'Curriculum',
+    create: 'Create',
+    'lesson-plans': 'Lesson plans',
+    assessments: 'Assessments',
+    results: 'Results',
+    tos: 'Templates & TOS',
+    files: 'Documents',
+    documents: 'Documents',
+    settings: 'Settings',
+    help: 'Help',
+  }
+  const segment = pathname.split('/').filter(Boolean)[0] ?? ''
+  return labels[segment] ?? segment.replaceAll('-', ' ')
+}
 
 export function AppShell() {
-  const { profile, signOut } = useApp()
-  const [menuOpen, setMenuOpen] = useState(false)
+  const { profile, assignments, signOut, user } = useApp()
   const location = useLocation()
-
-  function closeMenu() {
-    setMenuOpen(false)
-  }
+  const workspace = useWorkspaceSelection(user?.id)
 
   return (
     <div className="app-shell">
-      <aside className={`sidebar ${menuOpen ? 'sidebar-open' : ''}`}>
-        <div className="sidebar-top">
-          <Brand />
-          <button className="icon-button sidebar-close" onClick={closeMenu} aria-label="Close menu">
-            <X size={20} />
-          </button>
-        </div>
-        <nav className="main-nav" aria-label="Main navigation">
-          {nav.map(({ to, label, icon: Icon }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === '/'}
-              onClick={closeMenu}
-              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-            >
-              <Icon size={19} />
-              <span>{label}</span>
-            </NavLink>
-          ))}
-        </nav>
-        <div className="sidebar-bottom">
-          <NavLink to="/settings" onClick={closeMenu} className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <Settings size={19} /><span>Settings</span>
-          </NavLink>
-          <button className="nav-item nav-button" onClick={() => void signOut()}>
-            <LogOut size={19} /><span>Sign out</span>
-          </button>
-        </div>
-      </aside>
-
-      {menuOpen && <button className="sidebar-backdrop" onClick={closeMenu} aria-label="Close navigation" />}
+      <ResponsiveNavigation profile={profile} onSignOut={signOut} />
 
       <div className="app-main">
         <div className="mobile-topbar">
-          <button className="icon-button" onClick={() => setMenuOpen(true)} aria-label="Open menu">
-            <Menu size={21} />
-          </button>
           <Brand compact />
-          <span className="mobile-avatar">{profile?.fullName?.slice(0, 1).toUpperCase() || 'T'}</span>
+          <span className="mobile-avatar" aria-label={`${profile?.fullName || 'Teacher'} account`}>{profile?.fullName?.slice(0, 1).toUpperCase() || 'T'}</span>
         </div>
         <div className="desktop-topbar">
-          <div className="breadcrumbs">
-            <FileText size={15} />
-            <span>{location.pathname === '/' ? 'Workspace' : location.pathname.slice(1).replaceAll('-', ' ')}</span>
+          <div className="breadcrumbs" aria-label="Current location">
+            <FileText size={15} aria-hidden="true" />
+            <span>{breadcrumbLabel(location.pathname)}</span>
           </div>
           <div className="topbar-right">
-            <StatusBadge />
             <span className="school-year">SY {profile?.schoolYear ?? '2026-2027'}</span>
             <div className="teacher-chip">
-              <span className="avatar"><GraduationCap size={17} /></span>
+              <span className="avatar"><GraduationCap size={17} aria-hidden="true" /></span>
               <div><strong>{profile?.fullName || 'Teacher'}</strong><small>{profile?.schoolName || 'School not set'}</small></div>
             </div>
           </div>
         </div>
-        <main className="content"><Outlet /></main>
+        <div className="workspace-context-main">
+          <WorkspaceContextBar
+            assignments={assignments}
+            selection={workspace.selection}
+            onChange={workspace.setSelection}
+          />
+        </div>
+        <main className="content" id="main-content"><Outlet /></main>
       </div>
     </div>
   )

@@ -5,10 +5,20 @@ import type {
   AssessmentRecord,
   QuestionType,
 } from '../types/assessment'
+import type { AssessmentVisualRequirement, AssessmentVisualStatus } from '../types/assessmentVisual'
 import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
 
 export type AssessmentItemType = QuestionType
 export type AssessmentRecordView = AssessmentRecord & { sourceTosTitle: string }
+export type AssessmentViewMode = 'simple' | 'advanced'
+export type AssessmentPreparationStage = 'questions' | 'visuals' | 'qa'
+
+/**
+ * The preference is intentionally local to this browser. It is a presentation
+ * preference, not assessment data, so it must never be persisted with the
+ * assessment record or sent to the provider.
+ */
+export const ASSESSMENT_VIEW_MODE_STORAGE_KEY = 'gurodesk.assessment.view-mode'
 
 type UnknownRecord = Record<string, unknown>
 
@@ -90,6 +100,100 @@ export function stateLabel(state: AssessmentAuthorshipState | string | undefined
   if (state === 'needs_review' || state === 'repair_needed' || state === 'answer_needs_recheck') return 'Needs review'
   if (state === 'locked') return 'Locked'
   return 'Empty'
+}
+
+/**
+ * Translate persisted QA/authorship values into teacher-facing language.
+ *
+ * Keep this mapping in the UI boundary: raw lifecycle values remain useful to
+ * repositories, validation, and resume logic, but they should not leak into a
+ * teacher's default assessment workflow.
+ */
+export function assessmentItemStatusLabel(state: AssessmentAuthorshipState | string | undefined): string {
+  if (state === 'generated' || state === 'verified' || state === 'locked' || state === 'teacher_accepted' || state === 'manual') return 'Ready'
+  if (state === 'teacher_edited') return 'Edited'
+  if (state === 'answer_needs_recheck') return 'Check needed'
+  if (state === 'needs_review' || state === 'repair_needed') return 'Needs review'
+  return 'Missing'
+}
+
+/** Alias with an explicit translation name for UI callers and focused tests. */
+export const translateAssessmentItemStatus = assessmentItemStatusLabel
+
+export function assessmentItemStatusTone(state: AssessmentAuthorshipState | string | undefined): 'missing' | 'ready' | 'edited' | 'attention' {
+  const label = assessmentItemStatusLabel(state)
+  if (label === 'Ready') return 'ready'
+  if (label === 'Edited') return 'edited'
+  if (label === 'Needs review' || label === 'Check needed') return 'attention'
+  return 'missing'
+}
+
+/**
+ * Translate visual lifecycle values while respecting helpful/required
+ * semantics. A failed helpful visual does not make a question incomplete;
+ * a failed required visual does.
+ */
+export function assessmentVisualStatusLabel(
+  status: AssessmentVisualStatus | string | undefined,
+  requirement: AssessmentVisualRequirement | string | undefined = 'none',
+): string {
+  if (status === 'pending' || status === 'running') return 'Adding diagram'
+  if (status === 'succeeded') return 'Diagram ready'
+  if (status === 'failed') return requirement === 'required' ? 'Needs diagram' : 'Ready · diagram skipped'
+  if (status === 'stale') return requirement === 'required' ? 'Needs diagram' : 'Diagram needs refresh'
+  if (requirement === 'required') return 'Needs diagram'
+  if (requirement === 'helpful') return 'Diagram optional'
+  return 'No diagram needed'
+}
+
+/** Alias with an explicit translation name for UI callers and focused tests. */
+export const translateAssessmentVisualStatus = assessmentVisualStatusLabel
+
+export function assessmentPreparationStageLabel(stage: AssessmentPreparationStage): string {
+  if (stage === 'visuals') return 'Adding diagrams'
+  if (stage === 'qa') return 'Checking paper'
+  return 'Creating questions'
+}
+
+export function assessmentPreparationPhaseLabel(stage: AssessmentPreparationStage): string {
+  return assessmentPreparationStageLabel(stage)
+}
+
+export function assessmentItemStatus(item: AssessmentItem): string {
+  if (item.authorshipState === 'ai_suggestion') return 'Needs review'
+  const qaState = record(item).qaState
+  return assessmentItemStatusLabel(typeof qaState === 'string' ? qaState : item.authorshipState)
+}
+
+export function assessmentItemHasPreparationBlocker(item: AssessmentItem): boolean {
+  const qaState = String(record(item).qaState ?? '')
+  if (!item.prompt.trim()) return true
+  if (assessmentItemStatusLabel(qaState || item.authorshipState) === 'Missing') return true
+  if (['needs_review', 'repair_needed', 'answer_needs_recheck'].includes(qaState)) return true
+  const requirement = item.visualRequirement ?? 'none'
+  if (requirement === 'required' && (!item.visual || ['pending', 'running', 'failed', 'stale'].includes(String(item.visualStatus ?? '')))) return true
+  return false
+}
+
+export function assessmentItemNeedsAttention(item: AssessmentItem): boolean {
+  return item.authorshipState === 'ai_suggestion' || assessmentItemHasPreparationBlocker(item)
+}
+
+export function assessmentReadyCount(recordValue: AssessmentRecord): number {
+  return recordValue.items.filter((item) => !assessmentItemNeedsAttention(item)).length
+}
+
+export function assessmentAttentionCount(recordValue: AssessmentRecord): number {
+  return recordValue.items.filter(assessmentItemNeedsAttention).length
+}
+
+/** Keep provider/runtime wording inside Technical details in Simple mode. */
+export function assessmentTeacherErrorLabel(error: string | undefined): string {
+  if (!error) return ''
+  if (/quota|rate.?limit|provider.?paused|provider limit|429/iu.test(error)) return 'AI creation paused. Everything completed so far is saved.'
+  if (/visual|diagram/iu.test(error)) return 'A diagram could not be added. The question is still saved; try again or edit it under Customize.'
+  if (/save|persist|supabase/iu.test(error)) return 'Your latest change could not be saved. Try Save draft again.'
+  return 'This step could not be completed. Your saved work is preserved; try again or open Customize for more options.'
 }
 
 export function answerForType(type: QuestionType): AssessmentAnswer {

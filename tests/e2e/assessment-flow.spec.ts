@@ -1,4 +1,4 @@
-import { createFinalizedTos, expect, loginAndOpenWorkspace, openAssessmentList, test } from './fixtures'
+import { createFinalizedTos, expect, loginAndOpenWorkspace, openAssessmentList, switchToAssessmentCustomize, test } from './fixtures'
 
 test('creates an assessment from a finalized TOS and preserves edits across reloads', async ({ appPage }) => {
   await loginAndOpenWorkspace(appPage)
@@ -29,7 +29,7 @@ test('creates an assessment from a finalized TOS and preserves edits across relo
   await appPage.getByRole('button', { name: 'Create draft' }).click()
 
   await expect(appPage).toHaveURL(/\/assessments\/[0-9a-f-]+$/)
-  await expect(appPage.getByRole('heading', { name: 'Assessment editor' })).toBeVisible({ timeout: 30_000 })
+  await switchToAssessmentCustomize(appPage)
   const sourceContext = appPage.locator('.assessment-editor-context:visible').filter({ hasText: 'Source TOS' })
   await expect(sourceContext).toHaveCount(1)
   await expect(sourceContext).toBeVisible()
@@ -41,7 +41,7 @@ test('creates an assessment from a finalized TOS and preserves edits across relo
   await expect(appPage.getByRole('status').filter({ hasText: 'Draft saved.' })).toBeVisible({ timeout: 30_000 })
 
   await appPage.reload()
-  await expect(appPage.getByRole('heading', { name: 'Assessment editor' })).toBeVisible({ timeout: 30_000 })
+  await switchToAssessmentCustomize(appPage)
   await expect(appPage.getByLabel('Question / prompt')).toHaveValue(promptText)
 
   await openAssessmentList(appPage)
@@ -49,7 +49,6 @@ test('creates an assessment from a finalized TOS and preserves edits across relo
   await expect(card).toHaveCount(1)
   await expect(card.getByRole('heading', { name: assessmentTitle })).toBeVisible()
   await card.getByRole('link', { name: 'Open editor' }).click()
-  await expect(appPage.getByRole('heading', { name: 'Assessment editor' })).toBeVisible()
+  await switchToAssessmentCustomize(appPage)
   await expect(appPage.getByLabel('Question / prompt')).toHaveValue(promptText)
 })
-

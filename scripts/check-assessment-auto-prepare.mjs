@@ -9,7 +9,10 @@ const assessmentCss = read('src/assessment.css')
 
 assert.match(page, /Generate & prepare paper/, 'assessment generation exposes one main paper-preparation action')
 assert.match(page, /runAutomaticPaperPreparation/, 'Generate & prepare paper continues into automated QA')
-assert.match(page, /persistVerifiedAssessment/, 'a structurally ready paper is accepted, locked, and finalized in the same workflow')
+const automaticPreparation = page.match(/async function runAutomaticPaperPreparation[\s\S]*?\n  async function runVisualEnrichment/)?.[0] ?? ''
+assert.doesNotMatch(automaticPreparation, /persistVerifiedAssessment/, 'automatic preparation must not accept or finalize AI output')
+assert.match(automaticPreparation, /saved as a draft[\s\S]*Teacher review is required/, 'automatic preparation stops at a reviewable teacher draft')
+assert.match(page, /async function acceptVerifyAndFinalizeAll[\s\S]*?persistVerifiedAssessment/, 'finalization remains behind an explicit teacher action')
 assert.match(auto, /maxRounds/, 'automatic repair has a bounded retry count')
 assert.match(auto, /Math\.min\(3/, 'automatic repair cannot become an unbounded request loop')
 assert.match(auto, /AUTO_REPAIRABLE_AUTHORSHIP/, 'automatic replacement is limited by authorship state')
@@ -29,4 +32,4 @@ assert.match(edge, /AUTOMATIC REPAIR REQUIREMENTS/, 'the Edge prompt treats bloc
 assert.match(assessmentCss, /@media \(max-width:900px\)[\s\S]{0,1200}\.assessment-editor-context \{ grid-template-columns:1fr;/, 'Source TOS context stacks instead of squeezing the title at tablet widths')
 assert.match(assessmentCss, /@media \(max-width:900px\)[\s\S]{0,1500}\.assessment-context-actions \.button \{ width:100%; white-space:normal;/, 'paper-preparation action wraps instead of forcing a narrow Source TOS column')
 
-console.log('Assessment automatic paper-preparation validation passed: one click generates missing items, retries AI-owned structural blockers within a strict cap, preserves teacher edits, respects provider boundaries, and finalizes only after deterministic QA passes.')
+console.log('Assessment automatic paper-preparation validation passed: one click generates missing items, retries AI-owned structural blockers within a strict cap, preserves teacher edits, respects provider boundaries, and stops at a reviewable draft before explicit teacher finalization.')

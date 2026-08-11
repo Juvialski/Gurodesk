@@ -3,8 +3,11 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
 import { AssessmentDiagram, AssessmentVisualEditor } from '../components/AssessmentDiagram'
+import { AssessmentSimpleView } from '../components/assessment/AssessmentSimpleView'
+import { SimpleAdvancedToggle } from '../components/ui/SimpleAdvancedToggle'
 import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
+import { useAssessmentPreparation } from '../hooks/useAssessmentPreparation'
 import * as assessmentValidation from '../lib/assessmentValidation'
 import { acceptAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, generateMissingAssessmentItems, requestAssessmentVerification, teacherVerifyAndLockAssessmentItem, type AssessmentItemSuggestion } from '../lib/assessmentGeneration'
 import { autoPrepareAssessmentPaper } from '../lib/assessmentAutoPrepare'
@@ -18,7 +21,7 @@ import { reviewAssessmentForFinalization, finalReviewMessages, type AssessmentFi
 import { duplicateAssessmentDocument, loadAssessmentDocument, saveAssessmentDocument } from '../lib/assessmentRepository'
 import type { AssessmentAnswer, AssessmentChoice, AssessmentItem, AssessmentMatchingChoice, AssessmentMatchingMapping, AssessmentMatchingPrompt, AssessmentRecord, AssessmentScoringCriterion, AssessmentSettings, AssessmentSubpart, QuestionType } from '../types/assessment'
 import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
-import { allowedQuestionTypes, answerForType, appendItemHistory, assessmentCompletion, cloneItem, defaultPointsForType, extractErrorMessage, isLocked, mappingDetails, mappingLabel, normalizeAssessment, pointsForItem, recordWithItems, stateLabel, typeLabel } from './assessmentUi'
+import { ASSESSMENT_VIEW_MODE_STORAGE_KEY, allowedQuestionTypes, answerForType, appendItemHistory, assessmentCompletion, assessmentItemNeedsAttention, cloneItem, defaultPointsForType, extractErrorMessage, isLocked, mappingDetails, mappingLabel, normalizeAssessment, pointsForItem, recordWithItems, stateLabel, typeLabel, type AssessmentViewMode } from './assessmentUi'
 
 type UnknownRecord = Record<string, unknown>
 type SuggestionMap = Record<string, AssessmentItemSuggestion>
@@ -71,6 +74,14 @@ function rubricCriteria(answer: UnknownRecord): AssessmentScoringCriterion[] {
   return array(answer.rubric ?? answer.criteria).map((entry, index) => { const value = object(entry); return { id: text(value.id) || `criterion-${index + 1}`, label: text(value.label) || `Criterion ${index + 1}`, pointsPossible: number(value.pointsPossible ?? value.points, 0), ...(value.description ? { description: text(value.description) } : {}) } })
 }
 
+function readAssessmentViewMode(): AssessmentViewMode {
+  try {
+    return typeof window !== 'undefined' && window.localStorage.getItem(ASSESSMENT_VIEW_MODE_STORAGE_KEY) === 'advanced' ? 'advanced' : 'simple'
+  } catch {
+    return 'simple'
+  }
+}
+
 export function AssessmentEditorPage() {
   const { id = '' } = useParams()
   const navigate = useNavigate()
@@ -94,6 +105,7 @@ export function AssessmentEditorPage() {
   const [reviewOpen, setReviewOpen] = useState(false)
   const [warningsAccepted, setWarningsAccepted] = useState(false)
   const [usageEstimates, setUsageEstimates] = useState<AssessmentUsageEstimate[]>([])
+  const [viewMode, setViewMode] = useState<AssessmentViewMode>(readAssessmentViewMode)
   const controllerRef = useRef<AbortController | null>(null)
   const batchControllerRef = useRef<AbortController | null>(null)
   const recordRef = useRef<AssessmentRecord | null>(null)
@@ -242,7 +254,7 @@ export function AssessmentEditorPage() {
     replaceItems(view.items.map((candidate, candidateIndex) => candidateIndex === index ? next : candidate))
   }
 
-  function selectIndex(index: number) { if (!view || index < 0 || index >= view.items.length) return; setSelectedIndex(index); window.requestAnimationFrame(() => document.getElementById(`assessment-item-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })) }
+  function selectIndex(index: number) { if (!view || index < 0 || index >= view.items.length) return; setSelectedIndex(index); window.requestAnimationFrame(() => (document.getElementById(`assessment-item-${index}`) ?? document.getElementById('assessment-simple-question-editor'))?.scrollIntoView({ behavior: 'smooth', block: 'start' })) }
 
   async function saveForGeneration(sourceOverride?: AssessmentRecord) {
     const source = sourceOverride ?? recordRef.current
@@ -478,18 +490,13 @@ export function AssessmentEditorPage() {
       return
     }
 
-    setBatchMessage('Structural QA passed. Accepting, locking, and finalizing the prepared paper…')
-    const finalResult = await persistVerifiedAssessment(savedPrepared, false)
-    if (finalResult.finalized) {
-      clearAssessmentGenerationCheckpoint(savedPrepared.id)
-      setBatchFailures([])
-      setBatchProgress(EMPTY_BATCH_PROGRESS)
-      setSavedMessage(`Paper ready: ${finalResult.acceptedCount} completed items accepted, verified, locked, and finalized automatically.`)
-      setBatchMessage(`PDF-ready assessment prepared automatically · ${prepared.generated} generated · ${prepared.regenerated} blocker regeneration${prepared.regenerated === 1 ? '' : 's'} · ${prepared.rounds} QA pass${prepared.rounds === 1 ? '' : 'es'}.`)
-      return
-    }
-
-    setBatchMessage(`Automatic preparation saved the best valid draft, but ${finalResult.blockerCount} structural blocker${finalResult.blockerCount === 1 ? '' : 's'} remain. Only those blockers require attention.`)
+    clearAssessmentGenerationCheckpoint(savedPrepared.id)
+    setBatchFailures([])
+    setBatchProgress(EMPTY_BATCH_PROGRESS)
+    setReview(prepared.review)
+    setReviewOpen(true)
+    setSavedMessage('Prepared questions were saved as a draft. Teacher review is required before finalization.')
+    setBatchMessage(`Structural QA passed · ${prepared.generated} generated · ${prepared.regenerated} blocker regeneration${prepared.regenerated === 1 ? '' : 's'} · ${prepared.rounds} QA pass${prepared.rounds === 1 ? '' : 'es'}. Review the questions, then explicitly accept and finalize the test.`)
   }
 
   async function runVisualEnrichment(start: AssessmentRecord, itemIds?: string[], options: { resumed?: boolean; checkpoint?: AssessmentGenerationCheckpoint | null; controller?: AbortController } = {}) {
@@ -716,6 +723,35 @@ export function AssessmentEditorPage() {
     batchControllerRef.current?.abort()
   }
 
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(ASSESSMENT_VIEW_MODE_STORAGE_KEY, viewMode)
+    } catch {
+      // Local preference storage is best-effort and must never block editing.
+    }
+  }, [viewMode])
+
+  const preparation = useAssessmentPreparation({
+    working: batchWorking,
+    stage: batchStage,
+    progress: batchProgress,
+    message: batchMessage,
+    failures: batchFailures,
+    onPrepare: () => { void generateMissing() },
+    onCancel: cancelBatchGeneration,
+  })
+
+  function reviewSimpleQuestions() {
+    document.getElementById('assessment-simple-questions')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  function fixSimpleRemaining() {
+    if (!view) return
+    const firstAttention = view.items.findIndex(assessmentItemNeedsAttention)
+    if (firstAttention >= 0) selectIndex(firstAttention)
+    reviewSimpleQuestions()
+  }
+
   async function toggleLock(index: number) {
     if (!recordValue || !view || readOnly || saving) return
     const source = normalizeAssessment(recordRef.current ?? recordValue)
@@ -749,12 +785,33 @@ export function AssessmentEditorPage() {
   if (!recordValue || !view) return null
   if (!view.items.length) return <EmptyState icon={ClipboardCheck} title="Assessment has no items" description="Recreate the assessment from a finalized TOS."><Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> Back to assessments</Link></EmptyState>
 
+  if (viewMode === 'simple') return <AssessmentSimpleView
+    record={view}
+    selectedIndex={selectedIndex}
+    current={current}
+    readOnly={readOnly}
+    preparation={preparation}
+    error={error}
+    savedMessage={savedMessage}
+    batchMessage={batchMessage}
+    onModeChange={setViewMode}
+    onSelect={selectIndex}
+    onChangeItem={(updater) => updateItem(selectedIndex, updater)}
+    onSave={() => { void save('draft') }}
+    onPrevious={() => selectIndex(selectedIndex - 1)}
+    onNext={() => selectIndex(selectedIndex + 1)}
+    onFixRemaining={fixSimpleRemaining}
+    onReviewQuestions={reviewSimpleQuestions}
+    onFinalize={() => { void acceptVerifyAndFinalizeAll() }}
+    finalizing={saving}
+  />
+
   return <>
-    <PageHeader eyebrow="Assessment studio · Phase 4.4" title={view.status === 'draft' ? 'Assessment editor' : 'Final assessment'} description="Edit one complete question at a time. Finalized TOS item numbers, competencies, and cognitive categories remain immutable." actions={<div className="assessment-header-actions"><Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> All assessments</Link><Link className="button ghost" to={`/assessments/${view.id}/print`}><FileDown size={16} /> Export</Link></div>} />
+    <PageHeader eyebrow="Assessment studio · Phase 4.4" title={view.status === 'draft' ? 'Assessment editor' : 'Final assessment'} description="Edit one complete question at a time. Finalized TOS item numbers, competencies, and cognitive categories remain immutable." actions={<div className="assessment-header-actions"><Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> All assessments</Link><Link className="button ghost" to={`/assessments/${view.id}/print`}><FileDown size={16} /> Export</Link><SimpleAdvancedToggle mode="advanced" onChange={setViewMode} /></div>} />
     {view.status !== 'draft' && <div className="assessment-locked panel"><ShieldCheck size={18} /><div><strong>{view.status === 'final' ? 'This assessment is finalized and locked.' : 'This assessment is archived.'}</strong><p>Duplicate it to create an editable draft.</p></div>{view.status === 'final' && <button className="button secondary" type="button" onClick={() => void duplicate()} disabled={saving}><Copy size={15} /> Duplicate</button>}</div>}
     {error && <div className="form-message error assessment-editor-message" role="alert">{error}</div>}
     {savedMessage && <div className="assessment-saved-message" role="status"><Check size={15} /> {savedMessage}</div>}
-    <div className="assessment-editor-context panel"><div><small>Source TOS</small><strong>{view.sourceTosTitle}</strong><span>{[view.gradeLevel, view.learningArea, view.schoolYear].filter(Boolean).join(' · ')}</span></div><div className="assessment-editor-progress"><div><strong>{completion.filled}/{completion.total}</strong><span>items complete</span></div><div className="assessment-progress"><span style={{ width: `${completion.percent}%` }} /></div></div>{!readOnly && <div className="assessment-context-actions"><button className="button secondary assessment-batch-button" type="button" onClick={() => void generateMissing()} disabled={batchWorking || Boolean(aiWorking) || saving}><WandSparkles size={16} /> {batchWorking ? 'Preparing paper…' : 'Generate & prepare paper'}</button><small>Generates empty slots, retries AI-generated blockers, runs deterministic QA, and finalizes automatically when the paper is structurally ready.</small></div>}</div>
+    <div className="assessment-editor-context panel"><div><small>Source TOS</small><strong>{view.sourceTosTitle}</strong><span>{[view.gradeLevel, view.learningArea, view.schoolYear].filter(Boolean).join(' · ')}</span></div><div className="assessment-editor-progress"><div><strong>{completion.filled}/{completion.total}</strong><span>items complete</span></div><div className="assessment-progress"><span style={{ width: `${completion.percent}%` }} /></div></div>{!readOnly && <div className="assessment-context-actions"><button className="button secondary assessment-batch-button" type="button" onClick={() => void generateMissing()} disabled={batchWorking || Boolean(aiWorking) || saving}><WandSparkles size={16} /> {batchWorking ? 'Preparing paper…' : 'Generate & prepare paper'}</button><small>Generates empty slots, retries AI-generated blockers, runs deterministic QA, and saves a reviewable draft. Finalization always requires your explicit confirmation.</small></div>}</div>
     <section className="panel assessment-score-summary"><div><strong>Items</strong><span>{view.items.length} / {view.totalItems}</span></div><div><strong>Total points</strong><span>{completion.totalPoints}</span></div><div><strong>Completed</strong><span>{completion.filled} / {completion.total}</span></div><div><strong>Needs review</strong><span>{completion.needsReview}</span></div><div><strong>Objective points</strong><span>{completion.objectivePoints}</span></div><div><strong>Teacher-scored points</strong><span>{completion.teacherScoredPoints}</span></div></section>
     {!readOnly && settings && <section className="panel assessment-settings-panel"><div className="assessment-section-heading"><span><ShieldCheck size={15} /></span><div><h2>Question types and distribution</h2><p>Teacher-controlled settings. TOS item allocation is unchanged.</p></div></div><div className="assessment-allowed-types">{TYPE_OPTIONS.map((option) => <label key={option.value}><input type="checkbox" checked={allowedTypes.includes(option.value)} onChange={(event) => { const nextAllowed = event.target.checked ? [...allowedTypes, option.value] : allowedTypes.filter((type) => type !== option.value); if (!nextAllowed.length) return; updateSettings({ allowedTypes: nextAllowed }) }} /><span>{typeLabel(option.value)}</span></label>)}</div><div className="assessment-distribution-row"><label>Mode<select value={text(settings.mode)} onChange={(event) => updateSettings({ mode: event.target.value as AssessmentSettings['mode'] })}><option value="auto_balanced">Auto / balanced · grouped sections</option><option value="fixed_counts">Fixed counts</option><option value="percentages">Percentages</option><option value="manual_per_item">Manual per item</option></select></label><label>Target total points<input type="number" min="0" step="1" value={settings.targetTotalPoints === null || settings.targetTotalPoints === undefined ? '' : String(settings.targetTotalPoints)} onChange={(event) => updateSettings({ targetTotalPoints: event.target.value === '' ? null : number(event.target.value, 0) })} /></label><span>{targetPointsMessage(settings.targetTotalPoints, completion.totalPoints, view.items.length)}</span></div>{(settings.mode === 'fixed_counts' || settings.mode === 'percentages') && <div className="assessment-distribution-fields"><strong>{settings.mode === 'fixed_counts' ? 'Items per type' : 'Percentage of item slots per type'}</strong>{allowedTypes.map((type) => <label key={`${settings.mode}-${type}`}>{typeLabel(type)}<input type="number" min="0" step={settings.mode === 'fixed_counts' ? '1' : '0.1'} value={String(object(settings[settings.mode === 'fixed_counts' ? 'counts' : 'percentages'])[type] ?? '')} onChange={(event) => updateSettingsMap(settings.mode === 'fixed_counts' ? 'counts' : 'percentages', type, event.target.value)} /></label>)}<small>Counts and percentages are reconciled deterministically to {view.items.length} item slots when applied. Question types are kept in contiguous test-paper sections following the order shown above. Point weight remains a separate metric.</small></div>}<div className="assessment-distribution-fields"><strong>Default points for new items</strong>{allowedTypes.map((type) => <label key={`points-${type}`}>{typeLabel(type)}<input type="number" min="0.1" step="0.5" value={String(object(settings.defaultPoints)[type] ?? defaultPointsForType(view, type))} onChange={(event) => updateSettingsMap('defaultPoints', type, event.target.value)} /></label>)}<small>These are editable convenience defaults; current item scores remain unchanged until a distribution is applied.</small></div><button className="button secondary" type="button" onClick={applyDistribution}><Sparkles size={15} /> Apply distribution to empty slots</button><small className="assessment-usage-estimate">{usageEstimates.length ? `Today’s GuroDesk request estimate (approximate): ${usageEstimates.map((entry) => `${entry.model} ${entry.requestCount}`).join(' · ')}. Provider usage/quota may differ.` : 'No local AI requests recorded today. Provider usage/quota may differ.'}</small></section>}
     {batchWorking && <div className="assessment-batch-progress panel"><div><LoaderCircle size={17} className="spin" /><strong>{batchStage === 'visuals' ? 'Enriching diagrams' : batchStage === 'qa' ? 'Preparing paper' : 'Generating missing items'}</strong><span>{batchProgress.succeeded}/{batchProgress.total} completed · {batchProgress.processed}/{batchProgress.total} processed{batchProgress.failed ? ` · ${batchProgress.failed} failed` : ''}{batchProgress.remaining ? ` · ${batchProgress.remaining} remaining` : ''}</span></div><button className="button ghost" type="button" onClick={cancelBatchGeneration}><X size={15} /> Cancel</button></div>}
