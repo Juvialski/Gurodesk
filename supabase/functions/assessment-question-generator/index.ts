@@ -57,6 +57,7 @@ function buildGenerationPrompt(type: QuestionType, immutable: Row, language: str
   return [
     'Draft exactly one editable assessment item for a Philippine DepEd teacher. Teacher validation and professional judgment are mandatory.',
     'OFFICIAL POLICY BOUNDARY: AI may draft assessment content only subject to teacher validation, professional judgment, and curriculum alignment. It does not determine grades or replace teacher judgment.',
+    'Official source: https://www.deped.gov.ph/wp-content/uploads/DO_s2026_015r.pdf',
     'Never alter the fixed item number, competency, cognitive category, question type, or points.',
     `Grade level (server-verified): ${gradeLevel}`,
     `Learning area (server-verified): ${learningArea}`,

@@ -17,7 +17,7 @@ assert.match(qa, /verifyRecommended: level === 'high'/, 'automatic independent v
 assert.match(editor, /concurrency: 1,/, 'phone-first bulk generation is sequential')
 assert.match(editor, /checkpointAssessmentGenerationSuccess\(checkpoint, item\)[\s\S]{0,180}setBatchFailures\(checkpointFailures\(checkpoint\)\)/, 'successful retries clear stale visible failure entries')
 assert.match(e2e, /assessment-editor-context:visible/, 'E2E Source TOS lookup scopes to the visible responsive context')
-assert.match(e2e, /strong:visible/, 'E2E Source TOS title excludes the hidden duplicate')
+assert.match(e2e, /expect\(sourceContext\)\.toContainText\(tosTitle\)/, 'E2E Source TOS identity is asserted on the visible responsive context without coupling to a child tag')
 assert.doesNotMatch(batchTest, /onSuggestion:\s*\(\) => events\.push\(/, 'batch test callback must not return Array.push number')
 
 console.log('Assessment generation stability hotfix validation passed: legacy backend compatibility, bounded request pressure, Edge transport retry/pause, live failure reconciliation, and visible E2E targeting are preserved.')
