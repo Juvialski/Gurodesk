@@ -30,8 +30,10 @@ test('creates an assessment from a finalized TOS and preserves edits across relo
 
   await expect(appPage).toHaveURL(/\/assessments\/[0-9a-f-]+$/)
   await expect(appPage.getByRole('heading', { name: 'Assessment editor' })).toBeVisible({ timeout: 30_000 })
-  const sourceContext = appPage.locator('.assessment-editor-context').filter({ hasText: 'Source TOS' })
-  await expect(sourceContext.getByText(tosTitle, { exact: true })).toBeVisible()
+  const sourceContext = appPage.locator('.assessment-editor-context:visible').filter({ hasText: 'Source TOS' })
+  const visibleSourceTitle = sourceContext.locator('strong:visible').filter({ hasText: tosTitle })
+  await expect(visibleSourceTitle).toHaveCount(1)
+  await expect(visibleSourceTitle).toBeVisible()
 
   const prompt = appPage.getByLabel('Question / prompt')
   await prompt.fill(promptText)

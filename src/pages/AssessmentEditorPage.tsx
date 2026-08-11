@@ -494,7 +494,7 @@ export function AssessmentEditorPage() {
         assessment: persisted,
         demo: isDemo,
         itemIds: missingItems.map((item) => item.id),
-        concurrency: 2,
+        concurrency: 1,
         signal: controller.signal,
         onProgress: (progress) => {
           setBatchProgress({ processed: progress.processed, total: progress.total, succeeded: progress.succeeded, failed: progress.failed, cancelled: progress.cancelled, remaining: progress.remaining })
@@ -512,6 +512,7 @@ export function AssessmentEditorPage() {
           if (checkpoint) {
             checkpoint = checkpointAssessmentGenerationSuccess(checkpoint, item)
             saveAssessmentGenerationCheckpoint(checkpoint)
+            setBatchFailures(checkpointFailures(checkpoint))
           }
         },
         onSuggestion: (item, suggestion) => {
@@ -533,6 +534,7 @@ export function AssessmentEditorPage() {
           if (checkpoint) {
             checkpoint = checkpointAssessmentGenerationSuccess(checkpoint, item)
             saveAssessmentGenerationCheckpoint(checkpoint)
+            setBatchFailures(checkpointFailures(checkpoint))
           }
         },
       })
@@ -566,7 +568,7 @@ export function AssessmentEditorPage() {
         }
       }
       if (quotaPaused || controller.signal.aborted) {
-        setBatchMessage(`${summary.succeeded} generated and saved · ${summary.failed} failed. Automatic preparation paused because the provider limit was reached; saved work can be resumed later.`)
+        setBatchMessage(`${summary.succeeded} generated and saved · ${summary.failed} failed. Automatic preparation paused at an AI service/provider boundary; saved work can be resumed safely.`)
       } else {
         const currentPreparedSource = recordRef.current ?? latest
         await runAutomaticPaperPreparation(currentPreparedSource, controller)

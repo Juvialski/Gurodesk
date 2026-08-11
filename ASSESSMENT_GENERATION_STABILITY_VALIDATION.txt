@@ -1,0 +1,42 @@
+GuroDesk assessment generation stability hotfix validation
+Date: 2026-08-11
+
+BASELINE
+- Full-project source: gurodesk-assessment-word-first-visual-split-final.zip / GitHub 335652d line.
+
+FIXES
+- Corrected the TypeScript unit-test callback that returned Array.push()'s number.
+- Corrected the Playwright Source TOS locator to exclude hidden responsive duplicates.
+- Cleared stale batch failure rows immediately when a retry succeeds.
+- Set phone-first Generate Missing Items concurrency to 1.
+- Classified Supabase Functions fetch/network failures as retryable edge_transport errors.
+- Paused the remaining batch after an exhausted AI service/Edge transport boundary instead of cascading failures across later items.
+- Preserved already-generated questions when visual/verifier service work fails.
+- Added backward compatibility for the previous combined question+visual Edge contract.
+- Avoided a duplicate visual request when a legacy generator already returned a valid diagram.
+- Automatic separate visual requests now run only for required visuals; helpful visuals are deferred.
+- Automatic independent verification is now high-risk-only; medium-risk items keep deterministic QA without another Gemini request.
+
+VALIDATION COMPLETED HERE
+- 20 dependency-free check-*.mjs validators: PASS
+- 11 retained validators could not start because this isolated runtime has no project node_modules and npm offline install is missing yallist@3.1.1: NOT RUN
+- Validator failures: 0
+- Focused guards PASS:
+  * check-assessment-generation-stability.mjs
+  * check-assessment-auto-prepare.mjs
+  * check-assessment-math-visuals.mjs
+  * check-e2e-stability.mjs
+- TypeScript transpileModule syntax diagnostics on all 6 modified TS/TSX files: PASS
+- npm ci --offline: unavailable because yallist@3.1.1 is not cached.
+
+GITHUB ACTIONS STILL REQUIRED
+- typecheck
+- typecheck:tests
+- typecheck:e2e
+- full validate:all
+- unit tests
+- build
+- local Supabase integration
+- Chromium E2E
+
+No migration was added and no production data/RLS behavior was changed.

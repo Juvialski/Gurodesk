@@ -289,3 +289,16 @@ CI baseline fixes included in this checkpoint:
 - `tests/e2e/assessment-flow.spec.ts` scopes the Source TOS title assertion to the visible `.assessment-editor-context`, avoiding the hidden duplicate title locator that failed Chromium.
 
 Static release guards cover the separated visual operation, one-retry visual-only repair ceiling, successful-question provider pause, contiguous-section finalization, Word SVG embedding, native Word matching/info tables, and Word-first preview action.
+
+
+## Assessment generation stability hotfix — 2026-08-11
+
+- Fixed stale failure UI: a successful retry now immediately removes that item from the visible batch-failure list.
+- Bulk generation is sequential (`concurrency: 1`) to reduce mobile/network and BYOK pressure.
+- `FunctionsFetchError` / `Failed to send a request to the Edge Function` is classified as retryable Edge transport failure; after its bounded scheduler retries are exhausted, the batch pauses instead of cascading the same failure across remaining items.
+- The post-generation verifier/visual paths use the same service-boundary pause decision, preserving the already-generated question before stopping.
+- Backward compatibility is restored for an older deployed assessment generator: legacy question responses that already contain a validated `visual` are accepted even without `visualRequirement`/`visualIntent`, and GuroDesk does not issue the newer second `visual` operation in that case.
+- With the new generator contract, only `visualRequirement=required` triggers the automatic second visual request. `helpful` visuals are deferred so ordinary self-contained questions do not double provider traffic.
+- Independent opposite-Lite verification is now automatic only for high-risk items; medium-risk items still receive deterministic QA without an extra Gemini request.
+- CI fixes included: batch-regression callback returns `void`, and the Source TOS Playwright assertion targets the actually visible context/title rather than a hidden responsive duplicate.
+- No migration was added.

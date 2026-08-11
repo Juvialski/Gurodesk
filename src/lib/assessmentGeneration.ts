@@ -348,10 +348,16 @@ export function validateAssessmentCandidate(value: unknown, questionType?: Quest
   const referencedResources = object.referencedResources.map((entry) => clean(entry, 180))
   if (referencedResources.some((entry) => !entry) || !referencedResources.every((entry) => teacherResources.includes(entry))) throw new Error('The AI candidate referenced an unlisted teacher resource.')
   const normalizedAnswer = normalizeAnswer(asObject(object.answer), candidateType)
-  const visualRequirement = object.visualRequirement === undefined ? (object.visual ? 'required' : 'none') : clean(object.visualRequirement, 20) as AssessmentVisualRequirement
+  const legacyVisualPresent = object.visual !== undefined && object.visual !== null
+  const visualRequirement = object.visualRequirement === undefined ? (legacyVisualPresent ? 'required' : 'none') : clean(object.visualRequirement, 20) as AssessmentVisualRequirement
   if (!['none', 'helpful', 'required'].includes(visualRequirement)) throw new Error('The AI candidate visual requirement is invalid.')
-  const visualIntent = object.visualIntent === undefined ? '' : clean(object.visualIntent, 500)
-  if (visualRequirement !== 'none' && !visualIntent) throw new Error('A helpful or required visual needs a concise visual intent.')
+  // Backward compatibility: the pre-split Edge Function returned validated visual
+  // geometry in the question response and had no visualRequirement/visualIntent
+  // fields. Accept that already-supplied visual without forcing a second request.
+  const visualIntent = object.visualIntent === undefined
+    ? (legacyVisualPresent ? 'Use the attached validated diagram for this question.' : '')
+    : clean(object.visualIntent, 500)
+  if (visualRequirement !== 'none' && !visualIntent && !legacyVisualPresent) throw new Error('A helpful or required visual needs a concise visual intent.')
   let visual: AssessmentVisual | null | undefined
   if (object.visual !== undefined && object.visual !== null) {
     const visualResult = validateAssessmentVisual(object.visual)
@@ -534,12 +540,18 @@ function providerRequestCount(value: unknown) {
 }
 
 function providerFailureRetryable(category: string, status: number | undefined) {
-  if (category === 'provider_rate_limit') return true
+  if (category === 'provider_rate_limit' || category === 'edge_transport') return true
   if (NON_RETRYABLE_AI_CATEGORIES.has(category)) return false
   // Treat an unclassified 429 as a quota boundary. This avoids silently
   // spending two more requests when the provider has already refused one.
   if (status === 429) return false
   return [408, 425, 500, 502, 503, 504].includes(Number(status ?? 0))
+}
+
+function edgeTransportFailure(error: { name?: string; message?: string }, status: number | undefined) {
+  if (Number(status ?? 0) > 0) return false
+  const value = `${error.name ?? ''} ${error.message ?? ''}`
+  return /FunctionsFetchError|Failed to send a request to the Edge Function|failed to fetch|fetch failed|network(?:error| error)?/i.test(value)
 }
 
 function oppositeLiteQueueModel(generatorModel?: string) {
@@ -559,6 +571,7 @@ async function invokeAssessmentAi(body: UnknownRecord, signal?: AbortSignal, mod
       // structured error body when available so teachers see the real failure
       // instead of the opaque "non-2xx status" wrapper.
       const errorValue = response.error as unknown as {
+        name?: string
         status?: number
         message?: string
         context?: {
@@ -591,7 +604,11 @@ async function invokeAssessmentAi(body: UnknownRecord, signal?: AbortSignal, mod
       }
       totalProviderRequests += observedProviderRequests
       if (observedProviderRequests > 1) assessmentRequestScheduler.recordObservedProviderRequests(model, observedProviderRequests - 1)
-      const message = serverMessage || `${errorValue.message || 'Assessment AI request failed.'}${status ? ` (provider status ${status})` : ''}`
+      const transportFailure = edgeTransportFailure(errorValue, status)
+      if (!failureCategory && transportFailure) failureCategory = 'edge_transport'
+      const message = serverMessage || (transportFailure
+        ? 'The assessment service could not be reached. GuroDesk retries temporary connection failures automatically; saved work is preserved.'
+        : `${errorValue.message || 'Assessment AI request failed.'}${status ? ` (provider status ${status})` : ''}`)
       throw Object.assign(new Error(message), {
         status,
         retryAfterMs,
@@ -715,8 +732,9 @@ async function adaptiveReview(assessment: AssessmentRecord, item: AssessmentItem
     return { candidate: repaired.candidate, deterministic: repairedDeterministic, risk: classifyAssessmentRisk(itemWithCandidate(item, repaired.candidate)), verifier, requestsUsed, state: 'needs_review' as const, repairAttempted: true }
   } catch (error) {
     // Review unavailability is a warning, not a reason to lose a valid draft.
-    const message = String((error as { message?: unknown })?.message ?? error).toLocaleLowerCase('en')
-    const quotaPaused = /429|quota|rate.?limit|provider/.test(message)
+    // Infrastructure/provider boundaries still pause the remainder of a bulk run
+    // after this already-valid question has been preserved.
+    const quotaPaused = batchGenerationShouldPause(error)
     return { candidate, deterministic, risk, verifier, requestsUsed, state: 'needs_review' as const, repairAttempted: false, quotaPaused }
   }
 }
@@ -774,10 +792,12 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
   let visualRequestsUsed = 0
   let visualError = ''
   const initialVisualRequirement = candidate.visualRequirement ?? 'none'
-  if (initialVisualRequirement === 'none') {
-    // An explicit null clears any stale diagram when replacing a prior question.
-    candidate = { ...candidate, visual: null }
-  } else {
+  if (candidate.visual) {
+    // Legacy/backward-safe path: older deployed generators may already return a
+    // validated diagram with the question. Keep it and never issue an unsupported
+    // second `visual` operation against that backend.
+    candidate = { ...candidate, visual: clone(candidate.visual) }
+  } else if (initialVisualRequirement === 'required') {
     try {
       const visualResult = await generateAssessmentVisualSuggestion({ assessment, item, candidate, visualIntent: candidate.visualIntent, demo, signal })
       visualRequestsUsed += visualResult.requestsUsed
@@ -787,6 +807,11 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
       candidate = { ...candidate, visual: null }
       if (batchGenerationShouldPause(visualFailure)) quotaPaused = true
     }
+  } else {
+    // "helpful" visuals are intentionally deferred. They must never double the
+    // provider traffic of an otherwise self-contained question during bulk runs.
+    // A required visual still receives its dedicated pass above.
+    candidate = { ...candidate, visual: null }
   }
 
   const review = await adaptiveReview(assessment, item, candidate, demo, signal, model)
@@ -796,7 +821,7 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
 
   // A verifier repair may legitimately rewrite visual intent. Regenerate only the
   // diagram, never the repaired question, and only when the repaired item asks for one.
-  if (review.repairAttempted && (mergedCandidate.visualRequirement ?? 'none') !== 'none' && !mergedCandidate.visual) {
+  if (review.repairAttempted && (mergedCandidate.visualRequirement ?? 'none') === 'required' && !mergedCandidate.visual) {
     try {
       const repairedVisual = await generateAssessmentVisualSuggestion({ assessment, item, candidate: mergedCandidate, visualIntent: mergedCandidate.visualIntent, demo, signal })
       visualRequestsUsed += repairedVisual.requestsUsed
@@ -837,9 +862,9 @@ export async function generateAssessmentItemSuggestion(args: { assessment: Asses
 
 function batchGenerationShouldPause(error: unknown) {
   const failureCategory = String((error as { failureCategory?: unknown })?.failureCategory ?? '')
-  if (['provider_configuration', 'provider_authentication', 'provider_quota', 'provider_rate_limit', 'unknown_provider_failure'].includes(failureCategory)) return true
+  if (['provider_configuration', 'provider_authentication', 'provider_quota', 'provider_rate_limit', 'unknown_provider_failure', 'edge_transport'].includes(failureCategory)) return true
   const message = String((error as { message?: unknown })?.message ?? error)
-  return /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured|rejected the (?:structured )?request configuration/i.test(message)
+  return /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured|rejected the (?:structured )?request configuration|assessment service could not be reached|failed to send a request to the edge function/i.test(message)
 }
 
 export async function generateMissingAssessmentItems(options: AssessmentGenerationBatchOptions): Promise<AssessmentGenerationBatchSummary> {
@@ -916,7 +941,10 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
           progress(item.id, 'failed', message)
           // If a provider/credential boundary is exhausted, do not burn a
           // request on every remaining item. The teacher can resume later.
-          if (batchGenerationShouldPause(error)) paused = true
+          if (batchGenerationShouldPause(error)) {
+            summary.providerPaused = true
+            paused = true
+          }
         }
       }
     }

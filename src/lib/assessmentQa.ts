@@ -322,7 +322,10 @@ export function classifyAssessmentRisk(item: unknown): AssessmentRiskResult {
   if (numberValue(value.pointsPossible ?? value.points, 1) >= 5) add('high point value', 1)
   const score = signals.reduce((sum, signal) => sum + signal.weight, 0)
   const level = score >= 4 ? 'high' : score >= 2 ? 'medium' : 'low'
-  return { level, score, signals, verifyRecommended: level !== 'low' }
+  // Independent Gemini verification is intentionally reserved for high-risk
+  // items. Medium-risk questions still receive deterministic QA but do not
+  // automatically double provider traffic during bulk generation.
+  return { level, score, signals, verifyRecommended: level === 'high' }
 }
 
 function verifierObject(value: unknown): UnknownRecord {

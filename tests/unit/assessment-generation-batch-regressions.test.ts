@@ -176,7 +176,9 @@ describe('assessment generation batch accounting and resume regressions', () => 
         events.push(`checkpoint:${item.id}`)
         expect(item.prompt).toBeTruthy()
       },
-      onSuggestion: () => events.push('final-suggestion'),
+      onSuggestion: () => {
+        events.push('final-suggestion')
+      },
     })
 
     expect(summary.succeeded).toBe(1)
@@ -200,6 +202,26 @@ describe('assessment generation batch accounting and resume regressions', () => 
     expect(summary.providerPaused).toBe(true)
     expect(summary.cancelled).toBe(2)
     expect(summary.results[0].id).toBe('batch-item-1')
+  })
+
+  it('stops the batch after an exhausted Edge transport failure instead of cascading across remaining items', async () => {
+    const source = assessmentRecord(items(3))
+    const generate = vi.fn(async () => {
+      throw Object.assign(new Error('The assessment service could not be reached. GuroDesk retries temporary connection failures automatically; saved work is preserved.'), { failureCategory: 'edge_transport' })
+    })
+
+    const summary = await generateMissingAssessmentItems({
+      assessment: source,
+      demo: false,
+      concurrency: 1,
+      generate,
+    })
+
+    expect(generate).toHaveBeenCalledTimes(1)
+    expect(summary.attempted).toBe(1)
+    expect(summary.failed).toBe(1)
+    expect(summary.providerPaused).toBe(true)
+    expect(summary.cancelled).toBe(2)
   })
 
   it('does not burn the remainder of a batch after an exhausted quota boundary', async () => {

@@ -78,6 +78,60 @@ describe('quota-free assessment AI orchestration', () => {
     expect(suggestion.repairAttempted).toBe(false)
   })
 
+  it('accepts a legacy generator visual without issuing the new second visual request', async () => {
+    const item = assessmentItem('multiple_choice')
+    const assessment = assessmentRecord([item])
+    const legacyVisual = {
+      id: 'legacy-visual', kind: 'geometry', version: 1, width: 320, height: 200,
+      altText: 'A single horizontal line segment.',
+      primitives: [{ type: 'segment', x1: 40, y1: 100, x2: 280, y2: 100, color: 'ink' }],
+    }
+    mocks.invoke.mockResolvedValueOnce({
+      data: { candidate: { ...multipleChoiceCandidate(), visual: legacyVisual }, model: 'gemini-3.5-flash-lite', fallbackUsed: false },
+      error: null,
+    })
+
+    const suggestion = await generateAssessmentItemSuggestion({ assessment, item, demo: false })
+
+    expect(mocks.invoke).toHaveBeenCalledTimes(1)
+    expect(suggestion.candidate.visual).toBeTruthy()
+    expect(suggestion.visualRequestsUsed).toBe(0)
+  })
+
+  it('does not automatically spend a second provider call for a merely helpful visual', async () => {
+    const item = assessmentItem('multiple_choice')
+    const assessment = assessmentRecord([item])
+    mocks.invoke.mockResolvedValueOnce({
+      data: {
+        candidate: { ...multipleChoiceCandidate(), visualRequirement: 'helpful', visualIntent: 'Optionally show a simple nonessential shape reference.' },
+        model: 'gemini-3.5-flash-lite', fallbackUsed: false,
+      },
+      error: null,
+    })
+
+    const suggestion = await generateAssessmentItemSuggestion({ assessment, item, demo: false })
+
+    expect(mocks.invoke).toHaveBeenCalledTimes(1)
+    expect(suggestion.visualRequestsUsed).toBe(0)
+    expect(suggestion.candidate.visual).toBeNull()
+  })
+
+  it('keeps medium-risk geometry on deterministic QA without an automatic verifier call', async () => {
+    const item = assessmentItem('multiple_choice')
+    const assessment = assessmentRecord([item])
+    const candidate = { ...multipleChoiceCandidate(), prompt: 'In geometry, which statement describes a three-sided shape?' }
+    mocks.invoke.mockResolvedValueOnce({
+      data: { candidate, model: 'gemini-3.5-flash-lite', fallbackUsed: false },
+      error: null,
+    })
+
+    const suggestion = await generateAssessmentItemSuggestion({ assessment, item, demo: false })
+
+    expect(suggestion.risk?.level).toBe('medium')
+    expect(suggestion.risk?.verifyRecommended).toBe(false)
+    expect(mocks.invoke).toHaveBeenCalledTimes(1)
+  })
+
   it('reviews a high-risk item and performs only one targeted repair', async () => {
     const item = assessmentItem('problem_solving', {
       cognitiveCategorySnapshot: { id: 'analyzing', label: 'Analyzing', shortLabel: 'A' },
