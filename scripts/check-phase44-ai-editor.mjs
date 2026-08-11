@@ -81,7 +81,9 @@ assert.equal(qa.validateAssessmentItemDeterministic({ ...typedItems[5], answer: 
 assert.equal(qa.validateAssessmentItemDeterministic({ ...typedItems[8], answer: { ...typedItems[8].answer, mappings: [{ promptId: 'p1', choiceId: 'A' }, { promptId: 'p1', choiceId: 'A' }] } }).valid, false, 'matching cannot reuse a choice by default')
 assert.equal(qa.validateAssessmentItemDeterministic({ ...typedItems[7], answer: { ...typedItems[7].answer, finalAnswer: 0 } }).valid, true, 'zero is a valid finite numerical final answer')
 assert.equal(qa.classifyAssessmentRisk(typedItems[0]).verifyRecommended, false)
-assert.equal(qa.classifyAssessmentRisk(typedItems[6]).verifyRecommended, true)
+assert.equal(qa.classifyAssessmentRisk(typedItems[6]).verifyRecommended, false, 'medium-risk numerical items keep deterministic QA without automatically spending a verifier request')
+const highRiskNumerical = { ...typedItems[6], prompt: 'Solve this algebra equation and justify your reasoning.' }
+assert.equal(qa.classifyAssessmentRisk(highRiskNumerical).verifyRecommended, true, 'high-risk mathematical reasoning still receives independent verification')
 assert.equal(qa.parseAssessmentVerifierResult({ status: 'pass', answerValid: true, competencyAligned: true, cognitiveAlignment: 'good', ambiguityDetected: false, factualOrMathIssue: false, issues: [], repairGuidance: [] }).status, 'pass')
 assert.equal(qa.parseAssessmentVerifierResult({ status: 'pass', answerValid: false, competencyAligned: true, cognitiveAlignment: 'good', ambiguityDetected: false, factualOrMathIssue: false, issues: ['wrong answer'], repairGuidance: ['recalculate'] }).status, 'pass', 'explicit verifier status is retained for audit; caller still uses verifierRequiresRepair')
 assert.equal(qa.verifierRequiresRepair(qa.parseAssessmentVerifierResult({ status: 'pass', answerValid: false, competencyAligned: true, cognitiveAlignment: 'good', ambiguityDetected: false, factualOrMathIssue: false, issues: [], repairGuidance: [] })), true)
