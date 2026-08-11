@@ -9,18 +9,18 @@
 
 const SIMPLE_COMMANDS: Array<[RegExp, string]> = [
   [/\\angle\s*/gu, '∠'],
-  [/\\times\b/gu, '×'],
-  [/\\cdot\b/gu, '·'],
-  [/\\div\b/gu, '÷'],
-  [/\\pm\b/gu, '±'],
-  [/\\leq?\b/gu, '≤'],
-  [/\\geq?\b/gu, '≥'],
-  [/\\neq\b/gu, '≠'],
-  [/\\approx\b/gu, '≈'],
-  [/\\infty\b/gu, '∞'],
-  [/\\parallel\b/gu, '∥'],
-  [/\\perp\b/gu, '⊥'],
-  [/\\pi\b/gu, 'π'],
+  [/\\times(?![A-Za-z])/gu, '×'],
+  [/\\cdot(?![A-Za-z])/gu, '·'],
+  [/\\div(?![A-Za-z])/gu, '÷'],
+  [/\\pm(?![A-Za-z])/gu, '±'],
+  [/\\leq?(?![A-Za-z])/gu, '≤'],
+  [/\\geq?(?![A-Za-z])/gu, '≥'],
+  [/\\neq(?![A-Za-z])/gu, '≠'],
+  [/\\approx(?![A-Za-z])/gu, '≈'],
+  [/\\infty(?![A-Za-z])/gu, '∞'],
+  [/\\parallel(?![A-Za-z])/gu, '∥'],
+  [/\\perp(?![A-Za-z])/gu, '⊥'],
+  [/\\pi(?![A-Za-z])/gu, 'π'],
 ]
 
 function simpleFractions(value: string) {

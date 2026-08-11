@@ -134,7 +134,11 @@ describe('assessment export model and renderer regressions', () => {
     expect(student.questions.every((question) => !('answer' in question) && !('scoringGuide' in question))).toBe(true)
     expect(teacher.questions.every((question) => 'answer' in question)).toBe(true)
     expect(answerKey.questions.every((question) => 'answer' in question && !('prompt' in question))).toBe(true)
-    expect(student.questions[0].visual).toEqual(ASSESSMENT_VISUAL_FIXTURES.marksAndLabels)
+    expect(student.questions[0].visual).toEqual({
+      ...ASSESSMENT_VISUAL_FIXTURES.marksAndLabels,
+      altText: 'A geometry diagram with mathematical line work and labels. Line segments are shown. Angle markings are shown. Congruence markings are shown. Parallel or perpendicular markings are shown.',
+    })
+    expect(student.questions[0].visual?.primitives).toEqual(ASSESSMENT_VISUAL_FIXTURES.marksAndLabels.primitives)
     expect(teacher.questions[0].visual).toEqual(ASSESSMENT_VISUAL_FIXTURES.marksAndLabels)
     expect(answerKey.questions[0].visual).toEqual(ASSESSMENT_VISUAL_FIXTURES.marksAndLabels)
     expect(student.metadata.totalItems).toBe(11)

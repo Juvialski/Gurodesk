@@ -91,7 +91,10 @@ describe('deterministic final assessment QA hardening', () => {
     const missingLabels = assessmentItem('problem_solving', {
       prompt: 'Based on the provided diagram, determine ∠ABC and ∠CBD.',
       answer: { type: 'problem_solving', finalAnswer: '110°', solutionOutline: 'Use a linear pair.', subparts: [] },
-      visual: ASSESSMENT_VISUAL_FIXTURES.regularHexagon,
+      visual: {
+        ...ASSESSMENT_VISUAL_FIXTURES.regularHexagon,
+        primitives: ASSESSMENT_VISUAL_FIXTURES.regularHexagon.primitives.filter((primitive) => primitive.type !== 'textLabel'),
+      },
     })
     expect(assessmentVisualSemanticFindings(missingLabels).some((issue) => issue.code === 'visual-label-mismatch' && issue.severity === 'error')).toBe(true)
   })

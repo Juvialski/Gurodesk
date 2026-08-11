@@ -349,20 +349,26 @@ export function validateAssessmentCandidate(value: unknown, questionType?: Quest
   if (referencedResources.some((entry) => !entry) || !referencedResources.every((entry) => teacherResources.includes(entry))) throw new Error('The AI candidate referenced an unlisted teacher resource.')
   const normalizedAnswer = normalizeAnswer(asObject(object.answer), candidateType)
   const legacyVisualPresent = object.visual !== undefined && object.visual !== null
-  const visualRequirement = object.visualRequirement === undefined ? (legacyVisualPresent ? 'required' : 'none') : clean(object.visualRequirement, 20) as AssessmentVisualRequirement
+  const hasExplicitVisualRequirement = object.visualRequirement !== undefined
+  const visualRequirement = hasExplicitVisualRequirement
+    ? clean(object.visualRequirement, 20) as AssessmentVisualRequirement
+    : (legacyVisualPresent ? 'helpful' : 'none')
   if (!['none', 'helpful', 'required'].includes(visualRequirement)) throw new Error('The AI candidate visual requirement is invalid.')
-  // Backward compatibility: the pre-split Edge Function returned validated visual
-  // geometry in the question response and had no visualRequirement/visualIntent
-  // fields. Accept that already-supplied visual without forcing a second request.
+  // Backward compatibility: the pre-split Edge Function returned geometry in
+  // the question response without visualRequirement/visualIntent. Preserve a
+  // valid legacy visual, but do not classify it as "required" and trigger an
+  // unsupported second provider call solely because old metadata is absent.
   const visualIntent = object.visualIntent === undefined
     ? (legacyVisualPresent ? 'Use the attached validated diagram for this question.' : '')
     : clean(object.visualIntent, 500)
-  if (visualRequirement !== 'none' && !visualIntent && !legacyVisualPresent) throw new Error('A helpful or required visual needs a concise visual intent.')
+  if (hasExplicitVisualRequirement && visualRequirement !== 'none' && !visualIntent) throw new Error('A helpful or required visual needs a concise visual intent.')
   let visual: AssessmentVisual | null | undefined
   if (object.visual !== undefined && object.visual !== null) {
     const visualResult = validateAssessmentVisual(object.visual)
-    if (!visualResult.valid) throw new Error(`The AI candidate visual is invalid: ${visualResult.errors.slice(0, 3).join(' ')}`)
-    visual = object.visual as AssessmentVisual
+    // A malformed optional/legacy diagram must not discard an otherwise valid
+    // generated question. Final deterministic QA still blocks any stem that
+    // actually depends on a now-missing figure.
+    visual = visualResult.valid ? object.visual as AssessmentVisual : null
   } else if (object.visual === null) visual = null
   if ([prompt, rationale, ...answerStrings(normalizedAnswer)].some((entry) => resourceClaimLooksUnverified(entry, teacherResources))) throw new Error('The AI candidate included an unverified resource, device, local fact, URL, or page claim.')
   return { questionType: candidateType, prompt, answer: normalizedAnswer, rationale, referencedResources, visualRequirement, visualIntent, ...(visual === undefined ? {} : { visual }) }

@@ -407,12 +407,20 @@ export function validateAssessmentCandidate(
   const rationale = source.rationale === undefined && !rationaleRequired ? '' : text(source.rationale, 'Assessment rationale', 1600, rationaleRequired)
   const references = stringList(source.referencedResources, 'Referenced resources', 10, 180, { unique: true })
   if (!references.every((entry) => teacherResources.includes(entry))) throw new AssessmentContractError('The AI response referenced an unlisted teacher resource.', 'RESOURCE_INVALID')
-  const visualRequirement = source.visualRequirement === undefined
-    ? (source.visual && source.visual !== null ? 'required' : 'none')
-    : text(source.visualRequirement, 'Visual requirement', 20)
+  const legacyVisualPresent = source.visual !== undefined && source.visual !== null
+  const hasExplicitVisualRequirement = source.visualRequirement !== undefined
+  const visualRequirement = hasExplicitVisualRequirement
+    ? text(source.visualRequirement, 'Visual requirement', 20)
+    // Pre-split generators could return a diagram without planning metadata.
+    // Treat that historical visual as helpful rather than forcing a second
+    // provider call. If the prompt truly depends on it and the visual is later
+    // dropped as invalid, deterministic final QA will surface the missing figure.
+    : (legacyVisualPresent ? 'helpful' : 'none')
   if (!['none', 'helpful', 'required'].includes(visualRequirement)) throw new AssessmentContractError('Visual requirement must be none, helpful, or required.', 'VISUAL_INVALID')
-  const visualIntent = source.visualIntent === undefined ? '' : text(source.visualIntent, 'Visual intent', 500, false)
-  if (visualRequirement !== 'none' && !visualIntent) throw new AssessmentContractError('Helpful or required visuals need a concise visual intent.', 'VISUAL_INVALID')
+  const visualIntent = source.visualIntent === undefined
+    ? (legacyVisualPresent ? 'Use the attached validated visual for this question.' : '')
+    : text(source.visualIntent, 'Visual intent', 500, false)
+  if (hasExplicitVisualRequirement && visualRequirement !== 'none' && !visualIntent) throw new AssessmentContractError('Helpful or required visuals need a concise visual intent.', 'VISUAL_INVALID')
   const rawVisual = source.visual === null || source.visual === undefined ? null : source.visual
   const visualResult = validateAssessmentVisual(rawVisual)
   // A malformed optional diagram must not waste an otherwise valid assessment

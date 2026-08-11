@@ -79,7 +79,11 @@ describe('safe assessment visuals', () => {
       authorshipState: 'manual',
     })
     const record = assessmentRecord([item])
-    expect(buildAssessmentStudentExportModel(record).questions[0].visual).toEqual(IRREGULAR_CONCAVE_PENTAGON_VISUAL)
+    expect(buildAssessmentStudentExportModel(record).questions[0].visual).toEqual({
+      ...IRREGULAR_CONCAVE_PENTAGON_VISUAL,
+      altText: 'A polygon outline with 5 vertices.',
+    })
+    expect(buildAssessmentStudentExportModel(record).questions[0].visual?.primitives).toEqual(IRREGULAR_CONCAVE_PENTAGON_VISUAL.primitives)
     expect(buildAssessmentTeacherExportModel(record).questions[0].visual).toEqual(IRREGULAR_CONCAVE_PENTAGON_VISUAL)
     expect(buildAssessmentAnswerKeyExportModel(record).questions[0].visual).toEqual(IRREGULAR_CONCAVE_PENTAGON_VISUAL)
   })

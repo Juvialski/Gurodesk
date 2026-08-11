@@ -16,7 +16,14 @@ function array(value: unknown) { return Array.isArray(value) ? value : [] }
 export function promptRequiresAssessmentVisual(prompt: string) { return VISUAL_DEPENDENCY.test(clean(prompt)) }
 
 function tokens(value: string) {
-  return clean(value).toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').split(/\s+/u).filter((token) => token.length > 1 && !STOPWORDS.has(token))
+  return clean(value).toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu, ' ').split(/\s+/u).filter((token) => {
+    if (!token || STOPWORDS.has(token)) return false
+    // Single-digit values and single-letter variables carry real mathematical
+    // evidence. Dropping them made questions such as 2+2 and 3+4 look
+    // textually identical and caused the bounded auto-repair loop to regenerate
+    // an already-different item again.
+    return token.length > 1 || /^[\p{L}\p{N}]$/u.test(token)
+  })
 }
 
 function tokenSimilarity(left: string, right: string) {
