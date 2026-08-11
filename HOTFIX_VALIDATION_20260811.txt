@@ -1,0 +1,23 @@
+GuroDesk TikZ / Word / CI hotfix validation — 2026-08-11
+
+PASS  TypeScript syntax/transpile check:
+      src/lib/assessmentExport.ts
+      src/lib/assessmentVisualPlanning.ts
+      src/pages/AssessmentEditorPage.tsx
+      tests/e2e/assessment-export-flow.spec.ts
+      tests/e2e/navigation-phone.spec.ts
+      tests/unit/assessment-visual-enrichment.test.ts
+      tests/unit/assessment-export-hardening.test.ts
+
+PASS  node scripts/check-assessment-math-visuals.mjs
+PASS  node scripts/check-assessment-paper-visual-enrichment.mjs
+PASS  runtime planner smoke: 20 geometry items => budget 5 => 5 selected
+PASS  empty-slot visual suppression reset smoke
+PASS  pdflatex compile of generated app-owned TikZ:
+      cartesianLinearGraph
+      convexQuadrilateral
+      irregularConcavePentagon
+      marksAndLabels
+      regularHexagon
+
+NOT RUN: complete npm test:ci / Playwright. The container could not complete dependency installation. GitHub CI remains the final full-environment validation.

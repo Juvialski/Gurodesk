@@ -13,7 +13,7 @@ const VISUAL_DEPENDENCY = /\b(?:shown|provided|given|displayed|illustrated)\s+(?
  * Keep optional candidates to relationships/representations, not bare shape
  * nouns. The assessment-level selector applies a one-in-four budget.
  */
-const HELPFUL_GEOMETRY = /\b(?:angle relationships?|adjacent angles?|vertical angles?|complementary angles?|supplementary angles?|interior angles?|exterior angles?|parallel lines?|perpendicular lines?|transversal|congruen(?:t|ce)|similar triangles?|circle|radius|diameter|chord|arc|coordinate plane|cartesian|plot|graph(?:ing)?\s+(?:a|the|this)?\s*(?:function|relation|line|curve)|angulo|poligon|tatsulok|parisukat|bilog|koordinat|grap)\b/iu
+const HELPFUL_GEOMETRY = /\b(?:angle relationships?|adjacent angles?|vertical angles?|complementary angles?|supplementary angles?|linear pairs?|interior angles?|exterior angles?|parallel lines?|perpendicular lines?|transversal|regular polygons?|irregular polygons?|convex polygons?|non[- ]?convex polygons?|concave polygons?|congruen(?:t|ce)|similar triangles?|circle|radius|diameter|chord|arc|coordinate plane|cartesian|plot|graph(?:ing)?\s+(?:a|the|this)?\s*(?:function|relation|line|curve)|angulo|poligon|tatsulok|parisukat|bilog|koordinat|grap)\b/iu
 const VISUAL_REQUIREMENTS = new Set<AssessmentVisualRequirement>(['none', 'helpful', 'required'])
 const VISUAL_STATUSES = new Set<AssessmentVisualStatus>(['not_required', 'pending', 'running', 'succeeded', 'failed', 'stale'])
 
@@ -72,13 +72,19 @@ type AssessmentVisualPlanOptions = {
   ignoreSuppression?: boolean
 }
 
-function suppressedOptionalPlan(item: AssessmentItem) {
+function suppressedOptionalPlan(item: AssessmentItem, sourceHash: string) {
   /*
    * 'none + not_required' is our persisted decision that this optional visual
-   * was intentionally skipped by the paper-level balance. It is distinct from
-   * old records that omitted a plan entirely; a content edit clears the status.
+   * was intentionally skipped by the paper-level balance. It is valid only for
+   * the exact question content that produced it. Empty blueprint slots and
+   * newly generated/edited questions have a different source hash and must be
+   * reconsidered instead of inheriting an old suppression decision.
    */
-  return !item.visual && item.visualRequirement === 'none' && item.visualStatus === 'not_required'
+  return Boolean(item.prompt.trim())
+    && !item.visual
+    && item.visualRequirement === 'none'
+    && item.visualStatus === 'not_required'
+    && item.visualSourceHash === sourceHash
 }
 
 /** Resolve legacy records, generated metadata, and conservative local heuristics. */
@@ -86,7 +92,7 @@ export function assessmentVisualPlanForItem(item: AssessmentItem, options: Asses
   const sourceHash = assessmentVisualSourceHash(item)
   const storedRequirement = VISUAL_REQUIREMENTS.has(item.visualRequirement as AssessmentVisualRequirement) ? item.visualRequirement as AssessmentVisualRequirement : undefined
   const promptRequired = promptRequiresAssessmentVisual(item.prompt)
-  const suppressed = !options.force && !options.ignoreSuppression && suppressedOptionalPlan(item) && !promptRequired
+  const suppressed = !options.force && !options.ignoreSuppression && suppressedOptionalPlan(item, sourceHash) && !promptRequired
   const helpful = assessmentContentWouldBenefitFromVisual(item)
   const requirement: AssessmentVisualRequirement = promptRequired
     ? 'required'
@@ -163,6 +169,20 @@ function optionalVisualBudget(itemCount: number, options: AssessmentVisualBalanc
 }
 
 function planItem(item: AssessmentItem, plan: AssessmentVisualPlan, keep: boolean): AssessmentItem {
+  // Do not persist a paper-level "skip" decision for an empty question slot.
+  // Once question content exists the planner can make a meaningful decision.
+  if (!item.prompt.trim() && !item.visual) {
+    return {
+      ...item,
+      visualRequirement: undefined,
+      visualIntent: undefined,
+      visualStatus: undefined,
+      visualAttempts: undefined,
+      visualError: undefined,
+      visualSourceHash: undefined,
+      visualUpdatedAt: undefined,
+    }
+  }
   if (!keep && plan.requirement === 'helpful' && !item.visual) {
     return {
       ...item,

@@ -33,7 +33,12 @@ test('saves an assessment, reloads it, and keeps preview/export geometry usable 
   await expect(appPage.getByText(renderedPromptText, { exact: true })).toBeVisible()
   await expect(appPage.locator('.assessment-print-stage')).not.toContainText('\\angle')
   await expect(appPage.locator('.assessment-print-stage')).not.toContainText('$')
-  const previewDiagram = appPage.locator('.assessment-print-stage svg.assessment-document-question-visual').first()
+  // The TikZ-first renderer owns the document-level class on its shell. The
+  // deterministic SVG remains mounted underneath it so CI/offline preview is
+  // never dependent on tikzjax.com being reachable.
+  const previewVisual = appPage.locator('.assessment-print-stage .assessment-document-question-visual').first()
+  const previewDiagram = previewVisual.locator('svg.assessment-diagram')
+  await expect(previewVisual).toBeVisible()
   await expect(previewDiagram).toBeVisible()
   await expect(previewDiagram).toHaveAttribute('viewBox', '0 0 360 240')
 

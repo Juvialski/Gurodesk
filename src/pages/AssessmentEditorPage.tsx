@@ -517,6 +517,16 @@ export function AssessmentEditorPage() {
       if (!persisted) return
       const persistedView = normalizeAssessment(persisted)
       const balanced = resolveAssessmentVisualPlans(persistedView.items)
+      // Use the resolved paper-level plan as the actual source of the visual
+      // pass. Previously we selected IDs from `balanced` but passed the older
+      // `persisted` item objects into enrichment, allowing a legacy
+      // none/not_required state to silently cancel a newly selected diagram.
+      const plannedAssessment = { ...persisted, items: balanced.items }
+      // Keep the in-memory draft on the same resolved plan that the dedicated
+      // visual pass receives. This prevents successful/failed visual updates
+      // from being merged back into stale pre-balance item objects.
+      recordRef.current = plannedAssessment
+      setRecordValue(plannedAssessment)
       const balancedIds = new Set(assessmentVisualItemIdsForAssessment(balanced.items))
       const requestedIds = itemIds?.length
         ? itemIds.filter((itemId) => balancedIds.has(itemId))
@@ -531,10 +541,14 @@ export function AssessmentEditorPage() {
       saveAssessmentGenerationCheckpoint(checkpoint)
       const pendingIds = (itemIds?.length ? itemIds : pendingAssessmentVisualItemIds(checkpoint))
         .filter((itemId) => balancedIds.has(itemId))
+        .filter((itemId) => {
+          const item = balanced.items.find((candidate) => candidate.id === itemId)
+          return Boolean(item && item.prompt.trim() && !isLocked(item))
+        })
       setBatchProgress({ processed: 0, total: pendingIds.length, succeeded: 0, failed: 0, cancelled: 0, remaining: pendingIds.length })
       setBatchMessage(pendingIds.length ? `Questions saved. Enriching ${pendingIds.length} visual${pendingIds.length === 1 ? '' : 's'} sequentially…` : 'Questions saved. No visual enrichment requests are needed; running paper QA…')
       const summary = await enrichAssessmentVisualsSequentially({
-        assessment: persisted,
+        assessment: plannedAssessment,
         demo: isDemo,
         itemIds: pendingIds,
         signal: controller.signal,
@@ -558,6 +572,9 @@ export function AssessmentEditorPage() {
           }
         },
       })
+      if (pendingIds.length > 0 && summary.attempted === 0 && !controller.signal.aborted) {
+        throw new Error(`The paper planner selected ${pendingIds.length} visual${pendingIds.length === 1 ? '' : 's'}, but none reached visual generation. The visual plans were preserved; retry visual enrichment instead of regenerating the questions.`)
+      }
       const latest = recordRef.current ?? persisted
       let saved = latest
       if (summary.results.length) {
@@ -580,7 +597,7 @@ export function AssessmentEditorPage() {
         return
       }
       const helpfulNote = summary.helpfulFailed ? ` ${summary.helpfulFailed} optional visual${summary.helpfulFailed === 1 ? '' : 's'} could not be added; questions were preserved.` : ''
-      setBatchMessage(`Visual enrichment complete · ${summary.succeeded} diagram${summary.succeeded === 1 ? '' : 's'} added.${helpfulNote} Running automatic paper QA…`)
+      setBatchMessage(`Visual enrichment complete · ${pendingIds.length} planned · ${summary.succeeded} added · ${summary.failed} failed.${helpfulNote} Running automatic paper QA…`)
       await runAutomaticPaperPreparation(saved, controller)
     } catch (nextError) {
       if (checkpoint) saveAssessmentGenerationCheckpoint(pauseAssessmentGenerationCheckpoint(checkpoint))
