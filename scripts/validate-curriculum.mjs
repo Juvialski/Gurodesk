@@ -196,17 +196,53 @@ for (const input of paths) {
     if (sorted.join(',') !== expected.join(',')) fail(input, `sortOrder values for period ${period} must be contiguous from 1`)
   }
 
-  const usedPages = competencies.map((item) => item.sourcePage)
-  const expectedPagesUsed = usedPages.length ? { from: Math.min(...usedPages), to: Math.max(...usedPages) } : null
-  if (source.pagesUsed?.from !== expectedPagesUsed?.from || source.pagesUsed?.to !== expectedPagesUsed?.to) {
-    fail(input, `source.pagesUsed must match competency provenance (${JSON.stringify(expectedPagesUsed)})`)
+  const canonicalStandards = Array.isArray(manifest.standards) ? manifest.standards : null
+  const legacyPerformanceStandards = Array.isArray(manifest.performanceStandards) ? manifest.performanceStandards : []
+  const standards = canonicalStandards ?? legacyPerformanceStandards.map((standard) => ({ ...standard, type: 'performance' }))
+  const supportedStandardTypes = new Set(['content', 'performance', 'stage', 'key_stage', 'other'])
+  const standardKeys = new Set()
+  const standardOrders = new Map()
+  for (const standard of standards) {
+    if (!supportedStandardTypes.has(standard.type)) fail(input, `unsupported standard type ${standard.type}`)
+    if (!periodSequences.has(standard.quarter)) fail(input, `${standard.type ?? 'unknown'} standard uses unknown period ${standard.quarter}`)
+    if (!standard.text?.trim()) fail(input, 'standard text cannot be empty')
+    if (!Number.isInteger(standard.sourcePage) || standard.sourcePage < 1 || standard.sourcePage > source.pageCount) fail(input, 'invalid standard sourcePage')
+    if (standard.domain != null && !domainCodes.has(standard.domain)) fail(input, `standard uses unknown domain ${standard.domain}`)
+    if (standard.verificationStatus != null && standard.verificationStatus !== 'verified') fail(input, 'official standard verificationStatus must be verified')
+    if (canonicalStandards && (!Number.isInteger(standard.sortOrder) || standard.sortOrder < 1)) fail(input, 'standard sortOrder must be a positive integer')
+    const key = `${standard.type}:${standard.quarter}:${standard.domain ?? ''}:${normalize(standard.text)}`
+    if (standardKeys.has(key)) fail(input, `duplicate standard: ${standard.text}`)
+    standardKeys.add(key)
+    if (canonicalStandards) {
+      const orderKey = `${standard.type}:${standard.quarter}`
+      const orders = standardOrders.get(orderKey) ?? []
+      orders.push(standard.sortOrder)
+      standardOrders.set(orderKey, orders)
+    }
+  }
+  for (const [group, orders] of standardOrders) {
+    const sorted = [...orders].sort((left, right) => left - right)
+    const expected = Array.from({ length: sorted.length }, (_, index) => index + 1)
+    if (sorted.join(',') !== expected.join(',')) fail(input, `standard sortOrder values for ${group} must be contiguous from 1`)
+  }
+  if (canonicalStandards) {
+    const content = standards.filter((standard) => standard.type === 'content')
+    const performance = standards.filter((standard) => standard.type === 'performance')
+    if (Array.isArray(manifest.contentStandards) && JSON.stringify(manifest.contentStandards) !== JSON.stringify(content)) fail(input, 'contentStandards compatibility collection must match standards[type=content]')
+    if (Array.isArray(manifest.performanceStandards) && JSON.stringify(manifest.performanceStandards) !== JSON.stringify(performance)) fail(input, 'performanceStandards compatibility collection must match standards[type=performance]')
+    const coverage = manifest.verification?.standardsCoverage
+    if (coverage) {
+      if (coverage.status !== 'verified') fail(input, 'standardsCoverage.status must be verified')
+      if (coverage.contentCount !== content.length) fail(input, `standardsCoverage.contentCount must be ${content.length}`)
+      if (coverage.performanceCount !== performance.length) fail(input, `standardsCoverage.performanceCount must be ${performance.length}`)
+      if (coverage.sourcePinned !== true) fail(input, 'standardsCoverage.sourcePinned must be true')
+    }
   }
 
-  const standards = Array.isArray(manifest.performanceStandards) ? manifest.performanceStandards : []
-  for (const standard of standards) {
-    if (!periodSequences.has(standard.quarter)) fail(input, `performance standard uses unknown period ${standard.quarter}`)
-    if (!standard.text?.trim()) fail(input, 'performance standard text cannot be empty')
-    if (!Number.isInteger(standard.sourcePage) || standard.sourcePage < 1 || standard.sourcePage > source.pageCount) fail(input, 'invalid performance standard sourcePage')
+  const usedPages = [...competencies.map((item) => item.sourcePage), ...standards.map((item) => item.sourcePage)]
+  const expectedPagesUsed = usedPages.length ? { from: Math.min(...usedPages), to: Math.max(...usedPages) } : null
+  if (source.pagesUsed?.from !== expectedPagesUsed?.from || source.pagesUsed?.to !== expectedPagesUsed?.to) {
+    fail(input, `source.pagesUsed must match curriculum provenance (${JSON.stringify(expectedPagesUsed)})`)
   }
 
   const applicability = Array.isArray(manifest.applicability) ? manifest.applicability : []
@@ -231,14 +267,17 @@ for (const input of paths) {
     if (!consistency.resolution) fail(input, 'sourceConsistency.resolution is required')
   }
 
+  const hasCanonicalStandards = Array.isArray(manifest.standards)
   const expectedHash = sha256Json({
     slug: manifest.slug,
     sourceSha256: source.sha256,
     periods,
     domains,
+    ...(hasCanonicalStandards ? { standards } : {}),
     competencies,
   })
-  if (manifest.integrity?.extractorVersion !== 'official-curriculum-v1') fail(input, 'integrity.extractorVersion is invalid')
+  const expectedExtractorVersion = hasCanonicalStandards ? 'official-curriculum-v2' : 'official-curriculum-v1'
+  if (manifest.integrity?.extractorVersion !== expectedExtractorVersion) fail(input, `integrity.extractorVersion must be ${expectedExtractorVersion}`)
   if (manifest.integrity?.competencyPayloadSha256 !== expectedHash) fail(input, `integrity hash mismatch; expected ${expectedHash}`)
 }
 

@@ -1,0 +1,433 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-7-mathematics",
+  "sourceSha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+  "sourceFileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+  "verificationStatus": "verified",
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "regular and irregular polygons and their features/properties.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "determination of measures of angles and number of sides of polygons.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "application of percentages.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "use of rates.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "rational numbers.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "draw, and describe the features/properties of, regular and irregular polygons. (MG)",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "use percentages in different contexts. (NA)",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "identify and use rates. (NA)",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "create a financial plan. (NA)",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "describe, order, and perform operations on, rational numbers. (NA)",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "square roots of perfect squares, cube roots of perfect cubes, and irrational numbers.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "conversion of units of measure.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "volume of square and rectangular pyramids, and cylinders.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "sets and subsets, and the union and intersection of sets using Venn diagrams",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "subset of real numbers.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "determine square roots of perfect squares and cube roots of perfect cubes, and identify irrational numbers. (NA)",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "convert units of measure from different systems of measure. (MG)",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "find the volume of square and rectangular pyramids, and the volume of cylinders. (MG)",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "describe sets and their subsets, and the union and intersection of sets. (NA)",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "illustrates sets and subsets, and union and intersection of sets, using Venn diagrams. (NA)",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "data collection and sampling techniques, and the presentation of data in appropriate tables and graphs.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "interpretation of statistical graphs.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "the set of integers, and comparing and ordering integers.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "the four operations with integers.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "simplification of numerical expressions involving integers.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "absolute value of an integer.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "collect data, and organize data in a frequency distribution table. (DP)",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "represent and interpret data in different types of graphs. (DP)",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "compare and order integers, including through the use of the number line. (NA)",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "perform the four operations with integers. (NA)",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "simplify numerical expressions involving integers. (NA)",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-3:item-6",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "identify the absolute value of an integer. (NA)",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "the solution of simple equations.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "the evaluation of algebraic expressions following substitution.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "the rearrangement of a formula to make a different variable the subject of the formula.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "outcomes from experiments.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "operations using scientific notation.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "solve simple equations. (NA)",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "substitute into an algebraic expression to evaluate the expression. (NA)",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "rearrange a formula to make a different variable the subject of the formula. (NA)",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "gather data from experiments and represent the data in different forms. (DP)",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-mathematics:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "write numbers in scientific notation and perform operations on numbers written in scientific notation. (NA)",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    }
+  ],
+  "expectedCounts": {
+    "content": 21,
+    "performance": 21
+  }
+}

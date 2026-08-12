@@ -315,6 +315,9 @@ class RawStandard:
     periods: tuple[int, ...]
     page: int
     text: str
+    standard_type: str
+    domain: str
+    sort_order: int
 
 
 @dataclass
@@ -764,10 +767,53 @@ def parse_rows(
     return records
 
 
+def load_verified_standard_sidecar(
+    standards_dir: Path,
+    pack: dict[str, Any],
+    source: dict[str, Any],
+) -> list[RawStandard] | None:
+    """Load a human-verified extraction only when it is pinned to the exact source bytes.
+
+    Standards are intentionally kept as a separate extraction artifact because merged PDF
+    cells and quarter-level performance-standard blocks do not share the competency-row
+    geometry. A source hash mismatch is fatal rather than silently applying stale text.
+    """
+    path = standards_dir / f"{pack['slug']}.json"
+    if not path.is_file():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("slug") != pack["slug"]:
+        raise ValueError(f"Standard sidecar slug mismatch: {path}")
+    if payload.get("sourceSha256") != source["sha256"]:
+        raise ValueError(f"Standard sidecar source hash mismatch: {path}")
+    if payload.get("verificationStatus") != "verified":
+        raise ValueError(f"Standard sidecar is not verified: {path}")
+    grade_number = int(re.search(r"\d+", pack["gradeLevel"]).group()) if pack["gradeLevel"] != "Kindergarten" else 0
+    standards: list[RawStandard] = []
+    for item in payload.get("standards", []):
+        standards.append(RawStandard(
+            grades=(grade_number,),
+            periods=(int(item["quarter"]),),
+            page=int(item["sourcePage"]),
+            text=clean_text(item["text"]),
+            standard_type=item["type"],
+            domain=item["domain"],
+            sort_order=int(item["sortOrder"]),
+        ))
+    expected_counts = payload.get("expectedCounts") or {}
+    for standard_type in ("content", "performance"):
+        if standard_type in expected_counts:
+            actual = sum(item.standard_type == standard_type for item in standards)
+            if actual != int(expected_counts[standard_type]):
+                raise ValueError(f"Standard sidecar {standard_type} count mismatch for {pack['slug']}: expected {expected_counts[standard_type]}, got {actual}")
+    return standards
+
+
 def make_manifest(
     pack: dict[str, Any],
     source: dict[str, Any],
     extracted: ExtractedDocument,
+    verified_standards: list[RawStandard] | None = None,
 ) -> dict[str, Any]:
     grade_number = int(re.search(r"\d+", pack["gradeLevel"]).group()) if pack["gradeLevel"] != "Kindergarten" else 0
     period_type = "term" if pack["gradeLevel"] in {"Kindergarten", "Grade 12"} else "quarter"
@@ -836,6 +882,31 @@ def make_manifest(
     for competency in competencies:
         competency["domain"] = domain_codes[competency.pop("_domainKey")]
 
+    standards: list[dict[str, Any]] = []
+    standard_rows = verified_standards if verified_standards is not None else extracted.standards
+    for standard in standard_rows:
+        if grade_number not in standard.grades or len(standard.periods) != 1:
+            continue
+        period = standard.periods[0]
+        if period not in {item["sequence"] for item in periods}:
+            continue
+        domain_code = standard.domain if standard.domain in domain_codes.values() else domain_codes.get(normalized(standard.domain))
+        if not domain_code:
+            raise ValueError(f"Unknown standard domain {standard.domain!r} for {pack['slug']}")
+        if standard.standard_type not in {"content", "performance"}:
+            raise ValueError(f"Unsupported standard type {standard.standard_type!r} for {pack['slug']}")
+        standards.append({
+            "recordId": f"{pack['slug']}:standard:{standard.standard_type}:period-{period}:item-{standard.sort_order}",
+            "type": standard.standard_type,
+            "quarter": period,
+            "domain": domain_code,
+            "sortOrder": standard.sort_order,
+            "text": clean_text(standard.text),
+            "sourcePage": standard.page,
+            "verificationStatus": "verified",
+        })
+    standards.sort(key=lambda item: (item["quarter"], item["type"], item["sortOrder"]))
+
     if not competencies:
         raise ValueError(
             f"No competencies extracted for {pack['slug']} from {source['fileName']}"
@@ -900,10 +971,14 @@ def make_manifest(
         "verification": {
             "status": "verified",
             "verifiedOn": RETRIEVED_ON,
-            "method": "deterministic table extraction with structural source checks",
+            "method": (
+                "deterministic table extraction with structural source checks and source-pinned verified standards extraction"
+                if standards else
+                "deterministic table extraction with structural source checks"
+            ),
             "notes": (
-                "Competency text is transcribed from the pinned official source file. "
-                "Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+                "Competency and standard text is transcribed from the pinned official source file. "
+                "Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained."
             ),
         },
         "source": {
@@ -921,8 +996,8 @@ def make_manifest(
             "byteSize": source["byteSize"],
             "pageCount": source["pageCount"],
             "pagesUsed": {
-                "from": min(competency["sourcePage"] for competency in competencies),
-                "to": max(competency["sourcePage"] for competency in competencies),
+                "from": min([competency["sourcePage"] for competency in competencies] + [standard["sourcePage"] for standard in standards]),
+                "to": max([competency["sourcePage"] for competency in competencies] + [standard["sourcePage"] for standard in standards]),
             },
             "retrievedOn": source["retrievedOn"],
         },
@@ -956,9 +1031,18 @@ def make_manifest(
         },
         "periods": periods,
         "domains": domains,
-        "performanceStandards": [],
+        "standards": standards,
+        "contentStandards": [item for item in standards if item["type"] == "content"],
+        "performanceStandards": [item for item in standards if item["type"] == "performance"],
         "competencies": competencies,
     }
+    if standards:
+        manifest["verification"]["standardsCoverage"] = {
+            "status": "verified",
+            "contentCount": sum(item["type"] == "content" for item in standards),
+            "performanceCount": sum(item["type"] == "performance" for item in standards),
+            "sourcePinned": True,
+        }
     if " FILIPINO " in f" {source_file_name} ":
         detailed_counts = [
             sum(competency["quarter"] == period for competency in competencies)
@@ -980,6 +1064,7 @@ def make_manifest(
             "sourceSha256": manifest["source"]["sha256"],
             "periods": manifest["periods"],
             "domains": manifest["domains"],
+            "standards": manifest["standards"],
             "competencies": manifest["competencies"],
         },
         ensure_ascii=False,
@@ -987,7 +1072,7 @@ def make_manifest(
         sort_keys=True,
     ).encode("utf-8")
     manifest["integrity"] = {
-        "extractorVersion": "official-curriculum-v1",
+        "extractorVersion": "official-curriculum-v2",
         "normalization": "Unicode NFC; whitespace normalized; source wording retained",
         "competencyPayloadSha256": hashlib.sha256(integrity_payload).hexdigest(),
     }
@@ -1003,6 +1088,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=Path("data/curriculum/official"))
     parser.add_argument("--register", type=Path, default=Path("data/curriculum/sources/official-source-register.json"))
     parser.add_argument("--pack-index", type=Path, default=Path("data/curriculum/sources/official-pack-index.json"))
+    parser.add_argument("--standards-dir", type=Path, default=Path("data/curriculum/sources/verified-standards"))
     parser.add_argument("--write", action="store_true")
     return parser.parse_args()
 
@@ -1204,7 +1290,8 @@ def main() -> int:
             K10_CONTENT_START_PAGES.get(source["fileName"], 1),
         )
         for pack in source_packs:
-            manifest = make_manifest(pack, source, extracted)
+            verified_standards = load_verified_standard_sidecar(args.standards_dir, pack, source)
+            manifest = make_manifest(pack, source, extracted, verified_standards)
             if not manifest["competencies"]:
                 raise ValueError(f"No competencies extracted for {pack['slug']} from {source['fileName']}")
             manifests.append((pack, manifest))

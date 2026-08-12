@@ -18,6 +18,9 @@ const sourceUrl = q(manifest.source.sourceUrl)
 const versionCode = q(manifest.curriculumVersion.code)
 const gradeLevel = q(manifest.subject.gradeLevel)
 const subjectName = q(manifest.subject.name)
+const standards = Array.isArray(manifest.standards)
+  ? manifest.standards
+  : (manifest.performanceStandards ?? []).map((standard) => ({ ...standard, type: 'performance', domain: null, sortOrder: standard.sortOrder ?? standard.quarter }))
 
 const lines = []
 lines.push(`-- Generated from ${basename(input)}. Do not hand-edit; update the verified manifest and regenerate.`)
@@ -48,8 +51,12 @@ for (const domain of manifest.domains) {
 
 lines.push(`delete from public.curriculum_standards\nwhere subject_id = (select cs.id from public.curriculum_subjects cs join public.curriculum_versions cv on cv.id = cs.curriculum_version_id where cv.code = ${versionCode} and cs.grade_level = ${gradeLevel} and cs.name = ${subjectName})\n  and source_document_id = (select id from public.source_documents where source_url = ${sourceUrl});`)
 lines.push('')
-for (const standard of manifest.performanceStandards) {
-  lines.push(`insert into public.curriculum_standards (subject_id, academic_period_id, standard_type, standard_text, sort_order, source_document_id, source_page)\nselect cs.id, ap.id, 'performance', ${q(standard.text)}, ${n(standard.quarter)}, sd.id, ${n(standard.sourcePage)}\nfrom public.curriculum_subjects cs\njoin public.curriculum_versions cv on cv.id = cs.curriculum_version_id\njoin public.academic_periods ap on ap.subject_id = cs.id and ap.sequence = ${n(standard.quarter)}\njoin public.source_documents sd on sd.source_url = ${sourceUrl}\nwhere cv.code = ${versionCode} and cs.grade_level = ${gradeLevel} and cs.name = ${subjectName};`)
+for (const standard of standards) {
+  const domainJoin = standard.domain
+    ? `join public.curriculum_domains cd on cd.subject_id = cs.id and cd.code = ${q(standard.domain)}\n`
+    : ''
+  const domainValue = standard.domain ? 'cd.id' : 'null'
+  lines.push(`insert into public.curriculum_standards (subject_id, domain_id, academic_period_id, standard_type, standard_text, sort_order, source_document_id, source_page)\nselect cs.id, ${domainValue}, ap.id, ${q(standard.type)}, ${q(standard.text)}, ${n(standard.sortOrder ?? standard.quarter)}, sd.id, ${n(standard.sourcePage)}\nfrom public.curriculum_subjects cs\njoin public.curriculum_versions cv on cv.id = cs.curriculum_version_id\n${domainJoin}join public.academic_periods ap on ap.subject_id = cs.id and ap.sequence = ${n(standard.quarter)}\njoin public.source_documents sd on sd.source_url = ${sourceUrl}\nwhere cv.code = ${versionCode} and cs.grade_level = ${gradeLevel} and cs.name = ${subjectName};`)
   lines.push('')
 }
 
@@ -75,4 +82,4 @@ lines.push('')
 lines.push('commit;')
 lines.push('')
 await writeFile(resolve(output), lines.join('\n'), 'utf8')
-console.log(`Generated ${output} with ${manifest.competencies.length} competencies.`)
+console.log(`Generated ${output} with ${manifest.competencies.length} competencies and ${standards.length} standards.`)

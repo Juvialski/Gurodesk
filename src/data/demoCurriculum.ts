@@ -47,17 +47,21 @@ const domains = manifest.domains.map((domain) => ({
 const periodIdByQuarter = Object.fromEntries(periods.map((period) => [period.sequence, period.id]))
 const domainIdByCode = Object.fromEntries(domains.map((domain) => [domain.code, domain.id]))
 
-const performanceStandards = manifest.performanceStandards as Array<{
+const manifestStandards = manifest.standards as Array<{
+  recordId: string
+  type: 'content' | 'performance'
   quarter: number
+  domain: string | null
+  sortOrder: number
   text: string
   sourcePage: number
 }>
 
-const standards = performanceStandards.map((standard) => ({
-  id: `std-${manifest.subject.code.toLowerCase()}-q${standard.quarter}-performance`,
-  standardType: 'performance' as const,
+const standards = manifestStandards.map((standard) => ({
+  id: standard.recordId,
+  standardType: standard.type,
   standardText: standard.text,
-  domainId: null,
+  domainId: standard.domain ? (domainIdByCode[standard.domain] ?? null) : null,
   academicPeriodId: periodIdByQuarter[standard.quarter] ?? null,
   sourcePage: standard.sourcePage,
 }))
