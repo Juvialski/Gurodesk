@@ -440,3 +440,9 @@ Render exposed a project-wide TypeScript error that the earlier isolated V2 vali
 Create Assessment V2 received a presentation-only overhaul: a centered three-step Source → Setup → Formats wizard, compact format selectors, collapsed advanced planning guidance, simplified cognitive coverage summary, segmented visual policy controls, responsive/mobile styling, and a final setup summary. The existing generation/master-plan functions are unchanged.
 
 GitHub CI run 44 exposed one remaining local Supabase integration failure in `save_assessment_item_visual_checkpoint`: `Assessment item writes must use the save RPC`. Migration `202608120029_visual_checkpoint_rpc_guard_fix.sql` replaces only that checkpoint RPC and sets `app.assessment_rpc=1` transaction-locally before the narrow assessment item/document update. Owner/stale-write/locked-item/RLS protections remain intact. Migration harness wording now covers 015-029.
+
+## 2026-08-12 — Assessment V2 runtime + E2E hotfix
+
+After the V2 wizard deployment, production immediately paused during master planning with Gemini HTTP 400. The master-planner Edge Function still sent a provider `responseSchema`; it now uses JSON MIME mode + HIGH thinking and retains strict local `validateProviderPlan()` validation and the existing 3.6 → 3.5 → 3.5 Lite → 3.1 Lite model order. No V2 allocation/CPD/persistence logic changed.
+
+GitHub CI run 31562090079 subsequently proved static/type/unit/build, fresh/upgrade migrations and all 12 Supabase integration tests green. Its only failures were three Playwright assertions tied to the removed pre-V2 `New assessment`/`Create draft` UI and an ambiguous phone `Create` locator. E2E tests now follow the wizard, seed non-AI editor/export fixtures through the real guarded local save RPC, and scope phone navigation. See `ASSESSMENT_V2_RUNTIME_E2E_HOTFIX_20260812.md`.

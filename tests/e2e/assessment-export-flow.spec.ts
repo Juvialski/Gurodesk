@@ -1,4 +1,4 @@
-import { createFinalizedTos, expect, loginAndOpenWorkspace, switchToAssessmentCustomize, test } from './fixtures'
+import { createFinalizedTos, createManualAssessmentDraftFixture, expect, loginAndOpenWorkspace, switchToAssessmentCustomize, test } from './fixtures'
 
 test('saves an assessment, reloads it, and keeps preview/export geometry usable without live AI', async ({ appPage }) => {
   await loginAndOpenWorkspace(appPage)
@@ -10,12 +10,12 @@ test('saves an assessment, reloads it, and keeps preview/export geometry usable 
   const renderedPromptText = `E2E export prompt ${runId}: Find ∠ABC when x=70°.`
 
   await appPage.goto(`/assessments/new?tos=${tos.id}`)
-  await expect(appPage.getByRole('heading', { name: 'New assessment' })).toBeVisible()
-  await appPage.getByLabel('Assessment title').fill(title)
-  await appPage.getByLabel('Directions / instructions').fill('Use the saved preview for print review.')
-  await appPage.getByRole('button', { name: 'Create draft' }).click()
+  await expect(appPage.getByRole('heading', { name: 'Create assessment' })).toBeVisible()
+  await expect(appPage.getByRole('heading', { name: 'Choose assessment source' })).toBeVisible()
+  const seeded = await createManualAssessmentDraftFixture(tos.id, title, 'Use the saved preview for print review.')
+  const assessmentId = seeded.id
+  await appPage.goto(`/assessments/${assessmentId}`)
   await expect(appPage).toHaveURL(/\/assessments\/[0-9a-f-]+$/)
-  const assessmentId = new URL(appPage.url()).pathname.split('/').pop()!
   await switchToAssessmentCustomize(appPage)
 
   await appPage.getByLabel('Question / prompt').fill(promptText)

@@ -1,6 +1,6 @@
-import { createFinalizedTos, expect, loginAndOpenWorkspace, openAssessmentList, switchToAssessmentCustomize, test } from './fixtures'
+import { createFinalizedTos, createManualAssessmentDraftFixture, expect, loginAndOpenWorkspace, openAssessmentList, switchToAssessmentCustomize, test } from './fixtures'
 
-test('creates an assessment from a finalized TOS and preserves edits across reloads', async ({ appPage }) => {
+test('opens the V2 setup from a finalized TOS and preserves manual draft edits across reloads', async ({ appPage }) => {
   await loginAndOpenWorkspace(appPage)
 
   const runId = `${Date.now()}`
@@ -18,16 +18,22 @@ test('creates an assessment from a finalized TOS and preserves edits across relo
   await expect(tosCard.getByText('final', { exact: true })).toBeVisible()
 
   await appPage.goto(`/assessments/new?tos=${finalizedTos.id}`)
-  await expect(appPage.getByRole('heading', { name: 'New assessment' })).toBeVisible()
+  await expect(appPage.getByRole('heading', { name: 'Create assessment' })).toBeVisible()
+  await expect(appPage.getByRole('heading', { name: 'Choose assessment source' })).toBeVisible()
   const sourceList = appPage.getByRole('listbox', { name: 'Finalized TOS documents' })
   const selectedSource = sourceList.getByRole('option', { name: new RegExp(tosTitle) })
   await expect(selectedSource).toHaveAttribute('aria-selected', 'true')
-  await expect(appPage.getByText(tosTitle, { exact: true }).last()).toBeVisible()
+  await appPage.getByRole('button', { name: /Continue/ }).click()
+  await expect(appPage.getByRole('heading', { name: 'Assessment setup' })).toBeVisible()
+  await appPage.getByRole('button', { name: /Continue/ }).click()
+  await expect(appPage.getByRole('heading', { name: 'Choose question formats' })).toBeVisible()
+  await expect(appPage.getByRole('button', { name: /Generate assessment/ })).toBeVisible()
 
-  await appPage.getByLabel('Assessment title').fill(assessmentTitle)
-  await appPage.getByLabel('Directions / instructions').fill('Directions for the local browser test.')
-  await appPage.getByRole('button', { name: 'Create draft' }).click()
-
+  // Live AI is deliberately blocked in this suite. Seed the editor regression
+  // through the real guarded save RPC instead of restoring the removed legacy
+  // "Create draft" UI.
+  const seeded = await createManualAssessmentDraftFixture(finalizedTos.id, assessmentTitle, 'Directions for the local browser test.')
+  await appPage.goto(`/assessments/${seeded.id}`)
   await expect(appPage).toHaveURL(/\/assessments\/[0-9a-f-]+$/)
   await switchToAssessmentCustomize(appPage)
   const sourceContext = appPage.locator('.assessment-editor-context:visible').filter({ hasText: 'Source TOS' })

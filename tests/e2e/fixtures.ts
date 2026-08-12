@@ -1,6 +1,10 @@
 import os from 'node:os'
 import path from 'node:path'
 import { expect, test as base, type Page } from '@playwright/test'
+import { createClient } from '@supabase/supabase-js'
+import { createAssessmentBlueprint } from '../../src/lib/assessmentBlueprint'
+import type { AssessmentItem, AssessmentRecord } from '../../src/types/assessment'
+import type { TosContent, TosRecord } from '../../src/types/tos'
 
 const localSupabaseHosts = new Set(['127.0.0.1', 'localhost', '[::1]', '::1'])
 const blockedAiHosts = ['generativelanguage.googleapis.com', 'aiplatform.googleapis.com']
@@ -177,6 +181,130 @@ export async function openAssessmentList(page: Page) {
   await page.goto('/assessments')
   await expect(page.getByRole('heading', { name: 'Assessments' })).toBeVisible()
   await expect(page.getByText(/Finalized TOS → teacher-reviewed items/)).toBeVisible()
+}
+
+function e2eSupabaseConfig() {
+  const url = (process.env.E2E_SUPABASE_URL || process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '').trim()
+  const anonKey = (process.env.E2E_SUPABASE_ANON_KEY || process.env.E2E_SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_PUBLISHABLE_KEY || '').trim()
+  const email = process.env.E2E_EMAIL?.trim() || ''
+  const password = process.env.E2E_PASSWORD?.trim() || ''
+  if (!url || !anonKey || !email || !password) throw new Error('Local E2E Supabase/auth configuration is incomplete.')
+  const parsed = new URL(url)
+  if (!localSupabaseHosts.has(parsed.hostname)) throw new Error(`Refusing to create an E2E assessment fixture outside local Supabase: ${url}`)
+  return { url, anonKey, email, password }
+}
+
+function e2eAssessmentItemWire(item: AssessmentItem) {
+  return {
+    id: item.id,
+    itemNumber: item.itemNumber,
+    competencySnapshot: structuredClone(item.competencySnapshot),
+    cognitiveCategorySnapshot: structuredClone(item.cognitiveCategorySnapshot),
+    mapping: structuredClone(item.mapping),
+    questionType: item.questionType,
+    prompt: item.prompt ?? '',
+    answer: structuredClone(item.answer),
+    pointsPossible: item.pointsPossible,
+    points: item.pointsPossible,
+    rationale: item.rationale ?? '',
+    teacherNotes: item.teacherNotes ?? '',
+    authorshipState: item.authorshipState,
+    qaState: item.qaState ?? 'empty',
+    locked: item.locked === true,
+    history: structuredClone(item.history ?? []).slice(-5),
+  }
+}
+
+function e2eAssessmentMirror(record: AssessmentRecord) {
+  return {
+    schemaVersion: 1,
+    sourceTos: structuredClone(record.sourceTos),
+    sourceTosDocumentId: record.sourceTos.id,
+    sourceTosVersionNumber: record.sourceTos.versionNumber,
+    title: record.title,
+    instructions: record.instructions,
+    gradeLevel: record.gradeLevel,
+    learningArea: record.learningArea,
+    schoolYear: record.schoolYear,
+    gradingTermId: record.gradingTermId,
+    gradingTermLabel: record.gradingTermLabel,
+    curriculumPeriodIds: [...record.curriculumPeriodIds],
+    curriculumPeriodLabels: [...record.curriculumPeriodLabels],
+    totalItems: record.totalItems,
+    totalPoints: record.items.reduce((sum, item) => sum + item.pointsPossible, 0),
+    settings: structuredClone(record.settings ?? {}),
+    items: record.items.map(e2eAssessmentItemWire),
+  }
+}
+
+/**
+ * Seed a deterministic manual assessment draft through the same guarded local
+ * Supabase RPC used by production saves.  Assessment Generation V2 requires a
+ * Gemini master-plan call, which the E2E network boundary deliberately blocks;
+ * editor/export regression tests therefore seed their draft without restoring
+ * the removed legacy UI "Create draft" action or calling any external AI.
+ */
+export async function createManualAssessmentDraftFixture(sourceTosId: string, title: string, instructions = '') {
+  const config = e2eSupabaseConfig()
+  const client = createClient(config.url, config.anonKey, { auth: { persistSession: false, autoRefreshToken: false } })
+  const { data: signedIn, error: signInError } = await client.auth.signInWithPassword({ email: config.email, password: config.password })
+  if (signInError || !signedIn.user) throw new Error(`Unable to authenticate E2E assessment fixture teacher: ${signInError?.message ?? 'no user'}`)
+
+  const { data: source, error: sourceError } = await client
+    .from('documents')
+    .select('id,user_id,assignment_id,title,school_year,academic_period_label,status,structured_content')
+    .eq('id', sourceTosId)
+    .eq('document_type', 'tos')
+    .single()
+  if (sourceError || !source) throw new Error(`Unable to load finalized E2E TOS: ${sourceError?.message ?? 'no source'}`)
+  if (source.status !== 'final') throw new Error('E2E assessment fixture requires a finalized TOS.')
+
+  const { data: versions, error: versionError } = await client
+    .from('document_versions')
+    .select('version_number')
+    .eq('document_id', sourceTosId)
+    .order('version_number', { ascending: false })
+    .limit(1)
+  if (versionError) throw new Error(`Unable to resolve finalized E2E TOS version: ${versionError.message}`)
+  const versionNumber = Number(versions?.[0]?.version_number ?? 0)
+  if (!Number.isSafeInteger(versionNumber) || versionNumber < 1) throw new Error('Finalized E2E TOS has no immutable version.')
+
+  const content = structuredClone(source.structured_content) as TosContent
+  const tos: TosRecord = {
+    id: String(source.id),
+    userId: String(source.user_id),
+    assignmentId: source.assignment_id ? String(source.assignment_id) : null,
+    title: String(source.title ?? content.title ?? 'E2E TOS'),
+    schoolYear: String(source.school_year ?? content.schoolYear ?? ''),
+    academicPeriodLabel: source.academic_period_label ? String(source.academic_period_label) : null,
+    status: 'final',
+    content,
+    versionNumber,
+    createdAt: '2026-08-12T00:00:00.000Z',
+    updatedAt: '2026-08-12T00:00:00.000Z',
+  }
+  const blueprint = createAssessmentBlueprint(tos, { userId: signedIn.user.id, title, instructions })
+  const itemPayload = blueprint.items.map(e2eAssessmentItemWire)
+  const mirror = e2eAssessmentMirror(blueprint)
+  const { data: saved, error: saveError } = await client.rpc('save_assessment_document', {
+    p_document_id: null,
+    p_assignment_id: blueprint.assignmentId,
+    p_source_tos_document_id: sourceTosId,
+    p_title: title,
+    p_school_year: blueprint.schoolYear,
+    p_academic_period_label: blueprint.gradingTermLabel || null,
+    p_instructions: instructions,
+    p_status: 'draft',
+    p_structured_content: mirror,
+    p_items: itemPayload,
+    p_change_note: 'Deterministic local E2E assessment fixture',
+  })
+  if (saveError || !saved) throw new Error(`Unable to create local E2E assessment fixture: ${saveError?.message ?? 'no row returned'}`)
+  const row = Array.isArray(saved) ? saved[0] : saved
+  const id = String((row as { id?: unknown })?.id ?? '')
+  if (!id) throw new Error('Local E2E assessment fixture RPC returned no document ID.')
+  await client.auth.signOut()
+  return { id, title }
 }
 
 /**

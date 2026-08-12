@@ -1,7 +1,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
-import { ASSESSMENT_QUESTION_TYPES, type AiModelId, type AssessmentQuestionType, type GeminiSchema } from '../_shared/ai-models.ts'
+import { ASSESSMENT_QUESTION_TYPES, type AiModelId, type AssessmentQuestionType } from '../_shared/ai-models.ts'
 import { callGemini, GeminiHttpError, GeminiResponseError, parseGeminiJson } from '../_shared/gemini.ts'
 
 type Row = Record<string, unknown>
@@ -39,29 +39,11 @@ function object(value: unknown): Row { return value && typeof value === 'object'
 function clean(value: unknown, max = 2000) { return typeof value === 'string' ? value.trim().slice(0, max) : '' }
 function integer(value: unknown) { const result = Number(value); return Number.isSafeInteger(result) ? result : Number.NaN }
 
-const responseSchema: GeminiSchema = {
-  type: 'OBJECT',
-  required: ['entries'],
-  propertyOrdering: ['entries'],
-  properties: {
-    entries: {
-      type: 'ARRAY', minItems: 1, maxItems: 500,
-      items: {
-        type: 'OBJECT',
-        required: ['bucketId', 'questionType', 'pointsPossible', 'taskIntent', 'visualRequirement', 'visualIntent'],
-        propertyOrdering: ['bucketId', 'questionType', 'pointsPossible', 'taskIntent', 'visualRequirement', 'visualIntent'],
-        properties: {
-          bucketId: { type: 'STRING' },
-          questionType: { type: 'STRING', enum: [...ASSESSMENT_QUESTION_TYPES] },
-          pointsPossible: { type: 'INTEGER' },
-          taskIntent: { type: 'STRING' },
-          visualRequirement: { type: 'STRING', enum: ['none', 'required'] },
-          visualIntent: { type: 'STRING' },
-        },
-      },
-    },
-  },
-}
+// The raw generateContent planner deliberately uses JSON MIME mode without
+// responseSchema. GuroDesk validates the full master-plan contract locally in
+// validateProviderPlan(), which avoids provider INVALID_ARGUMENT/HTTP 400
+// failures previously observed with this planner's responseSchema payload while preserving the same
+// strict point, TOS, CPD, type, and visual-policy boundaries.
 
 function normalizeBuckets(value: unknown): Bucket[] {
   if (!Array.isArray(value) || !value.length || value.length > 500) throw new Error('A bounded deterministic point blueprint is required.')
@@ -354,7 +336,6 @@ Deno.serve(async (req) => {
         const output = await callGemini(apiKey, model, prompt, {
           maxOutputTokens: 12288,
           responseMimeType: 'application/json',
-          responseSchema,
           thinkingConfig: { thinkingLevel: 'HIGH' },
         })
         const entries = validateProviderPlan(parseGeminiJson(output), verifiedBuckets, totalPoints, visualPolicy, clean(content.learningArea, 160))
@@ -369,6 +350,7 @@ Deno.serve(async (req) => {
     console.error('assessment-master-planner failure', {
       name: error instanceof Error ? error.name : 'UnknownError',
       providerStatus: error instanceof GeminiHttpError ? error.status : undefined,
+      providerDetail: error instanceof GeminiHttpError ? error.detail : undefined,
     })
     return json({ error: errorMessage(error), providerStatus: error instanceof GeminiHttpError ? error.status : undefined }, error instanceof GeminiHttpError && [408, 425, 429, 500, 502, 503, 504].includes(error.status) ? error.status : 400)
   }
