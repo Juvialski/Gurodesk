@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-1-mathematics",
+  "sourceSha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+  "sourceFileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+  "verificationStatus": "verified",
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "simple 2-dimensional shapes and their features.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "whole numbers up to 100.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "ordinal numbers up to 10th.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "addition of numbers with sums up to 20.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "identify and distinguish simple 2-dimensional shapes. (MG)",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "count, recognize and represent whole numbers up to 100. (NA)",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "use ordinal numbers up to 10th to describe position. (NA)",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "compare and order numbers up to 20 and perform addition of numbers with sums up to 20. (NA)",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "measurement of length and distance using non-standard units.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "place value in any 2-digit number.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "addition of numbers, with sums up to 100.",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "use non-standard units to compare and measure length and distance. (MG)",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "order and decompose (into tens and ones) numbers up to 100. (NA)",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "perform addition of numbers with sums up to 100. (NA)",
+      "sourcePage": 26,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "a pictograph without a scale for the representation of data.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "subtraction of numbers where both numbers are less than 100.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "repeating patterns.",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "represent and interpret data in a pictograph without a scale. (DP)",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "perform subtraction of numbers where both numbers are less than 100. (NA)",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "extend existing repeating patterns and create new repeating patterns. (NA)",
+      "sourcePage": 27,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "fractions ½ and ¼.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "the denominations and values of Philippine coins and bills up to ₱100.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "addition of money where the sum is up to ₱100 and subtraction of money where both amounts are less than ₱100.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "the movement of objects in half turn or quarter turn, in clockwise or counter clockwise direction.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "time measured in hours, half hours, quarter hours, days, weeks, months, and years.",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "illustrate and compare the fractions ½ and ¼. (NA)",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "recognize, and determine the value of, Philippine coins and bills up to ₱100. (NA)",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "add money where the sum is up to ₱100 and subtract money where both amounts are less than ₱100. (NA)",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "identify the position of an object following a half turn or quarter turn, in clockwise or counter-clockwise direction. (MG)",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-mathematics:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "identify and work with time measured in hours, half hours, quarter hours, days, weeks, months, and years. (MG)",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    }
+  ]
+}

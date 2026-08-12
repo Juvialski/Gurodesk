@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-4-mathematics",
+  "sourceSha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+  "sourceFileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+  "verificationStatus": "verified",
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "measures of angles.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "properties of triangles and quadrilaterals.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "perimeter of quadrilaterals, and composite figures composed of triangles and quadrilaterals.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "whole numbers up to 1 000 000.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "addition of numbers with sums up to 1 000 000 and subtraction of numbers where both numbers are less than 1 000 000.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "illustrate and measure different angles. (MG)",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "classify triangles and quadrilateral, and differentiate quadrilaterals, by applying their properties. (MG)",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "find the perimeter of quadrilaterals and composite figures composed of triangles and quadrilaterals. (MG)",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "read, write, and compare whole numbers up to 1 000 000. (NA)",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "performs addition of numbers with sums up to 1 000 000 and subtraction of numbers where both numbers are less than 1 000 000. (NA)",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "multiplication of whole numbers with products up to 1 000 000, division of up to 4-digit numbers by up to 2-digit numbers, and the MDAS rules.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "conversion of units of length, mass, capacity, and time.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "addition and subtraction of similar fractions, including mixed numbers.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "perform multiplication of whole numbers with products up to 1 000 000. (NA)",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "perform division of up to 4-digit numbers by up to 2-digit numbers. (NA)",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "perform different operations by applying the MDAS rules. (NA)",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "convert units of length, mass, capacity, and time. (MG)",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "perform addition and subtraction of similar fractions, including mixed numbers. (NA)",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "dissimilar and equivalent fractions.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "factors and multiples of numbers up to 100.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "addition and subtraction of dissimilar fractions.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "symmetric figures with respect to a line.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "resulting images after applying reflection with respect to a line.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "represent, compare, and order dissimilar fractions. (NA)",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "find factors and multiples of numbers up to 100. (NA)",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "identify symmetry with respect to a line, and create figures that have line symmetry. (MG)",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "perform reflection with respect to a line, including glide reflection, to obtain images of shapes. (MG)",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "presentation and interpretation of data in tabular form and in a single line graph.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "simple patterns.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "number sentences.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "decimal numbers and their relationship to fractions.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "present and interpret data in tabular form and in a single line graph. (DP)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "generate a simple pattern and describe the rule used. (NA)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "complete number sentences to represent number properties and number facts. (NA)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "represent, compare, order, and round decimal numbers. (NA)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-mathematics:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "convert decimal numbers to fractions and fractions (with denominators 10 or 100) to decimals. (NA)",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    }
+  ]
+}
