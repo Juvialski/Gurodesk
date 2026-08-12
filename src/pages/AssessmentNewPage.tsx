@@ -1,4 +1,4 @@
-import { ArrowLeft, Check, ClipboardCheck, FileCheck2, PauseCircle, ShieldCheck, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, ClipboardCheck, FileCheck2, PauseCircle, ShieldCheck, Sparkles } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
@@ -6,7 +6,7 @@ import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
 import { applyAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion } from '../lib/assessmentGeneration'
 import { createAssessmentMasterPlan } from '../lib/assessmentMasterPlanner'
-import { minimumAssessmentV2Points, questionTypeSuitability, validateAssessmentV2Setup, type AssessmentV2Setup } from '../lib/assessmentGenerationV2'
+import { minimumAssessmentV2Points, validateAssessmentV2Setup, type AssessmentV2Setup } from '../lib/assessmentGenerationV2'
 import { createAssessmentFromMasterPlan, saveAssessmentDocument, saveAssessmentItemVisualCheckpoint } from '../lib/assessmentRepository'
 import { loadTosDocuments } from '../lib/tosRepository'
 import { ASSESSMENT_QUESTION_TYPES, type AssessmentCpdKey, type AssessmentRecord, type AssessmentVisualPolicy, type QuestionType } from '../types/assessment'
@@ -17,6 +17,7 @@ const DEFAULT_TYPES: QuestionType[] = [...ASSESSMENT_QUESTION_TYPES]
 const CPD_ORDER: AssessmentCpdKey[] = ['remembering', 'understanding', 'applying', 'analyzing', 'evaluating', 'creating', 'other']
 const CPD_LABELS: Record<AssessmentCpdKey, string> = { remembering: 'Remembering', understanding: 'Understanding', applying: 'Applying', analyzing: 'Analyzing', evaluating: 'Evaluating', creating: 'Creating', other: 'Other' }
 
+type SetupStep = 1 | 2 | 3
 type GenerationStage = 'planning' | 'questions' | 'visuals' | 'finishing' | 'paused'
 type GenerationState = { stage: GenerationStage; current: number; total: number; message: string; model?: string }
 
@@ -37,6 +38,7 @@ export function AssessmentNewPage() {
   const [pointsTouched, setPointsTouched] = useState(false)
   const [allowedTypes, setAllowedTypes] = useState<QuestionType[]>(DEFAULT_TYPES)
   const [visualPolicy, setVisualPolicy] = useState<AssessmentVisualPolicy>('balanced')
+  const [step, setStep] = useState<SetupStep>(1)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [generation, setGeneration] = useState<GenerationState | null>(null)
@@ -210,55 +212,140 @@ export function AssessmentNewPage() {
     </main>
   }
 
+  const visualPolicyLabel = visualPolicy === 'off' ? 'No automatic visuals' : visualPolicy === 'more_visuals' ? 'More visuals' : 'Balanced visuals'
+  const pointsReady = Number.isSafeInteger(totalPoints) && totalPoints >= 1 && totalPoints <= 1000
+
   return <>
-    <PageHeader eyebrow="Assessment Generation V2" title="Create assessment" description="Set the point total and allowed formats first. GuroDesk checks cognitive coverage, designs one master plan, then generates the complete paper before showing question previews." actions={<Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> All assessments</Link>} />
-    <div className="assessment-v2-setup">
-      <section className="panel assessment-v2-source">
-        <div className="assessment-section-heading"><span>1</span><div><h2>Assessment source</h2><p>Choose one finalized TOS.</p></div></div>
-        <div className="assessment-source-list" role="listbox" aria-label="Finalized TOS documents">
+    <PageHeader eyebrow="Assessment Generation V2" title="Create assessment" description="Set up the assessment in three short steps. GuroDesk keeps the TOS and cognitive coverage rules in the background, then generates the complete paper before showing question previews." actions={<Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> All assessments</Link>} />
+
+    <div className="assessment-v2-wizard-shell">
+      <div className="assessment-v2-stepper" aria-label="Assessment setup progress">
+        {([
+          [1, 'Source'],
+          [2, 'Setup'],
+          [3, 'Formats'],
+        ] as const).map(([number, label]) => <div key={number} className={`assessment-v2-step ${step === number ? 'active' : step > number ? 'done' : ''}`}>
+          <span>{step > number ? <Check size={14} /> : number}</span>
+          <strong>{label}</strong>
+        </div>)}
+      </div>
+
+      {step === 1 && <section className="panel assessment-v2-wizard-card">
+        <header className="assessment-v2-wizard-heading">
+          <span className="assessment-v2-wizard-number">1</span>
+          <div><h2>Choose assessment source</h2><p>Select the finalized TOS this assessment should follow.</p></div>
+        </header>
+
+        <div className="assessment-v2-source-list" role="listbox" aria-label="Finalized TOS documents">
           {tosDocuments.map((document) => {
             const chosen = selectedId === document.id
-            return <button key={document.id} type="button" role="option" aria-selected={chosen} className={`assessment-source-option ${chosen ? 'selected' : ''}`} onClick={() => { setSelectedId(document.id); setPointsTouched(false) }}>
-              <span className="assessment-source-option-icon">{chosen ? <Check size={17} /> : <FileCheck2 size={17} />}</span>
-              <span><strong>{document.title || 'Untitled TOS'}</strong><small>{[document.content.gradeLevel, document.content.learningArea, document.content.schoolYear].filter(Boolean).join(' · ')}</small><small>{document.content.rows.length} competencies · finalized TOS</small></span>
+            return <button key={document.id} type="button" role="option" aria-selected={chosen} className={`assessment-v2-source-card ${chosen ? 'selected' : ''}`} onClick={() => { setSelectedId(document.id); setPointsTouched(false) }}>
+              <span className="assessment-v2-source-icon">{chosen ? <Check size={18} /> : <FileCheck2 size={18} />}</span>
+              <span className="assessment-v2-source-copy">
+                <strong>{document.title || 'Untitled TOS'}</strong>
+                <small>{[document.content.gradeLevel, document.content.learningArea, document.content.schoolYear].filter(Boolean).join(' · ')}</small>
+                <small>{document.content.rows.length} competencies</small>
+              </span>
+              {chosen && <span className="assessment-v2-selected-pill">Selected</span>}
             </button>
           })}
         </div>
-      </section>
 
-      <section className="panel assessment-v2-config">
-        <div className="assessment-section-heading"><span>2</span><div><h2>Set assessment requirements</h2><p>Total points are the assessment size. Logical question count is planned automatically.</p></div></div>
-        <div className="assessment-v2-fields">
-          <label>Total points<input type="number" min="1" max="1000" step="1" value={totalPoints} onChange={(event) => { setPointsTouched(true); setTotalPoints(Number(event.target.value)) }} /></label>
-          <label>Visual policy<select value={visualPolicy} onChange={(event) => setVisualPolicy(event.target.value as AssessmentVisualPolicy)}><option value="off">Off</option><option value="balanced">Balanced · default</option><option value="more_visuals">More visuals</option></select></label>
-          <label className="assessment-v2-wide">Assessment title <small>(optional)</small><input value={title} onChange={(event) => setTitle(event.target.value)} placeholder={selected?.content.assessmentTitle || 'e.g. First summative assessment'} /></label>
-          <label className="assessment-v2-wide">Directions for learners <small>(optional)</small><textarea rows={3} value={instructions} onChange={(event) => setInstructions(event.target.value)} placeholder="Instructions shown on the assessment" /></label>
-          <label className="assessment-v2-wide">Planning guidance <small>(optional)</small><textarea rows={3} value={generationInstructions} onChange={(event) => setGenerationInstructions(event.target.value)} placeholder="e.g. Prefer concise real-world applications; avoid trick questions." /></label>
+        <footer className="assessment-v2-wizard-footer">
+          <Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> Cancel</Link>
+          <button className="button primary" type="button" disabled={!selected} onClick={() => setStep(2)}>Continue <ArrowRight size={16} /></button>
+        </footer>
+      </section>}
+
+      {step === 2 && <section className="panel assessment-v2-wizard-card">
+        <header className="assessment-v2-wizard-heading">
+          <span className="assessment-v2-wizard-number">2</span>
+          <div><h2>Assessment setup</h2><p>Total points are the assessment size. GuroDesk plans the logical question count automatically.</p></div>
+        </header>
+
+        <div className="assessment-v2-primary-fields">
+          <label className="assessment-v2-points-field">
+            <span>Total points</span>
+            <input type="number" inputMode="numeric" min="1" max="1000" step="1" value={totalPoints} onChange={(event) => { setPointsTouched(true); setTotalPoints(Number(event.target.value)) }} />
+            <small>Multi-point questions use ranges automatically, such as 16–20.</small>
+          </label>
+
+          <label>
+            <span>Assessment title <small>(optional)</small></span>
+            <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder={selected?.content.assessmentTitle || 'e.g. First summative assessment'} />
+          </label>
+
+          <label>
+            <span>Directions for learners <small>(optional)</small></span>
+            <textarea rows={3} value={instructions} onChange={(event) => setInstructions(event.target.value)} placeholder="Instructions shown on the assessment" />
+          </label>
         </div>
 
-        <div className="assessment-v2-type-heading"><div><strong>Allowed question types · classified by CPD</strong><small>Strong CPDs are the formats GuroDesk may rely on for that cognitive demand. Evaluating and Creating require a strong higher-order format.</small></div><button className="button ghost compact" type="button" onClick={() => setAllowedTypes(DEFAULT_TYPES)}>Select all</button></div>
-        <div className="assessment-v2-types">{ASSESSMENT_QUESTION_TYPES.map((type) => {
-          const area = selected?.content.learningArea ?? ''
-          const strong = CPD_ORDER.filter((cpd) => cpd !== 'other' && questionTypeSuitability(type, cpd, area) === 'strong')
-          const allowed = CPD_ORDER.filter((cpd) => cpd !== 'other' && questionTypeSuitability(type, cpd, area) === 'allowed')
-          return <label key={type} className={allowedTypes.includes(type) ? 'selected' : ''}>
-            <input type="checkbox" checked={allowedTypes.includes(type)} onChange={() => toggleType(type)} />
-            <span className="assessment-v2-type-name">{allowedTypes.includes(type) ? <Check size={14} /> : <X size={14} />}{typeLabel(type)}</span>
-            <small><b>Strong:</b> {strong.length ? strong.map((cpd) => CPD_LABELS[cpd]).join(', ') : '—'}</small>
-            {allowed.length > 0 && <small><b>Also usable:</b> {allowed.map((cpd) => CPD_LABELS[cpd]).join(', ')}</small>}
-          </label>
-        })}</div>
-      </section>
+        <div className="assessment-v2-visual-section">
+          <div><strong>Visuals</strong><small>Choose how often diagrams may be planned when they genuinely help the question.</small></div>
+          <div className="assessment-v2-segmented" role="group" aria-label="Visual policy">
+            {([
+              ['off', 'Off', 'Text-first'],
+              ['balanced', 'Balanced', 'Recommended'],
+              ['more_visuals', 'More', 'When useful'],
+            ] as const).map(([value, label, hint]) => <button key={value} type="button" className={visualPolicy === value ? 'selected' : ''} aria-pressed={visualPolicy === value} onClick={() => setVisualPolicy(value)}><strong>{label}</strong><small>{hint}</small></button>)}
+          </div>
+        </div>
 
-      <section className="panel assessment-v2-coverage">
-        <div className="assessment-section-heading"><span>3</span><div><h2>Coverage check</h2><p>Every positive Cognitive Process Dimension allocation in the TOS must be feasible with the selected formats.</p></div></div>
-        {cpdSummary.length ? <div className="assessment-v2-cpd-grid">{cpdSummary.map((entry) => <div key={entry.key}><span className="status-dot ready" /><strong>{entry.label}</strong><small>{entry.points} pts</small></div>)}</div> : <p className="muted">Select a finalized TOS to calculate its point blueprint.</p>}
-        {setupValidation.errors.map((issue) => <div className="form-message error" key={issue.key}>{issue.message}</div>)}
-        {setupValidation.warnings.map((issue) => <div className="form-message" key={issue.key}>{issue.message}</div>)}
-        {!setupValidation.errors.length && <div className="assessment-v2-ready"><ShieldCheck size={18} /><div><strong>Ready to plan</strong><small>{totalPoints} points will be allocated deterministically across the TOS before Gemini designs the logical questions.</small></div></div>}
+        <details className="assessment-v2-advanced">
+          <summary>Advanced planning options</summary>
+          <label>
+            <span>Planning guidance <small>(optional)</small></span>
+            <textarea rows={3} value={generationInstructions} onChange={(event) => setGenerationInstructions(event.target.value)} placeholder="e.g. Prefer concise real-world applications; avoid trick questions." />
+          </label>
+        </details>
+
+        <footer className="assessment-v2-wizard-footer">
+          <button className="button ghost" type="button" onClick={() => setStep(1)}><ArrowLeft size={16} /> Back</button>
+          <button className="button primary" type="button" disabled={!pointsReady} onClick={() => setStep(3)}>Continue <ArrowRight size={16} /></button>
+        </footer>
+      </section>}
+
+      {step === 3 && <section className="panel assessment-v2-wizard-card assessment-v2-formats-card">
+        <header className="assessment-v2-wizard-heading assessment-v2-formats-heading">
+          <span className="assessment-v2-wizard-number">3</span>
+          <div><h2>Choose question formats</h2><p>Select the formats GuroDesk may use. Cognitive coverage is checked automatically.</p></div>
+          <div className="assessment-v2-format-actions"><span>{allowedTypes.length} selected</span><button type="button" className="button ghost compact" onClick={() => setAllowedTypes(DEFAULT_TYPES)}>Select all</button><button type="button" className="button ghost compact" onClick={() => setAllowedTypes([])}>Clear</button></div>
+        </header>
+
+        <div className="assessment-v2-format-grid">
+          {ASSESSMENT_QUESTION_TYPES.map((type) => {
+            const selectedType = allowedTypes.includes(type)
+            return <label key={type} className={`assessment-v2-format-chip ${selectedType ? 'selected' : ''}`}>
+              <input type="checkbox" checked={selectedType} onChange={() => toggleType(type)} />
+              <span className="assessment-v2-format-check">{selectedType && <Check size={14} />}</span>
+              <strong>{typeLabel(type)}</strong>
+            </label>
+          })}
+        </div>
+
+        <div className={`assessment-v2-coverage-compact ${setupValidation.ready ? 'ready' : 'needs-attention'}`}>
+          <div className="assessment-v2-coverage-title"><ShieldCheck size={19} /><div><strong>{setupValidation.ready ? 'All required cognitive levels are covered' : 'Coverage needs attention'}</strong><small>{setupValidation.ready ? 'Your selected formats can assess every cognitive level required by this TOS.' : 'Adjust the selected formats or point total before generating.'}</small></div></div>
+          {cpdSummary.length > 0 && <div className="assessment-v2-coverage-chips">{cpdSummary.map((entry) => <span key={entry.key}><Check size={12} /> {entry.label}<b>{entry.points}</b></span>)}</div>}
+          {setupValidation.errors.map((issue) => <div className="form-message error" key={issue.key}>{issue.message}</div>)}
+          {setupValidation.warnings.map((issue) => <div className="form-message" key={issue.key}>{issue.message}</div>)}
+        </div>
+
+        <div className="assessment-v2-ready-summary">
+          <div><small>Source</small><strong>{selected?.title || 'Finalized TOS'}</strong></div>
+          <div><small>Total</small><strong>{totalPoints} points</strong></div>
+          <div><small>Formats</small><strong>{allowedTypes.length} selected</strong></div>
+          <div><small>Visual policy</small><strong>{visualPolicyLabel}</strong></div>
+        </div>
+
         {error && <div className="form-message error" role="alert">{error}</div>}
-        <div className="assessment-v2-actions"><Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> Cancel</Link><button className="button primary" type="button" disabled={!selected || !setupValidation.ready} onClick={() => void generateAssessment()}><Sparkles size={17} /> Generate assessment</button></div>
-      </section>
+
+        <footer className="assessment-v2-wizard-footer assessment-v2-generate-footer">
+          <button className="button ghost" type="button" onClick={() => setStep(2)}><ArrowLeft size={16} /> Back</button>
+          <button className="button primary assessment-v2-generate-button" type="button" disabled={!selected || !setupValidation.ready} onClick={() => void generateAssessment()}><Sparkles size={17} /> Generate assessment</button>
+        </footer>
+      </section>}
     </div>
   </>
+
 }

@@ -434,3 +434,9 @@ evidence.
 ## 2026-08-12 — Assessment Generation V2 Render TS2345 build hotfix
 
 Render exposed a project-wide TypeScript error that the earlier isolated V2 validation did not catch: `src/lib/assessmentRepository.ts:704` treated the canonical master plan as `AssessmentMasterPlan | undefined` because the helper used the optional `settings.masterPlan` property type. The repository now imports and uses the concrete `AssessmentMasterPlan` type for the canonicalizer and `createAssessmentFromMasterPlan`. This is a type-contract-only hotfix; it does not change master-plan behavior, migrations, Edge payloads, CPD allocation, point ranges, or legacy assessment behavior. See `ASSESSMENT_GENERATION_V2_BUILD_HOTFIX_20260812.md`.
+
+## 2026-08-12 — Create Assessment V2 UI wizard + migration 029 checkpoint guard fix
+
+Create Assessment V2 received a presentation-only overhaul: a centered three-step Source → Setup → Formats wizard, compact format selectors, collapsed advanced planning guidance, simplified cognitive coverage summary, segmented visual policy controls, responsive/mobile styling, and a final setup summary. The existing generation/master-plan functions are unchanged.
+
+GitHub CI run 44 exposed one remaining local Supabase integration failure in `save_assessment_item_visual_checkpoint`: `Assessment item writes must use the save RPC`. Migration `202608120029_visual_checkpoint_rpc_guard_fix.sql` replaces only that checkpoint RPC and sets `app.assessment_rpc=1` transaction-locally before the narrow assessment item/document update. Owner/stale-write/locked-item/RLS protections remain intact. Migration harness wording now covers 015-029.
