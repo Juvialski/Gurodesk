@@ -1,4 +1,4 @@
--- Behavioral assertions for the 001-014 -> 015-026 upgrade path.
+-- Behavioral assertions for the 001-014 -> 015-027 upgrade path.
 \set ON_ERROR_STOP on
 
 select set_config('request.jwt.claim.sub', '11111111-1111-4111-8111-111111111111', false);
@@ -264,6 +264,29 @@ begin
   end if;
   if not exists (select 1 from storage.buckets where id = 'custom-curricula' and public is false) then
     raise exception 'Upgrade assertion: private custom-curricula Storage bucket is missing';
+  end if;
+end;
+$$;
+
+
+-- Visual reliability migration must preserve the upgrade path and install the
+-- narrow optimistic checkpoint used by generated TikZ persistence.
+do $$
+begin
+  if to_regprocedure('public.save_assessment_item_visual_checkpoint(uuid,uuid,text,text,jsonb,jsonb,jsonb)') is null then
+    raise exception 'Upgrade assertion: item-level visual checkpoint RPC is missing';
+  end if;
+
+  if to_regprocedure('public.save_assessment_document_v2(uuid,uuid,uuid,text,text,text,text,text,jsonb,jsonb,text)') is null then
+    raise exception 'Upgrade assertion: Assessment Generation V2 save RPC is missing';
+  end if;
+  if to_regprocedure('public.duplicate_assessment_document_v2(uuid,text,text)') is null then
+    raise exception 'Upgrade assertion: Assessment Generation V2 duplicate RPC is missing';
+  end if;
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='assessment_items' and column_name='point_start')
+     or not exists (select 1 from information_schema.columns where table_schema='public' and table_name='assessment_items' and column_name='point_end')
+     or not exists (select 1 from information_schema.columns where table_schema='public' and table_name='assessment_items' and column_name='plan_entry_id') then
+    raise exception 'Upgrade assertion: Assessment Generation V2 item-range columns are missing';
   end if;
 end;
 $$;

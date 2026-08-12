@@ -9,7 +9,7 @@ import type {
 } from '../types/assessment'
 import type { AssessmentVisual, AssessmentVisualRequirement, AssessmentVisualStatus } from '../types/assessmentVisual'
 import type { TosContent, TosRecord } from '../types/tos'
-import { createAssessmentBlueprint, duplicateAssessmentBlueprint, normalizeAssessmentBlueprint } from './assessmentBlueprint'
+import { createAssessmentBlueprint, createAssessmentBlueprintV2, duplicateAssessmentBlueprint, normalizeAssessmentBlueprint } from './assessmentBlueprint'
 import { deriveAssessmentTotalPoints, normalizeItemPoints } from './assessmentScoring'
 import { validateAssessmentForFinal } from './assessmentGeneration'
 import { isAssessmentVisual } from './assessmentVisualValidation'
@@ -239,6 +239,9 @@ function mapItem(row: DbRow): AssessmentItem {
   return {
     id: text(row.id),
     itemNumber: Number(row.item_number),
+    ...(nullableNumber(row.point_start) !== null ? { pointStart: Number(row.point_start) } : {}),
+    ...(nullableNumber(row.point_end) !== null ? { pointEnd: Number(row.point_end) } : {}),
+    ...(text(row.plan_entry_id).trim() ? { planEntryId: text(row.plan_entry_id).trim() } : {}),
     competencySnapshot: {
       id: text(row.canonical_competency_id),
       code: nullableText(row.competency_code_snapshot),
@@ -302,6 +305,8 @@ function mapAssessmentDocument(
 ): AssessmentRecord {
   const sourceTos = sourceSnapshotFromRow(metadata, document)
   const content = sourceTos.content
+  const persistedSettings = (asObject(metadata.settings ?? metadata.assessment_settings ?? asObject(document.structured_content).settings) as AssessmentRecord['settings']) ?? undefined
+  const isV2 = Number(persistedSettings?.schemaVersion ?? 1) >= 2 && persistedSettings?.generationVersion === 'v2'
   const record: AssessmentRecord = {
     id: text(document.id),
     userId: text(metadata.user_id ?? document.user_id),
@@ -315,9 +320,9 @@ function mapAssessmentDocument(
     gradingTermLabel: text(content.gradingTermLabel, text(document.academic_period_label)),
     curriculumPeriodIds: Array.isArray(content.curriculumPeriodIds) ? content.curriculumPeriodIds.map(String) : [],
     curriculumPeriodLabels: Array.isArray(content.curriculumPeriodLabels) ? content.curriculumPeriodLabels.map(String) : [],
-    totalItems: Number(metadata.total_items ?? content.totalItems ?? itemRows.length),
+    totalItems: isV2 ? itemRows.length : Number(metadata.total_items ?? content.totalItems ?? itemRows.length),
     totalPoints: deriveAssessmentTotalPoints(itemRows.map(mapItem)),
-    settings: (asObject(metadata.settings ?? metadata.assessment_settings ?? asObject(document.structured_content).settings) as AssessmentRecord['settings']) ?? undefined,
+    settings: persistedSettings,
     versionNumber,
     status: text(document.status, 'draft') as AssessmentRecord['status'],
     sourceTos,
@@ -351,7 +356,7 @@ function mapNestedAssessment(document: DbRow, versionNumber: number): Assessment
 
 function assessmentContentMirror(record: AssessmentRecord) {
   return {
-    schemaVersion: 1,
+    schemaVersion: record.settings?.generationVersion === 'v2' ? 2 : 1,
     sourceTos: clone(record.sourceTos),
     sourceTosDocumentId: record.sourceTos.id,
     sourceTosVersionNumber: record.sourceTos.versionNumber,
@@ -393,6 +398,9 @@ function itemWire(item: AssessmentItem) {
   return {
     id: item.id,
     itemNumber: item.itemNumber,
+    ...(item.pointStart === undefined ? {} : { pointStart: item.pointStart }),
+    ...(item.pointEnd === undefined ? {} : { pointEnd: item.pointEnd }),
+    ...(item.planEntryId ? { planEntryId: item.planEntryId } : {}),
     competencySnapshot: clone(item.competencySnapshot),
     cognitiveCategorySnapshot: clone(item.cognitiveCategorySnapshot),
     mapping: clone(item.mapping),
@@ -513,6 +521,35 @@ function assertBlueprintIntegrity(record: AssessmentRecord, existing?: Assessmen
     || existing.sourceTos.versionNumber !== record.sourceTos.versionNumber
     || JSON.stringify(existing.sourceTos.content) !== JSON.stringify(record.sourceTos.content)
   )) throw new Error('Assessment assignment and finalized TOS snapshot are immutable.')
+  const isV2 = Number(record.settings?.schemaVersion ?? 1) >= 2 && record.settings?.generationVersion === 'v2'
+  if (isV2) {
+    const plan = record.settings?.masterPlan
+    if (!plan || plan.numberingMode !== 'point_ranges' || plan.generationVersion !== 'v2') throw new Error('Assessment V2 requires its frozen master plan.')
+    if (record.items.length !== record.totalItems || record.totalItems !== plan.logicalItemCount) throw new Error('Assessment V2 logical question count must match the frozen master plan.')
+    if (deriveAssessmentTotalPoints(record.items) !== plan.totalPoints) throw new Error('Assessment V2 total points must match the frozen master plan.')
+    const byEntry = new Map(plan.entries.map((entry) => [entry.id, entry]))
+    const seenNumbers = new Set<number>()
+    for (const item of record.items) {
+      if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || seenNumbers.has(item.itemNumber)) throw new Error('Assessment V2 logical question numbers must be unique positive integers.')
+      seenNumbers.add(item.itemNumber)
+      const entry = item.planEntryId ? byEntry.get(item.planEntryId) : undefined
+      if (!entry
+        || entry.itemNumber !== item.itemNumber
+        || entry.pointStart !== item.pointStart
+        || entry.pointEnd !== item.pointEnd
+        || entry.pointsPossible !== normalizeItemPoints(item)
+        || entry.questionType !== item.questionType
+        || entry.rowId !== item.mapping.rowId
+        || entry.competencyId !== item.competencySnapshot.id
+        || entry.cognitiveCategoryId !== item.cognitiveCategorySnapshot.id) {
+        throw new Error(`Assessment V2 item ${item.itemNumber} no longer matches its frozen master plan.`)
+      }
+    }
+    const ordered = [...seenNumbers].sort((a, b) => a - b)
+    if (ordered.some((number, index) => number !== index + 1)) throw new Error('Assessment V2 logical question numbering must be contiguous from 1.')
+    if (requireFinal) validateAssessmentForFinal(record)
+    return
+  }
   if (!Number.isSafeInteger(record.totalItems) || record.totalItems < 1 || record.items.length !== record.totalItems) {
     throw new Error('Assessment items must exactly match the finalized TOS total.')
   }
@@ -611,6 +648,69 @@ export async function createAssessmentFromFinalTos(
   return saveAssessmentDocument({ ...blueprint, id: '' }, false)
 }
 
+function canonicalizeV2MasterPlanForTos(
+  masterPlan: NonNullable<AssessmentRecord['settings']>['masterPlan'],
+  tos: TosRecord,
+): NonNullable<AssessmentRecord['settings']>['masterPlan'] {
+  if (!masterPlan) throw new Error('A validated master plan is required.')
+  const rows = new Map(tos.content.rows.map((row) => [row.id, row]))
+  const pointBuckets = masterPlan.pointBuckets.map((bucket) => {
+    const row = rows.get(bucket.rowId)
+    const allocation = row?.cognitiveAllocations.find((candidate) => candidate.categoryId === bucket.cognitiveCategoryId)
+    if (!row || !allocation || allocation.itemStart === null || allocation.itemEnd === null || allocation.itemCount < 1) {
+      throw new Error('The master plan no longer matches the finalized TOS allocation.')
+    }
+    return {
+      ...bucket,
+      competencyId: row.competency.id,
+      competencyCode: row.competency.code,
+      competencyText: row.competency.text,
+      cognitiveLabel: allocation.label,
+      cognitiveShortLabel: allocation.shortLabel,
+      sourceItemCount: allocation.itemCount,
+      sourceAllocationItemStart: allocation.itemStart,
+      sourceAllocationItemEnd: allocation.itemEnd,
+    }
+  })
+  const bucketMap = new Map(pointBuckets.map((bucket) => [bucket.id, bucket]))
+  const entries = masterPlan.entries.map((entry) => {
+    const bucket = bucketMap.get(entry.bucketId)
+    if (!bucket) throw new Error('The master plan contains an unknown point bucket.')
+    return {
+      ...entry,
+      rowId: bucket.rowId,
+      competencyId: bucket.competencyId,
+      cognitiveCategoryId: bucket.cognitiveCategoryId,
+    }
+  })
+  return { ...clone(masterPlan), pointBuckets, entries }
+}
+
+export async function createAssessmentFromMasterPlan(
+  tos: TosRecord,
+  masterPlan: NonNullable<AssessmentRecord['settings']>['masterPlan'],
+  userId: string,
+  demo: boolean,
+  title?: string,
+  instructions?: string,
+  visualPolicy: NonNullable<AssessmentRecord['settings']>['visualPolicy'] = 'balanced',
+  generationInstructions = '',
+  allowedTypes?: QuestionType[],
+): Promise<AssessmentRecord> {
+  assertSourceIsFinal(tos)
+  if (!masterPlan) throw new Error('A validated master plan is required.')
+  const canonicalTos = demo || !supabase ? tos : await canonicalizeFinalTosForProduction(tos)
+  const canonicalMasterPlan = canonicalizeV2MasterPlanForTos(masterPlan, canonicalTos)
+  const blueprint = createAssessmentBlueprintV2(canonicalTos, canonicalMasterPlan, { userId, title: title?.trim() || undefined, instructions: instructions ?? '' })
+  blueprint.settings = { ...blueprint.settings!, visualPolicy, generationInstructions: generationInstructions.trim().slice(0, 4000), ...(allowedTypes?.length ? { allowedTypes: [...new Set(allowedTypes)] } : {}) }
+  if (demo || !supabase) {
+    assertBlueprintIntegrity(blueprint)
+    writeDemoAssessments([...readDemoAssessments().filter((item) => item.id !== blueprint.id), blueprint])
+    return blueprint
+  }
+  return saveAssessmentDocument({ ...blueprint, id: '' }, false)
+}
+
 export async function saveAssessmentDocument(record: AssessmentRecord, demo: boolean): Promise<AssessmentRecord> {
   const normalized = normalizeAssessmentBlueprint(record)
   if (demo || !supabase) {
@@ -632,7 +732,10 @@ export async function saveAssessmentDocument(record: AssessmentRecord, demo: boo
   if (!normalized.assignmentId) throw new Error('A teacher-owned assignment is required.')
   if (!normalized.sourceTos.id) throw new Error('The finalized TOS source is required.')
   assertBlueprintIntegrity({ ...normalized, id: normalized.id || 'temp-id' })
-  const { data, error } = await supabase.rpc('save_assessment_document', {
+  const saveRpc = normalized.settings?.generationVersion === 'v2' && Number(normalized.settings?.schemaVersion ?? 1) >= 2
+    ? 'save_assessment_document_v2'
+    : 'save_assessment_document'
+  const { data, error } = await supabase.rpc(saveRpc, {
     p_document_id: normalized.id || null,
     p_assignment_id: normalized.assignmentId,
     p_source_tos_document_id: normalized.sourceTos.id,
@@ -653,6 +756,33 @@ export async function saveAssessmentDocument(record: AssessmentRecord, demo: boo
   return saved
 }
 
+export async function saveAssessmentItemVisualCheckpoint(record: AssessmentRecord, item: AssessmentItem, demo: boolean): Promise<AssessmentRecord> {
+  const normalized = normalizeAssessmentBlueprint(record)
+  if (demo || !supabase) {
+    const next = { ...normalized, items: normalized.items.map((candidate) => candidate.id === item.id ? clone(item) : candidate) }
+    return saveAssessmentDocument(next, true)
+  }
+  if (normalized.status !== 'draft') throw new Error('Only draft assessments can receive visual checkpoints.')
+  const expectedAnswer = clone(item.answer) as unknown as Record<string, unknown>
+  delete expectedAnswer._visual
+  delete expectedAnswer._visualPlan
+  const wire = itemWire(item)
+  const wireAnswer = asObject(wire.answer)
+  const { error } = await supabase.rpc('save_assessment_item_visual_checkpoint', {
+    p_document_id: normalized.id,
+    p_item_id: item.id,
+    p_expected_question_type: item.questionType,
+    p_expected_prompt: item.prompt ?? '',
+    p_expected_answer: expectedAnswer,
+    p_visual: wireAnswer._visual ?? null,
+    p_visual_plan: wireAnswer._visualPlan ?? {},
+  })
+  if (error) throw error
+  const saved = await loadAssessmentDocument(normalized.id, normalized.userId, false)
+  if (!saved) throw new Error('Visual checkpoint was saved but the assessment could not be reloaded.')
+  return saved
+}
+
 export async function duplicateAssessmentDocument(record: AssessmentRecord, demo: boolean): Promise<AssessmentRecord> {
   const duplicate = duplicateAssessmentBlueprint(record, { userId: record.userId })
   if (demo || !supabase) {
@@ -660,7 +790,8 @@ export async function duplicateAssessmentDocument(record: AssessmentRecord, demo
     writeDemoAssessments([...readDemoAssessments(), duplicate])
     return duplicate
   }
-  const { data, error } = await supabase.rpc('duplicate_assessment_document', {
+  const duplicateRpc = duplicate.settings?.generationVersion === 'v2' ? 'duplicate_assessment_document_v2' : 'duplicate_assessment_document'
+  const { data, error } = await supabase.rpc(duplicateRpc, {
     p_source_document_id: record.id,
     p_title: duplicate.title,
     p_instructions: duplicate.instructions,

@@ -51,6 +51,9 @@ export type ShortAnswerScoringMode = 'manual' | 'normalized_exact'
 export type ResultAssessmentItemSnapshot = {
   id: string
   itemNumber: number
+  /** V2 learner-facing point-number range; absent on legacy assessments. */
+  pointStart?: number
+  pointEnd?: number
   prompt: string
   questionType: QuestionType
   answer: AssessmentAnswer

@@ -334,6 +334,22 @@ export const verifierResponseSchema: GeminiSchema = objectSchema(
   ['status', 'answerValid', 'competencyAligned', 'cognitiveAlignment', 'ambiguityDetected', 'factualOrMathIssue', 'issues', 'repairGuidance'],
 )
 
+export const visualVerifierResponseSchema: GeminiSchema = objectSchema(
+  {
+    status: { type: 'STRING', enum: ['pass', 'needs_repair'] },
+    shapeCountCorrect: { type: 'BOOLEAN' },
+    labelsCorrect: { type: 'BOOLEAN' },
+    valuesCorrect: { type: 'BOOLEAN' },
+    relationshipsCorrect: { type: 'BOOLEAN' },
+    graphCorrect: { type: 'BOOLEAN' },
+    essentialGivenPresent: { type: 'BOOLEAN' },
+    answerLeakDetected: { type: 'BOOLEAN' },
+    issues: stringArray(0, 12),
+    repairGuidance: stringArray(0, 12),
+  },
+  ['status', 'shapeCountCorrect', 'labelsCorrect', 'valuesCorrect', 'relationshipsCorrect', 'graphCorrect', 'essentialGivenPresent', 'answerLeakDetected', 'issues', 'repairGuidance'],
+)
+
 /**
  * Output budgets are deliberately bounded by semantic complexity.  These
  * values leave enough room for a structured response while preventing a

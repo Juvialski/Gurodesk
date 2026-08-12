@@ -101,6 +101,26 @@ describe('separate sequential assessment visual enrichment', () => {
     expect(assessmentVisualSemanticFindings(summary.results[0])).toContainEqual(expect.objectContaining({ code: 'helpful-visual-missing', severity: 'warning' }))
   })
 
+  it('keeps an earlier successful visual when a later forced regeneration fails', async () => {
+    const item = plannedVisualItem(1, 'helpful')
+    const current = {
+      ...item,
+      visual: structuredClone(ASSESSMENT_VISUAL_FIXTURES.marksAndLabels),
+      visualStatus: 'succeeded' as const,
+      visualSourceHash: assessmentVisualSourceHash(item),
+    }
+    const summary = await enrichAssessmentVisualsSequentially({
+      assessment: assessmentRecord([current]),
+      demo: false,
+      itemIds: [current.id],
+      force: true,
+      generate: async () => { throw new Error('Later visual correction failed.') },
+    })
+    expect(summary).toMatchObject({ attempted: 1, failed: 1, succeeded: 0 })
+    expect(summary.results[0].visual).toEqual(current.visual)
+    expect(summary.results[0].visualStatus).toBe('failed')
+  })
+
   it('retains a hard final-QA blocker when a required visual cannot be produced', async () => {
     const item = plannedVisualItem(1, 'required')
     const summary = await enrichAssessmentVisualsSequentially({
@@ -174,7 +194,7 @@ describe('separate sequential assessment visual enrichment', () => {
     }))
     const balance = resolveAssessmentVisualPlans(items)
     expect(balance.optionalBudget).toBe(2)
-    expect(balance.optionalItemIds).toEqual(['balanced-1', 'balanced-5'])
+    expect(balance.optionalItemIds).toEqual(['balanced-3', 'balanced-6'])
     expect(balance.skippedOptionalItemIds).toHaveLength(6)
     expect(balance.items.filter((item) => item.visualRequirement === 'none' && item.visualStatus === 'not_required')).toHaveLength(6)
     expect(assessmentVisualItemIdsForAssessment(items)).toEqual(balance.optionalItemIds)

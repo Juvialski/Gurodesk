@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { assessmentVisualTikzSource } from '../lib/assessmentTikz'
 import type { AssessmentVisual } from '../types/assessmentVisual'
-import { cacheAssessmentTikzRenderedSvg } from '../lib/assessmentTikzRenderCache'
+import { cacheAssessmentTikzRenderedSvg, getAssessmentTikzRenderedSvg } from '../lib/assessmentTikzRenderCache'
 
 const TIKZJAX_SCRIPT = 'https://tikzjax.com/v1/tikzjax.js'
 const TIKZJAX_FONTS = 'https://tikzjax.com/v1/fonts.css'
@@ -30,6 +30,7 @@ function tikzFrameDocument(visual: AssessmentVisual, source: string, token: stri
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval' https://tikzjax.com; style-src 'unsafe-inline' https://tikzjax.com; font-src https://tikzjax.com; connect-src https://tikzjax.com; img-src data: blob:; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
 <link rel="stylesheet" href="${TIKZJAX_FONTS}">
 <style>
   html,body{margin:0;padding:0;background:transparent;overflow:hidden;width:100%;height:100%;}
@@ -110,6 +111,7 @@ export function AssessmentTikzDiagram({ visual, className = '', fallback }: { vi
   const frameRef = useRef<HTMLIFrameElement>(null)
   const [state, setState] = useState<'loading' | 'ready' | 'error'>(source ? 'loading' : 'error')
   const srcDoc = useMemo(() => source ? tikzFrameDocument(visual, source, token) : '', [source, token, visual])
+  const printSvg = state === 'ready' ? getAssessmentTikzRenderedSvg(visual) : ''
 
   useEffect(() => {
     setState(source ? 'loading' : 'error')
@@ -135,6 +137,7 @@ export function AssessmentTikzDiagram({ visual, className = '', fallback }: { vi
         disappear after the fallback was already visible. */}
     <div className="assessment-tikz-fallback" aria-hidden={state === 'ready'}>{fallback}</div>
     {state === 'error' && visual.tikzCode && visual.primitives.length === 0 && <div className="assessment-tikz-render-error" role="status">Diagram preview unavailable. Regenerate this diagram.</div>}
+    {printSvg && <div className="assessment-tikz-print-svg" aria-hidden="true" dangerouslySetInnerHTML={{ __html: printSvg }} />}
     {source && state !== 'error' && <iframe
       ref={frameRef}
       className={`assessment-tikz-frame${state === 'ready' ? ' is-ready' : ''}`}

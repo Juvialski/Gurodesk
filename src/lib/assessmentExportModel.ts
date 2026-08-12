@@ -50,6 +50,13 @@ function pointsForItem(item: AssessmentItem) {
 
 function assessmentTotalPoints(assessment: Assessment) { return assessment.items.reduce((sum, item) => sum + pointsForItem(item), 0) }
 
+function numberLabelForItem(item: AssessmentItem) {
+  const start = Number(item.pointStart)
+  const end = Number(item.pointEnd)
+  if (Number.isSafeInteger(start) && Number.isSafeInteger(end) && start > 0 && end >= start) return start === end ? String(start) : `${start}–${end}`
+  return String(item.itemNumber)
+}
+
 function choicesFor(item: AssessmentItem) {
   const answer = answerOf(item)
   const choices = array(answer.choices ?? answer.options)
@@ -131,6 +138,7 @@ function baseQuestion(item: AssessmentItem): AssessmentExportQuestionBase {
   const type = questionType(item)
   return {
     itemNumber: item.itemNumber,
+    numberLabel: numberLabelForItem(item),
     prompt: normalizeAssessmentMathText(item.prompt),
     questionType: type,
     choices: choicesFor(item),
@@ -172,7 +180,7 @@ function teacherQuestion(item: AssessmentItem, options: AssessmentExportOptions)
 }
 
 function answerKeyQuestion(item: AssessmentItem): AssessmentAnswerKeyExportQuestion {
-  return { itemNumber: item.itemNumber, questionType: questionType(item), answerSpaceLines: 0, pointsPossible: pointsForItem(item), points: pointsForItem(item), answer: item.answer, ...(item.visual ? { visual: item.visual } : {}), ...(scoringGuide(item) ? { scoringGuide: normalizeAssessmentMathText(scoringGuide(item)) } : {}) }
+  return { itemNumber: item.itemNumber, numberLabel: numberLabelForItem(item), questionType: questionType(item), answerSpaceLines: 0, pointsPossible: pointsForItem(item), points: pointsForItem(item), answer: item.answer, ...(item.visual ? { visual: item.visual } : {}), ...(scoringGuide(item) ? { scoringGuide: normalizeAssessmentMathText(scoringGuide(item)) } : {}) }
 }
 
 export function buildAssessmentExportModel(assessment: Assessment, options: AssessmentExportOptions): AssessmentExportModel {
@@ -195,6 +203,7 @@ export function buildAssessmentExportModel(assessment: Assessment, options: Asse
       ...(mode === 'teacher' ? { curriculumPeriods: assessment.curriculumPeriodLabels.map(clean).filter(Boolean).join(', ') } : {}),
       totalItems: assessment.items.length,
       totalPoints: assessmentTotalPoints(assessment),
+      numberingMode: assessment.settings?.numberingMode ?? 'legacy_items',
     },
     questions,
   }

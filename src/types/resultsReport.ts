@@ -94,6 +94,7 @@ export type ResultsSummarySection = {
 
 export type ResultsItemAnalysisRow = {
   itemNumber: number
+  numberLabel: string
   prompt: string
   competency: string
   cognitiveCategory: string
@@ -122,6 +123,7 @@ export type ResultsCompetencyRow = {
   curriculumPeriod: string
   mappedItems: number
   itemNumbers: number[]
+  itemNumberLabels: string[]
   attempts: number
   correct: number
   incorrect: number
@@ -139,6 +141,7 @@ export type ResultsCognitiveRow = {
   curriculumPeriod: string
   mappedItems: number
   itemNumbers: number[]
+  itemNumberLabels: string[]
   attempts: number
   correct: number
   incorrect: number
@@ -155,6 +158,7 @@ export type ResultsCurriculumPeriodRow = {
   curriculumPeriod: string
   mappedItems: number
   itemNumbers: number[]
+  itemNumberLabels: string[]
   attempts: number
   correct: number
   incorrect: number
@@ -169,6 +173,7 @@ export type ResultsCurriculumPeriodRow = {
 
 export type ResultsOptionRow = {
   itemNumber: number
+  numberLabel: string
   option: string
   count: number
   percentage: number | null
@@ -182,6 +187,7 @@ export type ResultsRemediationRow = {
   targetCompetency: string
   curriculumPeriod: string
   itemNumbers: number[]
+  itemNumberLabels: string[]
   evidence: number | null
   evidenceLabel: string
   denominatorLabel: string

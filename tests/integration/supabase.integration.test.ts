@@ -8,6 +8,7 @@ import {
   loadAssessmentDocument,
   loadAssessmentDocuments,
   saveAssessmentDocument,
+  saveAssessmentItemVisualCheckpoint,
 } from '../../src/lib/assessmentRepository'
 import {
   createResultSession,
@@ -18,6 +19,8 @@ import {
 } from '../../src/lib/resultsRepository'
 import { loadRemediationPlans, saveRemediationPlan } from '../../src/lib/remediationRepository'
 import { analyzeResultSession } from '../../src/lib/itemAnalysis'
+import { assessmentVisualSourceHash } from '../../src/lib/assessmentVisualPlanning'
+import { ASSESSMENT_VISUAL_FIXTURES } from '../../src/lib/assessmentVisualFixtures'
 import { buildRemediationPlanTargets, buildRemediationSignals } from '../../src/lib/remediation'
 import { calculateResultTotals } from '../../src/lib/resultsScoring'
 import type { AssessmentRecord } from '../../src/types/assessment'
@@ -472,6 +475,55 @@ describe('Phase 5.5 local Supabase integration', () => {
     expect(duplicate.items.map((item) => item.mapping)).toEqual(savedExisting.items.map((item) => item.mapping))
     await archiveAssessmentDocument(duplicate.id, teacher.id, false)
     expect((await loadAssessmentDocuments(teacher.id, false)).some((item) => item.id === duplicate.id)).toBe(false)
+  })
+
+  it('persists item-level visual checkpoints without overwriting newer teacher edits and keeps duplication in sync', async () => {
+    const teacher = harness.teachers[0]
+    await useApplicationTeacher(teacher)
+    const base = await loadAssessmentDocument(draftAssessment.id, teacher.id, false)
+    if (!base) throw new Error('Visual checkpoint fixture assessment is missing.')
+    const sourceItem = base.items[0]
+    const visualizedItem = {
+      ...sourceItem,
+      visual: { ...structuredClone(ASSESSMENT_VISUAL_FIXTURES.marksAndLabels), id: `checkpoint-${sourceItem.id}` },
+      visualRequirement: 'helpful' as const,
+      visualStatus: 'succeeded' as const,
+      visualSourceHash: assessmentVisualSourceHash(sourceItem),
+      visualUpdatedAt: new Date().toISOString(),
+    }
+    const checkpointed = await saveAssessmentItemVisualCheckpoint(base, visualizedItem, false)
+    expect(checkpointed.items[0].visual?.id).toBe(`checkpoint-${sourceItem.id}`)
+
+    // Simulate another browser tab saving a non-source teacher edit. A delayed
+    // visual checkpoint may still land, but it must not overwrite that note.
+    const teacherEdited = await saveAssessmentDocument({
+      ...checkpointed,
+      items: checkpointed.items.map((item, index) => index === 0 ? { ...item, teacherNotes: 'Newer note from another tab.' } : item),
+    }, false)
+    const refreshedVisual = {
+      ...visualizedItem,
+      visual: { ...visualizedItem.visual!, id: `checkpoint-refresh-${sourceItem.id}` },
+      visualUpdatedAt: new Date().toISOString(),
+    }
+    const afterDelayedVisual = await saveAssessmentItemVisualCheckpoint(teacherEdited, refreshedVisual, false)
+    expect(afterDelayedVisual.items[0].teacherNotes).toBe('Newer note from another tab.')
+    expect(afterDelayedVisual.items[0].visual?.id).toBe(`checkpoint-refresh-${sourceItem.id}`)
+
+    const duplicate = await duplicateAssessmentDocument(afterDelayedVisual, false)
+    expect(duplicate.items[0].visual?.id).toBe(`checkpoint-refresh-${sourceItem.id}`)
+
+    // Source edits invalidate an old tab's optimistic checkpoint.
+    const sourceEdited = await saveAssessmentDocument({
+      ...afterDelayedVisual,
+      items: afterDelayedVisual.items.map((item, index) => index === 0 ? { ...item, prompt: `${item.prompt} Updated by teacher.` } : item),
+    }, false)
+    await expectRejected(
+      () => saveAssessmentItemVisualCheckpoint(base, refreshedVisual, false),
+      /changed elsewhere|stale visual checkpoint/i,
+    )
+    const reloaded = await loadAssessmentDocument(sourceEdited.id, teacher.id, false)
+    expect(reloaded?.items[0].prompt).toBe(sourceEdited.items[0].prompt)
+    draftAssessment = sourceEdited
   })
 
   it('creates, saves, lists, and reloads a deterministic 40-item assessment', async () => {

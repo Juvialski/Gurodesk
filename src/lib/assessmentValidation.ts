@@ -109,6 +109,44 @@ function sourcePlacementStatus(source: AssessmentTosSnapshot) {
   return { numbers, duplicate }
 }
 
+
+function isV2Assessment(assessment: AssessmentBlueprint) {
+  return Number(assessment.settings?.schemaVersion ?? 1) >= 2
+    && assessment.settings?.generationVersion === 'v2'
+    && assessment.settings?.numberingMode === 'point_ranges'
+}
+
+function v2SourceMapping(source: AssessmentTosSnapshot, item: AssessmentItem) {
+  const row = source.content.rows.find((candidate) => candidate.id === item.mapping?.rowId)
+  if (!row || row.competency.id !== item.mapping?.competencyId) return null
+  const allocation = row.cognitiveAllocations.find((candidate) => candidate.categoryId === item.mapping?.cognitiveCategoryId)
+  if (!allocation || allocation.itemStart === null || allocation.itemEnd === null || allocation.itemCount < 1) return null
+  const category = source.content.cognitiveCategories.find((candidate) => candidate.id === allocation.categoryId) ?? {
+    id: allocation.categoryId,
+    label: allocation.label,
+    shortLabel: allocation.shortLabel,
+  }
+  return {
+    mapping: {
+      rowId: row.id,
+      competencyId: row.competency.id,
+      cognitiveCategoryId: category.id,
+      allocationItemStart: allocation.itemStart,
+      allocationItemEnd: allocation.itemEnd,
+    },
+    competency: {
+      id: row.competency.id,
+      code: row.competency.code,
+      text: row.competency.text,
+      sourcePage: row.competency.sourcePage,
+      academicPeriodId: row.competency.academicPeriodId,
+      curriculumPeriodId: row.competency.academicPeriodId,
+      curriculumPeriodLabel: row.competency.curriculumPeriodLabel,
+    },
+    category: { id: category.id, label: category.label, shortLabel: category.shortLabel },
+  }
+}
+
 function cleanText(value: unknown) {
   return typeof value === 'string' ? value.normalize('NFKC').trim().replace(/\s+/gu, ' ') : ''
 }
@@ -394,8 +432,13 @@ function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'
   if (!assessment.sourceTos || assessment.sourceTos.status !== 'final') add('source-tos', 'The assessment must retain a finalized source TOS snapshot.')
   const sourceTotal = Number(assessment.sourceTos?.content?.totalItems)
   if (!Number.isSafeInteger(sourceTotal) || sourceTotal < 1) add('source-total', 'The source TOS total must be a positive whole number.')
-  if (assessment.totalItems !== sourceTotal) add('total-items', 'Assessment totalItems must exactly match the source TOS total.')
-  if (assessment.items.length !== sourceTotal) add('item-count', `Assessment must contain exactly ${sourceTotal} item(s).`)
+  const v2 = isV2Assessment(assessment)
+  const masterPlan = v2 ? assessment.settings?.masterPlan : undefined
+  const expectedItemCount = v2 ? Number(masterPlan?.logicalItemCount) : sourceTotal
+  if (!Number.isSafeInteger(expectedItemCount) || expectedItemCount < 1) add('total-items', 'Assessment logical question count must be a positive whole number.')
+  if (assessment.totalItems !== expectedItemCount) add('total-items', v2 ? 'Assessment totalItems must exactly match the frozen V2 master-plan logical question count.' : 'Assessment totalItems must exactly match the source TOS total.')
+  if (assessment.items.length !== expectedItemCount) add('item-count', `Assessment must contain exactly ${expectedItemCount} logical question(s).`)
+  if (v2 && (!masterPlan || masterPlan.generationVersion !== 'v2' || masterPlan.numberingMode !== 'point_ranges' || masterPlan.totalPoints !== assessment.totalPoints)) add('master-plan', 'Assessment V2 must retain its immutable point-range master plan and total points.')
   const derivedTotal = deriveAssessmentTotalPoints(assessment.items)
   if (assessment.totalPoints !== undefined && (!Number.isFinite(assessment.totalPoints) || Math.abs(Number(assessment.totalPoints) - derivedTotal) > 0.000001)) {
     add('total-points', `Assessment totalPoints must equal the derived item-point sum (${derivedTotal}).`)
@@ -408,6 +451,7 @@ function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'
   if (settings) {
     if (!Array.isArray(settings.allowedTypes) || settings.allowedTypes.length < 1) add('allowed-question-types', 'At least one question type must be enabled.')
     if (!['auto_balanced', 'fixed_counts', 'percentages', 'manual_per_item'].includes(settings.mode)) add('distribution-mode', 'Question-type distribution mode is invalid.')
+    if (settings.visualPolicy !== undefined && !['off', 'balanced', 'more_visuals'].includes(settings.visualPolicy)) add('visual-policy', 'Assessment visual policy is invalid.')
     if (settings.targetTotalPoints !== null && settings.targetTotalPoints !== undefined && (!Number.isFinite(Number(settings.targetTotalPoints)) || Number(settings.targetTotalPoints) < 0)) add('target-points', 'Target total points must be nonnegative.')
     for (const [type, value] of Object.entries(settings.defaultPoints ?? {})) {
       if (!QUESTION_TYPES.includes(type as QuestionType) || !Number.isFinite(Number(value)) || Number(value) <= 0) add('default-points', `Default points for ${type} must be positive.`)
@@ -423,30 +467,46 @@ function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'
   }
 
   const numbers = new Set<number>()
+  const pointRanges = new Set<string>()
+  let pointCursor = 1
   for (const item of assessment.items) {
-    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || item.itemNumber > sourceTotal) add('item-number', 'Item number must be a whole number within 1..N.', item)
-    if (numbers.has(item.itemNumber)) add('duplicate-item-number', 'Item numbers must not be duplicated.', item)
+    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || item.itemNumber > expectedItemCount) add('item-number', 'Logical question number must be a whole number within 1..N.', item)
+    if (numbers.has(item.itemNumber)) add('duplicate-item-number', 'Logical question numbers must not be duplicated.', item)
     numbers.add(item.itemNumber)
+    if (v2) {
+      const points = normalizeItemPoints(item)
+      if (!Number.isSafeInteger(item.pointStart) || !Number.isSafeInteger(item.pointEnd) || item.pointStart !== pointCursor || item.pointEnd !== item.pointStart + points - 1) add('point-range', 'V2 point ranges must be whole-number, contiguous, and exactly match pointsPossible.', item)
+      const rangeKey = `${item.pointStart}-${item.pointEnd}`
+      if (pointRanges.has(rangeKey)) add('duplicate-point-range', 'V2 point ranges must not be duplicated.', item)
+      pointRanges.add(rangeKey)
+      if (Number.isSafeInteger(item.pointEnd)) pointCursor = Number(item.pointEnd) + 1
+    }
   }
-  for (let itemNumber = 1; itemNumber <= sourceTotal; itemNumber += 1) {
-    if (!numbers.has(itemNumber)) add('item-number-gap', `Item number ${itemNumber} is missing.`)
+  for (let itemNumber = 1; itemNumber <= expectedItemCount; itemNumber += 1) {
+    if (!numbers.has(itemNumber)) add('item-number-gap', `Logical question ${itemNumber} is missing.`)
   }
+  if (v2 && pointCursor !== Number(masterPlan?.totalPoints) + 1) add('point-range-total', 'V2 point ranges must cover exactly 1 through the frozen total-points value.')
 
-  const expected = expectedMappings(assessment.sourceTos)
+  const expected = v2 ? new Map() : expectedMappings(assessment.sourceTos)
   const sourcePlacement = sourcePlacementStatus(assessment.sourceTos)
   const sourceNumbers = [...sourcePlacement.numbers].sort((a, b) => a - b)
-  if (sourcePlacement.duplicate || expected.size !== sourceTotal || sourceNumbers.length !== sourceTotal || sourceNumbers.some((number, index) => number !== index + 1)) add('source-blueprint', 'The source TOS ranges do not map exactly to 1..N.')
+  if (sourcePlacement.duplicate || (!v2 && (expected.size !== sourceTotal || sourceNumbers.length !== sourceTotal || sourceNumbers.some((number, index) => number !== index + 1)))) add('source-blueprint', 'The source TOS ranges are invalid or overlapping.')
   const seenMappings = new Set<string>()
+  const planEntries = new Map((masterPlan?.entries ?? []).map((entry) => [entry.itemNumber, entry]))
   for (const item of assessment.items) {
-    const expectedItem = expected.get(item.itemNumber)
+    const expectedItem = v2 ? v2SourceMapping(assessment.sourceTos, item) : expected.get(item.itemNumber)
     if (!expectedItem) {
-      add('unmapped-item', 'Every item must map to an allocated source TOS row and cognitive category.', item)
+      add('unmapped-item', 'Every question must map to an allocated source TOS row and cognitive category.', item)
       continue
     }
     const mappingKey = `${item.mapping?.rowId ?? ''}|${item.mapping?.cognitiveCategoryId ?? ''}|${item.itemNumber}`
-    if (seenMappings.has(mappingKey)) add('duplicate-mapping', 'Item mappings must not be duplicated.', item)
+    if (seenMappings.has(mappingKey)) add('duplicate-mapping', 'Question mappings must not be duplicated.', item)
     seenMappings.add(mappingKey)
-    if (!same(item.mapping, expectedItem.mapping)) add('mapping-mismatch', 'Item mapping must exactly match the immutable source TOS blueprint.', item)
+    if (v2) {
+      const planEntry = planEntries.get(item.itemNumber)
+      if (!planEntry || item.planEntryId !== planEntry.id || item.pointStart !== planEntry.pointStart || item.pointEnd !== planEntry.pointEnd || normalizeItemPoints(item) !== planEntry.pointsPossible || item.questionType !== planEntry.questionType || item.mapping.rowId !== planEntry.rowId || item.mapping.competencyId !== planEntry.competencyId || item.mapping.cognitiveCategoryId !== planEntry.cognitiveCategoryId) add('master-plan-item', 'This V2 question no longer matches its frozen master-plan entry.', item)
+      if (item.mapping.allocationItemStart !== expectedItem.mapping.allocationItemStart || item.mapping.allocationItemEnd !== expectedItem.mapping.allocationItemEnd || item.mapping.rowId !== expectedItem.mapping.rowId || item.mapping.competencyId !== expectedItem.mapping.competencyId || item.mapping.cognitiveCategoryId !== expectedItem.mapping.cognitiveCategoryId) add('mapping-mismatch', 'Question mapping must remain inside its immutable source TOS competency/CPD allocation.', item)
+    } else if (!same(item.mapping, expectedItem.mapping)) add('mapping-mismatch', 'Item mapping must exactly match the immutable source TOS blueprint.', item)
     if (!same(item.competencySnapshot, expectedItem.competency)) add('competency-snapshot', 'The competency snapshot no longer matches the source TOS row.', item)
     if (!same(item.cognitiveCategorySnapshot, expectedItem.category)) add('cognitive-snapshot', 'The cognitive-category snapshot no longer matches the source TOS allocation.', item)
 

@@ -789,9 +789,9 @@ export async function enrichAssessmentVisualsSequentially(options: AssessmentVis
   const generate = options.generate ?? generateAssessmentVisualSuggestion
   const candidates = options.assessment.items
     .filter((item) => (!selected || selected.has(item.id)) && item.prompt.trim() && item.authorshipState !== 'empty' && item.locked !== true && item.qaState !== 'locked')
-    .map((item) => withResolvedAssessmentVisualPlan(item, { force: options.force }))
+    .map((item) => withResolvedAssessmentVisualPlan(item, { force: options.force, learningArea: options.assessment.learningArea, visualPolicy: options.assessment.settings?.visualPolicy }))
     .filter((item) => {
-      const plan = assessmentVisualPlanForItem(item, { force: options.force })
+      const plan = assessmentVisualPlanForItem(item, { force: options.force, learningArea: options.assessment.learningArea, visualPolicy: options.assessment.settings?.visualPolicy })
       if (plan.requirement === 'none') return false
       if (!options.force && plan.current) return false
       return options.force || plan.attempts < maxAttempts
@@ -822,7 +822,7 @@ export async function enrichAssessmentVisualsSequentially(options: AssessmentVis
       for (const pending of candidates.slice(index)) { summary.cancelled += 1; progress(pending, 'cancelled') }
       break
     }
-    const plan = assessmentVisualPlanForItem(source, { force: options.force })
+    const plan = assessmentVisualPlanForItem(source, { force: options.force, learningArea: options.assessment.learningArea, visualPolicy: options.assessment.settings?.visualPolicy })
     if (plan.requirement === 'none') continue
     const requirement = plan.requirement
     summary.attempted += 1

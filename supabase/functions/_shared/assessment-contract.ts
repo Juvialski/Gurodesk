@@ -1,6 +1,7 @@
 import type { AssessmentQuestionType } from './ai-models.ts'
 import { ASSESSMENT_QUESTION_TYPES } from './ai-models.ts'
 import { validateAssessmentVisual } from './assessment-visual.ts'
+import { extractAssessmentTikzNodeTexts, normalizeAssessmentTikzLearnerText } from './tikz-safety.ts'
 
 export type QuestionType = AssessmentQuestionType
 export type Row = Record<string, unknown>
@@ -155,8 +156,10 @@ function directAnswerTerms(answer: Row, questionType: QuestionType) {
   } else if (questionType === 'multiple_select' && Array.isArray(answer.choices) && Array.isArray(answer.choiceIds)) {
     const correct = new Set(answer.choiceIds.filter((entry): entry is string => typeof entry === 'string'))
     for (const choice of answer.choices.map(object)) if (choice && typeof choice.id === 'string' && correct.has(choice.id) && typeof choice.text === 'string') values.push(choice.text)
-  } else if (questionType === 'problem_solving' && typeof answer.finalAnswer === 'string') values.push(answer.finalAnswer)
-  return [...new Set(values.map(semanticText).filter((entry) => entry.length >= 3))]
+  } else if (questionType === 'numerical_answer') {
+    if (answer.value !== undefined) values.push(String(answer.value))
+  } else if (questionType === 'problem_solving' && answer.finalAnswer !== undefined) values.push(String(answer.finalAnswer))
+  return [...new Set(values.map(semanticText).filter((entry) => entry.length >= 1 && entry.length <= 120))]
 }
 
 function containsAnswerTerm(value: string, terms: string[]) {
@@ -165,11 +168,7 @@ function containsAnswerTerm(value: string, terms: string[]) {
 }
 
 function directTikzNodeTexts(source: string) {
-  // Only node bodies are learner-facing text. Path coordinates/options may
-  // contain the same number as a correct answer without revealing that answer.
-  return [...source.matchAll(/(?:\\node|\bnode)\b[^;{}]*\{([^{}]{1,240})\}/gu)]
-    .map((match) => match[1] ?? '')
-    .filter(Boolean)
+  return extractAssessmentTikzNodeTexts(source).map(normalizeAssessmentTikzLearnerText).filter(Boolean)
 }
 
 function visualTextRevealsAnswer(value: unknown, terms: string[]) {
@@ -448,14 +447,13 @@ export function validateAssessmentCandidate(
   if (answerTerms.length && (resolvedType === 'fill_in_the_blank' || resolvedType === 'short_answer' || resolvedType === 'identification')) {
     prompt = stripAnswerLeakingParentheticals(prompt, answerTerms)
     if (containsAnswerTerm(prompt, answerTerms)) throw new AssessmentContractError('The AI response prompt revealed an accepted answer.', 'SEMANTIC_INVALID')
-    // A model-generated diagram is learner-facing just like the stem. Reject a
-    // text label that spells out an accepted answer instead of relying on alt
-    // text sanitization alone. Keep the check intentionally scoped to answer
-    // types with concise accepted terms so ordinary numeric/axis labels are not
-    // mistaken for leaks in calculation-heavy questions.
-    if (safeRawVisual !== null && visualTextRevealsAnswer(safeRawVisual, answerTerms)) {
-      throw new AssessmentContractError('The AI response visual revealed an accepted answer in a text label.', 'VISUAL_INVALID')
-    }
+  }
+  // A model-generated diagram is learner-facing just like the stem. Apply the
+  // same brace-aware answer-label check to every supported concise answer type
+  // at the Edge boundary and final client QA. Coordinates are never extracted
+  // as labels; numerical units alone are not treated as final-answer terms.
+  if (answerTerms.length && safeRawVisual !== null && visualTextRevealsAnswer(safeRawVisual, answerTerms)) {
+    throw new AssessmentContractError('The AI response visual revealed an accepted answer in a text label.', 'VISUAL_INVALID')
   }
   const visual = safeRawVisual === null ? null : { ...(safeRawVisual as Row), altText: neutralVisualAltText(safeRawVisual) }
   if (resolvedType === 'fill_in_the_blank') {

@@ -133,7 +133,7 @@ export async function autoPrepareAssessmentPaper(args: {
   // Resolve the whole paper before the first pass. This persists optional
   // candidates that are intentionally skipped as none/not_required, while
   // required prompts and existing teacher visuals remain untouched.
-  const initialVisualBalance = resolveAssessmentVisualPlans(args.assessment.items)
+  const initialVisualBalance = resolveAssessmentVisualPlans(args.assessment.items, { learningArea: args.assessment.learningArea, visualPolicy: args.assessment.settings?.visualPolicy })
   let working: AssessmentRecord = { ...args.assessment, items: initialVisualBalance.items }
   let generated = 0
   let regenerated = 0
@@ -168,7 +168,7 @@ export async function autoPrepareAssessmentPaper(args: {
       if (providerPaused || args.signal?.aborted) break
     }
 
-    const visualBalance = resolveAssessmentVisualPlans(working.items)
+    const visualBalance = resolveAssessmentVisualPlans(working.items, { learningArea: working.learningArea, visualPolicy: working.settings?.visualPolicy })
     working = { ...working, items: visualBalance.items }
     await args.onCheckpoint?.(working)
     const visualIds = new Set([...visualBalance.requiredItemIds, ...visualBalance.optionalItemIds])

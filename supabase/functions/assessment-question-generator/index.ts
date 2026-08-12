@@ -1,11 +1,12 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
-import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId, type AssessmentQuestionType, type GeminiSchema, verifierResponseSchema } from '../_shared/ai-models.ts'
+import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId, type AssessmentQuestionType, type GeminiSchema, verifierResponseSchema, visualVerifierResponseSchema } from '../_shared/ai-models.ts'
 import { AssessmentContractError, validateAssessmentCandidate as validateAssessmentCandidateContract, type ImmutableAssessmentContext } from '../_shared/assessment-contract.ts'
 import { callGemini, GeminiHttpError, GeminiResponseError, isFallbackEligibleStatus, parseGeminiJson } from '../_shared/gemini.ts'
 import { validateAssessmentVisual } from '../_shared/assessment-visual.ts'
 import { validateAssessmentTikzSource } from '../_shared/tikz-safety.ts'
+import { normalizeFinishedVisualVerifier, type FinishedVisualVerifier } from '../_shared/visual-verification.ts'
 
 type QuestionType = AssessmentQuestionType
 type Operation = 'generate' | 'verify' | 'repair' | 'visual'
@@ -80,7 +81,9 @@ function buildGenerationPrompt(type: QuestionType, immutable: Row, language: str
     'Never alter the fixed item number, competency, cognitive category, question type, or points.',
     `Grade level (server-verified): ${gradeLevel}`,
     `Learning area (server-verified): ${learningArea}`,
-    `Item number (fixed): ${Number(immutable.itemNumber)}`,
+    `Logical question order (internal, fixed): ${Number(immutable.itemNumber)}`,
+    `Learner-facing point number (fixed): ${clean(immutable.pointLabel) || String(immutable.itemNumber)}`,
+    clean(immutable.taskIntent) ? `Master-plan task intent (fixed design constraint): ${clean(immutable.taskIntent, 1200)}` : 'No separate master-plan task intent is stored for this legacy item.',
     `Competency (fixed): ${competency}`,
     `Cognitive category (fixed): ${cognitive}`,
     `Question type (fixed): ${type}`,
@@ -96,11 +99,15 @@ function buildGenerationPrompt(type: QuestionType, immutable: Row, language: str
     `referencedResources must be ${resources.length ? 'an array containing only exact teacher-listed resource strings actually used' : 'an empty array [] because the teacher supplied no resources'}.`,
     plannedVisual.requirement === 'required'
       ? 'VISUAL CONTRACT (MANDATORY): this slot was selected BEFORE question generation as a REQUIRED visual item. Return visualRequirement exactly "required". Write a prompt that explicitly tells the learner to use/refer to the diagram/figure/graph. At least one ESSENTIAL given, label, measure, position, or relationship needed to solve the question must appear only in the future diagram and MUST NOT be duplicated in the written stem. The question must be invalid/incomplete without the diagram; the visual is problem data, not decoration.'
-      : 'VISUAL CONTRACT (MANDATORY): this slot is text-only. Return visualRequirement exactly "none" and visualIntent exactly "". Write a fully self-contained question. Do not request a cosmetic/helpful diagram.',
+      : plannedVisual.requirement === 'helpful'
+        ? 'VISUAL CONTRACT (MANDATORY): the frozen V2 master plan reserved a HELPFUL visual. Return visualRequirement exactly "helpful" and preserve the supplied visual intent. The written question MUST remain fully self-contained and answerable without the diagram; the visual may clarify or support understanding but cannot contain essential problem data.'
+        : 'VISUAL CONTRACT (MANDATORY): this slot is text-only. Return visualRequirement exactly "none" and visualIntent exactly "". Write a fully self-contained question. Do not request a cosmetic/helpful diagram.',
     plannedVisual.requirement === 'required'
       ? `Required visual intent reserved by GuroDesk: ${plannedVisual.intent || 'Create the essential mathematical figure containing at least one necessary given that is absent from the written stem.'}`
-      : 'No diagram is permitted for this generated item.',
-    'Never use visualRequirement "helpful" during automatic question generation. A diagram is either essential to the question or it is not generated.',
+      : plannedVisual.requirement === 'helpful'
+        ? `Helpful visual intent reserved by the frozen V2 master plan: ${plannedVisual.intent || 'Provide a nonessential supporting visual that does not carry any required given.'}`
+        : 'No diagram is permitted for this generated item.',
+    'Do not change the planner-selected visual requirement. Required means essential problem data; helpful means optional support; none means no diagram.',
     'When visualRequirement is "required", visualIntent must concisely specify the learner-visible givens/labels/relationships the separate visual call must draw, without including the correct answer or conclusion.',
     'Do not return visual geometry, TikZ, SVG, HTML, scripts, raster data, formula code, or coordinates in this question-generation response. GuroDesk requests the visual separately after the question contract is valid.',
     'Rationale is for teacher review and must be at least one clear sentence; it must not claim official approval.',
@@ -110,7 +117,9 @@ function buildGenerationPrompt(type: QuestionType, immutable: Row, language: str
 function buildVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row) {
   return [
     'Independently review one finished assessment item. Return strict JSON only.',
-    `Fixed item number: ${Number(immutable.itemNumber)}`,
+    `Fixed logical question order: ${Number(immutable.itemNumber)}`,
+    `Fixed learner-facing point number: ${clean(immutable.pointLabel) || String(immutable.itemNumber)}`,
+    clean(immutable.taskIntent) ? `Frozen master-plan task intent: ${clean(immutable.taskIntent, 1200)}` : 'Legacy item: no frozen V2 task intent.',
     `Fixed competency: ${clean(immutable.competencyText)}`,
     `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
     `Fixed question type: ${type}`,
@@ -119,7 +128,9 @@ function buildVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row)
     'Check answer validity, competency alignment, cognitive alignment, ambiguity, factual/math issues, and type-specific structure.',
     clean(candidate.visualRequirement, 20) === 'required'
       ? 'VISUAL DEPENDENCY CHECK: the finished learner prompt must genuinely require its diagram. It must explicitly refer to the diagram/figure/graph and at least one essential given must be absent from the written stem and supplied only by the visual intent. If the item can be answered correctly from text alone, return status "needs_repair" and explain that the diagram is merely cosmetic.'
-      : 'This is a text-only item. Flag any unnecessary visual dependency or decorative visual request as needs_repair.',
+      : clean(candidate.visualRequirement, 20) === 'helpful'
+        ? 'HELPFUL VISUAL CHECK: the written question must be fully answerable from text alone. The optional visual may clarify or support understanding but must not contain an essential given or reveal the answer. Flag the item if the prompt depends on the visual.'
+        : 'This is a text-only item. Flag any unnecessary visual dependency or decorative visual request as needs_repair.',
     'Do not require a single best answer for essay, constructed_response, or multiple_select.',
     'Return exactly: {"status":"pass"|"needs_repair","answerValid":boolean,"competencyAligned":boolean,"cognitiveAlignment":"good"|"questionable","ambiguityDetected":boolean,"factualOrMathIssue":boolean,"issues":string[],"repairGuidance":string[]}.',
   ].join('\n')
@@ -128,7 +139,9 @@ function buildVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row)
 function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, issues: string[], guidance: string[]) {
   return [
     'Repair exactly one assessment item. Keep immutable item number, competency, cognitive category, question type, and points unchanged.',
-    `Fixed item number: ${Number(immutable.itemNumber)}`,
+    `Fixed logical question order: ${Number(immutable.itemNumber)}`,
+    `Fixed learner-facing point number: ${clean(immutable.pointLabel) || String(immutable.itemNumber)}`,
+    clean(immutable.taskIntent) ? `Frozen master-plan task intent: ${clean(immutable.taskIntent, 1200)}` : 'Legacy item: no frozen V2 task intent.',
     `Fixed competency: ${clean(immutable.competencyText)}`,
     `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
     `Fixed question type: ${type}`,
@@ -138,7 +151,9 @@ function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, i
     `Repair guidance: ${guidance.join(' | ') || 'return a clear unambiguous item'}`,
     clean(candidate.visualRequirement, 20) === 'required'
       ? 'Preserve visualRequirement "required". Make the diagram indispensable: explicitly refer to it and move at least one necessary given into visualIntent so the written stem alone is insufficient. Do not reveal the answer in visualIntent.'
-      : 'Keep this item text-only with visualRequirement "none" and visualIntent ""; do not add a decorative diagram.',
+      : clean(candidate.visualRequirement, 20) === 'helpful'
+        ? 'Preserve visualRequirement "helpful" and its frozen visual intent. Keep the written question fully self-contained; the visual cannot contain an essential given or reveal the answer.'
+        : 'Keep this item text-only with visualRequirement "none" and visualIntent ""; do not add a decorative diagram.',
     'Return one JSON object only with exactly questionType, prompt, answer, rationale, referencedResources, visualRequirement, visualIntent.',
     `questionType must remain exactly "${type}".`,
     answerShapeInstruction(type),
@@ -161,7 +176,9 @@ function buildVisualPrompt(type: QuestionType, immutable: Row, candidate: Row, v
     'For geometry, draw the actual mathematical relationships accurately. Use arcs, right-angle marks, equal-side tick marks, arrows, dashed construction lines, and labels when they help the learner interpret the question.',
     'For coordinate graphs, draw axes, ticks, labels, and the required curve/points directly with TikZ commands; do not rely on pgfplots.',
     'Do not reveal the accepted answer, final numeric result, classification, or solution method in the diagram or labels. The diagram must support the question without solving it for the learner.',
-    `Fixed item number: ${Number(immutable.itemNumber)}`,
+    `Fixed logical question order: ${Number(immutable.itemNumber)}`,
+    `Fixed learner-facing point number: ${clean(immutable.pointLabel) || String(immutable.itemNumber)}`,
+    clean(immutable.taskIntent) ? `Frozen master-plan task intent: ${clean(immutable.taskIntent, 1200)}` : 'Legacy item: no frozen V2 task intent.',
     `Fixed competency: ${clean(immutable.competencyText)}`,
     `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
     `Fixed question type: ${type}`,
@@ -172,6 +189,33 @@ function buildVisualPrompt(type: QuestionType, immutable: Row, candidate: Row, v
     `Visual intent: ${visualIntent || clean(candidate.visualIntent, 500)}`,
     ...(issues.length ? [`Previous visual issues to avoid: ${issues.join(' | ')}`] : []),
   ].join('\n')
+}
+
+
+function buildFinishedVisualVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row, visualIntent: string, tikzCode: string) {
+  return [
+    'Independently verify the FINISHED TikZ diagram for an assessment item. Return strict JSON only. Do not rewrite the question or answer.',
+    `Fixed logical question order: ${Number(immutable.itemNumber)}`,
+    `Fixed learner-facing point number: ${clean(immutable.pointLabel) || String(immutable.itemNumber)}`,
+    clean(immutable.taskIntent) ? `Frozen master-plan task intent: ${clean(immutable.taskIntent, 1200)}` : 'Legacy item: no frozen V2 task intent.',
+    `Fixed competency: ${clean(immutable.competencyText)}`,
+    `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
+    `Fixed question type: ${type}`,
+    `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
+    `Learner prompt: ${clean(candidate.prompt, 2000)}`,
+    `Structured teacher answer (must NOT be revealed to learner): ${JSON.stringify(candidate.answer)}`,
+    `Visual intent: ${visualIntent}`,
+    `Finished TikZ: ${tikzCode}`,
+    'Check the actual finished diagram, not just the intent. Verify the correct number/type of shapes, learner-visible labels, angle/length/numeric values, parallel/perpendicular/equality/other required relationships, and graph axes/ticks/points/curves when applicable.',
+    'If a category is not applicable, mark that boolean true. essentialGivenPresent must be true only if the diagram contains every diagram-only given needed by the learner.',
+    'answerLeakDetected must be true if the diagram directly gives away the accepted answer, final numeric result, classification, or solution conclusion rather than merely supplying problem data.',
+    'status must be needs_repair if ANY required fact is wrong/missing, an essential diagram-only given is absent, or answerLeakDetected is true.',
+    'Return exactly: {"status":"pass"|"needs_repair","shapeCountCorrect":boolean,"labelsCorrect":boolean,"valuesCorrect":boolean,"relationshipsCorrect":boolean,"graphCorrect":boolean,"essentialGivenPresent":boolean,"answerLeakDetected":boolean,"issues":string[],"repairGuidance":string[]}.',
+  ].join('\n')
+}
+
+function parseVisualVerifier(value: string): FinishedVisualVerifier {
+  return normalizeFinishedVisualVerifier(parseJson(value))
 }
 
 // maxRetries=2 in the client scheduler means at most 3 provider attempts
@@ -325,17 +369,35 @@ Deno.serve(async (req) => {
     if (assessmentResult.data.status !== 'draft') return json({ error: 'Only draft assessment items can receive editable AI suggestions.' }, 409)
     const item = itemResult.data as Row; const metadata = metadataResult.data as Row; const sourceContent = object(metadata.source_tos_content_snapshot); const serverType = String(item.question_type) as QuestionType; if (serverType !== requestedType) return json({ error: 'The requested question type does not match the saved item.' }, 409); if (item.locked === true || String(item.qa_state) === 'locked') return json({ error: 'This item is locked. Unlock it before requesting AI generation or review.' }, 409)
     const sourceSettings = object(object(assessmentResult.data.structured_content).settings ?? object(metadata.structured_content).settings); const allowedTypes = Array.isArray(sourceSettings.allowedTypes) ? sourceSettings.allowedTypes.map(String) : []; if (allowedTypes.length && !allowedTypes.includes(serverType)) return json({ error: 'This question type is disabled for the assessment.' }, 409)
+    const isV2 = Number(sourceSettings.schemaVersion ?? 1) >= 2 && String(sourceSettings.generationVersion) === 'v2' && String(sourceSettings.numberingMode) === 'point_ranges'
+    const savedAnswer = object(item.answer); const masterPlan = object(sourceSettings.masterPlan); const masterEntries = Array.isArray(masterPlan.entries) ? masterPlan.entries.map(object) : []
+    const planEntry = isV2 ? masterEntries.find((entry) => String(entry.id) === String(item.plan_entry_id)) : null
+    if (isV2) {
+      if (!planEntry) return json({ error: 'The saved V2 item no longer matches its frozen master-plan entry.' }, 409)
+      if (Number(planEntry.itemNumber) !== Number(item.item_number)
+        || String(planEntry.questionType) !== serverType
+        || Number(planEntry.pointsPossible) !== Number(item.points_possible ?? item.points ?? 1)
+        || String(planEntry.rowId) !== String(item.tos_row_id)
+        || String(planEntry.competencyId) !== String(item.canonical_competency_id)
+        || String(planEntry.cognitiveCategoryId) !== String(item.cognitive_category_id)
+        || Number(planEntry.pointStart) !== Number(item.point_start)
+        || Number(planEntry.pointEnd) !== Number(item.point_end)
+        || Number(planEntry.pointEnd) - Number(planEntry.pointStart) + 1 !== Number(planEntry.pointsPossible)) {
+        return json({ error: 'The saved V2 item was changed outside its frozen master plan.' }, 409)
+      }
+    }
     if (operation === 'generate' && !body.alternative && String(item.authorship_state) !== 'empty') return json({ error: 'This item already has content. Request an explicit alternative to preserve the existing draft.' }, 409)
     const sourceId = String(metadata.source_tos_document_id); const [sourceResult, tosRowsResult, competencyResult] = await Promise.all([admin.from('documents').select('id, user_id, assignment_id, status, document_type, structured_content').eq('id', sourceId).eq('user_id', userId).eq('document_type', 'tos').maybeSingle(), admin.from('tos_competencies').select('*').eq('document_id', sourceId).order('row_order', { ascending: true }), admin.from('curriculum_competencies').select('id, competency_code, competency_text, source_page, academic_period_id, verification_status').eq('id', String(item.canonical_competency_id)).maybeSingle()]); if (sourceResult.error) throw sourceResult.error; if (tosRowsResult.error) throw tosRowsResult.error; if (competencyResult.error) throw competencyResult.error
     const source = sourceResult.data as Row | null; const canonical = competencyResult.data as Row | null; if (!source || !canonical || !['final', 'archived'].includes(String(source.status)) || String(source.assignment_id) !== String(metadata.assignment_id)) return json({ error: 'The finalized TOS source is unavailable for this draft.' }, 409); if (String(canonical.verification_status) !== 'verified' || String(canonical.competency_text) !== String(item.competency_text_snapshot) || String(canonical.competency_code ?? '') !== String(item.competency_code_snapshot ?? '')) return json({ error: 'The saved competency mapping is no longer a verified canonical record.' }, 409)
-    const tosRows = (tosRowsResult.data ?? []) as unknown as Row[]; const mappedRow = tosRows.find((row) => String(row.row_id) === String(item.tos_row_id) && String(row.competency_id) === String(item.canonical_competency_id) && Number(item.item_number) >= Number(row.item_start) && Number(item.item_number) <= Number(row.item_end)); if (!mappedRow) return json({ error: 'The saved item mapping no longer matches the finalized TOS range.' }, 409)
-    const allocations = Array.isArray(mappedRow.cognitive_allocations) ? mappedRow.cognitive_allocations.map(object) : []; const allocation = allocations.find((entry) => String(entry.categoryId) === String(item.cognitive_category_id) && Number(entry.itemStart) === Number(item.allocation_item_start) && Number(entry.itemEnd) === Number(item.allocation_item_end) && Number(item.item_number) === Number(item.allocation_item_start) + Number(item.allocation_index)); if (!allocation) return json({ error: 'The saved cognitive mapping no longer matches the finalized TOS allocation.' }, 409)
+    const tosRows = (tosRowsResult.data ?? []) as unknown as Row[]; const mappedRow = tosRows.find((row) => String(row.row_id) === String(item.tos_row_id) && String(row.competency_id) === String(item.canonical_competency_id) && (isV2 || (Number(item.item_number) >= Number(row.item_start) && Number(item.item_number) <= Number(row.item_end)))); if (!mappedRow) return json({ error: isV2 ? 'The saved V2 item mapping no longer matches the finalized TOS row.' : 'The saved item mapping no longer matches the finalized TOS range.' }, 409)
+    const allocations = Array.isArray(mappedRow.cognitive_allocations) ? mappedRow.cognitive_allocations.map(object) : []; const allocation = allocations.find((entry) => String(entry.categoryId) === String(item.cognitive_category_id) && Number(entry.itemStart) === Number(item.allocation_item_start) && Number(entry.itemEnd) === Number(item.allocation_item_end) && (isV2 || Number(item.item_number) === Number(item.allocation_item_start) + Number(item.allocation_index))); if (!allocation) return json({ error: 'The saved cognitive mapping no longer matches the finalized TOS allocation.' }, 409)
     const preference = (preferencesResult.data ?? {}) as PreferenceRow; const resources = list(preference.actual_resources, 30, 180); const language = languageInstruction(clean(preference.language_preference, 80) || 'Auto', clean(preference.local_language_name, 100)); const settings = resolveSettings((settingsResult.data ?? null) as SettingsRow | null); const credential = credentialResult.data as CredentialRow | null; if (!credential) return json({ error: 'Connect a Gemini API key in AI settings before using assessment AI.' }, 400); const apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
     const assessmentContent = object(assessmentResult.data.structured_content)
     const metadataContent = object(metadata.structured_content)
     const gradeLevel = clean(item.grade_level ?? assessmentContent.gradeLevel ?? assessmentContent.grade_level ?? metadataContent.gradeLevel ?? metadataContent.grade_level)
     const learningArea = clean(item.learning_area ?? assessmentContent.learningArea ?? assessmentContent.learning_area ?? metadataContent.learningArea ?? metadataContent.learning_area)
-    const immutable: Row = { itemNumber: Number(item.item_number), competencyText: String(item.competency_text_snapshot), competencyCode: item.competency_code_snapshot ? String(item.competency_code_snapshot) : null, cognitiveLabel: String(item.cognitive_category_label_snapshot), cognitiveShortLabel: String(item.cognitive_category_short_label_snapshot), pointsPossible: Number(item.points_possible ?? item.points ?? 1), gradeLevel, learningArea }
+    const pointStart = isV2 ? Number(item.point_start) : Number(item.item_number); const pointEnd = isV2 ? Number(item.point_end) : Number(item.item_number); const pointLabel = pointStart === pointEnd ? String(pointStart) : `${pointStart}–${pointEnd}`
+    const immutable: Row = { itemNumber: Number(item.item_number), pointStart, pointEnd, pointLabel, taskIntent: isV2 ? clean(planEntry?.taskIntent, 1200) : '', competencyText: String(item.competency_text_snapshot), competencyCode: item.competency_code_snapshot ? String(item.competency_code_snapshot) : null, cognitiveLabel: String(item.cognitive_category_label_snapshot), cognitiveShortLabel: String(item.cognitive_category_short_label_snapshot), pointsPossible: Number(item.points_possible ?? item.points ?? 1), gradeLevel, learningArea }
     auditPayload = { userId, assessmentId, itemId, questionType: serverType, alternative: body.alternative === true, model: settings.preferredModel, fallbackUsed: false, outcome: 'error' }
     let responseModel: AiModelId = settings.preferredModel; let fallbackUsed = false
     if (operation === 'visual') {
@@ -387,13 +449,54 @@ Deno.serve(async (req) => {
         tikzCode: tikz.source,
         primitives: [],
       }
-      const visualCheck = validateAssessmentVisual(directVisual)
+      let verifiedVisual = directVisual
+      let visualCheck = validateAssessmentVisual(verifiedVisual)
       if (!visualCheck.valid) throw new AssessmentContractError(`The dedicated TikZ response was invalid. ${visualCheck.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
-      // Re-run the shared candidate contract so the same immutable/answer-leak
-      // boundary applies to a direct TikZ visual as to legacy structured visuals.
-      const combined = validateCandidate({ ...approved, visual: directVisual }, serverType, resources, false, immutable)
+      // Re-run the shared candidate contract before the semantic verifier so the
+      // same immutable and deterministic answer-leak boundary applies here.
+      let combined = validateCandidate({ ...approved, visual: verifiedVisual }, serverType, resources, false, immutable)
+
+      const verifierModel = oppositeLiteModel(settings, clean(body.generatorModel, 120) || responseModel)
+      const verifyFinishedVisual = async (source: string) => {
+        visualProviderRequestCount += 1
+        const verifierOutput = await callGemini(apiKey, verifierModel, buildFinishedVisualVerifierPrompt(serverType, immutable, approved, visualIntent, source), {
+          maxOutputTokens: 4096,
+          responseMimeType: 'application/json',
+          responseSchema: visualVerifierResponseSchema,
+        })
+        return parseVisualVerifier(verifierOutput)
+      }
+
+      let finishedVerifier = await verifyFinishedVisual(tikz.source)
+      if (finishedVerifier.status === 'needs_repair') {
+        // Exactly one semantic correction is allowed after inspecting the
+        // finished diagram. The question, answer, mapping, and visual intent are
+        // immutable during this repair.
+        const semanticRepairPrompt = [
+          visualPrompt,
+          '',
+          'FINISHED-DIAGRAM CORRECTION PASS: an independent verifier found mathematical/semantic defects in the rendered-intent TikZ.',
+          `Verifier issues: ${finishedVerifier.issues.join(' | ') || 'one or more required visual facts were wrong or missing'}`,
+          `Repair guidance: ${finishedVerifier.repairGuidance.join(' | ') || 'correct only the diagram while preserving the learner question and teacher answer'}`,
+          'Return one fresh raw TikZ picture only. Do not change or reveal the question answer.',
+        ].join('\n')
+        const correctedOutput = await callTikzWithLiteFallback(apiKey, settings, semanticRepairPrompt)
+        visualProviderRequestCount += correctedOutput.providerRequestCount
+        responseModel = correctedOutput.modelUsed
+        fallbackUsed = fallbackUsed || correctedOutput.fallbackUsed
+        const correctedTikz = validateAssessmentTikzSource(correctedOutput.output)
+        if (!correctedTikz.valid) throw new AssessmentContractError(`The one allowed finished-diagram correction was unsafe or unusable. ${correctedTikz.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
+        verifiedVisual = { ...directVisual, tikzCode: correctedTikz.source }
+        visualCheck = validateAssessmentVisual(verifiedVisual)
+        if (!visualCheck.valid) throw new AssessmentContractError(`The corrected TikZ response was invalid. ${visualCheck.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
+        combined = validateCandidate({ ...approved, visual: verifiedVisual }, serverType, resources, false, immutable)
+        finishedVerifier = await verifyFinishedVisual(correctedTikz.source)
+      }
+      if (finishedVerifier.status !== 'pass') {
+        throw new AssessmentContractError(`The finished diagram failed post-generation visual verification. ${finishedVerifier.issues.slice(0, 3).join(' ') || 'Required visual facts could not be verified.'}`, 'VISUAL_INVALID')
+      }
       auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload)
-      return json({ assessmentId, itemId, questionType: serverType, visual: combined.visual ?? null, model: responseModel, fallbackUsed, providerRequestCount: visualProviderRequestCount })
+      return json({ assessmentId, itemId, questionType: serverType, visual: combined.visual ?? null, visualVerifier: finishedVerifier, visualVerifierModel: verifierModel, model: responseModel, fallbackUsed, providerRequestCount: visualProviderRequestCount })
     }
     if (operation === 'verify') {
       candidateValidationStarted = true; const approved = validateCandidate(body.candidate, serverType, resources, false, immutable); const verifierModel = oppositeLiteModel(settings, clean(body.generatorModel, 120)); const verifierOutput = await callGemini(apiKey, verifierModel, buildVerifierPrompt(serverType, immutable, approved), { maxOutputTokens: 4096, responseMimeType: 'application/json', responseSchema: verifierResponseSchema }); responseModel = verifierModel; const verifier = parseJson(verifierOutput); const required = ['status', 'answerValid', 'competencyAligned', 'cognitiveAlignment', 'ambiguityDetected', 'factualOrMathIssue', 'issues', 'repairGuidance']; if (!onlyKeys(verifier, required) || !['pass', 'needs_repair'].includes(String(verifier.status)) || typeof verifier.answerValid !== 'boolean' || typeof verifier.competencyAligned !== 'boolean' || !['good', 'questionable'].includes(String(verifier.cognitiveAlignment)) || typeof verifier.ambiguityDetected !== 'boolean' || typeof verifier.factualOrMathIssue !== 'boolean' || !Array.isArray(verifier.issues) || !Array.isArray(verifier.repairGuidance)) throw new Error('The verifier response did not match the required structured contract.'); auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, verifier: { ...verifier, issues: list(verifier.issues, 12, 500), repairGuidance: list(verifier.repairGuidance, 12, 700) }, model: responseModel, fallbackUsed: false, providerRequestCount: 1, editable: true })
@@ -411,6 +514,11 @@ Deno.serve(async (req) => {
         if (clean(candidate.visualRequirement, 20) !== 'required' || !clean(candidate.visualIntent, 500) || !promptDependsOnVisual(candidate.prompt)) {
           throw new AssessmentContractError('The generated visual question was still answerable without its required diagram. Regenerate the item so the diagram supplies essential problem data.', 'VISUAL_INVALID')
         }
+      } else if (isV2 && plannedVisual.requirement === 'helpful') {
+        // Helpful visuals are frozen by the V2 master plan, but the written
+        // question must remain fully answerable without them.
+        candidate = { ...candidate, visualRequirement: 'helpful', visualIntent: plannedVisual.intent }
+        if (promptDependsOnVisual(candidate.prompt)) throw new AssessmentContractError('A helpful V2 visual cannot contain essential problem data. Regenerate this item as self-contained text.', 'VISUAL_INVALID')
       } else {
         // The paper planner, not Gemini, decides whether automatic items receive
         // diagrams. Prevent provider enthusiasm from reintroducing cosmetics.

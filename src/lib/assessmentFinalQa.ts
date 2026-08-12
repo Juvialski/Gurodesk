@@ -3,6 +3,7 @@ import type { AssessmentVisual, AssessmentVisualPolygon, AssessmentVisualTextLab
 import { normalizeAssessmentMathText } from './assessmentMathText'
 import { assessmentVisualPlanForItem, promptRequiresAssessmentVisual } from './assessmentVisualPlanning'
 import { validateAssessmentVisual } from './assessmentVisualValidation'
+import { extractAssessmentTikzNodeTexts, normalizeAssessmentTikzLearnerText } from './assessmentTikzSafety'
 
 type QaFinding = { code: string; message: string; severity: 'error' | 'warning' }
 
@@ -142,8 +143,10 @@ function conciseAcceptedAnswerTerms(item: AssessmentItem) {
   } else if (item.questionType === 'fill_in_the_blank') {
     for (const rawBlank of array(answer.blanks)) values.push(...array(record(rawBlank).acceptedAnswers).filter((entry): entry is string => typeof entry === 'string'))
   } else if (item.questionType === 'numerical_answer') {
+    // The final numeric value may not be printed as a learner-facing label.
+    // A unit by itself is often legitimate problem data, so do not treat the
+    // unit alone as an answer leak.
     if (answer.value !== undefined) values.push(String(answer.value))
-    if (answer.unit) values.push(String(answer.unit))
   } else if (item.questionType === 'problem_solving') {
     if (answer.finalAnswer !== undefined) values.push(String(answer.finalAnswer))
   }
@@ -151,11 +154,7 @@ function conciseAcceptedAnswerTerms(item: AssessmentItem) {
 }
 
 function directTikzLabelTexts(source: string) {
-  // Inspect only learner-visible node bodies. Coordinates/options are not text
-  // and can legitimately contain numbers that also happen to be an answer.
-  return [...source.matchAll(/(?:\\node|\bnode)\b[^;{}]*\{([^{}]{1,240})\}/gu)]
-    .map((match) => match[1] ?? '')
-    .filter(Boolean)
+  return extractAssessmentTikzNodeTexts(source).map(normalizeAssessmentTikzLearnerText).filter(Boolean)
 }
 
 function learnerVisualContainsAnswer(item: AssessmentItem, visual: AssessmentVisual) {

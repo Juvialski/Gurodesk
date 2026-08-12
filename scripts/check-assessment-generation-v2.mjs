@@ -1,0 +1,42 @@
+import { readFileSync } from 'node:fs'
+
+function read(path) { return readFileSync(new URL(`../${path}`, import.meta.url), 'utf8') }
+function requireText(source, needle, label) {
+  if (!source.includes(needle)) throw new Error(`Assessment Generation V2 validator: missing ${label}`)
+}
+function forbid(source, pattern, label) {
+  if (pattern.test(source)) throw new Error(`Assessment Generation V2 validator: forbidden ${label}`)
+}
+
+const core = read('src/lib/assessmentGenerationV2.ts')
+const page = read('src/pages/AssessmentNewPage.tsx')
+const planner = read('supabase/functions/assessment-master-planner/index.ts')
+const generator = read('supabase/functions/assessment-question-generator/index.ts')
+const migration = read('supabase/migrations/202608120028_assessment_generation_v2.sql')
+const validation = read('src/lib/assessmentValidation.ts')
+const exportModel = read('src/lib/assessmentExportModel.ts')
+const tests = read('tests/unit/assessment-generation-v2.test.ts')
+
+requireText(core, "numberingMode: 'point_ranges'", 'point-range master plan')
+requireText(core, 'minimumAssessmentV2Points', 'minimum feasible point calculation')
+requireText(core, 'plannerEligibleTypesForCpd', 'CPD/type eligibility')
+requireText(core, 'Automatic required visuals are limited to Mathematics', 'Mathematics-only automatic visual guard')
+requireText(page, 'Total points are the assessment size', 'point-first setup')
+requireText(page, 'Question previews stay hidden until generation finishes', 'generation-only progress boundary')
+requireText(planner, "['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite']", 'planner model fallback order')
+requireText(planner, "thinkingLevel: 'HIGH'", 'high-thinking master planner')
+requireText(planner, 'authoritativeBuckets', 'server-recomputed deterministic point buckets')
+forbid(planner, /\b(?:temperature|topP|topK)\s*:/u, 'planner sampling controls')
+requireText(generator, "String(sourceSettings.generationVersion) === 'v2'", 'V2 generator branch')
+requireText(generator, 'item.plan_entry_id', 'frozen plan-entry enforcement')
+requireText(migration, 'save_assessment_document_v2', 'V2 save RPC')
+requireText(migration, 'duplicate_assessment_document_v2', 'V2 duplicate RPC')
+requireText(migration, 'point_start', 'point range persistence')
+requireText(migration, 'The frozen assessment master plan cannot change after creation', 'master-plan immutability guard')
+requireText(validation, "numberingMode === 'point_ranges'", 'V2 final validation')
+requireText(exportModel, 'numberLabelForItem', 'point-range export numbering')
+requireText(tests, "treats a multi-point essay as one logical question", 'range-numbering behavior test')
+requireText(tests, "rejects objective-only formats", 'CPD coverage behavior test')
+requireText(tests, "does not automatically reserve required visuals outside Mathematics", 'visual-policy regression test')
+
+console.log('Assessment Generation V2 static release contract passed.')

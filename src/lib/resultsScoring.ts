@@ -73,6 +73,13 @@ function finiteNonnegative(value: unknown, fallback = 0) {
 }
 
 /** Read both the Phase 5.4 field and the legacy Phase 5.0-5.3 mirror. */
+export function resultItemNumberLabel(item: Pick<ResultAssessmentItemSnapshot, 'itemNumber' | 'pointStart' | 'pointEnd'>): string {
+  const start = Number(item.pointStart)
+  const end = Number(item.pointEnd)
+  if (Number.isSafeInteger(start) && Number.isSafeInteger(end) && start > 0 && end >= start) return start === end ? String(start) : `${start}–${end}`
+  return String(item.itemNumber)
+}
+
 export function itemPossiblePoints(item: Pick<ResultAssessmentItemSnapshot, 'points' | 'pointsPossible'>): number {
   return roundScore(finiteNonnegative(item.pointsPossible ?? item.points ?? 1, 1), 6)
 }
@@ -340,6 +347,8 @@ export function buildResultAssessmentSnapshot(assessment: AssessmentBlueprint): 
     .map((item) => ({
       id: item.id,
       itemNumber: item.itemNumber,
+      ...(item.pointStart !== undefined ? { pointStart: item.pointStart } : {}),
+      ...(item.pointEnd !== undefined ? { pointEnd: item.pointEnd } : {}),
       prompt: item.prompt,
       questionType: item.questionType,
       answer: clone(item.answer),

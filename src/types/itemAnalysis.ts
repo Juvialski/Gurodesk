@@ -33,6 +33,8 @@ export type ItemAnalysisOption = {
 export type ItemAnalysisItem = {
   itemId: string
   itemNumber: number
+  pointStart?: number
+  pointEnd?: number
   prompt: string
   questionType: ResultAssessmentItemSnapshot['questionType']
   competencyId: string

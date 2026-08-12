@@ -84,6 +84,8 @@ function normalizeSnapshot(value: unknown): ResultAssessmentSnapshot {
     return {
       id: text(item.id),
       itemNumber: number(item.itemNumber ?? item.item_number),
+      ...(Number.isSafeInteger(Number(item.pointStart ?? item.point_start)) ? { pointStart: number(item.pointStart ?? item.point_start) } : {}),
+      ...(Number.isSafeInteger(Number(item.pointEnd ?? item.point_end)) ? { pointEnd: number(item.pointEnd ?? item.point_end) } : {}),
       prompt: text(item.prompt),
       questionType: text(item.questionType ?? item.question_type) as ResultAssessmentItemSnapshot['questionType'],
       answer: clone(item.answer) as ResultAssessmentItemSnapshot['answer'],

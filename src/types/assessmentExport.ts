@@ -66,6 +66,7 @@ export type AssessmentExportMetadata = {
   curriculumPeriods?: string
   totalItems?: number
   totalPoints?: number
+  numberingMode?: 'legacy_items' | 'point_ranges'
 }
 
 /** Public export payload. IDs are intentionally optional and are never used
@@ -73,6 +74,7 @@ export type AssessmentExportMetadata = {
  * deterministic teacher/answer-key renderer to create visible A/B labels. */
 export type AssessmentExportQuestionBase = {
   itemNumber: number
+  numberLabel?: string
   prompt: string
   questionType: QuestionType
   answerSpaceLines: number
@@ -105,6 +107,7 @@ export type AssessmentTeacherExportQuestion = AssessmentExportQuestionBase & {
 
 export type AssessmentAnswerKeyExportQuestion = {
   itemNumber: number
+  numberLabel?: string
   questionType: QuestionType
   answerSpaceLines: number
   pointsPossible: number

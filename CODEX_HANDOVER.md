@@ -1,4 +1,72 @@
-# GuroDesk handover — assessment/export stabilization and official curriculum pack complete
+# GuroDesk handover — Assessment Generation V2 checkpoint
+
+## 2026-08-12 — Assessment Generation V2
+
+This checkpoint implements the requested assessment-generation overhaul on top of the visual-reliability checkpoint. It stops at Assessment Generation V2 and does not begin another product phase.
+
+### What changed
+
+- **Configuration-first creation:** `Create Assessment` now collects finalized TOS, total points, allowed question types, visual policy, title/directions, and optional planning guidance before generation. Teachers see live CPD suitability/feasibility and cannot spend a provider request on an impossible type/point combination.
+- **Points are the primary teacher-facing size:** V2 derives logical question count. Multi-point questions remain one logical item but print using point ranges such as `16–20`. Internal result/scoring identity stays one question. Legacy assessments retain their original numbering.
+- **Deterministic TOS point blueprint:** GuroDesk allocates requested points across the immutable finalized competency/CPD structure. Gemini cannot change curriculum mappings, CPD allocations, total points, or learner numbering.
+- **One successful master plan:** the new `assessment-master-planner` Edge Function uses `gemini-3.6-flash`, then `gemini-3.5-flash`, `gemini-3.5-flash-lite`, and `gemini-3.1-flash-lite`, all with high thinking. Fallback is bounded to model availability/quota/transient provider failures. Only one successful validated plan is accepted and then frozen.
+- **CPD-aware formats:** all eleven existing question types remain available, but Evaluating/Creating require genuinely strong higher-order formats. Subject-aware preferences keep Problem Solving natural for Mathematics and Essay/Constructed Response natural for language tasks without forcing one format everywhere.
+- **Generation follows the frozen plan:** V2 question generation verifies plan entry ID, type, points/range, competency, CPD, TOS source mapping, task intent, and visual requirement before provider generation. Old auto type balancing/visual re-planning is bypassed for V2.
+- **Progress-only generation UI:** while generation is active or resumed, the normal question editor/previews are hidden. Review begins only after planned questions and required visuals exist.
+- **Point ranges flow through results and exports:** result entry, snapshots, item/option analysis, competency/CPD/curriculum summaries, remediation, assessment exports, PDF/DOCX report data, and XLSX workbook rows use learner-facing range labels.
+- **Visual reliability preserved:** V2 master-plan validation retains Mathematics-only automatic required visuals, Off/Balanced/More policy rules, and the Balanced roughly-one-per-four ceiling.
+
+### Migration / persistence
+
+Migration `202608120028_assessment_generation_v2.sql` raises the project to **28 migrations**. It adds `point_start`, `point_end`, and `plan_entry_id` to `assessment_items` and introduces V2-only `save_assessment_document_v2` and `duplicate_assessment_document_v2` RPCs. The V2 save boundary validates the immutable master plan and exact `1…totalPoints` point coverage. Legacy persistence is preserved rather than weakened.
+
+### Deployment order
+
+1. Apply all existing migrations through `027`, then `202608120028_assessment_generation_v2.sql`.
+2. Deploy new Edge Function `assessment-master-planner`.
+3. Deploy changed `assessment-question-generator` and changed shared Edge modules from this same tree.
+4. Deploy the frontend.
+5. Run the full clean-install/type/unit/build, Deno, fresh+upgrade DB, two-teacher RLS/integration, Chromium/phone E2E, and assessment/results export inspection matrix before production promotion.
+
+### Validation status
+
+Passed in this sandbox: 214-file TS/TSX parse gate, isolated strict V2 domain/type checks, V2 static release contract, deterministic point/CPD/range behavior checks, visual-policy regression checks, 28-migration inventory, migration harness shell syntax, source relative-import audit, and official curriculum manifest integrity.
+
+Blocked here: clean `npm ci`, repository-wide TypeScript/Vitest/Vite/audit gates, real Deno checks, Supabase/PostgreSQL fresh+upgrade/RLS tests, Chromium/phone E2E, and real rendered PDF/DOCX/print/XLSX inspection. Do not report those as passed. See `ASSESSMENT_GENERATION_V2_VALIDATION_REPORT_20260812.md`.
+
+### Inherited limitation
+
+The previous visual checkpoint still has the unresolved TikZJax runtime-CDN packaging limitation because the licensed/version-pinned runtime binaries/fonts could not be materialized in this sandbox. V2 preserves direct TikZ and its safety/reliability rules but does not claim the offline renderer dependency is resolved.
+
+See `ASSESSMENT_GENERATION_V2_IMPLEMENTATION_MANIFEST_20260812.md` and `ASSESSMENT_GENERATION_V2_VALIDATION_REPORT_20260812.md`.
+
+---
+
+# GuroDesk handover — visual reliability hardening checkpoint
+
+## 2026-08-12 — Visual reliability / TikZ / export / persistence checkpoint
+
+This checkpoint implements the focused visual-reliability brief on top of `gurodesk-required-visual-full-20260811(2).zip` and stops before any new product phase.
+
+Key changes:
+
+- Automatic visual planning is Mathematics-gated, policy-controlled (`Off`, `Balanced`, `More visuals`), conservative about diagram dependence, capped at floor(N/4) in Balanced mode, and spread across the paper/competencies. Manual/existing visuals and explicit learner diagram dependencies are preserved.
+- Direct TikZ remains the quality path. The Edge visual operation now runs a post-generation finished-diagram verifier and allows at most one semantic diagram-only correction while preserving the question, answer, TOS mapping, and cognitive mapping.
+- TikZ node-label extraction is brace-aware; answer-leak comparison covers nested formatting/fractions and all required concise answer types at both client and Edge boundaries.
+- TikZ source validation is bounded/allowlisted and rendered SVG caching uses a DOM element/attribute/style allowlist. Browser print uses sanitized cached SVG instead of the live iframe; DOCX waits for SVG; PDF waits for high-resolution PNG.
+- A compact teacher visual-review gallery was added before finalization.
+- Migration `202608120027_visual_checkpoint_concurrency_guard.sql` adds a narrow optimistic visual checkpoint RPC so delayed visual saves cannot overwrite newer teacher edits. Migration count is now **27**.
+- `.github/workflows/ci.yml` and `.gitignore` were restored from current GitHub and their local Git-blob hashes match the fetched repository versions.
+
+Important release limitation: the uploaded project did not contain the licensed TikZJax runtime binary/font assets and this execution environment could not materialize them from the pinned upstream source. The current iframe therefore still references `tikzjax.com` at runtime. Do **not** call the offline/CDN-removal P0 complete until a licensed commit-pinned local distribution is vendored and the full rendered/export fixture matrix is rerun.
+
+Validation in this sandbox is also limited by package/network tooling: the 209-file TS/TSX syntax gate, pure changed-module typecheck, targeted planner/TikZ/client/Edge behavior checks, migration inventory/harness syntax, and hidden-file hashes passed. Clean npm install, project TypeScript checks, validators, Vitest, Vite build, npm audit, Deno, DB/RLS, Playwright, screenshots, and export inspections are not reported as passed. See `VISUAL_RELIABILITY_VALIDATION_REPORT_20260812.md`.
+
+Deployment order: apply migration 027, deploy `assessment-question-generator` plus changed `_shared` modules from the same tree, then deploy the frontend. Run the complete CI/Supabase/browser/export matrix before production promotion.
+
+See `VISUAL_RELIABILITY_IMPLEMENTATION_MANIFEST_20260812.md` and `VISUAL_RELIABILITY_VALIDATION_REPORT_20260812.md` for exact scope/results.
+
+---
 
 ## 2026-08-11 — Complete official curriculum ingestion
 

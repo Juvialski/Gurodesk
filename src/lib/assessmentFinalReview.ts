@@ -25,6 +25,19 @@ function sourceMappings(assessment: AssessmentRecord) {
   return result
 }
 
+
+function v2SourceMappingValid(assessment: AssessmentRecord, item: AssessmentItem) {
+  const row = assessment.sourceTos?.content?.rows?.find((candidate) => candidate.id === item.mapping.rowId)
+  if (!row || row.competency.id !== item.mapping.competencyId || item.mapping.competencyId !== item.competencySnapshot.id) return false
+  const allocation = row.cognitiveAllocations?.find((candidate) => candidate.categoryId === item.mapping.cognitiveCategoryId)
+  return Boolean(allocation
+    && allocation.itemStart !== null
+    && allocation.itemEnd !== null
+    && allocation.itemStart === item.mapping.allocationItemStart
+    && allocation.itemEnd === item.mapping.allocationItemEnd
+    && allocation.categoryId === item.cognitiveCategorySnapshot.id)
+}
+
 export type AssessmentFinalReviewIssue = AssessmentQaIssue & { itemId?: string; itemNumber?: number; overridable: boolean }
 export type AssessmentFinalReview = {
   ready: boolean
@@ -67,9 +80,13 @@ function malformedNotation(prompt: string) {
 export function reviewAssessmentForFinalization(assessment: AssessmentRecord, options: { acknowledgedWarningCodes?: string[] } = {}): AssessmentFinalReview {
   const hardErrors: AssessmentFinalReviewIssue[] = []
   const warnings: AssessmentFinalReviewIssue[] = []
-  const expected = Number(assessment.totalItems)
+  const assessmentSettings = record(record(assessment).settings)
+  const isV2 = Number(assessmentSettings.schemaVersion ?? 1) >= 2 && assessmentSettings.generationVersion === 'v2' && assessmentSettings.numberingMode === 'point_ranges'
+  const masterPlan = isV2 ? record(assessmentSettings.masterPlan) : {}
+  const expected = isV2 ? Number(masterPlan.logicalItemCount) : Number(assessment.totalItems)
   const source = sourceMappings(assessment)
   const numbers = new Set<number>()
+  let pointCursor = 1
   const typeCounts: Partial<Record<QuestionType, number>> = {}
   const typePoints: Partial<Record<QuestionType, number>> = {}
   const competencyItemCounts: Record<string, number> = {}
@@ -79,7 +96,6 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
   const suspiciousItemIds: string[] = []
   const answerPatterns: Record<string, number> = {}
   let patternEligibleItems = 0
-  const assessmentSettings = record(record(assessment).settings)
   const allowed = Array.isArray(assessmentSettings.allowedTypes) ? assessmentSettings.allowedTypes.map((value: unknown) => String(value)) : []
   let completedItems = 0
   let needsReviewItems = 0
@@ -96,11 +112,21 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
     competencyPoints[competencyId] = (competencyPoints[competencyId] ?? 0) + metricPoints
     cognitiveItemCounts[cognitiveId] = (cognitiveItemCounts[cognitiveId] ?? 0) + 1
     cognitivePoints[cognitiveId] = (cognitivePoints[cognitiveId] ?? 0) + metricPoints
-    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || item.itemNumber > expected) add(hardErrors, 'item-number', 'Item number is missing, duplicated, or outside the source TOS slots.', item)
+    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || item.itemNumber > expected) add(hardErrors, 'item-number', isV2 ? 'Logical question number is missing, duplicated, or outside the frozen master plan.' : 'Item number is missing, duplicated, or outside the source TOS slots.', item)
     if (numbers.has(item.itemNumber)) add(hardErrors, 'duplicate-item-number', 'Item numbers must not be duplicated.', item)
     numbers.add(item.itemNumber)
-    const mapped = source.get(item.itemNumber)
-    if (!mapped || mapped.competencyId !== item.mapping.competencyId || mapped.cognitiveCategoryId !== item.mapping.cognitiveCategoryId || item.mapping.competencyId !== item.competencySnapshot.id) add(hardErrors, 'tos-mapping', 'Finalized TOS item, competency, or cognitive mapping changed.', item)
+    if (isV2) {
+      const planEntries = Array.isArray(masterPlan.entries) ? masterPlan.entries.map(record) : []
+      const entry = planEntries.find((candidate) => Number(candidate.itemNumber) === item.itemNumber)
+      const pointStart = Number(record(item).pointStart); const pointEnd = Number(record(item).pointEnd)
+      if (!entry || clean(entry.id) !== clean(record(item).planEntryId) || Number(entry.pointStart) !== pointStart || Number(entry.pointEnd) !== pointEnd || Number(entry.pointsPossible) !== points || clean(entry.questionType) !== type || clean(entry.rowId) !== item.mapping.rowId || clean(entry.competencyId) !== item.mapping.competencyId || clean(entry.cognitiveCategoryId) !== item.mapping.cognitiveCategoryId) add(hardErrors, 'master-plan-item', 'Question type, points, range, or curriculum mapping changed from the frozen master plan.', item)
+      if (!Number.isSafeInteger(pointStart) || !Number.isSafeInteger(pointEnd) || pointStart !== pointCursor || pointEnd !== pointStart + points - 1) add(hardErrors, 'point-range', 'Point ranges must be contiguous and exactly match pointsPossible.', item)
+      if (Number.isSafeInteger(pointEnd)) pointCursor = pointEnd + 1
+      if (!v2SourceMappingValid(assessment, item)) add(hardErrors, 'tos-mapping', 'Finalized TOS competency or cognitive mapping changed.', item)
+    } else {
+      const mapped = source.get(item.itemNumber)
+      if (!mapped || mapped.competencyId !== item.mapping.competencyId || mapped.cognitiveCategoryId !== item.mapping.cognitiveCategoryId || item.mapping.competencyId !== item.competencySnapshot.id) add(hardErrors, 'tos-mapping', 'Finalized TOS item, competency, or cognitive mapping changed.', item)
+    }
     if (!ASSESSMENT_QUESTION_TYPES.includes(type) || (allowed.length > 0 && !allowed.includes(type))) add(hardErrors, 'question-type', 'Question type is unsupported or disabled for this assessment.', item)
     const deterministic = validateAssessmentItemDeterministic(item, { allowedTypes: allowed.length ? allowed : undefined, expectedItemNumber: item.itemNumber, expectedCompetencyId: item.competencySnapshot.id, expectedCognitiveCategoryId: item.cognitiveCategorySnapshot.id })
     deterministic.errors.forEach((entry) => add(hardErrors, entry.code, entry.message, item))
@@ -151,8 +177,9 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
   }
   const concentration = assessmentSimilarityConcentration(assessment.items)
   if (concentration) add(warnings, 'evidence-concentration', `${concentration.points} point(s) (${Math.round(concentration.share * 100)}%) are concentrated in a closely related question cluster: Items ${concentration.itemNumbers.join(', ')}. Confirm that this weighting matches the intended evidence.`, undefined, true)
-  for (let itemNumber = 1; itemNumber <= expected; itemNumber += 1) if (!numbers.has(itemNumber)) add(hardErrors, 'missing-slot', `Item ${itemNumber} from the finalized TOS is missing.`)
-  if (assessment.items.length !== expected) add(hardErrors, 'item-count', `Assessment must contain exactly ${expected} item(s).`)
+  for (let itemNumber = 1; itemNumber <= expected; itemNumber += 1) if (!numbers.has(itemNumber)) add(hardErrors, 'missing-slot', isV2 ? `Logical question ${itemNumber} from the frozen master plan is missing.` : `Item ${itemNumber} from the finalized TOS is missing.`)
+  if (assessment.items.length !== expected) add(hardErrors, 'item-count', `Assessment must contain exactly ${expected} logical question(s).`)
+  if (isV2 && pointCursor !== Number(masterPlan.totalPoints) + 1) add(hardErrors, 'point-range-total', 'Point-range numbering must cover exactly 1 through the frozen assessment total points.')
   const dominantPattern = Math.max(0, ...Object.values(answerPatterns))
   if (patternEligibleItems >= 5 && dominantPattern / patternEligibleItems >= 0.8) add(warnings, 'answer-pattern', 'A large share of objective answers uses the same position/value; review for an unintended answer pattern.', undefined, true)
   const totalPoints = assessment.items.reduce((sum, item) => sum + safePoints(item), 0)

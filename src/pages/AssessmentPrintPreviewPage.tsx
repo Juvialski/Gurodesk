@@ -63,10 +63,10 @@ export function AssessmentPrintPreviewPage() {
 
   const model = useMemo<AssessmentExportModel | null>(() => assessment && options ? buildAssessmentExportModel(assessment, options) : null, [assessment, options])
 
-  async function waitForDiagrams() {
+  async function waitForDiagrams(target: 'print' | 'docx' | 'pdf') {
     if (!model) return false
     const visuals = model.questions.flatMap((question) => question.visual ? [question.visual] : [])
-    return waitForAssessmentTikzRenders(visuals, 15000)
+    return waitForAssessmentTikzRenders(visuals, target, 15000)
   }
 
   async function download(kind: 'pdf' | 'docx') {
@@ -74,8 +74,8 @@ export function AssessmentPrintPreviewPage() {
     setDownloading(kind)
     setActionError('')
     try {
-      const diagramsReady = await waitForDiagrams()
-      if (!diagramsReady) throw new Error('One or more TikZ diagrams have not finished rendering. Wait until the diagrams are visible, then retry the export.')
+      const diagramsReady = await waitForDiagrams(kind)
+      if (!diagramsReady) throw new Error(`One or more TikZ diagrams are not ready for ${kind.toUpperCase()} export yet. Wait until the diagrams are visible, then retry.`)
       if (kind === 'pdf') downloadAssessmentPdf(model, preferences.paperSize)
       else await downloadAssessmentDocx(model, preferences.paperSize)
     } catch (nextError) {
@@ -90,8 +90,8 @@ export function AssessmentPrintPreviewPage() {
     setPrinting(true)
     setActionError('')
     try {
-      const diagramsReady = await waitForDiagrams()
-      if (!diagramsReady) throw new Error('One or more TikZ diagrams have not finished rendering. Wait until the diagrams are visible, then retry printing.')
+      const diagramsReady = await waitForDiagrams('print')
+      if (!diagramsReady) throw new Error('One or more TikZ diagrams have not finished rendering to SVG. Wait until the diagrams are visible, then retry printing.')
       window.print()
     } catch (nextError) {
       setActionError(nextError instanceof Error ? nextError.message : 'Unable to prepare this document for printing.')

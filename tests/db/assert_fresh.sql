@@ -35,6 +35,30 @@ begin
     raise exception 'Fresh migration smoke test: assessment save RPC is missing';
   end if;
 
+
+  if to_regprocedure('public.save_assessment_item_visual_checkpoint(uuid,uuid,text,text,jsonb,jsonb,jsonb)') is null then
+    raise exception 'Fresh migration smoke test: item-level visual checkpoint RPC is missing';
+  end if;
+
+  if to_regprocedure('public.save_assessment_document_v2(uuid,uuid,uuid,text,text,text,text,text,jsonb,jsonb,text)') is null then
+    raise exception 'Fresh migration smoke test: Assessment Generation V2 save RPC is missing';
+  end if;
+  if to_regprocedure('public.duplicate_assessment_document_v2(uuid,text,text)') is null then
+    raise exception 'Fresh migration smoke test: Assessment Generation V2 duplicate RPC is missing';
+  end if;
+  if not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'assessment_items' and column_name = 'point_start'
+  ) or not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'assessment_items' and column_name = 'point_end'
+  ) or not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'assessment_items' and column_name = 'plan_entry_id'
+  ) then
+    raise exception 'Fresh migration smoke test: Assessment Generation V2 item-range columns are missing';
+  end if;
+
   if not exists (
     select 1 from pg_proc p
     join pg_namespace n on n.oid = p.pronamespace

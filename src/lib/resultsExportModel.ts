@@ -178,9 +178,22 @@ function summaryModel(input: ResultsReportInput, includeLearnerNames: boolean): 
   }
 }
 
+function analysisItemNumberLabel(item: { itemNumber: number; pointStart?: number; pointEnd?: number }) {
+  const start = Number(item.pointStart)
+  const end = Number(item.pointEnd)
+  if (Number.isSafeInteger(start) && Number.isSafeInteger(end) && start > 0 && end >= start) return start === end ? String(start) : `${start}–${end}`
+  return String(item.itemNumber)
+}
+
+function itemNumberLabels(input: ResultsReportInput, numbers: readonly number[]) {
+  const byNumber = new Map(input.analysis.items.map((item) => [item.itemNumber, analysisItemNumberLabel(item)]))
+  return numbers.map((number) => byNumber.get(number) ?? String(number))
+}
+
 function itemRows(input: ResultsReportInput): ResultsItemAnalysisRow[] {
   return input.analysis.items.map((item) => ({
     itemNumber: item.itemNumber,
+    numberLabel: analysisItemNumberLabel(item),
     prompt: item.prompt,
     competency: item.competencyText,
     cognitiveCategory: item.cognitiveCategoryLabel,
@@ -224,6 +237,7 @@ function itemRows(input: ResultsReportInput): ResultsItemAnalysisRow[] {
 function optionRows(input: ResultsReportInput): ResultsOptionRow[] {
   return input.analysis.items.flatMap((item) => item.options.map((option) => ({
     itemNumber: item.itemNumber,
+    numberLabel: analysisItemNumberLabel(item),
     option: option.label,
     count: option.count,
     percentage: numberOrNull(option.percentage),
@@ -240,6 +254,7 @@ function competencyRows(input: ResultsReportInput): ResultsCompetencyRow[] {
     curriculumPeriod: row.curriculumPeriodLabel,
     mappedItems: row.mappedItems,
     itemNumbers: [...row.itemNumbers],
+    itemNumberLabels: itemNumberLabels(input, row.itemNumbers),
     attempts: row.attempts,
     correct: row.correct,
     incorrect: row.incorrect,
@@ -259,6 +274,7 @@ function cognitiveRows(input: ResultsReportInput): ResultsCognitiveRow[] {
     curriculumPeriod: row.curriculumPeriodLabel,
     mappedItems: row.mappedItems,
     itemNumbers: [...row.itemNumbers],
+    itemNumberLabels: itemNumberLabels(input, row.itemNumbers),
     attempts: row.attempts,
     correct: row.correct,
     incorrect: row.incorrect,
@@ -277,6 +293,7 @@ function curriculumRows(input: ResultsReportInput): ResultsCurriculumPeriodRow[]
     curriculumPeriod: row.curriculumPeriodLabel,
     mappedItems: row.mappedItems,
     itemNumbers: [...row.itemNumbers],
+    itemNumberLabels: itemNumberLabels(input, row.itemNumbers),
     attempts: row.attempts,
     correct: row.correct,
     incorrect: row.incorrect,
@@ -346,6 +363,7 @@ function remediationRows(
     targetCompetency: signal.targetCompetency,
     curriculumPeriod: signal.curriculumPeriod,
     itemNumbers: [...signal.itemNumbers],
+    itemNumberLabels: itemNumberLabels(input, signal.itemNumbers),
     evidence: numberOrNull(signal.evidenceValue),
     evidenceLabel: signal.evidenceLabel,
     denominatorLabel: signal.denominatorLabel,

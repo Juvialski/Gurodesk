@@ -104,33 +104,52 @@ function learnerSheet(model: ResultsReportModel): WorkbookRow[] {
   return rows
 }
 
+
+function workbookUsesPointRanges(model: ResultsReportModel) {
+  return model.items.some((item) => item.numberLabel !== String(item.itemNumber))
+}
+
+function workbookQuestionLabels(model: ResultsReportModel) {
+  const pointRanges = workbookUsesPointRanges(model)
+  return {
+    singular: pointRanges ? 'Question' : model.labels.item,
+    numbers: pointRanges ? 'Question numbers' : 'Item numbers',
+    mapped: pointRanges ? 'Mapped questions' : 'Mapped items',
+  }
+}
+
 function itemSheet(model: ResultsReportModel): WorkbookRow[] {
-  const rows: WorkbookRow[] = [[cell(model.labels.item, 'header'), cell('Prompt', 'header'), cell(model.labels.competency, 'header'), cell(model.labels.cognitiveCategory, 'header'), cell(model.labels.curriculumPeriod, 'header'), cell('Question type', 'header'), cell(model.labels.attempted, 'header'), cell(model.labels.correct, 'header'), cell(model.labels.incorrect, 'header'), cell(model.labels.omitted, 'header'), cell(model.labels.points, 'header'), cell(model.labels.analysisBasis, 'header'), cell(model.labels.facility, 'header'), cell(model.labels.pointAchievement, 'header'), cell(model.labels.discrimination, 'header'), cell('Discrimination status', 'header')]]
-  for (const item of model.items) rows.push([integer(item.itemNumber), cell(item.prompt), cell(item.competency), cell(item.cognitiveCategory), cell(item.curriculumPeriod), cell(item.questionType), integer(item.attempted), integer(item.correct), integer(item.incorrect), integer(item.omitted), cell(`${item.earnedPoints} / ${item.possiblePoints}`), cell(item.analysisBasis.replaceAll('_', ' ')), ratio(item.facility), ratio(item.normalizedPointAchievement), ratio(item.discrimination), cell(item.discriminationStatus)])
+  const unit = workbookQuestionLabels(model)
+  const rows: WorkbookRow[] = [[cell(unit.singular, 'header'), cell('Prompt', 'header'), cell(model.labels.competency, 'header'), cell(model.labels.cognitiveCategory, 'header'), cell(model.labels.curriculumPeriod, 'header'), cell('Question type', 'header'), cell(model.labels.attempted, 'header'), cell(model.labels.correct, 'header'), cell(model.labels.incorrect, 'header'), cell(model.labels.omitted, 'header'), cell(model.labels.points, 'header'), cell(model.labels.analysisBasis, 'header'), cell(model.labels.facility, 'header'), cell(model.labels.pointAchievement, 'header'), cell(model.labels.discrimination, 'header'), cell('Discrimination status', 'header')]]
+  for (const item of model.items) rows.push([cell(item.numberLabel), cell(item.prompt), cell(item.competency), cell(item.cognitiveCategory), cell(item.curriculumPeriod), cell(item.questionType), integer(item.attempted), integer(item.correct), integer(item.incorrect), integer(item.omitted), cell(`${item.earnedPoints} / ${item.possiblePoints}`), cell(item.analysisBasis.replaceAll('_', ' ')), ratio(item.facility), ratio(item.normalizedPointAchievement), ratio(item.discrimination), cell(item.discriminationStatus)])
   return rows
 }
 
 function optionSheet(model: ResultsReportModel): WorkbookRow[] {
-  const rows: WorkbookRow[] = [[cell(model.labels.item, 'header'), cell('Option', 'header'), cell(model.labels.count, 'header'), cell(model.labels.percentage, 'header'), cell('Correct option', 'header'), cell('Advisory signal', 'header'), cell(model.labels.omitted, 'header')]]
-  for (const option of model.options) rows.push([integer(option.itemNumber), cell(option.option), integer(option.count), ratio(option.percentage), cell(option.correct ? 'Yes' : 'No'), cell(option.distractorSignal === 'unselected' ? 'Unselected distractor — teacher review' : ''), integer(option.omitted)])
+  const unit = workbookQuestionLabels(model)
+  const rows: WorkbookRow[] = [[cell(unit.singular, 'header'), cell('Option', 'header'), cell(model.labels.count, 'header'), cell(model.labels.percentage, 'header'), cell('Correct option', 'header'), cell('Advisory signal', 'header'), cell(model.labels.omitted, 'header')]]
+  for (const option of model.options) rows.push([cell(option.numberLabel), cell(option.option), integer(option.count), ratio(option.percentage), cell(option.correct ? 'Yes' : 'No'), cell(option.distractorSignal === 'unselected' ? 'Unselected distractor — teacher review' : ''), integer(option.omitted)])
   return rows
 }
 
 function competencySheet(model: ResultsReportModel): WorkbookRow[] {
-  const rows: WorkbookRow[] = [[cell(model.labels.competency, 'header'), cell('Code', 'header'), cell(model.labels.curriculumPeriod, 'header'), cell('Item numbers', 'header'), cell('Mapped items', 'header'), cell(model.labels.attempted, 'header'), cell(model.labels.correct, 'header'), cell(model.labels.incorrect, 'header'), cell(model.labels.omitted, 'header'), cell(model.labels.facility, 'header'), cell(model.labels.points, 'header'), cell(model.labels.pointAchievement, 'header')]]
-  for (const row of model.competencies) rows.push([cell(row.competency), cell(row.code), cell(row.curriculumPeriod), cell(row.itemNumbers.join(', ')), integer(row.mappedItems), integer(row.attempts), integer(row.correct), integer(row.incorrect), integer(row.omitted), ratio(row.facility), cell(`${row.earnedPoints} / ${row.pointsPossibleForAll}`), ratio(row.normalizedPointAchievement)])
+  const unit = workbookQuestionLabels(model)
+  const rows: WorkbookRow[] = [[cell(model.labels.competency, 'header'), cell('Code', 'header'), cell(model.labels.curriculumPeriod, 'header'), cell(unit.numbers, 'header'), cell(unit.mapped, 'header'), cell(model.labels.attempted, 'header'), cell(model.labels.correct, 'header'), cell(model.labels.incorrect, 'header'), cell(model.labels.omitted, 'header'), cell(model.labels.facility, 'header'), cell(model.labels.points, 'header'), cell(model.labels.pointAchievement, 'header')]]
+  for (const row of model.competencies) rows.push([cell(row.competency), cell(row.code), cell(row.curriculumPeriod), cell(row.itemNumberLabels.join(', ')), integer(row.mappedItems), integer(row.attempts), integer(row.correct), integer(row.incorrect), integer(row.omitted), ratio(row.facility), cell(`${row.earnedPoints} / ${row.pointsPossibleForAll}`), ratio(row.normalizedPointAchievement)])
   return rows
 }
 
 function cognitiveSheet(model: ResultsReportModel): WorkbookRow[] {
-  const rows: WorkbookRow[] = [[cell(model.labels.cognitiveCategory, 'header'), cell(model.labels.curriculumPeriod, 'header'), cell('Item numbers', 'header'), cell('Mapped items', 'header'), cell(model.labels.attempted, 'header'), cell(model.labels.correct, 'header'), cell(model.labels.incorrect, 'header'), cell(model.labels.omitted, 'header'), cell(model.labels.facility, 'header'), cell(model.labels.points, 'header'), cell(model.labels.pointAchievement, 'header')]]
-  for (const row of model.cognitiveCategories) rows.push([cell(row.category), cell(row.curriculumPeriod), cell(row.itemNumbers.join(', ')), integer(row.mappedItems), integer(row.attempts), integer(row.correct), integer(row.incorrect), integer(row.omitted), ratio(row.facility), cell(`${row.earnedPoints} / ${row.pointsPossibleForAll}`), ratio(row.normalizedPointAchievement)])
+  const unit = workbookQuestionLabels(model)
+  const rows: WorkbookRow[] = [[cell(model.labels.cognitiveCategory, 'header'), cell(model.labels.curriculumPeriod, 'header'), cell(unit.numbers, 'header'), cell(unit.mapped, 'header'), cell(model.labels.attempted, 'header'), cell(model.labels.correct, 'header'), cell(model.labels.incorrect, 'header'), cell(model.labels.omitted, 'header'), cell(model.labels.facility, 'header'), cell(model.labels.points, 'header'), cell(model.labels.pointAchievement, 'header')]]
+  for (const row of model.cognitiveCategories) rows.push([cell(row.category), cell(row.curriculumPeriod), cell(row.itemNumberLabels.join(', ')), integer(row.mappedItems), integer(row.attempts), integer(row.correct), integer(row.incorrect), integer(row.omitted), ratio(row.facility), cell(`${row.earnedPoints} / ${row.pointsPossibleForAll}`), ratio(row.normalizedPointAchievement)])
   return rows
 }
 
 function remediationSheet(model: ResultsReportModel): WorkbookRow[] {
-  const rows: WorkbookRow[] = [[cell('Scope', 'header'), cell(model.labels.target, 'header'), cell(model.labels.curriculumPeriod, 'header'), cell('Item numbers', 'header'), cell(model.labels.evidence, 'header'), cell(model.labels.threshold, 'header'), cell(model.labels.learners, 'header'), cell('Denominator', 'header'), cell('Instructional signal', 'header'), cell(model.labels.plannedActivity, 'header'), cell(model.labels.schedule, 'header'), cell(model.labels.followUpEvidence, 'header'), cell(model.labels.notes, 'header'), cell(model.labels.teacherReview, 'header')]]
-  for (const row of model.remediation) rows.push([cell(row.scope), cell(row.targetCompetency), cell(row.curriculumPeriod), cell(row.itemNumbers.join(', ')), ratio(row.evidence), ratio(row.threshold), integer(row.learnerCount), cell(row.denominatorLabel), cell(row.instructionalMessage), cell(row.plannedActivity), cell(row.schedule), cell(row.followUpEvidence), cell(row.notes), cell(row.teacherReviewed ? 'Yes' : 'No')])
+  const unit = workbookQuestionLabels(model)
+  const rows: WorkbookRow[] = [[cell('Scope', 'header'), cell(model.labels.target, 'header'), cell(model.labels.curriculumPeriod, 'header'), cell(unit.numbers, 'header'), cell(model.labels.evidence, 'header'), cell(model.labels.threshold, 'header'), cell(model.labels.learners, 'header'), cell('Denominator', 'header'), cell('Instructional signal', 'header'), cell(model.labels.plannedActivity, 'header'), cell(model.labels.schedule, 'header'), cell(model.labels.followUpEvidence, 'header'), cell(model.labels.notes, 'header'), cell(model.labels.teacherReview, 'header')]]
+  for (const row of model.remediation) rows.push([cell(row.scope), cell(row.targetCompetency), cell(row.curriculumPeriod), cell(row.itemNumberLabels.join(', ')), ratio(row.evidence), ratio(row.threshold), integer(row.learnerCount), cell(row.denominatorLabel), cell(row.instructionalMessage), cell(row.plannedActivity), cell(row.schedule), cell(row.followUpEvidence), cell(row.notes), cell(row.teacherReviewed ? 'Yes' : 'No')])
   return rows
 }
 

@@ -7,6 +7,7 @@ import type {
   AssessmentFactoryOptions,
   AssessmentItem,
   AssessmentItemMapping,
+  AssessmentMasterPlan,
   AssessmentTosSnapshot,
   AssessmentSettings,
   QuestionType,
@@ -99,6 +100,7 @@ function emptyAnswer(questionType: QuestionType = 'multiple_choice'): Assessment
 const DEFAULT_ASSESSMENT_SETTINGS: AssessmentSettings = {
   schemaVersion: 1,
   mode: 'auto_balanced',
+  visualPolicy: 'balanced',
   allowedTypes: [
     'multiple_choice', 'true_false', 'short_answer', 'constructed_response',
     'identification', 'fill_in_the_blank', 'numerical_answer',
@@ -221,6 +223,115 @@ export function createAssessmentBlueprint(tos: TosRecord, options: AssessmentFac
   }
 }
 
+
+
+/**
+ * Build a V2 logical-question blueprint from a frozen master plan.  The source
+ * TOS remains immutable, while point ranges become the learner-facing
+ * numbering unit.  One logical question may therefore consume multiple points.
+ */
+export function createAssessmentBlueprintV2(
+  tos: TosRecord,
+  masterPlan: AssessmentMasterPlan,
+  options: AssessmentFactoryOptions = {},
+): AssessmentBlueprint {
+  if (tos.status !== 'final') throw new Error('Assessments can only be created from a finalized TOS.')
+  validateAllocationRanges(tos)
+  if (masterPlan.generationVersion !== 'v2' || masterPlan.numberingMode !== 'point_ranges') throw new Error('A valid V2 master plan is required.')
+  if (!Number.isSafeInteger(masterPlan.totalPoints) || masterPlan.totalPoints < 1) throw new Error('The V2 master plan must have a positive whole-number point total.')
+  if (masterPlan.entries.length !== masterPlan.logicalItemCount || !masterPlan.entries.length) throw new Error('The V2 master plan logical question count is invalid.')
+  const sourceTos = sourceSnapshot(tos)
+  const content = sourceTos.content
+  const rowMap = new Map(content.rows.map((row) => [row.id, row]))
+  const bucketMap = new Map(masterPlan.pointBuckets.map((bucket) => [bucket.id, bucket]))
+  let pointCursor = 1
+  const items = masterPlan.entries.map((entry, index): AssessmentItem => {
+    if (entry.itemNumber !== index + 1) throw new Error('V2 master plan logical item numbers must be contiguous from 1.')
+    if (entry.pointStart !== pointCursor || entry.pointEnd !== entry.pointStart + entry.pointsPossible - 1) throw new Error('V2 master plan point ranges must be exactly contiguous.')
+    pointCursor = entry.pointEnd + 1
+    const bucket = bucketMap.get(entry.bucketId)
+    const row = rowMap.get(entry.rowId)
+    if (!bucket || !row || row.id !== bucket.rowId || row.competency.id !== entry.competencyId || bucket.competencyId !== entry.competencyId || bucket.cognitiveCategoryId !== entry.cognitiveCategoryId) {
+      throw new Error('The V2 master plan mapping no longer matches the finalized TOS snapshot.')
+    }
+    const allocation = row.cognitiveAllocations.find((candidate) => candidate.categoryId === entry.cognitiveCategoryId)
+    if (!allocation || allocation.itemStart === null || allocation.itemEnd === null || allocation.itemCount < 1) throw new Error('The V2 master plan references a missing finalized TOS cognitive allocation.')
+    const category = categoryForAllocation(content, allocation)
+    // V2 logical questions are point-based chunks, not one-to-one copies of
+    // source TOS item slots. Keep a stable anchor inside the immutable source
+    // allocation rather than pretending logical order is a source item index.
+    const allocationIndex = 0
+    const mapping: AssessmentItemMapping = {
+      rowId: row.id,
+      competencyId: row.competency.id,
+      cognitiveCategoryId: category.id,
+      allocationItemStart: allocation.itemStart,
+      allocationItemEnd: allocation.itemEnd,
+      allocationIndex,
+    }
+    return {
+      id: stableId('assessment-item'),
+      itemNumber: entry.itemNumber,
+      pointStart: entry.pointStart,
+      pointEnd: entry.pointEnd,
+      planEntryId: entry.id,
+      competencySnapshot: clone(competencySnapshot(row)),
+      cognitiveCategorySnapshot: { id: category.id, label: category.label, shortLabel: category.shortLabel },
+      mapping,
+      prompt: '',
+      questionType: entry.questionType,
+      answer: emptyAnswer(entry.questionType),
+      authorshipState: 'empty',
+      rationale: '',
+      teacherNotes: '',
+      pointsPossible: entry.pointsPossible,
+      points: entry.pointsPossible,
+      qaState: 'empty',
+      locked: false,
+      history: [],
+      visualRequirement: entry.visualRequirement,
+      visualIntent: entry.visualIntent,
+      visualStatus: entry.visualRequirement === 'none' ? 'not_required' : 'pending',
+      visualAttempts: 0,
+    }
+  })
+  if (pointCursor !== masterPlan.totalPoints + 1) throw new Error('The V2 master plan does not cover exactly 1..total points.')
+  const now = timestamp(options)
+  return {
+    id: options.id || stableId('assessment'),
+    userId: options.userId ?? tos.userId,
+    assignmentId: options.assignmentId === undefined ? tos.assignmentId : options.assignmentId,
+    title: options.title ?? (content.assessmentTitle || tos.title || 'Assessment'),
+    instructions: options.instructions ?? '',
+    gradeLevel: content.gradeLevel,
+    learningArea: content.learningArea,
+    schoolYear: content.schoolYear || tos.schoolYear,
+    gradingTermId: content.gradingTermId,
+    gradingTermLabel: content.gradingTermLabel || tos.academicPeriodLabel || '',
+    curriculumPeriodIds: [...content.curriculumPeriodIds],
+    curriculumPeriodLabels: [...content.curriculumPeriodLabels],
+    totalItems: items.length,
+    totalPoints: masterPlan.totalPoints,
+    settings: {
+      ...clone(DEFAULT_ASSESSMENT_SETTINGS),
+      schemaVersion: 2,
+      generationVersion: 'v2',
+      numberingMode: 'point_ranges',
+      visualPolicy: 'balanced',
+      mode: 'manual_per_item',
+      allowedTypes: [...new Set(masterPlan.entries.map((entry) => entry.questionType))],
+      targetTotalPoints: masterPlan.totalPoints,
+      masterPlan: clone(masterPlan),
+    },
+    versionNumber: options.versionNumber ?? 1,
+    status: 'draft',
+    sourceTos: clone(sourceTos),
+    items,
+    createdAt: now,
+    updatedAt: now,
+  }
+}
+
 export const createAssessmentFromTos = createAssessmentBlueprint
 export const buildAssessmentBlueprint = createAssessmentBlueprint
 
@@ -241,7 +352,12 @@ function normalizeSettings(settings: AssessmentSettings | undefined): Assessment
     ...clone(DEFAULT_ASSESSMENT_SETTINGS),
     ...clone(source),
     schemaVersion: Number(source.schemaVersion ?? 1),
+    generationVersion: source.generationVersion === 'v2' ? 'v2' : 'v1',
+    numberingMode: source.numberingMode === 'point_ranges' ? 'point_ranges' : 'legacy_items',
+    generationInstructions: String(source.generationInstructions ?? '').slice(0, 4000),
+    masterPlan: source.masterPlan === undefined ? undefined : clone(source.masterPlan),
     mode,
+    visualPolicy: source.visualPolicy === 'off' || source.visualPolicy === 'more_visuals' ? source.visualPolicy : 'balanced',
     allowedTypes: allowed,
     counts: source.counts ? { ...source.counts } : undefined,
     percentages: source.percentages ? { ...source.percentages } : undefined,
@@ -263,6 +379,9 @@ export function normalizeAssessmentBlueprint(input: AssessmentBlueprint): Assess
     ...item,
     id: item.id || stableId('assessment-item'),
     itemNumber: Number(item.itemNumber ?? index + 1),
+    pointStart: item.pointStart === undefined ? undefined : Number(item.pointStart),
+    pointEnd: item.pointEnd === undefined ? undefined : Number(item.pointEnd),
+    planEntryId: item.planEntryId ? String(item.planEntryId) : undefined,
     prompt: item.prompt ?? '',
     questionType: item.questionType ?? 'multiple_choice',
     answer: normalizeAnswer(item.answer, item.questionType ?? 'multiple_choice'),

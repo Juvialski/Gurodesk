@@ -1,4 +1,4 @@
-import type { AssessmentItem } from '../types/assessment'
+import type { AssessmentItem, AssessmentRecord, AssessmentVisualPolicy } from '../types/assessment'
 import type { AssessmentVisualRequirement, AssessmentVisualStatus } from '../types/assessmentVisual'
 import { normalizeAssessmentMathText } from './assessmentMathText'
 
@@ -13,10 +13,29 @@ const VISUAL_DEPENDENCY = /\b(?:shown|provided|given|displayed|illustrated)\s+(?
  * Keep optional candidates to relationships/representations, not bare shape
  * nouns. The assessment-level selector applies a one-in-four budget.
  */
-const HELPFUL_GEOMETRY = /\b(?:angle relationships?|adjacent angles?|vertical angles?|complementary angles?|supplementary angles?|linear pairs?|interior angles?|exterior angles?|parallel lines?|perpendicular lines?|transversal|regular polygons?|irregular polygons?|convex polygons?|non[- ]?convex polygons?|concave polygons?|congruen(?:t|ce)|similar triangles?|circle|radius|diameter|chord|arc|coordinate plane|cartesian|plot|graph(?:ing)?\s+(?:a|the|this)?\s*(?:function|relation|line|curve)|angulo|poligon|tatsulok|parisukat|bilog|koordinat|grap)\b/iu
-const REQUIRED_VISUAL_COMPETENCY = /\b(?:angle|angles|polygon|polygons|triangle|triangles|quadrilateral|quadrilaterals|circle|circles|parallel|perpendicular|transversal|coordinate plane|cartesian|graph|plot|number line|geometric figure|geometry|interior|exterior|congruent|similar|symmetry|rotation|reflection|translation|angulo|poligon|tatsulok|parisukat|bilog|koordinat|grap)\b/iu
+const HELPFUL_GEOMETRY = /\b(?:angle relationships?|adjacent angles?|vertical angles?|complementary angles?|supplementary angles?|linear pairs?|interior angles?|exterior angles?|parallel lines?|perpendicular lines?|transversal|regular polygons?|irregular polygons?|convex polygons?|non[- ]?convex polygons?|concave polygons?|congruen(?:t|ce)|similar triangles?|circle (?:parts?|relationships?|theorems?)|radius\s+(?:and|to)\s+diameter|chords?\s+(?:and|with)\s+arcs?|coordinate plane|cartesian (?:plane|graph)|plot(?:ting)?\s+(?:points?|a|the|this)|graph(?:ing)?\s+(?:a|the|this)?\s*(?:function|relation|line|curve)|angulo|poligon|tatsulok|parisukat|koordinat|grap)\b/iu
+const REQUIRED_VISUAL_COMPETENCY = /(?:\b(?:visuali[sz]e|illustrate|draw|construct|sketch|plot|graph|locate|measure|analy[sz]e|compare|classify|identify|determine)\b[\s\S]{0,120}\b(?:angles?|polygons?|triangles?|quadrilaterals?|circles?|parallel lines?|perpendicular lines?|transversal|coordinate plane|cartesian|number line|geometric figures?|symmetry|rotation|reflection|translation)\b|\b(?:angle relationships?|parallel lines?\s+(?:and|with)\s+(?:a\s+)?transversal|perpendicular relationships?|coordinate plane|cartesian graph|graph(?:ing)?\s+(?:a|the|this)?\s*(?:function|relation|line|curve)|transformations?\s+of\s+geometric figures?|line or rotational symmetry)\b)/iu
 const VISUAL_REQUIREMENTS = new Set<AssessmentVisualRequirement>(['none', 'helpful', 'required'])
 const VISUAL_STATUSES = new Set<AssessmentVisualStatus>(['not_required', 'pending', 'running', 'succeeded', 'failed', 'stale'])
+
+const MATH_LEARNING_AREA = /(?:^|\b)(?:mathematics|math|calculus)(?:\b|$)/iu
+
+export function assessmentLearningAreaSupportsAutomaticVisuals(learningArea: unknown) {
+  return MATH_LEARNING_AREA.test(clean(learningArea, 240))
+}
+
+function normalizedVisualPolicy(value: AssessmentVisualPolicy | undefined): AssessmentVisualPolicy {
+  return value === 'off' || value === 'more_visuals' ? value : 'balanced'
+}
+
+function policyBudget(itemCount: number, policy: AssessmentVisualPolicy) {
+  const count = Math.max(0, Math.floor(itemCount))
+  if (policy === 'off' || count < 1) return 0
+  if (policy === 'more_visuals') return Math.ceil(count / 2)
+  // Balanced deliberately uses floor, so papers with 1-3 items receive no
+  // automatic visual and a five-item paper receives at most one.
+  return Math.floor(count / 4)
+}
 
 function clean(value: unknown, limit = 500) {
   return typeof value === 'string' ? normalizeAssessmentMathText(value).trim().slice(0, limit) : ''
@@ -43,7 +62,8 @@ export function promptRequiresAssessmentVisual(prompt: string) {
   return VISUAL_DEPENDENCY.test(clean(prompt, 10_000))
 }
 
-export function assessmentContentWouldBenefitFromVisual(item: Pick<AssessmentItem, 'prompt' | 'competencySnapshot'>) {
+export function assessmentContentWouldBenefitFromVisual(item: Pick<AssessmentItem, 'prompt' | 'competencySnapshot'>, learningArea: unknown = 'Mathematics') {
+  if (!assessmentLearningAreaSupportsAutomaticVisuals(learningArea)) return false
   const prompt = clean(item.prompt, 10_000)
   return Boolean(prompt) && HELPFUL_GEOMETRY.test(prompt + ' ' + clean(item.competencySnapshot?.text, 4_000))
 }
@@ -61,6 +81,8 @@ function requiredVisualIntent(item: Pick<AssessmentItem, 'competencySnapshot'>) 
 export type AssessmentRequiredVisualReservationOptions = {
   ratio?: number
   cap?: number
+  learningArea?: string
+  visualPolicy?: AssessmentVisualPolicy
 }
 
 /**
@@ -70,16 +92,36 @@ export type AssessmentRequiredVisualReservationOptions = {
  */
 export function reserveAssessmentRequiredVisualSlots(items: readonly AssessmentItem[], options: AssessmentRequiredVisualReservationOptions = {}) {
   const source = [...items]
-  const ratio = Number.isFinite(Number(options.ratio)) ? Math.max(0, Math.min(1, Number(options.ratio))) : 0.25
-  const budget = options.cap !== undefined
+  const policy = normalizedVisualPolicy(options.visualPolicy)
+  const autoEnabled = assessmentLearningAreaSupportsAutomaticVisuals(options.learningArea ?? 'Mathematics') && policy !== 'off'
+  const ratio = Number.isFinite(Number(options.ratio)) ? Math.max(0, Math.min(1, Number(options.ratio))) : undefined
+  const budget = !autoEnabled ? 0 : options.cap !== undefined
     ? Math.max(0, Math.floor(Number(options.cap) || 0))
-    : Math.max(0, Math.ceil(source.length * ratio))
+    : ratio !== undefined
+      ? Math.max(0, Math.floor(source.length * ratio))
+      : policyBudget(source.length, policy)
   const alreadyRequired = source.filter((item) => item.visualRequirement === 'required' && (!item.prompt.trim() || promptRequiresAssessmentVisual(item.prompt))).length
   const remaining = Math.max(0, budget - alreadyRequired)
   const candidates = source
-    .filter((item) => !item.prompt.trim() && !item.visual && item.authorshipState === 'empty' && REQUIRED_VISUAL_COMPETENCY.test(clean(item.competencySnapshot?.text, 4000)))
+    .filter((item) => autoEnabled && !item.prompt.trim() && !item.visual && item.authorshipState === 'empty' && REQUIRED_VISUAL_COMPETENCY.test(clean(item.competencySnapshot?.text, 4000)))
     .sort((left, right) => left.itemNumber - right.itemNumber || left.id.localeCompare(right.id, 'en'))
-  const selected = new Set(candidates.slice(0, remaining).map((item) => item.id))
+  const selectedCandidates: AssessmentItem[] = []
+  const selectedIds = new Set<string>()
+  const competencyIds = new Set<string>()
+  // First distribute across competencies, choosing candidates nearest evenly
+  // spaced paper positions instead of consuming the first eligible slots.
+  const targets = Array.from({ length: remaining }, (_, index) => ((index + 1) * (source.length + 1)) / (remaining + 1))
+  for (const target of targets) {
+    const available = candidates.filter((item) => !selectedIds.has(item.id))
+    if (!available.length) break
+    const unusedCompetency = available.filter((item) => !competencyIds.has(competencyKey(item)))
+    const pool = unusedCompetency.length ? unusedCompetency : available
+    const chosen = [...pool].sort((left, right) => Math.abs(left.itemNumber - target) - Math.abs(right.itemNumber - target) || left.itemNumber - right.itemNumber || left.id.localeCompare(right.id, 'en'))[0]
+    selectedCandidates.push(chosen)
+    selectedIds.add(chosen.id)
+    competencyIds.add(competencyKey(chosen))
+  }
+  const selected = new Set(selectedCandidates.map((item) => item.id))
   const itemsWithReservations = source.map((item) => {
     if (selected.has(item.id)) {
       return {
@@ -128,6 +170,8 @@ type AssessmentVisualPlanOptions = {
   force?: boolean
   /** Internal escape hatch used while resolving a previously skipped item. */
   ignoreSuppression?: boolean
+  learningArea?: string
+  visualPolicy?: AssessmentVisualPolicy
 }
 
 function suppressedOptionalPlan(item: AssessmentItem, sourceHash: string) {
@@ -150,7 +194,8 @@ export function assessmentVisualPlanForItem(item: AssessmentItem, options: Asses
   const promptRequired = promptRequiresAssessmentVisual(item.prompt)
   const suppressed = !options.force && !options.ignoreSuppression && suppressedOptionalPlan(item, sourceHash) && !promptRequired
   const reservedRequired = !item.prompt.trim() && storedRequirement === 'required' && Boolean(clean(item.visualIntent))
-  const helpful = assessmentContentWouldBenefitFromVisual(item)
+  const policy = normalizedVisualPolicy(options.visualPolicy)
+  const helpful = policy !== 'off' && assessmentContentWouldBenefitFromVisual(item, options.learningArea ?? 'Mathematics')
   // Empty slots may carry a server-persisted pre-generation REQUIRED reservation.
   // Once a question exists, only explicit learner-facing dependency makes it
   // required. Helpful/legacy planning remains available for teacher-authored
@@ -190,6 +235,8 @@ export function assessmentVisualPlanForItem(item: AssessmentItem, options: Asses
 }
 
 export type AssessmentVisualBalanceOptions = {
+  learningArea?: string
+  visualPolicy?: AssessmentVisualPolicy
   /** Fraction of the paper that may receive optional visuals. Defaults to 1/4. */
   optionalRatio?: number
   /** Explicit cap used by tests or a teacher-controlled policy. */
@@ -225,9 +272,14 @@ function competencyKey(item: AssessmentItem) {
 }
 
 function optionalVisualBudget(itemCount: number, options: AssessmentVisualBalanceOptions) {
+  const policy = normalizedVisualPolicy(options.visualPolicy)
+  if (policy === 'off' || !assessmentLearningAreaSupportsAutomaticVisuals(options.learningArea ?? 'Mathematics')) return 0
   if (options.optionalCap !== undefined) return Math.max(0, Math.floor(Number(options.optionalCap) || 0))
-  const ratio = Number.isFinite(Number(options.optionalRatio)) ? Math.max(0, Math.min(1, Number(options.optionalRatio))) : 0.25
-  return Math.max(0, Math.ceil(Math.max(0, itemCount) * ratio))
+  if (Number.isFinite(Number(options.optionalRatio))) {
+    const ratio = Math.max(0, Math.min(1, Number(options.optionalRatio)))
+    return Math.max(0, Math.floor(Math.max(0, itemCount) * ratio))
+  }
+  return policyBudget(itemCount, policy)
 }
 
 function planItem(item: AssessmentItem, plan: AssessmentVisualPlan, keep: boolean): AssessmentItem {
@@ -297,6 +349,7 @@ export function resolveAssessmentVisualPlans(items: readonly AssessmentItem[], o
   const optionalBudget = optionalVisualBudget(nonemptyCount, options)
   const requiredEntries = entries.filter(({ plan }) => plan.requirement === 'required')
   const currentOptionalCount = entries.filter(({ plan }) => plan.requirement === 'helpful' && plan.current).length
+  const automaticRequiredCount = requiredEntries.filter(({ item }) => item.authorshipState === 'empty' || item.authorshipState === 'ai_suggestion').length
   const maxAttempts = Math.max(1, Math.min(20, Math.floor(options.maxAttempts ?? 2)))
   const optionalCandidates = entries
     .filter(({ plan, item }) => plan.requirement === 'helpful' && (options.force || !item.visual || !plan.current) && (options.force || plan.attempts < maxAttempts))
@@ -305,27 +358,41 @@ export function resolveAssessmentVisualPlans(items: readonly AssessmentItem[], o
       const rightStored = right.item.visualRequirement === 'helpful' ? 0 : 1
       return leftStored - rightStored || left.item.itemNumber - right.item.itemNumber || left.item.id.localeCompare(right.item.id, 'en')
     })
-  const optionalLimit = options.force ? optionalCandidates.length : Math.max(0, optionalBudget - currentOptionalCount)
+  const optionalLimit = options.force ? optionalCandidates.length : Math.max(0, optionalBudget - currentOptionalCount - automaticRequiredCount)
   const selectedOptional: typeof optionalCandidates = []
   const selectedCompetencies = new Set<string>()
+  const selectedIds = new Set<string>()
   const select = (entry: typeof optionalCandidates[number]) => {
-    if (selectedOptional.length >= optionalLimit || selectedOptional.some(({ item }) => item.id === entry.item.id)) return
+    if (selectedOptional.length >= optionalLimit || selectedIds.has(entry.item.id)) return
     selectedOptional.push(entry)
+    selectedIds.add(entry.item.id)
     selectedCompetencies.add(competencyKey(entry.item))
   }
 
-  // First pass: one optional diagram per competency, in stable item order.
-  for (const entry of optionalCandidates) {
-    if (selectedOptional.length >= optionalLimit) break
-    if (!selectedCompetencies.has(competencyKey(entry.item))) select(entry)
-  }
-  // Second pass: use remaining room only for materially different prompts.
-  for (const entry of optionalCandidates) {
-    if (selectedOptional.length >= optionalLimit) break
-    if (selectedOptional.some(({ item }) => item.id === entry.item.id)) continue
-    const key = competencyKey(entry.item)
-    const related = selectedOptional.filter(({ item }) => competencyKey(item) === key)
-    if (related.length === 0 || related.every(({ item }) => visualPromptSimilarity(item.prompt, entry.item.prompt) < 0.78)) select(entry)
+  // Choose around evenly spaced paper positions. Prefer a competency not yet
+  // represented at each target, then a materially different prompt. This keeps
+  // a visual-heavy topic from clustering diagrams at the start of the paper.
+  const targets = Array.from({ length: optionalLimit }, (_, index) => ((index + 1) * (Math.max(1, source.length) + 1)) / (optionalLimit + 1))
+  for (const target of targets) {
+    const available = optionalCandidates.filter(({ item }) => !selectedIds.has(item.id))
+    if (!available.length) break
+    const unusedCompetency = available.filter(({ item }) => !selectedCompetencies.has(competencyKey(item)))
+    const basePool = unusedCompetency.length ? unusedCompetency : available
+    const distinctPrompt = basePool.filter(({ item }) => {
+      const related = selectedOptional.filter(({ item: selectedItem }) => competencyKey(selectedItem) === competencyKey(item))
+      return related.length === 0 || related.every(({ item: selectedItem }) => visualPromptSimilarity(selectedItem.prompt, item.prompt) < 0.78)
+    })
+    // If every remaining candidate from an already represented competency is
+    // near-identical, leave budget unused rather than add repetitive diagrams.
+    if (!distinctPrompt.length) continue
+    const chosen = [...distinctPrompt].sort((left, right) => {
+      const distance = Math.abs(left.item.itemNumber - target) - Math.abs(right.item.itemNumber - target)
+      if (distance !== 0) return distance
+      const leftStored = left.item.visualRequirement === 'helpful' ? 0 : 1
+      const rightStored = right.item.visualRequirement === 'helpful' ? 0 : 1
+      return leftStored - rightStored || left.item.itemNumber - right.item.itemNumber || left.item.id.localeCompare(right.item.id, 'en')
+    })[0]
+    select(chosen)
   }
 
   const requiredItemIds = requiredEntries.map(({ item }) => item.id)
@@ -337,6 +404,23 @@ export function resolveAssessmentVisualPlans(items: readonly AssessmentItem[], o
     return planItem(item, plan, keep)
   })
   return { items: resolvedItems, optionalBudget, requiredItemIds, optionalItemIds, skippedOptionalItemIds }
+}
+
+
+/** Assessment-level guard: immutable finalized/archived papers are never
+ * re-planned merely because they are reopened or navigated back from preview. */
+export function resolveAssessmentVisualPlansForRecord(
+  record: Pick<AssessmentRecord, 'status' | 'items' | 'learningArea' | 'settings'>,
+  options: Omit<AssessmentVisualBalanceOptions, 'learningArea' | 'visualPolicy'> = {},
+): AssessmentVisualBalance {
+  if (record.status !== 'draft') {
+    return { items: record.items, optionalBudget: 0, requiredItemIds: [], optionalItemIds: [], skippedOptionalItemIds: [] }
+  }
+  return resolveAssessmentVisualPlans(record.items, {
+    ...options,
+    learningArea: record.learningArea,
+    visualPolicy: record.settings?.visualPolicy,
+  })
 }
 
 /** Convenience for callers that only need the next deterministic work list. */

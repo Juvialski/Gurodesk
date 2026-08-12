@@ -41,6 +41,19 @@ function percent(value: number | null | undefined) {
   return `${Object.is(rounded, -0) ? 0 : rounded}%`
 }
 
+
+function reportUsesPointRanges(model: ResultsReportModel) {
+  return model.items.some((item) => item.numberLabel !== String(item.itemNumber))
+}
+
+function reportQuestionLabels(model: ResultsReportModel) {
+  const pointRanges = reportUsesPointRanges(model)
+  return {
+    singular: pointRanges ? 'Question' : model.labels.item,
+    plural: pointRanges ? 'Questions' : 'Items',
+  }
+}
+
 function safeFilename(value: string) {
   return value.replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 90) || 'assessment-results'
 }
@@ -82,27 +95,30 @@ function summaryLines(model: ResultsReportModel) {
 }
 
 function itemAnalysisLines(model: ResultsReportModel) {
-  const lines = [`${model.labels.item} | ${model.labels.competency} | ${model.labels.cognitiveCategory} | ${model.labels.curriculumPeriod} | ${model.labels.attempted} | ${model.labels.correct} | ${model.labels.incorrect} | ${model.labels.omitted} | ${model.labels.points} | ${model.labels.analysisBasis} | ${model.labels.facility} | ${model.labels.pointAchievement} | ${model.labels.discrimination}`]
-  for (const item of model.items) lines.push(`${item.itemNumber} | ${item.competency} | ${item.cognitiveCategory} | ${item.curriculumPeriod} | ${item.attempted} | ${item.correct} | ${item.incorrect} | ${item.omitted} | ${number(item.earnedPoints)} / ${number(item.possiblePoints)} | ${item.analysisBasis.replaceAll('_', ' ')} | ${percent(item.facility)} | ${percent(item.normalizedPointAchievement)} | ${item.discriminationStatus === 'available' ? number(item.discrimination) : item.discriminationStatus}`)
-  lines.push('', model.labels.options, `${model.labels.item} | Option | ${model.labels.count} | ${model.labels.percentage} | Correct | Advisory signal | ${model.labels.omitted}`)
-  for (const option of model.options) lines.push(`${option.itemNumber} | ${option.option} | ${option.count} | ${percent(option.percentage)} | ${option.correct ? 'Yes' : 'No'} | ${option.distractorSignal === 'unselected' ? 'Unselected distractor — teacher review' : '—'} | ${option.omitted}`)
+  const unit = reportQuestionLabels(model)
+  const lines = [`${unit.singular} | ${model.labels.competency} | ${model.labels.cognitiveCategory} | ${model.labels.curriculumPeriod} | ${model.labels.attempted} | ${model.labels.correct} | ${model.labels.incorrect} | ${model.labels.omitted} | ${model.labels.points} | ${model.labels.analysisBasis} | ${model.labels.facility} | ${model.labels.pointAchievement} | ${model.labels.discrimination}`]
+  for (const item of model.items) lines.push(`${item.numberLabel} | ${item.competency} | ${item.cognitiveCategory} | ${item.curriculumPeriod} | ${item.attempted} | ${item.correct} | ${item.incorrect} | ${item.omitted} | ${number(item.earnedPoints)} / ${number(item.possiblePoints)} | ${item.analysisBasis.replaceAll('_', ' ')} | ${percent(item.facility)} | ${percent(item.normalizedPointAchievement)} | ${item.discriminationStatus === 'available' ? number(item.discrimination) : item.discriminationStatus}`)
+  lines.push('', model.labels.options, `${unit.singular} | Option | ${model.labels.count} | ${model.labels.percentage} | Correct | Advisory signal | ${model.labels.omitted}`)
+  for (const option of model.options) lines.push(`${option.numberLabel} | ${option.option} | ${option.count} | ${percent(option.percentage)} | ${option.correct ? 'Yes' : 'No'} | ${option.distractorSignal === 'unselected' ? 'Unselected distractor — teacher review' : '—'} | ${option.omitted}`)
   return lines
 }
 
 function competencyLines(model: ResultsReportModel) {
-  const lines = [`${model.labels.competency} | Code | ${model.labels.curriculumPeriod} | Items | ${model.labels.attempted} | ${model.labels.correct} | ${model.labels.incorrect} | ${model.labels.omitted} | ${model.labels.points} | ${model.labels.pointAchievement} | ${model.labels.facility}`]
-  for (const row of model.competencies) lines.push(`${row.competency} | ${row.code || '—'} | ${row.curriculumPeriod} | ${row.itemNumbers.join(', ')} | ${row.attempts} | ${row.correct} | ${row.incorrect} | ${row.omitted} | ${number(row.earnedPoints)} / ${number(row.pointsPossibleForAll)} | ${percent(row.normalizedPointAchievement)} | ${percent(row.facility)}`)
-  lines.push('', model.labels.cognitiveCategory, `${model.labels.cognitiveCategory} | ${model.labels.curriculumPeriod} | Items | ${model.labels.attempted} | ${model.labels.correct} | ${model.labels.incorrect} | ${model.labels.omitted} | ${model.labels.points} | ${model.labels.pointAchievement} | ${model.labels.facility}`)
-  for (const row of model.cognitiveCategories) lines.push(`${row.category} | ${row.curriculumPeriod} | ${row.itemNumbers.join(', ')} | ${row.attempts} | ${row.correct} | ${row.incorrect} | ${row.omitted} | ${number(row.earnedPoints)} / ${number(row.pointsPossibleForAll)} | ${percent(row.normalizedPointAchievement)} | ${percent(row.facility)}`)
-  lines.push('', model.labels.curriculumPeriod, `${model.labels.curriculumPeriod} | Items | ${model.labels.attempted} | ${model.labels.correct} | ${model.labels.incorrect} | ${model.labels.omitted} | ${model.labels.points} | ${model.labels.pointAchievement} | ${model.labels.facility}`)
-  for (const row of model.curriculumPeriods) lines.push(`${row.curriculumPeriod} | ${row.itemNumbers.join(', ')} | ${row.attempts} | ${row.correct} | ${row.incorrect} | ${row.omitted} | ${number(row.earnedPoints)} / ${number(row.pointsPossibleForAll)} | ${percent(row.normalizedPointAchievement)} | ${percent(row.facility)}`)
+  const unit = reportQuestionLabels(model)
+  const lines = [`${model.labels.competency} | Code | ${model.labels.curriculumPeriod} | ${unit.plural} | ${model.labels.attempted} | ${model.labels.correct} | ${model.labels.incorrect} | ${model.labels.omitted} | ${model.labels.points} | ${model.labels.pointAchievement} | ${model.labels.facility}`]
+  for (const row of model.competencies) lines.push(`${row.competency} | ${row.code || '—'} | ${row.curriculumPeriod} | ${row.itemNumberLabels.join(', ')} | ${row.attempts} | ${row.correct} | ${row.incorrect} | ${row.omitted} | ${number(row.earnedPoints)} / ${number(row.pointsPossibleForAll)} | ${percent(row.normalizedPointAchievement)} | ${percent(row.facility)}`)
+  lines.push('', model.labels.cognitiveCategory, `${model.labels.cognitiveCategory} | ${model.labels.curriculumPeriod} | ${unit.plural} | ${model.labels.attempted} | ${model.labels.correct} | ${model.labels.incorrect} | ${model.labels.omitted} | ${model.labels.points} | ${model.labels.pointAchievement} | ${model.labels.facility}`)
+  for (const row of model.cognitiveCategories) lines.push(`${row.category} | ${row.curriculumPeriod} | ${row.itemNumberLabels.join(', ')} | ${row.attempts} | ${row.correct} | ${row.incorrect} | ${row.omitted} | ${number(row.earnedPoints)} / ${number(row.pointsPossibleForAll)} | ${percent(row.normalizedPointAchievement)} | ${percent(row.facility)}`)
+  lines.push('', model.labels.curriculumPeriod, `${model.labels.curriculumPeriod} | ${unit.plural} | ${model.labels.attempted} | ${model.labels.correct} | ${model.labels.incorrect} | ${model.labels.omitted} | ${model.labels.points} | ${model.labels.pointAchievement} | ${model.labels.facility}`)
+  for (const row of model.curriculumPeriods) lines.push(`${row.curriculumPeriod} | ${row.itemNumberLabels.join(', ')} | ${row.attempts} | ${row.correct} | ${row.incorrect} | ${row.omitted} | ${number(row.earnedPoints)} / ${number(row.pointsPossibleForAll)} | ${percent(row.normalizedPointAchievement)} | ${percent(row.facility)}`)
   return lines
 }
 
 function remediationLines(model: ResultsReportModel) {
+  const unit = reportQuestionLabels(model)
   if (model.remediation.length === 0) return ['No remediation signals have been selected for teacher review.']
-  const lines = [`Scope | ${model.labels.target} | ${model.labels.curriculumPeriod} | Items | ${model.labels.evidence} | ${model.labels.threshold} | ${model.labels.learners} | Denominator | ${model.labels.plannedActivity} | ${model.labels.schedule} | ${model.labels.followUpEvidence} | ${model.labels.teacherReview}`]
-  for (const row of model.remediation) lines.push(`${row.scope} | ${row.targetCompetency} | ${row.curriculumPeriod} | ${row.itemNumbers.join(', ')} | ${percent(row.evidence)} | ${percent(row.threshold)} | ${row.learnerCount} | ${row.denominatorLabel} | ${row.plannedActivity || '—'} | ${row.schedule || '—'} | ${row.followUpEvidence || '—'} | ${row.teacherReviewed ? 'Yes' : 'No'}`)
+  const lines = [`Scope | ${model.labels.target} | ${model.labels.curriculumPeriod} | ${unit.plural} | ${model.labels.evidence} | ${model.labels.threshold} | ${model.labels.learners} | Denominator | ${model.labels.plannedActivity} | ${model.labels.schedule} | ${model.labels.followUpEvidence} | ${model.labels.teacherReview}`]
+  for (const row of model.remediation) lines.push(`${row.scope} | ${row.targetCompetency} | ${row.curriculumPeriod} | ${row.itemNumberLabels.join(', ')} | ${percent(row.evidence)} | ${percent(row.threshold)} | ${row.learnerCount} | ${row.denominatorLabel} | ${row.plannedActivity || '—'} | ${row.schedule || '—'} | ${row.followUpEvidence || '—'} | ${row.teacherReviewed ? 'Yes' : 'No'}`)
   lines.push('', 'Instructional signals')
   model.remediation.forEach((row) => lines.push(`${row.targetCompetency}: ${row.instructionalMessage}`))
   return lines

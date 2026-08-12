@@ -283,6 +283,8 @@ function toItemAnalysisItem(
   return {
     itemId: item.id,
     itemNumber: item.itemNumber,
+    pointStart: item.pointStart,
+    pointEnd: item.pointEnd,
     prompt: item.prompt,
     questionType: item.questionType,
     competencyId: item.competencySnapshot.id,

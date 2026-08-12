@@ -76,17 +76,17 @@ export function AssessmentsPage() {
     <PageHeader
       eyebrow="Assessment studio · Phase 4"
       title="Assessments"
-      description="Build teacher-reviewed assessment items from finalized Tables of Specifications. Results, item analysis, and remediation remain future work."
+      description="Create point-based, teacher-reviewed assessments from finalized Tables of Specifications, then encode results and analyze learning evidence."
       actions={<Link className="button primary" to="/assessments/new"><Plus size={16} /> New assessment</Link>}
     />
 
     <section className="assessment-boundary panel">
       <span className="assessment-boundary-icon"><ShieldCheck size={20} /></span>
       <div>
-        <strong>Finalized TOS → teacher-reviewed items</strong>
-        <p>GuroDesk preserves each item’s competency and cognitive mapping. AI may suggest wording, but you decide what is accepted and exported.</p>
+        <strong>Finalized TOS → point plan → teacher review</strong>
+        <p>GuroDesk preserves competency and cognitive mappings while the V2 planner turns the teacher’s point target into a frozen question plan. You still review and finalize every assessment.</p>
       </div>
-      <span className="assessment-future-note">Results / item analysis / remediation: future</span>
+      <span className="assessment-future-note">Results and analysis stay linked to the finalized assessment snapshot.</span>
     </section>
 
     {loading && <div className="panel lesson-loading"><span className="loader" /><strong>Loading assessments…</strong></div>}
@@ -102,6 +102,7 @@ export function AssessmentsPage() {
         const view = normalizeAssessment(document)
         const completion = assessmentCompletion(document)
         const canEdit = view.status === 'draft'
+        const isV2 = Number(view.settings?.schemaVersion ?? 1) >= 2 && view.settings?.generationVersion === 'v2' && view.settings?.numberingMode === 'point_ranges'
         return <article className="panel assessment-card" key={document.id}>
           <div className="assessment-card-top">
             <span className={`assessment-status ${view.status}`}><FileCheck2 size={13} /> {view.status}</span>
@@ -111,11 +112,10 @@ export function AssessmentsPage() {
           <p className="assessment-card-context">{[view.gradeLevel, view.learningArea, view.schoolYear].filter(Boolean).join(' · ') || 'Assignment context not set'}</p>
           <div className="assessment-source-card"><small>Source TOS</small><strong>{view.sourceTosTitle}</strong><span>{view.sourceTos?.id ? 'Finalized coverage preserved' : 'Finalized source'}</span></div>
           <div className="assessment-card-metrics">
-            <span><strong>{view.items.length || view.totalItems}</strong><small>items</small></span>
-            <span><strong>{completion.filled}/{completion.total}</strong><small>complete</small></span>
-            <span><strong>{completion.percent}%</strong><small>complete</small></span>
+            {isV2 ? <><span><strong>{completion.totalPoints}</strong><small>points</small></span><span><strong>{view.items.length}</strong><small>questions</small></span></> : <span><strong>{view.items.length || view.totalItems}</strong><small>items</small></span>}
+            <span><strong>{completion.percent}%</strong><small>generated</small></span>
           </div>
-          <div className="assessment-progress" aria-label={`${completion.percent}% of assessment items have question text`}><span style={{ width: `${completion.percent}%` }} /></div>
+          <div className="assessment-progress" aria-label={`${completion.percent}% of assessment questions have content`}><span style={{ width: `${completion.percent}%` }} /></div>
           <div className="assessment-card-meta"><span>Updated {displayDate(view.updatedAt)}</span><span>{view.items.filter((item) => item.authorshipState === 'teacher_accepted').length} accepted</span></div>
           <div className="assessment-card-actions">
             <button aria-label={`Archive ${view.title}`} className="icon-button danger" disabled={workingId === document.id} type="button" onClick={() => void archive(document)} title="Archive"><Archive size={16} /></button>

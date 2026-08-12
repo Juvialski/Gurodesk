@@ -214,6 +214,11 @@ export type AssessmentItem = {
   /** Stable identity independent of item number or array position. */
   id: string
   itemNumber: number
+  /** V2 learner-facing point-number range. Legacy assessments leave these unset. */
+  pointStart?: number
+  pointEnd?: number
+  /** Immutable master-plan entry that owns this logical question in V2. */
+  planEntryId?: string
   competencySnapshot: AssessmentCompetencySnapshot
   cognitiveCategorySnapshot: AssessmentCognitiveCategorySnapshot
   /** Exact deterministic TOS row/category allocation that produced this item. */
@@ -260,6 +265,9 @@ export type AssessmentItemVersion = {
   savedAt: string
   source: 'generated' | 'alternative' | 'teacher_edit' | 'repair' | 'restore'
   prompt: string
+  pointStart?: number
+  pointEnd?: number
+  planEntryId?: string
   questionType: QuestionType
   answer: AssessmentAnswer
   rationale?: string
@@ -277,7 +285,59 @@ export type AssessmentItemVersion = {
   visualUpdatedAt?: string
 }
 
+
+export type AssessmentNumberingMode = 'legacy_items' | 'point_ranges'
+export type AssessmentGenerationVersion = 'v1' | 'v2'
+export type AssessmentCpdKey = 'remembering' | 'understanding' | 'applying' | 'analyzing' | 'evaluating' | 'creating' | 'other'
+export type AssessmentQuestionTypeSuitability = 'strong' | 'allowed' | 'unsupported'
+
+export type AssessmentV2PointBucket = {
+  id: string
+  rowId: string
+  competencyId: string
+  competencyCode: string | null
+  competencyText: string
+  cognitiveCategoryId: string
+  cognitiveLabel: string
+  cognitiveShortLabel: string
+  cpdKey: AssessmentCpdKey
+  sourceItemCount: number
+  sourceAllocationItemStart: number
+  sourceAllocationItemEnd: number
+  pointsAllocated: number
+}
+
+export type AssessmentMasterPlanEntry = {
+  id: string
+  itemNumber: number
+  pointStart: number
+  pointEnd: number
+  pointsPossible: number
+  bucketId: string
+  rowId: string
+  competencyId: string
+  cognitiveCategoryId: string
+  questionType: QuestionType
+  taskIntent: string
+  visualRequirement: AssessmentVisualRequirement
+  visualIntent: string
+}
+
+export type AssessmentMasterPlan = {
+  schemaVersion: 1
+  generationVersion: 'v2'
+  numberingMode: 'point_ranges'
+  totalPoints: number
+  logicalItemCount: number
+  plannerModel: string
+  plannerFallbackUsed: boolean
+  createdAt: string
+  pointBuckets: AssessmentV2PointBucket[]
+  entries: AssessmentMasterPlanEntry[]
+}
+
 export type AssessmentQuestionTypeMode = 'auto_balanced' | 'fixed_counts' | 'percentages' | 'manual_per_item'
+export type AssessmentVisualPolicy = 'off' | 'balanced' | 'more_visuals'
 
 export type AssessmentTypeDistribution = {
   mode: AssessmentQuestionTypeMode
@@ -295,6 +355,14 @@ export type QuestionTypeDistribution = AssessmentTypeDistribution
 
 export type AssessmentSettings = AssessmentTypeDistribution & {
   schemaVersion?: number
+  generationVersion?: AssessmentGenerationVersion
+  numberingMode?: AssessmentNumberingMode
+  /** Teacher-authored constraints supplied before the one-call master plan. */
+  generationInstructions?: string
+  /** Frozen one-call V2 plan. Question generation may not mutate it. */
+  masterPlan?: AssessmentMasterPlan
+  /** Automatic diagram planning policy. Manual/existing visuals are always preserved. */
+  visualPolicy?: AssessmentVisualPolicy
 }
 
 export type AssessmentBlueprint = {
