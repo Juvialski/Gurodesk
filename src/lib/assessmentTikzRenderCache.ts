@@ -4,6 +4,9 @@ import type { AssessmentVisual } from '../types/assessmentVisual'
 const svgCache = new Map<string, string>()
 const pngCache = new Map<string, string>()
 
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
+const XLINK_NAMESPACE = 'http://www.w3.org/1999/xlink'
+
 const SVG_ELEMENTS = new Set([
   'svg', 'g', 'defs', 'title', 'desc', 'path', 'polyline', 'polygon', 'line', 'rect', 'circle', 'ellipse', 'text', 'tspan', 'clipPath', 'use',
 ])
@@ -54,14 +57,14 @@ export function sanitizeAssessmentTikzSvg(markup: string) {
     return ''
   }
   const root = document.documentElement
-  if (!root || root.localName !== 'svg' || root.namespaceURI !== 'http://www.w3.org/2000/svg') return ''
+  if (!root || root.localName !== 'svg' || root.namespaceURI !== SVG_NAMESPACE) return ''
   if (document.getElementsByTagName('parsererror').length) return ''
 
   const pending: Element[] = [root]
   while (pending.length) {
     const element = pending.pop()!
     if (!SVG_ELEMENTS.has(element.localName)) return ''
-    if (element.namespaceURI !== 'http://www.w3.org/2000/svg') return ''
+    if (element.namespaceURI !== SVG_NAMESPACE) return ''
 
     for (let index = 0; index < element.attributes.length; index += 1) {
       const attribute = element.attributes.item(index)
@@ -70,6 +73,18 @@ export function sanitizeAssessmentTikzSvg(markup: string) {
       const lower = name.toLocaleLowerCase('en')
       const attributeValue = attribute.value.trim()
       if (lower.startsWith('on') || !SVG_ATTRIBUTES.has(name)) return ''
+      // Namespace declarations are required XML metadata. They contain an
+      // http:// identifier, but they do not fetch a remote resource. Permit
+      // only the exact SVG / XLink namespace URIs and reject every other
+      // namespace through the attribute allowlist.
+      if (name === 'xmlns') {
+        if (attributeValue !== SVG_NAMESPACE) return ''
+        continue
+      }
+      if (name === 'xmlns:xlink') {
+        if (attributeValue !== XLINK_NAMESPACE) return ''
+        continue
+      }
       if (name === 'href' || name === 'xlink:href') {
         if (!/^#[A-Za-z_][\w:.-]*$/u.test(attributeValue)) return ''
       }

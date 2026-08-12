@@ -171,7 +171,7 @@ function unwrapFormatting(value: string) {
 /** Normalize harmless TeX label formatting before answer-leak comparison. */
 export function normalizeAssessmentTikzLearnerText(value: unknown) {
   if (typeof value !== 'string') return ''
-  let text = value.normalize('NFKC').slice(0, 1200)
+  let text = value.normalize('NFC').slice(0, 1200)
   // Convert simple/nested fractions first so 1/2 compares to numerical answers.
   for (let pass = 0; pass < 6; pass += 1) {
     const marker = /\\(?:d?frac|tfrac)\s*\{/gu.exec(text)

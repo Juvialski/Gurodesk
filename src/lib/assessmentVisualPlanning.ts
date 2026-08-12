@@ -267,6 +267,8 @@ function visualPromptSimilarity(left: string, right: string) {
   return (2 * intersection) / (a.size + b.size)
 }
 
+const VISUAL_PROMPT_DUPLICATE_THRESHOLD = 0.82
+
 function competencyKey(item: AssessmentItem) {
   return clean(item.competencySnapshot?.id, 180) || clean(item.competencySnapshot?.text, 240) || 'unmapped'
 }
@@ -380,18 +382,29 @@ export function resolveAssessmentVisualPlans(items: readonly AssessmentItem[], o
     const basePool = unusedCompetency.length ? unusedCompetency : available
     const distinctPrompt = basePool.filter(({ item }) => {
       const related = selectedOptional.filter(({ item: selectedItem }) => competencyKey(selectedItem) === competencyKey(item))
-      return related.length === 0 || related.every(({ item: selectedItem }) => visualPromptSimilarity(selectedItem.prompt, item.prompt) < 0.78)
+      return related.length === 0 || related.every(({ item: selectedItem }) => visualPromptSimilarity(selectedItem.prompt, item.prompt) < VISUAL_PROMPT_DUPLICATE_THRESHOLD)
     })
     // If every remaining candidate from an already represented competency is
     // near-identical, leave budget unused rather than add repetitive diagrams.
     if (!distinctPrompt.length) continue
-    const chosen = [...distinctPrompt].sort((left, right) => {
-      const distance = Math.abs(left.item.itemNumber - target) - Math.abs(right.item.itemNumber - target)
-      if (distance !== 0) return distance
-      const leftStored = left.item.visualRequirement === 'helpful' ? 0 : 1
-      const rightStored = right.item.visualRequirement === 'helpful' ? 0 : 1
-      return leftStored - rightStored || left.item.itemNumber - right.item.itemNumber || left.item.id.localeCompare(right.item.id, 'en')
-    })[0]
+    // If the first pool is only one near-identical competency cluster, keep
+    // its stable first representative instead of choosing a target-nearest
+    // duplicate (for example item 3 of eight identical prompts). Distinct
+    // candidates still use the evenly-spaced paper targets below.
+    const firstCandidate = basePool[0]
+    const oneDuplicateCluster = selectedOptional.length === 0
+      && basePool.length > 1
+      && basePool.every(({ item }) => competencyKey(item) === competencyKey(firstCandidate.item)
+        && visualPromptSimilarity(firstCandidate.item.prompt, item.prompt) >= VISUAL_PROMPT_DUPLICATE_THRESHOLD)
+    const chosen = oneDuplicateCluster
+      ? firstCandidate
+      : [...distinctPrompt].sort((left, right) => {
+          const distance = Math.abs(left.item.itemNumber - target) - Math.abs(right.item.itemNumber - target)
+          if (distance !== 0) return distance
+          const leftStored = left.item.visualRequirement === 'helpful' ? 0 : 1
+          const rightStored = right.item.visualRequirement === 'helpful' ? 0 : 1
+          return leftStored - rightStored || left.item.itemNumber - right.item.itemNumber || left.item.id.localeCompare(right.item.id, 'en')
+        })[0]
     select(chosen)
   }
 

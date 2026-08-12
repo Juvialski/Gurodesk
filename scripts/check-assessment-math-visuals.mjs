@@ -91,7 +91,7 @@ assert.match(generator, /CORRECTION PASS: Your previous TikZ was rejected/, 'inv
 assert.match(generator, /use as bounding box.*rectangle \(10,6\)/i, 'direct TikZ uses a stable 5:3 assessment canvas')
 assert.doesNotMatch(generator, /visualResponseSchema/, 'direct TikZ visual calls must not reintroduce the rejected provider response schema')
 assert.match(visualPlanning, /storedRequirement === 'required' \|\| storedRequirement === 'helpful'[\s\S]{0,220}\? 'helpful'/, 'provider-required visual metadata is demoted to the optional budget unless the learner prompt actually depends on a figure')
-assert.match(visualPlanning, /ratio.*0\.25|0\.25/s, 'ordinary optional visuals remain budgeted at roughly one per four questions')
+assert.match(visualPlanning, /count\s*\/\s*4|0\.25/s, 'ordinary optional visuals remain budgeted at roughly one per four questions')
 assert.match(tikzCache, /const scale = 4/, 'PDF cache rasterizes the exact TikZJax result at high resolution')
 assert.match(printPreview, /waitForAssessmentTikzRenders/, 'print and file exports wait for direct TikZ rendering instead of silently omitting diagrams')
 assert.match(generator, /genuinely distinct/i, 'fill-in-the-blank prompt discourages duplicate accepted answers')
