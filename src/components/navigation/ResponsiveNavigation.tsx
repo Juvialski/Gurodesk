@@ -2,6 +2,7 @@ import {
   BookMarked,
   ChartNoAxesColumnIncreasing,
   CircleHelp,
+  ClipboardCheck,
   Files,
   LayoutDashboard,
   LogOut,
@@ -24,6 +25,7 @@ type NavigationEntry = { to: string; label: string; icon: Icon; end?: boolean }
 const primaryNavigation: NavigationEntry[] = [
   { to: '/', label: 'Home', icon: LayoutDashboard, end: true },
   { to: '/create', label: 'Create', icon: Plus },
+  { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
   { to: '/classes', label: 'Classes', icon: UsersRound },
   { to: '/results', label: 'Results', icon: ChartNoAxesColumnIncreasing },
   { to: '/files', label: 'Documents', icon: Files },
@@ -36,6 +38,7 @@ const secondaryNavigation: NavigationEntry[] = [
 ]
 
 const moreNavigation: NavigationEntry[] = [
+  { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
   { to: '/files', label: 'Documents', icon: Files },
   { to: '/curriculum', label: 'Curriculum', icon: BookMarked },
   { to: '/tos', label: 'Templates & TOS', icon: TableProperties },
@@ -153,10 +156,10 @@ export function ResponsiveNavigation({ profile, onSignOut }: ResponsiveNavigatio
       </aside>
 
       <nav className="mobile-bottom-nav" aria-label="Primary navigation">
-        <NavigationLink entry={primaryNavigation[0]} className="mobile-bottom-nav-item" />
-        <NavigationLink entry={primaryNavigation[1]} className="mobile-bottom-nav-item mobile-bottom-nav-create" />
-        <NavigationLink entry={primaryNavigation[2]} className="mobile-bottom-nav-item" />
-        <NavigationLink entry={primaryNavigation[3]} className="mobile-bottom-nav-item" />
+        <NavigationLink entry={primaryNavigation.find((entry) => entry.to === '/')!} className="mobile-bottom-nav-item" />
+        <NavigationLink entry={primaryNavigation.find((entry) => entry.to === '/create')!} className="mobile-bottom-nav-item mobile-bottom-nav-create" />
+        <NavigationLink entry={primaryNavigation.find((entry) => entry.to === '/classes')!} className="mobile-bottom-nav-item" />
+        <NavigationLink entry={primaryNavigation.find((entry) => entry.to === '/results')!} className="mobile-bottom-nav-item" />
         <button className={`mobile-bottom-nav-item ${moreActive ? 'active' : ''}`} type="button" aria-expanded={moreOpen} aria-controls="mobile-more-menu" onClick={() => setMoreOpen((current) => !current)}>
           <MoreHorizontal size={20} aria-hidden="true" /><span>More</span>
         </button>

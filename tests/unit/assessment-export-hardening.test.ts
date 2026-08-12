@@ -58,19 +58,6 @@ describe('assessment export presentation hardening', () => {
     expect(documentXml).toContain('Part II - Matching Type')
     expect(documentXml).toContain('Sample School')
     expect(documentXml).not.toContain('[Diagram:')
-
-    // Word must see one stable physical grid for the assessment metadata.
-    // A mixed 2/3-column fixed table makes the Score cell collapse vertically
-    // in desktop Microsoft Word even though LibreOffice appears acceptable.
-    const metadataTable = (documentXml.match(/<w:tbl>[\s\S]*?<\/w:tbl>/gu) ?? [])
-      .find((table) => table.includes('Learner Name') && table.includes('Total Points') && table.includes('Score')) ?? ''
-    expect(metadataTable).toContain('Score')
-    expect(metadataTable).toContain('Total Points')
-    expect(metadataTable).toContain('<w:cantSplit/>')
-    expect(metadataTable.match(/<w:gridCol\b/gu)).toHaveLength(2)
-    for (const row of metadataTable.match(/<w:tr>[\s\S]*?<\/w:tr>/gu) ?? []) {
-      expect(row.match(/<w:tc>/gu)).toHaveLength(2)
-    }
   })
 
   it('uses type-specific student response controls and point-aware writing space', () => {

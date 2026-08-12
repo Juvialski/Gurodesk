@@ -465,6 +465,14 @@ export function applyAssessmentItemCandidate(item: AssessmentItem, candidate: As
   if (validated.visual) {
     next.visualStatus = 'succeeded'
     next.visualSourceHash = assessmentVisualSourceHash(next)
+  } else if (validated.visualRequirement === 'none') {
+    // The paper planner explicitly chose this generated item as text-only. Bind
+    // that decision to the finished prompt/answer hash so geometry keywords do
+    // not later trigger a cosmetic optional diagram on reload.
+    next.visualRequirement = 'none'
+    next.visualIntent = ''
+    next.visualStatus = 'not_required'
+    next.visualSourceHash = assessmentVisualSourceHash(next)
   } else {
     next = invalidateAssessmentVisualAfterContentEdit(item, next)
   }
@@ -662,14 +670,31 @@ function candidateFromResponse(data: UnknownRecord, item: AssessmentItem, approv
 }
 
 function itemWithCandidate(item: AssessmentItem, candidate: AssessmentItemCandidate) {
-  return withResolvedAssessmentVisualPlan({
+  const next: AssessmentItem = {
     ...item,
     prompt: candidate.prompt,
     answer: candidate.answer,
     visual: candidate.visual === undefined ? item.visual : candidate.visual === null ? undefined : candidate.visual,
     visualRequirement: candidate.visualRequirement,
     visualIntent: candidate.visualIntent,
-  })
+  }
+  // Automatic text-only generation is an explicit paper-level decision. Persist
+  // a source-bound suppression so geometry keywords cannot later trigger a
+  // cosmetic "helpful" diagram after the question is saved/reloaded.
+  if (candidate.visualRequirement === 'none' && next.prompt.trim() && !next.visual) {
+    const sourceHash = assessmentVisualSourceHash(next)
+    return {
+      ...next,
+      visualRequirement: 'none',
+      visualIntent: '',
+      visualStatus: 'not_required',
+      visualAttempts: 0,
+      visualError: undefined,
+      visualSourceHash: sourceHash,
+      visualUpdatedAt: new Date().toISOString(),
+    }
+  }
+  return withResolvedAssessmentVisualPlan(next)
 }
 
 export type AssessmentVisualGenerationResult = {
@@ -879,7 +904,11 @@ async function adaptiveReview(assessment: AssessmentRecord, item: AssessmentItem
   const deterministic = validateAssessmentItemDeterministic(itemWithCandidate(item, candidate), { allowedTypes: allowedTypesFor(assessment) })
   if (!deterministic.valid) return { candidate, deterministic, risk: classifyAssessmentRisk(itemWithCandidate(item, candidate)), requestsUsed: 0, state: 'needs_review', repairAttempted: false } as const
   const risk = classifyAssessmentRisk(itemWithCandidate(item, candidate))
-  if (!risk.verifyRecommended || demo || !supabase) return { candidate, deterministic, risk, requestsUsed: 0, state: stateForAssessmentItem(itemWithCandidate(item, candidate), deterministic), repairAttempted: false } as const
+  // Every required-visual item gets an independent Gemini verification pass,
+  // even when its ordinary mathematical risk score is low. The verifier checks
+  // that the learner truly needs the diagram rather than receiving decoration.
+  const visualDependencyReview = candidate.visualRequirement === 'required'
+  if ((!risk.verifyRecommended && !visualDependencyReview) || demo || !supabase) return { candidate, deterministic, risk, requestsUsed: 0, state: stateForAssessmentItem(itemWithCandidate(item, candidate), deterministic), repairAttempted: false } as const
   let verifier: AssessmentVerifierResult | undefined
   let requestsUsed = 0
   try {

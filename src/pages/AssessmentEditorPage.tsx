@@ -14,7 +14,7 @@ import { autoPrepareAssessmentPaper } from '../lib/assessmentAutoPrepare'
 import { lockAssessmentItem, recoverSingleFillBlankStructure, unlockAssessmentItem } from '../lib/assessmentItemLifecycle'
 import { beginAssessmentVisualGeneration, checkpointAssessmentGenerationFailure, checkpointAssessmentGenerationSuccess, checkpointAssessmentVisualFailure, checkpointAssessmentVisualSuccess, checkpointFailures, checkpointVisualFailures, clearAssessmentGenerationCheckpoint, completeAssessmentGenerationCheckpoint, createAssessmentGenerationCheckpoint, loadAssessmentGenerationCheckpoint, pauseAssessmentGenerationCheckpoint, pendingAssessmentGenerationItemIds, pendingAssessmentVisualItemIds, recoverAssessmentGenerationItems, resumeAssessmentGenerationCheckpoint, saveAssessmentGenerationCheckpoint, type AssessmentGenerationCheckpoint, type AssessmentGenerationFailure } from '../lib/assessmentGenerationResume'
 import { assessmentUsageEstimate, type AssessmentUsageEstimate } from '../lib/assessmentRequestScheduler'
-import { assessmentVisualItemIdsForAssessment, assessmentVisualPlanForItem, assessmentVisualSourceHash, invalidateAssessmentVisualAfterContentEdit, resolveAssessmentVisualPlans, withResolvedAssessmentVisualPlan } from '../lib/assessmentVisualPlanning'
+import { assessmentVisualItemIdsForAssessment, assessmentVisualPlanForItem, assessmentVisualSourceHash, invalidateAssessmentVisualAfterContentEdit, reserveAssessmentRequiredVisualSlots, resolveAssessmentVisualPlans, withResolvedAssessmentVisualPlan } from '../lib/assessmentVisualPlanning'
 import { validateAssessmentItemDeterministic, verifierRequiresRepair } from '../lib/assessmentQa'
 import { applyQuestionTypeDistributionToEmptySlots } from '../lib/assessmentDistribution'
 import { reviewAssessmentForFinalization, finalReviewMessages, type AssessmentFinalReview } from '../lib/assessmentFinalReview'
@@ -125,8 +125,11 @@ export function AssessmentEditorPage() {
       if (!active) return
       if (!next) throw new Error('Assessment not found or you do not have access to it.')
       const normalized = normalizeAssessment(next)
-      const balanced = resolveAssessmentVisualPlans(normalized.items)
-      const planned = { ...normalized, items: balanced.items }
+      // Finalized/archived assessments are immutable snapshots. Never re-plan
+      // their visual lifecycle on navigation or Preview -> Back.
+      const planned = normalized.status === 'draft'
+        ? { ...normalized, items: resolveAssessmentVisualPlans(normalized.items).items }
+        : normalized
       setRecordValue(planned); recordRef.current = planned; setTitle(planned.title === 'Untitled assessment' ? '' : planned.title); setInstructions(planned.instructions); setSelectedIndex(0); setSuggestions({}); setError(''); refreshUsageEstimates()
     }).catch((nextError) => { if (active) setError(extractErrorMessage(nextError, 'Unable to open the assessment editor.')) }).finally(() => { if (active) setLoading(false) })
     return () => { active = false }
@@ -517,16 +520,6 @@ export function AssessmentEditorPage() {
       if (!persisted) return
       const persistedView = normalizeAssessment(persisted)
       const balanced = resolveAssessmentVisualPlans(persistedView.items)
-      // Use the resolved paper-level plan as the actual source of the visual
-      // pass. Previously we selected IDs from `balanced` but passed the older
-      // `persisted` item objects into enrichment, allowing a legacy
-      // none/not_required state to silently cancel a newly selected diagram.
-      const plannedAssessment = { ...persisted, items: balanced.items }
-      // Keep the in-memory draft on the same resolved plan that the dedicated
-      // visual pass receives. This prevents successful/failed visual updates
-      // from being merged back into stale pre-balance item objects.
-      recordRef.current = plannedAssessment
-      setRecordValue(plannedAssessment)
       const balancedIds = new Set(assessmentVisualItemIdsForAssessment(balanced.items))
       const requestedIds = itemIds?.length
         ? itemIds.filter((itemId) => balancedIds.has(itemId))
@@ -541,50 +534,41 @@ export function AssessmentEditorPage() {
       saveAssessmentGenerationCheckpoint(checkpoint)
       const pendingIds = (itemIds?.length ? itemIds : pendingAssessmentVisualItemIds(checkpoint))
         .filter((itemId) => balancedIds.has(itemId))
-        .filter((itemId) => {
-          const item = balanced.items.find((candidate) => candidate.id === itemId)
-          return Boolean(item && item.prompt.trim() && !isLocked(item))
-        })
       setBatchProgress({ processed: 0, total: pendingIds.length, succeeded: 0, failed: 0, cancelled: 0, remaining: pendingIds.length })
       setBatchMessage(pendingIds.length ? `Questions saved. Enriching ${pendingIds.length} visual${pendingIds.length === 1 ? '' : 's'} sequentially…` : 'Questions saved. No visual enrichment requests are needed; running paper QA…')
       const summary = await enrichAssessmentVisualsSequentially({
-        assessment: plannedAssessment,
+        assessment: persisted,
         demo: isDemo,
         itemIds: pendingIds,
         signal: controller.signal,
         onProgress: (progress) => {
           setBatchProgress({ processed: progress.processed, total: progress.total, succeeded: progress.succeeded, failed: progress.failed, cancelled: progress.status === 'cancelled' ? Math.max(1, progress.processed - progress.succeeded - progress.failed) : 0, remaining: progress.remaining })
         },
-        onItem: (item, outcome) => {
+        onItem: async (item, outcome) => {
           const latest = recordRef.current ?? persisted
           const latestView = normalizeAssessment(latest)
           const currentItem = latestView.items.find((candidate) => candidate.id === item.id)
           if (!currentItem || assessmentVisualSourceHash(currentItem) !== assessmentVisualSourceHash(item)) return
           const nextRecord = recordWithItems(latest, latestView.items.map((candidate) => candidate.id === item.id ? item : candidate), 'draft', title.trim(), instructions)
-          recordRef.current = nextRecord
-          setRecordValue(nextRecord)
+          // Persist EVERY completed visual result before the next provider call.
+          // Navigating to Preview can therefore never discard a TikZ that the UI
+          // already reported as generated.
+          const savedItemRecord = await saveAssessmentDocument(nextRecord, isDemo)
+          recordRef.current = savedItemRecord
+          setRecordValue(savedItemRecord)
+          const persistedItem = normalizeAssessment(savedItemRecord).items.find((candidate) => candidate.id === item.id) ?? item
           if (checkpoint) {
             checkpoint = outcome.status === 'success'
-              ? checkpointAssessmentVisualSuccess(checkpoint, item)
-              : checkpointAssessmentVisualFailure(checkpoint, item, outcome.message ?? 'Visual generation failed.')
+              ? checkpointAssessmentVisualSuccess(checkpoint, persistedItem)
+              : checkpointAssessmentVisualFailure(checkpoint, persistedItem, outcome.message ?? 'Visual generation failed.')
             saveAssessmentGenerationCheckpoint(checkpoint)
             setBatchFailures([...checkpointFailures(checkpoint), ...checkpointVisualFailures(checkpoint)])
           }
         },
       })
-      if (pendingIds.length > 0 && summary.attempted === 0 && !controller.signal.aborted) {
-        throw new Error(`The paper planner selected ${pendingIds.length} visual${pendingIds.length === 1 ? '' : 's'}, but none reached visual generation. The visual plans were preserved; retry visual enrichment instead of regenerating the questions.`)
-      }
-      const latest = recordRef.current ?? persisted
-      let saved = latest
-      if (summary.results.length) {
-        setSaving(true)
-        try {
-          saved = await saveAssessmentDocument(latest, isDemo)
-          recordRef.current = saved
-          setRecordValue(saved)
-        } finally { setSaving(false) }
-      }
+      // `onItem` persisted each visual atomically; do not wait until the end of
+      // the batch to make generated TikZ durable.
+      const saved = recordRef.current ?? persisted
       refreshUsageEstimates()
       if (checkpoint) {
         checkpoint = summary.providerPaused || controller.signal.aborted
@@ -597,7 +581,7 @@ export function AssessmentEditorPage() {
         return
       }
       const helpfulNote = summary.helpfulFailed ? ` ${summary.helpfulFailed} optional visual${summary.helpfulFailed === 1 ? '' : 's'} could not be added; questions were preserved.` : ''
-      setBatchMessage(`Visual enrichment complete · ${pendingIds.length} planned · ${summary.succeeded} added · ${summary.failed} failed.${helpfulNote} Running automatic paper QA…`)
+      setBatchMessage(`Visual enrichment complete · ${summary.succeeded} diagram${summary.succeeded === 1 ? '' : 's'} added.${helpfulNote} Running automatic paper QA…`)
       await runAutomaticPaperPreparation(saved, controller)
     } catch (nextError) {
       if (checkpoint) saveAssessmentGenerationCheckpoint(pauseAssessmentGenerationCheckpoint(checkpoint))
@@ -628,11 +612,17 @@ export function AssessmentEditorPage() {
         const generationSettings = defaultSettings(sourceView) as unknown as AssessmentSettings
         if (generationSettings.mode !== 'manual_per_item') {
           const distribution = applyQuestionTypeDistributionToEmptySlots(sourceView.items, generationSettings)
-          generationSource = recordWithItems(source, distribution.items, 'draft', title, instructions)
+          // Decide the small set of REQUIRED visual questions before Gemini writes
+          // any stems. The selected stems must depend on their future diagram; all
+          // other generated questions remain deliberately text-only.
+          const visualReservations = reserveAssessmentRequiredVisualSlots(distribution.items)
+          generationSource = recordWithItems(source, visualReservations.items, 'draft', title, instructions)
           recordRef.current = generationSource
           setRecordValue(generationSource)
-          if (distribution.changedItemIds.length) {
-            setSavedMessage(`Question types were balanced across ${distribution.changedItemIds.length} empty slot${distribution.changedItemIds.length === 1 ? '' : 's'} before generation. Completed questions were preserved.`)
+          if (distribution.changedItemIds.length || visualReservations.reservedItemIds.length) {
+            const typeNote = distribution.changedItemIds.length ? `${distribution.changedItemIds.length} empty slot${distribution.changedItemIds.length === 1 ? '' : 's'} balanced` : 'Question types preserved'
+            const visualNote = visualReservations.reservedItemIds.length ? `${visualReservations.reservedItemIds.length} essential visual question${visualReservations.reservedItemIds.length === 1 ? '' : 's'} reserved` : 'no required visuals reserved'
+            setSavedMessage(`${typeNote}; ${visualNote}. Completed questions were preserved.`)
           }
         }
       }

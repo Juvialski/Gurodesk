@@ -14,6 +14,7 @@ const VISUAL_DEPENDENCY = /\b(?:shown|provided|given|displayed|illustrated)\s+(?
  * nouns. The assessment-level selector applies a one-in-four budget.
  */
 const HELPFUL_GEOMETRY = /\b(?:angle relationships?|adjacent angles?|vertical angles?|complementary angles?|supplementary angles?|linear pairs?|interior angles?|exterior angles?|parallel lines?|perpendicular lines?|transversal|regular polygons?|irregular polygons?|convex polygons?|non[- ]?convex polygons?|concave polygons?|congruen(?:t|ce)|similar triangles?|circle|radius|diameter|chord|arc|coordinate plane|cartesian|plot|graph(?:ing)?\s+(?:a|the|this)?\s*(?:function|relation|line|curve)|angulo|poligon|tatsulok|parisukat|bilog|koordinat|grap)\b/iu
+const REQUIRED_VISUAL_COMPETENCY = /\b(?:angle|angles|polygon|polygons|triangle|triangles|quadrilateral|quadrilaterals|circle|circles|parallel|perpendicular|transversal|coordinate plane|cartesian|graph|plot|number line|geometric figure|geometry|interior|exterior|congruent|similar|symmetry|rotation|reflection|translation|angulo|poligon|tatsulok|parisukat|bilog|koordinat|grap)\b/iu
 const VISUAL_REQUIREMENTS = new Set<AssessmentVisualRequirement>(['none', 'helpful', 'required'])
 const VISUAL_STATUSES = new Set<AssessmentVisualStatus>(['not_required', 'pending', 'running', 'succeeded', 'failed', 'stale'])
 
@@ -50,6 +51,63 @@ export function assessmentContentWouldBenefitFromVisual(item: Pick<AssessmentIte
 function defaultVisualIntent(item: Pick<AssessmentItem, 'prompt' | 'competencySnapshot'>) {
   const topic = clean(item.competencySnapshot?.text, 240) || clean(item.prompt, 240) || 'the mathematical relationship in the question'
   return ('Create a clean, learner-safe diagram that clarifies ' + topic + '. Include only labels and measures needed by the prompt; do not reveal the answer.').slice(0, 500)
+}
+
+function requiredVisualIntent(item: Pick<AssessmentItem, 'competencySnapshot'>) {
+  const topic = clean(item.competencySnapshot?.text, 260) || 'the mapped mathematical competency'
+  return (`Create the essential mathematical diagram for a question about ${topic}. Put at least one necessary given, label, measure, position, or relationship only in the diagram so the learner cannot answer from the written stem alone. Do not reveal the answer.`).slice(0, 500)
+}
+
+export type AssessmentRequiredVisualReservationOptions = {
+  ratio?: number
+  cap?: number
+}
+
+/**
+ * Reserve a small, deterministic set of EMPTY blueprint slots as truly visual
+ * questions before Gemini writes the stems. Reserved questions must later be
+ * authored so the diagram is part of the problem data, never page decoration.
+ */
+export function reserveAssessmentRequiredVisualSlots(items: readonly AssessmentItem[], options: AssessmentRequiredVisualReservationOptions = {}) {
+  const source = [...items]
+  const ratio = Number.isFinite(Number(options.ratio)) ? Math.max(0, Math.min(1, Number(options.ratio))) : 0.25
+  const budget = options.cap !== undefined
+    ? Math.max(0, Math.floor(Number(options.cap) || 0))
+    : Math.max(0, Math.ceil(source.length * ratio))
+  const alreadyRequired = source.filter((item) => item.visualRequirement === 'required' && (!item.prompt.trim() || promptRequiresAssessmentVisual(item.prompt))).length
+  const remaining = Math.max(0, budget - alreadyRequired)
+  const candidates = source
+    .filter((item) => !item.prompt.trim() && !item.visual && item.authorshipState === 'empty' && REQUIRED_VISUAL_COMPETENCY.test(clean(item.competencySnapshot?.text, 4000)))
+    .sort((left, right) => left.itemNumber - right.itemNumber || left.id.localeCompare(right.id, 'en'))
+  const selected = new Set(candidates.slice(0, remaining).map((item) => item.id))
+  const itemsWithReservations = source.map((item) => {
+    if (selected.has(item.id)) {
+      return {
+        ...item,
+        visualRequirement: 'required' as const,
+        visualIntent: requiredVisualIntent(item),
+        visualStatus: 'pending' as const,
+        visualAttempts: 0,
+        visualError: undefined,
+        visualSourceHash: undefined,
+        visualUpdatedAt: new Date().toISOString(),
+      }
+    }
+    if (!item.prompt.trim() && !item.visual && item.visualRequirement !== 'required') {
+      return {
+        ...item,
+        visualRequirement: 'none' as const,
+        visualIntent: '',
+        visualStatus: 'not_required' as const,
+        visualAttempts: 0,
+        visualError: undefined,
+        visualSourceHash: undefined,
+        visualUpdatedAt: undefined,
+      }
+    }
+    return item
+  })
+  return { items: itemsWithReservations, budget, reservedItemIds: [...selected] }
 }
 
 export type AssessmentVisualPlan = {
@@ -91,12 +149,14 @@ export function assessmentVisualPlanForItem(item: AssessmentItem, options: Asses
   const storedRequirement = VISUAL_REQUIREMENTS.has(item.visualRequirement as AssessmentVisualRequirement) ? item.visualRequirement as AssessmentVisualRequirement : undefined
   const promptRequired = promptRequiresAssessmentVisual(item.prompt)
   const suppressed = !options.force && !options.ignoreSuppression && suppressedOptionalPlan(item, sourceHash) && !promptRequired
+  const reservedRequired = !item.prompt.trim() && storedRequirement === 'required' && Boolean(clean(item.visualIntent))
   const helpful = assessmentContentWouldBenefitFromVisual(item)
-  // Only the learner-facing stem can make a diagram genuinely required. Gemini
-  // planning metadata is advisory: an over-eager `required` from the question
-  // pass is demoted to `helpful` unless the prompt itself depends on a shown/
-  // provided figure. This keeps optional visuals inside the paper-level budget.
-  const requirement: AssessmentVisualRequirement = promptRequired
+  // Empty slots may carry a server-persisted pre-generation REQUIRED reservation.
+  // Once a question exists, only explicit learner-facing dependency makes it
+  // required. Helpful/legacy planning remains available for teacher-authored
+  // items, while auto-generated text-only items persist an exact suppression
+  // hash so this heuristic cannot add cosmetic diagrams afterward.
+  const requirement: AssessmentVisualRequirement = reservedRequired || promptRequired
     ? 'required'
     : suppressed
       ? 'none'
@@ -171,8 +231,21 @@ function optionalVisualBudget(itemCount: number, options: AssessmentVisualBalanc
 }
 
 function planItem(item: AssessmentItem, plan: AssessmentVisualPlan, keep: boolean): AssessmentItem {
-  // Never persist a paper-level skip decision for an empty blueprint slot.
+  // Preserve an explicit pre-generation REQUIRED reservation on an empty slot;
+  // clear all other empty-slot visual metadata so stale planning cannot leak.
   if (!item.prompt.trim() && !item.visual) {
+    if (item.visualRequirement === 'required' && clean(item.visualIntent)) {
+      return {
+        ...item,
+        visualRequirement: 'required',
+        visualIntent: clean(item.visualIntent),
+        visualStatus: 'pending',
+        visualAttempts: Math.max(0, Math.min(20, Math.floor(Number(item.visualAttempts) || 0))),
+        visualError: undefined,
+        visualSourceHash: undefined,
+        visualUpdatedAt: item.visualUpdatedAt || undefined,
+      }
+    }
     return {
       ...item,
       visualRequirement: undefined,

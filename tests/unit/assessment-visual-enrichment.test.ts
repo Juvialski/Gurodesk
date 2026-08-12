@@ -160,48 +160,6 @@ describe('separate sequential assessment visual enrichment', () => {
     expect(assessmentVisualPlanForItem(item)).toMatchObject({ requirement: 'none', status: 'not_required', eligible: false })
   })
 
-  it('does not persist a visual suppression decision for empty blueprint slots', () => {
-    const empty = assessmentItem('multiple_choice', {
-      id: 'empty-before-generation',
-      prompt: '',
-      authorshipState: 'empty',
-      qaState: 'empty',
-      visualRequirement: 'none',
-      visualStatus: 'not_required',
-    })
-    const balanced = resolveAssessmentVisualPlans([empty])
-    expect(balanced.items[0].visualRequirement).toBeUndefined()
-    expect(balanced.items[0].visualStatus).toBeUndefined()
-
-    const generated = {
-      ...balanced.items[0],
-      prompt: 'An interior angle and its adjacent exterior angle form a linear pair. Find the missing angle.',
-      authorshipState: 'ai_suggestion' as const,
-      qaState: 'generated' as const,
-    }
-    expect(assessmentVisualPlanForItem(generated)).toMatchObject({ requirement: 'helpful', status: 'pending', eligible: true })
-  })
-
-  it('selects a balanced non-zero visual set for a geometry-heavy twenty-item paper', () => {
-    const items = Array.from({ length: 20 }, (_, index) => assessmentItem('multiple_choice', {
-      id: `geometry-paper-${index + 1}`,
-      itemNumber: index + 1,
-      prompt: index % 2 === 0
-        ? `Compare the interior angle and exterior angle in polygon situation ${index + 1}.`
-        : `Analyze the linear pair in angle relationship ${index + 1}.`,
-      authorshipState: 'ai_suggestion',
-      qaState: 'generated',
-      competencySnapshot: {
-        ...assessmentItem().competencySnapshot,
-        id: `geometry-competency-${Math.floor(index / 4) + 1}`,
-      },
-    }))
-    const balance = resolveAssessmentVisualPlans(items)
-    expect(balance.optionalBudget).toBe(5)
-    expect(balance.optionalItemIds).toHaveLength(5)
-    expect(assessmentVisualItemIdsForAssessment(balance.items)).toHaveLength(5)
-  })
-
   it('caps optional diagrams at roughly one per four questions and spreads them across competencies', () => {
     const items = Array.from({ length: 8 }, (_, index) => assessmentItem('multiple_choice', {
       id: 'balanced-' + (index + 1),

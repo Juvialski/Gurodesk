@@ -28,6 +28,8 @@ function onlyKeys(value: Row, keys: string[]) { return Object.keys(value).every(
 function stableValue(value: unknown): unknown { if (Array.isArray(value)) return value.map(stableValue); if (!value || typeof value !== 'object') return value; return Object.fromEntries(Object.entries(value as Row).sort(([left], [right]) => left.localeCompare(right, 'en')).map(([key, entry]) => [key, stableValue(entry)])) }
 function stableJson(value: unknown) { return JSON.stringify(stableValue(value)) }
 function savedAnswerForVisual(value: unknown) { const answer = { ...object(value) }; delete answer._visual; delete answer._visualPlan; return answer }
+function savedVisualPlan(value: unknown) { const plan = object(object(value)._visualPlan); const requirement = ['none', 'helpful', 'required'].includes(String(plan.requirement)) ? String(plan.requirement) : 'none'; return { requirement, intent: clean(plan.intent, 500) } }
+function promptDependsOnVisual(value: unknown) { return /\b(?:use|using|refer\s+to|from|shown|provided|given|displayed|illustrated|following)\b[^.!?]{0,80}\b(?:diagram|figure|graph|number\s+line|table|visual)\b|\b(?:diagram|figure|graph|number\s+line|table|visual)\b[^.!?]{0,60}\b(?:shows|illustrates|depicts|given|provided)\b/iu.test(clean(value, 4000)) }
 const QUESTION_PROVIDER_KEYS = ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent', 'visual'] as const
 const REQUIRED_QUESTION_PROVIDER_KEYS = ['questionType', 'prompt', 'answer', 'rationale', 'referencedResources', 'visualRequirement', 'visualIntent'] as const
 
@@ -65,7 +67,7 @@ function rawAnswerShapeInstruction(type: QuestionType) {
 const scoringGuidance = 'Optional blank, subpart, mapping, or rubric point fields must be omitted (or use empty arrays) unless every component point value is supplied and sums exactly to the fixed item points; never copy an illustrative value such as 1 when the fixed points differ.'
 function answerShapeInstruction(type: QuestionType) { return `${rawAnswerShapeInstruction(type)} ${scoringGuidance}` }
 
-function buildGenerationPrompt(type: QuestionType, immutable: Row, language: string, teacherContext: string, resources: string[]) {
+function buildGenerationPrompt(type: QuestionType, immutable: Row, language: string, teacherContext: string, resources: string[], plannedVisual: { requirement: string; intent: string }) {
   const competency = clean(immutable.competencyText)
   const cognitive = clean(immutable.cognitiveLabel)
   const points = Number(immutable.pointsPossible ?? 1)
@@ -92,9 +94,14 @@ function buildGenerationPrompt(type: QuestionType, immutable: Row, language: str
     `questionType must be exactly "${type}".`,
     answerShapeInstruction(type),
     `referencedResources must be ${resources.length ? 'an array containing only exact teacher-listed resource strings actually used' : 'an empty array [] because the teacher supplied no resources'}.`,
-    'A normal classroom test does not attach a visual to every item. Default visualRequirement to "none". Use "required" only when the learner genuinely cannot answer the finished prompt without a mathematical diagram, table, number line, or graph. Use "helpful" only when a mathematical visual materially improves readability while the prompt remains fully solvable without it. Never request decorative pictures, clip art, icons, or a visual merely to make the page look interesting.',
-    'Across an ordinary mixed assessment, most questions should remain visualRequirement "none"; visuals belong only on competencies and prompts that genuinely benefit from seeing mathematical structure.',
-    'visualIntent must be an empty string when visualRequirement is "none"; otherwise give a concise observable description of the diagram/graph needed. Do not include the correct answer or conclusion in visualIntent.',
+    plannedVisual.requirement === 'required'
+      ? 'VISUAL CONTRACT (MANDATORY): this slot was selected BEFORE question generation as a REQUIRED visual item. Return visualRequirement exactly "required". Write a prompt that explicitly tells the learner to use/refer to the diagram/figure/graph. At least one ESSENTIAL given, label, measure, position, or relationship needed to solve the question must appear only in the future diagram and MUST NOT be duplicated in the written stem. The question must be invalid/incomplete without the diagram; the visual is problem data, not decoration.'
+      : 'VISUAL CONTRACT (MANDATORY): this slot is text-only. Return visualRequirement exactly "none" and visualIntent exactly "". Write a fully self-contained question. Do not request a cosmetic/helpful diagram.',
+    plannedVisual.requirement === 'required'
+      ? `Required visual intent reserved by GuroDesk: ${plannedVisual.intent || 'Create the essential mathematical figure containing at least one necessary given that is absent from the written stem.'}`
+      : 'No diagram is permitted for this generated item.',
+    'Never use visualRequirement "helpful" during automatic question generation. A diagram is either essential to the question or it is not generated.',
+    'When visualRequirement is "required", visualIntent must concisely specify the learner-visible givens/labels/relationships the separate visual call must draw, without including the correct answer or conclusion.',
     'Do not return visual geometry, TikZ, SVG, HTML, scripts, raster data, formula code, or coordinates in this question-generation response. GuroDesk requests the visual separately after the question contract is valid.',
     'Rationale is for teacher review and must be at least one clear sentence; it must not claim official approval.',
   ].join('\n')
@@ -109,7 +116,10 @@ function buildVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row)
     `Fixed question type: ${type}`,
     `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
     `Finished candidate: ${JSON.stringify(candidate)}`,
-    'Check answer validity, competency alignment, cognitive alignment, ambiguity, factual/math issues, and type-specific structure. Treat visualRequirement/visualIntent as planning metadata; the actual visual is validated separately.',
+    'Check answer validity, competency alignment, cognitive alignment, ambiguity, factual/math issues, and type-specific structure.',
+    clean(candidate.visualRequirement, 20) === 'required'
+      ? 'VISUAL DEPENDENCY CHECK: the finished learner prompt must genuinely require its diagram. It must explicitly refer to the diagram/figure/graph and at least one essential given must be absent from the written stem and supplied only by the visual intent. If the item can be answered correctly from text alone, return status "needs_repair" and explain that the diagram is merely cosmetic.'
+      : 'This is a text-only item. Flag any unnecessary visual dependency or decorative visual request as needs_repair.',
     'Do not require a single best answer for essay, constructed_response, or multiple_select.',
     'Return exactly: {"status":"pass"|"needs_repair","answerValid":boolean,"competencyAligned":boolean,"cognitiveAlignment":"good"|"questionable","ambiguityDetected":boolean,"factualOrMathIssue":boolean,"issues":string[],"repairGuidance":string[]}.',
   ].join('\n')
@@ -125,7 +135,10 @@ function buildRepairPrompt(type: QuestionType, immutable: Row, candidate: Row, i
     `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
     `Current candidate: ${JSON.stringify(candidate)}`,
     `Verifier issues: ${issues.join(' | ') || 'review the answer and wording'}`,
-    `Repair guidance: ${guidance.join(' | ') || 'return a clear unambiguous self-contained item'}`,
+    `Repair guidance: ${guidance.join(' | ') || 'return a clear unambiguous item'}`,
+    clean(candidate.visualRequirement, 20) === 'required'
+      ? 'Preserve visualRequirement "required". Make the diagram indispensable: explicitly refer to it and move at least one necessary given into visualIntent so the written stem alone is insufficient. Do not reveal the answer in visualIntent.'
+      : 'Keep this item text-only with visualRequirement "none" and visualIntent ""; do not add a decorative diagram.',
     'Return one JSON object only with exactly questionType, prompt, answer, rationale, referencedResources, visualRequirement, visualIntent.',
     `questionType must remain exactly "${type}".`,
     answerShapeInstruction(type),
@@ -388,7 +401,22 @@ Deno.serve(async (req) => {
     let candidate: Row
     let providerRequestCount = 0
     if (operation === 'repair') { candidateValidationStarted = true; const current = validateCandidate(body.candidate, serverType, resources, false, immutable); const repairSettings = { ...settings, preferredModel: isLiteModel(settings.preferredModel) ? settings.preferredModel : DEFAULT_MODEL, fallbackModel: isLiteModel(settings.preferredModel) && settings.preferredModel !== DEFAULT_MODEL ? DEFAULT_MODEL : DEFAULT_FALLBACK_MODEL }; const output = await callWithLiteFallback(apiKey, repairSettings, buildRepairPrompt(serverType, immutable, current, list(body.issues, 8, 500), list(body.repairGuidance, 8, 700)), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidate = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(output.output)), serverType, resources, true, immutable) }
-    else { const teacherContext = clean(body.teacherContext, 1200); const output = await callWithLiteFallback(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidateValidationStarted = true; candidate = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(output.output)), serverType, resources, true, immutable) }
+    else {
+      const teacherContext = clean(body.teacherContext, 1200)
+      const plannedVisual = savedVisualPlan(item.answer)
+      const output = await callWithLiteFallback(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources, plannedVisual), serverType)
+      responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidateValidationStarted = true
+      candidate = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(output.output)), serverType, resources, true, immutable)
+      if (plannedVisual.requirement === 'required') {
+        if (clean(candidate.visualRequirement, 20) !== 'required' || !clean(candidate.visualIntent, 500) || !promptDependsOnVisual(candidate.prompt)) {
+          throw new AssessmentContractError('The generated visual question was still answerable without its required diagram. Regenerate the item so the diagram supplies essential problem data.', 'VISUAL_INVALID')
+        }
+      } else {
+        // The paper planner, not Gemini, decides whether automatic items receive
+        // diagrams. Prevent provider enthusiasm from reintroducing cosmetics.
+        candidate = { ...candidate, visualRequirement: 'none', visualIntent: '' }
+      }
+    }
     candidateValidationStarted = true; auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, candidate, approvedResources: resources, model: responseModel, fallbackUsed, providerRequestCount, editable: true })
   } catch (error) {
     if (auditPayload) { auditPayload.outcome = candidateValidationStarted ? 'rejected' : 'error'; const supabaseUrl = Deno.env.get('SUPABASE_URL'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (supabaseUrl && serviceRole) await audit(createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }), auditPayload) }

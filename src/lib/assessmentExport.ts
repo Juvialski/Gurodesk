@@ -358,9 +358,7 @@ function docxLabelValueCell(label: string, value: string, width = 50) {
   return new TableCell({
     width: { size: width, type: WidthType.PERCENTAGE },
     margins: { top: 75, bottom: 75, left: 105, right: 105 },
-    children: [new Paragraph({ children: label
-      ? [docxText(`${label}:`, { bold: true, size: 18 }), docxText(value || '____________________', { size: 18, leadingSpace: true })]
-      : [docxText(' ', { size: 18 })] })],
+    children: [new Paragraph({ children: [docxText(`${label}:`, { bold: true, size: 18 }), docxText(value || '____________________', { size: 18, leadingSpace: true })] })],
   })
 }
 
@@ -374,23 +372,8 @@ function docxIdentityHeader(paper: AssessmentPaperPresentationModel): Paragraph[
 }
 
 function docxAssessmentInfoTable(paper: AssessmentPaperPresentationModel) {
-  /*
-   * Microsoft Word is much less forgiving than LibreOffice when a fixed-layout
-   * table changes its physical column count between rows (2, 2, 2, then 3).
-   * In particular the trailing Score cell can collapse to a few characters
-   * wide and become a very tall vertical column. Keep the canonical/PDF model
-   * unchanged, but project Word metadata onto a uniform two-column grid.
-   */
-  const fields = paper.header.metadataRows.flat()
-  const pairs = Array.from({ length: Math.ceil(fields.length / 2) }, (_, index) => fields.slice(index * 2, index * 2 + 2))
-  const rows = pairs.map((pair) => new TableRow({
-    cantSplit: true,
-    children: [0, 1].map((index) => {
-      const field = pair[index]
-      return field
-        ? docxLabelValueCell(field.label, field.value || field.placeholder || '', 50)
-        : docxLabelValueCell('', '', 50)
-    }),
+  const rows = paper.header.metadataRows.map((row) => new TableRow({
+    children: row.map((field) => docxLabelValueCell(field.label, field.value || field.placeholder || '', 100 / row.length)),
   }))
   return new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, layout: TableLayoutType.FIXED, borders: docxTableBorders(DOCX_LIGHT_BORDER, 4), rows })
 }

@@ -67,7 +67,9 @@ describe('assessment question-generator request boundary', () => {
     expect(source).toMatch(/Do not return visual geometry/u)
     expect(source).toMatch(/function buildVisualPrompt/u)
     expect(source).toMatch(/operation === 'visual'/u)
-    expect(source).toMatch(/Never return TikZ, TeX commands, SVG, HTML, JavaScript/u)
+    expect(source).toMatch(/Return ONLY raw TikZ source/u)
+    expect(source).toMatch(/callTikzWithLiteFallback/u)
+    expect(source).toMatch(/validateAssessmentTikzSource/u)
     expect(source).toMatch(/validateAssessmentVisual/u)
   })
 

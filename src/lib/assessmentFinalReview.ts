@@ -120,6 +120,9 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
     if (item.authorshipState === 'empty' || item.authorshipState === 'ai_suggestion') add(hardErrors, 'teacher-review', 'Teacher must accept or edit each generated item before finalization.', item)
     if (malformedNotation(item.prompt)) add(warnings, 'malformed-notation', 'Prompt punctuation may contain an unmatched bracket or parenthesis.', item, true)
     if (hasUnsupportedAssessmentMathMarkup(item.prompt)) add(warnings, 'unsupported-math-markup', 'Prompt contains math markup that may not render cleanly in PDF/Word export; simplify or review the notation.', item, true)
+    if (item.visualRequirement === 'required' && ['pending', 'running', 'failed', 'stale'].includes(String(item.visualStatus ?? 'pending'))) {
+      add(hardErrors, 'required-visual-not-ready', 'This question depends on its diagram, so the diagram must finish successfully before finalization.', item)
+    }
     assessmentVisualSemanticFindings(item).forEach((finding) => add(finding.severity === 'error' ? hardErrors : warnings, finding.code, finding.message, item, finding.severity === 'warning'))
     const risk = classifyAssessmentRisk(item)
     if (risk.verifyRecommended || itemRecord.qaState === 'answer_needs_recheck') suspiciousItemIds.push(item.id)

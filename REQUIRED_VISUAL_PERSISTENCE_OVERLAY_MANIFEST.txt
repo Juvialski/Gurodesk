@@ -1,0 +1,11 @@
+Apply these files over the current GuroDesk main/direct-Gemini-TikZ revision:
+
+src/lib/assessmentVisualPlanning.ts
+src/lib/assessmentGeneration.ts
+src/lib/assessmentFinalReview.ts
+src/pages/AssessmentEditorPage.tsx
+src/components/navigation/ResponsiveNavigation.tsx
+supabase/functions/assessment-question-generator/index.ts
+tests/unit/assessment-ai-boundary-regressions.test.ts
+REQUIRED_VISUAL_PERSISTENCE_HOTFIX.md
+REQUIRED_VISUAL_PERSISTENCE_OVERLAY_MANIFEST.txt
