@@ -10,6 +10,13 @@ export type TosCognitiveCategory = {
   sortOrder: number
 }
 
+export type TosCurriculumStandardSnapshot = {
+  id: string
+  type: 'content' | 'performance'
+  text: string
+  sourcePage: number | null
+}
+
 export type TosCompetencySnapshot = {
   id: string
   code: string | null
@@ -20,6 +27,9 @@ export type TosCompetencySnapshot = {
   academicPeriodId: string | null
   curriculumPeriodLabel: string
   verificationStatus: 'verified'
+  domainId?: string | null
+  contentArea?: string
+  standards?: TosCurriculumStandardSnapshot[]
 }
 
 export type TosCognitiveAllocation = {

@@ -18,6 +18,39 @@ function numeric(value: string) { const parsed = Number(value); return Number.is
 function signatory(role: string, name: string, title: string) { return { role, name: clean(name), title: clean(title) } }
 function exportStatusLabel(status: TosRecord['status']) { return status === 'final' ? '' : status === 'archived' ? 'ARCHIVED COPY' : 'DRAFT COPY' }
 
+
+function buildCurriculumGroups(record: TosRecord) {
+  const groups = new Map<string, {
+    key: string
+    curriculumPeriod: string
+    contentArea: string
+    contentStandards: string[]
+    performanceStandards: string[]
+    competencyRowNumbers: number[]
+  }>()
+  record.content.rows.forEach((row, index) => {
+    const period = clean(row.competency.curriculumPeriodLabel) || 'Curriculum period'
+    const contentArea = clean(row.competency.contentArea) || 'Other curriculum content'
+    const key = `${row.competency.academicPeriodId ?? period}:${row.competency.domainId ?? contentArea}`
+    const current = groups.get(key) ?? {
+      key,
+      curriculumPeriod: period,
+      contentArea,
+      contentStandards: [],
+      performanceStandards: [],
+      competencyRowNumbers: [],
+    }
+    current.competencyRowNumbers.push(index + 1)
+    for (const standard of row.competency.standards ?? []) {
+      const target = standard.type === 'content' ? current.contentStandards : current.performanceStandards
+      const value = clean(standard.text)
+      if (value && !target.includes(value)) target.push(value)
+    }
+    groups.set(key, current)
+  })
+  return [...groups.values()]
+}
+
 export function buildTosExportModel(record: TosRecord, profile: Profile, preferences: TeacherExportPreferences): TosExportModel {
   const content = record.content
   return {
@@ -35,10 +68,12 @@ export function buildTosExportModel(record: TosRecord, profile: Profile, prefere
     totalItems: content.totalItems,
     weightingMethod: content.weightingMethod === 'instructional_time' ? 'Instructional time' : content.weightingMethod === 'manual_percentage' ? 'Manual percentage' : 'Equal weighting',
     categories: content.cognitiveCategories.map(({ id, label, shortLabel }) => ({ id, label: clean(label), shortLabel: clean(shortLabel) })),
+    curriculumGroups: buildCurriculumGroups(record),
     rows: content.rows.map((row, index) => ({
       rowNumber: index + 1,
       competencyCode: clean(row.competency.code),
       competency: clean(row.competency.text),
+      contentArea: clean(row.competency.contentArea),
       curriculumPeriod: clean(row.competency.curriculumPeriodLabel),
       instructionalMinutes: numeric(row.instructionalMinutes),
       weightPercent: Number(row.computedWeightPercent),
@@ -117,7 +152,7 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
   // table-header pages. `paginateTosRows` splits an oversized competency/notes
   // cell into continuation rows; no line is sliced.
   const wrappedRows = model.rows.map((row) => {
-    const values: Array<string | number> = [row.rowNumber, row.competencyCode, row.competency, row.curriculumPeriod, row.instructionalMinutes ?? '', row.weightPercent.toFixed(2), ...row.cognitiveItems.filter((_, index) => index < categoryCount), row.itemCount, row.itemPlacement, row.notes]
+    const values: Array<string | number> = [row.rowNumber, row.competencyCode, [row.contentArea, row.competency].filter(Boolean).join(' — '), row.curriculumPeriod, row.instructionalMinutes ?? '', row.weightPercent.toFixed(2), ...row.cognitiveItems.filter((_, index) => index < categoryCount), row.itemCount, row.itemPlacement, row.notes]
     return { cells: values.map((value, index) => fitText(doc, String(value), widths[index] - 5, 6.4)) }
   })
   const tablePages = paginateTosRows(wrappedRows, {
@@ -151,6 +186,28 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
     const statusLabel = exportStatusLabel(model.status)
     if (statusLabel) { doc.setFontSize(8); doc.text(statusLabel, pageWidth / 2, y, { align: 'center' }); y += 12 }
     return y + 10
+  }
+
+  if (model.curriculumGroups.length) {
+    doc.addPage()
+    let contextY = plainPageHeader()
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.text('CURRICULUM CONTENT AND STANDARDS', margin, contextY); contextY += 16
+    for (const group of model.curriculumGroups) {
+      const standardLines = [
+        ...group.contentStandards.map((value) => `Content Standard: ${value}`),
+        ...group.performanceStandards.map((value) => `Performance Standard: ${value}`),
+      ]
+      const body = standardLines.length ? standardLines : ['No separately verified standard is stored for this curriculum group.']
+      const wrapped = body.flatMap((value) => fitText(doc, value, usable - 10, 7.2))
+      const headingHeight = 23
+      const boxHeight = headingHeight + Math.max(14, wrapped.length * 8 + 8)
+      if (contextY + boxHeight > contentBottom) { doc.addPage(); contextY = plainPageHeader() }
+      doc.rect(margin, contextY, usable, boxHeight)
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5); doc.text(`${group.curriculumPeriod} · ${group.contentArea}`, margin + 5, contextY + 10)
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5); doc.text(`Competency rows ${group.competencyRowNumbers.join(', ')}`, margin + 5, contextY + 19)
+      doc.setFontSize(7.2); doc.text(wrapped, margin + 5, contextY + headingHeight + 7)
+      contextY += boxHeight + 5
+    }
   }
 
   // Totals and global notes use their own pages.  This makes the table and

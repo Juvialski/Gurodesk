@@ -8,10 +8,21 @@ export type TosExportIdentity = {
   division: string
 }
 
+
+export type TosExportCurriculumGroup = {
+  key: string
+  curriculumPeriod: string
+  contentArea: string
+  contentStandards: string[]
+  performanceStandards: string[]
+  competencyRowNumbers: number[]
+}
+
 export type TosExportRow = {
   rowNumber: number
   competencyCode: string
   competency: string
+  contentArea: string
   curriculumPeriod: string
   instructionalMinutes: number | null
   weightPercent: number
@@ -36,6 +47,7 @@ export type TosExportModel = {
   totalItems: number
   weightingMethod: string
   categories: Array<{ id: string; label: string; shortLabel: string }>
+  curriculumGroups: TosExportCurriculumGroup[]
   rows: TosExportRow[]
   notes: string
   signatories: Array<{ role: string; name: string; title: string }>

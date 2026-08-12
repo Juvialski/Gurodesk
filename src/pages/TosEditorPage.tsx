@@ -6,7 +6,7 @@ import { PageHeader } from '../components/PageHeader'
 import { SimpleAdvancedToggle } from '../components/ui/SimpleAdvancedToggle'
 import { useApp } from '../contexts/AppContext'
 import { useWorkspaceSelection } from '../hooks/useWorkspaceSelection'
-import { createBlankTos, createTosCompetencyRow, recalculateTosContent } from '../lib/tosFactory'
+import { createBlankTos, createTosCompetencyRow, curriculumContextForCompetency, recalculateTosContent } from '../lib/tosFactory'
 import { validateTos } from '../lib/tosValidation'
 import { loadCurriculumNavigator, loadSchoolYearCalendar } from '../lib/repository'
 import { loadTosDocument, loadVerifiedInstructionalPacing, saveTosDocument } from '../lib/tosRepository'
@@ -21,6 +21,43 @@ function sameVerifiedSnapshot(
   return competency.verificationStatus === 'verified'
     && competency.competencyText === row.competency.text
     && competency.sourcePage === row.competency.sourcePage
+}
+
+
+export function groupTosCompetenciesForDisplay(
+  bundle: CurriculumNavigatorBundle | null,
+  competencies: CurriculumNavigatorBundle['competencies'],
+) {
+  if (!bundle) return []
+  const byKey = new Map<string, {
+    key: string
+    periodLabel: string
+    contentArea: string
+    contentStandards: string[]
+    performanceStandards: string[]
+    competencies: CurriculumNavigatorBundle['competencies']
+  }>()
+  for (const competency of competencies) {
+    const period = bundle.periods.find((item) => item.id === competency.academicPeriodId) ?? null
+    const domain = bundle.domains.find((item) => item.id === competency.domainId) ?? null
+    const key = `${competency.academicPeriodId ?? 'none'}:${competency.domainId ?? 'none'}`
+    let group = byKey.get(key)
+    if (!group) {
+      const relevant = bundle.standards.filter((standard) => standard.academicPeriodId === competency.academicPeriodId
+        && (standard.domainId === null || standard.domainId === competency.domainId))
+      group = {
+        key,
+        periodLabel: period?.label ?? 'Curriculum period',
+        contentArea: domain?.name ?? 'Other curriculum content',
+        contentStandards: relevant.filter((standard) => standard.standardType === 'content').map((standard) => standard.standardText),
+        performanceStandards: relevant.filter((standard) => standard.standardType === 'performance').map((standard) => standard.standardText),
+        competencies: [],
+      }
+      byKey.set(key, group)
+    }
+    group.competencies.push(competency)
+  }
+  return [...byKey.values()]
 }
 
 
@@ -73,6 +110,7 @@ function TosSimpleFlow({
   const totalItems = Number.isFinite(parsedTotal) && parsedTotal > 0 ? Math.floor(parsedTotal) : 0
   const selectedIds = new Set(record.content.rows.map((row) => row.competency.id))
   const selectedCount = record.content.rows.length
+  const contentGroups = groupTosCompetenciesForDisplay(bundle, visibleCompetencies)
 
   return (
     <section className="workflow-simple-shell tos-simple-flow">
@@ -111,10 +149,17 @@ function TosSimpleFlow({
           </div>
         ) : <>
           <label className="workflow-search"><Search size={16} /><span className="sr-only">Search verified competencies</span><input value={search} onChange={(event) => onSearchChange(event.target.value)} placeholder="Search by code or competency" /></label>
-          <div className="workflow-competency-list">{visibleCompetencies.map((competency) => {
-            const selected = selectedIds.has(competency.id) || record.content.rows.some((row) => sameVerifiedSnapshot(row, competency))
-            return <button type="button" key={competency.id} disabled={readOnly} aria-pressed={selected} className={`workflow-competency-option ${selected ? 'selected' : ''}`} onClick={() => onToggleCompetency(competency.id)}><span className="workflow-checkbox" aria-hidden="true">{selected ? <Check size={15} /> : null}</span><span><small>{competency.competencyCode || 'Verified competency'}{competency.sourcePage ? ` · source p. ${competency.sourcePage}` : ''}</small><strong>{competency.competencyText}</strong></span></button>
-          })}{!visibleCompetencies.length && <div className="workflow-empty">No verified competencies match this period and search.</div>}</div>
+          <div className="workflow-competency-list">{contentGroups.map((group) => <section className="workflow-curriculum-group" key={group.key}>
+            <header className="workflow-curriculum-group-header"><small>{group.periodLabel}</small><strong>{group.contentArea}</strong></header>
+            {(group.contentStandards.length > 0 || group.performanceStandards.length > 0) && <div className="workflow-curriculum-standards">
+              {group.contentStandards.length > 0 && <div><span>Content standard</span>{group.contentStandards.map((standard) => <p key={standard}>{standard}</p>)}</div>}
+              {group.performanceStandards.length > 0 && <div><span>Performance standard</span>{group.performanceStandards.map((standard) => <p key={standard}>{standard}</p>)}</div>}
+            </div>}
+            <div className="workflow-curriculum-competencies">{group.competencies.map((competency) => {
+              const selected = selectedIds.has(competency.id) || record.content.rows.some((row) => sameVerifiedSnapshot(row, competency))
+              return <button type="button" key={competency.id} disabled={readOnly} aria-pressed={selected} className={`workflow-competency-option ${selected ? 'selected' : ''}`} onClick={() => onToggleCompetency(competency.id)}><span className="workflow-checkbox" aria-hidden="true">{selected ? <Check size={15} /> : null}</span><span><small>{competency.competencyCode || 'Verified competency'}{competency.sourcePage ? ` · source p. ${competency.sourcePage}` : ''}</small><strong>{competency.competencyText}</strong></span></button>
+            })}</div>
+          </section>)}{!visibleCompetencies.length && <div className="workflow-empty">No verified competencies match this period and search.</div>}</div>
         </>}
       </div>
 
@@ -128,7 +173,7 @@ function TosSimpleFlow({
           <div><span>Competencies</span><strong>{selectedCount}</strong></div>
           <div><span>Allocation</span><strong>Suggested</strong></div>
         </div>
-        {selectedCount > 0 && <div className="workflow-allocation-list"><div className="workflow-allocation-heading"><strong>Suggested allocation</strong><small>Equal starting weights · deterministic whole-question rounding</small></div>{record.content.rows.map((row) => <div className="workflow-allocation-row" key={row.id}><span>{row.competency.code || 'Competency'} · {row.competency.text}</span><strong>{row.itemCount} {row.itemCount === 1 ? 'question' : 'questions'}</strong></div>)}</div>}
+        {selectedCount > 0 && <div className="workflow-allocation-list"><div className="workflow-allocation-heading"><strong>Suggested allocation</strong><small>Equal starting weights · deterministic whole-question rounding</small></div>{record.content.rows.map((row) => <div className="workflow-allocation-row" key={row.id}><span>{[row.competency.contentArea, row.competency.code || 'Competency'].filter(Boolean).join(' · ')} · {row.competency.text}</span><strong>{row.itemCount} {row.itemCount === 1 ? 'question' : 'questions'}</strong></div>)}</div>}
       </div>
 
       {validation && (validation.errors.length > 0 || validation.warnings.length > 0) && <div className="workflow-validation-note" id="tos-simple-validation"><strong>Before finalizing</strong>{validation.errors.slice(0, 6).map((item) => <p key={item.key}><CircleAlert size={14} />{item.message}</p>)}{validation.warnings.slice(0, 4).map((item) => <p className="warning" key={item.key}><CircleAlert size={14} />{item.message}</p>)}</div>}
@@ -262,6 +307,7 @@ export function TosEditorPage() {
               sourcePage: verified.sourcePage,
               academicPeriodId: verified.academicPeriodId,
               curriculumPeriodLabel: period?.label ?? row.competency.curriculumPeriodLabel,
+              ...curriculumContextForCompetency(nextBundle, verified),
             },
           }
         })
@@ -461,7 +507,7 @@ export function TosEditorPage() {
             </div>
           ) : <div className="tos-competency-picker">
             <button aria-controls="tos-competency-options" aria-expanded={pickerOpen} aria-haspopup="listbox" className={`competency-picker-trigger ${pickerOpen ? 'open' : ''}`} disabled={readOnly} type="button" onClick={() => setPickerOpen((value) => !value)}><span>{record.content.rows.length ? `${record.content.rows.length} verified competenc${record.content.rows.length === 1 ? 'y' : 'ies'} selected` : 'Choose verified competencies'}</span><ChevronDown size={17} /></button>
-            {pickerOpen && <div className="competency-picker-panel"><label className="tos-picker-search"><Search size={15} /><span className="sr-only">Search verified competencies</span><input aria-label="Search verified competencies" autoFocus value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search code or competency" /></label><div className="competency-picker-summary"><span>{visibleCompetencies.length} in selected curriculum period(s)</span><button type="button" onClick={() => setPickerOpen(false)}>Done</button></div><div aria-multiselectable="true" className="competency-picker-list" id="tos-competency-options" role="listbox">{visibleCompetencies.map((competency) => { const selected = record.content.rows.some((row) => row.competency.id === competency.id || sameVerifiedSnapshot(row, competency)); return <button aria-selected={selected} className={`competency-picker-option ${selected ? 'selected' : ''}`} role="option" type="button" key={competency.id} onClick={() => toggleCompetency(competency.id)}><span className="competency-picker-number">{selected ? <Check size={15} /> : competency.sortOrder}</span><span className="competency-picker-copy"><small>{competency.competencyCode || 'Verified competency'}{competency.sourcePage ? ` · source p. ${competency.sourcePage}` : ''}</small><strong>{competency.competencyText}</strong></span></button>})}{!visibleCompetencies.length && <div className="competency-picker-empty">No verified competencies match this period and search.</div>}</div></div>}
+            {pickerOpen && <div className="competency-picker-panel"><label className="tos-picker-search"><Search size={15} /><span className="sr-only">Search verified competencies</span><input aria-label="Search verified competencies" autoFocus value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search code or competency" /></label><div className="competency-picker-summary"><span>{visibleCompetencies.length} in selected curriculum period(s)</span><button type="button" onClick={() => setPickerOpen(false)}>Done</button></div><div aria-multiselectable="true" className="competency-picker-list" id="tos-competency-options" role="listbox">{groupTosCompetenciesForDisplay(bundle, visibleCompetencies).map((group) => <section className="competency-picker-group" key={group.key}><header><small>{group.periodLabel}</small><strong>{group.contentArea}</strong>{group.contentStandards.length > 0 && <p><b>Content standard:</b> {group.contentStandards.join(' ')}</p>}{group.performanceStandards.length > 0 && <p><b>Performance standard:</b> {group.performanceStandards.join(' ')}</p>}</header>{group.competencies.map((competency) => { const selected = record.content.rows.some((row) => row.competency.id === competency.id || sameVerifiedSnapshot(row, competency)); return <button aria-selected={selected} className={`competency-picker-option ${selected ? 'selected' : ''}`} role="option" type="button" key={competency.id} onClick={() => toggleCompetency(competency.id)}><span className="competency-picker-number">{selected ? <Check size={15} /> : competency.sortOrder}</span><span className="competency-picker-copy"><small>{competency.competencyCode || 'Verified competency'}{competency.sourcePage ? ` · source p. ${competency.sourcePage}` : ''}</small><strong>{competency.competencyText}</strong></span></button>})}</section>)}{!visibleCompetencies.length && <div className="competency-picker-empty">No verified competencies match this period and search.</div>}</div></div>}
           </div>}
         </section>
 
@@ -474,7 +520,7 @@ export function TosEditorPage() {
           ].map(([method, label, detail]) => <button aria-pressed={record.content.weightingMethod === method} disabled={readOnly} className={record.content.weightingMethod === method ? 'selected' : ''} type="button" key={method} onClick={() => updateContent((content) => { content.weightingMethod = method as TosContent['weightingMethod'] })}><strong>{label}</strong><small>{detail}</small></button>)}</div>
 
           <div className="tos-row-list">{record.content.rows.map((row, index) => <article className="tos-row-card" key={row.id}>
-            <header><span className="tos-row-number">{index + 1}</span><div><small>{row.competency.code || row.competency.curriculumPeriodLabel || 'Verified competency'}</small><strong>{row.competency.text}</strong></div>{!readOnly && <div className="tos-row-tools"><button type="button" disabled={index === 0} onClick={() => moveRow(index, -1)} aria-label="Move up"><ArrowUp size={15} /></button><button type="button" disabled={index === record.content.rows.length - 1} onClick={() => moveRow(index, 1)} aria-label="Move down"><ArrowDown size={15} /></button><button type="button" onClick={() => updateContent((content) => { content.rows.splice(index, 1) })} aria-label="Remove competency"><Trash2 size={15} /></button></div>}</header>
+            <header><span className="tos-row-number">{index + 1}</span><div><small>{[row.competency.contentArea, row.competency.code || row.competency.curriculumPeriodLabel].filter(Boolean).join(' · ') || 'Verified competency'}</small><strong>{row.competency.text}</strong></div>{!readOnly && <div className="tos-row-tools"><button type="button" disabled={index === 0} onClick={() => moveRow(index, -1)} aria-label="Move up"><ArrowUp size={15} /></button><button type="button" disabled={index === record.content.rows.length - 1} onClick={() => moveRow(index, 1)} aria-label="Move down"><ArrowDown size={15} /></button><button type="button" onClick={() => updateContent((content) => { content.rows.splice(index, 1) })} aria-label="Remove competency"><Trash2 size={15} /></button></div>}</header>
             <div className="tos-row-allocation">
               {record.content.weightingMethod === 'instructional_time' && <label>Minutes taught<input disabled={readOnly} inputMode="decimal" value={row.instructionalMinutes} onChange={(event) => updateContent((content) => { content.rows[index].instructionalMinutes = event.target.value })} placeholder="0" /></label>}
               {record.content.weightingMethod === 'manual_percentage' && <label>Manual weight %<input disabled={readOnly} inputMode="decimal" value={row.manualWeight} onChange={(event) => updateContent((content) => { content.rows[index].manualWeight = event.target.value })} placeholder="0" /></label>}

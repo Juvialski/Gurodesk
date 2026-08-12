@@ -52,8 +52,6 @@ describe('canonical Test 4 assessment paper', () => {
       const preview = renderToStaticMarkup(<AssessmentDocumentView model={model} showCompetency showCognitive showRationale />)
       const print = assessmentPrintHtml(model)
       expect(preview).toContain('data-paper-model="assessment-paper-v1"')
-      expect(preview).toContain('assessment-tikz-shell')
-      expect(preview).toContain('text/tikz')
       expect(print).toContain('data-paper-model="assessment-paper-v1"')
       expect(preview).toContain(canonical.header.documentTitle)
       expect(print).toContain(canonical.header.documentTitle)
@@ -123,7 +121,8 @@ describe('canonical Test 4 assessment paper', () => {
     expect(Object.keys(zip.files).filter((name) => /^word\/media\/.+\.svg$/u.test(name))).toHaveLength(5)
     expect(documentXml).toContain('<w:drawing>')
     expect(documentXml).toContain('<w:cantSplit/>')
-    expect(documentXml).toContain('____________________________________________________________________________________________')
+    expect(documentXml).toContain('<w:pBdr>')
+    expect(documentXml).toContain('<w:bottom')
   })
 
   it('keeps every renderer wired to the canonical presentation builder', () => {

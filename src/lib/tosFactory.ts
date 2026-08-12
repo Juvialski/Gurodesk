@@ -76,6 +76,25 @@ function periodFor(bundle: CurriculumNavigatorBundle, competency: CurriculumComp
   return bundle.periods.find((item) => item.id === competency.academicPeriodId) ?? null
 }
 
+export function curriculumContextForCompetency(bundle: CurriculumNavigatorBundle, competency: CurriculumCompetency) {
+  const domain = bundle.domains.find((item) => item.id === competency.domainId) ?? null
+  const standards = bundle.standards
+    .filter((standard) => (standard.standardType === 'content' || standard.standardType === 'performance')
+      && standard.academicPeriodId === competency.academicPeriodId
+      && (standard.domainId === null || standard.domainId === competency.domainId))
+    .map((standard) => ({
+      id: standard.id,
+      type: standard.standardType as 'content' | 'performance',
+      text: standard.standardText,
+      sourcePage: standard.sourcePage,
+    }))
+  return {
+    domainId: competency.domainId,
+    contentArea: domain?.name ?? '',
+    standards,
+  }
+}
+
 export function createTosCompetencyRow(
   competency: CurriculumCompetency,
   bundle: CurriculumNavigatorBundle,
@@ -85,6 +104,7 @@ export function createTosCompetencyRow(
 ): TosCompetencyRow {
   if (competency.verificationStatus !== 'verified') throw new Error('Only verified curriculum competencies can be added to a TOS.')
   const period = periodFor(bundle, competency)
+  const curriculumContext = curriculumContextForCompetency(bundle, competency)
   return {
     id: crypto.randomUUID(),
     sortOrder,
@@ -98,6 +118,7 @@ export function createTosCompetencyRow(
       academicPeriodId: competency.academicPeriodId,
       curriculumPeriodLabel: period?.label ?? '',
       verificationStatus: 'verified',
+      ...curriculumContext,
     },
     instructionalMinutes: pacing?.suggestedMinutes === null || pacing?.suggestedMinutes === undefined ? '' : String(pacing.suggestedMinutes),
     manualWeight: '',
@@ -179,6 +200,12 @@ export function normalizeTosContent(content: TosContent): TosContent {
       manualWeight: row.manualWeight ?? '',
       itemCountOverride: row.itemCountOverride ?? '',
       cognitiveWeights: Object.fromEntries(categories.map((category) => [category.id, row.cognitiveWeights?.[category.id] ?? category.weight])),
+      competency: {
+        ...row.competency,
+        domainId: row.competency.domainId ?? null,
+        contentArea: row.competency.contentArea ?? '',
+        standards: (row.competency.standards ?? []).filter((standard) => standard.type === 'content' || standard.type === 'performance'),
+      },
       notes: row.notes ?? '',
       cognitiveAllocations: row.cognitiveAllocations ?? [],
     })),

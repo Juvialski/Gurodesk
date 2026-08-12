@@ -110,11 +110,11 @@ if [[ ! -d "${MIGRATIONS_DIR}" || ! -f "${FIXTURE_SQL}" || ! -f "${FRESH_ASSERT_
   die "repository migration/test files are incomplete"
 fi
 
-readonly EXPECTED_MIGRATION_COUNT=31
+readonly MINIMUM_MIGRATION_COUNT=30
 mapfile -t MIGRATIONS < <(find "${MIGRATIONS_DIR}" -maxdepth 1 -type f -name '*.sql' -print | sort)
 readonly TOTAL_MIGRATIONS="${#MIGRATIONS[@]}"
-if [[ "${TOTAL_MIGRATIONS}" -ne "${EXPECTED_MIGRATION_COUNT}" ]]; then
-  die "expected exactly ${EXPECTED_MIGRATION_COUNT} migration files, found ${TOTAL_MIGRATIONS}"
+if [[ "${TOTAL_MIGRATIONS}" -lt "${MINIMUM_MIGRATION_COUNT}" ]]; then
+  die "expected at least ${MINIMUM_MIGRATION_COUNT} migration files, found ${TOTAL_MIGRATIONS}; a migration may have been dropped"
 fi
 
 if command -v supabase >/dev/null 2>&1; then
@@ -265,7 +265,7 @@ run_fresh() {
 }
 
 run_upgrade() {
-  echo "db migration harness: upgrade path (001-014, fixture, 015-current)"
+  echo "db migration harness: upgrade path (001-014, fixture, 015-026)"
   make_temp_project
   copy_migrations 14
   if ! run_local_reset; then

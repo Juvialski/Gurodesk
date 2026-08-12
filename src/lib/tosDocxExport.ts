@@ -127,7 +127,7 @@ function bodyRows(model: TosExportModel) {
     children: [
       cell(row.rowNumber, { width: 3 }),
       cell(row.competencyCode, { width: 6 }),
-      cell(row.competency, { align: AlignmentType.LEFT, width: 24 }),
+      cell([row.contentArea, row.competency].filter(Boolean).join(' — '), { align: AlignmentType.LEFT, width: 24 }),
       cell(row.curriculumPeriod, { width: 8 }),
       cell(row.instructionalMinutes ?? '', { width: 5 }),
       cell(row.weightPercent.toFixed(2), { width: 6 }),
@@ -159,6 +159,29 @@ function totalRow(model: TosExportModel) {
       cell(' ', { width: 8 }),
       cell(' ', { width: 9 }),
     ],
+  })
+}
+
+function curriculumContextTable(model: TosExportModel) {
+  if (!model.curriculumGroups.length) return null
+  const rows = model.curriculumGroups.map((group) => {
+    const detail = [
+      ...group.contentStandards.map((value) => `Content Standard: ${value}`),
+      ...group.performanceStandards.map((value) => `Performance Standard: ${value}`),
+    ].join('\n') || 'No separately verified standard is stored for this curriculum group.'
+    return new TableRow({
+      cantSplit: false,
+      children: [
+        cell(`${group.curriculumPeriod}\n${group.contentArea}\nRows ${group.competencyRowNumbers.join(', ')}`, { bold: true, align: AlignmentType.LEFT, width: 28 }),
+        cell(detail, { align: AlignmentType.LEFT, width: 72 }),
+      ],
+    })
+  })
+  return new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
+    borders: borders(LIGHT_GRID, 4),
+    rows,
   })
 }
 
@@ -206,7 +229,15 @@ export async function buildTosDocxBlob(model: TosExportModel, paper: ExportPaper
       children: [text(model.status === 'archived' ? 'ARCHIVED COPY' : 'DRAFT COPY', { bold: true, size: 14 })],
     }))
   }
-  children.push(metaTable, new Paragraph({ spacing: { after: 90 }, children: [] }), tosTable)
+  children.push(metaTable)
+  const curriculumTable = curriculumContextTable(model)
+  if (curriculumTable) {
+    children.push(
+      new Paragraph({ keepNext: true, spacing: { before: 90, after: 30 }, children: [text('Curriculum Content and Standards', { bold: true, size: 16 })] }),
+      curriculumTable,
+    )
+  }
+  children.push(new Paragraph({ spacing: { after: 90 }, children: [] }), tosTable)
 
   if (model.notes) {
     children.push(
