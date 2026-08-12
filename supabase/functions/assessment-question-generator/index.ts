@@ -265,6 +265,99 @@ async function callWithLiteFallback(
     }
   }
 }
+function questionCorrectionFeedback(error: unknown) {
+  if (error instanceof AssessmentContractError) return error.message.slice(0, 500)
+  if (error instanceof GeminiResponseError && (error.category === 'MALFORMED_JSON' || error.category === 'MALFORMED_PROVIDER_RESPONSE')) {
+    return 'The previous response was not a valid JSON assessment object.'
+  }
+  return ''
+}
+
+function questionCorrectionAllowed(error: unknown) {
+  return error instanceof AssessmentContractError
+    || (error instanceof GeminiResponseError && (error.category === 'MALFORMED_JSON' || error.category === 'MALFORMED_PROVIDER_RESPONSE'))
+}
+
+function enforceGeneratedVisualPlan(candidate: Row, plannedVisual: { requirement: string; intent: string }, isV2: boolean) {
+  if (plannedVisual.requirement === 'required') {
+    if (clean(candidate.visualRequirement, 20) !== 'required' || !clean(candidate.visualIntent, 500) || !promptDependsOnVisual(candidate.prompt)) {
+      throw new AssessmentContractError('The generated visual question was still answerable without its required diagram. Regenerate the item so the diagram supplies essential problem data.', 'VISUAL_INVALID')
+    }
+    return candidate
+  }
+  if (isV2 && plannedVisual.requirement === 'helpful') {
+    const normalized = { ...candidate, visualRequirement: 'helpful', visualIntent: plannedVisual.intent }
+    if (promptDependsOnVisual(normalized.prompt)) throw new AssessmentContractError('A helpful V2 visual cannot contain essential problem data. Regenerate this item as self-contained text.', 'VISUAL_INVALID')
+    return normalized
+  }
+  // The paper planner, not Gemini, decides whether automatic items receive
+  // diagrams. Prevent provider enthusiasm from reintroducing cosmetics.
+  return { ...candidate, visualRequirement: 'none', visualIntent: '' }
+}
+
+/**
+ * Question generation gets exactly one contract-correction pass. Provider HTTP
+ * fallback and this semantic correction are separate bounded mechanisms:
+ * - provider fallback handles model/service availability;
+ * - contract correction handles a completed response that fails GuroDesk's
+ *   strict question-type/points/visual contract.
+ *
+ * The previous provider body is never echoed back. Only a bounded, static
+ * validator message is supplied as correction guidance.
+ */
+async function generateValidatedQuestionCandidate(
+  apiKey: string,
+  settings: ReturnType<typeof resolveSettings>,
+  prompt: string,
+  questionType: QuestionType,
+  resources: string[],
+  immutable: ImmutableAssessmentContext,
+  plannedVisual: { requirement: string; intent: string },
+  isV2: boolean,
+) {
+  const initial = await callWithLiteFallback(apiKey, settings, prompt, questionType)
+  let providerRequestCount = initial.providerRequestCount
+  try {
+    const validated = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(initial.output)), questionType, resources, true, immutable)
+    const candidate = enforceGeneratedVisualPlan(validated, plannedVisual, isV2)
+    return { candidate, modelUsed: initial.modelUsed, fallbackUsed: initial.fallbackUsed, providerRequestCount }
+  } catch (error) {
+    if (!questionCorrectionAllowed(error)) {
+      if (error && typeof error === 'object') (error as Row).providerRequestCount = providerRequestCount
+      throw error
+    }
+
+    const correctionModel: AiModelId = settings.fallbackEnabled && isLiteModel(initial.modelUsed)
+      ? oppositeLiteModel(settings, initial.modelUsed)
+      : initial.modelUsed
+    const correctionPrompt = [
+      prompt,
+      '',
+      'CORRECTION PASS: GuroDesk rejected the previous JSON before saving the question.',
+      `Validation feedback: ${questionCorrectionFeedback(error) || 'The response did not satisfy the fixed assessment contract.'}`,
+      `Return one fresh JSON object for the same fixed question type (${questionType}).`,
+      'Do not explain the correction. Do not add immutable fields. Preserve the fixed points, competency, cognitive category, and visual requirement.',
+    ].join('\n')
+
+    try {
+      providerRequestCount += 1
+      const correctedOutput = await callGemini(apiKey, correctionModel, correctionPrompt, { questionType, responseMimeType: 'application/json' })
+      const validated = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(correctedOutput)), questionType, resources, true, immutable)
+      const candidate = enforceGeneratedVisualPlan(validated, plannedVisual, isV2)
+      return {
+        candidate,
+        modelUsed: correctionModel,
+        fallbackUsed: initial.fallbackUsed || correctionModel !== settings.preferredModel,
+        providerRequestCount,
+      }
+    } catch (correctionError) {
+      if (correctionError instanceof GeminiHttpError || correctionError instanceof GeminiResponseError) correctionError.providerRequestCount = providerRequestCount
+      if (correctionError && typeof correctionError === 'object') (correctionError as Row).providerRequestCount = providerRequestCount
+      throw correctionError
+    }
+  }
+}
+
 async function callTikzWithLiteFallback(
   apiKey: string,
   settings: ReturnType<typeof resolveSettings>,
@@ -321,6 +414,11 @@ function errorMessage(error: unknown) {
     if (error.status === 404) return 'The selected Gemini model is not available for this API key. Your draft remains unchanged.'
     if ([500, 502, 503, 504].includes(error.status)) return 'Gemini is temporarily unavailable. Your assessment draft remains unchanged; please try again shortly.'
   }
+  // AssessmentContractError messages are authored by GuroDesk validators (not
+  // raw provider output), so they are safe and materially useful to the teacher.
+  // Do not collapse them into the generic catch-all: that made one bad question
+  // type look like a mysterious quota/runtime failure and caused manual retry loops.
+  if (error instanceof AssessmentContractError) return error.message
   if (error instanceof Error && /draft remains unchanged|candidate|answer shape|mapping|choices|accepted answers|fill-in|numerical|problem-solving|matching|multiple-select|constructed response|essay|resource|visual|unsupported fields|immutable/i.test(error.message)) return error.message
   return 'Assessment AI could not complete this request. Your assessment draft remains unchanged.'
 }
@@ -356,18 +454,21 @@ Deno.serve(async (req) => {
   if (req.method !== 'POST') return json({ error: 'Method not allowed.' }, 405)
   let auditPayload: AuditPayload | null = null
   let candidateValidationStarted = false
+  let diagnosticOperation: Operation = 'generate'
+  let diagnosticItemNumber: number | undefined
+  let diagnosticQuestionType: QuestionType | undefined
   try {
     const authHeader = req.headers.get('Authorization'); if (!authHeader) return json({ error: 'Authentication required.' }, 401)
     const supabaseUrl = Deno.env.get('SUPABASE_URL'); const anonKey = Deno.env.get('SUPABASE_ANON_KEY'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (!supabaseUrl || !anonKey || !serviceRole) return json({ error: 'Supabase function environment is incomplete.' }, 500)
     const userClient = createClient(supabaseUrl, anonKey, { global: { headers: { Authorization: authHeader } } }); const { data: userData, error: userError } = await userClient.auth.getUser(); if (userError || !userData.user) return json({ error: 'Invalid authentication session.' }, 401)
-    const userId = userData.user.id; const admin = createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }); const body = await req.json() as RequestBody; const operation: Operation = body.operation === 'verify' || body.operation === 'repair' || body.operation === 'visual' ? body.operation : 'generate'
+    const userId = userData.user.id; const admin = createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }); const body = await req.json() as RequestBody; const operation: Operation = body.operation === 'verify' || body.operation === 'repair' || body.operation === 'visual' ? body.operation : 'generate'; diagnosticOperation = operation
     const allowedBodyKeys = ['operation', 'assessmentId', 'itemId', 'questionType', 'alternative', 'teacherContext', 'candidate', 'issues', 'repairGuidance', 'generatorModel', 'visualIntent']; if (Object.keys(body ?? {}).some((key) => !allowedBodyKeys.includes(key))) return json({ error: 'Unsupported assessment AI request fields.' }, 400)
     const assessmentId = clean(body.assessmentId, 80); const itemId = clean(body.itemId, 80); const requestedType = body.questionType; if (!UUID.test(assessmentId) || !UUID.test(itemId) || !requestedType || !QUESTION_TYPES.has(requestedType)) return json({ error: 'A valid assessment, item, and question type are required.' }, 400)
     const [assessmentResult, metadataResult, itemResult, preferencesResult, settingsResult, credentialResult] = await Promise.all([admin.from('documents').select('id, user_id, assignment_id, status, document_type, structured_content').eq('id', assessmentId).eq('user_id', userId).eq('document_type', 'assessment').maybeSingle(), admin.from('assessment_documents').select('*').eq('document_id', assessmentId).eq('user_id', userId).maybeSingle(), admin.from('assessment_items').select('*').eq('assessment_document_id', assessmentId).eq('id', itemId).maybeSingle(), admin.from('teacher_lesson_preferences').select('*').eq('user_id', userId).maybeSingle(), admin.from('teacher_ai_settings').select('*').eq('user_id', userId).maybeSingle(), admin.from('teacher_ai_credentials').select('api_key_ciphertext, api_key_iv, encryption_key_source').eq('user_id', userId).maybeSingle()])
     if (assessmentResult.error) throw assessmentResult.error; if (metadataResult.error) throw metadataResult.error; if (itemResult.error) throw itemResult.error; if (preferencesResult.error) throw preferencesResult.error; if (settingsResult.error) throw settingsResult.error; if (credentialResult.error) throw credentialResult.error
     if (!assessmentResult.data || !metadataResult.data || !itemResult.data) return json({ error: 'The assessment item could not be found for this teacher.' }, 404)
     if (assessmentResult.data.status !== 'draft') return json({ error: 'Only draft assessment items can receive editable AI suggestions.' }, 409)
-    const item = itemResult.data as Row; const metadata = metadataResult.data as Row; const sourceContent = object(metadata.source_tos_content_snapshot); const serverType = String(item.question_type) as QuestionType; if (serverType !== requestedType) return json({ error: 'The requested question type does not match the saved item.' }, 409); if (item.locked === true || String(item.qa_state) === 'locked') return json({ error: 'This item is locked. Unlock it before requesting AI generation or review.' }, 409)
+    const item = itemResult.data as Row; const metadata = metadataResult.data as Row; const sourceContent = object(metadata.source_tos_content_snapshot); const serverType = String(item.question_type) as QuestionType; diagnosticQuestionType = serverType; diagnosticItemNumber = Number.isFinite(Number(item.item_number)) ? Number(item.item_number) : undefined; if (serverType !== requestedType) return json({ error: 'The requested question type does not match the saved item.' }, 409); if (item.locked === true || String(item.qa_state) === 'locked') return json({ error: 'This item is locked. Unlock it before requesting AI generation or review.' }, 409)
     const sourceSettings = object(object(assessmentResult.data.structured_content).settings ?? object(metadata.structured_content).settings); const allowedTypes = Array.isArray(sourceSettings.allowedTypes) ? sourceSettings.allowedTypes.map(String) : []; if (allowedTypes.length && !allowedTypes.includes(serverType)) return json({ error: 'This question type is disabled for the assessment.' }, 409)
     const isV2 = Number(sourceSettings.schemaVersion ?? 1) >= 2 && String(sourceSettings.generationVersion) === 'v2' && String(sourceSettings.numberingMode) === 'point_ranges'
     const savedAnswer = object(item.answer); const masterPlan = object(sourceSettings.masterPlan); const masterEntries = Array.isArray(masterPlan.entries) ? masterPlan.entries.map(object) : []
@@ -507,23 +608,10 @@ Deno.serve(async (req) => {
     else {
       const teacherContext = clean(body.teacherContext, 1200)
       const plannedVisual = savedVisualPlan(item.answer)
-      const output = await callWithLiteFallback(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources, plannedVisual), serverType)
-      responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidateValidationStarted = true
-      candidate = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(output.output)), serverType, resources, true, immutable)
-      if (plannedVisual.requirement === 'required') {
-        if (clean(candidate.visualRequirement, 20) !== 'required' || !clean(candidate.visualIntent, 500) || !promptDependsOnVisual(candidate.prompt)) {
-          throw new AssessmentContractError('The generated visual question was still answerable without its required diagram. Regenerate the item so the diagram supplies essential problem data.', 'VISUAL_INVALID')
-        }
-      } else if (isV2 && plannedVisual.requirement === 'helpful') {
-        // Helpful visuals are frozen by the V2 master plan, but the written
-        // question must remain fully answerable without them.
-        candidate = { ...candidate, visualRequirement: 'helpful', visualIntent: plannedVisual.intent }
-        if (promptDependsOnVisual(candidate.prompt)) throw new AssessmentContractError('A helpful V2 visual cannot contain essential problem data. Regenerate this item as self-contained text.', 'VISUAL_INVALID')
-      } else {
-        // The paper planner, not Gemini, decides whether automatic items receive
-        // diagrams. Prevent provider enthusiasm from reintroducing cosmetics.
-        candidate = { ...candidate, visualRequirement: 'none', visualIntent: '' }
-      }
+      candidateValidationStarted = true
+      const generated = await generateValidatedQuestionCandidate(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources, plannedVisual), serverType, resources, immutable, plannedVisual, isV2)
+      responseModel = generated.modelUsed; fallbackUsed = generated.fallbackUsed; providerRequestCount = generated.providerRequestCount
+      candidate = generated.candidate
     }
     candidateValidationStarted = true; auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, candidate, approvedResources: resources, model: responseModel, fallbackUsed, providerRequestCount, editable: true })
   } catch (error) {
@@ -537,10 +625,13 @@ Deno.serve(async (req) => {
       finishReason: error instanceof GeminiResponseError ? error.finishReason : undefined,
     })
     const providerStatus = error instanceof GeminiHttpError ? error.status : 0
-    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-11-direct-tikz-v1' }
+    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-12-question-contract-retry-v2', operation: diagnosticOperation }
+    if (diagnosticItemNumber !== undefined) body.itemNumber = diagnosticItemNumber
+    if (diagnosticQuestionType) body.questionType = diagnosticQuestionType
     if (providerStatus) body.providerStatus = providerStatus
     if (error instanceof GeminiResponseError && error.finishReason) body.finishReason = error.finishReason
-    if ((error instanceof GeminiHttpError || error instanceof GeminiResponseError) && error.providerRequestCount) body.providerRequestCount = error.providerRequestCount
+    const observedProviderRequests = Number(error && typeof error === 'object' ? (error as Row).providerRequestCount : 0)
+    if (Number.isSafeInteger(observedProviderRequests) && observedProviderRequests > 0) body.providerRequestCount = observedProviderRequests
     return json(body, [408, 425, 429, 500, 502, 503, 504].includes(providerStatus) ? providerStatus : 400)
   }
 })

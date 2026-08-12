@@ -103,6 +103,7 @@ export function AssessmentNewPage() {
     controllerRef.current = controller
     setError('')
     let working = resumeRecord ?? workingRecord
+    let activeQuestion: AssessmentRecord['items'][number] | null = null
     try {
       if (!working) {
         setGeneration({ stage: 'planning', current: 0, total: 1, message: 'Designing the full assessment plan…' })
@@ -119,6 +120,8 @@ export function AssessmentNewPage() {
       for (const pending of pendingQuestions) {
         if (controller.signal.aborted) throw new DOMException('Generation cancelled.', 'AbortError')
         const source = working.items.find((item) => item.id === pending.id) ?? pending
+        activeQuestion = source
+        setGeneration({ stage: 'questions', current: completedQuestions, total: working.items.length, message: `Generating Question ${source.itemNumber} · ${typeLabel(source.questionType)}…` })
         let checkpointedQuestion: AssessmentRecord['items'][number] | null = null
         const suggestion = await generateAssessmentItemSuggestion({
           assessment: working,
@@ -141,6 +144,7 @@ export function AssessmentNewPage() {
         working = await saveAssessmentDocument(working, isDemo)
         setWorkingRecord(working)
         completedQuestions += 1
+        activeQuestion = null
         setGeneration({ stage: 'questions', current: completedQuestions, total: working.items.length, message: `Question ${completedQuestions} of ${working.items.length} saved.` })
         if (suggestion.quotaPaused) throw new Error('Generation paused after saving the current question because the active AI capacity was exhausted. Retry to continue from the saved checkpoint.')
       }
@@ -172,7 +176,10 @@ export function AssessmentNewPage() {
         setGeneration({ stage: 'paused', current: 0, total: 1, message: 'Generation stopped. Completed work remains saved.' })
         return
       }
-      const message = extractErrorMessage(nextError, 'Assessment generation paused. Completed work remains saved.')
+      const detail = extractErrorMessage(nextError, 'Assessment generation paused. Completed work remains saved.')
+      const message = activeQuestion
+        ? `Question ${activeQuestion.itemNumber} · ${typeLabel(activeQuestion.questionType)}: ${detail}`
+        : detail
       setError(message)
       setGeneration({ stage: 'paused', current: 0, total: 1, message })
     }

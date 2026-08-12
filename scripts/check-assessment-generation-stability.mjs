@@ -2,6 +2,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 
 const generation = fs.readFileSync('src/lib/assessmentGeneration.ts', 'utf8')
+const generatorEdge = fs.readFileSync('supabase/functions/assessment-question-generator/index.ts', 'utf8')
+const assessmentNew = fs.readFileSync('src/pages/AssessmentNewPage.tsx', 'utf8')
 const qa = fs.readFileSync('src/lib/assessmentQa.ts', 'utf8')
 const editor = fs.readFileSync('src/pages/AssessmentEditorPage.tsx', 'utf8')
 const e2e = fs.readFileSync('tests/e2e/assessment-flow.spec.ts', 'utf8')
@@ -15,6 +17,13 @@ assert.match(generation, /enrichAssessmentVisualsSequentially/, 'helpful and req
 assert.match(generation, /edge_transport/, 'Edge transport failures have an explicit category')
 assert.match(generation, /Failed to send a request to the Edge Function/, 'Supabase Functions fetch failures are recognized')
 assert.match(generation, /summary\.providerPaused = true[\s\S]{0,120}paused = true/, 'exhausted service boundaries stop the remainder of the batch')
+assert.match(generatorEdge, /generateValidatedQuestionCandidate/, 'question generation has a bounded contract-correction helper')
+assert.match(generatorEdge, /CORRECTION PASS: GuroDesk rejected the previous JSON before saving the question/, 'one fresh provider-authored correction is requested after a contract rejection')
+assert.match(generatorEdge, /enforceGeneratedVisualPlan\(validated, plannedVisual, isV2\)/, 'the same bounded correction also covers frozen V2 required/helpful visual-question contracts')
+assert.match(generatorEdge, /if \(error instanceof AssessmentContractError\) return error\.message/, 'safe GuroDesk contract failures are no longer collapsed into the generic runtime error')
+assert.match(generatorEdge, /generatorContract: '2026-08-12-question-contract-retry-v2'/, 'Edge failures identify the current generation contract')
+assert.match(assessmentNew, /Generating Question \$\{source\.itemNumber\} · \$\{typeLabel\(source\.questionType\)\}/, 'V2 progress identifies the active question and type')
+assert.match(assessmentNew, /Question \$\{activeQuestion\.itemNumber\} · \$\{typeLabel\(activeQuestion\.questionType\)\}:/, 'V2 pause diagnostics identify the exact failed question and type')
 assert.match(qa, /verifyRecommended: level === 'high'/, 'automatic independent verification is reserved for high-risk items')
 assert.match(phase44Validator, /classifyAssessmentRisk\(typedItems\[6\]\)\.verifyRecommended, false/, 'Phase 4.4 validator agrees that medium-risk numerical items do not automatically invoke Gemini verification')
 assert.match(phase44Validator, /highRiskNumerical[\s\S]{0,240}verifyRecommended, true/, 'Phase 4.4 validator still proves high-risk items receive independent verification')
@@ -24,4 +33,4 @@ assert.match(e2e, /assessment-editor-context:visible/, 'E2E Source TOS lookup sc
 assert.match(e2e, /expect\(sourceContext\)\.toContainText\(tosTitle\)/, 'E2E Source TOS identity is asserted on the visible responsive context without coupling to a child tag')
 assert.doesNotMatch(batchTest, /onSuggestion:\s*\(\) => events\.push\(/, 'batch test callback must not return Array.push number')
 
-console.log('Assessment generation stability hotfix validation passed: legacy backend compatibility, bounded request pressure, Edge transport retry/pause, live failure reconciliation, and visible E2E targeting are preserved.')
+console.log('Assessment generation stability hotfix validation passed: legacy backend compatibility, bounded request pressure, one bounded question-contract correction, exact V2 failure targeting, Edge transport retry/pause, live failure reconciliation, and visible E2E targeting are preserved.')
