@@ -171,6 +171,28 @@ describe('one-click assessment paper preparation', () => {
     expect(result.assessment.items[0].visual).toEqual(IRREGULAR_CONCAVE_PENTAGON_VISUAL)
   })
 
+
+  it('does not repeat the same failed automatic question repair across QA rounds', async () => {
+    const first = generatedItem('item-1', 1, 'Which value is equal to 2 + 2?')
+    const duplicate = generatedItem('item-2', 2, 'Which value is equal to 2 + 2?')
+    const record = mappedRecord([first, duplicate])
+    const generateItem = vi.fn(async () => { throw new Error('Gemini stopped before completing the structured assessment item.') })
+
+    const result = await autoPrepareAssessmentPaper({
+      assessment: record,
+      demo: true,
+      maxRounds: 3,
+      generateItem,
+      onCheckpoint: vi.fn(async () => undefined),
+      generateMissing: vi.fn(async () => ({ attempted: 0, succeeded: 0, skipped: 2, failed: 0, cancelled: 0, results: [], errors: [] })),
+    })
+
+    expect(generateItem).toHaveBeenCalledTimes(1)
+    expect(result.regenerated).toBe(0)
+    expect(result.rounds).toBeLessThanOrEqual(2)
+    expect(result.repairFailures).toEqual([expect.objectContaining({ itemId: 'item-2' })])
+  })
+
   it('does not swallow non-provider repair failures', async () => {
     const first = generatedItem('item-1', 1, 'Which value is equal to 2 + 2?')
     const duplicate = generatedItem('item-2', 2, 'Which value is equal to 2 + 2?')

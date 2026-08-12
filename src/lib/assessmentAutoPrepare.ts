@@ -1,5 +1,5 @@
 import type { AssessmentItem, AssessmentRecord } from '../types/assessment'
-import { applyAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, generateAssessmentVisualSuggestion, generateMissingAssessmentItems, type AssessmentItemCandidate } from './assessmentGeneration'
+import { applyAssessmentItemSuggestion, assessmentItemNeedsQuestionGeneration, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, generateAssessmentVisualSuggestion, generateMissingAssessmentItems, type AssessmentItemCandidate } from './assessmentGeneration'
 import { unlockAssessmentItem } from './assessmentItemLifecycle'
 import { reviewAssessmentForFinalization, type AssessmentFinalReview } from './assessmentFinalReview'
 import { assessmentVisualPlanForItem, assessmentVisualSourceHash, resolveAssessmentVisualPlans } from './assessmentVisualPlanning'
@@ -141,12 +141,13 @@ export async function autoPrepareAssessmentPaper(args: {
   let completedRounds = 0
   const repairFailures: Array<{ itemId: string; itemNumber: number; message: string }> = []
   const visualRepairAttempted = new Set<string>()
+  const questionRepairAttempted = new Set<string>()
 
   for (let round = 1; round <= maxRounds; round += 1) {
     completedRounds = round
     if (args.signal?.aborted) break
 
-    const missing = working.items.filter((item) => !item.prompt.trim() && item.authorshipState === 'empty' && item.locked !== true && item.qaState !== 'locked')
+    const missing = working.items.filter(assessmentItemNeedsQuestionGeneration)
     if (missing.length) {
       args.onProgress?.({ phase: 'generate', round, message: `Generating ${missing.length} empty item${missing.length === 1 ? '' : 's'}.` })
       const summary = await generateMissing({
@@ -158,9 +159,16 @@ export async function autoPrepareAssessmentPaper(args: {
         onSuggestion: (item) => {
           working = replaceItem(working, item)
           generated += 1
+          for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === item.id) repairFailures.splice(index, 1)
           args.onProgress?.({ phase: 'generate', round, itemId: item.id, itemNumber: item.itemNumber, message: `Generated Item ${item.itemNumber}.` })
         },
       })
+      for (const failure of summary.errors) {
+        const failedItem = working.items.find((item) => item.id === failure.itemId)
+        if (!failedItem) continue
+        for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === failure.itemId) repairFailures.splice(index, 1)
+        repairFailures.push({ itemId: failure.itemId, itemNumber: failedItem.itemNumber, message: `Question generation failed: ${failure.message}` })
+      }
       if (summary.providerPaused || summary.errors.some((entry) => /429|quota|rate.?limit|provider limit|api key|credential|authentication required|not configured|rejected the (?:structured )?request configuration/i.test(entry.message))) {
         providerPaused = true
       }
@@ -226,6 +234,7 @@ export async function autoPrepareAssessmentPaper(args: {
     }
     await args.onCheckpoint?.(working)
 
+    let attemptedRepairThisRound = false
     for (const itemId of blockers.repairableItemIds) {
       if (args.signal?.aborted) break
       const current = working.items.find((item) => item.id === itemId)
@@ -236,11 +245,13 @@ export async function autoPrepareAssessmentPaper(args: {
         if (visualIssues.length) {
           if (visualRepairAttempted.has(itemId)) {
             const message = 'Dedicated visual repair already reached its one automatic retry limit; the question was preserved unchanged.'
+            for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === itemId) repairFailures.splice(index, 1)
             repairFailures.push({ itemId, itemNumber: current.itemNumber, message })
             args.onProgress?.({ phase: 'repair', round, itemId, itemNumber: current.itemNumber, message: `Item ${current.itemNumber} visual still needs review; the question was not regenerated.` })
             continue
           }
           visualRepairAttempted.add(itemId)
+          attemptedRepairThisRound = true
           const candidate = candidateForVisualRepair(current, visualIssues)
           const visualResult = await generateVisual({ assessment: working, item: current, candidate, visualIntent: candidate.visualIntent, issues: visualIssues.map((issue) => `${issue.code}: ${issue.message}`), demo: args.demo, signal: args.signal })
           if (!visualResult.visual) throw new Error('Dedicated visual generation returned no usable diagram.')
@@ -250,6 +261,15 @@ export async function autoPrepareAssessmentPaper(args: {
           for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === itemId) repairFailures.splice(index, 1)
           args.onProgress?.({ phase: 'repair', round, itemId, itemNumber: current.itemNumber, message: `Repaired only the visual for Item ${current.itemNumber}; question text and answer were preserved.` })
         } else {
+          if (questionRepairAttempted.has(itemId)) {
+            const message = 'Question repair already reached its one automatic retry limit; the saved question was preserved for teacher review.'
+            for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === itemId) repairFailures.splice(index, 1)
+            repairFailures.push({ itemId, itemNumber: current.itemNumber, message })
+            args.onProgress?.({ phase: 'repair', round, itemId, itemNumber: current.itemNumber, message: `Item ${current.itemNumber} still needs teacher review; no second automatic question replacement was attempted.` })
+            continue
+          }
+          questionRepairAttempted.add(itemId)
+          attemptedRepairThisRound = true
           const suggestion = await generateItem({
             assessment: working,
             item: current,
@@ -278,6 +298,10 @@ export async function autoPrepareAssessmentPaper(args: {
     }
     await args.onCheckpoint?.(working)
     if (providerPaused || args.signal?.aborted) break
+    // If every remaining AI-owned blocker has already consumed its one bounded
+    // repair path, another full QA round cannot improve the paper. Return it to
+    // teacher review instead of repeating the same messages/provider work.
+    if (!attemptedRepairThisRound) break
   }
 
   const blockers = assessmentAutomationBlockers(working)

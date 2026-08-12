@@ -9,7 +9,7 @@ import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
 import { useAssessmentPreparation } from '../hooks/useAssessmentPreparation'
 import * as assessmentValidation from '../lib/assessmentValidation'
-import { acceptAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, generateMissingAssessmentItems, requestAssessmentVerification, teacherVerifyAndLockAssessmentItem, type AssessmentItemSuggestion } from '../lib/assessmentGeneration'
+import { acceptAssessmentItemSuggestion, assessmentItemNeedsQuestionGeneration, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, generateMissingAssessmentItems, requestAssessmentVerification, teacherVerifyAndLockAssessmentItem, type AssessmentItemSuggestion } from '../lib/assessmentGeneration'
 import { autoPrepareAssessmentPaper } from '../lib/assessmentAutoPrepare'
 import { lockAssessmentItem, recoverSingleFillBlankStructure, unlockAssessmentItem } from '../lib/assessmentItemLifecycle'
 import { beginAssessmentVisualGeneration, checkpointAssessmentGenerationFailure, checkpointAssessmentGenerationSuccess, checkpointAssessmentVisualFailure, checkpointAssessmentVisualSuccess, checkpointFailures, checkpointVisualFailures, clearAssessmentGenerationCheckpoint, completeAssessmentGenerationCheckpoint, createAssessmentGenerationCheckpoint, loadAssessmentGenerationCheckpoint, pauseAssessmentGenerationCheckpoint, pendingAssessmentGenerationItemIds, pendingAssessmentVisualItemIds, recoverAssessmentGenerationItems, resumeAssessmentGenerationCheckpoint, saveAssessmentGenerationCheckpoint, type AssessmentGenerationCheckpoint, type AssessmentGenerationFailure } from '../lib/assessmentGenerationResume'
@@ -143,11 +143,10 @@ export function AssessmentEditorPage() {
   const readOnly = view ? view.status !== 'draft' : false
   const isV2 = Boolean(view && Number(view.settings?.schemaVersion ?? 1) >= 2 && view.settings?.generationVersion === 'v2' && view.settings?.numberingMode === 'point_ranges')
   const numberingMode = isV2 ? 'point_ranges' as const : 'legacy_items' as const
-  const v2GenerationIncomplete = Boolean(isV2 && view?.status === 'draft' && view.items.some((item) => {
-    if (!item.prompt.trim()) return true
-    if (item.visualRequirement !== 'required') return false
-    return !item.visual || item.visualStatus !== 'succeeded'
-  }))
+  // V2 hides previews only until every logical question exists. A saved
+  // question with a failed/pending required visual is a teacher-review blocker,
+  // not an unfinished-generation state; finalization still enforces the visual.
+  const v2GenerationIncomplete = Boolean(isV2 && view?.status === 'draft' && view.items.some((item) => !item.prompt.trim()))
   const completion = recordValue ? assessmentCompletion(recordValue) : { filled: 0, total: 0, percent: 0, needsReview: 0, totalPoints: 0, objectivePoints: 0, teacherScoredPoints: 0 }
   const settings = useMemo(() => view ? defaultSettings(view) : null, [view])
   const allowedTypes = settings?.allowedTypes ?? []
@@ -185,7 +184,7 @@ export function AssessmentEditorPage() {
     }
     const pending = pendingAssessmentGenerationItemIds(checkpoint).filter((itemId) => {
       const item = recoveredRecord.items.find((candidate) => candidate.id === itemId)
-      return Boolean(item && !item.prompt.trim() && !isLocked(item) && item.authorshipState === 'empty')
+      return Boolean(item && assessmentItemNeedsQuestionGeneration(item))
     })
     if (checkpoint.status === 'running' && checkpoint.autoResume && pending.length) {
       setBatchMessage(`${recoveredCount ? `${recoveredCount} generated item${recoveredCount === 1 ? '' : 's'} recovered. ` : ''}Resuming ${pending.length} interrupted item${pending.length === 1 ? '' : 's'}…`)
@@ -501,6 +500,15 @@ export function AssessmentEditorPage() {
       setReview(prepared.review)
       setReviewOpen(true)
       const repairFailureNote = prepared.repairFailures.length ? ` Repair request failures: ${prepared.repairFailures.map((failure) => `Item ${failure.itemNumber}: ${failure.message}`).join(' | ')}` : ''
+      const savedIsV2 = Number(savedPrepared.settings?.schemaVersion ?? 1) >= 2 && savedPrepared.settings?.generationVersion === 'v2'
+      if (savedIsV2 && emptyItems.length === 0) {
+        clearAssessmentGenerationCheckpoint(savedPrepared.id)
+        setBatchFailures([])
+        setBatchProgress(EMPTY_BATCH_PROGRESS)
+        setSavedMessage(`All ${savedPrepared.items.length} questions are saved. ${structuralErrors.length} QA/diagram issue${structuralErrors.length === 1 ? '' : 's'} remain for teacher review before finalization.`)
+        setBatchMessage(`Generation complete. Open review to resolve Item${affected.length === 1 ? '' : 's'} ${affected.join(', ') || 'with flagged QA issues'}.${repairFailureNote}`)
+        return
+      }
       setBatchMessage(`Automatic preparation completed ${prepared.rounds} QA pass${prepared.rounds === 1 ? '' : 'es'} but ${structuralErrors.length + emptyItems.length} blocker${structuralErrors.length + emptyItems.length === 1 ? '' : 's'} remain${affected.length ? ` in Item${affected.length === 1 ? '' : 's'} ${affected.join(', ')}` : ''}. ${manualItems.length ? 'Teacher-authored/edited blockers are protected and need teacher editing.' : 'AI-owned blockers reached the bounded repair limit.'}${repairFailureNote}`)
       return
     }
@@ -640,7 +648,7 @@ export function AssessmentEditorPage() {
       const persisted = await saveForGeneration(generationSource); if (!persisted) return
       const persistedView = normalizeAssessment(persisted)
       const selectedIds = itemIdsOverride?.length ? new Set(itemIdsOverride) : null
-      const missingItems = persistedView.items.filter((item) => (!selectedIds || selectedIds.has(item.id)) && !item.prompt.trim() && !isLocked(item) && item.authorshipState !== 'teacher_edited' && item.authorshipState !== 'teacher_accepted' && !suggestions[item.id])
+      const missingItems = persistedView.items.filter((item) => (!selectedIds || selectedIds.has(item.id)) && assessmentItemNeedsQuestionGeneration(item) && !suggestions[item.id])
       if (!missingItems.length) {
         controller = new AbortController(); batchControllerRef.current?.abort(); batchControllerRef.current = controller
         await runVisualEnrichment(persisted, undefined, { checkpoint, controller })
@@ -686,7 +694,7 @@ export function AssessmentEditorPage() {
           const itemIndex = latestView.items.findIndex((candidate) => candidate.id === item.id)
           if (itemIndex < 0) return
           const currentItem = latestView.items[itemIndex]
-          if (currentItem.prompt.trim() || currentItem.authorshipState !== 'empty' || isLocked(currentItem)) return
+          if (!assessmentItemNeedsQuestionGeneration(currentItem)) return
           const nextItems = latestView.items.map((candidate, index) => index === itemIndex ? item : candidate)
           const nextRecord = recordWithItems(latest, nextItems, 'draft', title.trim(), instructions)
           recordRef.current = nextRecord
@@ -815,9 +823,9 @@ export function AssessmentEditorPage() {
   if (!recordValue || !view) return null
   if (!view.items.length) return <EmptyState icon={ClipboardCheck} title="Assessment has no items" description="Recreate the assessment from a finalized TOS."><Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> Back to assessments</Link></EmptyState>
 
-  // V2 generation is intentionally opaque until every planned question and
-  // required diagram exists. If a teacher leaves a paused run and reopens it,
-  // keep the editor hidden and expose only safe resume/progress controls.
+  // V2 generation is intentionally opaque until every planned question exists.
+  // Diagram/QA failures after bounded AI repair move into teacher review rather
+  // than trapping a fully generated paper behind an endless resume loop.
   if (v2GenerationIncomplete && !readOnly) {
     const total = Math.max(1, completion.total)
     const completed = Math.min(total, completion.filled)

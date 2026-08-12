@@ -83,7 +83,7 @@ export type AssessmentGenerationBatchOptions = {
   signal?: AbortSignal
   concurrency?: number
   itemIds?: string[]
-  generate?: (args: { assessment: AssessmentRecord; item: AssessmentItem; demo: boolean; signal?: AbortSignal; onQuestionReady?: (suggestion: AssessmentItemSuggestion) => void | Promise<void> }) => Promise<AssessmentItemSuggestion>
+  generate?: (args: { assessment: AssessmentRecord; item: AssessmentItem; demo: boolean; alternative?: boolean; signal?: AbortSignal; onQuestionReady?: (suggestion: AssessmentItemSuggestion) => void | Promise<void> }) => Promise<AssessmentItemSuggestion>
 }
 
 type CandidateInput = UnknownRecord
@@ -408,6 +408,20 @@ export function hasExistingAssessmentContent(item: AssessmentItem) {
   if (String(value.rationale ?? '').trim() || String(value.teacherNotes ?? '').trim()) return true
   const answer = item.answer as unknown as UnknownRecord
   return answerHasMeaningfulContent(answer)
+}
+
+/**
+ * A blank machine-owned slot is still recoverable even when an interrupted AI
+ * attempt left lifecycle metadata behind. Teacher-owned/accepted/manual work
+ * remains protected. This is deliberately narrower than
+ * hasExistingAssessmentContent(), which continues to guard replacement calls.
+ */
+export function assessmentItemNeedsQuestionGeneration(item: AssessmentItem) {
+  const value = itemRecord(item)
+  if (item.prompt.trim()) return false
+  if (value.locked === true || value.qaState === 'locked') return false
+  if (item.authorshipState === 'teacher_edited' || item.authorshipState === 'teacher_accepted' || item.authorshipState === 'manual') return false
+  return true
 }
 
 function historyWithPrevious(item: AssessmentItem, source: 'alternative' | 'repair' | 'generated' = 'generated') {
@@ -1070,11 +1084,8 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
   const concurrency = Math.max(1, Math.min(3, Math.floor(options.concurrency ?? 2)))
   const selected = options.itemIds?.length ? new Set(options.itemIds) : null
   const eligible = assessment.items.filter((item) => {
-    const value = itemRecord(item)
     if (selected && !selected.has(item.id)) return false
-    if (value.locked === true || value.qaState === 'locked') return false
-    if (item.authorshipState === 'teacher_edited' || item.authorshipState === 'teacher_accepted') return false
-    return !hasExistingAssessmentContent(item)
+    return assessmentItemNeedsQuestionGeneration(item)
   })
   const summary: AssessmentGenerationBatchSummary = { attempted: 0, succeeded: 0, skipped: assessment.items.length - eligible.length, failed: 0, cancelled: 0, results: [], errors: [], providerPaused: false }
   let cursor = 0
@@ -1106,16 +1117,21 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
       const item = eligible[index]
       summary.attempted += 1
       try {
+        // An interrupted machine-owned attempt can leave an empty prompt with
+        // AI lifecycle metadata/default answer structure. Treat that exact
+        // state as an explicit recovery replacement; teacher-owned content is
+        // excluded by assessmentItemNeedsQuestionGeneration above.
+        const recoveringBlankMachineDraft = hasExistingAssessmentContent(item)
         const suggestion = await generate({
-          assessment, item, demo, signal,
+          assessment, item, demo, alternative: recoveringBlankMachineDraft, signal,
           onQuestionReady: options.onQuestionReady
             ? async (questionSuggestion) => {
-              const questionItem = applyAssessmentItemSuggestion(item, questionSuggestion, { source: 'generated' })
+              const questionItem = applyAssessmentItemSuggestion(item, questionSuggestion, { alternative: recoveringBlankMachineDraft, source: 'generated' })
               await options.onQuestionReady?.(questionItem, questionSuggestion)
             }
             : undefined,
         })
-        const applied = applyAssessmentItemSuggestion(item, suggestion, { source: 'generated' })
+        const applied = applyAssessmentItemSuggestion(item, suggestion, { alternative: recoveringBlankMachineDraft, source: 'generated' })
         summary.results.push(applied)
         summary.succeeded += 1
         await onItem?.(applied)

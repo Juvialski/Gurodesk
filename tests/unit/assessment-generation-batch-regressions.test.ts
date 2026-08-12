@@ -68,6 +68,53 @@ describe('assessment generation batch accounting and resume regressions', () => 
       .toThrow(/Existing content was preserved/)
   })
 
+
+  it('recovers a blank machine-owned slot left behind by an interrupted AI attempt', async () => {
+    const stale = assessmentItem('multiple_choice', {
+      id: 'stale-ai-blank',
+      itemNumber: 1,
+      prompt: '',
+      authorshipState: 'ai_suggestion',
+      qaState: 'needs_review',
+    })
+    const generate = vi.fn(async ({ item, alternative }: { item: typeof stale; alternative?: boolean }) => {
+      expect(alternative).toBe(true)
+      return suggestionFor(item.id)
+    })
+
+    const summary = await generateMissingAssessmentItems({
+      assessment: assessmentRecord([stale]),
+      demo: false,
+      concurrency: 1,
+      generate,
+    })
+
+    expect(generate).toHaveBeenCalledTimes(1)
+    expect(summary.succeeded).toBe(1)
+    expect(summary.failed).toBe(0)
+    expect(summary.results[0].prompt).not.toBe('')
+  })
+
+  it('does not recover a blank teacher-owned or manual slot automatically', async () => {
+    const protectedItems = [
+      assessmentItem('multiple_choice', { id: 'teacher-edited-blank', itemNumber: 1, prompt: '', authorshipState: 'teacher_edited' }),
+      assessmentItem('multiple_choice', { id: 'teacher-accepted-blank', itemNumber: 2, prompt: '', authorshipState: 'teacher_accepted' }),
+      assessmentItem('multiple_choice', { id: 'manual-blank', itemNumber: 3, prompt: '', authorshipState: 'manual' }),
+    ]
+    const generate = vi.fn(async ({ item }: { item: typeof protectedItems[number] }) => suggestionFor(item.id))
+
+    const summary = await generateMissingAssessmentItems({
+      assessment: assessmentRecord(protectedItems),
+      demo: false,
+      concurrency: 1,
+      generate,
+    })
+
+    expect(generate).not.toHaveBeenCalled()
+    expect(summary.attempted).toBe(0)
+    expect(summary.skipped).toBe(3)
+  })
+
   it('reconciles Auto/Balanced 40-slot distribution around 16 completed MCQs without rewriting protected mappings', () => {
     const allTypes: AssessmentSettings = {
       mode: 'auto_balanced',

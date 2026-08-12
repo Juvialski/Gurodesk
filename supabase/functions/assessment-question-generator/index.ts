@@ -244,9 +244,10 @@ async function callWithLiteFallback(
     const output = await callGemini(apiKey, settings.preferredModel, prompt, config)
     return { output, modelUsed, fallbackUsed, providerRequestCount }
   } catch (error) {
+    const httpFallbackEligible = error instanceof GeminiHttpError && isFallbackEligibleStatus(error.status)
+    const truncatedOutput = error instanceof GeminiResponseError && error.category === 'MAX_TOKENS'
     if (
-      !(error instanceof GeminiHttpError)
-      || !isFallbackEligibleStatus(error.status)
+      (!httpFallbackEligible && !truncatedOutput)
       || !fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)
     ) {
       if (error instanceof GeminiHttpError || error instanceof GeminiResponseError) error.providerRequestCount = providerRequestCount
@@ -256,8 +257,17 @@ async function callWithLiteFallback(
     modelUsed = settings.fallbackModel
     fallbackUsed = true
     providerRequestCount += 1
+    const fallbackPrompt = truncatedOutput
+      ? [
+        prompt,
+        '',
+        'TRUNCATION RETRY: the previous model reached its output-token limit before finishing the JSON object.',
+        'Return a substantially more concise answer while preserving every fixed assessment requirement.',
+        'Do not add optional rubric/subpart detail unless it is needed for the fixed points. Return JSON only.',
+      ].join('\n')
+      : prompt
     try {
-      const output = await callGemini(apiKey, settings.fallbackModel, prompt, config)
+      const output = await callGemini(apiKey, settings.fallbackModel, fallbackPrompt, config)
       return { output, modelUsed, fallbackUsed, providerRequestCount }
     } catch (fallbackError) {
       if (fallbackError instanceof GeminiHttpError || fallbackError instanceof GeminiResponseError) fallbackError.providerRequestCount = providerRequestCount

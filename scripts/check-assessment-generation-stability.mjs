@@ -33,4 +33,6 @@ assert.match(e2e, /assessment-editor-context:visible/, 'E2E Source TOS lookup sc
 assert.match(e2e, /expect\(sourceContext\)\.toContainText\(tosTitle\)/, 'E2E Source TOS identity is asserted on the visible responsive context without coupling to a child tag')
 assert.doesNotMatch(batchTest, /onSuggestion:\s*\(\) => events\.push\(/, 'batch test callback must not return Array.push number')
 
+assert.match(generatorEdge, /error\.category === 'MAX_TOKENS'/, 'bounded Lite fallback handles truncated question output')
+assert.match(generatorEdge, /TRUNCATION RETRY/, 'truncated output gets one concise fallback-model retry')
 console.log('Assessment generation stability hotfix validation passed: legacy backend compatibility, bounded request pressure, one bounded question-contract correction, exact V2 failure targeting, Edge transport retry/pause, live failure reconciliation, and visible E2E targeting are preserved.')

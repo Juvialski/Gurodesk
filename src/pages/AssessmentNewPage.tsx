@@ -4,7 +4,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
-import { applyAssessmentItemSuggestion, applyCheckpointedAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, hasExistingAssessmentContent } from '../lib/assessmentGeneration'
+import { applyAssessmentItemSuggestion, applyCheckpointedAssessmentItemSuggestion, assessmentItemNeedsQuestionGeneration, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, hasExistingAssessmentContent } from '../lib/assessmentGeneration'
 import { createAssessmentMasterPlan } from '../lib/assessmentMasterPlanner'
 import { minimumAssessmentV2Points, validateAssessmentV2Setup, type AssessmentV2Setup } from '../lib/assessmentGenerationV2'
 import { createAssessmentFromMasterPlan, saveAssessmentDocument, saveAssessmentItemVisualCheckpoint } from '../lib/assessmentRepository'
@@ -113,7 +113,7 @@ export function AssessmentNewPage() {
         setWorkingRecord(working)
       }
 
-      const pendingQuestions = working.items.filter((item) => !hasExistingAssessmentContent(item))
+      const pendingQuestions = working.items.filter(assessmentItemNeedsQuestionGeneration)
       let completedQuestions = working.items.length - pendingQuestions.length
       setGeneration({ stage: 'questions', current: completedQuestions, total: working.items.length, message: pendingQuestions.length ? 'Generating questions from the frozen master plan…' : 'All questions are already saved.' })
 
@@ -123,14 +123,16 @@ export function AssessmentNewPage() {
         activeQuestion = source
         setGeneration({ stage: 'questions', current: completedQuestions, total: working.items.length, message: `Generating Question ${source.itemNumber} · ${typeLabel(source.questionType)}…` })
         let checkpointedQuestion: AssessmentRecord['items'][number] | null = null
+        const recoveringBlankMachineDraft = hasExistingAssessmentContent(source)
         const suggestion = await generateAssessmentItemSuggestion({
           assessment: working,
           item: source,
           demo: isDemo,
+          alternative: recoveringBlankMachineDraft,
           teacherContext: generationInstructions.trim(),
           signal: controller.signal,
           onQuestionReady: async (draftSuggestion) => {
-            const savedDraftItem = applyAssessmentItemSuggestion(source, draftSuggestion, { source: 'generated' })
+            const savedDraftItem = applyAssessmentItemSuggestion(source, draftSuggestion, { alternative: recoveringBlankMachineDraft, source: 'generated' })
             checkpointedQuestion = savedDraftItem
             working = replaceItem(working!, savedDraftItem)
             working = await saveAssessmentDocument(working, isDemo)
@@ -164,7 +166,13 @@ export function AssessmentNewPage() {
           },
           onProgress: (progress) => setGeneration({ stage: 'visuals', current: progress.processed, total: progress.total, message: progress.status === 'success' ? `Diagram ${progress.processed} of ${progress.total} verified and saved.` : `Diagram ${progress.processed} of ${progress.total} needs review.` }),
         })
-        if (visualSummary.providerPaused) throw new Error('Generation paused after saving completed diagrams because provider capacity was exhausted. Retry to continue from the saved checkpoint.')
+        if (visualSummary.providerPaused) {
+          // All question text is already durable. A visual provider boundary is
+          // now a teacher-review issue rather than a reason to hide the entire
+          // paper behind the generation screen indefinitely. Required visuals
+          // still block finalization/export until repaired or teacher-resolved.
+          setGeneration({ stage: 'finishing', current: 1, total: 1, message: 'Questions are complete. Opening review with remaining diagram work flagged…' })
+        }
       }
 
       setGeneration({ stage: 'finishing', current: 1, total: 1, message: 'Preparing the completed assessment for teacher review…' })
