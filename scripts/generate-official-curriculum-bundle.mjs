@@ -78,8 +78,19 @@ try {
 
   lines.push('commit;')
   lines.push('')
+
+  const bundleSql = lines.join('\n')
+  const danglingJoinPattern = /\bjoin\s+[^\n]+\s+on\s+[A-Za-z_][A-Za-z0-9_.]*\s*$/gimu
+  const danglingJoins = bundleSql.match(danglingJoinPattern) ?? []
+  if (danglingJoins.length) {
+    throw new Error(`Refusing to write malformed curriculum SQL: found ${danglingJoins.length} JOIN clause(s) with a non-boolean ON expression. First: ${danglingJoins[0]}`)
+  }
+  if (/join public\.curriculum_versions cv on cv\.id\s*(?:\r?\n|$)/iu.test(bundleSql)) {
+    throw new Error('Refusing to write malformed curriculum SQL: curriculum_versions JOIN is missing = cs.curriculum_version_id.')
+  }
+
   await mkdir(dirname(output), { recursive: true })
-  await writeFile(output, lines.join('\n'), 'utf8')
+  await writeFile(output, bundleSql, 'utf8')
   console.log(`Generated ${output} from ${manifests.length} manifests (${bundleHash}).`)
 } finally {
   await rm(temporaryDir, { recursive: true, force: true })
