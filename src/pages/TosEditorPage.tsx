@@ -23,6 +23,7 @@ function sameVerifiedSnapshot(
     && competency.sourcePage === row.competency.sourcePage
 }
 
+
 type TosSimpleFlowProps = {
   record: TosRecord
   assignments: ReturnType<typeof useApp>['assignments']
@@ -41,7 +42,8 @@ type TosSimpleFlowProps = {
   onUpdateContent: (update: (content: TosContent) => void) => void
   onTogglePeriod: (periodId: string) => void
   onToggleCompetency: (competencyId: string) => void
-  onUseTos: () => void
+  onSaveDraft: () => void
+  onFinalize: () => void
   onCustomize: () => void
 }
 
@@ -63,7 +65,8 @@ function TosSimpleFlow({
   onUpdateContent,
   onTogglePeriod,
   onToggleCompetency,
-  onUseTos,
+  onSaveDraft,
+  onFinalize,
   onCustomize,
 }: TosSimpleFlowProps) {
   const parsedTotal = Number(totalItemsInput)
@@ -77,16 +80,17 @@ function TosSimpleFlow({
         <div>
           <span className="eyebrow">Guided setup</span>
           <h2>Create a table of specifications</h2>
-          <p>Choose what you covered and how many questions you need. GuroDesk will suggest a balanced allocation that you can customize.</p>
+          <p>Name the TOS, choose what you covered, and set the test size. GuroDesk will suggest a balanced allocation that you can customize.</p>
         </div>
         <span className="workflow-step-count">3 short steps</span>
       </div>
 
       <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>1</span><div><strong>Class and period</strong><small>Keep the grading term and curriculum guide period separate.</small></div></div>
+        <div className="workflow-step-heading"><span>1</span><div><strong>Name the TOS and choose the class</strong><small>The TOS title is required and is the name shown in your TOS list and exports.</small></div></div>
         <div className="workflow-form-grid">
           <label>Class<select disabled={readOnly} value={assignmentId} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option value={item.id} key={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label>
-          <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => onUpdateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First summative test" /></label>
+          <label>TOS title <small>(required)</small><input disabled={readOnly} value={record.content.title} onChange={(event) => onUpdateContent((content) => { content.title = event.target.value })} placeholder="e.g. Quarter 1 Mathematics TOS" /><small className="workflow-field-help">This identifies the TOS in your list and exported document.</small></label>
+          <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => onUpdateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First summative test" /><small className="workflow-field-help">Used as a suggested test title when you create an assessment from this TOS.</small></label>
         </div>
         <div className="workflow-chip-group">
           <span className="workflow-field-label">School grading term</span>
@@ -103,9 +107,7 @@ function TosSimpleFlow({
         {!bundle?.available ? (
           <div className="workflow-warning">
             <strong>No verified curriculum bundle is available for this class.</strong>
-            <p style={{ marginTop: '4px', fontSize: '11px', opacity: 0.9 }}>
-              {bundle?.coverageNote || 'GuroDesk will not invent competency rows.'}
-            </p>
+            <p style={{ marginTop: '4px', fontSize: '11px', opacity: 0.9 }}>{bundle?.coverageNote || 'GuroDesk will not invent competency rows.'}</p>
           </div>
         ) : <>
           <label className="workflow-search"><Search size={16} /><span className="sr-only">Search verified competencies</span><input value={search} onChange={(event) => onSearchChange(event.target.value)} placeholder="Search by code or competency" /></label>
@@ -119,8 +121,7 @@ function TosSimpleFlow({
       <div className="workflow-step-card">
         <div className="workflow-step-heading"><span>3</span><div><strong>How large is the test?</strong><small>GuroDesk will distribute whole questions deterministically across your selected competencies.</small></div></div>
         <div className="workflow-form-grid">
-          <label>Number of questions<input disabled={readOnly} type="number" min="1" max="10000" value={totalItemsInput} onChange={(event) => onTotalItemsChange(event.target.value)} /></label>
-          <label>TOS title<input disabled={readOnly} value={record.content.title} onChange={(event) => onUpdateContent((content) => { content.title = event.target.value })} placeholder="e.g. Quarter 1 TOS" /></label>
+          <label>Number of questions<input disabled={readOnly} type="number" min="1" max="10000" value={totalItemsInput} onChange={(event) => onTotalItemsChange(event.target.value)} /><small className="workflow-field-help">You can customize weighting and exact allocations before finalizing.</small></label>
         </div>
         <div className="workflow-summary-card">
           <div><span>Total questions</span><strong>{totalItems || '—'}</strong></div>
@@ -130,14 +131,15 @@ function TosSimpleFlow({
         {selectedCount > 0 && <div className="workflow-allocation-list"><div className="workflow-allocation-heading"><strong>Suggested allocation</strong><small>Equal starting weights · deterministic whole-question rounding</small></div>{record.content.rows.map((row) => <div className="workflow-allocation-row" key={row.id}><span>{row.competency.code || 'Competency'} · {row.competency.text}</span><strong>{row.itemCount} {row.itemCount === 1 ? 'question' : 'questions'}</strong></div>)}</div>}
       </div>
 
-      {validation && (validation.errors.length > 0 || validation.warnings.length > 0) && <div className="workflow-validation-note"><strong>Before finalizing</strong>{validation.errors.slice(0, 6).map((item) => <p key={item.key}><CircleAlert size={14} />{item.message}</p>)}{validation.warnings.slice(0, 4).map((item) => <p className="warning" key={item.key}><CircleAlert size={14} />{item.message}</p>)}</div>}
+      {validation && (validation.errors.length > 0 || validation.warnings.length > 0) && <div className="workflow-validation-note" id="tos-simple-validation"><strong>Before finalizing</strong>{validation.errors.slice(0, 6).map((item) => <p key={item.key}><CircleAlert size={14} />{item.message}</p>)}{validation.warnings.slice(0, 4).map((item) => <p className="warning" key={item.key}><CircleAlert size={14} />{item.message}</p>)}</div>}
       {validation?.ready && <div className="workflow-success-note"><Check size={15} /> This TOS is ready to finalize after you review the suggested allocation.</div>}
 
-      <div className="workflow-actions">
+      {!readOnly && <div className="workflow-actions">
         <button type="button" className="button ghost" onClick={onCustomize}>Customize allocation</button>
-        <button type="button" className="button primary" disabled={readOnly || saving || !selectedCount || totalItems < 1 || !validation?.ready} onClick={onUseTos}>{saving ? 'Finalizing…' : 'Use this TOS'} <ArrowUp size={15} /></button>
-      </div>
-      <p className="workflow-footnote">You remain in control of which competencies were taught. Advanced editing keeps weighting, overrides, and cognitive categories available.</p>
+        <button type="button" className="button secondary" disabled={saving} onClick={onSaveDraft}><Save size={15} /> {saving ? 'Saving…' : 'Save draft'}</button>
+        <button type="button" className="button primary" disabled={saving || !selectedCount || totalItems < 1 || !validation?.ready} onClick={onFinalize}><ShieldCheck size={15} /> {saving ? 'Finalizing…' : 'Finalize TOS'}</button>
+      </div>}
+      <p className="workflow-footnote">Save draft keeps the TOS editable. Finalize TOS locks this version for assessment generation; duplicate it later if you need an editable copy. Advanced editing keeps weighting, overrides, and cognitive categories available.</p>
     </section>
   )
 }
@@ -402,7 +404,7 @@ export function TosEditorPage() {
   if (!record) return <EmptyState icon={CircleAlert} title="TOS unavailable" description={error || 'The document could not be opened.'} />
 
   return <>
-    <PageHeader eyebrow="Assessment planning · Phase 4" title={record.status === 'draft' ? (isNew ? 'New TOS' : 'Edit TOS') : 'Final TOS'} description="Choose the competencies you covered, get a clear starting allocation, and customize details whenever you need them." actions={<div className="tos-header-actions"><SimpleAdvancedToggle mode={viewMode} onChange={setViewMode} /> <Link className="button ghost" to="/tos"><ArrowLeft size={16} /> All TOS</Link>{record.id && <Link className="button ghost" to={`/tos/${record.id}/print`}><FileDown size={16} /> Export</Link>}</div>} />
+    <PageHeader eyebrow="Assessment planning" title={record.status === 'draft' ? (isNew ? 'New TOS' : 'Edit TOS') : 'Final TOS'} description="Choose the competencies you covered, get a clear starting allocation, and customize details whenever you need them." actions={<div className="tos-header-actions"><SimpleAdvancedToggle mode={viewMode} onChange={setViewMode} /> <Link className="button ghost" to="/tos"><ArrowLeft size={16} /> All TOS</Link>{record.id && <Link className="button ghost" to={`/tos/${record.id}/print`}><FileDown size={16} /> Export</Link>}</div>} />
     {readOnly && <div className="tos-locked panel"><ShieldCheck size={19} /><div><strong>This TOS is final and locked.</strong><p>Duplicate it from the TOS list to make a new editable draft.</p></div></div>}
     {error && <div className="form-error"><CircleAlert size={16} /> {error}</div>}
     {savedMessage && <div className="form-success"><Check size={16} /> {savedMessage}</div>}
@@ -428,7 +430,8 @@ export function TosEditorPage() {
       onUpdateContent={updateContent}
       onTogglePeriod={togglePeriod}
       onToggleCompetency={toggleCompetency}
-      onUseTos={() => void persist('final')}
+      onSaveDraft={() => void persist('draft')}
+      onFinalize={() => void persist('final')}
       onCustomize={() => setViewMode('advanced')}
     /> : <div className="tos-editor-grid">
       <main className="tos-editor-main">
@@ -454,9 +457,7 @@ export function TosEditorPage() {
                 <CircleAlert size={17} />
                 <strong>No verified curriculum bundle is available for this assignment.</strong>
               </div>
-              <p style={{ margin: '4px 0 0 25px', fontSize: '10px', opacity: 0.9 }}>
-                {bundle?.coverageNote || 'GuroDesk will not invent competency rows.'}
-              </p>
+              <p style={{ margin: '4px 0 0 25px', fontSize: '10px', opacity: 0.9 }}>{bundle?.coverageNote || 'GuroDesk will not invent competency rows.'}</p>
             </div>
           ) : <div className="tos-competency-picker">
             <button aria-controls="tos-competency-options" aria-expanded={pickerOpen} aria-haspopup="listbox" className={`competency-picker-trigger ${pickerOpen ? 'open' : ''}`} disabled={readOnly} type="button" onClick={() => setPickerOpen((value) => !value)}><span>{record.content.rows.length ? `${record.content.rows.length} verified competenc${record.content.rows.length === 1 ? 'y' : 'ies'} selected` : 'Choose verified competencies'}</span><ChevronDown size={17} /></button>

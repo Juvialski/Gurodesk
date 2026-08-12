@@ -37,7 +37,7 @@ export function AssessmentNewPage() {
   const [totalPoints, setTotalPoints] = useState(40)
   const [pointsTouched, setPointsTouched] = useState(false)
   const [allowedTypes, setAllowedTypes] = useState<QuestionType[]>(DEFAULT_TYPES)
-  const [visualPolicy, setVisualPolicy] = useState<AssessmentVisualPolicy>('balanced')
+  const [visualPolicy, setVisualPolicy] = useState<AssessmentVisualPolicy>('off')
   const [step, setStep] = useState<SetupStep>(1)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -214,7 +214,7 @@ export function AssessmentNewPage() {
     return <main className="assessment-generation-focus" aria-live="polite">
       <div className="assessment-generation-card">
         <span className="assessment-generation-icon"><Sparkles size={28} /></span>
-        <small>Assessment Generation V2</small>
+        <small>Assessment generation</small>
         <h1>{generation.stage === 'paused' ? 'Generation paused' : 'Creating your assessment'}</h1>
         <p>{generation.message}</p>
         <div className="assessment-generation-progress" aria-label="Generation progress"><span style={{ width: `${pct}%` }} /></div>
@@ -234,7 +234,7 @@ export function AssessmentNewPage() {
   const pointsReady = Number.isSafeInteger(totalPoints) && totalPoints >= 1 && totalPoints <= 1000
 
   return <>
-    <PageHeader eyebrow="Assessment Generation V2" title="Create assessment" description="Set up the assessment in three short steps. GuroDesk keeps the TOS and cognitive coverage rules in the background, then generates the complete paper before showing question previews." actions={<Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> All assessments</Link>} />
+    <PageHeader eyebrow="Assessment studio" title="Create assessment" description="Set up the assessment in three short steps. GuroDesk keeps the TOS and cognitive coverage rules in the background, then generates the complete paper before showing question previews." actions={<Link className="button ghost" to="/assessments"><ArrowLeft size={16} /> All assessments</Link>} />
 
     <div className="assessment-v2-wizard-shell">
       <div className="assessment-v2-stepper" aria-label="Assessment setup progress">
@@ -300,13 +300,16 @@ export function AssessmentNewPage() {
         </div>
 
         <div className="assessment-v2-visual-section">
-          <div><strong>Visuals</strong><small>Choose how often diagrams may be planned when they genuinely help the question.</small></div>
+          <div><strong>Visuals</strong><small>Automatic diagrams are temporarily off while the visual renderer is being stabilized. Text-only assessment generation remains available.</small></div>
           <div className="assessment-v2-segmented" role="group" aria-label="Visual policy">
             {([
-              ['off', 'Off', 'Text-first'],
-              ['balanced', 'Balanced', 'Recommended'],
-              ['more_visuals', 'More', 'When useful'],
-            ] as const).map(([value, label, hint]) => <button key={value} type="button" className={visualPolicy === value ? 'selected' : ''} aria-pressed={visualPolicy === value} onClick={() => setVisualPolicy(value)}><strong>{label}</strong><small>{hint}</small></button>)}
+              ['off', 'Off', 'Default'],
+              ['balanced', 'Balanced', 'Temporarily unavailable'],
+              ['more_visuals', 'More', 'Temporarily unavailable'],
+            ] as const).map(([value, label, hint]) => {
+              const locked = value !== 'off'
+              return <button key={value} type="button" disabled={locked} aria-disabled={locked} title={locked ? 'Visual generation is temporarily disabled for launch stability.' : undefined} className={visualPolicy === value ? 'selected' : ''} aria-pressed={visualPolicy === value} onClick={() => { if (!locked) setVisualPolicy(value) }}><strong>{label}</strong><small>{hint}</small></button>
+            })}
           </div>
         </div>
 

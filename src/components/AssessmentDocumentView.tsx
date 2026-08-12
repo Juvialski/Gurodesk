@@ -21,7 +21,16 @@ function StudentResponse({ question }: { question: AssessmentPaperQuestion }) {
   if (response.kind === 'fill_structured') return <div className="assessment-document-answer-space">{response.blankLabels.map((label) => <span key={label}>{response.answerLabel} {label}: __________________________________________</span>)}</div>
   return <>
     {response.instructions && <p className="assessment-document-response-instructions">{response.instructions}</p>}
-    <div className="assessment-document-answer-space">{Array.from({ length: Math.max(1, response.lines) }).map((_, index) => <span key={index}>________________________________________________________</span>)}</div>
+    <div className="assessment-document-answer-space assessment-document-answer-space-full">
+      {Array.from({ length: Math.max(1, response.lines) }).map((_, index) => (
+        <span
+          aria-hidden="true"
+          className="assessment-document-answer-line"
+          key={index}
+          style={{ display: 'block', width: '100%', minHeight: '18px', borderBottom: '1px solid #7d858d' }}
+        />
+      ))}
+    </div>
   </>
 }
 

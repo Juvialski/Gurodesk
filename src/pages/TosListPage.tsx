@@ -60,12 +60,12 @@ export function TosListPage() {
 
   return <>
     <PageHeader
-      eyebrow="Assessment planning · Phase 4"
+      eyebrow="Assessment planning"
       title="Table of Specifications"
       description="Plan assessment coverage from verified competencies. GuroDesk calculates every allocation and item range without AI."
       actions={<Link className="button primary" to="/tos/new"><Plus size={16} /> New TOS</Link>}
     />
-    <div className="tos-principle panel"><TableProperties size={20} /><div><strong>Curriculum → TOS → Assessment</strong><p>Finalize a specification here, then use it to create deterministic assessment items and printable student, teacher, and answer-key copies.</p></div></div>
+    <div className="tos-principle panel"><TableProperties size={20} /><div><strong>Curriculum → TOS → Assessment</strong><p>Finalize a specification here, then use it to create an assessment and printable student, teacher, and answer-key copies.</p></div></div>
     {loading && <div className="panel lesson-loading"><span className="loader" /><strong>Loading TOS documents…</strong></div>}
     {!loading && error && <EmptyState icon={TableProperties} title="TOS documents could not be loaded" description={error} />}
     {!loading && !error && !documents.length && <EmptyState icon={TableProperties} title="No TOS documents yet" description="Start with a teaching assignment, select actual covered competencies, and choose how their item weight should be calculated."><Link className="button primary" to="/tos/new"><Plus size={16} /> Create first TOS</Link></EmptyState>}

@@ -7,6 +7,7 @@ import { loadTeacherExportPreferences } from '../lib/repository'
 import { loadTosDocument } from '../lib/tosRepository'
 import { downloadTosTemplateFile, listTosTemplates } from '../lib/tosTemplateRepository'
 import { buildTosExportModel, downloadTosPdf, downloadTosXlsx } from '../lib/tosExport'
+import { downloadTosDocx } from '../lib/tosDocxExport'
 import { validateXlsxTemplateMappings } from '../lib/xlsxTemplate'
 import type { TosDocumentTemplate } from '../types/tosTemplate'
 import type { TeacherExportPreferences } from '../types/export'
@@ -23,7 +24,7 @@ export function TosPrintPreviewPage() {
   const [selectedId, setSelectedId] = useState(BUILTIN_ID)
   const [menuOpen, setMenuOpen] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [downloading, setDownloading] = useState<'pdf' | 'xlsx' | ''>('')
+  const [downloading, setDownloading] = useState<'pdf' | 'docx' | 'xlsx' | ''>('')
   const [error, setError] = useState('')
   const menuRef = useRef<HTMLDivElement | null>(null)
 
@@ -57,11 +58,12 @@ export function TosPrintPreviewPage() {
   const model = useMemo(() => record && profile && preferences ? buildTosExportModel(record, profile, preferences) : null, [record, profile, preferences])
   const selectedTemplate = templates.find((item) => item.id === selectedId) ?? null
 
-  async function download(kind: 'pdf' | 'xlsx') {
+  async function download(kind: 'pdf' | 'docx' | 'xlsx') {
     if (!model || !preferences) return
     setDownloading(kind); setError('')
     try {
       if (kind === 'pdf') downloadTosPdf(model, preferences)
+      else if (kind === 'docx') await downloadTosDocx(model, preferences.paperSize)
       else if (selectedTemplate) {
         const mappingErrors = validateXlsxTemplateMappings(selectedTemplate.elements, selectedTemplate.mappings)
         if (mappingErrors.length) throw new Error(`This workbook mapping is no longer safe to export: ${mappingErrors[0]}`)
@@ -82,9 +84,9 @@ export function TosPrintPreviewPage() {
     <style>{`@media print { @page { size: ${paper}; margin: 0; } }`}</style>
     <div className="print-preview-toolbar no-print">
       <Link className="button ghost" to={`/tos/${record.id}`}><ArrowLeft size={16} /> Back to TOS</Link>
-      <div className="print-preview-title"><strong>Printable TOS preview</strong><small>Plain teacher document · {preferences.paperSize.toUpperCase()} landscape · XLSX: {selectedLabel}</small></div>
+      <div className="print-preview-title"><strong>Printable TOS preview</strong><small>Plain teacher document · {preferences.paperSize.toUpperCase()} landscape · Word/PDF use this layout · XLSX: {selectedLabel}</small></div>
       <div className="preview-template-picker" ref={menuRef}><button aria-controls="tos-export-template-options" aria-expanded={menuOpen} aria-haspopup="listbox" className="template-picker-trigger" type="button" onClick={() => setMenuOpen((value) => !value)}><FileSpreadsheet size={15} /><span>{selectedLabel}</span><ChevronDown size={15} /></button>{menuOpen && <div className="preview-template-menu" id="tos-export-template-options" role="listbox"><button aria-selected={!selectedTemplate} role="option" type="button" onClick={() => { setSelectedId(BUILTIN_ID); setMenuOpen(false) }}><div><strong>TOS Standard</strong><small>Built-in XLSX fallback</small></div>{!selectedTemplate && <Check size={15} />}</button>{templates.map((template) => <button aria-selected={selectedId === template.id} key={template.id} role="option" type="button" onClick={() => { setSelectedId(template.id); setMenuOpen(false) }}><div><strong>{template.name}</strong><small>{template.originalFilename}{template.isDefault ? ' · Default' : ''}</small></div>{selectedId === template.id && <Check size={15} />}</button>)}</div>}</div>
-      <div className="print-preview-actions"><button className="button ghost" onClick={() => window.print()}><Printer size={16} /> Print</button><button className="button secondary" disabled={Boolean(downloading)} onClick={() => void download('pdf')}><Download size={16} />{downloading === 'pdf' ? 'Building…' : 'PDF'}</button><button className="button primary" disabled={Boolean(downloading)} onClick={() => void download('xlsx')}><Download size={16} />{downloading === 'xlsx' ? 'Filling…' : 'XLSX'}</button></div>
+      <div className="print-preview-actions"><button className="button ghost" disabled={Boolean(downloading)} onClick={() => window.print()}><Printer size={16} /> Print</button><button className="button primary" disabled={Boolean(downloading)} onClick={() => void download('docx')}><Download size={16} />{downloading === 'docx' ? 'Building Word…' : 'Word (.docx)'}</button><button className="button secondary" disabled={Boolean(downloading)} onClick={() => void download('pdf')}><Download size={16} />{downloading === 'pdf' ? 'Building…' : 'PDF'}</button><button className="button secondary" disabled={Boolean(downloading)} onClick={() => void download('xlsx')}><Download size={16} />{downloading === 'xlsx' ? 'Filling…' : 'XLSX'}</button></div>
     </div>
     {selectedTemplate && <div className="tos-template-preview-note no-print"><FileSpreadsheet size={16} /><span>The on-screen/PDF preview uses the built-in plain layout. XLSX download fills a fresh copy of <strong>{selectedTemplate.name}</strong>; the master is never modified.</span></div>}
     {error && <div className="custom-template-error no-print">{error}</div>}
