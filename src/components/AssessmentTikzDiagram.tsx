@@ -122,8 +122,12 @@ export function AssessmentTikzDiagram({ visual, className = '', fallback }: { vi
       const data = event.data as { type?: string; token?: string; state?: string; svg?: string } | null
       if (event.source !== frameRef.current?.contentWindow || !data || data.type !== 'gurodesk-tikz-render' || data.token !== token) return
       if (data.state === 'ready') {
-        if (typeof data.svg === 'string' && data.svg) cacheAssessmentTikzRenderedSvg(visual, data.svg)
-        setState('ready')
+        const cached = typeof data.svg === 'string' && data.svg
+          ? cacheAssessmentTikzRenderedSvg(visual, data.svg)
+          : false
+        // Do not hide the deterministic fallback unless the exact SVG used by
+        // print/export passed the same sanitizer and was actually cached.
+        setState(cached ? 'ready' : 'error')
       }
       else if (data.state === 'error') setState('error')
     }

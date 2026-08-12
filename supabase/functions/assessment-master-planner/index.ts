@@ -204,8 +204,8 @@ function buildPrompt(args: { gradeLevel: string; learningArea: string; title: st
     '- Every blueprint bucket must receive exactly its exactPoints total. Never move points between buckets.',
     '- Use only a question type listed in that bucket allowed list and keep pointsPossible inside that type range.',
     '- A logical question belongs to exactly one bucket. Do not combine competencies or CPDs across buckets.',
+    '- FORMAT DIVERSITY REQUIREMENT: You MUST utilize a diverse, balanced distribution of ALL question types listed in each bucket allowed list across the paper. Do NOT default to Multiple Choice for every item. Every enabled question type should be actively utilized where valid, creating a rich, varied mix of question formats across the test (combining Multiple Choice, True/False, Identification, Fill in the Blank, Matching, Short Answer, Multiple Select, Problem Solving, Essay, etc., as enabled by the teacher).',
     '- Prefer a varied, natural test. Avoid unnecessary essays or long responses when a concise format is better.',
-    '- Multiple choice is flexible for Remembering through Analyzing, but never use it to satisfy Evaluating or Creating.',
     '- For Evaluating/Creating, use the higher-order types made available in the bucket constraints.',
     '- visualRequirement=required only when the learner genuinely needs information contained in the diagram/graph. Do not use decorative visuals.',
     !isMathArea(args.learningArea) ? '- Automatic required visuals are limited to Mathematics: every entry MUST use visualRequirement="none" and visualIntent="".' : args.visualPolicy === 'off' ? '- Visual policy is Off: every entry MUST use visualRequirement="none" and visualIntent="".' : args.visualPolicy === 'balanced' ? '- Balanced visuals: keep most questions text-only. Required visuals must not exceed floor(logicalQuestionCount / 4), with zero required visuals for fewer than 4 logical questions.' : '- More visuals: you may mark more genuinely diagram-dependent tasks as required, but keep text-sufficient questions visualRequirement="none"; never add decorative or answer-revealing visuals.',
@@ -221,14 +221,12 @@ function buildPrompt(args: { gradeLevel: string; learningArea: string; title: st
 }
 
 function validateProviderPlan(value: Row, buckets: Bucket[], totalPoints: number, visualPolicy: VisualPolicy, learningArea: string) {
-  if (Object.keys(value).some((key) => key !== 'entries') || !Array.isArray(value.entries) || !value.entries.length || value.entries.length > 500) throw new Error('Gemini returned an invalid master-plan envelope.')
+  if (!value || typeof value !== 'object' || !Array.isArray(value.entries) || !value.entries.length || value.entries.length > 500) throw new Error('Gemini returned an invalid master-plan envelope.')
   const bucketMap = new Map(buckets.map((bucket) => [bucket.id, bucket]))
   const totals = new Map<string, number>()
   let overall = 0
   const entries = value.entries.map((raw, index) => {
     const row = object(raw)
-    const allowedKeys = new Set(['bucketId', 'questionType', 'pointsPossible', 'taskIntent', 'visualRequirement', 'visualIntent'])
-    if (Object.keys(row).some((key) => !allowedKeys.has(key))) throw new Error(`Master-plan entry ${index + 1} included unsupported fields.`)
     const bucketId = clean(row.bucketId, 180)
     const bucket = bucketMap.get(bucketId)
     const questionType = clean(row.questionType, 50) as AssessmentQuestionType
@@ -258,7 +256,13 @@ function validateProviderPlan(value: Row, buckets: Bucket[], totalPoints: number
 }
 
 function providerRetryEligible(error: unknown) {
-  return error instanceof GeminiHttpError && [408, 425, 429, 500, 502, 503, 504, 404].includes(error.status)
+  if (error instanceof GeminiHttpError) {
+    if (error.status === 401 || error.status === 403) return false
+    return true
+  }
+  if (error instanceof GeminiResponseError) return true
+  if (error instanceof Error) return true
+  return false
 }
 
 function errorMessage(error: unknown) {

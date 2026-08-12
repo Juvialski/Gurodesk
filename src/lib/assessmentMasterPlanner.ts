@@ -21,10 +21,13 @@ type ProviderEntry = {
 
 function clean(value: unknown, max = 2000) { return typeof value === 'string' ? value.trim().slice(0, max) : '' }
 
-function localBucketPlan(bucket: AssessmentV2PointBucket, setup: AssessmentV2Setup, learningArea: string): ProviderEntry[] {
-  const eligible = plannerEligibleTypesForCpd(setup.allowedTypes, bucket.cpdKey, learningArea)
+function localBucketPlan(bucket: AssessmentV2PointBucket, setup: AssessmentV2Setup, learningArea: string, bucketIndex = 0): ProviderEntry[] {
+  const rawEligible = plannerEligibleTypesForCpd(setup.allowedTypes, bucket.cpdKey, learningArea)
     .map((questionType) => ({ questionType, ...QUESTION_TYPE_POINT_RULES[questionType] }))
-    .sort((left, right) => right.preferred - left.preferred || left.questionType.localeCompare(right.questionType, 'en'))
+  // Rotate types based on bucketIndex to ensure diverse representation across selected formats
+  const rotateCount = rawEligible.length > 0 ? bucketIndex % rawEligible.length : 0
+  const rotated = [...rawEligible.slice(rotateCount), ...rawEligible.slice(0, rotateCount)]
+  const eligible = rotated.sort((left, right) => right.preferred - left.preferred)
   const total = bucket.pointsAllocated
   const dp: Array<Array<{ questionType: QuestionType; points: number }> | null> = new Array(total + 1).fill(null)
   dp[0] = []
@@ -116,7 +119,7 @@ export async function createAssessmentMasterPlan(args: {
   const pointBuckets = setupValidation.pointBuckets
 
   if (args.demo || !supabase) {
-    const raw = { entries: interleaveByBucket(pointBuckets.map((bucket) => localBucketPlan(bucket, args.setup, args.tos.content.learningArea))) }
+    const raw = { entries: interleaveByBucket(pointBuckets.map((bucket, index) => localBucketPlan(bucket, args.setup, args.tos.content.learningArea, index))) }
     const plan = validateAndFinalizeMasterPlan(raw, {
       pointBuckets,
       allowedTypes: args.setup.allowedTypes,

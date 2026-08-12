@@ -158,13 +158,25 @@ function svgElement(element: AssessmentVisualElement, index: number, axes: Map<s
  * Serialize only validated visual primitives. No caller-provided SVG, HTML,
  * style, marker, or attribute text is copied into the output.
  */
-export function assessmentVisualSvgMarkup(visual: AssessmentVisual): string {
-  if (!validateAssessmentVisual(visual).valid) return ''
-  if (visual.tikzCode) return getAssessmentTikzRenderedSvg(visual)
+function primitiveAssessmentVisualSvgMarkup(visual: AssessmentVisual): string {
+  if (!visual.primitives.length) return ''
+  const primitiveVisual = visual.tikzCode ? { ...visual, tikzCode: undefined } : visual
+  if (!validateAssessmentVisual(primitiveVisual).valid) return ''
   const axes = new Map<string, AssessmentVisualCartesianAxes>()
-  visual.primitives.forEach((element) => { if (element.type === 'cartesianAxes') axes.set(element.axisId, element) })
-  const body = visual.primitives.map((element, index) => svgElement(element, index, axes)).join('')
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${visual.width} ${visual.height}" role="img" aria-label="${escapeXml(visual.altText)}"><title>${escapeXml(visual.altText)}</title>${body}</svg>`
+  primitiveVisual.primitives.forEach((element) => { if (element.type === 'cartesianAxes') axes.set(element.axisId, element) })
+  const body = primitiveVisual.primitives.map((element, index) => svgElement(element, index, axes)).join('')
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${primitiveVisual.width} ${primitiveVisual.height}" role="img" aria-label="${escapeXml(primitiveVisual.altText)}"><title>${escapeXml(primitiveVisual.altText)}</title>${body}</svg>`
+}
+
+export function assessmentVisualSvgMarkup(visual: AssessmentVisual): string {
+  if (visual.tikzCode && validateAssessmentVisual(visual).valid) {
+    const renderedTikz = getAssessmentTikzRenderedSvg(visual)
+    if (renderedTikz) return renderedTikz
+  }
+  // Structured V2 visuals keep their validated primitives alongside TikZ.
+  // Prefer the high-quality cached TikZ render, but never make Word/print
+  // depend on a live TikZJax render when an equivalent safe fallback exists.
+  return primitiveAssessmentVisualSvgMarkup(visual)
 }
 
 function mapped(target: AssessmentVisualRenderTarget, visual: AssessmentVisual, x: number, y: number) {
@@ -223,14 +235,17 @@ function drawCartesianAxesPdf(doc: jsPDF, visual: AssessmentVisual, target: Asse
 
 /** Draw validated primitives directly into the dedicated jsPDF document. */
 export function drawAssessmentVisualPdf(doc: jsPDF, visual: AssessmentVisual, target: AssessmentVisualRenderTarget): boolean {
-  if (!validateAssessmentVisual(visual).valid || target.width <= 0 || target.height <= 0) return false
-  if (visual.tikzCode) {
+  if (target.width <= 0 || target.height <= 0) return false
+  if (visual.tikzCode && validateAssessmentVisual(visual).valid) {
     const png = getAssessmentTikzRenderedPng(visual)
-    if (!png) return false
-    doc.addImage(png, 'PNG', target.x, target.y, target.width, target.height, undefined, 'FAST')
-    return true
+    if (png) {
+      doc.addImage(png, 'PNG', target.x, target.y, target.width, target.height, undefined, 'FAST')
+      return true
+    }
   }
-  const scale = Math.min(target.width / visual.width, target.height / visual.height)
+  const primitiveVisual = visual.tikzCode ? { ...visual, tikzCode: undefined } : visual
+  if (!primitiveVisual.primitives.length || !validateAssessmentVisual(primitiveVisual).valid) return false
+  const scale = Math.min(target.width / primitiveVisual.width, target.height / primitiveVisual.height)
   const axes = new Map<string, AssessmentVisualCartesianAxes>()
   visual.primitives.forEach((element) => { if (element.type === 'cartesianAxes') axes.set(element.axisId, element) })
   visual.primitives.forEach((element) => {

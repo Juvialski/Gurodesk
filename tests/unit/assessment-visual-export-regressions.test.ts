@@ -33,6 +33,22 @@ describe('validated visual export regressions', () => {
     expect(marked).toContain('stroke-linejoin="round"')
   })
 
+
+  it('exports structured TikZ visuals through safe primitives when the live TikZ cache is unavailable', () => {
+    const visual = {
+      ...ASSESSMENT_VISUAL_FIXTURES.marksAndLabels,
+      id: 'structured-export-fallback',
+      tikzCode: String.raw`\begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture`,
+    }
+    const markup = assessmentVisualSvgMarkup(visual)
+    expect(markup).toContain('<svg')
+    expect(markup).toContain('<polyline')
+
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' })
+    expect(drawAssessmentVisualPdf(doc, visual, { x: 40, y: 80, width: 360, height: 240 })).toBe(true)
+    expect((doc.output('arraybuffer') as ArrayBuffer).byteLength).toBeGreaterThan(500)
+  })
+
   it('draws validated primitives into the dedicated jsPDF document and rejects invalid visuals', () => {
     const visual = ASSESSMENT_VISUAL_FIXTURES.marksAndLabels
     const doc = new jsPDF({ unit: 'pt', format: 'a4' })

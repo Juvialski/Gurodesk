@@ -1,5 +1,6 @@
 import { DOMParser, XMLSerializer } from '@xmldom/xmldom'
 import type { AssessmentVisual } from '../types/assessmentVisual'
+import { validateAssessmentVisual } from './assessmentVisualValidation'
 
 const svgCache = new Map<string, string>()
 const pngCache = new Map<string, string>()
@@ -127,11 +128,13 @@ async function rasterize(svg: string, width: number, height: number) {
 }
 
 export function cacheAssessmentTikzRenderedSvg(visual: AssessmentVisual, markup: string) {
+  if (!visual.tikzCode || !validateAssessmentVisual(visual).valid) return false
   const sanitized = sanitizeAssessmentTikzSvg(markup)
-  if (!sanitized || !visual.tikzCode) return
+  if (!sanitized) return false
   const cacheKey = key(visual)
   svgCache.set(cacheKey, sanitized)
   void rasterize(sanitized, Math.max(1, visual.width), Math.max(1, visual.height)).then((png) => { if (png) pngCache.set(cacheKey, png) })
+  return true
 }
 
 export function getAssessmentTikzRenderedSvg(visual: AssessmentVisual) { return visual.tikzCode ? svgCache.get(key(visual)) ?? '' : '' }
@@ -139,21 +142,38 @@ export function getAssessmentTikzRenderedPng(visual: AssessmentVisual) { return 
 
 export type AssessmentTikzRenderTarget = 'print' | 'docx' | 'pdf'
 
-function readyForTarget(visual: AssessmentVisual, target: AssessmentTikzRenderTarget) {
+function hasValidatedPrimitiveFallback(visual: AssessmentVisual) {
+  if (!visual.primitives.length) return false
+  // V2 visuals intentionally persist both the app-owned TikZ source and the
+  // bounded primitives that produced it. Validate the primitive-only form so a
+  // renderer/CDN failure cannot make an otherwise safe diagram unexportable.
+  return validateAssessmentVisual({ ...visual, tikzCode: undefined }).valid
+}
+
+function renderedForTarget(visual: AssessmentVisual, target: AssessmentTikzRenderTarget) {
   if (!visual.tikzCode) return true
-  const svg = Boolean(getAssessmentTikzRenderedSvg(visual))
-  if (target === 'print') return svg
-  if (target === 'docx') return svg
-  return Boolean(getAssessmentTikzRenderedPng(visual))
+  if (target === 'pdf') return Boolean(getAssessmentTikzRenderedPng(visual))
+  return Boolean(getAssessmentTikzRenderedSvg(visual))
+}
+
+function requiredForTarget(visual: AssessmentVisual) {
+  return Boolean(visual.tikzCode) && !hasValidatedPrimitiveFallback(visual)
 }
 
 export async function waitForAssessmentTikzRenders(visuals: readonly AssessmentVisual[], target: AssessmentTikzRenderTarget = 'print', timeoutMs = 12000) {
-  const direct = visuals.filter((visual) => Boolean(visual.tikzCode))
-  if (!direct.length) return true
+  const tikzVisuals = visuals.filter((visual) => Boolean(visual.tikzCode))
+  if (!tikzVisuals.length) return true
+
+  const required = tikzVisuals.filter(requiredForTarget)
   const start = Date.now()
+  // Give TikZJax a short grace period so exports still prefer its rendered
+  // output when it is available. Structured V2 visuals then fall back to their
+  // already-validated primitives instead of blocking the whole download.
+  const preferredWaitMs = Math.min(timeoutMs, 2500)
   while (Date.now() - start < timeoutMs) {
-    if (direct.every((visual) => readyForTarget(visual, target))) return true
+    if (tikzVisuals.every((visual) => renderedForTarget(visual, target))) return true
+    if (Date.now() - start >= preferredWaitMs && required.every((visual) => renderedForTarget(visual, target))) return true
     await new Promise((resolve) => setTimeout(resolve, 120))
   }
-  return direct.every((visual) => readyForTarget(visual, target))
+  return required.every((visual) => renderedForTarget(visual, target))
 }

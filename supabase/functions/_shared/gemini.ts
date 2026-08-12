@@ -108,7 +108,7 @@ export function extractGeminiText(result: unknown): GeminiTextResult {
   if (!reason) throw new GeminiResponseError('UNKNOWN_FINISH_REASON', 'Gemini returned a response without a finish reason.')
   if (reason === 'MAX_TOKENS') throw new GeminiResponseError('MAX_TOKENS', 'Gemini stopped before completing the assessment response.', reason)
   if (reason && safetyReason(reason)) throw new GeminiResponseError('BLOCKED_SAFETY', 'Gemini blocked the assessment response for safety reasons.', reason)
-  if (reason && reason !== 'STOP') throw new GeminiResponseError('UNKNOWN_FINISH_REASON', 'Gemini stopped without a usable assessment response.', reason)
+  if (reason && reason !== 'STOP' && reason !== 'OTHER') throw new GeminiResponseError('UNKNOWN_FINISH_REASON', 'Gemini stopped without a usable assessment response.', reason)
 
   const content = candidate.content
   const parts = content && typeof content === 'object' && !Array.isArray(content)
@@ -156,12 +156,17 @@ export async function callGeminiDetailed(
   configOverrides: Record<string, unknown> = {},
 ): Promise<GeminiTextResult> {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`
+  
+  const config = generationConfigFor(model, configOverrides)
+  delete config.maxOutputTokens
+  config.thinkingConfig = { thinkingLevel: 'HIGH' }
+
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
     body: JSON.stringify({
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: generationConfigFor(model, configOverrides),
+      generationConfig: config,
     }),
   })
 

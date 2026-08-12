@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { assessmentVisualSemanticFindings } from '../../src/lib/assessmentFinalQa'
+import { ASSESSMENT_VISUAL_FIXTURES } from '../../src/lib/assessmentVisualFixtures'
 import { reserveAssessmentRequiredVisualSlots, resolveAssessmentVisualPlans, resolveAssessmentVisualPlansForRecord } from '../../src/lib/assessmentVisualPlanning'
 import { extractAssessmentTikzNodeTexts, normalizeAssessmentTikzLearnerText, validateAssessmentTikzSource } from '../../src/lib/assessmentTikzSafety'
 import { cacheAssessmentTikzRenderedSvg, sanitizeAssessmentTikzSvg, waitForAssessmentTikzRenders } from '../../src/lib/assessmentTikzRenderCache'
@@ -197,14 +198,23 @@ describe('TikZ and rendered SVG safety boundaries', () => {
     expect(validateAssessmentTikzSource(String.raw`\begin{tikzpicture}\draw (2001,0)--(1,1);\end{tikzpicture}`).valid).toBe(false)
   })
 
-  it('uses stable SVG readiness for print and DOCX while keeping PDF dependent on rasterization', async () => {
+  it('uses stable SVG readiness for direct-only TikZ while allowing validated structured fallbacks', async () => {
     const visual = directVisual('A')
-    cacheAssessmentTikzRenderedSvg(visual, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M0 0L10 10"/></svg>')
+    expect(cacheAssessmentTikzRenderedSvg(visual, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M0 0L10 10"/></svg>')).toBe(true)
     expect(await waitForAssessmentTikzRenders([visual], 'print', 0)).toBe(true)
     expect(await waitForAssessmentTikzRenders([visual], 'docx', 0)).toBe(true)
-    // Node tests have no browser canvas/Image, so a PNG cannot appear. This
-    // proves PDF readiness does not incorrectly fall back to SVG-only state.
+    // Node tests have no browser canvas/Image, so a direct-only TikZ visual
+    // still cannot become PDF-ready without its raster cache.
     expect(await waitForAssessmentTikzRenders([visual], 'pdf', 0)).toBe(false)
+
+    const structured = {
+      ...ASSESSMENT_VISUAL_FIXTURES.marksAndLabels,
+      id: 'structured-tikz-fallback-readiness',
+      tikzCode: String.raw`\begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture}`,
+    }
+    expect(await waitForAssessmentTikzRenders([structured], 'print', 0)).toBe(true)
+    expect(await waitForAssessmentTikzRenders([structured], 'docx', 0)).toBe(true)
+    expect(await waitForAssessmentTikzRenders([structured], 'pdf', 0)).toBe(true)
   })
 
   it('sanitizes safe SVG with a DOM allowlist and rejects active/remote/unsupported SVG content', () => {
@@ -217,5 +227,6 @@ describe('TikZ and rendered SVG safety boundaries', () => {
     expect(sanitizeAssessmentTikzSvg('<svg xmlns="http://www.w3.org/2000/svg"><path style="fill:url(https://example.com/a)" d="M0 0L1 1"/></svg>')).toBe('')
     expect(sanitizeAssessmentTikzSvg('<?xml-stylesheet href="https://example.com/a.css"?><svg xmlns="http://www.w3.org/2000/svg"/>')).toBe('')
     expect(sanitizeAssessmentTikzSvg('<svg xmlns="http://www.w3.org/2000/svg" xmlns:evil="https://example.com"><evil:x/></svg>')).toBe('')
+    expect(cacheAssessmentTikzRenderedSvg(directVisual('unsafe-cache-result'), '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>')).toBe(false)
   })
 })
