@@ -431,3 +431,6 @@ Static release guards cover the separated visual operation, one-retry visual-onl
 See `docs/UI_UPGRADE_IMPLEMENTATION_MANIFEST_20260811.md` and
 `UI_UPGRADE_VALIDATION_REPORT_20260811.md` for the complete scope and release
 evidence.
+## 2026-08-12 — Assessment Generation V2 Render TS2345 build hotfix
+
+Render exposed a project-wide TypeScript error that the earlier isolated V2 validation did not catch: `src/lib/assessmentRepository.ts:704` treated the canonical master plan as `AssessmentMasterPlan | undefined` because the helper used the optional `settings.masterPlan` property type. The repository now imports and uses the concrete `AssessmentMasterPlan` type for the canonicalizer and `createAssessmentFromMasterPlan`. This is a type-contract-only hotfix; it does not change master-plan behavior, migrations, Edge payloads, CPD allocation, point ranges, or legacy assessment behavior. See `ASSESSMENT_GENERATION_V2_BUILD_HOTFIX_20260812.md`.

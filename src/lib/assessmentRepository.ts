@@ -3,6 +3,7 @@ import type {
   AssessmentAuthorshipState,
   AssessmentBlueprint,
   AssessmentItem,
+  AssessmentMasterPlan,
   AssessmentRecord,
   AssessmentTosSnapshot,
   QuestionType,
@@ -649,9 +650,9 @@ export async function createAssessmentFromFinalTos(
 }
 
 function canonicalizeV2MasterPlanForTos(
-  masterPlan: NonNullable<AssessmentRecord['settings']>['masterPlan'],
+  masterPlan: AssessmentMasterPlan,
   tos: TosRecord,
-): NonNullable<AssessmentRecord['settings']>['masterPlan'] {
+): AssessmentMasterPlan {
   if (!masterPlan) throw new Error('A validated master plan is required.')
   const rows = new Map(tos.content.rows.map((row) => [row.id, row]))
   const pointBuckets = masterPlan.pointBuckets.map((bucket) => {
@@ -688,7 +689,7 @@ function canonicalizeV2MasterPlanForTos(
 
 export async function createAssessmentFromMasterPlan(
   tos: TosRecord,
-  masterPlan: NonNullable<AssessmentRecord['settings']>['masterPlan'],
+  masterPlan: AssessmentMasterPlan,
   userId: string,
   demo: boolean,
   title?: string,
