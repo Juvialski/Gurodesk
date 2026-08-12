@@ -100,7 +100,14 @@ function TosSimpleFlow({
 
       <div className="workflow-step-card">
         <div className="workflow-step-heading"><span>2</span><div><strong>What was covered?</strong><small>Select every verified competency you actually taught. Nothing is selected for you.</small></div><span className="workflow-count-badge">{selectedCount} selected</span></div>
-        {!bundle?.available ? <div className="workflow-warning">No verified curriculum bundle is available for this class. GuroDesk will not invent competency rows.</div> : <>
+        {!bundle?.available ? (
+          <div className="workflow-warning">
+            <strong>No verified curriculum bundle is available for this class.</strong>
+            <p style={{ marginTop: '4px', fontSize: '11px', opacity: 0.9 }}>
+              {bundle?.coverageNote || 'GuroDesk will not invent competency rows.'}
+            </p>
+          </div>
+        ) : <>
           <label className="workflow-search"><Search size={16} /><span className="sr-only">Search verified competencies</span><input value={search} onChange={(event) => onSearchChange(event.target.value)} placeholder="Search by code or competency" /></label>
           <div className="workflow-competency-list">{visibleCompetencies.map((competency) => {
             const selected = selectedIds.has(competency.id) || record.content.rows.some((row) => sameVerifiedSnapshot(row, competency))
@@ -441,7 +448,17 @@ export function TosEditorPage() {
 
         <section className="panel tos-section">
           <div className="tos-section-heading"><span>2</span><div><h2>Verified competencies</h2><p>Select only the competencies actually covered for this assessment.</p></div></div>
-          {!bundle?.available ? <div className="tos-inline-warning"><CircleAlert size={17} /> No verified curriculum bundle is available for this assignment.</div> : <div className="tos-competency-picker">
+          {!bundle?.available ? (
+            <div className="tos-inline-warning" style={{ flexDirection: 'column', gap: '4px' }}>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <CircleAlert size={17} />
+                <strong>No verified curriculum bundle is available for this assignment.</strong>
+              </div>
+              <p style={{ margin: '4px 0 0 25px', fontSize: '10px', opacity: 0.9 }}>
+                {bundle?.coverageNote || 'GuroDesk will not invent competency rows.'}
+              </p>
+            </div>
+          ) : <div className="tos-competency-picker">
             <button aria-controls="tos-competency-options" aria-expanded={pickerOpen} aria-haspopup="listbox" className={`competency-picker-trigger ${pickerOpen ? 'open' : ''}`} disabled={readOnly} type="button" onClick={() => setPickerOpen((value) => !value)}><span>{record.content.rows.length ? `${record.content.rows.length} verified competenc${record.content.rows.length === 1 ? 'y' : 'ies'} selected` : 'Choose verified competencies'}</span><ChevronDown size={17} /></button>
             {pickerOpen && <div className="competency-picker-panel"><label className="tos-picker-search"><Search size={15} /><span className="sr-only">Search verified competencies</span><input aria-label="Search verified competencies" autoFocus value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search code or competency" /></label><div className="competency-picker-summary"><span>{visibleCompetencies.length} in selected curriculum period(s)</span><button type="button" onClick={() => setPickerOpen(false)}>Done</button></div><div aria-multiselectable="true" className="competency-picker-list" id="tos-competency-options" role="listbox">{visibleCompetencies.map((competency) => { const selected = record.content.rows.some((row) => row.competency.id === competency.id || sameVerifiedSnapshot(row, competency)); return <button aria-selected={selected} className={`competency-picker-option ${selected ? 'selected' : ''}`} role="option" type="button" key={competency.id} onClick={() => toggleCompetency(competency.id)}><span className="competency-picker-number">{selected ? <Check size={15} /> : competency.sortOrder}</span><span className="competency-picker-copy"><small>{competency.competencyCode || 'Verified competency'}{competency.sourcePage ? ` · source p. ${competency.sourcePage}` : ''}</small><strong>{competency.competencyText}</strong></span></button>})}{!visibleCompetencies.length && <div className="competency-picker-empty">No verified competencies match this period and search.</div>}</div></div>}
           </div>}

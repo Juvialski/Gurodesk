@@ -12,18 +12,16 @@ This checklist is written for a phone-only handoff.  It does not require VS Code
 ## 2. Apply Supabase database changes
 
 1. In Supabase Dashboard, open the project's database migration/deploy workflow connected to the GitHub `main` branch.
-2. Confirm migrations 001–026 are present, ending with `202608100026_phase6_publish_curriculum_subject_id_hotfix.sql`. Do not create or expect a migration 027 for the official curriculum pack.
-3. Review the generated migration preview.  These migrations are additive/corrective; do not edit already-applied migrations in place.
-4. Apply to a staging project first where possible, then production.
+2. Confirm migrations are present, now ending with the automated `202608120030_seed_official_curriculum.sql`.
+3. Review the generated migration preview. These migrations are additive/corrective; do not edit already-applied migrations in place.
+4. Apply to your linked Supabase database. The new `202608120030_seed_official_curriculum.sql` migration automatically imports the complete national curriculum of 6,181 verified competencies (including Grade 7 Science, English, etc.) directly into your database.
 
-## 3. Import the official curriculum pack
+## 3. Official curriculum pack automation
 
-1. After migrations finish, import `supabase/seeds/official-curriculum-complete.sql` with stop-on-error enabled.
-2. Apply it to staging first. Rerun the same seed and confirm the second import is clean; the generated upserts are intentionally idempotent.
-3. Smoke-test Curriculum Navigator, official curriculum selection, and competency selection before production import.
+1. The complete 17 MB official curriculum seed (`supabase/seeds/official-curriculum-complete.sql`) is now bundled as an automated database migration. This ensures it deploys automatically and runs exactly once on remote databases without manual SQL paste or CLI commands.
+2. The generated upserts are intentionally idempotent and can be re-run safely if needed.
+3. Smoke-test Curriculum Navigator, official curriculum selection, and competency selection once migrations complete.
 4. Do not hand-edit the 17 MB seed. Update the verified manifests and run `npm run curriculum:generate:bundle` if a reviewed source pack changes.
-
-The official pack uses the existing Phase 6 schema and adds no migration. Phase B changes no Edge Function.
 
 ## 4. Deploy Edge Functions
 
