@@ -55,9 +55,9 @@ function languageInstruction(preference: string, localLanguage: string) { const 
 function rawAnswerShapeInstruction(type: QuestionType) {
   if (type === 'multiple_choice') return 'answer must be {"type":"multiple_choice","choices":[{"id":"A","text":"..."},{"id":"B","text":"..."},{"id":"C","text":"..."},{"id":"D","text":"..."}],"choiceId":"A"}. Use 3–5 plausible unique choices and exactly one correct choiceId.'
   if (type === 'true_false') return 'answer must be exactly {"type":"true_false","value":true} or the same with false.'
-  if (type === 'short_answer') return 'answer must be {"type":"short_answer","acceptedAnswers":["..."],"caseSensitive":false}. Include every clearly equivalent concise answer that should be accepted.'
-  if (type === 'identification') return 'answer must be {"type":"identification","acceptedAnswers":["..."],"caseSensitive":false}. Keep the prompt suitable for identifying one term/name/concept.'
-  if (type === 'fill_in_the_blank') return 'answer must be {"type":"fill_in_the_blank","blanks":[{"id":"blank-1","acceptedAnswers":["..."]}]}. The prompt must visibly mark each blank using a readable token such as _____ or [blank]. Every blank needs one or more genuinely distinct accepted answers; do not repeat capitalization-only or punctuation-only variants. Omit per-blank points unless every blank has an explicit positive value summing exactly to the fixed item points.'
+  if (type === 'short_answer') return 'answer must be {"type":"short_answer","acceptedAnswers":["..."],"caseSensitive":false}. Include every clearly equivalent concise answer that should be accepted. LEARNER-PROMPT RULE: no accepted-answer string may appear verbatim in the prompt, including inside examples, parentheses, hints, labels, or restatements; ask for the result/relationship/explanation without stating it.'
+  if (type === 'identification') return 'answer must be {"type":"identification","acceptedAnswers":["..."],"caseSensitive":false}. Keep the prompt suitable for identifying one term/name/concept. LEARNER-PROMPT RULE: describe the distinguishing properties or evidence without naming any accepted answer; no accepted-answer string may appear verbatim anywhere in the prompt.'
+  if (type === 'fill_in_the_blank') return 'answer must be {"type":"fill_in_the_blank","blanks":[{"id":"blank-1","acceptedAnswers":["..."]}]}. The prompt must visibly mark each blank using a readable token such as _____ or [blank]. Every blank needs one or more genuinely distinct accepted answers; do not repeat capitalization-only or punctuation-only variants. LEARNER-PROMPT RULE: every target answer must be hidden by its blank marker and must not be repeated elsewhere in the prompt, examples, parentheses, hints, or labels. Omit per-blank points unless every blank has an explicit positive value summing exactly to the fixed item points.'
   if (type === 'numerical_answer') return 'answer must be {"type":"numerical_answer","value":12,"tolerance":0,"unit":"cm","requireUnit":true}. value and tolerance must be finite JSON numbers; omit unit/requireUnit when no unit is needed.'
   if (type === 'problem_solving') return 'answer must be {"type":"problem_solving","finalAnswer":"...","solutionOutline":"..."}. Include optional subparts only when the fixed point value justifies multiple scored steps.'
   if (type === 'matching') return 'answer must be {"type":"matching","prompts":[{"id":"p1","text":"..."}],"choices":[{"id":"A","text":"..."}],"mappings":[{"promptId":"p1","choiceId":"A"}],"reusableChoices":false}. Include at least two prompts and enough unique choices; extra distractor choices are allowed.'
@@ -96,6 +96,9 @@ function buildGenerationPrompt(type: QuestionType, immutable: Row, language: str
     'Return one JSON object only with exactly these top-level keys: questionType, prompt, answer, rationale, referencedResources, visualRequirement, visualIntent.',
     `questionType must be exactly "${type}".`,
     answerShapeInstruction(type),
+    (type === 'short_answer' || type === 'identification' || type === 'fill_in_the_blank')
+      ? 'ANTI-ANSWER-LEAK RULE: accepted answer text belongs only in the answer object. Never copy an accepted answer into the learner prompt, even when the competency or master-plan task intent contains that term.'
+      : 'Do not place the correct answer in learner-facing hints or labels.',
     `referencedResources must be ${resources.length ? 'an array containing only exact teacher-listed resource strings actually used' : 'an empty array [] because the teacher supplied no resources'}.`,
     plannedVisual.requirement === 'required'
       ? 'VISUAL CONTRACT (MANDATORY): this slot was selected BEFORE question generation as a REQUIRED visual item. Return visualRequirement exactly "required". Write a prompt that explicitly tells the learner to use/refer to the diagram/figure/graph. At least one ESSENTIAL given, label, measure, position, or relationship needed to solve the question must appear only in the future diagram and MUST NOT be duplicated in the written stem. The question must be invalid/incomplete without the diagram; the visual is problem data, not decoration.'
@@ -288,6 +291,42 @@ function questionCorrectionAllowed(error: unknown) {
     || (error instanceof GeminiResponseError && (error.category === 'MALFORMED_JSON' || error.category === 'MALFORMED_PROVIDER_RESPONSE'))
 }
 
+function rejectedAcceptedAnswerTerms(candidate: Row | null, questionType: QuestionType) {
+  if (!candidate) return [] as string[]
+  const answer = object(candidate.answer)
+  const values: string[] = []
+  if (questionType === 'short_answer' || questionType === 'identification') {
+    values.push(...list(answer.acceptedAnswers, 12, 120))
+  } else if (questionType === 'fill_in_the_blank' && Array.isArray(answer.blanks)) {
+    for (const rawBlank of answer.blanks.slice(0, 12)) {
+      const blank = object(rawBlank)
+      values.push(...list(blank.acceptedAnswers, 8, 120))
+    }
+  }
+  const seen = new Set<string>()
+  return values.filter((value) => {
+    const key = value.normalize('NFKC').toLocaleLowerCase('en').trim()
+    if (!key || seen.has(key)) return false
+    seen.add(key)
+    return true
+  }).slice(0, 16)
+}
+
+function answerLeakCorrectionGuidance(error: unknown, candidate: Row | null, questionType: QuestionType) {
+  if (!(error instanceof AssessmentContractError) || error.category !== 'SEMANTIC_INVALID' || !/prompt revealed an accepted answer/i.test(error.message)) return [] as string[]
+  const forbidden = rejectedAcceptedAnswerTerms(candidate, questionType)
+  return [
+    'ANSWER-LEAK REPAIR (MANDATORY): rewrite the learner prompt so it does not contain any accepted answer verbatim or as an obvious parenthetical/example/hint.',
+    ...(forbidden.length ? [`Accepted-answer strings that MUST NOT appear in the learner prompt: ${JSON.stringify(forbidden)}.`] : []),
+    questionType === 'identification'
+      ? 'For identification, describe properties, conditions, relationships, or evidence that let the learner infer the term; never name the target term in the prompt.'
+      : questionType === 'fill_in_the_blank'
+        ? 'For fill in the blank, replace each target answer with a visible _____ or [blank] marker and do not repeat that answer elsewhere in the prompt.'
+        : 'For short answer, ask for the result, relationship, explanation, or conclusion without stating the accepted response in the question.',
+    'Keep the answer object correct. Changing wording is allowed; changing the fixed competency, cognitive demand, question type, points, or visual requirement is not.',
+  ]
+}
+
 function enforceGeneratedVisualPlan(candidate: Row, plannedVisual: { requirement: string; intent: string }, isV2: boolean) {
   if (plannedVisual.requirement === 'required') {
     if (clean(candidate.visualRequirement, 20) !== 'required' || !clean(candidate.visualIntent, 500) || !promptDependsOnVisual(candidate.prompt)) {
@@ -312,8 +351,10 @@ function enforceGeneratedVisualPlan(candidate: Row, plannedVisual: { requirement
  * - contract correction handles a completed response that fails GuroDesk's
  *   strict question-type/points/visual contract.
  *
- * The previous provider body is never echoed back. Only a bounded, static
- * validator message is supplied as correction guidance.
+ * The rejected provider body is never echoed back. For answer-leak failures,
+ * only the bounded accepted-answer strings from its typed answer object are
+ * supplied as forbidden learner-prompt terms so the single correction can
+ * repair the exact semantic defect without changing the frozen assessment.
  */
 async function generateValidatedQuestionCandidate(
   apiKey: string,
@@ -327,8 +368,10 @@ async function generateValidatedQuestionCandidate(
 ) {
   const initial = await callWithLiteFallback(apiKey, settings, prompt, questionType)
   let providerRequestCount = initial.providerRequestCount
+  let rejectedCandidate: Row | null = null
   try {
-    const validated = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(initial.output)), questionType, resources, true, immutable)
+    rejectedCandidate = canonicalQuestionProviderEnvelope(parseJson(initial.output))
+    const validated = validateCandidate(rejectedCandidate, questionType, resources, true, immutable)
     const candidate = enforceGeneratedVisualPlan(validated, plannedVisual, isV2)
     return { candidate, modelUsed: initial.modelUsed, fallbackUsed: initial.fallbackUsed, providerRequestCount }
   } catch (error) {
@@ -345,7 +388,9 @@ async function generateValidatedQuestionCandidate(
       '',
       'CORRECTION PASS: GuroDesk rejected the previous JSON before saving the question.',
       `Validation feedback: ${questionCorrectionFeedback(error) || 'The response did not satisfy the fixed assessment contract.'}`,
+      ...answerLeakCorrectionGuidance(error, rejectedCandidate, questionType),
       `Return one fresh JSON object for the same fixed question type (${questionType}).`,
+      'Do not copy the rejected prompt. Write a fresh learner-facing prompt that satisfies the correction feedback.',
       'Do not explain the correction. Do not add immutable fields. Preserve the fixed points, competency, cognitive category, and visual requirement.',
     ].join('\n')
 
@@ -635,7 +680,7 @@ Deno.serve(async (req) => {
       finishReason: error instanceof GeminiResponseError ? error.finishReason : undefined,
     })
     const providerStatus = error instanceof GeminiHttpError ? error.status : 0
-    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-12-question-contract-retry-v2', operation: diagnosticOperation }
+    const body: Row = { error: errorMessage(error), category: errorCategory(error), generatorContract: '2026-08-12-question-contract-retry-v3', operation: diagnosticOperation }
     if (diagnosticItemNumber !== undefined) body.itemNumber = diagnosticItemNumber
     if (diagnosticQuestionType) body.questionType = diagnosticQuestionType
     if (providerStatus) body.providerStatus = providerStatus

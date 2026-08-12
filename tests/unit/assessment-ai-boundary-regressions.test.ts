@@ -88,4 +88,13 @@ describe('assessment question-generator request boundary', () => {
     expect(source).toMatch(/saved item mapping|saved cognitive mapping/u)
     expect(source).toMatch(/Never alter the fixed item number, competency, cognitive category, question type, or points/u)
   })
+
+  it('gives the single contract-correction pass exact anti-answer-leak guidance', () => {
+    expect(source).toMatch(/rejectedAcceptedAnswerTerms/u)
+    expect(source).toMatch(/Accepted-answer strings that MUST NOT appear in the learner prompt/u)
+    expect(source).toMatch(/For identification, describe properties, conditions, relationships, or evidence/u)
+    expect(source).toMatch(/For fill in the blank, replace each target answer with a visible/u)
+    expect(source).toMatch(/Do not copy the rejected prompt/u)
+    expect(source).toMatch(/question-contract-retry-v3/u)
+  })
 })
