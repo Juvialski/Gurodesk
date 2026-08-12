@@ -33,7 +33,9 @@ test('saves an assessment, reloads it, and keeps preview/export geometry usable 
   await expect(appPage.getByText(renderedPromptText, { exact: true })).toBeVisible()
   await expect(appPage.locator('.assessment-print-stage')).not.toContainText('\\angle')
   await expect(appPage.locator('.assessment-print-stage')).not.toContainText('$')
-  const previewDiagram = appPage.locator('.assessment-print-stage svg.assessment-document-question-visual').first()
+  const previewDiagramShell = appPage.locator('.assessment-print-stage .assessment-document-question-visual').first()
+  await expect(previewDiagramShell).toBeVisible()
+  const previewDiagram = previewDiagramShell.locator('svg.assessment-diagram').first()
   await expect(previewDiagram).toBeVisible()
   await expect(previewDiagram).toHaveAttribute('viewBox', '0 0 360 240')
 

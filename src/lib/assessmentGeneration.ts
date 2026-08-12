@@ -488,6 +488,49 @@ export function applyAssessmentItemSuggestion(item: AssessmentItem, suggestion: 
   return { ...applied, qaState: qaState as AssessmentItem['qaState'] }
 }
 
+/**
+ * Finalize the same AI-owned question that was persisted by `onQuestionReady`.
+ *
+ * Assessment Generation V2 checkpoints the validated provider question before
+ * its bounded QA/verifier pass finishes.  The ordinary replacement guard must
+ * continue to reject arbitrary existing content, so this narrow helper only
+ * permits the final QA result when the persisted row is still byte-for-byte the
+ * same AI checkpoint for the same immutable item.  A teacher edit, lock, mapping
+ * change, point change, or another generated version is preserved and rejected.
+ */
+export function applyCheckpointedAssessmentItemSuggestion(
+  current: AssessmentItem,
+  checkpointed: AssessmentItem,
+  suggestion: AssessmentItemSuggestion,
+) {
+  const unchangedCheckpoint = current.id === checkpointed.id
+    && suggestion.itemId === current.id
+    && current.authorshipState === 'ai_suggestion'
+    && current.locked !== true
+    && current.qaState !== 'locked'
+    && current.itemNumber === checkpointed.itemNumber
+    && current.questionType === checkpointed.questionType
+    && current.pointsPossible === checkpointed.pointsPossible
+    && current.points === checkpointed.points
+    && current.planEntryId === checkpointed.planEntryId
+    && current.prompt === checkpointed.prompt
+    && current.rationale === checkpointed.rationale
+    && current.teacherNotes === checkpointed.teacherNotes
+    && JSON.stringify(current.answer) === JSON.stringify(checkpointed.answer)
+    && JSON.stringify(current.mapping) === JSON.stringify(checkpointed.mapping)
+    && JSON.stringify(current.competencySnapshot) === JSON.stringify(checkpointed.competencySnapshot)
+    && JSON.stringify(current.cognitiveCategorySnapshot) === JSON.stringify(checkpointed.cognitiveCategorySnapshot)
+
+  if (!unchangedCheckpoint) {
+    throw new Error('The checkpointed AI question changed before final QA completed. Existing content was preserved; retry only the remaining blank questions.')
+  }
+
+  return applyAssessmentItemSuggestion(current, suggestion, {
+    alternative: true,
+    source: suggestion.repairAttempted ? 'repair' : 'generated',
+  })
+}
+
 /** Teacher approval is one action: accepting an AI suggestion also locks the
  * accepted item. Unlock remains explicit when a teacher wants to edit it later. */
 export function acceptAssessmentItemSuggestion(item: AssessmentItem, suggestion: AssessmentItemSuggestion) {

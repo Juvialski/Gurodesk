@@ -180,7 +180,7 @@ export async function loginAndOpenWorkspace(page: Page) {
 export async function openAssessmentList(page: Page) {
   await page.goto('/assessments')
   await expect(page.getByRole('heading', { name: 'Assessments' })).toBeVisible()
-  await expect(page.getByText(/Finalized TOS → teacher-reviewed items/)).toBeVisible()
+  await expect(page.getByText(/Finalized TOS → point plan → teacher review/)).toBeVisible()
 }
 
 function e2eSupabaseConfig() {

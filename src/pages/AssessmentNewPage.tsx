@@ -4,7 +4,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
-import { applyAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion } from '../lib/assessmentGeneration'
+import { applyAssessmentItemSuggestion, applyCheckpointedAssessmentItemSuggestion, enrichAssessmentVisualsSequentially, generateAssessmentItemSuggestion, hasExistingAssessmentContent } from '../lib/assessmentGeneration'
 import { createAssessmentMasterPlan } from '../lib/assessmentMasterPlanner'
 import { minimumAssessmentV2Points, validateAssessmentV2Setup, type AssessmentV2Setup } from '../lib/assessmentGenerationV2'
 import { createAssessmentFromMasterPlan, saveAssessmentDocument, saveAssessmentItemVisualCheckpoint } from '../lib/assessmentRepository'
@@ -112,13 +112,14 @@ export function AssessmentNewPage() {
         setWorkingRecord(working)
       }
 
-      const pendingQuestions = working.items.filter((item) => item.authorshipState === 'empty' || !item.prompt.trim())
+      const pendingQuestions = working.items.filter((item) => !hasExistingAssessmentContent(item))
       let completedQuestions = working.items.length - pendingQuestions.length
       setGeneration({ stage: 'questions', current: completedQuestions, total: working.items.length, message: pendingQuestions.length ? 'Generating questions from the frozen master plan…' : 'All questions are already saved.' })
 
       for (const pending of pendingQuestions) {
         if (controller.signal.aborted) throw new DOMException('Generation cancelled.', 'AbortError')
         const source = working.items.find((item) => item.id === pending.id) ?? pending
+        let checkpointedQuestion: AssessmentRecord['items'][number] | null = null
         const suggestion = await generateAssessmentItemSuggestion({
           assessment: working,
           item: source,
@@ -127,13 +128,15 @@ export function AssessmentNewPage() {
           signal: controller.signal,
           onQuestionReady: async (draftSuggestion) => {
             const savedDraftItem = applyAssessmentItemSuggestion(source, draftSuggestion, { source: 'generated' })
+            checkpointedQuestion = savedDraftItem
             working = replaceItem(working!, savedDraftItem)
             working = await saveAssessmentDocument(working, isDemo)
             setWorkingRecord(working)
           },
         })
         const currentItem = working.items.find((item) => item.id === source.id) ?? source
-        const finishedItem = applyAssessmentItemSuggestion(currentItem, suggestion, { source: suggestion.repairAttempted ? 'repair' : 'generated' })
+        if (!checkpointedQuestion) throw new Error('The generated question was not checkpointed before QA completed. Existing assessment content was preserved.')
+        const finishedItem = applyCheckpointedAssessmentItemSuggestion(currentItem, checkpointedQuestion, suggestion)
         working = replaceItem(working, finishedItem)
         working = await saveAssessmentDocument(working, isDemo)
         setWorkingRecord(working)

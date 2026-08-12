@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import {
+  applyAssessmentItemSuggestion,
+  applyCheckpointedAssessmentItemSuggestion,
   generateMissingAssessmentItems,
   type AssessmentItemSuggestion,
 } from '../../src/lib/assessmentGeneration'
@@ -37,6 +39,35 @@ function items(count: number) {
 }
 
 describe('assessment generation batch accounting and resume regressions', () => {
+
+  it('finalizes only the exact AI question checkpointed before the QA pass', () => {
+    const source = assessmentItem('multiple_choice', { id: 'v2-checkpoint-item', itemNumber: 1 })
+    const passOne = suggestionFor(source.id)
+    const checkpointed = applyAssessmentItemSuggestion(source, passOne, { source: 'generated' })
+    const finalized = {
+      ...passOne,
+      qaState: 'verified' as const,
+      candidate: { ...passOne.candidate, rationale: 'Verifier-approved rationale.' },
+    }
+
+    const result = applyCheckpointedAssessmentItemSuggestion(checkpointed, checkpointed, finalized)
+
+    expect(result.prompt).toBe(checkpointed.prompt)
+    expect(result.rationale).toBe('Verifier-approved rationale.')
+    expect(result.qaState).toBe('verified')
+    expect(result.authorshipState).toBe('ai_suggestion')
+  })
+
+  it('refuses final QA replacement when the checkpoint was edited after it was saved', () => {
+    const source = assessmentItem('multiple_choice', { id: 'v2-protected-item', itemNumber: 1 })
+    const passOne = suggestionFor(source.id)
+    const checkpointed = applyAssessmentItemSuggestion(source, passOne, { source: 'generated' })
+    const teacherEdited = { ...checkpointed, prompt: 'Teacher changed this question.', authorshipState: 'teacher_edited' as const }
+
+    expect(() => applyCheckpointedAssessmentItemSuggestion(teacherEdited, checkpointed, passOne))
+      .toThrow(/Existing content was preserved/)
+  })
+
   it('reconciles Auto/Balanced 40-slot distribution around 16 completed MCQs without rewriting protected mappings', () => {
     const allTypes: AssessmentSettings = {
       mode: 'auto_balanced',
