@@ -7,6 +7,7 @@ const TIKZ_MAX_NESTING = 18
 const TIKZ_MAX_PATH_CHARS = 1800
 const TIKZ_MAX_PATH_OPERATORS = 120
 const TIKZ_MAX_NODE_TEXT = 500
+const TIKZ_MAX_ABS_COORDINATE = 2000
 
 const BLOCKED_COMMANDS = [
   'documentclass', 'usepackage', 'usetikzlibrary', 'tikzset', 'input', 'include', 'includegraphics', 'write', 'openout', 'read', 'immediate',
@@ -32,7 +33,7 @@ const ALLOWED_BARE_OPTIONS = new Set([
 ])
 const ALLOWED_OPTION_KEYS = new Set([
   'draw', 'fill', 'color', 'text', 'opacity', 'draw opacity', 'fill opacity', 'text opacity', 'line width', 'line cap', 'line join',
-  'rounded corners', 'radius', 'x radius', 'y radius', 'start angle', 'end angle', 'delta angle', 'rotate', 'scale', 'xscale', 'yscale', 'xshift', 'yshift', 'shift',
+  'rounded corners', 'x', 'y', 'radius', 'x radius', 'y radius', 'start angle', 'end angle', 'delta angle', 'rotate', 'scale', 'xscale', 'yscale', 'xshift', 'yshift', 'shift',
   'anchor', 'inner sep', 'outer sep', 'minimum size', 'minimum width', 'minimum height', 'align', 'font', 'pos', 'label', 'pin',
   'shorten >=', 'shorten <=', '>=', '<=', '->', '<-', '<->', 'stealth-', '-stealth', 'latex-', '-latex',
 ])
@@ -247,7 +248,7 @@ export function validateAssessmentTikzSource(value: unknown): AssessmentTikzSafe
   if (coordinates.length > TIKZ_MAX_COORDINATES) errors.push(`TikZ source exceeds ${TIKZ_MAX_COORDINATES} explicit coordinates.`)
   for (const match of coordinates) {
     const x = Number(match[1]); const y = Number(match[2])
-    if (!Number.isFinite(x) || !Number.isFinite(y) || Math.abs(x) > 100 || Math.abs(y) > 100) { errors.push('TikZ coordinates must remain within the supported -100..100 range.'); break }
+    if (!Number.isFinite(x) || !Number.isFinite(y) || Math.abs(x) > TIKZ_MAX_ABS_COORDINATE || Math.abs(y) > TIKZ_MAX_ABS_COORDINATE) { errors.push(`TikZ coordinates must remain within the supported -${TIKZ_MAX_ABS_COORDINATE}..${TIKZ_MAX_ABS_COORDINATE} range.`); break }
   }
 
   for (const list of optionLists(source)) for (const option of splitTopLevel(list)) if (!optionAllowed(option)) errors.push(`Unsupported TikZ option: ${option.trim().slice(0, 80) || '(empty)'}.`)

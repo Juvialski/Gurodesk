@@ -204,6 +204,36 @@ describe('Assessment Generation V2 point/CPD planning', () => {
     expect(assessmentItemNumberLabel(essay, 'point_ranges')).toBe('16–20')
   })
 
+  it('groups the same question type into contiguous paper sections before assigning point ranges', () => {
+    const base: Omit<AssessmentV2PointBucket, 'id' | 'cognitiveCategoryId' | 'cognitiveLabel' | 'cognitiveShortLabel' | 'cpdKey' | 'pointsAllocated'> = {
+      rowId: '33333333-3333-4333-8333-333333333333',
+      competencyId: '44444444-4444-4444-8444-444444444444',
+      competencyCode: 'M7-Q1-1',
+      competencyText: 'Work with mathematical relationships.',
+      sourceItemCount: 1,
+      sourceAllocationItemStart: 1,
+      sourceAllocationItemEnd: 1,
+    }
+    const lower: AssessmentV2PointBucket = { ...base, id: 'lower', cognitiveCategoryId: 'remembering', cognitiveLabel: 'Remembering', cognitiveShortLabel: 'R', cpdKey: 'remembering', pointsAllocated: 2 }
+    const creating: AssessmentV2PointBucket = { ...base, id: 'create', cognitiveCategoryId: 'creating', cognitiveLabel: 'Creating', cognitiveShortLabel: 'C', cpdKey: 'creating', pointsAllocated: 4 }
+    const plan = validateAndFinalizeMasterPlan({ entries: [
+      { bucketId: 'create', questionType: 'essay', pointsPossible: 4, taskIntent: 'Create and justify a complete mathematical response.', visualRequirement: 'none', visualIntent: '' },
+      { bucketId: 'lower', questionType: 'multiple_choice', pointsPossible: 1, taskIntent: 'Recall the first required concept.', visualRequirement: 'none', visualIntent: '' },
+      { bucketId: 'lower', questionType: 'multiple_choice', pointsPossible: 1, taskIntent: 'Recall the second required concept.', visualRequirement: 'none', visualIntent: '' },
+    ] }, {
+      pointBuckets: [lower, creating],
+      allowedTypes: ['multiple_choice', 'essay'],
+      learningArea: 'Mathematics',
+      totalPoints: 6,
+      plannerModel: 'test-planner',
+      visualPolicy: 'off',
+      idFactory: (() => { let id = 0; return () => `grouped-${++id}` })(),
+    })
+    expect(plan.entries.map((entry) => entry.questionType)).toEqual(['multiple_choice', 'multiple_choice', 'essay'])
+    expect(plan.entries.map((entry) => assessmentItemNumberLabel(entry, 'point_ranges'))).toEqual(['1', '2', '3–6'])
+    expect(plan.entries.map((entry) => entry.bucketId)).toEqual(['lower', 'lower', 'create'])
+  })
+
   it('rejects a master plan that moves points across deterministic TOS buckets', () => {
     const validation = validateAssessmentV2Setup(tosWithAllCpds(), { totalPoints: 12, allowedTypes: ALL_TYPES, visualPolicy: 'off' })
     expect(validation.ready).toBe(true)

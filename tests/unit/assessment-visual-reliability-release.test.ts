@@ -194,7 +194,7 @@ describe('TikZ and rendered SVG safety boundaries', () => {
     expect(validateAssessmentTikzSource(String.raw`\begin{tikzpicture}\foreach \x in {1,2}{\draw (\x,0)--(\x,1);}\end{tikzpicture}`).valid).toBe(false)
     expect(validateAssessmentTikzSource(String.raw`\begin{tikzpicture}\node at (0,0) {https://example.com};\draw (0,0)--(1,1);\end{tikzpicture}`).valid).toBe(false)
     expect(validateAssessmentTikzSource(String.raw`\begin{axis}\draw (0,0)--(1,1);\end{axis}`).valid).toBe(false)
-    expect(validateAssessmentTikzSource(String.raw`\begin{tikzpicture}\draw (101,0)--(1,1);\end{tikzpicture}`).valid).toBe(false)
+    expect(validateAssessmentTikzSource(String.raw`\begin{tikzpicture}\draw (2001,0)--(1,1);\end{tikzpicture}`).valid).toBe(false)
   })
 
   it('uses stable SVG readiness for print and DOCX while keeping PDF dependent on rasterization', async () => {

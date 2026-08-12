@@ -220,6 +220,6 @@ export function AssessmentVisualEditor({ visual, disabled = false, onChange }: {
       <button className="button ghost danger" type="button" disabled={disabled} onClick={() => onChange(undefined)}>Remove diagram</button>
     </div>
     {validation && !validation.valid && <small className="assessment-visual-error">{validation.errors.join(' ')}</small>}
-    <small className="assessment-field-help">New AI diagrams are created by Gemini in a separate TikZ-only call, validated by GuroDesk, and rendered inside a sandboxed TikZJax frame. Older/manual structured diagrams remain supported. To edit geometry manually, replace the AI diagram with a manual graph/diagram first.</small>
+    <small className="assessment-field-help">V2 AI diagrams are generated as validated geometry, compiled by GuroDesk into deterministic TikZ, and rendered in the sandboxed TikZJax frame with the same geometry retained as a fallback. Older direct-TikZ/manual diagrams remain supported. To edit geometry manually, replace the AI diagram with a manual graph/diagram first.</small>
   </fieldset>
 }

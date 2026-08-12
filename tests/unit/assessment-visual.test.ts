@@ -5,6 +5,7 @@ import { AssessmentDiagram } from '../../src/components/AssessmentDiagram'
 import { ASSESSMENT_VISUAL_FIXTURES, CARTESIAN_LINEAR_GRAPH_VISUAL, IRREGULAR_CONCAVE_PENTAGON_VISUAL } from '../../src/lib/assessmentVisualFixtures'
 import { assessmentVisualSvgMarkup } from '../../src/lib/assessmentVisualExport'
 import { assessmentVisualTikzSource, escapeTikzText } from '../../src/lib/assessmentTikz'
+import { validateAssessmentTikzSource } from '../../src/lib/assessmentTikzSafety'
 import { validateAssessmentVisual } from '../../src/lib/assessmentVisualValidation'
 import { buildAssessmentAnswerKeyExportModel, buildAssessmentStudentExportModel, buildAssessmentTeacherExportModel } from '../../src/lib/assessmentExportModel'
 import type { AssessmentVisual } from '../../src/types/assessmentVisual'
@@ -31,6 +32,9 @@ describe('safe assessment visuals', () => {
     const marksSource = assessmentVisualTikzSource(ASSESSMENT_VISUAL_FIXTURES.marksAndLabels)
     expect(marksSource).toContain('arc[start angle=180,end angle=270,radius=34pt]')
     expect(marksSource).not.toMatch(/(?: -- ){8,}/u)
+    expect(validateAssessmentTikzSource(marksSource).valid).toBe(true)
+    const tikzBacked = { ...ASSESSMENT_VISUAL_FIXTURES.marksAndLabels, tikzCode: marksSource }
+    expect(validateAssessmentVisual(tikzBacked).valid).toBe(true)
     expect(assessmentVisualSvgMarkup(CARTESIAN_LINEAR_GRAPH_VISUAL)).toContain('data-axis-id="axes-1"')
     expect(escapeTikzText('x_1 & 50%')).toBe('x\\_1 \\& 50\\%')
   })

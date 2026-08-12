@@ -4,7 +4,7 @@ import { decryptCredential, type EncryptionKeySource } from '../_shared/credenti
 import { DEFAULT_FALLBACK_MODEL, DEFAULT_MODEL, fallbackAllowed, isAiModelId, isLiteModel, type AiModelId, type LiteAiModelId, type AssessmentQuestionType, type GeminiSchema, verifierResponseSchema, visualVerifierResponseSchema } from '../_shared/ai-models.ts'
 import { AssessmentContractError, validateAssessmentCandidate as validateAssessmentCandidateContract, type ImmutableAssessmentContext } from '../_shared/assessment-contract.ts'
 import { callGemini, GeminiHttpError, GeminiResponseError, isFallbackEligibleStatus, parseGeminiJson } from '../_shared/gemini.ts'
-import { validateAssessmentVisual } from '../_shared/assessment-visual.ts'
+import { normalizeAssessmentVisualProviderOutput, validateAssessmentVisual } from '../_shared/assessment-visual.ts'
 import { validateAssessmentTikzSource } from '../_shared/tikz-safety.ts'
 import { normalizeFinishedVisualVerifier, type FinishedVisualVerifier } from '../_shared/visual-verification.ts'
 
@@ -194,6 +194,79 @@ function buildVisualPrompt(type: QuestionType, immutable: Row, candidate: Row, v
   ].join('\n')
 }
 
+
+
+function buildStructuredVisualPrompt(type: QuestionType, immutable: Row, candidate: Row, visualIntent: string, issues: string[]) {
+  return [
+    'Create exactly one SAFE STRUCTURED mathematical diagram for an already-valid school assessment question.',
+    'This is a VISUAL-ONLY call. Do not rewrite the learner prompt, answer, rationale, competency, CPD, type, points, or point number.',
+    'Return strict JSON only. Do NOT return TikZ, SVG, HTML, Markdown, formulas to execute, code, or external URLs.',
+    'The canvas is exactly 600 by 360. Keep every primitive comfortably inside x=0..600 and y=0..360 with readable spacing.',
+    'Return exactly: {"id":"visual","kind":"geometry","version":1,"width":600,"height":360,"altText":"useful observable description","primitives":[...]}',
+    'Allowed primitive forms only:',
+    '- polygon: {"type":"polygon","points":[{"x":..,"y":..},...],"color":"ink","strokeWidth":2}',
+    '- segment/dashedSegment/arrow: {"type":"segment","x1":..,"y1":..,"x2":..,"y2":..,"color":"ink","strokeWidth":2}',
+    '- point: {"type":"point","x":..,"y":..,"radius":3,"color":"ink"}',
+    '- circle: {"type":"circle","cx":..,"cy":..,"radius":..,"color":"ink","strokeWidth":2}',
+    '- arc: {"type":"arc","cx":..,"cy":..,"radius":..,"startAngle":..,"endAngle":..,"color":"ink"}',
+    '- angleArc: {"type":"angleArc","vertex":{"x":..,"y":..},"radius":..,"startAngle":..,"endAngle":..,"color":"ink"}',
+    '- textLabel: {"type":"textLabel","x":..,"y":..,"text":"A","color":"ink","textSize":"medium","anchor":"middle"}',
+    '- equalSideMark/tickMark/parallelMark: {"type":"equalSideMark","x1":..,"y1":..,"x2":..,"y2":..,"count":1,"color":"blue"}',
+    '- perpendicularMark: {"type":"perpendicularMark","x":..,"y":..,"angle":0,"size":12,"color":"blue"}',
+    '- cartesianAxes: {"type":"cartesianAxes","axisId":"axes-1","x":60,"y":35,"width":480,"height":270,"xMin":-5,"xMax":5,"yMin":-5,"yMax":5,"xTick":1,"yTick":1,"showGrid":true,"xLabel":"x","yLabel":"y","color":"ink"}',
+    '- cartesianPlot: {"type":"cartesianPlot","axisId":"axes-1","points":[{"x":-2,"y":-1},{"x":0,"y":1},{"x":2,"y":3}],"showPoints":true,"color":"blue"}',
+    'Use only colors ink, blue, red, green, gold, purple, gray; strokeWidth only 1, 2, or 3; mark count only 1, 2, or 3.',
+    'For equal sides, parallel lines, right angles, angle measures, and labels, use the dedicated primitive types above. Never rely on TikZ libraries or invisible styling conventions.',
+    'For a multi-figure classification question, place each figure in a separate non-overlapping region and label it A, B, C, D as requested. Include the exact side/angle/relationship marks needed for the learner to distinguish them.',
+    'Do not reveal the accepted answer, final numeric result, classification, or solution conclusion. Supply problem data only.',
+    `Fixed logical question order: ${Number(immutable.itemNumber)}`,
+    `Fixed learner-facing point number: ${clean(immutable.pointLabel) || String(immutable.itemNumber)}`,
+    clean(immutable.taskIntent) ? `Frozen master-plan task intent: ${clean(immutable.taskIntent, 1200)}` : 'Legacy item: no frozen V2 task intent.',
+    `Fixed competency: ${clean(immutable.competencyText)}`,
+    `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
+    `Fixed question type: ${type}`,
+    `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
+    `Learner prompt: ${clean(candidate.prompt, 2000)}`,
+    `Teacher-only answer context (NEVER reveal this): ${JSON.stringify(candidate.answer)}`,
+    `Visual intent: ${visualIntent || clean(candidate.visualIntent, 500)}`,
+    ...(issues.length ? [`Previous visual issues to avoid: ${issues.join(' | ')}`] : []),
+  ].join('\n')
+}
+
+function buildFinishedStructuredVisualVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row, visualIntent: string, visual: Row) {
+  return [
+    'Independently verify the FINISHED STRUCTURED geometry diagram for an assessment item. Return strict JSON only. Do not rewrite the question or answer.',
+    `Fixed logical question order: ${Number(immutable.itemNumber)}`,
+    `Fixed learner-facing point number: ${clean(immutable.pointLabel) || String(immutable.itemNumber)}`,
+    `Fixed competency: ${clean(immutable.competencyText)}`,
+    `Fixed cognitive category: ${clean(immutable.cognitiveLabel)}`,
+    `Fixed question type: ${type}`,
+    `Fixed points possible: ${Number(immutable.pointsPossible ?? 1)}`,
+    `Learner prompt: ${clean(candidate.prompt, 2000)}`,
+    `Structured teacher answer (must NOT be revealed): ${JSON.stringify(candidate.answer)}`,
+    `Visual intent: ${visualIntent}`,
+    `Finished structured visual: ${JSON.stringify(visual)}`,
+    'Interpret polygon coordinates and dedicated relation-mark primitives as the actual finished diagram. Check shape count/type, labels, values, equality/parallel/perpendicular/angle relationships, axes/plots when applicable, and every essential diagram-only given.',
+    'answerLeakDetected must be true if any learner-visible text/mark gives away the accepted answer or classification rather than supplying neutral problem data.',
+    'status must be needs_repair if ANY required visual fact is wrong/missing, essentialGivenPresent is false, or answerLeakDetected is true.',
+    'Return exactly: {"status":"pass"|"needs_repair","shapeCountCorrect":boolean,"labelsCorrect":boolean,"valuesCorrect":boolean,"relationshipsCorrect":boolean,"graphCorrect":boolean,"essentialGivenPresent":boolean,"answerLeakDetected":boolean,"issues":string[],"repairGuidance":string[]}.',
+  ].join('\n')
+}
+
+function canonicalStructuredVisual(value: unknown, itemId: string) {
+  const normalized = normalizeAssessmentVisualProviderOutput(value)
+  const source = object(normalized)
+  const visual: Row = {
+    ...source,
+    id: `visual-${itemId}`,
+    kind: 'geometry',
+    version: 1,
+    width: 600,
+    height: 360,
+  }
+  delete visual.tikzCode
+  return visual
+}
 
 function buildFinishedVisualVerifierPrompt(type: QuestionType, immutable: Row, candidate: Row, visualIntent: string, tikzCode: string) {
   return [
@@ -569,6 +642,77 @@ Deno.serve(async (req) => {
       }
       const visualIntent = clean(body.visualIntent, 500) || clean(approved.visualIntent, 500)
       if (!visualIntent) return json({ error: 'A visual request needs a concise visual intent.' }, 400)
+
+      // Assessment Generation V2 uses a structured geometry contract first.
+      // GuroDesk later compiles these validated primitives into deterministic
+      // TikZ and also retains the primitives as a renderer/export fallback, so
+      // a TikZJax/runtime failure can never make the diagram disappear.
+      if (isV2) {
+        const structuredPrompt = buildStructuredVisualPrompt(serverType, immutable, approved, visualIntent, list(body.issues, 8, 500))
+        let structuredOutput = await callWithLiteFallback(apiKey, settings, structuredPrompt, serverType, 8192)
+        let visualProviderRequestCount = structuredOutput.providerRequestCount
+        responseModel = structuredOutput.modelUsed
+        fallbackUsed = structuredOutput.fallbackUsed
+        let structuredVisual: Row
+        try { structuredVisual = canonicalStructuredVisual(parseJson(structuredOutput.output), itemId) }
+        catch (error) { structuredVisual = { id: `visual-${itemId}`, kind: 'geometry', version: 1, width: 600, height: 360, altText: '', primitives: [], _parseError: clean(error instanceof Error ? error.message : String(error), 300) } }
+        let structuredCheck = validateAssessmentVisual(structuredVisual)
+        if (!structuredCheck.valid) {
+          const retryPrompt = [
+            structuredPrompt,
+            '',
+            'STRUCTURED VISUAL CORRECTION PASS: the previous JSON diagram was rejected before rendering.',
+            `Validator feedback: ${structuredCheck.errors.slice(0, 8).join(' | ')}`,
+            'Return one fresh strict JSON visual using only the allowed primitive schemas. Do not return TikZ or prose.',
+          ].join('\n')
+          const retryOutput = await callWithLiteFallback(apiKey, settings, retryPrompt, serverType, 8192)
+          visualProviderRequestCount += retryOutput.providerRequestCount
+          responseModel = retryOutput.modelUsed
+          fallbackUsed = fallbackUsed || retryOutput.fallbackUsed
+          structuredOutput = retryOutput
+          structuredVisual = canonicalStructuredVisual(parseJson(retryOutput.output), itemId)
+          structuredCheck = validateAssessmentVisual(structuredVisual)
+        }
+        if (!structuredCheck.valid) throw new AssessmentContractError(`Gemini returned an unusable structured diagram after one correction pass. ${structuredCheck.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
+
+        let combined = validateCandidate({ ...approved, visual: structuredVisual }, serverType, resources, false, immutable)
+        const verifierModel = oppositeLiteModel(settings, clean(body.generatorModel, 120) || responseModel)
+        const verifyStructuredVisual = async (visual: Row) => {
+          visualProviderRequestCount += 1
+          const verifierOutput = await callGemini(apiKey, verifierModel, buildFinishedStructuredVisualVerifierPrompt(serverType, immutable, approved, visualIntent, visual), {
+            maxOutputTokens: 4096,
+            responseMimeType: 'application/json',
+            responseSchema: visualVerifierResponseSchema,
+          })
+          return parseVisualVerifier(verifierOutput)
+        }
+        let finishedVerifier = await verifyStructuredVisual(structuredVisual)
+        if (finishedVerifier.status === 'needs_repair') {
+          const semanticRepairPrompt = [
+            structuredPrompt,
+            '',
+            'FINISHED-DIAGRAM CORRECTION PASS: an independent verifier found mathematical/semantic defects in the structured diagram.',
+            `Verifier issues: ${finishedVerifier.issues.join(' | ') || 'one or more required visual facts were wrong or missing'}`,
+            `Repair guidance: ${finishedVerifier.repairGuidance.join(' | ') || 'correct only the diagram while preserving the learner question and teacher answer'}`,
+            'Return one fresh strict JSON visual using only the allowed primitives. Do not change or reveal the question answer.',
+          ].join('\n')
+          const correctedOutput = await callWithLiteFallback(apiKey, settings, semanticRepairPrompt, serverType, 8192)
+          visualProviderRequestCount += correctedOutput.providerRequestCount
+          responseModel = correctedOutput.modelUsed
+          fallbackUsed = fallbackUsed || correctedOutput.fallbackUsed
+          const correctedVisual = canonicalStructuredVisual(parseJson(correctedOutput.output), itemId)
+          const correctedCheck = validateAssessmentVisual(correctedVisual)
+          if (!correctedCheck.valid) throw new AssessmentContractError(`The corrected structured diagram was invalid. ${correctedCheck.errors.slice(0, 3).join(' ')}`, 'VISUAL_INVALID')
+          structuredVisual = correctedVisual
+          combined = validateCandidate({ ...approved, visual: structuredVisual }, serverType, resources, false, immutable)
+          finishedVerifier = await verifyStructuredVisual(structuredVisual)
+        }
+        if (finishedVerifier.status !== 'pass') throw new AssessmentContractError(`The finished structured diagram failed post-generation visual verification. ${finishedVerifier.issues.slice(0, 3).join(' ') || 'Required visual facts could not be verified.'}`, 'VISUAL_INVALID')
+        auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload)
+        return json({ assessmentId, itemId, questionType: serverType, visual: combined.visual ?? null, visualVerifier: finishedVerifier, visualVerifierModel: verifierModel, visualPipeline: 'structured-to-tikz-v1', model: responseModel, fallbackUsed, providerRequestCount: visualProviderRequestCount })
+      }
+
+      // Legacy visual generation retains the direct Gemini-authored TikZ path.
       // The visual pass deliberately uses plain text instead of Gemini responseSchema.
       // Gemini authors the TikZ itself; GuroDesk only validates/sandboxes and renders it.
       const visualPrompt = buildVisualPrompt(serverType, immutable, approved, visualIntent, list(body.issues, 8, 500))

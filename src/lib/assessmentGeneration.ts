@@ -20,6 +20,7 @@ import {
 import { assessmentRequestScheduler } from './assessmentRequestScheduler'
 import { supabase } from './supabase'
 import { assessmentVisualPlanForItem, assessmentVisualSourceHash, invalidateAssessmentVisualAfterContentEdit, withResolvedAssessmentVisualPlan } from './assessmentVisualPlanning'
+import { assessmentVisualTikzSource } from './assessmentTikz'
 import { validateAssessmentVisual } from './assessmentVisualValidation'
 
 type UnknownRecord = Record<string, unknown>
@@ -794,7 +795,20 @@ export async function generateAssessmentVisualSuggestion(args: {
   if (raw === null || raw === undefined) return { model: String(data.model || 'unknown'), fallbackUsed: data.fallbackUsed === true, requestsUsed: providerRequestCount(data.providerRequestCount) }
   const result = validateAssessmentVisual(raw)
   if (!result.valid) throw new Error(`The dedicated AI visual is invalid: ${result.errors.slice(0, 3).join(' ')}`)
-  return { visual: clone(raw as AssessmentVisual), model: String(data.model || 'unknown'), fallbackUsed: data.fallbackUsed === true, requestsUsed: providerRequestCount(data.providerRequestCount) }
+  let visual = clone(raw as AssessmentVisual)
+  // V2 structured visuals are compiled locally into deterministic TikZ after
+  // their geometry contract passes. Keep the primitives too: TikZJax remains
+  // the primary high-quality renderer, while the validated SVG/export renderer
+  // is an immediate fallback if the runtime cannot render the TikZ frame.
+  if (!visual.tikzCode && visual.primitives.length > 0) {
+    const tikzCode = assessmentVisualTikzSource(visual)
+    if (tikzCode) {
+      const tikzBacked = { ...visual, tikzCode }
+      const tikzValidation = validateAssessmentVisual(tikzBacked)
+      if (tikzValidation.valid) visual = tikzBacked
+    }
+  }
+  return { visual, model: String(data.model || 'unknown'), fallbackUsed: data.fallbackUsed === true, requestsUsed: providerRequestCount(data.providerRequestCount) }
 }
 
 export type AssessmentVisualEnrichmentSummary = {

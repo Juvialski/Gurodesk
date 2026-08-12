@@ -46,6 +46,34 @@ export const QUESTION_TYPE_POINT_RULES: Record<QuestionType, PointRule> = {
   essay: { min: 4, max: 12, preferred: 5 },
 }
 
+
+/** Conventional paper section order. Master-plan entries remain bound to their
+ * immutable competency/CPD buckets, but learner-facing numbering is assigned
+ * only after this stable grouping step so one question type forms one
+ * contiguous section (for example MC 1–10 instead of being interleaved). */
+export const ASSESSMENT_PAPER_TYPE_ORDER: readonly QuestionType[] = [
+  'multiple_choice',
+  'true_false',
+  'identification',
+  'fill_in_the_blank',
+  'matching',
+  'multiple_select',
+  'short_answer',
+  'numerical_answer',
+  'problem_solving',
+  'constructed_response',
+  'essay',
+] as const
+
+const ASSESSMENT_PAPER_TYPE_RANK = new Map<QuestionType, number>(ASSESSMENT_PAPER_TYPE_ORDER.map((type, index) => [type, index]))
+
+function groupedPaperOrder<T extends { questionType: QuestionType }>(entries: readonly T[]) {
+  return entries
+    .map((entry, providerIndex) => ({ entry, providerIndex }))
+    .sort((left, right) => (ASSESSMENT_PAPER_TYPE_RANK.get(left.entry.questionType) ?? 999) - (ASSESSMENT_PAPER_TYPE_RANK.get(right.entry.questionType) ?? 999) || left.providerIndex - right.providerIndex)
+    .map(({ entry }) => entry)
+}
+
 const BASE_SUITABILITY: Record<AssessmentCpdKey, Partial<Record<QuestionType, AssessmentQuestionTypeSuitability>>> = {
   remembering: {
     multiple_choice: 'strong', true_false: 'strong', identification: 'strong', fill_in_the_blank: 'strong', matching: 'strong', short_answer: 'allowed', multiple_select: 'allowed', numerical_answer: 'unsupported', problem_solving: 'unsupported', constructed_response: 'allowed', essay: 'unsupported',
@@ -293,13 +321,14 @@ export function validateAndFinalizeMasterPlan(raw: unknown, options: FinalizeMas
   const incomplete = [...remaining.entries()].filter(([, points]) => points !== 0)
   if (incomplete.length) throw new Error('The master planner did not consume every deterministic TOS point bucket exactly.')
   if ((remaining.size && options.pointBuckets.reduce((sum, bucket) => sum + bucket.pointsAllocated, 0)) !== options.totalPoints) throw new Error('The deterministic point blueprint does not match the requested total points.')
-  // Preserve the provider's paper order after all bucket arithmetic passes.
-  // A question still belongs to exactly one immutable bucket, so interleaving
-  // competencies/CPDs does not weaken mapping integrity.
+  // Group the validated plan into conventional paper sections before learner-
+  // facing point ranges are assigned. Bucket identity remains unchanged, so
+  // this presentation ordering cannot move points across TOS/CPD allocations.
+  const paperOrdered = groupedPaperOrder(normalized)
   let pointCursor = 1
   let fallbackCounter = 0
   const idFactory = options.idFactory ?? (() => typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `plan-${++fallbackCounter}`)
-  const entries: AssessmentMasterPlanEntry[] = normalized.map((entry, index) => {
+  const entries: AssessmentMasterPlanEntry[] = paperOrdered.map((entry, index) => {
     const bucket = bucketMap.get(entry.bucketId)!
     const pointStart = pointCursor
     const pointEnd = pointStart + entry.pointsPossible - 1

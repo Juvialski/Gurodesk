@@ -210,7 +210,7 @@ function buildPrompt(args: { gradeLevel: string; learningArea: string; title: st
     '- visualRequirement=required only when the learner genuinely needs information contained in the diagram/graph. Do not use decorative visuals.',
     !isMathArea(args.learningArea) ? '- Automatic required visuals are limited to Mathematics: every entry MUST use visualRequirement="none" and visualIntent="".' : args.visualPolicy === 'off' ? '- Visual policy is Off: every entry MUST use visualRequirement="none" and visualIntent="".' : args.visualPolicy === 'balanced' ? '- Balanced visuals: keep most questions text-only. Required visuals must not exceed floor(logicalQuestionCount / 4), with zero required visuals for fewer than 4 logical questions.' : '- More visuals: you may mark more genuinely diagram-dependent tasks as required, but keep text-sufficient questions visualRequirement="none"; never add decorative or answer-revealing visuals.',
     '- taskIntent is a concise instruction for the later question generator. It must define what the question should assess without writing the final question or answer.',
-    '- Return entries in the intended paper order. Spread competencies/CPDs through the paper when practical rather than dumping one type first.',
+    '- Return entries in conventional contiguous question-type sections. Group all Multiple Choice together first, then other objective/short formats, and put Problem Solving / Constructed Response / Essay later. Do NOT interleave the same question type across the paper.',
     '- The sum of pointsPossible across all entries must equal the exact total points.',
     '',
     'DETERMINISTIC BLUEPRINT BUCKETS:',
