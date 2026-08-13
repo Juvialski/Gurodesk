@@ -111,7 +111,7 @@ export function DashboardPage() {
       <section className="home-task-section" aria-labelledby="home-tasks-title">
         <div className="home-section-heading"><div><span className="eyebrow">Start here</span><h2 id="home-tasks-title">What do you want to create?</h2></div><Link className="text-link" to="/create">See all tasks <ArrowRight size={15} /></Link></div>
         <div className="home-task-grid">
-          <ActionCard to={`/lesson-plans/new${assignmentQuery}`} title="Lesson Plan" description="Prepare a lesson from a competency you choose." actionLabel="Start" icon={BookOpenCheck} tone="blue" />
+          <ActionCard to={`/lesson-plans/new${assignmentQuery}`} title="Lesson Plan" description="Start with a topic, then add verified curriculum alignment as needed." actionLabel="Start" icon={BookOpenCheck} tone="blue" />
           <ActionCard to={`/tos/new${assignmentQuery}`} title="TOS" description="Plan assessment coverage from taught competencies." actionLabel="Start" icon={TableProperties} tone="green" />
           <ActionCard to="/assessments/new" title="Test / Quiz" description="Create a teacher-reviewed test from a finalized TOS." actionLabel="Start" icon={ClipboardCheck} tone="amber" />
           <ActionCard to="/results" title="Enter Results" description="Record answers or scores and review class evidence." actionLabel="Start" icon={ChartNoAxesColumnIncreasing} tone="slate" />

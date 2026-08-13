@@ -52,7 +52,7 @@ export function LessonPlansPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Planning · Phase 3.6"
+        eyebrow="ILAW lesson planning"
         title="Lesson Plans"
         description="Topic-first, teacher-led ILAW planning with flexible verified curriculum alignment, guided AI suggestions, and printable Word/PDF exports."
         actions={<Link className="button primary" to="/lesson-plans/new"><Plus size={16} /> New lesson plan</Link>}

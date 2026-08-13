@@ -6,21 +6,24 @@ export function FeaturePlaceholderPage({
   eyebrow,
   title,
   description,
-  phase,
   icon,
   bullets,
 }: {
   eyebrow: string
   title: string
   description: string
-  phase: string
+  phase?: string
   icon: LucideIcon
   bullets: string[]
 }) {
   return (
     <>
       <PageHeader eyebrow={eyebrow} title={title} description={description} />
-      <EmptyState icon={icon} title={`${title} is scheduled for ${phase}`} description="The navigation and data architecture are reserved now so later phases can add the feature without restructuring the app.">
+      <EmptyState
+        icon={icon}
+        title={`${title} is not available yet`}
+        description="This workspace is reserved for a future update. Current teaching workflows remain available from the main navigation."
+      >
         <div className="placeholder-list">{bullets.map((bullet) => <span key={bullet}>✓ {bullet}</span>)}</div>
       </EmptyState>
     </>

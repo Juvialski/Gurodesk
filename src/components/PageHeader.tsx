@@ -1,5 +1,19 @@
 import type { ReactNode } from 'react'
 
+export function normalizePageEyebrow(eyebrow?: string) {
+  if (!eyebrow) return undefined
+  if (/^Assessment Generation V2$/iu.test(eyebrow.trim())) return 'Assessment studio'
+
+  const cleaned = eyebrow
+    .split('·')
+    .map((part) => part.trim())
+    .filter((part) => part && !/^Phase\s+\d+(?:\.\d+)*(?:\+)?$/iu.test(part))
+    .join(' · ')
+    .trim()
+
+  return cleaned || undefined
+}
+
 export function PageHeader({
   eyebrow,
   title,
@@ -11,10 +25,12 @@ export function PageHeader({
   description?: string
   actions?: ReactNode
 }) {
+  const displayEyebrow = normalizePageEyebrow(eyebrow)
+
   return (
     <header className="page-header">
       <div>
-        {eyebrow && <span className="eyebrow">{eyebrow}</span>}
+        {displayEyebrow && <span className="eyebrow">{displayEyebrow}</span>}
         <h1>{title}</h1>
         {description && <p>{description}</p>}
       </div>

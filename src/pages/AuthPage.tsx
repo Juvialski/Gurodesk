@@ -32,7 +32,7 @@ export function AuthPage() {
           <Brand />
           <span className="hero-kicker"><Sparkles size={15} /> Built for Philippine public-school teachers</span>
           <h1>Less paperwork.<br />More time to teach.</h1>
-          <p>One workspace for curriculum-aware planning, assessments, TOS, and DepEd teacher paperwork.</p>
+          <p>One workspace for curriculum-aware lesson planning, TOS, assessments, results, and teacher reports.</p>
           <div className="hero-checks">
             <span><CheckCircle2 size={18} /> School-year aware</span>
             <span><CheckCircle2 size={18} /> Curriculum-grounded architecture</span>

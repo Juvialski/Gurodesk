@@ -129,7 +129,7 @@ export function OnboardingPage() {
         <aside className="onboarding-intro">
           <span className="hero-kicker"><BookOpen size={15} /> Teacher setup</span>
           <h1>Set it once. GuroDesk adapts to what you teach.</h1>
-          <p>Your school year and teaching assignments will later drive the correct curriculum, lesson-plan formats, assessments, and paperwork.</p>
+          <p>Your school year and teaching assignments drive curriculum context across lesson plans, TOS, assessments, results, and related reports.</p>
           <div className="setup-steps">
             <div className={step >= 1 ? 'active' : ''}><span>{step > 1 ? <Check size={16} /> : '1'}</span><div><strong>About you</strong><small>Name, school, and school year</small></div></div>
             <div className={step >= 2 ? 'active' : ''}><span>{step > 2 ? <Check size={16} /> : '2'}</span><div><strong>What you teach</strong><small>One class and its sections</small></div></div>

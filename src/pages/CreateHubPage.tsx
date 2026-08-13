@@ -17,7 +17,7 @@ export function CreateHubPage() {
       <PageHeader
         eyebrow="Create"
         title="What do you want to create?"
-        description="Choose a starting point. Your saved class context can prefill the workflow, while every curriculum and competency choice stays explicit."
+        description="Choose a starting point. Your saved class context can prefill the workflow while lesson topics and curriculum alignment remain teacher-controlled."
         actions={<Link className="button ghost" to="/"><ArrowLeft size={16} /> Home</Link>}
       />
 
@@ -32,7 +32,7 @@ export function CreateHubPage() {
         <ActionCard
           to={`/lesson-plans/new${assignmentQuery}`}
           title="Lesson Plan"
-          description="Prepare an ILAW lesson plan from a competency you choose."
+          description="Start with a topic, then add verified curriculum alignment when it fits the lesson."
           actionLabel="Start"
           icon={BookOpenCheck}
           tone="blue"

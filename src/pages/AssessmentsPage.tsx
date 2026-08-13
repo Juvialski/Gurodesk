@@ -74,7 +74,7 @@ export function AssessmentsPage() {
 
   return <>
     <PageHeader
-      eyebrow="Assessment studio · Phase 4"
+      eyebrow="Assessment studio"
       title="Assessments"
       description="Create point-based, teacher-reviewed assessments from finalized Tables of Specifications, then encode results and analyze learning evidence."
       actions={<Link className="button primary" to="/assessments/new"><Plus size={16} /> New assessment</Link>}
@@ -84,7 +84,7 @@ export function AssessmentsPage() {
       <span className="assessment-boundary-icon"><ShieldCheck size={20} /></span>
       <div>
         <strong>Finalized TOS → point plan → teacher review</strong>
-        <p>GuroDesk preserves competency and cognitive mappings while the V2 planner turns the teacher’s point target into a frozen question plan. You still review and finalize every assessment.</p>
+        <p>GuroDesk preserves competency and cognitive mappings while the assessment planner turns the teacher’s point target into a frozen question plan. You still review and finalize every assessment.</p>
       </div>
       <span className="assessment-future-note">Results and analysis stay linked to the finalized assessment snapshot.</span>
     </section>

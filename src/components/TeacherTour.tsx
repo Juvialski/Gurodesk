@@ -15,7 +15,7 @@ export type TeacherTourStep = {
 export const TEACHER_TOUR_STEPS: readonly TeacherTourStep[] = [
   {
     title: 'Welcome to GuroDesk',
-    description: 'GuroDesk helps you prepare TOS, assessments, learner results, and reports in one place.',
+    description: 'GuroDesk brings lesson plans, TOS, assessments, learner results, and reports into one teacher workspace.',
     destination: 'Home',
     route: '/',
   },
@@ -26,10 +26,10 @@ export const TEACHER_TOUR_STEPS: readonly TeacherTourStep[] = [
     route: '/classes · /curriculum',
   },
   {
-    title: 'Prepare your TOS',
-    description: 'Create a Table of Specifications and map verified competencies before preparing your assessment.',
-    destination: 'Templates & TOS',
-    route: '/tos',
+    title: 'Plan lessons and assessment coverage',
+    description: 'Start lesson plans with a teacher-provided topic and add verified curriculum alignment as needed. Use TOS for the competencies actually covered by an assessment.',
+    destination: 'Lesson Plans · Templates & TOS',
+    route: '/lesson-plans · /tos',
   },
   {
     title: 'Build and review assessments',
