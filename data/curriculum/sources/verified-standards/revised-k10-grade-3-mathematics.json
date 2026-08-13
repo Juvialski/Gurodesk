@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-3-mathematics",
+  "sourceSha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+  "sourceFileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+  "verificationStatus": "verified",
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "areas of squares and rectangles.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "points, lines, line segments, and rays.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "parallel, perpendicular, and intersecting lines.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "whole numbers up to 10 000.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "ordinal numbers up to 100th.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "determine the area of squares and rectangles. (MG)",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "recognize and draw points, lines, lines segments, rays, and parallel and perpendicular lines. (MG)",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "represent, round, compare, and order numbers up to 10 000. (NA)",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "measures of mass and capacity.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "addition and subtraction of numbers of up to 4 digits and money up to ₱10 000.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "measure, estimate, and compare mass of objects. (MG)",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "measure and estimate capacity. (MG)",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "add and subtract whole numbers (including amounts of money) of up to 4 digits. (NA)",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "data presented in tables and single bar graphs.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "outcomes from experiments and real-life situations.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "multiplication using 6, 7, 8, and 9 multiplication tables.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "properties of multiplication",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "multiplication of numbers with and without regrouping",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "estimation of products of two numbers by first rounding to the nearest multiple of 10.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-3:item-7",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "text": "determination of missing terms contained in repeating and increasing patterns, and repeating and decreasing patterns.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-3:item-8",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 8,
+      "text": "generation of repeating and increasing patterns, and repeating and decreasing patterns.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "present and interpret data in tables and single bar graphs. (DP)",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "describe and compare outcomes of events. (DP)",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "multiply using 6, 7, 8, and 9 multiplication tables. (NA)",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "illustrate and applies properties of multiplication. (NA)",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "multiply numbers with and without regrouping. (NA)",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-3:item-6",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "estimate products of two numbers by first rounding to the nearest multiple of 10. (NA)",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-3:item-7",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 7,
+      "text": "find a missing term and generate repeating and increasing patterns, and repeating and decreasing patterns. (NA)",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "division using the 6, 7, 8, and 9 multiplication tables.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "division of 2- to 4-digit numbers.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "estimation of quotients by first rounding the divisor and dividend to the nearest multiple of 10.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "addition and subtraction of similar fractions.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "line symmetry.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 6,
+      "text": "resulting figure after a translation.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "use the 6, 7, 8, and 9 multiplication tables to divide numbers. (N/A)",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "divide 2- to 4-digit numbers. (N/A)",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "estimate quotients by first rounding the divisor and dividend to the nearest multiple of 10. (N/A)",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "add and subtract similar fractions. (N/A)",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-mathematics:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "identify a symmetrical shape and draw the line of symmetry. (M/G)",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    }
+  ]
+}

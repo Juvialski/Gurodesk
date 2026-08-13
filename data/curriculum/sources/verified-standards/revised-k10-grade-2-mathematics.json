@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-2-mathematics",
+  "sourceSha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+  "sourceFileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+  "verificationStatus": "verified",
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "circles, half circles, quarter circles and composite figures made up of squares, rectangles, triangles, circles, half circles, and quarter circles.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "one step slides and flips of basic shapes and figures.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "whole numbers up to 1000.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "ordinal numbers up to 20th.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "addition of numbers with sums up to 1000.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "represent and describe circles, half circles and quarter circles. (MG)",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "compose and decompose composite figures made up of squares, rectangles, triangles, circles, half circles, and quarter circles. (MG)",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "describe and draw the effect of one-step slides or flips in basic shapes and figures. (MG)",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "count, recognize, and represent, whole numbers up to 1000. (NA)",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "use ordinal numbers up to 20th to describe position. (NA)",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-1:item-6",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "perform addition of numbers with sums up to 1000. (NA)",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "the denominations and values of Philippine coins and bills up to ₱1000, and the addition of amounts of money with sums up to ₱1000.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "measurement, comparison, and estimation of length and distance using appropriate tools and units.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "subtraction of numbers where both numbers are less than 1000.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "increasing patterns and decreasing patterns.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "determine, and compare the value of, combinations of Philippine coins and bills up to ₱1000. (MG)",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "perform addition of amounts of money with sums up to ₱1000. (NA)",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "measure, compare, and estimate, length and distance using appropriate units. (MG)",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "perform subtraction of numbers where both numbers are less than 1000. (NA)",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "extend existing increasing patterns and decreasing patterns and create new increasing patterns and decreasing patterns. (NA)",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "a pictograph with a scale for the representation of data.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "multiplication and division of whole numbers using the 2, 3, 4, 5, and 10 multiplication tables.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "odd and even numbers.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "represent and interpret data in a pictograph with a scale. (DP)",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "perform multiplication and division of whole numbers using the 2, 3, 4, 5, and 10 multiplication tables. (NA)",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "distinguish even and odd numbers. (NA)",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "unit fractions and similar fractions with denominators 2, 3, 4, 5, 6, and 8.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "duration of time, elapsed time, and telling and writing time in hours and minutes (using a.m. and p.m.).",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "straight and curved lines, and flat and curved surfaces.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "the perimeter of triangles, squares, and rectangles.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "represent, identify, and order unit fractions and similar fractions with denominators 2, 3, 4, 5, 6, and 8. (NA)",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "identify and work with time measured in hours, half-hours, quarter hours, days, weeks, months, years. (MG)",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "describe duration of time and elapsed time, and read and write time in hours and minutes. (MG)",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "distinguish between straight and curved lines, and between flat and curved surfaces. (MG)",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-mathematics:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "find the perimeter of triangles, squares, and rectangles. (MG)",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    }
+  ]
+}
