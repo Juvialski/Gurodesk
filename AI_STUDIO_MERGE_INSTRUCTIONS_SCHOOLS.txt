@@ -1,0 +1,62 @@
+GURODESK — PHILIPPINE SCHOOL DIRECTORY + SCHOOL IDENTITY OVERLAY
+Target source: Juvialski/Gurodesk main 955b8651ec1f7981b5aeb4fed1a4ca58a30c2164
+
+This ZIP is ROOT-PATH-PRESERVING. Extract/upload its contents into the GuroDesk repository root. Do not put the files under an extra folder.
+
+AI STUDIO / WORK AGENT INSTRUCTION
+
+1. Verify the repository is still based on or compatible with main 955b8651ec1f7981b5aeb4fed1a4ca58a30c2164. Preserve any legitimate newer work.
+2. Keep all new files from this ZIP at their supplied root-relative paths.
+3. Run:
+   node scripts/apply-school-directory-overlay.mjs
+
+   This patches only:
+   - src/types/app.ts
+   - src/lib/repository.ts
+   - src/pages/OnboardingPage.tsx
+   - src/pages/SettingsPage.tsx
+   - package.json
+
+   If the patcher reports a source mismatch, do NOT blindly overwrite the newer file. Merge the equivalent small changes surgically.
+
+4. Run validations:
+   npm run validate:schools
+   npm run test:unit
+   npm run build
+
+5. Validate BOTH fresh and upgrade Supabase migration paths, then apply:
+   supabase/migrations/202608130039_philippine_school_identity.sql
+
+6. Populate the production school directory from the official DepEd NID in a BACKEND/ADMIN environment only:
+   npm run schools:sync:nid
+
+   Required secret environment variables:
+   - SUPABASE_URL
+   - SUPABASE_SERVICE_ROLE_KEY
+
+   NEVER place SUPABASE_SERVICE_ROLE_KEY in Vite/client variables, frontend source, browser local storage, or public deployment settings.
+
+7. Re-run the normal project CI/static tests. Validate phone widths at 360px, 390px, and 412px:
+   - onboarding school search
+   - region/division filtering
+   - long school names
+   - School ID lookup
+   - manual/custom fallback
+   - Settings school change
+   - directory unavailable/error fallback
+
+8. Confirm existing workflows remain unchanged:
+   - Lesson Plans
+   - TOS
+   - Assessments
+   - Gemini generation
+   - TikZ visuals
+   - Results / item analysis
+   - Remediation
+   - PDF/DOCX/XLSX exports
+
+IMPORTANT DATA NOTE
+`data/schools/philippine-schools.sample.json` is only a tiny validation/demo sample. Do not seed it as the production national directory. Production data comes from the official DepEd NID importer/sync.
+
+IMPORTANT HISTORICAL NOTE
+Do not backfill old document/assessment/result rows with the teacher's current school. The migration deliberately leaves pre-existing school snapshots null rather than inventing historical identity.

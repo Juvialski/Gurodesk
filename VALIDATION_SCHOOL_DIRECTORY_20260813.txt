@@ -1,0 +1,24 @@
+GURODESK PHILIPPINE SCHOOL DIRECTORY — PACKAGE VALIDATION
+Date: 2026-08-13
+Target base: 955b8651ec1f7981b5aeb4fed1a4ca58a30c2164
+
+PASSED
+- Node syntax: scripts/apply-school-directory-overlay.mjs
+- Node syntax: scripts/check-school-directory-contract.mjs
+- Node syntax: scripts/schools/import-deped-nid.mjs
+- Node syntax: scripts/schools/validate-school-directory.mjs
+- Sample school-data validator: 8 unique official-reference sample records
+- Overlay fixture test: targeted existing-file edits applied successfully
+- Overlay idempotency: second apply completed without duplicate changes
+- Isolated strict TypeScript check: new school directory types/helpers/repository/SchoolPicker
+- SQL contract inspection: directory table, profile identity guard, RPCs, historical snapshot columns/triggers present
+
+NOT CLAIMED / MUST BE RUN AFTER MERGE INTO THE FULL REPOSITORY
+- Full npm unit suite
+- Full GuroDesk production build
+- Fresh Supabase migration run
+- Upgrade Supabase migration run
+- Live full national DepEd NID crawl + Supabase sync
+- Browser/mobile E2E at 360/390/412px
+
+These require the complete repository/backend environment and are explicitly included in AI_STUDIO_MERGE_INSTRUCTIONS_SCHOOLS.txt.

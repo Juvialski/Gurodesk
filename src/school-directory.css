@@ -1,0 +1,167 @@
+.school-picker {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--border, #d9e1ea);
+  border-radius: 16px;
+  background: var(--surface, #fff);
+}
+
+.school-picker-heading,
+.school-picker-selected,
+.school-picker-error,
+.school-picker-results button,
+.school-picker-source {
+  display: flex;
+  align-items: center;
+}
+
+.school-picker-heading {
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.school-picker-heading > div,
+.school-picker-selected > div,
+.school-picker-results button > span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.school-picker-heading small,
+.school-picker-selected span,
+.school-picker-results small,
+.school-picker-source {
+  color: var(--muted, #667085);
+  font-size: .82rem;
+  line-height: 1.35;
+}
+
+.school-picker-filters,
+.school-picker-manual-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.school-picker-search-label {
+  display: grid;
+  gap: 7px;
+}
+
+.school-picker-search {
+  position: relative;
+}
+
+.school-picker-search > svg {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--muted, #667085);
+}
+
+.school-picker-search input {
+  width: 100%;
+  min-height: 44px;
+  padding-left: 40px;
+}
+
+.school-picker-selected {
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--success, #15803d) 9%, transparent);
+}
+
+.school-picker-selected > div {
+  flex: 1;
+}
+
+.school-picker-results {
+  display: grid;
+  max-height: 330px;
+  overflow: auto;
+  border: 1px solid var(--border, #d9e1ea);
+  border-radius: 12px;
+}
+
+.school-picker-results button {
+  gap: 10px;
+  width: 100%;
+  min-height: 54px;
+  padding: 11px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--border, #d9e1ea);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.school-picker-results button:last-child {
+  border-bottom: 0;
+}
+
+.school-picker-results button:hover,
+.school-picker-results button:focus-visible {
+  background: var(--surface-subtle, #f6f8fb);
+}
+
+.school-picker-state {
+  padding: 10px 2px;
+  color: var(--muted, #667085);
+  font-size: .88rem;
+}
+
+.school-picker-error {
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 11px 12px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--danger, #b42318) 8%, transparent);
+}
+
+.school-picker-error span {
+  flex: 1;
+  min-width: 180px;
+}
+
+.school-picker-source {
+  gap: 6px;
+}
+
+.school-picker-source.custom {
+  color: var(--muted, #667085);
+}
+
+.button.compact {
+  min-height: 40px;
+  padding: 8px 11px;
+}
+
+@media (max-width: 600px) {
+  .school-picker {
+    padding: 14px;
+  }
+
+  .school-picker-heading {
+    align-items: flex-start;
+  }
+
+  .school-picker-filters,
+  .school-picker-manual-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .school-picker-selected {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .school-picker-selected .button {
+    margin-left: 28px;
+  }
+}

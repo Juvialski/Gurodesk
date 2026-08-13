@@ -1,0 +1,16 @@
+{
+  "sample": true,
+  "source": "DepEd National Inventory Dashboard",
+  "sourceUrl": "https://nid.deped.gov.ph/public-dashboard",
+  "note": "Validation/demo sample only. Do not treat this file as the complete Philippine school directory.",
+  "schools": [
+    {"schoolId":"136418","schoolName":"A. C. Herrera Elementary School","regionCode":"NCR","regionName":"NCR","divisionCode":null,"divisionName":"Manila","sourceUrl":"https://nid.deped.gov.ph/public-dashboard/region/NCR/division/Manila"},
+    {"schoolId":"136419","schoolName":"Barrio Obrero Elementary School","regionCode":"NCR","regionName":"NCR","divisionCode":null,"divisionName":"Manila","sourceUrl":"https://nid.deped.gov.ph/public-dashboard/region/NCR/division/Manila"},
+    {"schoolId":"136421","schoolName":"Lapu-Lapu Elementary School","regionCode":"NCR","regionName":"NCR","divisionCode":null,"divisionName":"Manila","sourceUrl":"https://nid.deped.gov.ph/public-dashboard/region/NCR/division/Manila"},
+    {"schoolId":"136422","schoolName":"Antonio Luna Elementary School","regionCode":"NCR","regionName":"NCR","divisionCode":null,"divisionName":"Manila","sourceUrl":"https://nid.deped.gov.ph/public-dashboard/region/NCR/division/Manila"},
+    {"schoolId":"114625","schoolName":"Altavas ES","regionCode":"Region VI","regionName":"Region VI","divisionCode":null,"divisionName":"Aklan","sourceUrl":"https://nid.deped.gov.ph/public-dashboard/region/Region%20VI/division/Aklan"},
+    {"schoolId":"114626","schoolName":"Cabangila ES","regionCode":"Region VI","regionName":"Region VI","divisionCode":null,"divisionName":"Aklan","sourceUrl":"https://nid.deped.gov.ph/public-dashboard/region/Region%20VI/division/Aklan"},
+    {"schoolId":"302773","schoolName":"Bagonbon NHS","regionCode":"NIR","regionName":"NIR","divisionCode":null,"divisionName":"San Carlos City","sourceUrl":"https://nid.deped.gov.ph/public-dashboard/region/NIR/division/San%20Carlos%20City"},
+    {"schoolId":"302774","schoolName":"Don Carlos Ledesma NHS","regionCode":"NIR","regionName":"NIR","divisionCode":null,"divisionName":"San Carlos City","sourceUrl":"https://nid.deped.gov.ph/public-dashboard/region/NIR/division/San%20Carlos%20City"}
+  ]
+}

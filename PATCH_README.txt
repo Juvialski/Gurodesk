@@ -1,17 +1,7 @@
-HISTORICAL NOTE — NO SEPARATE PATCH ACTION IS REQUIRED FOR THE COMPLETE PHASE 4.3 ZIP
+PHONE-ONLY HANDOFF
 
-This retained note described an older standalone Supabase connection patch. The
-complete project already contains its current connection module. Follow
-CODEX_HANDOVER.md and .env.example; do not copy secrets into browser variables.
+Upload/extract this ZIP at the GuroDesk repository root, then tell AI Studio:
 
-GuroDesk Supabase connection patch (historical)
+"Apply AI_STUDIO_MERGE_INSTRUCTIONS_SCHOOLS.txt exactly. Run the self-applying school-directory overlay, validations, migration checks, and official DepEd NID sync. Preserve newer work and do not modify the assessment/Gemini/TikZ pipeline."
 
-Replace:
-src/lib/supabase.ts
-
-with the file in this patch.
-
-This uses the production Supabase project URL and browser-safe publishable key as defaults,
-while preserving VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY as overrides.
-
-No service-role key, database password, or Gemini secret is included.
+The ZIP contains no complete fake Philippine school list. The small JSON file is explicitly demo/test-only; production records are imported from DepEd NID.
