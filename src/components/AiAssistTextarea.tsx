@@ -46,6 +46,10 @@ export function AiAssistTextarea({
   const [revision, setRevision] = useState<{ text: string; supportType: AiSupportType; model: string; fallbackUsed?: boolean; thinkingLevel?: string } | null>(null)
   const [suggestions, setSuggestions] = useState<{ items: string[]; supportType: AiSupportType; model: string; fallbackUsed?: boolean; thinkingLevel?: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [warning, setWarning] = useState<string | null>(null)
+  const hasLessonFocus = Boolean(context.lessonFocus?.trim())
+  const hasVerifiedCompetency = Boolean(context.primaryCompetency?.text.trim() || context.competencyText?.trim())
+  const hasPlanningAnchor = hasLessonFocus || hasVerifiedCompetency
 
   async function assist(supportType: AiSupportType, targetLanguage?: string) {
     if (value.trim().length < 10) return
@@ -64,14 +68,16 @@ export function AiAssistTextarea({
   }
 
   async function generateSuggestions() {
-    if (!suggestionType || !context.competencyText.trim()) return
+    if (!suggestionType || !hasPlanningAnchor) return
     setLoading(suggestionType)
     setError(null)
+    setWarning(null)
     setSuggestions(null)
     try {
       const result = await runLessonAiSupport({ supportType: suggestionType, sectionKey, text: value, documentId: documentId || undefined, lessonContext: context }, isDemo)
       if (!result.suggestions?.length) throw new Error('Gemini returned no usable suggestions.')
       setSuggestions({ items: result.suggestions.slice(0, 4), supportType: suggestionType, model: result.model, fallbackUsed: result.fallbackUsed, thinkingLevel: result.thinkingLevel })
+      setWarning(result.curriculumContextWarning ?? null)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Suggestions could not be generated.')
     } finally {
@@ -92,7 +98,7 @@ export function AiAssistTextarea({
       {help && <p className="field-help">{help}</p>}
 
       <div className="ai-tools" aria-label={`AI support for ${label}`}>
-        {suggestionType && <button type="button" className="ai-tool-button suggestion-button" disabled={!context.competencyText.trim() || Boolean(loading)} onClick={() => void generateSuggestions()}>{loading === suggestionType ? <span className="mini-spinner" /> : <Lightbulb size={13} />}{suggestions ? 'Generate 3 more' : suggestionLabel}</button>}
+        {suggestionType && <button type="button" className="ai-tool-button suggestion-button" disabled={!hasPlanningAnchor || Boolean(loading)} onClick={() => void generateSuggestions()}>{loading === suggestionType ? <span className="mini-spinner" /> : <Lightbulb size={13} />}{suggestions ? 'Generate 3 more' : suggestionLabel}</button>}
         {value.trim().length >= 10 && <>
           <span className="ai-tools-label">Polish</span>
           {tools.map(({ type, label: toolLabel, icon: Icon }) => (
@@ -105,7 +111,9 @@ export function AiAssistTextarea({
           {context.teachingSetup?.localLanguageName?.trim() && <button type="button" className="ai-tool-button" disabled={Boolean(loading)} onClick={() => void assist('translate', context.teachingSetup?.localLanguageName?.trim())}><Languages size={13} /> {context.teachingSetup.localLanguageName.trim()}</button>}
         </>}
       </div>
-      {suggestionType && !context.competencyText.trim() && <small className="ai-guardrail">Choose a verified competency first so suggestions stay curriculum-grounded.</small>}
+      {suggestionType && !hasPlanningAnchor && <small className="ai-guardrail">Enter a lesson topic or choose a verified competency before requesting planning suggestions.</small>}
+      {suggestionType && hasLessonFocus && !hasVerifiedCompetency && <small className="ai-guardrail">Topic-grounded suggestions use your teacher-provided lesson focus. You can add curriculum alignment later.</small>}
+      {warning && <small className="ai-guardrail">{warning}</small>}
       {!suggestionType && value.trim().length < 10 && <small className="ai-guardrail">AI can polish this field after you enter the information that only you can verify.</small>}
       {error && <small className="field-error">{error}</small>}
 

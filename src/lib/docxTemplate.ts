@@ -165,9 +165,13 @@ function sectionBody(model: LessonPlanExportModel, key: string) {
 export function buildLessonTemplateValues(model: LessonPlanExportModel): LessonTemplateValues {
   const competencyAndStandards = sectionBody(model, 'competency-standards')
   const performanceMarker = /(?:Performance Standard|Pamantayan sa Pagganap):\s*/i
-  const parts = competencyAndStandards.split(performanceMarker)
-  const competency = (parts[0] ?? '').trim()
-  const performanceStandard = (parts[1] ?? '').trim()
+  const curriculumLines = competencyAndStandards.split(/\r?\n/)
+  const competency = curriculumLines.filter((line) => !performanceMarker.test(line)).join('\n').trim()
+  const performanceStandard = curriculumLines
+    .filter((line) => performanceMarker.test(line))
+    .map((line) => line.replace(performanceMarker, '').trim())
+    .filter(Boolean)
+    .join('\n')
   const prepared = model.signatories.find((item) => item.role === model.labels.preparedBy)
   const reviewed = model.signatories.find((item) => item.role === model.labels.reviewedBy)
   const noted = model.signatories.find((item) => item.role === model.labels.notedBy)
@@ -183,6 +187,7 @@ export function buildLessonTemplateValues(model: LessonPlanExportModel): LessonT
     sections: model.lesson.sections,
     gradeSection: [model.lesson.gradeLevel, model.lesson.sections].filter(Boolean).join(' - '),
     learningArea: model.lesson.learningArea,
+    lessonFocus: sectionBody(model, 'lesson-focus'),
     lessonTitle: model.lesson.title,
     lessonDate: model.lesson.lessonDate,
     weekSchedule: model.lesson.weekLabel,
@@ -195,6 +200,7 @@ export function buildLessonTemplateValues(model: LessonPlanExportModel): LessonT
     performanceStandard,
     learningObjectives: sectionBody(model, 'learning-objectives'),
     learnerContext: sectionBody(model, 'learner-context'),
+    teachingApproaches: sectionBody(model, 'teaching-approaches'),
     preLessonActivity: sectionBody(model, 'pre-lesson'),
     lessonFlow: sectionBody(model, 'lesson-flow'),
     learningResources: sectionBody(model, 'resources'),

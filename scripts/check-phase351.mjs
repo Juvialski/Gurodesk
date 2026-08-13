@@ -8,7 +8,7 @@ for (const required of [
   'Verified local manifest fallback is active',
   'Supabase returned zero verified competency rows',
   'resolveProductionCompetencyId',
-  'We never write a fabricated UUID',
+  'never written into the',
 ]) {
   if (!repository.includes(required)) fail(`repository missing Phase 3.5.1 guard: ${required}`)
 }
@@ -16,7 +16,7 @@ for (const required of [
 const editor = await read('src/pages/LessonPlanEditorPage.tsx')
 for (const required of [
   'periodMappingFallback',
-  'No verified competencies available',
+  'No verified curriculum row matches this topic and search',
   'Verified manifest fallback active',
   'Period mapping needs review',
 ]) {

@@ -100,9 +100,11 @@ const FILIPINO_LABELS = {
 } as const
 
 const ENGLISH_FIELD_LABELS = {
+  lessonFocus: 'Lesson Topic / Focus',
   competencyStandards: 'Learning Competency and Curriculum Standards',
   learningObjectives: 'Learning Objectives',
   learnerContext: 'Learner Context',
+  teachingApproaches: 'Teaching Approaches',
   preLesson: 'Pre-Lesson',
   lessonFlow: 'Lesson Flow',
   resources: 'Learning Resources',
@@ -115,12 +117,20 @@ const ENGLISH_FIELD_LABELS = {
   nextSteps: 'Next Steps / Intervention',
   reflection: 'Reflection',
   performanceStandard: 'Performance Standard',
+  contentStandard: 'Content Standard',
+  primaryCompetency: 'Primary competency',
+  additionalCompetency: 'Additional competency',
+  noCurriculumAlignment: 'No verified curriculum competency attached',
+  lessonPurpose: 'Lesson purpose',
+  alignmentNote: 'Alignment note',
 } as const
 
 const FILIPINO_FIELD_LABELS = {
+  lessonFocus: 'Paksa / Pokus ng Aralin',
   competencyStandards: 'Kasanayang Pampagkatuto at mga Pamantayan sa Kurikulum',
   learningObjectives: 'Mga Layunin sa Pagkatuto',
   learnerContext: 'Konteksto ng mga Mag-aaral',
+  teachingApproaches: 'Mga Pamamaraan sa Pagtuturo',
   preLesson: 'Bago ang Aralin',
   lessonFlow: 'Daloy ng Aralin',
   resources: 'Mga Kagamitang Panturo',
@@ -133,6 +143,12 @@ const FILIPINO_FIELD_LABELS = {
   nextSteps: 'Mga Susunod na Hakbang / Interbensyon',
   reflection: 'Pagninilay',
   performanceStandard: 'Pamantayan sa Pagganap',
+  contentStandard: 'Pamantayang Pangnilalaman',
+  primaryCompetency: 'Pangunahing kasanayan',
+  additionalCompetency: 'Karagdagang kasanayan',
+  noCurriculumAlignment: 'Walang kalakip na beripikadong kasanayan sa kurikulum',
+  lessonPurpose: 'Layunin ng aralin',
+  alignmentNote: 'Tala sa pagkakahanay',
 } as const
 
 function looksFilipino(text: string) {
@@ -148,9 +164,12 @@ function resolveExportLanguage(
 ): 'english' | 'filipino' {
   if (preferences.documentLanguage === 'filipino') return 'filipino'
   if (preferences.documentLanguage === 'english') return 'english'
+  if (plan.content.lessonLanguage === 'Filipino') return 'filipino'
+  if (plan.content.lessonLanguage === 'English') return 'english'
 
   const lessonText = [
     plan.content.learningArea,
+    plan.content.lessonFocus,
     plan.content.lessonTitle,
     plan.content.intentions.learningObjectives,
     plan.content.learningExperience.preLessonActivity,
@@ -166,17 +185,45 @@ function resolveExportLanguage(
 }
 
 function competencyAndStandards(plan: LessonPlanRecord, language: 'english' | 'filipino') {
+  const labels = language === 'filipino' ? FILIPINO_FIELD_LABELS : ENGLISH_FIELD_LABELS
   const competency = plan.content.competency
+  const alignments = plan.content.curriculumAlignments?.length
+    ? plan.content.curriculumAlignments
+    : clean(competency.text) ? [competency] : []
   const lines: string[] = []
-  const competencyText = clean(competency.text)
-  if (competencyText) {
-    lines.push(clean(competency.code) ? `${clean(competency.code)}: ${competencyText}` : competencyText)
+  const primaryId = plan.content.primaryCompetencyId || competency.id || null
+  let additionalIndex = 0
+
+  for (const [index, alignment] of alignments.entries()) {
+    const competencyText = clean(alignment.text)
+    if (!competencyText) continue
+    const isPrimary = alignment.id === primaryId || (!primaryId && index === 0)
+    if (!isPrimary) additionalIndex += 1
+    const prefix = isPrimary ? labels.primaryCompetency : `${labels.additionalCompetency} ${additionalIndex}`
+    const statement = clean(alignment.code) ? `${clean(alignment.code)}: ${competencyText}` : competencyText
+    lines.push(`${prefix}: ${statement}`)
   }
-  const performanceStandard = clean(plan.content.performanceStandard)
-  if (performanceStandard) {
-    const label = language === 'filipino' ? FILIPINO_FIELD_LABELS.performanceStandard : ENGLISH_FIELD_LABELS.performanceStandard
-    lines.push(`${label}: ${performanceStandard}`)
+
+  if (!lines.length) {
+    const purpose = plan.content.alignmentPurpose && plan.content.alignmentPurpose !== 'regular'
+      ? plan.content.alignmentPurpose.replaceAll('_', ' ')
+      : ''
+    lines.push(purpose
+      ? `${labels.noCurriculumAlignment}. ${labels.lessonPurpose}: ${purpose}.`
+      : `${labels.noCurriculumAlignment}.`)
+    if (clean(plan.content.alignmentNote)) {
+      lines.push(`${labels.alignmentNote}: ${clean(plan.content.alignmentNote)}`)
+    }
   }
+
+  const contentStandards = [...new Set(alignments.flatMap((alignment) => alignment.contentStandards ?? []).map(clean).filter(Boolean))]
+  for (const standard of contentStandards) lines.push(`${labels.contentStandard}: ${standard}`)
+
+  const performanceStandards = [...new Set([
+    ...alignments.flatMap((alignment) => alignment.performanceStandards ?? []),
+    plan.content.performanceStandard,
+  ].map(clean).filter(Boolean))]
+  for (const standard of performanceStandards) lines.push(`${labels.performanceStandard}: ${standard}`)
   return lines.join('\n')
 }
 
@@ -222,7 +269,7 @@ export function buildLessonPlanExportModel(
       division: clean(profile.division),
     },
     lesson: {
-      title: display(content.lessonTitle),
+      title: display(content.lessonTitle || content.lessonFocus),
       schoolYear: display(content.schoolYear),
       gradeLevel: display(content.gradeLevel),
       learningArea: display(content.learningArea),
@@ -238,9 +285,11 @@ export function buildLessonPlanExportModel(
     },
     ilaw: {
       intentions: [
+        { key: 'lesson-focus', heading: fieldLabels.lessonFocus, body: clean(content.lessonFocus) || clean(content.lessonTitle) },
         { key: 'competency-standards', heading: fieldLabels.competencyStandards, body: competencyAndStandards(plan, language) },
         { key: 'learning-objectives', heading: fieldLabels.learningObjectives, body: clean(content.intentions.learningObjectives) },
         { key: 'learner-context', heading: fieldLabels.learnerContext, body: clean(content.learnerContext) },
+        { key: 'teaching-approaches', heading: fieldLabels.teachingApproaches, body: content.teachingApproaches.join('\n') },
       ],
       learningExperience: [
         { key: 'pre-lesson', heading: fieldLabels.preLesson, body: clean(content.learningExperience.preLessonActivity) },

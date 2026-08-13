@@ -1,11 +1,11 @@
-import { Archive, ArrowRight, BookOpenCheck, CalendarDays, Download, FileCheck2, Plus, ShieldCheck, Sparkles } from 'lucide-react'
+import { Archive, ArrowRight, BookOpenCheck, CalendarDays, Copy, Download, FileCheck2, Plus, ShieldCheck, Sparkles } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
 import { useApp } from '../contexts/AppContext'
 import { LESSON_PLANNING_POLICY } from '../data/lessonPlanningPolicy'
-import { archiveLessonPlan, loadLessonPlans } from '../lib/repository'
+import { archiveLessonPlan, duplicateLessonPlan, loadLessonPlans } from '../lib/repository'
 import type { LessonPlanRecord } from '../types/lessonPlan'
 
 export function LessonPlansPage() {
@@ -13,6 +13,7 @@ export function LessonPlansPage() {
   const [plans, setPlans] = useState<LessonPlanRecord[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [duplicatingId, setDuplicatingId] = useState<string | null>(null)
 
   async function refresh() {
     if (!user) return
@@ -35,12 +36,25 @@ export function LessonPlansPage() {
     await refresh()
   }
 
+  async function duplicate(plan: LessonPlanRecord) {
+    setDuplicatingId(plan.id)
+    setError(null)
+    try {
+      await duplicateLessonPlan(plan, isDemo)
+      await refresh()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to duplicate this lesson plan.')
+    } finally {
+      setDuplicatingId(null)
+    }
+  }
+
   return (
     <>
       <PageHeader
         eyebrow="Planning · Phase 3.6"
         title="Lesson Plans"
-        description="Teacher-led ILAW planning grounded in verified curriculum records, with guided AI suggestions and printable Word/PDF exports."
+        description="Topic-first, teacher-led ILAW planning with flexible verified curriculum alignment, guided AI suggestions, and printable Word/PDF exports."
         actions={<Link className="button primary" to="/lesson-plans/new"><Plus size={16} /> New lesson plan</Link>}
       />
 
@@ -53,7 +67,7 @@ export function LessonPlansPage() {
       {loading && <div className="panel lesson-loading"><span className="loader" /><strong>Loading lesson plans…</strong></div>}
       {!loading && error && <EmptyState icon={CalendarDays} title="Lesson plans could not be loaded" description={error} />}
       {!loading && !error && !plans.length && (
-        <EmptyState icon={BookOpenCheck} title="No lesson plans yet" description="Start from a verified curriculum competency. GuroDesk will provide the ILAW structure and keep the teacher in control of the instructional decisions.">
+        <EmptyState icon={BookOpenCheck} title="No lesson plans yet" description="Start with what you are teaching, then add zero, one, or several verified competencies. GuroDesk provides the ILAW structure while you keep control of every instructional decision.">
           <Link className="button primary" to="/lesson-plans/new"><Plus size={16} /> Create first lesson plan</Link>
         </EmptyState>
       )}
@@ -68,10 +82,12 @@ export function LessonPlansPage() {
               </div>
               <h2>{plan.title || 'Untitled lesson'}</h2>
               <p>{plan.content.gradeLevel} · {plan.content.learningArea} · {plan.content.curriculumPeriodLabel || 'Curriculum period not set'}</p>
-              <div className="lesson-card-competency"><small>Competency</small><span>{plan.content.competency.text || 'Not attached'}</span></div>
+              <div className="lesson-card-competency"><small>Topic / lesson focus</small><span>{plan.content.lessonFocus || plan.content.lessonTitle || 'Topic not entered'}</span></div>
+              <div className="lesson-card-competency"><small>{plan.content.curriculumAlignments.length ? `${plan.content.curriculumAlignments.length} verified curriculum alignment${plan.content.curriculumAlignments.length === 1 ? '' : 's'}` : 'Teacher-provided topic · no curriculum alignment'}</small><span>{plan.content.competency.text || plan.content.alignmentPurpose.replaceAll('_', ' ')}</span></div>
               <div className="lesson-card-meta"><span>{plan.content.numberOfSessions} session{plan.content.numberOfSessions === 1 ? '' : 's'}</span><span>Updated {new Date(plan.updatedAt).toLocaleDateString()}</span></div>
               <div className="lesson-card-actions">
                 <button className="icon-button danger" type="button" onClick={() => void archive(plan.id)} title="Archive"><Archive size={16} /></button>
+                <button className="icon-button" type="button" disabled={duplicatingId === plan.id} onClick={() => void duplicate(plan)} title="Duplicate lesson plan" aria-label="Duplicate lesson plan"><Copy size={16} /></button>
                 <Link className="button ghost" to={`/lesson-plans/${plan.id}/print`}><Download size={14} /> Export</Link>
                 <Link className="button secondary" to={`/lesson-plans/${plan.id}`}>Open plan <ArrowRight size={14} /></Link>
               </div>

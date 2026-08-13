@@ -3,7 +3,7 @@ import { findCurriculumCatalogEntry } from '../data/curriculumCatalog'
 import { resolveCurriculumVersion } from './curriculumResolution'
 import type { Profile, TeacherAssignment } from '../types/app'
 import type { AiCredentialSaveResult, AiCredentialStatus, AiSettingsUpdate } from '../types/ai'
-import type { LessonAiSupportRequest, LessonAiSupportResponse, LessonPlanRecord } from '../types/lessonPlan'
+import type { LessonAiSupportRequest, LessonAiSupportResponse, LessonPlanCompetencySnapshot, LessonPlanRecord } from '../types/lessonPlan'
 import type { TeacherLessonPreferences } from '../types/teachingSetup'
 import type { TeacherExportPreferences } from '../types/export'
 import { createDefaultTeacherExportPreferences } from '../types/export'
@@ -665,56 +665,102 @@ function looksLikeUuid(value: string) {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
 }
 
-async function resolveProductionCompetencyId(plan: LessonPlanRecord): Promise<string | null> {
-  if (!supabase || !plan.content.competency.id) return null
-  if (looksLikeUuid(plan.content.competency.id)) return plan.content.competency.id
+async function resolveProductionCompetencyId(competency: LessonPlanCompetencySnapshot): Promise<string | null> {
+  if (!supabase || !competency.text) return null
 
-  // Local-manifest fallback IDs are intentionally not written into the UUID FK.
-  // Resolve the exact verified production row from its source-grounded snapshot.
+  // Verify UUID-backed selections before changing existing links. Local-manifest IDs
+  // are resolved from their source-grounded snapshot and are never written into the
+  // UUID FK directly.
   let query = supabase
     .from('curriculum_competencies')
     .select('id')
     .eq('verification_status', 'verified')
-    .eq('competency_text', plan.content.competency.text)
 
-  if (plan.content.competency.sourcePage !== null) {
-    query = query.eq('source_page', plan.content.competency.sourcePage)
+  if (competency.id && looksLikeUuid(competency.id)) {
+    query = query.eq('id', competency.id)
+  } else {
+    query = query.eq('competency_text', competency.text)
+    if (competency.code !== null) query = query.eq('competency_code', competency.code)
+    if (competency.sourcePage !== null) query = query.eq('source_page', competency.sourcePage)
   }
 
-  const { data, error } = await query.limit(1)
-  if (error) return null
+  const { data, error } = await query.limit(looksLikeUuid(competency.id) ? 1 : 2)
+  if (error) throw error
+  // A local-manifest snapshot must resolve uniquely. Choosing the first of two
+  // identical rows across curriculum versions could attach the wrong reporting
+  // link; the structured source snapshot is safer than a guessed foreign key.
+  if (!looksLikeUuid(competency.id) && (data?.length ?? 0) !== 1) return null
   return data?.[0]?.id ? String(data[0].id) : null
 }
 
 async function writeLessonPlanCompetencyLink(plan: LessonPlanRecord) {
-  if (!supabase || !plan.content.competency.id) return
-  const { error: deleteError } = await supabase.from('lesson_plan_competencies').delete().eq('document_id', plan.id)
-  if (deleteError) throw deleteError
+  if (!supabase) return
 
-  const competencyId = await resolveProductionCompetencyId(plan)
-  // The structured lesson document still keeps the verified source snapshot if the
-  // production FK cannot be resolved yet. We never write a fabricated UUID.
-  if (!competencyId) return
+  // Resolve every current alignment first. A provider/read error therefore leaves
+  // the existing normalized links untouched. The structured document is the
+  // historical authority, including alignments that a deployment cannot resolve.
+  const resolved = await Promise.all(plan.content.curriculumAlignments.map(async (competency) => ({
+    competency,
+    competencyId: await resolveProductionCompetencyId(competency),
+  })))
 
-  const { error: insertError } = await supabase.from('lesson_plan_competencies').insert({
-    document_id: plan.id,
-    competency_id: competencyId,
-    competency_text_snapshot: plan.content.competency.text,
-    competency_code_snapshot: plan.content.competency.code,
-    source_page_snapshot: plan.content.competency.sourcePage,
-  })
-  if (insertError) throw insertError
+  const resolvedById = new Map<string, { competency: LessonPlanCompetencySnapshot; competencyId: string }>()
+  for (const entry of resolved) {
+    if (entry.competencyId && !resolvedById.has(entry.competencyId)) {
+      resolvedById.set(entry.competencyId, { ...entry, competencyId: entry.competencyId })
+    }
+  }
+  const uniqueResolved = [...resolvedById.values()]
+  const desiredIds = new Set(uniqueResolved.map((entry) => entry.competencyId))
+
+  const { data: existingRows, error: existingError } = await supabase
+    .from('lesson_plan_competencies')
+    .select('competency_id')
+    .eq('document_id', plan.id)
+  if (existingError) throw existingError
+  const existingIds = new Set((existingRows ?? []).map((row) => String(row.competency_id)))
+
+  // Add and validate new links before deleting stale ones. This is not a database
+  // transaction, but an insert/assignment-guard failure can no longer erase the
+  // document's existing reporting links. The structured JSON remains authoritative.
+  const additions = uniqueResolved.filter((entry) => !existingIds.has(entry.competencyId))
+  if (additions.length) {
+    const { error: insertError } = await supabase.from('lesson_plan_competencies').insert(
+      additions.map(({ competency, competencyId }) => ({
+        document_id: plan.id,
+        competency_id: competencyId,
+        competency_text_snapshot: competency.text,
+        competency_code_snapshot: competency.code,
+        source_page_snapshot: competency.sourcePage,
+      })),
+    )
+    if (insertError) throw insertError
+  }
+
+  const staleIds = [...existingIds].filter((competencyId) => !desiredIds.has(competencyId))
+  if (staleIds.length) {
+    const { error: deleteError } = await supabase
+      .from('lesson_plan_competencies')
+      .delete()
+      .eq('document_id', plan.id)
+      .in('competency_id', staleIds)
+    if (deleteError) throw deleteError
+  }
 }
 
 export async function saveLessonPlan(plan: LessonPlanRecord, demo: boolean): Promise<LessonPlanRecord> {
   const now = new Date().toISOString()
+  const planToSave: LessonPlanRecord = {
+    ...plan,
+    content: normalizeLessonContent(plan.content, plan.status),
+  }
   if (demo || !supabase) {
-    const records = demoStore.getLessonPlans()
-    const existingIndex = records.findIndex((item) => item.id === plan.id)
+    const records = demoStore.getStoredLessonPlans()
+    const existingIndex = records.findIndex((item) => item.id === planToSave.id)
     const saved: LessonPlanRecord = {
-      ...plan,
-      id: plan.id || crypto.randomUUID(),
-      createdAt: plan.createdAt || now,
+      ...planToSave,
+      id: planToSave.id || crypto.randomUUID(),
+      createdAt: planToSave.createdAt || now,
       updatedAt: now,
     }
     if (existingIndex >= 0) records[existingIndex] = saved
@@ -723,18 +769,18 @@ export async function saveLessonPlan(plan: LessonPlanRecord, demo: boolean): Pro
     return saved
   }
 
-  if (!plan.id) {
+  if (!planToSave.id) {
     const { data, error } = await supabase
       .from('documents')
       .insert({
-        user_id: plan.userId,
-        assignment_id: plan.assignmentId,
+        user_id: planToSave.userId,
+        assignment_id: planToSave.assignmentId,
         document_type: 'lesson_plan',
-        title: plan.title,
-        school_year: plan.schoolYear,
-        academic_period_label: plan.academicPeriodLabel,
-        status: plan.status,
-        structured_content: plan.content,
+        title: planToSave.title,
+        school_year: planToSave.schoolYear,
+        academic_period_label: planToSave.academicPeriodLabel,
+        status: planToSave.status,
+        structured_content: planToSave.content,
       })
       .select('*')
       .single()
@@ -753,16 +799,16 @@ export async function saveLessonPlan(plan: LessonPlanRecord, demo: boolean): Pro
   const { data, error } = await supabase
     .from('documents')
     .update({
-      assignment_id: plan.assignmentId,
-      title: plan.title,
-      school_year: plan.schoolYear,
-      academic_period_label: plan.academicPeriodLabel,
-      status: plan.status,
-      structured_content: plan.content,
+      assignment_id: planToSave.assignmentId,
+      title: planToSave.title,
+      school_year: planToSave.schoolYear,
+      academic_period_label: planToSave.academicPeriodLabel,
+      status: planToSave.status,
+      structured_content: planToSave.content,
       updated_at: now,
     })
-    .eq('id', plan.id)
-    .eq('user_id', plan.userId)
+    .eq('id', planToSave.id)
+    .eq('user_id', planToSave.userId)
     .select('*')
     .single()
   if (error) throw error
@@ -785,9 +831,26 @@ export async function saveLessonPlan(plan: LessonPlanRecord, demo: boolean): Pro
   return saved
 }
 
+export async function duplicateLessonPlan(source: LessonPlanRecord, demo: boolean): Promise<LessonPlanRecord> {
+  const content = structuredClone(normalizeLessonContent(source.content, 'draft'))
+  const copySuffix = ' (Copy)'
+  const recordTitle = source.title.trim() ? `${source.title.trim()}${copySuffix}` : ''
+  if (content.lessonTitle.trim()) content.lessonTitle = `${content.lessonTitle.trim()}${copySuffix}`
+
+  return saveLessonPlan({
+    ...source,
+    id: '',
+    title: recordTitle,
+    status: 'draft',
+    content,
+    createdAt: '',
+    updatedAt: '',
+  }, demo)
+}
+
 export async function archiveLessonPlan(id: string, userId: string, demo: boolean) {
   if (demo || !supabase) {
-    const records = demoStore.getLessonPlans().map((item) => item.id === id && item.userId === userId ? { ...item, status: 'archived' as const, updatedAt: new Date().toISOString() } : item)
+    const records = demoStore.getStoredLessonPlans().map((item) => item.id === id && item.userId === userId ? { ...item, status: 'archived' as const, updatedAt: new Date().toISOString() } : item)
     demoStore.saveLessonPlans(records)
     return
   }
@@ -797,26 +860,42 @@ export async function archiveLessonPlan(id: string, userId: string, demo: boolea
 
 function demoAiSupport(request: LessonAiSupportRequest): LessonAiSupportResponse {
   const type = request.supportType
-  const competency = request.lessonContext.competencyText || 'the selected competency'
+  const topic = request.lessonContext.lessonFocus?.trim() ?? ''
+  const primaryCompetency = request.lessonContext.primaryCompetency?.text.trim() ?? ''
+  const additionalCompetencies = (request.lessonContext.additionalCompetencies ?? [])
+    .map((competency) => competency.text.trim())
+    .filter(Boolean)
+  const legacyCompetency = request.lessonContext.competencyText?.trim() ?? ''
+  const alignmentTexts = [...new Set([primaryCompetency, ...additionalCompetencies].filter(Boolean))]
+  const lessonFocus = topic || primaryCompetency || legacyCompetency || 'the lesson focus'
+  const grounding = topic
+    ? alignmentTexts.length
+      ? `the teacher-provided topic "${topic}" and verified curriculum alignment${alignmentTexts.length === 1 ? '' : 's'}: ${alignmentTexts.join('; ')}`
+      : `the teacher-provided topic "${topic}"`
+    : alignmentTexts.length
+      ? `verified curriculum alignment${alignmentTexts.length === 1 ? '' : 's'}: ${alignmentTexts.join('; ')}`
+      : legacyCompetency
+        ? `the selected competency: ${legacyCompetency}`
+        : 'the teacher-provided lesson focus'
   const base = request.text?.trim().replace(/\s+/g, ' ') ?? ''
   const preference = request.lessonContext.teachingSetup?.languagePreference ?? 'Auto'
   const filipino = preference === 'Filipino' || (preference === 'Auto' && request.lessonContext.learningArea.toLowerCase().includes('filipino'))
   const suggested = type.startsWith('suggest_') || type === 'quick_draft'
   if (suggested) {
     const suggestions = filipino ? [
-      `Opsyon 1 na nakabatay sa ${competency}. Suriin at iangkop ito sa aktuwal na klase.`,
-      `Opsyon 2 na nakabatay sa ${competency}. Ayusin ang oras at detalye bago gamitin.`,
-      `Opsyon 3 na nakabatay sa ${competency}. Tiyaking angkop ito sa mga mag-aaral at sa mga kagamitang talagang mayroon.`,
+      `Opsyon 1 na nakabatay sa ${grounding}. Suriin at iangkop ito sa aktuwal na klase.`,
+      `Opsyon 2 na nakabatay sa ${grounding}. Ayusin ang oras at detalye bago gamitin.`,
+      `Opsyon 3 na nakabatay sa ${grounding}. Tiyaking angkop ito sa mga mag-aaral at sa mga kagamitang talagang mayroon.`,
     ] : [
-      `Option 1 grounded in ${competency}. Review and adapt this starting point for your actual class.`,
-      `Option 2 grounded in ${competency}. Adjust the pacing and language before using it.`,
-      `Option 3 grounded in ${competency}. Confirm that it matches your learners and available resources.`,
+      `Option 1 centered on ${grounding}. Review and adapt this starting point for your actual class.`,
+      `Option 2 centered on ${grounding}. Adjust the pacing and language before using it.`,
+      `Option 3 centered on ${grounding}. Confirm that it matches your learners and available resources.`,
     ]
     if (type === 'quick_draft') {
       return {
         draft: filipino ? {
-          lessonTitle: 'Banghay-araling susuriin ng guro',
-          learningObjectives: `Maipakita ng mga mag-aaral ang kasanayang ito: ${competency}. Suriin at ayusin ang layunin ayon sa saklaw ng aralin.`,
+          lessonTitle: topic || 'Banghay-araling susuriin ng guro',
+          learningObjectives: `Maipakita ng mga mag-aaral ang pagkatuto kaugnay ng ${lessonFocus}. Suriin at ayusin ang layunin ayon sa saklaw ng aralin at ${grounding}.`,
           preLessonActivity: 'Magsagawa ng maikling pagbalik-aral sa dating kaalaman na hindi nangangailangan ng kagamitang hindi nakalista.',
           lessonFlow: 'Panimula: buhayin ang dating kaalaman. Paglinang: talakayin o imodelo ang pangunahing ideya. Gabay na pagsasanay: magsagawa ng mga halimbawa na may agarang puna. Malayang pagsasanay: ipakita ng mga mag-aaral ang target na kasanayan. Pagwawakas: ibuod ang katibayan ng pagkatuto. Iangkop ang oras sa aktuwal na klase.',
           integrationContextualization: 'Iugnay ang ideya sa pamilyar na sitwasyong angkop sa klase. Palitan ito ng tiyak na kontekstong napatunayan ng guro.',
@@ -826,8 +905,8 @@ function demoAiSupport(request: LessonAiSupportRequest): LessonAiSupportResponse
           nextSteps: 'Kung hindi pa sapat ang ebidensya, muling ituro ang partikular na maling pagkaunawa gamit ang ibang halimbawa; kung sapat na, magpatuloy sa mas masalimuot na aplikasyon.',
           extendedLearning: 'Magbigay ng opsyonal na karagdagang gawain na gumagamit ng parehong kasanayan sa bagong ngunit kaugnay na sitwasyon.',
         } : {
-          lessonTitle: 'Teacher-reviewed lesson draft',
-          learningObjectives: `Learners demonstrate the selected competency: ${competency}. Review and rewrite this objective to match the intended lesson scope.`,
+          lessonTitle: topic || 'Teacher-reviewed lesson draft',
+          learningObjectives: `Learners demonstrate learning related to ${lessonFocus}. Review and rewrite this objective to match the intended lesson scope and ${grounding}.`,
           preLessonActivity: 'Use a short prior-knowledge check that requires no unlisted materials. Review the prompts before teaching.',
           lessonFlow: 'Opening: activate prior knowledge. Development: model or discuss the core idea. Guided practice: work through examples with feedback. Independent check: learners demonstrate the target skill. Closure: summarize evidence of learning. Adjust timing to the actual class.',
           integrationContextualization: 'Connect the idea to a familiar situation that is appropriate for the class. Replace this with a specific local context you have verified.',

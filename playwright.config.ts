@@ -98,7 +98,7 @@ export default defineConfig({
     },
     {
       name: 'chromium',
-      testIgnore: [/auth\.setup\.ts/, /navigation-phone\.spec\.ts/],
+      testIgnore: [/auth\.setup\.ts/, /navigation-phone\.spec\.ts/, /lesson-plan-phone\.spec\.ts/],
       dependencies: ['setup'],
       use: {
         ...devices['Desktop Chrome'],
@@ -107,7 +107,7 @@ export default defineConfig({
     },
     {
       name: 'phone',
-      testMatch: /navigation-phone\.spec\.ts/,
+      testMatch: /(?:navigation|lesson-plan)-phone\.spec\.ts/,
       dependencies: ['setup'],
       use: {
         ...devices['Pixel 5'],

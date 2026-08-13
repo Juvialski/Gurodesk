@@ -17,7 +17,13 @@ const fn = await read('supabase/functions/lesson-ai-support/index.ts')
 for (const allowed of ['refine_clarity', 'organize_text', 'grammar_spelling', 'format_text', 'translate']) {
   if (!fn.includes(allowed)) fail(`AI text-support function missing task ${allowed}`)
 }
-if (!fn.includes('VERIFIED COMPETENCY')) fail('Lesson AI is not grounded in verified competency context.')
+for (const required of [
+  'VERIFIED PRIMARY COMPETENCY',
+  'OTHER VERIFIED ALIGNMENTS',
+  ".eq('verification_status', 'verified')",
+]) {
+  if (!fn.includes(required)) fail(`Lesson AI grounding contract is missing: ${required}`)
+}
 if (!fn.includes('RESOURCE ACCURACY RULE')) fail('Lesson AI resource hallucination guard is missing.')
 
 const policy = await read('src/data/lessonPlanningPolicy.ts')
@@ -48,6 +54,6 @@ for (const file of await sourceFiles('src')) {
 
 console.log('✓ Phase 3 lesson-planning foundation checks passed')
 console.log('✓ ILAW fields and curriculum/term separation present')
-console.log('✓ AI remains competency-grounded with teacher-responsibility and resource-accuracy guards')
+console.log('✓ AI remains topic-first and server-verified-competency-grounded with teacher-responsibility and resource-accuracy guards')
 console.log('✓ verified-competency and lesson-document RLS guards present')
 console.log('✓ browser source contains no Gemini/service-role secret reference')

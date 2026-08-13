@@ -1,4 +1,5 @@
 import type { LessonPlanContent, LessonPlanValidationResult } from '../types/lessonPlan'
+import { getPrimaryLessonCompetency } from './lessonPlanAlignment'
 
 function hasText(value: string, minimum = 8) {
   return value.trim().length >= minimum
@@ -6,12 +7,37 @@ function hasText(value: string, minimum = 8) {
 
 export function validateLessonPlan(content: LessonPlanContent): LessonPlanValidationResult {
   const pendingSuggestions = content.aiSuggestionReview?.pendingSections ?? []
+  const primaryCompetency = getPrimaryLessonCompetency(content)
+  const verifiedAlignmentsAreValid = content.curriculumAlignments.length > 0
+    && content.curriculumAlignments.every((alignment) =>
+      alignment.verificationStatus === 'verified'
+      && Boolean(alignment.id.trim())
+      && hasText(alignment.text, 12),
+    )
+  const curriculumAlignmentIsValid = content.alignmentMode === 'curriculum_aligned'
+    && verifiedAlignmentsAreValid
+    && Boolean(primaryCompetency)
+    && content.competency.id === primaryCompetency?.id
+    && content.competency.text === primaryCompetency?.text
+  const topicOnlyPurposeIsValid = content.alignmentMode === 'topic_only'
+    && content.curriculumAlignments.length === 0
+    && content.primaryCompetencyId === null
+    && content.alignmentPurpose !== 'regular'
+    && (content.alignmentPurpose !== 'other' || hasText(content.alignmentNote, 4))
   const items = [
     {
+      key: 'lesson-focus',
+      label: 'Lesson topic or focus is clear',
+      passed: hasText(content.lessonFocus, 3),
+      detail: 'State what learners will study, practice, review, or apply in this lesson.',
+    },
+    {
       key: 'competency',
-      label: 'Verified competency is attached',
-      passed: Boolean(content.competency.id && hasText(content.competency.text, 12)),
-      detail: 'The plan must stay grounded in a verified curriculum competency.',
+      label: 'Curriculum alignment or teaching purpose is explicit',
+      passed: curriculumAlignmentIsValid || topicOnlyPurposeIsValid,
+      detail: content.alignmentMode === 'topic_only'
+        ? 'Choose a non-regular purpose for an unaligned lesson. An “other” purpose also needs a short note.'
+        : 'Attach verified competencies, choose a valid primary competency, and keep its source snapshot intact.',
     },
     {
       key: 'objectives',

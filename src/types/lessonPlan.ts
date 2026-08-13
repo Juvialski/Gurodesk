@@ -30,7 +30,47 @@ export type LessonAiSuggestionReview = {
   lastQuickDraftAt: string | null
 }
 
-export type LessonPlanContent = {
+export type LessonPlanCompetencySnapshot = {
+  id: string
+  code: string | null
+  text: string
+  sourcePage: number | null
+  sourceTitle: string | null
+  academicPeriodId: string | null
+  curriculumPeriodLabel: string
+  domainId: string | null
+  contentArea: string
+  contentStandards: string[]
+  performanceStandards: string[]
+  verificationStatus: 'verified'
+}
+
+export type LegacyLessonPlanCompetencySnapshot = Pick<
+  LessonPlanCompetencySnapshot,
+  'id' | 'code' | 'text' | 'sourcePage' | 'sourceTitle'
+> & Partial<Pick<
+  LessonPlanCompetencySnapshot,
+  | 'academicPeriodId'
+  | 'curriculumPeriodLabel'
+  | 'domainId'
+  | 'contentArea'
+  | 'contentStandards'
+  | 'performanceStandards'
+  | 'verificationStatus'
+>>
+
+export type LessonPlanAlignmentMode = 'curriculum_aligned' | 'topic_only'
+
+export type LessonPlanAlignmentPurpose =
+  | 'regular'
+  | 'review'
+  | 'remediation'
+  | 'enrichment'
+  | 'locally_developed'
+  | 'interdisciplinary'
+  | 'other'
+
+type LessonPlanContentBase = {
   schemaVersion: 1
   framework: 'ILAW'
   policyCode: 'DO 016, s. 2026'
@@ -47,13 +87,6 @@ export type LessonPlanContent = {
   durationMinutes: number
   references: string
   resourcesVerifiedByTeacher: boolean
-  competency: {
-    id: string
-    code: string | null
-    text: string
-    sourcePage: number | null
-    sourceTitle: string | null
-  }
   performanceStandard: string
   learnerContext: string
   intentions: {
@@ -78,6 +111,32 @@ export type LessonPlanContent = {
   }
   aiDeclaration: LessonPlanAiDeclaration
   aiSuggestionReview: LessonAiSuggestionReview
+}
+
+export type LegacyLessonPlanContentV1 = Omit<
+  LessonPlanContentBase,
+  'schemaVersion' | 'resourcesVerifiedByTeacher' | 'aiSuggestionReview'
+> & {
+  schemaVersion: 1
+  resourcesVerifiedByTeacher?: boolean
+  aiSuggestionReview?: LessonAiSuggestionReview
+  competency: LegacyLessonPlanCompetencySnapshot
+}
+
+export type LessonPlanContent = Omit<LessonPlanContentBase, 'schemaVersion'> & {
+  schemaVersion: 2
+  lessonFocus: string
+  lessonFocusSource: 'teacher' | 'curriculum_derived'
+  lessonFocusSourceId: string | null
+  lessonLanguage: string
+  teachingApproaches: string[]
+  curriculumAlignments: LessonPlanCompetencySnapshot[]
+  primaryCompetencyId: string | null
+  alignmentMode: LessonPlanAlignmentMode
+  alignmentPurpose: LessonPlanAlignmentPurpose
+  alignmentNote: string
+  /** Compatibility projection of the primary alignment for older consumers. */
+  competency: LessonPlanCompetencySnapshot
 }
 
 export type LessonPlanRecord = {
@@ -116,6 +175,11 @@ export type LessonAiTeachingSetup = {
   resourceNotes: string
 }
 
+export type LessonAiCompetencyContext = Pick<
+  LessonPlanCompetencySnapshot,
+  'id' | 'code' | 'text' | 'sourcePage' | 'sourceTitle'
+>
+
 export type LessonAiSupportRequest = {
   supportType: AiSupportType
   sectionKey: string
@@ -123,9 +187,14 @@ export type LessonAiSupportRequest = {
   targetLanguage?: string
   documentId?: string
   lessonContext: {
+    assignmentId?: string | null
     gradeLevel: string
     learningArea: string
-    competencyText: string
+    lessonFocus: string
+    primaryCompetency?: LessonAiCompetencyContext | null
+    additionalCompetencies: LessonAiCompetencyContext[]
+    /** Legacy alias retained during the request-contract transition. */
+    competencyText?: string
     performanceStandard?: string
     teacherIntent: string
     curriculumPeriodLabel?: string
@@ -162,4 +231,5 @@ export type LessonAiSupportResponse = {
   thinkingLevel?: 'high' | 'model_default'
   supportType: AiSupportType
   declarationCategory: 'limited' | 'guided' | 'suggested'
+  curriculumContextWarning?: string
 }

@@ -25,6 +25,7 @@ export type LessonTemplateFieldKey =
   | 'sections'
   | 'gradeSection'
   | 'learningArea'
+  | 'lessonFocus'
   | 'lessonTitle'
   | 'lessonDate'
   | 'weekSchedule'
@@ -37,6 +38,7 @@ export type LessonTemplateFieldKey =
   | 'performanceStandard'
   | 'learningObjectives'
   | 'learnerContext'
+  | 'teachingApproaches'
   | 'preLessonActivity'
   | 'lessonFlow'
   | 'learningResources'
@@ -104,6 +106,7 @@ export const LESSON_TEMPLATE_FIELDS: Array<{
   { key: 'sections', label: 'Section/s', group: 'Lesson details' },
   { key: 'gradeSection', label: 'Grade level and section/s', group: 'Lesson details', important: true },
   { key: 'learningArea', label: 'Learning area / subject', group: 'Lesson details', important: true },
+  { key: 'lessonFocus', label: 'Lesson topic / focus', group: 'Lesson details', important: true },
   { key: 'lessonTitle', label: 'Lesson title', group: 'Lesson details', important: true },
   { key: 'lessonDate', label: 'Lesson date', group: 'Lesson details' },
   { key: 'weekSchedule', label: 'Week / schedule', group: 'Lesson details' },
@@ -116,6 +119,7 @@ export const LESSON_TEMPLATE_FIELDS: Array<{
   { key: 'performanceStandard', label: 'Performance standard', group: 'Intentions' },
   { key: 'learningObjectives', label: 'Learning objectives / intentions', group: 'Intentions', important: true },
   { key: 'learnerContext', label: 'Learner context / readiness', group: 'Intentions' },
+  { key: 'teachingApproaches', label: 'Teaching approaches', group: 'Learning Experience' },
   { key: 'preLessonActivity', label: 'Pre-lesson activity', group: 'Learning Experience' },
   { key: 'lessonFlow', label: 'Lesson flow / learning experience', group: 'Learning Experience', important: true },
   { key: 'learningResources', label: 'Learning resources / materials', group: 'Learning Experience' },

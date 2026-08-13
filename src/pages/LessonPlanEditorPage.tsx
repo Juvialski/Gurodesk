@@ -1,4 +1,4 @@
-import { ArrowLeft, BookOpenCheck, CheckCircle2, CircleAlert, FileCheck2, FileDown, Lightbulb, Save, ShieldCheck, Sparkles } from 'lucide-react'
+import { ArrowLeft, BookOpenCheck, Check, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileDown, Lightbulb, Save, Search, ShieldCheck, Sparkles, Star, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AiAssistTextarea } from '../components/AiAssistTextarea'
@@ -9,6 +9,8 @@ import { useApp } from '../contexts/AppContext'
 import { useWorkspaceSelection } from '../hooks/useWorkspaceSelection'
 import { buildAiDeclaration, LESSON_PLANNING_POLICY } from '../data/lessonPlanningPolicy'
 import { createBlankLessonPlan } from '../lib/lessonPlanFactory'
+import { createLessonCompetencySnapshot, curriculumContentAreaSuggestions, groupLessonCompetencies, rankVerifiedLessonCompetencies } from '../lib/lessonCurriculum'
+import { emptyLessonCompetencySnapshot } from '../lib/lessonPlanAlignment'
 import { validateLessonPlan } from '../lib/lessonPlanValidation'
 import {
   loadCurriculumNavigator,
@@ -38,13 +40,128 @@ const QUICK_DRAFT_LABELS: Array<[keyof LessonQuickDraft, string]> = [
   ['extendedLearning', 'Extended learning'],
 ]
 
+const NO_ALIGNMENT_PURPOSES: Array<{
+  value: Exclude<LessonPlanContent['alignmentPurpose'], 'regular'>
+  label: string
+}> = [
+  { value: 'review', label: 'Review' },
+  { value: 'remediation', label: 'Remediation' },
+  { value: 'enrichment', label: 'Enrichment' },
+  { value: 'locally_developed', label: 'Locally developed' },
+  { value: 'interdisciplinary', label: 'Interdisciplinary' },
+  { value: 'other', label: 'Other' },
+]
+
+function hasExplicitTopicOnlyPurpose(content: LessonPlanContent) {
+  return content.alignmentMode === 'topic_only'
+    && content.alignmentPurpose !== 'regular'
+    && (content.alignmentPurpose !== 'other' || content.alignmentNote.trim().length >= 4)
+}
+
+type AlignmentPickerProps = {
+  plan: LessonPlanRecord
+  bundle: CurriculumNavigatorBundle | null
+  competencies: CurriculumNavigatorBundle['competencies']
+  open: boolean
+  search: string
+  onToggleOpen: () => void
+  onClose: () => void
+  onSearchChange: (value: string) => void
+  onToggleCompetency: (id: string) => void
+  onSetPrimary: (id: string) => void
+  onRemove: (id: string) => void
+}
+
+function AlignmentPicker({
+  plan,
+  bundle,
+  competencies,
+  open,
+  search,
+  onToggleOpen,
+  onClose,
+  onSearchChange,
+  onToggleCompetency,
+  onSetPrimary,
+  onRemove,
+}: AlignmentPickerProps) {
+  const selected = plan.content.curriculumAlignments
+  const selectedIds = new Set(selected.map((item) => item.id))
+  const groups = groupLessonCompetencies(bundle, competencies)
+
+  return <>
+    {selected.length > 0 && <div className="workflow-selected-alignments" data-testid="selected-lesson-alignments">
+      <header><strong>{selected.length} verified {selected.length === 1 ? 'competency' : 'competencies'} aligned</strong><span className="workflow-topic-source"><ShieldCheck size={12} /> Curriculum-grounded</span></header>
+      {selected.map((alignment) => {
+        const primary = plan.content.primaryCompetencyId === alignment.id
+        return <div className={`workflow-selected-alignment ${primary ? 'primary' : ''}`} key={alignment.id}>
+          <div className="workflow-selected-alignment-copy">
+            <small>{primary && <span className="workflow-primary-badge">Primary</span>}{alignment.contentArea || alignment.code || 'Verified competency'}{alignment.sourcePage ? ` · source p. ${alignment.sourcePage}` : ''}</small>
+            <strong>{alignment.text}</strong>
+          </div>
+          <div className="workflow-alignment-actions">
+            {!primary && <button type="button" onClick={() => onSetPrimary(alignment.id)}><Star size={13} /> Make primary</button>}
+            <button type="button" className="danger" onClick={() => onRemove(alignment.id)} aria-label={`Remove ${alignment.code || alignment.text}`}><X size={13} /> Remove</button>
+          </div>
+        </div>
+      })}
+    </div>}
+
+    <button type="button" className={`workflow-picker-trigger ${open ? 'open' : ''}`} aria-expanded={open} aria-controls="lesson-competency-options" onClick={onToggleOpen}>
+      <span>{selected.length ? `Add or change curriculum alignment · ${selected.length} selected` : bundle === null ? 'Loading verified competencies…' : 'Find verified curriculum matches'}</span>
+      <ChevronDown size={16} aria-hidden="true" />
+    </button>
+    {open && <div className="workflow-picker-panel">
+      <label className="workflow-search"><Search size={16} /><span className="sr-only">Search verified competencies</span><input value={search} onChange={(event) => onSearchChange(event.target.value)} placeholder="Search competency, code, content area, or standard" autoFocus /></label>
+      <div className="workflow-picker-summary"><span>{competencies.length} verified curriculum {competencies.length === 1 ? 'match' : 'matches'}</span><button type="button" onClick={onClose}>Done</button></div>
+      <div className="workflow-competency-list" id="lesson-competency-options" role="listbox" aria-label="Verified curriculum alignments" aria-multiselectable="true">
+        {groups.map((group) => <section className="workflow-curriculum-group" key={group.key}>
+          <header className="workflow-curriculum-group-header"><small>{group.periodLabel}</small><strong>{group.contentArea}</strong></header>
+          {(group.contentStandards.length > 0 || group.performanceStandards.length > 0) && <details className="workflow-curriculum-standards workflow-curriculum-details"><summary>View verified standards</summary>
+            {group.contentStandards.length > 0 && <div><span>Content standard</span>{group.contentStandards.map((standard) => <p key={standard}>{standard}</p>)}</div>}
+            {group.performanceStandards.length > 0 && <div><span>Performance standard</span>{group.performanceStandards.map((standard) => <p key={standard}>{standard}</p>)}</div>}
+          </details>}
+          <div className="workflow-curriculum-competencies">{group.competencies.map((competency) => {
+            const isSelected = selectedIds.has(competency.id)
+            return <button type="button" role="option" aria-selected={isSelected} key={competency.id} className={`workflow-competency-option ${isSelected ? 'selected' : ''}`} onClick={() => onToggleCompetency(competency.id)}>
+              <span className="workflow-checkbox" aria-hidden="true">{isSelected ? <Check size={15} /> : null}</span>
+              <span><small>{competency.competencyCode || 'Verified competency'}{competency.sourcePage ? ` · source p. ${competency.sourcePage}` : ''}</small><strong>{competency.competencyText}</strong></span>
+            </button>
+          })}</div>
+        </section>)}
+        {!competencies.length && <div className="workflow-empty">No verified curriculum row matches this topic and search. Try different wording, search the full competency text, or continue without curriculum alignment.</div>}
+      </div>
+    </div>}
+  </>
+}
+
+function AlignmentModePanel({ plan, onUpdateContent }: { plan: LessonPlanRecord; onUpdateContent: (mutator: (content: LessonPlanContent) => void) => void }) {
+  const topicOnly = plan.content.alignmentMode === 'topic_only'
+  if (plan.content.curriculumAlignments.length > 0) return null
+  return <div className="workflow-alignment-mode">
+    {!topicOnly ? <button type="button" className="button ghost" onClick={() => onUpdateContent((content) => {
+      content.alignmentMode = 'topic_only'
+      content.alignmentPurpose = 'regular'
+      content.alignmentNote = ''
+    })}>Continue without curriculum alignment</button> : <div className="workflow-purpose-panel">
+      <strong>What kind of topic-only lesson is this?</strong>
+      <div className="workflow-purpose-grid">{NO_ALIGNMENT_PURPOSES.map((purpose) => <button type="button" key={purpose.value} aria-pressed={plan.content.alignmentPurpose === purpose.value} className={`workflow-chip ${plan.content.alignmentPurpose === purpose.value ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.alignmentPurpose = purpose.value })}>{purpose.label}</button>)}</div>
+      <label className="workflow-topic-field"><span>{plan.content.alignmentPurpose === 'other' ? 'Brief reason (required)' : 'Planning note (optional)'}</span><textarea rows={2} value={plan.content.alignmentNote} onChange={(event) => onUpdateContent((content) => { content.alignmentNote = event.target.value })} placeholder="Add curriculum alignment later, or note why this lesson is intentionally topic-only." /></label>
+      <div className="workflow-alignment-state"><CircleAlert size={15} /><span>This lesson will be labeled as teacher-provided and not curriculum-aligned. Gemini must not present the topic as an official competency.</span></div>
+      <button type="button" className="button ghost" onClick={() => onUpdateContent((content) => { content.alignmentMode = 'curriculum_aligned'; content.alignmentPurpose = 'regular'; content.alignmentNote = '' })}>Choose curriculum alignment instead</button>
+    </div>}
+  </div>
+}
+
 type LessonSimpleFlowProps = {
   plan: LessonPlanRecord
+  assignments: TeacherAssignment[]
+  assignmentId: string
   assignment: TeacherAssignment | null
   bundle: CurriculumNavigatorBundle | null
   calendar: SchoolYearCalendar | null
-  visibleCompetencies: CurriculumNavigatorBundle['competencies']
   filteredCompetencies: CurriculumNavigatorBundle['competencies']
+  topicSuggestions: Array<{ id: string; label: string }>
   competencyPickerOpen: boolean
   competencySearch: string
   simpleLanguage: string
@@ -52,8 +169,13 @@ type LessonSimpleFlowProps = {
   quickDraftMessage: string | null
   quickDraftPreview: LessonAiSupportResponse | null
   onUpdateContent: (mutator: (content: LessonPlanContent) => void) => void
+  onAssignmentChange: (id: string) => void
   onSelectPeriod: (label: string) => void
-  onSelectCompetency: (id: string) => void
+  onTopicChange: (value: string) => void
+  onTopicSuggestion: (id: string, label: string) => void
+  onToggleCompetency: (id: string) => void
+  onSetPrimary: (id: string) => void
+  onRemoveCompetency: (id: string) => void
   onToggleCompetencyPicker: () => void
   onCloseCompetencyPicker: () => void
   onCompetencySearchChange: (value: string) => void
@@ -65,11 +187,13 @@ type LessonSimpleFlowProps = {
 
 function LessonSimpleFlow({
   plan,
+  assignments,
+  assignmentId,
   assignment,
   bundle,
   calendar,
-  visibleCompetencies,
   filteredCompetencies,
+  topicSuggestions,
   competencyPickerOpen,
   competencySearch,
   simpleLanguage,
@@ -77,8 +201,13 @@ function LessonSimpleFlow({
   quickDraftMessage,
   quickDraftPreview,
   onUpdateContent,
+  onAssignmentChange,
   onSelectPeriod,
-  onSelectCompetency,
+  onTopicChange,
+  onTopicSuggestion,
+  onToggleCompetency,
+  onSetPrimary,
+  onRemoveCompetency,
   onToggleCompetencyPicker,
   onCloseCompetencyPicker,
   onCompetencySearchChange,
@@ -93,41 +222,40 @@ function LessonSimpleFlow({
         <div>
           <span className="eyebrow">Guided setup</span>
           <h2>Prepare a lesson plan</h2>
-          <p>Choose one verified competency, set the time and language, then review a draft grounded in your choices.</p>
+          <p>Start with what you are teaching, then add as much verified curriculum alignment as the lesson needs.</p>
         </div>
         <span className="workflow-step-count">3 short steps</span>
       </div>
 
       <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>1</span><div><strong>Class and timing</strong><small>Curriculum-guide period and school grading term are shown separately.</small></div></div>
+        <div className="workflow-step-heading"><span>1</span><div><strong>Class and lesson setup</strong><small>Curriculum-guide period and school grading term are shown separately.</small></div></div>
+        <div className="workflow-form-grid"><label>Class<select value={assignmentId} disabled={Boolean(plan.id)} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option key={item.id} value={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label></div>
         <div className="workflow-context-banner"><strong>{assignment?.gradeLevel} {assignment?.learningArea}</strong><span>{assignment?.sections.join(' · ') || 'Class sections'} · {plan.content.schoolYear}</span></div>
         <div className="workflow-chip-group"><span className="workflow-field-label">Curriculum-guide period</span><div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.curriculumPeriodLabel === period.label} className={`workflow-chip ${plan.content.curriculumPeriodLabel === period.label ? 'selected' : ''}`} onClick={() => onSelectPeriod(period.label)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div></div>
         <div className="workflow-chip-group"><span className="workflow-field-label">School grading term</span><div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.gradingTermLabel === period.label} className={`workflow-chip ${plan.content.gradingTermLabel === period.label ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">Loading grading terms…</span>}</div></div>
         <div className="workflow-chip-group"><span className="workflow-field-label">Lesson length</span><div className="workflow-chip-row">{[45, 60, 90].map((minutes) => <button type="button" key={minutes} aria-pressed={plan.content.durationMinutes === minutes} className={`workflow-chip ${plan.content.durationMinutes === minutes ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.durationMinutes = minutes })}>{minutes} min</button>)}</div></div>
+        <div className="workflow-chip-group"><span className="workflow-field-label">Lesson language</span><div className="workflow-chip-row workflow-language-chips">{LESSON_LANGUAGE_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={simpleLanguage === item.value} className={`workflow-chip ${simpleLanguage === item.value ? 'selected' : ''}`} onClick={() => onLanguageChange(item.value)}>{item.label}</button>)}</div></div>
       </div>
 
       <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>2</span><div><strong>Choose one competency</strong><small>Select the exact verified competency you want this lesson to address.</small></div></div>
-        <button type="button" className={`workflow-picker-trigger ${competencyPickerOpen ? 'open' : ''}`} aria-expanded={competencyPickerOpen} onClick={onToggleCompetencyPicker}><span>{plan.content.competency.text || (bundle === null ? 'Loading verified competencies…' : visibleCompetencies.length ? 'Choose a verified competency' : 'No verified competencies available')}</span><span aria-hidden="true">⌄</span></button>
-        {competencyPickerOpen && <div className="workflow-picker-panel"><label className="workflow-search"><SearchIcon /><span className="sr-only">Search verified competencies</span><input value={competencySearch} onChange={(event) => onCompetencySearchChange(event.target.value)} placeholder="Search competency text or code" autoFocus /></label><div className="workflow-picker-summary"><span>{filteredCompetencies.length} verified {filteredCompetencies.length === 1 ? 'competency' : 'competencies'}</span><button type="button" onClick={onCloseCompetencyPicker}>Close</button></div><div className="workflow-competency-list">{filteredCompetencies.map((item) => <button type="button" key={item.id} aria-pressed={plan.content.competency.id === item.id} className={`workflow-competency-option ${plan.content.competency.id === item.id ? 'selected' : ''}`} onClick={() => onSelectCompetency(item.id)}><span className="workflow-checkbox" aria-hidden="true">{plan.content.competency.id === item.id ? <CheckCircle2 size={15} /> : null}</span><span>{item.competencyCode && <small>{item.competencyCode}</small>}<strong>{item.competencyText}</strong></span></button>)}{!filteredCompetencies.length && <div className="workflow-empty">No verified competency matches “{competencySearch}”.</div>}</div></div>}
-        {plan.content.competency.text && <div className="workflow-grounding"><ShieldCheck size={16} /><div><strong>{plan.content.competency.code || 'Verified competency'}</strong><p>{plan.content.competency.text}</p><small>{plan.content.competency.sourceTitle}{plan.content.competency.sourcePage ? ` · source p. ${plan.content.competency.sourcePage}` : ''}</small></div></div>}
+        <div className="workflow-step-heading"><span>2</span><div><strong>What are you teaching?</strong><small>Enter the topic or lesson focus in the words you use for your class.</small></div></div>
+        <label className="workflow-topic-field"><span>Topic / lesson focus <small>(required)</small></span><input data-testid="lesson-focus-input" value={plan.content.lessonFocus} onChange={(event) => onTopicChange(event.target.value)} placeholder={`e.g. ${assignment?.learningArea === 'Mathematics' ? 'Percentage increase and decrease' : 'A focused lesson topic'}`} /><small>This is the main pedagogical focus. It may cover all, part, or several competencies.</small></label>
+        <div className="workflow-topic-suggestions"><span>Curriculum-derived content areas</span><small className="workflow-muted">These are verified content-area labels, not invented official lesson titles.</small><div className="workflow-chip-row">{topicSuggestions.map((suggestion) => <button type="button" key={suggestion.id} className={`workflow-chip ${plan.content.lessonFocusSource === 'curriculum_derived' && plan.content.lessonFocusSourceId === suggestion.id ? 'selected' : ''}`} onClick={() => onTopicSuggestion(suggestion.id, suggestion.label)}>{suggestion.label}</button>)}</div></div>
+        <span className="workflow-topic-source">{plan.content.lessonFocusSource === 'curriculum_derived' ? <><ShieldCheck size={12} /> Curriculum-derived suggestion</> : <><Sparkles size={12} /> Teacher-entered topic</>}</span>
       </div>
 
       <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>3</span><div><strong>Choose the lesson language</strong><small>These choices guide the optional AI draft; you still review every suggestion.</small></div></div>
-        <div className="workflow-chip-row workflow-language-chips">{LESSON_LANGUAGE_OPTIONS.filter((item) => ['English', 'Filipino', 'English + Filipino'].includes(item.value)).map((item) => <button type="button" key={item.value} aria-pressed={simpleLanguage === item.value} className={`workflow-chip ${simpleLanguage === item.value ? 'selected' : ''}`} onClick={() => onLanguageChange(item.value)}>{item.label}</button>)}</div>
+        <div className="workflow-step-heading"><span>3</span><div><strong>Curriculum alignment</strong><small>Select zero, one, or several verified competencies. Choose one primary competency when several apply.</small></div><span className="workflow-count-badge">{plan.content.curriculumAlignments.length} selected</span></div>
+        <AlignmentPicker plan={plan} bundle={bundle} competencies={filteredCompetencies} open={competencyPickerOpen} search={competencySearch} onToggleOpen={onToggleCompetencyPicker} onClose={onCloseCompetencyPicker} onSearchChange={onCompetencySearchChange} onToggleCompetency={onToggleCompetency} onSetPrimary={onSetPrimary} onRemove={onRemoveCompetency} />
+        <AlignmentModePanel plan={plan} onUpdateContent={onUpdateContent} />
       </div>
 
       {quickDraftMessage && <div className="workflow-warning">{quickDraftMessage}</div>}
       {quickDraftPreview?.draft && <div className="workflow-review-card"><div className="workflow-review-heading"><div><strong>Review your lesson plan draft</strong><small>Only empty planning fields are suggested. Check that each idea fits your real class.</small></div><span>{quickDraftPreview.model === 'demo-local-preview' ? 'Preview' : 'AI draft'}</span></div><div className="workflow-review-list">{QUICK_DRAFT_LABELS.map(([key, label]) => quickDraftPreview.draft?.[key] ? <div key={key}><strong>{label}</strong><p>{quickDraftPreview.draft[key]}</p></div> : null)}</div><div className="workflow-actions"><button type="button" className="button ghost" onClick={onDiscardDraft}>Discard</button><button type="button" className="button primary" onClick={onApplyDraft}><CheckCircle2 size={15} /> Apply to empty fields</button></div></div>}
-      <div className="workflow-actions lesson-simple-actions"><button type="button" className="button primary" disabled={quickDraftLoading || !plan.content.competency.id} onClick={onPrepare}>{quickDraftLoading ? 'Preparing…' : 'Prepare lesson plan'} <ArrowRightIcon /></button></div>
+      <div className="workflow-actions lesson-simple-actions"><button type="button" className="button primary" disabled={quickDraftLoading || plan.content.lessonFocus.trim().length < 3 || (plan.content.curriculumAlignments.length === 0 && !hasExplicitTopicOnlyPurpose(plan.content))} onClick={onPrepare}>{quickDraftLoading ? 'Preparing…' : 'Prepare lesson plan'} <ArrowRightIcon /></button></div>
       <p className="workflow-footnote">AI assistance is optional. Your existing text is never overwritten, and resources or references are not invented. Review and adapt the draft before using it.</p>
     </section>
   )
-}
-
-function SearchIcon() {
-  return <span aria-hidden="true" className="workflow-search-icon">⌕</span>
 }
 
 function ArrowRightIcon() {
@@ -157,7 +285,6 @@ export function LessonPlanEditorPage() {
   const [quickDraftMessage, setQuickDraftMessage] = useState<string | null>(null)
   const [competencyPickerOpen, setCompetencyPickerOpen] = useState(false)
   const [competencySearch, setCompetencySearch] = useState('')
-  const [simpleLanguage, setSimpleLanguage] = useState('English')
   const [viewMode, setViewMode] = useState<'simple' | 'advanced'>(() => {
     try {
       return localStorage.getItem('gurodesk.lesson-plan.view-mode') === 'advanced' ? 'advanced' : 'simple'
@@ -177,16 +304,20 @@ export function LessonPlanEditorPage() {
   }, [viewMode])
 
   useEffect(() => {
-    if (['English', 'Filipino', 'English + Filipino'].includes(preferences.languagePreference)) setSimpleLanguage(preferences.languagePreference)
-  }, [preferences.languagePreference])
-
-  useEffect(() => {
-    if (assignmentId) updateSelection({ assignmentId })
-  }, [assignmentId, updateSelection])
+    if (!assignmentId) return
+    updateSelection({
+      assignmentId,
+      curriculumPeriodId: plan?.content.curriculumPeriodLabel
+        ? (bundle?.periods.find((item) => item.label === plan.content.curriculumPeriodLabel)?.id ?? null)
+        : null,
+    })
+  }, [assignmentId, plan?.content.curriculumPeriodLabel, bundle?.periods, updateSelection])
 
   function freshPlan(userId: string, targetAssignment: (typeof assignments)[number]) {
     const next = createBlankLessonPlan(userId, targetAssignment)
     next.content.durationMinutes = preferences.defaultDurationMinutes || 60
+    next.content.lessonLanguage = preferences.languagePreference || 'Auto'
+    next.content.teachingApproaches = [...preferences.preferredApproaches]
     return next
   }
 
@@ -197,9 +328,11 @@ export function LessonPlanEditorPage() {
       if (cancelled) return
       setPreferences(next)
       setPlan((current) => {
-        if (!current || !isNew || current.id || current.content.durationMinutes !== 60) return current
+        if (!current || !isNew || current.id) return current
         const copy = structuredClone(current)
-        copy.content.durationMinutes = next.defaultDurationMinutes || 60
+        if (copy.content.durationMinutes === 60) copy.content.durationMinutes = next.defaultDurationMinutes || 60
+        if (!copy.content.lessonLanguage || copy.content.lessonLanguage === 'Auto') copy.content.lessonLanguage = next.languagePreference || 'Auto'
+        if (!copy.content.teachingApproaches.length) copy.content.teachingApproaches = [...next.preferredApproaches]
         return copy
       })
     }).catch(() => {})
@@ -249,19 +382,22 @@ export function LessonPlanEditorPage() {
         if (isNew && current.assignmentId !== assignment.id) return freshPlan(current.userId, assignment)
         if (!next.content.gradingTermLabel) next.content.gradingTermLabel = nextCalendar?.periods[0]?.label ?? ''
         if (!next.content.curriculumPeriodLabel) next.content.curriculumPeriodLabel = nextBundle.periods[0]?.label ?? ''
-        const targetCompetency = nextBundle.competencies.find((item) => item.id === (requestedCompetencyId || next.content.competency.id))
-        if (targetCompetency && !next.content.competency.id) {
-          next.content.competency = {
-            id: targetCompetency.id,
-            code: targetCompetency.competencyCode,
-            text: targetCompetency.competencyText,
-            sourcePage: targetCompetency.sourcePage,
-            sourceTitle: nextBundle.source?.title ?? null,
+        const targetCompetency = nextBundle.competencies.find((item) => item.id === requestedCompetencyId)
+        if (targetCompetency && !next.content.curriculumAlignments.some((item) => item.id === targetCompetency.id)) {
+          const snapshot = createLessonCompetencySnapshot(nextBundle, targetCompetency)
+          next.content.curriculumAlignments.push(snapshot)
+          next.content.primaryCompetencyId ||= snapshot.id
+          next.content.competency = structuredClone(next.content.curriculumAlignments.find((item) => item.id === next.content.primaryCompetencyId) ?? snapshot)
+          next.content.alignmentMode = 'curriculum_aligned'
+          next.content.alignmentPurpose = 'regular'
+          if (!next.content.lessonFocus.trim()) {
+            next.content.lessonFocus = snapshot.contentArea || snapshot.text
+            next.content.lessonFocusSource = 'curriculum_derived'
+            next.content.lessonFocusSourceId = snapshot.domainId || snapshot.id
           }
           const period = nextBundle.periods.find((item) => item.id === targetCompetency.academicPeriodId)
           if (period) next.content.curriculumPeriodLabel = period.label
-          const standard = nextBundle.standards.find((item) => item.academicPeriodId === targetCompetency.academicPeriodId && item.standardType === 'performance')
-          next.content.performanceStandard = standard?.standardText ?? ''
+          next.content.performanceStandard = snapshot.performanceStandards.join('\n')
         }
         return next
       })
@@ -277,12 +413,14 @@ export function LessonPlanEditorPage() {
   // make the mismatch visible instead of presenting a dead mobile dropdown.
   const periodMappingFallback = Boolean(bundle?.competencies.length && period && periodCompetencies.length === 0)
   const visibleCompetencies = periodMappingFallback ? (bundle?.competencies ?? []) : periodCompetencies
-  const normalizedCompetencySearch = competencySearch.trim().toLowerCase()
-  const filteredCompetencies = normalizedCompetencySearch
-    ? visibleCompetencies.filter((item) =>
-        `${item.competencyCode ?? ''} ${item.competencyText}`.toLowerCase().includes(normalizedCompetencySearch),
-      )
-    : visibleCompetencies
+  const filteredCompetencies = rankVerifiedLessonCompetencies(
+    bundle,
+    visibleCompetencies,
+    plan?.content.lessonFocus ?? '',
+    competencySearch,
+  )
+  const topicSuggestions = curriculumContentAreaSuggestions(bundle, period?.id ?? null)
+  const simpleLanguage = plan?.content.lessonLanguage || preferences.languagePreference || 'Auto'
 
   function updateContent(mutator: (content: LessonPlanContent) => void) {
     setSavedMessage('')
@@ -290,8 +428,7 @@ export function LessonPlanEditorPage() {
       if (!current) return current
       const next = structuredClone(current)
       mutator(next.content)
-      updateSelection({ assignmentId, curriculumPeriodId: next.content.curriculumPeriodLabel ? (bundle?.periods.find((item) => item.label === next.content.curriculumPeriodLabel)?.id ?? null) : null })
-      next.title = next.content.lessonTitle || `${next.content.gradeLevel} ${next.content.learningArea} lesson`
+      next.title = next.content.lessonTitle || next.content.lessonFocus || `${next.content.gradeLevel} ${next.content.learningArea} lesson`
       next.schoolYear = next.content.schoolYear
       next.academicPeriodLabel = next.content.curriculumPeriodLabel || null
       return next
@@ -311,27 +448,89 @@ export function LessonPlanEditorPage() {
     setCompetencyPickerOpen(false)
     setCompetencySearch('')
     updateContent((content) => {
+      if (content.curriculumPeriodLabel === label) return
+      const hadCurriculumAlignments = content.curriculumAlignments.length > 0
       content.curriculumPeriodLabel = label
-      content.competency = { id: '', code: null, text: '', sourcePage: null, sourceTitle: bundle?.source?.title ?? null }
+      // Alignments are period-scoped curriculum snapshots. Keep the teacher's
+      // topic, but require a fresh verified selection for the newly chosen period.
+      content.curriculumAlignments = []
+      content.primaryCompetencyId = null
+      content.competency = emptyLessonCompetencySnapshot()
       content.performanceStandard = ''
+      if (hadCurriculumAlignments) {
+        content.alignmentMode = 'curriculum_aligned'
+        content.alignmentPurpose = 'regular'
+        content.alignmentNote = ''
+      }
     })
   }
 
-  function selectCompetency(competencyId: string) {
+  function syncPrimaryProjection(content: LessonPlanContent) {
+    if (content.curriculumAlignments.length === 0) {
+      content.primaryCompetencyId = null
+      content.competency = emptyLessonCompetencySnapshot()
+      content.performanceStandard = ''
+      return
+    }
+    if (!content.curriculumAlignments.some((item) => item.id === content.primaryCompetencyId)) {
+      content.primaryCompetencyId = content.curriculumAlignments[0].id
+    }
+    const primary = content.curriculumAlignments.find((item) => item.id === content.primaryCompetencyId)!
+    content.competency = structuredClone(primary)
+    content.performanceStandard = primary.performanceStandards.join('\n')
+    content.alignmentMode = 'curriculum_aligned'
+    content.alignmentPurpose = 'regular'
+    content.alignmentNote = ''
+  }
+
+  function changeLessonFocus(value: string) {
+    updateContent((content) => {
+      content.lessonFocus = value
+      content.lessonFocusSource = 'teacher'
+      content.lessonFocusSourceId = null
+    })
+  }
+
+  function useTopicSuggestion(id: string, label: string) {
+    updateContent((content) => {
+      content.lessonFocus = label
+      content.lessonFocusSource = 'curriculum_derived'
+      content.lessonFocusSourceId = id
+    })
+  }
+
+  function toggleCompetency(competencyId: string) {
     const competency = bundle?.competencies.find((item) => item.id === competencyId)
     if (!competency) return
-    setCompetencyPickerOpen(false)
-    setCompetencySearch('')
     updateContent((content) => {
-      content.competency = {
-        id: competency.id,
-        code: competency.competencyCode,
-        text: competency.competencyText,
-        sourcePage: competency.sourcePage,
-        sourceTitle: bundle?.source?.title ?? null,
+      const existing = content.curriculumAlignments.some((item) => item.id === competencyId)
+      if (existing) {
+        content.curriculumAlignments = content.curriculumAlignments.filter((item) => item.id !== competencyId)
+      } else if (bundle) {
+        const snapshot = createLessonCompetencySnapshot(bundle, competency)
+        content.curriculumAlignments.push(snapshot)
+        if (!content.lessonFocus.trim()) {
+          content.lessonFocus = snapshot.contentArea || snapshot.text
+          content.lessonFocusSource = 'curriculum_derived'
+          content.lessonFocusSourceId = snapshot.domainId || snapshot.id
+        }
       }
-      const standard = bundle?.standards.find((item) => item.academicPeriodId === competency.academicPeriodId && item.standardType === 'performance')
-      content.performanceStandard = standard?.standardText ?? ''
+      syncPrimaryProjection(content)
+    })
+  }
+
+  function removeCompetency(competencyId: string) {
+    updateContent((content) => {
+      content.curriculumAlignments = content.curriculumAlignments.filter((item) => item.id !== competencyId)
+      syncPrimaryProjection(content)
+    })
+  }
+
+  function setPrimaryCompetency(competencyId: string) {
+    updateContent((content) => {
+      if (!content.curriculumAlignments.some((item) => item.id === competencyId)) return
+      content.primaryCompetencyId = competencyId
+      syncPrimaryProjection(content)
     })
   }
 
@@ -361,8 +560,12 @@ export function LessonPlanEditorPage() {
 
   async function prepareQuickDraft() {
     const activePlan = plan
-    if (!activePlan || !activePlan.content.competency.id) {
-      setQuickDraftMessage('Choose a verified competency first.')
+    if (!activePlan || activePlan.content.lessonFocus.trim().length < 3) {
+      setQuickDraftMessage('Enter the topic or lesson focus first.')
+      return
+    }
+    if (activePlan.content.curriculumAlignments.length === 0 && !hasExplicitTopicOnlyPurpose(activePlan.content)) {
+      setQuickDraftMessage('Choose curriculum alignment or explicitly choose a topic-only lesson purpose.')
       return
     }
     setQuickDraftLoading(true)
@@ -377,6 +580,7 @@ export function LessonPlanEditorPage() {
       }, isDemo)
       if (!result.draft) throw new Error('Gemini returned no Quick Draft.')
       setQuickDraftPreview(result)
+      setQuickDraftMessage(result.curriculumContextWarning ?? null)
     } catch (err) {
       setQuickDraftMessage(err instanceof Error ? err.message : 'Quick Draft could not be prepared.')
     } finally {
@@ -446,10 +650,24 @@ export function LessonPlanEditorPage() {
   if (loading || !plan) return <div className="panel lesson-loading"><span className="loader" /><strong>Opening lesson workspace…</strong></div>
   if (error && !plan) return <EmptyState icon={CircleAlert} title="Lesson plan could not be opened" description={error} />
 
+  const primaryAlignment = plan.content.curriculumAlignments.find((item) => item.id === plan.content.primaryCompetencyId) ?? null
+  const toAiCompetency = (item: LessonPlanContent['curriculumAlignments'][number]) => ({
+    id: item.id,
+    code: item.code,
+    text: item.text,
+    sourcePage: item.sourcePage,
+    sourceTitle: item.sourceTitle,
+  })
   const aiContext = {
+    assignmentId: plan.assignmentId,
     gradeLevel: plan.content.gradeLevel,
     learningArea: plan.content.learningArea,
-    competencyText: plan.content.competency.text,
+    lessonFocus: plan.content.lessonFocus,
+    primaryCompetency: primaryAlignment ? toAiCompetency(primaryAlignment) : null,
+    additionalCompetencies: plan.content.curriculumAlignments
+      .filter((item) => item.id !== primaryAlignment?.id)
+      .map(toAiCompetency),
+    competencyText: primaryAlignment?.text || plan.content.competency.text,
     performanceStandard: plan.content.performanceStandard,
     teacherIntent: plan.content.intentions.learningObjectives,
     curriculumPeriodLabel: plan.content.curriculumPeriodLabel,
@@ -463,7 +681,7 @@ export function LessonPlanEditorPage() {
       localLanguageName: preferences.localLanguageName,
       typicalClassProfile: preferences.typicalClassProfile,
       availableTechnology: preferences.availableTechnology,
-      preferredApproaches: preferences.preferredApproaches,
+      preferredApproaches: plan.content.teachingApproaches.length ? plan.content.teachingApproaches : preferences.preferredApproaches,
       actualResources: plan.content.resourcesVerifiedByTeacher
         ? plan.content.learningExperience.resources.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)
         : [],
@@ -478,17 +696,22 @@ export function LessonPlanEditorPage() {
       <PageHeader
         eyebrow="ILAW lesson planning · Phase 3.6.3"
         title={isNew ? 'New lesson plan' : plan.title || 'Lesson plan'}
-        description="Choose one verified competency, prepare an optional draft, and review it before teaching. The full ILAW editor remains available whenever you need it."
+        description="Start with a lesson topic, add optional verified curriculum alignment, and review every planning decision before teaching."
         actions={<div className="editor-header-actions"><SimpleAdvancedToggle mode={viewMode} onChange={setViewMode} /> <Link to="/lesson-plans" className="button ghost"><ArrowLeft size={15} /> Back</Link><button className="button primary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button></div>}
       />
 
+      {error && <div className="editor-alert error"><CircleAlert size={15} /> {error}</div>}
+      {savedMessage && <div className="editor-alert success"><CheckCircle2 size={15} /> {savedMessage}</div>}
+
       {viewMode === 'simple' ? <LessonSimpleFlow
         plan={plan}
+        assignments={assignments}
+        assignmentId={assignmentId}
         assignment={assignment}
         bundle={bundle}
         calendar={calendar}
-        visibleCompetencies={visibleCompetencies}
         filteredCompetencies={filteredCompetencies}
+        topicSuggestions={topicSuggestions}
         competencyPickerOpen={competencyPickerOpen}
         competencySearch={competencySearch}
         simpleLanguage={simpleLanguage}
@@ -496,14 +719,18 @@ export function LessonPlanEditorPage() {
         quickDraftMessage={quickDraftMessage}
         quickDraftPreview={quickDraftPreview}
         onUpdateContent={updateContent}
+        onAssignmentChange={changeAssignment}
         onSelectPeriod={selectCurriculumPeriod}
-        onSelectCompetency={selectCompetency}
+        onTopicChange={changeLessonFocus}
+        onTopicSuggestion={useTopicSuggestion}
+        onToggleCompetency={toggleCompetency}
+        onSetPrimary={setPrimaryCompetency}
+        onRemoveCompetency={removeCompetency}
         onToggleCompetencyPicker={() => setCompetencyPickerOpen((open) => !open)}
         onCloseCompetencyPicker={() => { setCompetencyPickerOpen(false); setCompetencySearch('') }}
         onCompetencySearchChange={setCompetencySearch}
         onLanguageChange={(value) => {
-          setSimpleLanguage(value)
-          setPreferences((current) => ({ ...current, languagePreference: value }))
+          updateContent((content) => { content.lessonLanguage = value })
         }}
         onPrepare={() => void prepareQuickDraft()}
         onDiscardDraft={() => setQuickDraftPreview(null)}
@@ -515,11 +742,8 @@ export function LessonPlanEditorPage() {
         <span className="policy-code">{LESSON_PLANNING_POLICY.code}</span>
       </section>
 
-      {error && <div className="editor-alert error"><CircleAlert size={15} /> {error}</div>}
-      {savedMessage && <div className="editor-alert success"><CheckCircle2 size={15} /> {savedMessage}</div>}
-
       <section className="panel quick-draft-panel">
-        <div className="quick-draft-heading"><span className="quick-draft-icon"><Sparkles size={19} /></span><div><span className="eyebrow">Fast planning</span><h2>Quick Draft suggestions</h2><p>One Gemini call prepares a coherent set of suggestions for empty planning fields. Your existing text is never overwritten, and resources, references, and post-lesson reflection are never generated.</p></div><button className="button secondary" disabled={quickDraftLoading || !plan.content.competency.id} onClick={() => void prepareQuickDraft()}>{quickDraftLoading ? <span className="mini-spinner" /> : <Lightbulb size={15} />} Prepare suggestions</button></div>
+        <div className="quick-draft-heading"><span className="quick-draft-icon"><Sparkles size={19} /></span><div><span className="eyebrow">Fast planning</span><h2>Quick Draft suggestions</h2><p>One Gemini call prepares a coherent set of suggestions for empty planning fields. Your existing text is never overwritten, and resources, references, and post-lesson reflection are never generated.</p></div><button className="button secondary" disabled={quickDraftLoading || plan.content.lessonFocus.trim().length < 3 || (plan.content.curriculumAlignments.length === 0 && !hasExplicitTopicOnlyPurpose(plan.content))} onClick={() => void prepareQuickDraft()}>{quickDraftLoading ? <span className="mini-spinner" /> : <Lightbulb size={15} />} Prepare suggestions</button></div>
         {quickDraftMessage && <div className="quick-draft-message">{quickDraftMessage}</div>}
         {quickDraftPreview?.draft && <div className="quick-draft-preview"><div className="quick-draft-preview-head"><div><strong>Review before applying</strong><small>{quickDraftPreview.model === 'demo-local-preview' ? 'Local demo preview' : `${quickDraftPreview.model}${quickDraftPreview.thinkingLevel === 'high' ? ' · high thinking' : ''}${quickDraftPreview.fallbackUsed ? ' · Lite fallback used' : ''}`}</small></div><p>Only currently empty fields will be filled.</p></div><div className="quick-draft-preview-list">{QUICK_DRAFT_LABELS.map(([key, label]) => quickDraftPreview.draft?.[key] ? <div key={key}><span>{label}</span><p>{quickDraftPreview.draft[key]}</p></div> : null)}</div><div className="quick-draft-preview-actions"><button className="button ghost" onClick={() => setQuickDraftPreview(null)}>Discard</button><button className="button primary" onClick={applyQuickDraft}><CheckCircle2 size={15} /> Apply to empty fields</button></div></div>}
         {pendingSections.length > 0 && <div className="quick-draft-pending"><CircleAlert size={16} /><div><strong>{pendingSections.length} Quick Draft section{pendingSections.length === 1 ? '' : 's'} need your review</strong><p>Edit anything you want, then confirm when the suggested text matches your actual class and intended instruction.</p></div><button className="button secondary" onClick={confirmAllAiReview}><CheckCircle2 size={15} /> I reviewed all</button></div>}
@@ -531,6 +755,7 @@ export function LessonPlanEditorPage() {
             <div className="editor-section-head"><div><span className="ilaw-letter neutral">01</span><div><span className="eyebrow">Lesson details</span><h2>Class and curriculum context</h2></div></div></div>
             <div className="form-grid two">
               <label>Teaching assignment<select value={assignmentId} disabled={!isNew} onChange={(event) => changeAssignment(event.target.value)}>{assignments.map((item) => <option key={item.id} value={item.id}>{item.gradeLevel} · {item.learningArea}</option>)}</select></label>
+              <label className="workflow-topic-field">Topic / lesson focus<input value={plan.content.lessonFocus} onChange={(event) => changeLessonFocus(event.target.value)} placeholder="What are you teaching?" /><small>The topic is the main pedagogical focus. Curriculum alignments ground it when selected.</small></label>
               <label className={pending('lessonTitle') ? 'pending-control' : ''}>Lesson title<input value={plan.content.lessonTitle} onChange={(event) => updateContent((c) => { c.lessonTitle = event.target.value })} placeholder="Teacher-chosen lesson title" />{pending('lessonTitle') && <small className="pending-review-label">Quick Draft · review</small>}</label>
               <label>Curriculum-guide period<select value={plan.content.curriculumPeriodLabel} onChange={(event) => selectCurriculumPeriod(event.target.value)} disabled={!bundle?.available}>{bundle?.periods.map((item) => <option key={item.id}>{item.label}</option>)}</select></label>
               <label>School grading term<select value={plan.content.gradingTermLabel} onChange={(event) => updateContent((c) => { c.gradingTermLabel = event.target.value })}>{calendar?.periods.map((item) => <option key={item.id}>{item.label}</option>)}</select></label>
@@ -538,66 +763,20 @@ export function LessonPlanEditorPage() {
               <label>Week / schedule<input value={plan.content.weekLabel} onChange={(event) => updateContent((c) => { c.weekLabel = event.target.value })} placeholder="e.g. Week 3" /></label>
               <label>No. of sessions<input type="number" min="1" max="20" value={plan.content.numberOfSessions} onChange={(event) => updateContent((c) => { c.numberOfSessions = Math.max(1, Number(event.target.value) || 1) })} /></label>
               <label>Minutes per session<input type="number" min="10" max="300" value={plan.content.durationMinutes} onChange={(event) => updateContent((c) => { c.durationMinutes = Math.max(10, Number(event.target.value) || 60) })} /></label>
+              <label>Lesson language<select value={plan.content.lessonLanguage} onChange={(event) => updateContent((c) => { c.lessonLanguage = event.target.value })}>{LESSON_LANGUAGE_OPTIONS.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
             </div>
             <div className="section-picker"><strong>Sections</strong><div>{assignment?.sections.map((section) => <label className="check-chip" key={section}><input type="checkbox" checked={plan.content.sections.includes(section)} onChange={(event) => updateContent((c) => { c.sections = event.target.checked ? [...new Set([...c.sections, section])] : c.sections.filter((item) => item !== section) })} /> {section}</label>)}</div></div>
+            <label className="full-field teacher-verified-field">Teaching approaches<textarea rows={3} value={plan.content.teachingApproaches.join('\n')} onChange={(event) => updateContent((c) => { c.teachingApproaches = [...new Set(event.target.value.split(/\r?\n|,/).map((item) => item.trim()).filter(Boolean))] })} placeholder="One approach per line, such as explicit instruction or collaborative learning" /><small>Lesson-specific choices. Saved teaching-setup preferences are used as the initial suggestions and can be changed here.</small></label>
             <div className="full-field competency-picker-field">
-              <span className="competency-picker-label">Verified competency</span>
-              <button
-                type="button"
-                className={`competency-picker-trigger ${competencyPickerOpen ? 'open' : ''}`}
-                aria-haspopup="listbox"
-                aria-expanded={competencyPickerOpen}
-                disabled={!bundle?.available || visibleCompetencies.length === 0}
-                onClick={() => setCompetencyPickerOpen((open) => !open)}
-              >
-                <span>{plan.content.competency.text || (bundle === null ? 'Loading verified competencies…' : visibleCompetencies.length === 0 ? 'No verified competencies available' : 'Choose a verified competency')}</span>
-                <span className="competency-picker-chevron" aria-hidden="true">⌄</span>
-              </button>
-              {competencyPickerOpen && visibleCompetencies.length > 0 && (
-                <div className="competency-picker-panel">
-                  <input
-                    type="search"
-                    value={competencySearch}
-                    onChange={(event) => setCompetencySearch(event.target.value)}
-                    placeholder="Search competency text or code"
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="off"
-                    spellCheck={false}
-                    aria-label="Search verified competencies"
-                  />
-                  <div className="competency-picker-summary">
-                    <span>{filteredCompetencies.length} verified {filteredCompetencies.length === 1 ? 'competency' : 'competencies'}</span>
-                    <button type="button" onClick={() => { setCompetencyPickerOpen(false); setCompetencySearch('') }}>Close</button>
-                  </div>
-                  <div className="competency-picker-list" role="listbox" aria-label="Verified competencies">
-                    {filteredCompetencies.length > 0 ? filteredCompetencies.map((item) => (
-                      <button
-                        type="button"
-                        role="option"
-                        aria-selected={plan.content.competency.id === item.id}
-                        className={`competency-picker-option ${plan.content.competency.id === item.id ? 'selected' : ''}`}
-                        key={item.id}
-                        onClick={() => selectCompetency(item.id)}
-                      >
-                        <span className="competency-picker-number">{item.sortOrder}</span>
-                        <span className="competency-picker-copy">
-                          {item.competencyCode && <small>{item.competencyCode}</small>}
-                          <strong>{item.competencyText}</strong>
-                        </span>
-                      </button>
-                    )) : (
-                      <div className="competency-picker-empty">No verified competency matches “{competencySearch}”.</div>
-                    )}
-                  </div>
-                </div>
-              )}
+              <span className="competency-picker-label">Verified curriculum alignment</span>
+              <small className="field-help">Select zero, one, or multiple competencies. One selected competency is kept as the primary alignment for reporting and legacy compatibility.</small>
+              <AlignmentPicker plan={plan} bundle={bundle} competencies={filteredCompetencies} open={competencyPickerOpen} search={competencySearch} onToggleOpen={() => setCompetencyPickerOpen((open) => !open)} onClose={() => { setCompetencyPickerOpen(false); setCompetencySearch('') }} onSearchChange={setCompetencySearch} onToggleCompetency={toggleCompetency} onSetPrimary={setPrimaryCompetency} onRemove={removeCompetency} />
+              <AlignmentModePanel plan={plan} onUpdateContent={updateContent} />
             </div>
             {bundle && !bundle.available && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>Verified curriculum unavailable for this assignment</strong><p>{bundle.coverageNote || 'No verified curriculum bundle was returned.'}</p></div></div>}
             {bundle?.available && visibleCompetencies.length === 0 && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>No competency rows were returned</strong><p>{bundle.coverageNote || 'Try reopening the lesson. GuroDesk will not invent competencies.'}</p></div></div>}
             {periodMappingFallback && <div className="curriculum-inline-status warning"><CircleAlert size={15} /><div><strong>Period mapping needs review</strong><p>The selected period did not match the imported competency period IDs, so all verified competencies are shown rather than leaving this selector empty.</p></div></div>}
             {bundle?.coverageNote?.includes('Verified local manifest fallback') && <div className="curriculum-inline-status info"><ShieldCheck size={15} /><div><strong>Verified manifest fallback active</strong><p>{bundle.coverageNote}</p></div></div>}
-            {plan.content.competency.text && <div className="competency-grounding"><ShieldCheck size={16} /><div><strong>{plan.content.competency.code || 'Verified competency'}</strong><p>{plan.content.competency.text}</p><small>{plan.content.competency.sourceTitle}{plan.content.competency.sourcePage ? ` · p. ${plan.content.competency.sourcePage}` : ''}</small></div></div>}
             {plan.content.performanceStandard && <div className="standard-grounding"><small>Performance standard</small><p>{plan.content.performanceStandard}</p></div>}
             <label className="full-field teacher-verified-field">References<textarea rows={3} value={plan.content.references} onChange={(event) => updateContent((c) => { c.references = event.target.value })} placeholder="Only books, modules, websites, page numbers, or teacher-made materials you actually used." /><small>Teacher-entered only. GuroDesk will not generate citations or page numbers.</small></label>
           </section>
@@ -606,7 +785,7 @@ export function LessonPlanEditorPage() {
             <div className="editor-section-head"><div><span className="ilaw-letter">I</span><div><span className="eyebrow">Intentions</span><h2>What learners need to learn</h2></div></div><span className="teacher-decision-chip">Teacher approves</span></div>
             {preferences.typicalClassProfile && !plan.content.learnerContext.trim() && <div className="saved-setup-callout"><span>Saved class profile available</span><button className="button ghost" onClick={() => updateContent((c) => { c.learnerContext = preferences.typicalClassProfile })}>Use saved profile</button></div>}
             <AiAssistTextarea label="Learner context / readiness" sectionKey="learnerContext" value={plan.content.learnerContext} onChange={(value) => updateContent((c) => { c.learnerContext = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} placeholder="What do you know about this class that should shape the lesson? Avoid learner names or sensitive personal data." help="Teacher-provided class-level context only. AI does not invent learner needs." />
-            <AiAssistTextarea label="Learning objectives" sectionKey="intentions.learningObjectives" value={plan.content.intentions.learningObjectives} onChange={(value) => updateContent((c) => { c.intentions.learningObjectives = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} placeholder="Choose, edit, or write the focused objectives you want learners to demonstrate." help="GuroDesk can propose alternatives grounded in the verified competency; you choose and adapt the final objectives." suggestionType="suggest_learning_objectives" suggestionLabel="Suggest objectives" pendingQuickDraft={pending('intentions.learningObjectives')} />
+            <AiAssistTextarea label="Learning objectives" sectionKey="intentions.learningObjectives" value={plan.content.intentions.learningObjectives} onChange={(value) => updateContent((c) => { c.intentions.learningObjectives = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} placeholder="Choose, edit, or write the focused objectives you want learners to demonstrate." help="GuroDesk can propose alternatives centered on the topic and grounded in selected verified competencies; you choose and adapt the final objectives." suggestionType="suggest_learning_objectives" suggestionLabel="Suggest objectives" pendingQuickDraft={pending('intentions.learningObjectives')} />
           </section>
 
           <section className="panel editor-section ilaw-section learning-section">
@@ -622,7 +801,7 @@ export function LessonPlanEditorPage() {
 
             <AiAssistTextarea label="Home-based / Hinay alternative" sectionKey="learningExperience.homeBasedAlternative" value={plan.content.learningExperience.homeBasedAlternative} onChange={(value) => updateContent((c) => { c.learningExperience.homeBasedAlternative = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} rows={3} placeholder="Alternative activity if face-to-face instruction is interrupted" suggestionType="suggest_home_alternative" suggestionLabel="Suggest alternatives" pendingQuickDraft={pending('learningExperience.homeBasedAlternative')} />
             <AiAssistTextarea label="Pre-lesson activity" sectionKey="learningExperience.preLessonActivity" value={plan.content.learningExperience.preLessonActivity} onChange={(value) => updateContent((c) => { c.learningExperience.preLessonActivity = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} rows={4} placeholder="Brief readiness check, routine, or prior-knowledge activation" suggestionType="suggest_pre_lesson" suggestionLabel="Suggest openings" pendingQuickDraft={pending('learningExperience.preLessonActivity')} />
-            <AiAssistTextarea label="Lesson flow" sectionKey="learningExperience.lessonFlow" value={plan.content.learningExperience.lessonFlow} onChange={(value) => updateContent((c) => { c.learningExperience.lessonFlow = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} rows={8} placeholder="Choose or write the sequence, interactions, prompts, practice, and adjustments you intend to use." help="Suggestions use the verified competency, available time, and your saved teaching preferences. They cannot invent unlisted materials or technology." suggestionType="suggest_lesson_flow" suggestionLabel="Suggest lesson flows" pendingQuickDraft={pending('learningExperience.lessonFlow')} />
+            <AiAssistTextarea label="Lesson flow" sectionKey="learningExperience.lessonFlow" value={plan.content.learningExperience.lessonFlow} onChange={(value) => updateContent((c) => { c.learningExperience.lessonFlow = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} rows={8} placeholder="Choose or write the sequence, interactions, prompts, practice, and adjustments you intend to use." help="Suggestions use the lesson topic, selected verified alignments, available time, and saved teaching preferences. They cannot invent curriculum facts, materials, or technology." suggestionType="suggest_lesson_flow" suggestionLabel="Suggest lesson flows" pendingQuickDraft={pending('learningExperience.lessonFlow')} />
             <AiAssistTextarea label="Integration & contextualization" sectionKey="learningExperience.integrationContextualization" value={plan.content.learningExperience.integrationContextualization} onChange={(value) => updateContent((c) => { c.learningExperience.integrationContextualization = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} rows={4} placeholder="Real-life, local, cultural, community, technology, or cross-learning-area connections" suggestionType="suggest_contextualization" suggestionLabel="Suggest contexts" pendingQuickDraft={pending('learningExperience.integrationContextualization')} />
             <AiAssistTextarea label="Inclusion / accommodations" sectionKey="learningExperience.inclusionAccommodations" value={plan.content.learningExperience.inclusionAccommodations} onChange={(value) => updateContent((c) => { c.learningExperience.inclusionAccommodations = value })} isDemo={isDemo} context={aiContext} onAiUsed={markAiUsed} documentId={plan.id || undefined} rows={4} placeholder="Classroom-level supports, accommodations, or modifications where applicable" help="Suggestions are universal supports only; Gemini is instructed not to infer diagnoses or sensitive learner needs." suggestionType="suggest_inclusion" suggestionLabel="Suggest supports" pendingQuickDraft={pending('learningExperience.inclusionAccommodations')} />
           </section>

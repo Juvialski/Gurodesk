@@ -451,7 +451,8 @@ button.competency-row.selected .competency-text { color: #244a74; }
 .lesson-card-competency span { display: block; color: #4a5d73; font-size: 9.5px; line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 .lesson-card-meta { display: flex; justify-content: space-between; gap: 10px; margin: 13px 0; color: #8a96a5; font-size: 8.5px; }
 .lesson-card-actions { margin-top: auto; display: flex; justify-content: flex-end; gap: 8px; }
-.editor-header-actions { display: flex; gap: 8px; }
+.lesson-card-actions .icon-button { width: 44px; height: 44px; }
+.editor-header-actions { min-width: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .editor-alert { display: flex; align-items: center; gap: 7px; padding: 10px 12px; margin-bottom: 12px; border-radius: 10px; font-size: 9.5px; font-weight: 700; }
 .editor-alert.error { color: #a53a47; background: #fff3f5; border: 1px solid #f2d4d8; }
 .editor-alert.success { color: #26755a; background: #effaf5; border: 1px solid #d1ede1; }
@@ -537,7 +538,9 @@ button.competency-row.selected .competency-text { color: #244a74; }
 
 @media (max-width: 580px) {
   .editor-header-actions { width: 100%; }
-  .editor-header-actions .button { flex: 1; }
+  .editor-header-actions .simple-advanced-toggle { width: 100%; flex: 1 1 100%; }
+  .editor-header-actions .simple-advanced-toggle button { flex: 1 1 0; }
+  .editor-header-actions .button { min-width: 0; flex: 1 1 calc(50% - 4px); }
   .editor-section { padding: 14px; }
   .editor-section-head { align-items: center; }
   .teacher-decision-chip { display: none; }

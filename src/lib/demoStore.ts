@@ -4,6 +4,7 @@ import type { TeacherLessonPreferences } from '../types/teachingSetup'
 import { createDefaultTeacherLessonPreferences } from '../types/teachingSetup'
 import type { TeacherExportPreferences } from '../types/export'
 import { createDefaultTeacherExportPreferences } from '../types/export'
+import { normalizeLessonContent } from './lessonPlanFactory'
 
 const PROFILE_KEY = 'gurodesk.demo.profile.v1'
 const ASSIGNMENTS_KEY = 'gurodesk.demo.assignments.v1'
@@ -52,8 +53,18 @@ export const demoStore = {
     localStorage.setItem(ASSIGNMENTS_KEY, JSON.stringify(assignments))
   },
 
-  getLessonPlans(): LessonPlanRecord[] {
+  getStoredLessonPlans(): LessonPlanRecord[] {
     return read(LESSON_PLANS_KEY, [])
+  },
+
+  getLessonPlans(): LessonPlanRecord[] {
+    // Upgrade legacy single-competency records only in the returned value. Reading a
+    // demo lesson must never rewrite localStorage or silently change its historical
+    // snapshot; an explicit save is what persists the normalized v2 content.
+    return this.getStoredLessonPlans().map((plan) => ({
+      ...plan,
+      content: normalizeLessonContent(plan.content, plan.status),
+    }))
   },
 
   saveLessonPlans(plans: LessonPlanRecord[]) {
