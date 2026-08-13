@@ -1,4 +1,4 @@
-import { supabase } from './supabaseClient'
+import { supabase } from './supabase'
 import { normalizeSchoolSearch } from './schoolDirectory'
 import type { PhilippineSchool, SchoolDivisionOption, SchoolRegionOption, SchoolSearchOptions } from '../types/school'
 

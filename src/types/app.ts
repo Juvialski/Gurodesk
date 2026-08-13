@@ -9,6 +9,10 @@ export type Profile = {
   schoolName: string
   region: string
   division: string
+  schoolDirectoryId?: string | null
+  schoolId?: string | null
+  schoolSource?: 'deped_nid' | 'custom'
+  schoolIsCustom?: boolean
   positionTitle: string
   schoolYear: string
   onboardingCompleted: boolean

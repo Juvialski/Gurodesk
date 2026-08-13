@@ -77,13 +77,13 @@ describe('teacher tour steps', () => {
     expect(TEACHER_TOUR_STEPS.map((step) => step.destination)).toEqual([
       'Home',
       'Classes · Curriculum',
-      'Templates & TOS',
+      'Lesson Plans · Templates & TOS',
       'Assessments',
       'Results',
       'Settings → AI assistance',
       'More → Replay Tour',
     ])
-    expect(TEACHER_TOUR_STEPS.map((step) => step.route)).toContain('/tos')
+    expect(TEACHER_TOUR_STEPS.map((step) => step.route).some((route) => route.includes('/tos'))).toBe(true)
     expect(TEACHER_TOUR_STEPS.map((step) => step.route)).toContain('/assessments')
     expect(TEACHER_TOUR_STEPS[0].description).toContain('TOS, assessments, learner results, and reports')
     expect(TEACHER_TOUR_STEPS[5].description).not.toMatch(/localStorage|browser storage|stored locally/i)

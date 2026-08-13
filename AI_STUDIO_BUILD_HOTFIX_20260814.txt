@@ -1,0 +1,26 @@
+GURODESK SCHOOL DIRECTORY BUILD HOTFIX — 2026-08-14
+
+Current broken main observed: b8511ece875531795d908e67679ac1bf8027b984
+Parent: 955b8651ec1f7981b5aeb4fed1a4ca58a30c2164
+
+CAUSE
+The Philippine school-directory files were copied into the repository, but the required surgical overlay was not executed. This left Profile/repository/onboarding/settings on the old shape. A second bug imported './supabaseClient', while this repository's real client is './supabase'.
+
+APPLY
+1. Extract/upload this ZIP at the repository root, preserving paths.
+2. Run: node scripts/apply-school-directory-overlay.mjs
+3. Commit every resulting change.
+4. Run: npm run validate:schools
+5. Run: npm run typecheck
+6. Run: npm run test:unit
+7. Run: npm run build
+8. Push only after these pass.
+
+SAFETY NET
+This hotfix also adds npm lifecycle hooks so npm run build, npm run build:bundle, and npm run test:ci automatically apply the idempotent overlay first. This prevents Render/CI from compiling a half-applied school-directory package even if step 2 is accidentally skipped again.
+
+DO NOT TOUCH
+Do not modify assessment generation, Gemini contracts, TikZ generation/rendering/export, scoring, item analysis, remediation, or unrelated curriculum files.
+
+DATABASE
+The build hotfix does not prove the Supabase migration has been deployed. After the frontend is green, verify/apply supabase/migrations/202608130039_philippine_school_identity.sql through the normal migration path before expecting official school directory queries to work in production.

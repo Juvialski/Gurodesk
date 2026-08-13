@@ -1,7 +1,12 @@
-PHONE-ONLY HANDOFF
+GURODESK — SCHOOL DIRECTORY BUILD HOTFIX
 
-Upload/extract this ZIP at the GuroDesk repository root, then tell AI Studio:
+Target broken main: b8511ece875531795d908e67679ac1bf8027b984
 
-"Apply AI_STUDIO_MERGE_INSTRUCTIONS_SCHOOLS.txt exactly. Run the self-applying school-directory overlay, validations, migration checks, and official DepEd NID sync. Preserve newer work and do not modify the assessment/Gemini/TikZ pipeline."
+Upload/extract this ZIP at the repository root. It directly fixes the two TypeScript blockers visible in Render:
+- missing school identity fields on Profile
+- wrong ./supabaseClient import
 
-The ZIP contains no complete fake Philippine school list. The small JSON file is explicitly demo/test-only; production records are imported from DepEd NID.
+It also makes build/CI auto-run the idempotent school overlay so Onboarding, Settings, profile persistence, and validation are no longer left half-applied.
+
+Preferred AI Studio instruction:
+"Apply AI_STUDIO_BUILD_HOTFIX_20260814.txt exactly. Commit the overlay result only after validate:schools, typecheck, unit tests, and build pass. Preserve assessment/Gemini/TikZ code."

@@ -27,6 +27,19 @@ function replaceRegexOnce(source, regex, replacement, label, alreadyAppliedNeedl
   return source.replace(regex, replacement)
 }
 
+
+async function patchSchoolDirectoryRepositoryImport() {
+  const path = 'src/lib/schoolDirectoryRepository.ts'
+  let source = await read(path)
+  source = replaceOnce(
+    source,
+    `import { supabase } from './supabaseClient'`,
+    `import { supabase } from './supabase'`,
+    'School directory Supabase import',
+  )
+  await write(path, source)
+}
+
 async function patchProfileTypes() {
   const path = 'src/types/app.ts'
   let source = await read(path)
@@ -42,6 +55,10 @@ async function patchProfileTypes() {
 async function patchRepository() {
   const path = 'src/lib/repository.ts'
   let source = await read(path)
+  if (source.includes('school_directory_id') && source.includes('schoolDirectoryId')) {
+    console.log(`✓ ${path} (already patched)`)
+    return
+  }
   source = replaceOnce(
     source,
     `    division: String(row.division ?? ''),\n    positionTitle: String(row.position_title ?? 'Teacher I'),`,
@@ -116,6 +133,7 @@ async function patchPackageJson() {
 
 async function main() {
   console.log(`Applying Philippine School Directory overlay for GuroDesk base ${EXPECTED_BASE_HEAD}`)
+  await patchSchoolDirectoryRepositoryImport()
   await patchProfileTypes()
   await patchRepository()
   await patchOnboarding()

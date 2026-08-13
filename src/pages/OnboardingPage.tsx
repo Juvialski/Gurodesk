@@ -6,6 +6,7 @@ import { GRADE_LEVELS, POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
 import { curriculumCatalogGroups, findCurriculumCatalogEntry, learningAreasForGrade } from '../data/curriculumCatalog'
 import type { Profile } from '../types/app'
 import { Brand } from '../components/Brand'
+import { SchoolPicker } from '../components/SchoolPicker'
 import '../workflows.css'
 
 type DraftAssignment = {
@@ -16,7 +17,7 @@ type DraftAssignment = {
 
 export function OnboardingPage() {
   const navigate = useNavigate()
-  const { user, profile, assignments, updateProfile, createAssignment, removeAssignment } = useApp()
+  const { user, profile, assignments, updateProfile, createAssignment, removeAssignment, isDemo } = useApp()
   const [step, setStep] = useState(1)
   const [busy, setBusy] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
@@ -145,9 +146,7 @@ export function OnboardingPage() {
               <div className="form-grid two">
                 <label>Full name<input value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} placeholder="Juan Dela Cruz" /></label>
                 <label>Position<select value={form.positionTitle} onChange={(e) => setForm({ ...form, positionTitle: e.target.value })}>{POSITION_TITLES.map((item) => <option key={item}>{item}</option>)}</select></label>
-                <label className="span-two">School name<input value={form.schoolName} onChange={(e) => setForm({ ...form, schoolName: e.target.value })} placeholder="Your school" /></label>
-                <label>Region<input value={form.region} onChange={(e) => setForm({ ...form, region: e.target.value })} placeholder="e.g. NCR" /></label>
-                <label>Schools Division<input value={form.division} onChange={(e) => setForm({ ...form, division: e.target.value })} placeholder="Optional" /></label>
+                <div className="span-two"><SchoolPicker value={form} onChange={(patch) => setForm((current) => ({ ...current, ...patch }))} isDemo={isDemo} required /></div>
                 <label>School year<select value={form.schoolYear} onChange={(e) => setForm({ ...form, schoolYear: e.target.value })}>{SCHOOL_YEARS.map((item) => <option key={item}>{item}</option>)}</select></label>
               </div>
               {localError && <div className="form-message error">{localError}</div>}
