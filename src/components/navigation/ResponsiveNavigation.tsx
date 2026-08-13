@@ -1,5 +1,6 @@
 import {
   BookMarked,
+  BookOpenCheck,
   ChartNoAxesColumnIncreasing,
   CircleHelp,
   ClipboardCheck,
@@ -25,6 +26,7 @@ type NavigationEntry = { to: string; label: string; icon: Icon; end?: boolean }
 const primaryNavigation: NavigationEntry[] = [
   { to: '/', label: 'Home', icon: LayoutDashboard, end: true },
   { to: '/create', label: 'Create', icon: Plus },
+  { to: '/lesson-plans', label: 'Lesson Plans', icon: BookOpenCheck },
   { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
   { to: '/classes', label: 'Classes', icon: UsersRound },
   { to: '/results', label: 'Results', icon: ChartNoAxesColumnIncreasing },
@@ -35,9 +37,11 @@ const secondaryNavigation: NavigationEntry[] = [
   { to: '/curriculum', label: 'Curriculum', icon: BookMarked },
   { to: '/tos', label: 'Templates & TOS', icon: TableProperties },
   { to: '/settings', label: 'Settings', icon: Settings },
+  { to: '/help', label: 'Help', icon: CircleHelp },
 ]
 
 const moreNavigation: NavigationEntry[] = [
+  { to: '/lesson-plans', label: 'Lesson Plans', icon: BookOpenCheck },
   { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
   { to: '/files', label: 'Documents', icon: Files },
   { to: '/curriculum', label: 'Curriculum', icon: BookMarked },
