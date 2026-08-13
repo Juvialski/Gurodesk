@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-citizenship-and-civic-engagement",
+  "sourceSha256": "a268e555f7f6a4bf4fb4bd4d167b65f6b909c3c47729339e59ecc8ffc72e57e7",
+  "sourceFileName": "Citizenship-and-Civic-Engagement.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of citizenship, civil society organization, social movements, perspectives of community, community action, and principles of community-action initiatives.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners shall be able to develop an advocacy campaign of an empowered and active citizen.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate an understanding of the methodologies and approaches to community action and involvement across disciplines, highlighting the principles, strategies, and significance of active community participation in addressing societal issues and promoting sustainable development.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-citizenship-and-civic-engagement:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners shall be able to develop and implement a community action plan that addresses identified community issues, applying appropriate methodologies and approaches to promote active participation, sustainable development, and positive social change.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -84,7 +90,92 @@
       "sortOrder": 3
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate understanding of the nature, importance, and ways of doing Philosophy.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners apply philosophical analysis, abstraction, and reflection to articulate the meaning of real-life experiences.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate ways of doing Philosophy on the Human Person as an embodied being in the world, with and for others, toward human and social flourishing.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners initiate a project that promotes human and social flourishing.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate understanding of the nature, importance, and ways of doing Philosophy.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate ways of doing Philosophy on the Human Person as an embodied being in the world, with and for others, toward human and social flourishing.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners apply philosophical analysis, abstraction, and reflection to articulate the meaning of real-life experiences.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-introduction-to-philosophy:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners initiate a project that promotes human and social flourishing.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-introduction-to-philosophy:period-1:item-1",
@@ -118,8 +209,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "15bb4848b70a00dc9889482b3bdb6403acb1e7702cb8475983d4827283684a25"
+    "competencyPayloadSha256": "e705219758348f36237afb119c332084b241c400ab60f09ef824e6c6c3cf3f96"
   }
 }

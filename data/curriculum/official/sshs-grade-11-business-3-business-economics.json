@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -119,7 +125,92 @@
       "sortOrder": 10
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the key concepts, principles, and practices in business economics, and apply this knowledge to formulate strategies and make well-informed decisions within the business environment.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners propose an appropriate business economics strategy or intervention in addressing a particular economic challenge within a local business setting.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the socio-economic concerns in the business macroenvironment and their interaction with the attainment of a sustainable economy.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners develop an innovative and sustainable business solution that addresses a socioeconomic challenge in the community.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the key concepts, principles, and practices in business economics, and apply this knowledge to formulate strategies and make well-informed decisions within the business environment.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the socio-economic concerns in the business macroenvironment and their interaction with the attainment of a sustainable economy.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners propose an appropriate business economics strategy or intervention in addressing a particular economic challenge within a local business setting.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners develop an innovative and sustainable business solution that addresses a socioeconomic challenge in the community.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-business-3-business-economics:period-1:item-1",
@@ -283,8 +374,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "116f2c55d87298af1c524971620c5210d6f5541b7b39d3bdc86c5feee96e5a5c"
+    "competencyPayloadSha256": "11de91474f18d8322cd7270752c42f715dc4736725144d39a54d78c543b0d0f7"
   }
 }

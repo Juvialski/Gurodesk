@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-motorcycle-and-small-engine-servicing",
+  "sourceSha256": "114eed61054d8bd6d5531a97c0cae1a5a7f391783523c2dae59e761e9f5de8b8",
+  "sourceFileName": "Motorcycle-and-Small-Engine-Servicing_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-motorcycle-and-small-engine-servicing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of principles in motorcycle driving.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-motorcycle-and-small-engine-servicing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform driving procedures in motorcycles employing safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-motorcycle-and-small-engine-servicing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles in motorcycles/small engine systems.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-motorcycle-and-small-engine-servicing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in servicing of motorcycle/small engine system following safety precautions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-motorcycle-and-small-engine-servicing:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles in servicing electrical system and chassis in motorcycle/small engine repair.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-motorcycle-and-small-engine-servicing:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in electrical system servicing, and chassis servicing in motorcycle/small engine employing safety precautions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-motorcycle-and-small-engine-servicing:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles in overhauling and elements of costing for motorcycles/small engine services.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-motorcycle-and-small-engine-servicing:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures for overhauling motorcycle engines with safety precautions and compute servicing total costs for the motorcycle/small engine services.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ]
+}

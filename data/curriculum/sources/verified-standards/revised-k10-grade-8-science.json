@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-8-science",
+  "sourceSha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+  "sourceFileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 18,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Organ systems work together for the growth and survival of the organism.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Inherited traits passed from parents to offspring are governed by the rules on the patterns of inheritance.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Classification of living things shows life’s diversity.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Photosynthesis and respiration are processes that show how living things obtain energy and nutrients from the environment.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate the use of models, flow charts, and diagrams to illustrate how body systems work together for the growth and survival of an organism. They represent patterns of inheritance and predict simple ratios of offspring. They explain that the classification of living things shows the diversity and unity of living things. They describe the processes of respiration and photosynthesis and plan and record a scientific investigation to verify the raw materials needed. They use flow charts and diagrams to explain cycles in nature.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "The use of timeline and charts can illustrate scientific knowledge of the structure of the atom has evolved over time.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "The current structure of the atom includes subatomic particles, their symbol, mass, charge, and location.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "Elements and compounds are identified as pure substances.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "The periodic table is a useful tool to determine the chemical properties of elements.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate an understanding of the structure of the atom and how our understandings have changed over time. They draw models of the atom and use tables to represent the properties of subatomic particles. They demonstrate their knowledge and understanding of the periodic table by identifying the elements, their symbols, their valence electrons, and their positions within the groups and periods. They design and/or create timelines or documentaries as interesting learning tools.",
+      "sourcePage": 52,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "The distribution of continents and oceans on Earth is related to the presence of the oceanic crust and continental crust.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Volcanic terrain is built by the slow accumulation of erupted lava.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "The earth’s surface is made of separate and movable plates.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "Bodies of water and landforms affect typhoons.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "The interaction between the Sun, Earth, and Moon causes tides.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate an appreciation of the large-scale features of the ‘blue planet’ Earth and relate those features to the geological characteristics of the upper crustal layers of the Earth. They identify and describe the nature and impact of volcanic activity in building new crust and identify that these crust forming processes account for patterns and changes in the distribution of volcanoes, earthquakes, and mountain chains that have occurred over time. Learners draw on their understanding of the relationships between landforms and oceans to explain the formation and impacts of typhoons. They also identify that predictable interactions of the Sun-Earth-Moon system result in tidal effects.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Forces cause objects to accelerate.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "An object is accelerating if the magnitude and/or direction of its velocity changes.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "Kinetic energy is the energy of movement, and potential energy is stored energy.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "As an object falls from a height its energy is conserved because its potential energy is transformed to kinetic energy.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "The resources of the Philippines provide many benefits to its people and their activities.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate understanding of the technical meaning of acceleration and apply their understanding to everyday situations involving motion. They represent and interpret acceleration in distance-time and velocity-time graphs to make predictions about the movement of objects. Learners link motion to kinetic energy and potential energy and explain transformations between them using everyday examples. Learners relate understanding of kinetic energy and potential energy to an appreciation of the hydro-electric resources of the Philippines for the generation of electricity for use in homes, communities, and industries. They use scientific investigations to explore the properties of light and apply their learning to solving problems in everyday situations.",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    }
+  ]
+}

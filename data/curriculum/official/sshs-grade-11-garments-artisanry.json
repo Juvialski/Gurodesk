@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -193,7 +199,172 @@
       "sortOrder": 22
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate essential knowledge and skills in designing, sewing and assembling upper garments.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create sustainable upper garments following occupational health and safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate essential knowledge and skills in designing, sewing, and assembling lower garments.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create sustainable lower garments following Occupational Health and Safety precautions.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate essential knowledge and skills in designing, sewing, and assembling blazers and trousers.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create blazers and trousers following Occupational Health and Safety precautions.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate essential knowledge and skills in designing, sewing, and assembling sleeping garments.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create sustainable sleeping garments and children’s wear following Occupational Health and Safety precautions.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate essential knowledge and skills in designing, sewing and assembling upper garments.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate essential knowledge and skills in designing, sewing, and assembling lower garments.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate essential knowledge and skills in designing, sewing, and assembling blazers and trousers.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate essential knowledge and skills in designing, sewing, and assembling sleeping garments.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create sustainable upper garments following occupational health and safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create sustainable lower garments following Occupational Health and Safety precautions.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create blazers and trousers following Occupational Health and Safety precautions.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-garments-artisanry:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create sustainable sleeping garments and children’s wear following Occupational Health and Safety precautions.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-garments-artisanry:period-1:item-1",
@@ -417,8 +588,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "f62b56523607ecd6eafcd1e110574db1ae4b78fc013aaeace139228b6c1e5546"
+    "competencyPayloadSha256": "af325fd8c91c75040803b67f4d448e233905389a38b071340cea57595f23a88a"
   }
 }

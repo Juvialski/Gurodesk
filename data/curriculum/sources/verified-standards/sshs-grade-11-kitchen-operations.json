@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-kitchen-operations",
+  "sourceSha256": "54f73e14f171e8232244f10a7db4965ecc62d0222852a5aa273077b6ab2a6982",
+  "sourceFileName": "Kitchen-Operations.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 12,
+    "performance": 11
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the fundamentals of culinary arts.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing stocks, soup and sauces.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate fundamental skills in culinary arts.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners prepare a variety of stocks, soup and sauces.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the preparing, presenting, and storing appetizers.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing sandwiches.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing salads and dressings.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners prepare a variety of appetizers.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners prepare a variety of sandwiches.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners prepare a variety of salads and dressings.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing, egg, cereal, and starch dishes",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing vegetable dishes. The learners prepare and cook a variety of vegetable dishes.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing seafood dishes.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing poultry and game dishes.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners prepare and cook a variety of egg, cereal, and starch dishes.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners prepare and cook a variety of seafood dishes.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners prepare and cook a variety of poultry and game dishes.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing meat dishes.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate an understanding of preparing, presenting and storing desserts.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners demonstrate an understanding of entrepreneurship in the food industry.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners prepare and cook a variety of meat dishes.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners prepare a variety of desserts.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-kitchen-operations:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners collaborate to organize and manage a kitchenpreneur bazaar.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    }
+  ]
+}

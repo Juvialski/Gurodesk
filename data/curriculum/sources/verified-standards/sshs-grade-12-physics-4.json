@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-physics-4",
+  "sourceSha256": "b30af74a6a1a470fed207e3211f0fab9241e04ec373c8cff2d92d10bcc2fcbfe",
+  "sourceFileName": "Physics 4.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 6,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-physics-4:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "the nature and behavior of sound and light waves have diverse applications in various fields such as acoustics, communication technology, medicine, optics, and entertainment.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "competing forces within the nucleus produce stable and unstable energy configurations;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "unstable nuclei become more stable through nuclear transformations;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "ionizing radiation has both beneficial and harmful effects, making radiation safety and protection essential;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "energy stored within mass of objects can be converted into other forms of energy and vice versa; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "radiation is a form of energy transmitted by rays or beams of particles.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can explain the properties and behaviors of mechanical and electromagnetic waves through theoretical analysis and contextual problem solving, as well as wave phenomena and their applications in sound, light, communication, and imaging technologies.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-4:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can explain the principles of atomic and nuclear physics through theoretical analysis and contextual problem solving and can recognize their applications and implications for nuclear energy and radiation safety.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ]
+}

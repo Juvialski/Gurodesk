@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -84,7 +90,92 @@
       "sortOrder": 3
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of personal creative nonfiction forms, structures, and elements to narrate lived experiences with authenticity and voice.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner composes, refines, and publishes a personal nonfiction narrative through a recursive composition process that incorporates feedback, reflection, and revision to express lived experience with authenticity, insight, and narrative technique.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates deep understanding of poetic elements, structures, and devices; explores how form, imagery, sound, and language to make meaning, convey emotion, and express self in poetry.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner composes, revises, and publishes original poems through a sustained composition process, experimenting with form, sound, and voice to create emotionally resonant poetry, culminating in creative presentation across media formats.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of personal creative nonfiction forms, structures, and elements to narrate lived experiences with authenticity and voice.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates deep understanding of poetic elements, structures, and devices; explores how form, imagery, sound, and language to make meaning, convey emotion, and express self in poetry.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner composes, refines, and publishes a personal nonfiction narrative through a recursive composition process that incorporates feedback, reflection, and revision to express lived experience with authenticity, insight, and narrative technique.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner composes, revises, and publishes original poems through a sustained composition process, experimenting with form, sound, and voice to create emotionally resonant poetry, culminating in creative presentation across media formats.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-creative-composition-1:period-1:item-1",
@@ -208,8 +299,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "55c2903d110e93ad34ecec15709af5a7311f6dcb66ab158ae63afa8f5db836ca"
+    "competencyPayloadSha256": "b44ab41c1e7f620f75ac0b0e892c211108ab914b916577a3a3986f1586207bc6"
   }
 }

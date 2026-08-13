@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-automotive-servicing-electrical-repair",
+  "sourceSha256": "fbbc7bb258d866bfb646f23c52566b885e528a051cf86a0ab4df0753ef6dc266",
+  "sourceFileName": "Automotive-Servicing-Electrical-Repair_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles in diagnosing, repairing ignition system starting system, charging system and body electrical systems”",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in diagnosing, troubleshooting, and repairing the ignition system, starting system, charging system, body electrical system and costing of services employing appropriate safety precautions",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles in diagnosing, troubleshooting, and repairing manual air-conditioning system",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform diagnosing, troubleshooting, and repairing of automotive manual air conditioning system and costing of services employing appropriate safety precautions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

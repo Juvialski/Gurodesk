@@ -47,7 +47,8 @@ for (const item of cases) {
         sourcePinned: true,
       })
       expect(item.manifest.standards.every((standard) => standard.verificationStatus === 'verified')).toBe(true)
-      expect(item.manifest.standards.every((standard) => Array.from(item.pages).includes(standard.sourcePage))).toBe(true)
+      const expectedPages = new Set<number>(item.pages)
+      expect(item.manifest.standards.every((standard) => expectedPages.has(standard.sourcePage))).toBe(true)
       expect(item.manifest.standards.every((standard) => ['D01', 'D02', 'D03'].includes(standard.domain))).toBe(true)
     })
 

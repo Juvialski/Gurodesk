@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 13,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -142,7 +148,312 @@
       "sortOrder": 16
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "carbon has unique bonding properties that enable the formation of a wide variety of organic compounds with diverse structures and functions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "bonding, electronegativity, and intermolecular forces determine the structure, polarity, and physical properties of organic compounds;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "electron distribution within molecules influences molecular polarity and stability, which affect physical properties and interactions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "how the structures of certain molecules are explained by hybrid orbitals;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "functional groups determine the properties and reactivity of organic compounds;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "hydrocarbons exhibit structural diversity and can be classified based on bonding, which influences their properties and uses; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "text": "the presence of multiple bonds in hydrocarbons affects structure, reactivity, and applications.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 8,
+      "text": "functional groups influence the structure, properties, and uses of organic compounds;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-9",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 9,
+      "text": "aromatic compounds exhibit unique stability due to electron delocalization, which affects their properties and applications;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-10",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D12",
+      "sortOrder": 10,
+      "text": "carbonyl functional groups affect the physical properties and chemical behavior of organic compounds;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-11",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 11,
+      "text": "carboxylic functional groups influence acidity, properties, and reactivity of compounds;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-12",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D15",
+      "sortOrder": 12,
+      "text": "biomolecules are organic compounds whose structures determine their biological functions; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-13",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D16",
+      "sortOrder": 13,
+      "text": "the structure and functional groups of organic compounds determine their applications in various fields.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can use structural models to represent organic compounds and write their IUPAC names. They can explain how bonding, polarity, and functional groups determine their physical and chemical properties. They can also analyze and compare hydrocarbons based on structure and bonding and apply these concepts to explain the uses of organic compounds such as fuels and industrial materials in relation to their properties and safety considerations.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can use IUPAC nomenclature and structural models to represent organic compounds and explain how functional groups influence their properties and behavior. They can analyze and compare different classes of organic compounds based on their properties, and relate these to their applications in biological, industrial, and environmental contexts. They can also examine the characteristics of biomolecules and discuss their significance in both biological and everyday contexts.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "carbon has unique bonding properties that enable the formation of a wide variety of organic compounds with diverse structures and functions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "bonding, electronegativity, and intermolecular forces determine the structure, polarity, and physical properties of organic compounds;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "electron distribution within molecules influences molecular polarity and stability, which affect physical properties and interactions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "how the structures of certain molecules are explained by hybrid orbitals;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "functional groups determine the properties and reactivity of organic compounds;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "hydrocarbons exhibit structural diversity and can be classified based on bonding, which influences their properties and uses; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "text": "the presence of multiple bonds in hydrocarbons affects structure, reactivity, and applications.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 8,
+      "text": "functional groups influence the structure, properties, and uses of organic compounds;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-9",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 9,
+      "text": "aromatic compounds exhibit unique stability due to electron delocalization, which affects their properties and applications;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-10",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D12",
+      "sortOrder": 10,
+      "text": "carbonyl functional groups affect the physical properties and chemical behavior of organic compounds;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-11",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 11,
+      "text": "carboxylic functional groups influence acidity, properties, and reactivity of compounds;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-12",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D15",
+      "sortOrder": 12,
+      "text": "biomolecules are organic compounds whose structures determine their biological functions; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:content:period-1:item-13",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D16",
+      "sortOrder": 13,
+      "text": "the structure and functional groups of organic compounds determine their applications in various fields.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can use structural models to represent organic compounds and write their IUPAC names. They can explain how bonding, polarity, and functional groups determine their physical and chemical properties. They can also analyze and compare hydrocarbons based on structure and bonding and apply these concepts to explain the uses of organic compounds such as fuels and industrial materials in relation to their properties and safety considerations.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-4:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can use IUPAC nomenclature and structural models to represent organic compounds and explain how functional groups influence their properties and behavior. They can analyze and compare different classes of organic compounds based on their properties, and relate these to their applications in biological, industrial, and environmental contexts. They can also examine the characteristics of biomolecules and discuss their significance in both biological and everyday contexts.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-chemistry-4:period-1:item-1",
@@ -376,8 +687,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "3118faed4ee4693a03318545e168897c1f2e1789daacc1304be85c305385e621"
+    "competencyPayloadSha256": "4bcc38b2183353211e18186567160904979a9d7af977d512b89754ee7d3378cf"
   }
 }

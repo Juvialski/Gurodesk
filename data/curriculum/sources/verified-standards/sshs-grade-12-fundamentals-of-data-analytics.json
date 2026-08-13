@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-fundamentals-of-data-analytics",
+  "sourceSha256": "b11bc1ac9325a09401aebf9ba7a1492a2ed6d3e363f936df55d6c81d44cd9f89",
+  "sourceFileName": "Fundamentals of Data Analytics.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 11,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "data analytics involves understanding different types of data, the stages of the data life cycle, and the various types of data analysis that support informed and evidence-based decisions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "data privacy and ethical principles guide the responsible collection, handling, and analysis of data, ensuring that individuals’ rights are protected and that analytics practices adhere to legal and moral standards.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "data analytics is widely applied across real-world contexts and industries, and that the field requires specific skills and offers diverse career opportunities.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "data can come from various internal and external sources, and that appropriate collection methods, such as using public data sets, scripts, and manual entry, are essential for obtaining reliable and relevant information.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "effective data processing requires securing data through backups, detecting and addressing missing or inconsistent entries, converting data formats accurately based on given requirements, and refining datasets using tools such as filters and pivot tables to prepare information for deeper analysis.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 6,
+      "text": "descriptive and inferential statistics are essential tools for understanding, summarizing, and analyzing data, and that spreadsheets or statistical software enable them to compute measures, perform tests, and draw meaningful conclusions from datasets.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 7,
+      "text": "conditional and lookup functions enable efficient data analysis, retrieval, and processing, and that combining these functions supports more complex and dynamic data analysis tasks.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 8,
+      "text": "data visualization enhances the interpretation and communication of information, and that spreadsheets provide tools such as charts, conditional formatting, tables, pivot tables, and slicers for creating clear and effective visual representations of data.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-9",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 9,
+      "text": "data visualization software enables the creation of interactive dashboards by importing data, selecting appropriate visual elements, and applying functions such as sorting, filtering, and drilldown to explore insights dynamically.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-10",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 10,
+      "text": "data storytelling is a powerful method of communicating insights by combining visuals, context, and narrative to help audiences understand and act on data.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:content:period-1:item-11",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 11,
+      "text": "a data analytics project requires planning, designing, analyzing, and presenting real-world data to apply statistical methods, visualization tools, and ethical considerations in solving practical problems.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can illustrate data life cycle and uphold data privacy and ethical principles. They process data accurately and securely by creating backups, cleaning datasets to address missing or inconsistent entries, converting data formats based on specified requirements, and using spreadsheet tools such as filters and pivot tables to refine datasets and generate meaningful insights for decision-making.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-fundamentals-of-data-analytics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can perform statistical analyses, apply conditional and lookup functions, create visualizations using spreadsheets and data visualization software, communicate insights through data storytelling, and design and present a complete data analytics project using real-world data.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ]
+}

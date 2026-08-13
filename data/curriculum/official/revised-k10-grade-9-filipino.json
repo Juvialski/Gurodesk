@@ -4,8 +4,8 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
     "sourceConsistency": {
       "detailedTableCountsByQuarter": [
         7,
@@ -21,6 +21,12 @@
       ],
       "status": "matched",
       "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    },
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
     }
   },
   "source": {
@@ -119,7 +125,172 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Kasarinlan, tekstong impormasyonal (argumentatibo) para sa paghubog ng kamalayang panlipunan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng isang literaring analisis ng graphic novel na isinasaalang-alang ang mga elementong biswal at multimodal na may paglalapat ng kasanayang komunikatibo at etikal na kasanayan at pananagutan.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Kasarinlan, tekstong impormasyonal (argumentatibo) para sa paghubog ng kamalayang panlipunan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng isang pabalat ng graphic novel na batay sa isinagawang literaring analisis ng nabasang nobela na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan mula 1986 hanggang sa pagbubukas ng bagong Milenyo, at tekstong transaksyonal para sa paghubog ng kamalayang panlipunan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 155,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng isang korespondensiya opisyal gamit ang nilikhang logo at letterhead na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 155,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng Obra Maestra – Noli Me Tangere para sa paghubog ng kamalayang panlipunan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 158,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng video trailer ng Noli Me Tangere na naipakikita ang kamalayan sa usaping panlipunan sa Obra Maestra na isinasaalang-alang ang elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 158,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Kasarinlan, tekstong impormasyonal (argumentatibo) para sa paghubog ng kamalayang panlipunan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Kasarinlan, tekstong impormasyonal (argumentatibo) para sa paghubog ng kamalayang panlipunan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan mula 1986 hanggang sa pagbubukas ng bagong Milenyo, at tekstong transaksyonal para sa paghubog ng kamalayang panlipunan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 155,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng Obra Maestra – Noli Me Tangere para sa paghubog ng kamalayang panlipunan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 158,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng isang literaring analisis ng graphic novel na isinasaalang-alang ang mga elementong biswal at multimodal na may paglalapat ng kasanayang komunikatibo at etikal na kasanayan at pananagutan.",
+      "sourcePage": 147,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng isang pabalat ng graphic novel na batay sa isinagawang literaring analisis ng nabasang nobela na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng isang korespondensiya opisyal gamit ang nilikhang logo at letterhead na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 155,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng video trailer ng Noli Me Tangere na naipakikita ang kamalayan sa usaping panlipunan sa Obra Maestra na isinasaalang-alang ang elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 158,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-9-filipino:period-1:item-1",
@@ -373,8 +544,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "7e6dac65ea9fcf346bbac990fff9790c3795a31343b0048c8341a9906f556344"
+    "competencyPayloadSha256": "fc8a9a1f0cb06fe431581ac611dbc59f67c305396c5967c761a4fd45190a488b"
   }
 }

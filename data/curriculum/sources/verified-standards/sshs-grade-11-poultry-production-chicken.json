@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-poultry-production-chicken",
+  "sourceSha256": "9b5a3a965e26db7774d7c6f5ec5b10ef7c5ac63d95b19b05491832737bfcddc5",
+  "sourceFileName": "Poultry-Production-Chicken.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-poultry-production-chicken:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding on the overview of poultry production-chicken, pre-operational activities, farm input requirements, and maintenance of farm facilities for poultry production-chicken.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-poultry-production-chicken:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform pre-operational activities and maintenance of farm facilities in poultry production-chicken in accordance with Occupational Safety and Health Standards.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-poultry-production-chicken:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding the principles in poultry breeds and strains in the Philippines and health and care management in poultry production-chicken.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-poultry-production-chicken:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform flock selection and culling, brooding of chicks, and beak trimming in accordance with Animal Welfare Act.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-poultry-production-chicken:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding the principle in growing of broilers and layers, pre-laying and laying activities of ready to lay-pullets, poultry-chicken breeding activities.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-poultry-production-chicken:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform growing of chicken-broilers and layers and collection of eggs according to enterprise production requirement.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-poultry-production-chicken:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles on harvesting and post-harvesting activities of poultry-chicken based on the industry practices.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-poultry-production-chicken:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform dressing of chicken, marketing of poultry products, and evaluation of records for production expansion.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    }
+  ]
+}

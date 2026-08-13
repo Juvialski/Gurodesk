@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-sports-activity-management",
+  "sourceSha256": "09a7ce269427faf90325ef7b28b084d2f76c5d726bb0e5781016fd4e440dc82f",
+  "sourceFileName": "Sports-Activity-Management.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-sports-activity-management:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the basic principles and concepts of activity management for effective planning and organizing of sports events and activities.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-activity-management:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create a comprehensive plan for sports events and activities with advanced management activity skills for implementation.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-activity-management:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate the ability to organize sports events by combining officiating, coaching, and activity management skills. They evaluate the success of these events by analyzing the contributions of each role.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-activity-management:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners organize and manage sports events, demonstrating the integration of officiating, coaching, and activity management skills, while evaluating the overall success of each event.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

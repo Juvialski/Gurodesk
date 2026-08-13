@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-arts-apprenticeship-media-arts",
+  "sourceSha256": "8f441db0a7f964ab49d0565e450fede9ec2957e25c541683a3a69656c840f039",
+  "sourceFileName": "Arts Apprenticeship - Media Arts.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 1,
+    "performance": 1
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of media arts production processes, professional practices, ethical standards, and industry engagement through apprenticeship experiences in media arts within creative industry settings.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates proficiency and professionalism in media arts production through apprenticeship activities and portfolio documentation, reflecting artistic, cultural, and ethical practices within the media arts industry. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ]
+}

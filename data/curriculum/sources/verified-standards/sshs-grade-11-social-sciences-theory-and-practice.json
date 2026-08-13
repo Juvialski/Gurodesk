@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-social-sciences-theory-and-practice",
+  "sourceSha256": "9ccb582e526be879f3e152b98400c1fe0d027fc1c472bbd0b43c639c3173566a",
+  "sourceFileName": "Social-Sciences-Theory-and-Practice.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the historical development, key concepts, and approaches in the Social Sciences including its major theories, enabling them to analyze and explain human behavior, social structures, and cultural dynamics within diverse societal",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner applies Social Science disciplines in explaining a social issue using a multimedia presentation, infographic, podcast, or other relevant presentation scheme.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the behavioral and the applied social sciences, recognizing the roles of professionals, while grasping the functions and impacts of these disciplines in promoting social change and community well-being.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-social-sciences-theory-and-practice:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners consult with a professional from an applied social science discipline (e.g., counseling, social work, criminology, education, communication) to gain insights into their roles and contributions to social change, analyze the discipline’s real-world impact, and synthesize findings into a reflective report or presentation, demonstrating effective communication and ethical awareness.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

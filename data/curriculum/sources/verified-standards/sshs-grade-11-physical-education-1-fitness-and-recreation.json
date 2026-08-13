@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-physical-education-1-fitness-and-recreation",
+  "sourceSha256": "5628a1a7fea1d23d454af61af8004c5d4102ba82ee8161fb5b16ea11e88e82e9",
+  "sourceFileName": "Physical-Education-1-Fitness-and-Recreation.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-physical-education-1-fitness-and-recreation:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of fitness and exercise to optimize personal health and promote community wellness.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-1-fitness-and-recreation:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners organize fitness events to optimize personal health, promote community wellness, and pursue an active lifestyle.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-1-fitness-and-recreation:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of outdoor recreational activities to optimize personal health and promote community wellness.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-1-fitness-and-recreation:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners organize outdoor recreational events to optimize personal health, promote community wellness, and pursue an active lifestyle.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

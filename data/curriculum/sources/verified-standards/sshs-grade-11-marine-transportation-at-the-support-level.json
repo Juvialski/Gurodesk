@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-marine-transportation-at-the-support-level",
+  "sourceSha256": "a10954f2690297c4669b1241d6d70970c3b3ab994dcf9f2cbb403ffc8ce72f08",
+  "sourceFileName": "Marine-Transportation-at-the-Support-Level_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-marine-transportation-at-the-support-level:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles in shipping industry and safe navigational watch in navigating vessel.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-transportation-at-the-support-level:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform look-out, handover and relief of the watch in conformity with acceptable practices and procedures.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-transportation-at-the-support-level:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the procedure in mooring operations and handling of cargo and stores.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-transportation-at-the-support-level:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners carry out mooring operations, safe handling of stowage, securing of cargoes, and stores including dangerous, hazardous, and harmful substances and liquids",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-transportation-at-the-support-level:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the procedure in safe operations of deck equipment and machinery, occupational health and safety precautions, prevention of pollution of the marine environment, and survival crafts and rescue boats.",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-transportation-at-the-support-level:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners operate deck equipment and machinery, apply occupational health and safety precautions, apply precautions and contribute to the prevention of pollution of the marine environment, and operate survival crafts and rescue boats.",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-transportation-at-the-support-level:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the procedure in shipboard maintenance and repair.",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-transportation-at-the-support-level:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform shipboard maintenance and repair.",
+      "sourcePage": 17,
+      "verificationStatus": "verified"
+    }
+  ]
+}

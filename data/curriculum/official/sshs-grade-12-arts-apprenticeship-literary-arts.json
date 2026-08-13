@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 1,
+      "performanceCount": 1,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -22,7 +28,7 @@
     "byteSize": 305471,
     "pageCount": 6,
     "pagesUsed": {
-      "from": 3,
+      "from": 2,
       "to": 4
     },
     "retrievedOn": "2026-08-11"
@@ -92,7 +98,52 @@
       "sortOrder": 6
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-literary-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of literary arts production processes, literary genres, professional practices, and ethical standards through apprenticeship experiences within the publishing and print media industry.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-literary-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate proficiency in literary arts production and analysis through apprenticeship engagement and creative documentation, reflecting artistic, cultural, and ethical practices in literary arts. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-literary-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of literary arts production processes, literary genres, professional practices, and ethical standards through apprenticeship experiences within the publishing and print media industry.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-literary-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate proficiency in literary arts production and analysis through apprenticeship engagement and creative documentation, reflecting artistic, cultural, and ethical practices in literary arts. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-arts-apprenticeship-literary-arts:period-1:item-1",
@@ -156,8 +207,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "8db865aa7faa002b0ab1a492ad4bcada327a89991aa0994557d66f5fb05b88a7"
+    "competencyPayloadSha256": "f5b49bfd23bbc32354da2ada82177c401f526fd468a2fa8ca6c36143d7c0f9ae"
   }
 }

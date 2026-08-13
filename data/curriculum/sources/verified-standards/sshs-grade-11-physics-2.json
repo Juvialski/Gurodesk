@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-physics-2",
+  "sourceSha256": "42fb52b273790d3c8f4d527cc4310e182fef6fb16e642b3abb463eb518122657",
+  "sourceFileName": "Physics-2.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 7,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Newton’s law of universal gravitation can help explain the celestial motion of natural and artificial satellites.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "the properties of fluids are fundamental for understanding fluid behavior and its applications in various systems; and",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "buoyancy has a crucial role in maintaining balance and stability in fluids to ensure safety of aquatic and aerial structures and vehicles.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners describe and explain the physical principles governing gravitational systems and the properties of fluids. They analyze and apply the principles of fluid dynamics to resolve problems in systems and applications. They design and conduct experiments to demonstrate fluid properties and apply fluid mechanics principles to develop practical solutions to real-world problems, showcasing the relevance and impact of fluid behavior in various fields.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "concepts of temperature and heat are vital to explain processes in different natural and artificial systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "the concepts of thermal expansion are critical in constructing and designing buildings, bridges, and train rails;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "quantifying heat transfers in a thermal system is vital in understanding its energy efficiency; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "the laws of thermodynamics have a wide range of applications across various fields.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-2:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners distinguish the fundamental concepts of temperature and heat and explain the methods of heat transfer using examples. Learners design and conduct simple experiments to demonstrate thermodynamic processes, showcasing the relevance and impact of thermodynamics in various practical applications. They analyze and apply the laws of thermodynamics to solve word problems and explain their real-world applications. They describe and analyze thermodynamic processes in various systems and calculate the efficiency of heat engines and refrigeration systems. They discuss the principles of phase transitions in terms of latent heat and phase and describe the role of thermodynamics in environmental and engineering systems.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

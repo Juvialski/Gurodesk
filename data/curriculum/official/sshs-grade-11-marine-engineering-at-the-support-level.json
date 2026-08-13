@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -193,7 +199,172 @@
       "sortOrder": 22
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of maintaining the safe engineering watch through monitoring and controlling the operation of a main propulsion and auxiliary machineries; the correct water level and steam pressure of the boiler; emergency procedures and emergency equipment in machinery spaces especially in the engine room operation including communication relevant to engine watchkeeping and the safe working practices and use of electrical equipment",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate the skills in engine room piping system based on the Maritime industry standard.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of maintaining the correct water level and steam pressure of the boiler, emergency procedures in machinery spaces, operation of emergency equipment, safe engineering watch, communication relevant to engine watchkeeping, monitoring and controlling of an engine room watch, and understanding of the safe working practices and use of electrical equipment.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate the skills in maintaining a safe engineering watch and safe working practices on the different shipboard scenarios.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the shipboard maintenance and repair.",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform shipboard maintenance and repair.",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of anti-pollution equipment, operation of equipment and machinery, fueling and oil transfer operations, operating procedures of bilge and ballast system transfer operations, and handling of stores",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply procedure in prevention of pollution, safe operation of equipment and machinery, fueling and oil transfer operations, bilge and ballast operations, and handling of stores",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of maintaining the safe engineering watch through monitoring and controlling the operation of a main propulsion and auxiliary machineries; the correct water level and steam pressure of the boiler; emergency procedures and emergency equipment in machinery spaces especially in the engine room operation including communication relevant to engine watchkeeping and the safe working practices and use of electrical equipment",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of maintaining the correct water level and steam pressure of the boiler, emergency procedures in machinery spaces, operation of emergency equipment, safe engineering watch, communication relevant to engine watchkeeping, monitoring and controlling of an engine room watch, and understanding of the safe working practices and use of electrical equipment.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the shipboard maintenance and repair.",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of anti-pollution equipment, operation of equipment and machinery, fueling and oil transfer operations, operating procedures of bilge and ballast system transfer operations, and handling of stores",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate the skills in engine room piping system based on the Maritime industry standard.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate the skills in maintaining a safe engineering watch and safe working practices on the different shipboard scenarios.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform shipboard maintenance and repair.",
+      "sourcePage": 15,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply procedure in prevention of pollution, safe operation of equipment and machinery, fueling and oil transfer operations, bilge and ballast operations, and handling of stores",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-marine-engineering-at-the-support-level:period-1:item-1",
@@ -427,8 +598,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "dd9891db9fef53500f9ad3935963ac6e60012982183e38d98a2a9cbb3e74693b"
+    "competencyPayloadSha256": "5167ff3317d2df69b9a7d8952895257fafff019cdc18f536d61d65ebbf1645a9"
   }
 }

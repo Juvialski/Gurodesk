@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -149,7 +155,92 @@
       "sortOrder": 16
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles in diagnosing, repairing ignition system starting system, charging system and body electrical systems”",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in diagnosing, troubleshooting, and repairing the ignition system, starting system, charging system, body electrical system and costing of services employing appropriate safety precautions",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles in diagnosing, troubleshooting, and repairing manual air-conditioning system",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform diagnosing, troubleshooting, and repairing of automotive manual air conditioning system and costing of services employing appropriate safety precautions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles in diagnosing, repairing ignition system starting system, charging system and body electrical systems”",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles in diagnosing, troubleshooting, and repairing manual air-conditioning system",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in diagnosing, troubleshooting, and repairing the ignition system, starting system, charging system, body electrical system and costing of services employing appropriate safety precautions",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform diagnosing, troubleshooting, and repairing of automotive manual air conditioning system and costing of services employing appropriate safety precautions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-automotive-servicing-electrical-repair:period-1:item-1",
@@ -333,8 +424,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "60b3f60b00f5dffc15504ec412cf2203f0a1ef9b4b425f64365e4d7250915894"
+    "competencyPayloadSha256": "30fd32b76df1cd4fa29ddfe37292e2f1fb8880000758fa1111e1cf9fb730a69b"
   }
 }

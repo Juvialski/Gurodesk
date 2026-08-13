@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-creative-production-and-presentation",
+  "sourceSha256": "80e76b134b22beac4bc8c6fd065d87259de7e4a22c3382cef3a537b1dbd75cd7",
+  "sourceFileName": "Creative Production and Presentation.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 1,
+    "performance": 1
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-creative-production-and-presentation:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of creative production processes, artistic documentation methods, and project management in developing and presenting discipline-specific creative works.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-creative-production-and-presentation:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can apply practical skills through supervised hands-on activities that promote skill development, personal growth, and preparation for future career opportunities.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

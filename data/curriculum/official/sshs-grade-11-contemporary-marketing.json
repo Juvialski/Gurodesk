@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -119,7 +125,92 @@
       "sortOrder": 10
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamental marketing principles of both traditional and contemporary approaches.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners conduct a market analysis and apply customer-centric strategies to analyze consumer behavior, assess market opportunities, and create a targeted marketing strategy with a unique selling proposition.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of how to integrate digital marketing tools into the 7Ps of the marketing mix, utilize marketing analytics for data-driven decision-making, practice sustainable and ethical marketing, and comprehend the marketing planning process.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners present a marketing plan for a business, integrating digital tools, the 7Ps of the marketing mix, analytics, and sustainable practices.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamental marketing principles of both traditional and contemporary approaches.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of how to integrate digital marketing tools into the 7Ps of the marketing mix, utilize marketing analytics for data-driven decision-making, practice sustainable and ethical marketing, and comprehend the marketing planning process.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners conduct a market analysis and apply customer-centric strategies to analyze consumer behavior, assess market opportunities, and create a targeted marketing strategy with a unique selling proposition.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners present a marketing plan for a business, integrating digital tools, the 7Ps of the marketing mix, analytics, and sustainable practices.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-contemporary-marketing:period-1:item-1",
@@ -253,8 +344,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "6569a62d1b19ee0736a3f01a1444f5837a3773fed0d92b26f182aec05773b428"
+    "competencyPayloadSha256": "ae02d9776fc8cd6e54ccb906ca6107e55e306e72987e5f38b7ea6ab896739c5f"
   }
 }

@@ -2,7 +2,23 @@ import { readdir, readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { transform } from 'esbuild'
 
-const EXPECTED = Object.freeze({ catalogEntries: 189, manifests: 196, sources: 129, competencies: 6181 })
+const EXPECTED = Object.freeze({
+  catalogEntries: 189,
+  manifests: 196,
+  sources: 129,
+  competencies: 6181,
+  standards: 2838,
+  standardsCompleteManifests: 175,
+  exactSourcePendingManifests: 21,
+})
+// These three registered PDFs are the only permitted standards gaps. Their
+// current public downloads do not match the already-pinned source hashes, so
+// exact wording must remain absent until the registered bytes are recovered.
+const EXACT_SOURCE_PENDING = new Map([
+  ['7b643c05dbac653b229416aa19d3d14d1f2b7baadb93c64a66c762e45ef91490', 'FINAL MATATAG Araling Panlipunan CG 2023 Grades 4-10.pdf'],
+  ['df37bef41e2af8c4bf0320b718461948f8e3ddc3687ffb49cd99a1e68e61ea67', 'FINAL MATATAG Music and Arts CG 2023 Grades 4-10.pdf'],
+  ['31e3758e6260530bd41db71f6f7ea614ee6ceba6136b62f20aa62be88960943d', 'FINAL MATATAG PE and Health CG 2023 Grades 4-10.pdf'],
+])
 const manifestDir = resolve('data/curriculum/official')
 const snapshotPath = resolve('data/curriculum/sources/catalog-snapshot.json')
 const registerPath = resolve('data/curriculum/sources/official-source-register.json')
@@ -114,10 +130,42 @@ const competencyCount = manifests.reduce((sum, manifest) => sum + manifest.compe
 if (competencyCount !== EXPECTED.competencies) fail(`competency total: expected ${EXPECTED.competencies}, got ${competencyCount}`)
 if (jsonNames.some((name, index) => name !== `${manifests[index].slug}.json`)) fail('every manifest filename must equal its slug')
 
+const standardsComplete = manifests.filter((manifest) => Array.isArray(manifest.standards) && manifest.standards.length > 0)
+const exactSourcePending = manifests.filter((manifest) => !Array.isArray(manifest.standards) || manifest.standards.length === 0)
+const standardCount = standardsComplete.reduce((sum, manifest) => sum + manifest.standards.length, 0)
+if (standardsComplete.length !== EXPECTED.standardsCompleteManifests) {
+  fail(`standards-complete manifests: expected ${EXPECTED.standardsCompleteManifests}, got ${standardsComplete.length}`)
+}
+if (exactSourcePending.length !== EXPECTED.exactSourcePendingManifests) {
+  fail(`exact-source-pending manifests: expected ${EXPECTED.exactSourcePendingManifests}, got ${exactSourcePending.length}`)
+}
+if (standardCount !== EXPECTED.standards) fail(`standard total: expected ${EXPECTED.standards}, got ${standardCount}`)
+
+for (const manifest of standardsComplete) {
+  const coverage = manifest.verification?.standardsCoverage
+  if (coverage?.status !== 'verified' || coverage?.sourcePinned !== true) fail(`${manifest.slug}: completed standards must be verified and source-pinned`)
+  for (const period of manifest.periods) {
+    const periodStandards = manifest.standards.filter((standard) => standard.quarter === period.sequence)
+    if (!periodStandards.some((standard) => standard.type === 'content')) fail(`${manifest.slug}: period ${period.sequence} lacks a content standard`)
+    if (!periodStandards.some((standard) => standard.type === 'performance')) fail(`${manifest.slug}: period ${period.sequence} lacks a performance standard`)
+  }
+}
+
+for (const manifest of exactSourcePending) {
+  const expectedFileName = EXACT_SOURCE_PENDING.get(manifest.source.sha256)
+  if (!expectedFileName || manifest.source.fileName !== expectedFileName) {
+    fail(`${manifest.slug}: standards are missing without an approved exact-source blocker`)
+  }
+}
+for (const [sha256, fileName] of EXACT_SOURCE_PENDING) {
+  const affected = exactSourcePending.filter((manifest) => manifest.source.sha256 === sha256)
+  if (affected.length !== 7) fail(`${fileName}: expected 7 exact-source-pending grade manifests, got ${affected.length}`)
+}
+
 if (failures.length) {
   console.error('Official curriculum coverage validation failed:')
   for (const failure of failures) console.error(`- ${failure}`)
   process.exit(1)
 }
 
-console.log(`✓ official coverage: ${EXPECTED.catalogEntries} catalog entries → ${EXPECTED.manifests} manifests → ${EXPECTED.sources} pinned sources → ${competencyCount} competencies`)
+console.log(`✓ official coverage: ${EXPECTED.catalogEntries} catalog entries → ${EXPECTED.manifests} manifests → ${EXPECTED.sources} pinned sources → ${competencyCount} competencies + ${standardCount} standards (${standardsComplete.length} source-complete; ${exactSourcePending.length} exact-source pending)`)

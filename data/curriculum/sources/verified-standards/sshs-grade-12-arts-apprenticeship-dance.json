@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-arts-apprenticeship-dance",
+  "sourceSha256": "c8ea16247f37f9426660669bf72eb752e365380b6835529114d2818f2b54d8e1",
+  "sourceFileName": "Arts Apprenticeship - Dance.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 1,
+    "performance": 1
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-dance:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of the roles of dance artists, dance production processes, professional practices, and ethical standards through apprenticeship experiences within dance organizations and creative industry settings.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-dance:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can synthesize apprenticeship experiences that reflect dance knowledge, skills, and professional work ethics in the learners’ chosen field through work performance and creative documentation. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ]
+}

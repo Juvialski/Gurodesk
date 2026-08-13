@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-visual-graphic-design",
+  "sourceSha256": "5fbf20c6bf5189b6b012315a287017f70ba35587f6d68163d6a44381b2fbeecc",
+  "sourceFileName": "Visual-Graphic-Design.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-visual-graphic-design:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of fundamental principles and trends of visual graphic design needed in creating logo designs and print media design using appropriate software, tools, and materials based on industry standards.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-visual-graphic-design:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create logo designs and print media design using appropriate software, tools, and materials based on industry standards.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-visual-graphic-design:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of user experience designs (UX) and user interface design (UI) using appropriate software, tools, and materials based on industry standards.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-visual-graphic-design:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create user experience (UX) design and user interface design (UI) using appropriate software, tools, and materials based on industry standards.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-visual-graphic-design:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles in product packaging design using appropriate software, tools, and materials based on industry standards.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-visual-graphic-design:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create product packaging with design using appropriate software, tools, and materials, with the design pricing / costing guide based on industry standards.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-visual-graphic-design:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of designing and developing a 2D and 3D booth or product window display using appropriate software, tools, materials, and compute design cost based on industry standards.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-visual-graphic-design:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create 2D and 3D booth and product window/display designs and mock-up for presentations using appropriate software, tools, materials, and compute design cost based on industry standards.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    }
+  ]
+}

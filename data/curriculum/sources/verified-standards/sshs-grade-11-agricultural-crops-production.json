@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-agricultural-crops-production",
+  "sourceSha256": "17ab596658ec981c76d4771a4e02ed8fd8c03f91cf16c446e65a9cf9d08cb6c0",
+  "sourceFileName": "Agricultural-Crops-Production.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of principles on the overview of agricultural crops production, farm tools, implements, and simple equipment, and pre-operative check-up following the manufacturer’s manual.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform pre-operative checking of tools, farm implements, and equipment in accordance with the manufacturer’s manual.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of kinds and varieties of planting materials and characteristics of good planting materials.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform growing media preparation, nursery operations, and planting of crops based on industry practices and Philippine Good Agricultural Practices.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding on irrigation system, fertilizer application, and pests and diseases management in crops production.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform fertilization and pest control in crops production based on Good Agricultural Practices (GAP).",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles in harvesting crops according to industry practices.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-agricultural-crops-production:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform harvesting and post-harvesting operation according to industry practices and selling of produced crops in the locality.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    }
+  ]
+}

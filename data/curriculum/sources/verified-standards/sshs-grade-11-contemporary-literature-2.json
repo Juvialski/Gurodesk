@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-contemporary-literature-2",
+  "sourceSha256": "a0bb3c6875e42e7f7e0ba059ce83fa061cd9767e66202253c2ab651b71156e40",
+  "sourceFileName": "Contemporary-Literature-2.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands literature as a conversation across time, culture, and form, where texts are adapted and reinterpreted to reflect changing values, audiences, and mediums.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding and appreciation of literature by analyzing and producing responses to adaptations, remixes, and reinterpretations of texts, including film or TV series, that reflect dynamic cultural and textual conversations.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands literature as a dynamic and evolving form of human expression that innovates through emerging digital platforms and experimental formats to reflect future possibilities and ongoing transformations in society and self.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding and appreciation of literature by engaging with and producing thoughtful and innovative responses to digital and experimental literary texts, showcasing creativity, interactivity, and forward-thinking interpretation.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

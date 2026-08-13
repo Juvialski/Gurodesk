@@ -27,7 +27,8 @@ for (const item of cases) {
       expect(item.manifest.verification.standardsCoverage).toEqual({ status: 'verified', contentCount: item.contentCount, performanceCount: item.performanceCount, sourcePinned: true })
       expect(item.manifest.standards.every((standard) => standard.verificationStatus === 'verified')).toBe(true)
       expect(item.manifest.standards.every((standard) => standard.sourcePage >= (item.label === 'Grade 2' ? 29 : 34))).toBe(true)
-      expect(item.manifest.standards.every((standard) => item.domains.includes(standard.domain))).toBe(true)
+      const expectedDomains = new Set<string>(item.domains)
+      expect(item.manifest.standards.every((standard) => expectedDomains.has(standard.domain))).toBe(true)
     })
 
     it('resolves applicable standards deterministically for every competency', () => {

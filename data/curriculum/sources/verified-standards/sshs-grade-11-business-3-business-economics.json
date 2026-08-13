@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-business-3-business-economics",
+  "sourceSha256": "6fc820f6e2e74a270d66b6f7f6b53bea615b6b03ba35a8e3328021125db159e8",
+  "sourceFileName": "Business-3-Business-Economics.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the key concepts, principles, and practices in business economics, and apply this knowledge to formulate strategies and make well-informed decisions within the business environment.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners propose an appropriate business economics strategy or intervention in addressing a particular economic challenge within a local business setting.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the socio-economic concerns in the business macroenvironment and their interaction with the attainment of a sustainable economy.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-3-business-economics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners develop an innovative and sustainable business solution that addresses a socioeconomic challenge in the community.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

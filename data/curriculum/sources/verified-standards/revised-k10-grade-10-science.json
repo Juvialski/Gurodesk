@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-10-science",
+  "sourceSha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+  "sourceFileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 18,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Current models explain tectonic plate movement as part of a gravity-driven convection system that pushes young hot plates away from spreading ridges and pulls old cold plates down into subduction zones.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Plate movements and continental evolution account for the major surface features of the Earth.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Climate change and its impacts on the environment and people pose serious challenges which require solutions and action at local and global levels.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "The rich natural resources of the Philippines require sustainable management.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe and explain the geologically dynamic nature of the Philippine Archipelago in relation to its plate tectonic setting and use models to explain the earth structures, movements, and natural events that occur. They use critical thinking and modeling to explain mechanisms that have contributed to the current distributions of continents and make predictions about changes that can be expected in the future. Learners gather information from secondary sources to describe rapid changes that are occurring in local and global climate patterns and propose solutions to address these changes at the local and global levels by drawing on awareness, responsible personal behavior to conserve materials and energy, and through the better societal management of the natural resources of the country.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Newton’s laws can be used to explain projectile motion and collisions.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Momentum in collisions increases as mass or velocity increases.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "The electric companies provides high voltage electricity through power generation, transmission, and distribution to many parts of the archipelago.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Responsible planning and innovation lead to efficient generation and distribution of electricity in the Philippines.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners display critical thinking in describing the factors that affect the trajectory of projectiles. They distinguish between different types of collisions and describe the impacts on the motion of objects. They carry out investigations using models to identify relationships that affect the motion of objects and apply their understanding to real-life situations. Learners gather information from secondary sources to identify, describe, and explain how science impacts human activities and the environment.",
+      "sourcePage": 63,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Several simple observations indicate if a chemical reaction has taken place.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Chemical indicators produce color changes with acids, bases, and salts.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Valid and reliable scientific investigations identify the dependent and independent variables and control other variables.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "Many types of chemical reactions are important in our daily lives and in the biotic and abiotic parts of the environment.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "Atoms rearrange during chemical reactions but abide by the principle of conservation of mass as illustrated in balanced chemical equations.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "text": "Rates of chemical reactions are critical in production and preservation of many useful materials.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate an understanding that household products can act as indicators for important chemicals. They describe the indicators of a chemical reaction and identify important types of chemical reactions. They explain how some important chemical reactions impact the natural and built environment. They write balanced chemical equations using formula and apply the principles of conservation of mass. They explain factors that affect the rate of a reaction and that some reactions are exothermic, and some are endothermic. They demonstrate skills to plan and conduct valid and reliable scientific investigations and record them appropriately.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Homeostasis is a self-regulating process that allows an organism to maintain stability.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "Several theories provide lines of evidence about how organisms evolve.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "The products and processes of biotechnology can have both beneficial and harmful effects on society and the environment.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Population growth influences the carrying capacity of an ecosystem",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe homeostasis as a process that allows an organism to maintain stability. They describe and discuss in small groups that natural selection is the driving mechanism of evolutionary change. They explain the meaning of the term biotechnology and debate the societal, environmental, and ethical implications of utilizing biotechnological products and methods. They discuss the factors that limit the ecosystem’s carrying capacity and the role of population growth.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    }
+  ]
+}

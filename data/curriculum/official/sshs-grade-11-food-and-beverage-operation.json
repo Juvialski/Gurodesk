@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 6,
+      "performanceCount": 6,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -198,7 +204,252 @@
       "sortOrder": 23
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles of providing food and beverage operations.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate comprehensive skills in providing food and beverage services operations.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles of providing food and beverage operations related to alcoholic and non-alcoholic beverages, beverage service, restaurant service, and in-room dining service",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate skills in providing food and beverage services.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the preparing coffee beverages",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in preparing coffee based and non-coffee-based beverages based on the industry practices",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate the skills of preparing a variety of coffee-based beverages.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate understanding in preparing non-coffee beverages.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners demonstrate an understanding of basic steps in cashiering, general control procedures and beverage costing.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate skills in preparing and presenting varieties of coffee beverages.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform skills in preparing and presenting non-coffee beverages.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners perform basic cashiering, general control procedures and beverage costing.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles of providing food and beverage operations.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles of providing food and beverage operations related to alcoholic and non-alcoholic beverages, beverage service, restaurant service, and in-room dining service",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the preparing coffee beverages",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate the skills of preparing a variety of coffee-based beverages.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate understanding in preparing non-coffee beverages.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners demonstrate an understanding of basic steps in cashiering, general control procedures and beverage costing.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate comprehensive skills in providing food and beverage services operations.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate skills in providing food and beverage services.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in preparing coffee based and non-coffee-based beverages based on the industry practices",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate skills in preparing and presenting varieties of coffee beverages.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform skills in preparing and presenting non-coffee beverages.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-food-and-beverage-operation:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners perform basic cashiering, general control procedures and beverage costing.",
+      "sourcePage": 10,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-food-and-beverage-operation:period-1:item-1",
@@ -432,8 +683,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "daac5a880bd95fcf1702ecdc059ca01bed88a7934617b1518a287eaff671241b"
+    "competencyPayloadSha256": "6710f37041f191f972a358f73f441482a1390fb40ad9f28f28aa07c30da43419"
   }
 }

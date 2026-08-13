@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-computer-programming-oracle-database",
+  "sourceSha256": "ddd9f7a7d032039b62435fe90612b024b92cc9e8fc824929109eb39459d80748",
+  "sourceFileName": "Computer-Programming-Oracle-Database.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-computer-programming-oracle-database:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of concepts and components of database management systems and use of SQL basic syntax for data manipulation.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-oracle-database:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners execute basic SQL syntax for data manipulation.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-oracle-database:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of multiple row functions, joins, subqueries, and substitution variables to retrieve and display data from multiple tables.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-oracle-database:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create a database applying multiple row functions, joins, subqueries, and substitution variables to retrieve and display data from multiple tables.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-oracle-database:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of Data Manipulation Language (DML) commands in creating and managing database using constraints, views, database objects, managing user access roles and set operators to combine query results.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-oracle-database:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply DML commands in creating and managing database using constraints, views, database objects, managing user access roles and set operators to combine query results.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-oracle-database:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding in connecting programming language (PL) to a SQL database, effectively performing Create, Read, Update and Delete (CRUD) operations.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-oracle-database:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create an application by connecting programming language (PL) to a SQL database, effectively performing Create, Read, Update and Delete (CRUD) operations.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 1,
+      "performanceCount": 1,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -22,7 +28,7 @@
     "byteSize": 342394,
     "pageCount": 7,
     "pagesUsed": {
-      "from": 3,
+      "from": 2,
       "to": 4
     },
     "retrievedOn": "2026-08-11"
@@ -82,7 +88,52 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-dance:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of the roles of dance artists, dance production processes, professional practices, and ethical standards through apprenticeship experiences within dance organizations and creative industry settings.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-dance:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can synthesize apprenticeship experiences that reflect dance knowledge, skills, and professional work ethics in the learners’ chosen field through work performance and creative documentation. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-dance:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of the roles of dance artists, dance production processes, professional practices, and ethical standards through apprenticeship experiences within dance organizations and creative industry settings.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-dance:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can synthesize apprenticeship experiences that reflect dance knowledge, skills, and professional work ethics in the learners’ chosen field through work performance and creative documentation. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-arts-apprenticeship-dance:period-1:item-1",
@@ -126,8 +177,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "39e4bd3850e44b226b4c64c54c2de22bfddfd2511ce7e5fccc47f4ba1c7025a0"
+    "competencyPayloadSha256": "822f1ccad807df0d5b86b2af8ee48a4470429448e1ff68ca8bca4ebc6fd13e37"
   }
 }

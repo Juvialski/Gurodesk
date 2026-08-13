@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -89,7 +95,92 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands literature as a conversation across time, culture, and form, where texts are adapted and reinterpreted to reflect changing values, audiences, and mediums.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding and appreciation of literature by analyzing and producing responses to adaptations, remixes, and reinterpretations of texts, including film or TV series, that reflect dynamic cultural and textual conversations.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands literature as a dynamic and evolving form of human expression that innovates through emerging digital platforms and experimental formats to reflect future possibilities and ongoing transformations in society and self.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding and appreciation of literature by engaging with and producing thoughtful and innovative responses to digital and experimental literary texts, showcasing creativity, interactivity, and forward-thinking interpretation.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands literature as a conversation across time, culture, and form, where texts are adapted and reinterpreted to reflect changing values, audiences, and mediums.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands literature as a dynamic and evolving form of human expression that innovates through emerging digital platforms and experimental formats to reflect future possibilities and ongoing transformations in society and self.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding and appreciation of literature by analyzing and producing responses to adaptations, remixes, and reinterpretations of texts, including film or TV series, that reflect dynamic cultural and textual conversations.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-2:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding and appreciation of literature by engaging with and producing thoughtful and innovative responses to digital and experimental literary texts, showcasing creativity, interactivity, and forward-thinking interpretation.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-contemporary-literature-2:period-1:item-1",
@@ -313,8 +404,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "2f1c3f14860fa0c159cfde9590a0ffc8f920b51047a6525fed8c28833c9dbca0"
+    "competencyPayloadSha256": "0074890870818ff8a53e2a7db16b0755086350b9abd56d5523053fc05386eb3d"
   }
 }

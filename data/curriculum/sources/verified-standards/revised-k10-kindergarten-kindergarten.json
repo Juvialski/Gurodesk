@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-kindergarten-kindergarten",
+  "sourceSha256": "c357055be32435180c0af2536b18601e4602ac6ecc743fb24d881b7b633e1155",
+  "sourceFileName": "FINAL MATATAG Kindergarten CG 2023.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of attitude, emotions, similarities and differences of oneself and others including the concept of family, and of importance of physical health, safety, and appropriate movement concepts.",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners manage emotions, make decisions, recognize similarities and differences of people, and express oneself based on personal experiences; participate actively in various physical activities; use hands in creating models; perform coordinated body movements; and take care of one’s physical health and safety.",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners understand the value of discipline, honesty, respect, friendship, and care and concern.",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate proper discipline, honesty, respect, friendship, and care towards other people.",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of one’s identity, rights, and responsibilities as a Filipino citizen.",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners show appreciation for one’s culture; understand one’s right as a Filipino citizen; and demonstrate a sense of responsibility as a Filipino citizen.",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners appreciate the beauty of the environment through creative expressions.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners express thoughts, feelings, attitudes, and imagination through creative expressions.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    }
+  ]
+}

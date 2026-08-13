@@ -1,6 +1,6 @@
 # DepEd source register
 
-Verified/reviewed: 2026-08-11.
+Verified/reviewed: 2026-08-13.
 
 This file records source provenance and implementation decisions. It is not itself the curriculum database; canonical structured data lives in verified manifests and Supabase.
 
@@ -12,7 +12,8 @@ This file records source provenance and implementation decisions. It is not itse
 - Source type: 13 official curriculum-guide PDFs
 - Official program page: `https://www.deped.gov.ph/matatagcurriculumk147/`
 - Official regional curriculum repository used for the reviewed current files: `https://bukidnon.deped.gov.ph/matatag-curriculum/`
-- Imported coverage: 73 catalog entries represented by 80 manifests and 4,277 verified competencies. Grade 4–10 MAPEH is intentionally split into Music and Arts and Physical Education and Health source manifests.
+- Imported coverage: 73 catalog entries represented by 80 manifests, 4,277 verified competencies, and 1,950 exact-source content/performance standards across 59 standards-complete manifests. Grade 4–10 MAPEH is intentionally split into Music and Arts and Physical Education and Health source manifests.
+- Exact-source hold: 21 Grade 4–10 standards manifests remain unpopulated for Araling Panlipunan, Music and Arts, and Physical Education and Health because currently retrievable public files do not match the three registered source hashes. Competencies remain verified; standards are not substituted or invented.
 - GuroDesk decision: preserve official quarters and Kindergarten themes as curriculum-source periods. Do not infer school grading-term mappings.
 
 ### Strengthened Senior High School Program
@@ -21,7 +22,7 @@ This file records source provenance and implementation decisions. It is not itse
 - Source type: 116 official curriculum-guide PDFs: 94 Grade 11 and 22 Grade 12
 - Official program page: `https://www.deped.gov.ph/strengthened-shs-program/`
 - Official learning-resource portal: `https://sites.google.com/deped.gov.ph/deped-lrportal/senior-high-school/strengthened-shs-program-you-are-herecurrentstrengthened-shs-program`
-- Imported coverage: all 116 current catalog entries represented by 116 manifests and 1,904 verified competencies.
+- Imported coverage: all 116 current catalog entries represented by 116 manifests, 1,904 verified competencies, and 888 exact-source content/performance standards.
 - GuroDesk decision: preserve Grade 11 source quarters. Grade 12 documents explicitly cover one term, so store one term and do not infer quarter or grading-term mappings.
 
 ### Machine-verifiable register

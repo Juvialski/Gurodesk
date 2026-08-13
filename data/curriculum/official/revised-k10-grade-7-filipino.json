@@ -4,8 +4,8 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
     "sourceConsistency": {
       "detailedTableCountsByQuarter": [
         7,
@@ -21,6 +21,12 @@
       ],
       "status": "official_source_variance",
       "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    },
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
     }
   },
   "source": {
@@ -128,7 +134,172 @@
       "sortOrder": 3
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Katutubo (Tula) at tekstong impormasyonal (ekspositori) para sa paghubog ng kaakuhan at pagpapahalagang Pilipino, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda at borador ng comic book brochure na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Katutubo (Tuluyan) at tekstong impormasyonal (ekspositori) para sa paghubog ng kaakuhan at pagpapahalagang Pilipino, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda at disenyo ng comic book brochure na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Pananakop ng Espanya, tekstong impormasyonal (ekspositori) at balita para sa paghubog ng kaakuhan at pagpapahalagang Pilipino, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda sa pamamagitan ng pinal na comic book brochure na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng Obra Maestra – Ibong Adarna para sa paghubog ng kaakuhan at pagpapahalagang Pilipino, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng iskrip para sa shadow play tungkol sa mahahalagang pangyayari sa Ibong Adarna na maiuugnay sa pagiging Pilipino na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo at etikal na kasanayan at pananagutan.",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Katutubo (Tula) at tekstong impormasyonal (ekspositori) para sa paghubog ng kaakuhan at pagpapahalagang Pilipino, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Katutubo (Tuluyan) at tekstong impormasyonal (ekspositori) para sa paghubog ng kaakuhan at pagpapahalagang Pilipino, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan sa Panahon ng Pananakop ng Espanya, tekstong impormasyonal (ekspositori) at balita para sa paghubog ng kaakuhan at pagpapahalagang Pilipino, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng Obra Maestra – Ibong Adarna para sa paghubog ng kaakuhan at pagpapahalagang Pilipino, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda at borador ng comic book brochure na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 122,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda at disenyo ng comic book brochure na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 125,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sanaysay tungkol sa pinakatampok na mga pangyayari sa buhay ng isang tauhan sa binasang akda sa pamamagitan ng pinal na comic book brochure na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan",
+      "sourcePage": 128,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng iskrip para sa shadow play tungkol sa mahahalagang pangyayari sa Ibong Adarna na maiuugnay sa pagiging Pilipino na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo at etikal na kasanayan at pananagutan.",
+      "sourcePage": 131,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-7-filipino:period-1:item-1",
@@ -392,8 +563,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "34a8c1d99437e829a25a479e488b8086e9ce37d6d17c074c5e3c317375b20060"
+    "competencyPayloadSha256": "d97c0ab37609b99e5541b04bf5d4d77961220445213abfa1b21141846cce00dd"
   }
 }

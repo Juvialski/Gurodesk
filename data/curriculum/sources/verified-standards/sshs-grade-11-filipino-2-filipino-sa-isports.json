@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-filipino-2-filipino-sa-isports",
+  "sourceSha256": "7dbfc5e7a5296ea441048da7a447fe5dade1c7d1ef80ec9c764ab9d1344ed9ff",
+  "sourceFileName": "Filipino-2-Filipino-sa-Isports.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagbuo ng iba’t ibang sulating pang-isports gaya ng ulat ng laro, plano ng laro, patakarang pang-isports, at iba pang tekstong teknikal pang-isports.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng mga sulating pang-isports batay sa elemento at etika sa pagsulat gamit ang akademikong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagsulat ng iba’t ibang anyo ng mga sulating pang-isports gaya ng pangkalakalan, serbisyo, plano sa pangangalaga ng kalusugan, at iba pang sulating panserbisyo at pangkalakalan sa larang pampalakasan.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sports brochure kaugnay ng mahahalagang datos na nakalap sa pangangalaga ng mental at pisikal na kalusugan ng manlalaro sa napiling isports",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

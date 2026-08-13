@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-filipino-identity-through-the-arts",
+  "sourceSha256": "a89b82cd0cd71c6f6cfcfe32589660c67688203b5a4d791a3e54d63ff990538c",
+  "sourceFileName": "Filipino-Identity-Through-the-Arts (1).pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate an understanding of Philippine indigenous and traditional arts as repositories of memory and collective human experience, as constructions of Filipino identity, and as wellsprings for continuity and innovation in the performing arts.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners create performances that integrate significant aspects of indigenous and traditional expressions as markers of Filipino identity and heritage.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of Philippine indigenous and traditional arts as repositories of memory and collective human experience, as constructions of Filipino identity, and as wellsprings for continuity and innovation in visual arts, literary arts, and architecture",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-identity-through-the-arts:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create artistic works that integrate local materials and significant aspects of indigenous and traditional arts as markers of Filipino identity and heritage.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

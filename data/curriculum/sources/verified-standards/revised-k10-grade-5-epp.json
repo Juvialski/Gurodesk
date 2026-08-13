@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-5-epp",
+  "sourceSha256": "c084380893d493c840baa56882af535ac41581dec7eae6d1a594ed71c428ce90",
+  "sourceFileName": "FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 9,
+    "performance": 8
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "naipapamalas ang pag-unawa sa mga panuntunan ng netiquette",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "naipamamalas ang pag-unawa sa paggamit ng web browser at search engine",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "naipamamalas ang pag-unawa sa paggamit ng E-Mail",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "naipamamalas ang pag-unawa sa paggamit ng productivity software",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 5,
+      "text": "naipamamalas ang pang-unawa sa paggamit ng block codes",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naipapakita ang paggamit ng web browser, search engine, at E-Mail sa ligtas at responsableng pamamaraan",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "iba’t ibang dokumento gamit ang productivity tools",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "Ang mga mag-aaral ay nakagagawa ng animations o games gamit ang block coding",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 1,
+      "text": "naipamamalas ang pang-unawa sa maingat na pangangalaga, pagpaparami, pag-aani, pag-iimbak at pagbebenta ng poultry animals sa masistemang pamamaraan bilang isang kapaki-pakinabang at mapagkakakitaang gawain",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naisasagawa ang maingat na pangangalaga, pagpaparami, pag-aani, pag-iimbak at pagbebenta ng poultry animals sa masistemang pamamaraan bilang isang kapaki-pakinabang at mapagkakakitaang gawain",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 1,
+      "text": "naipapamalas ang pag-unawa sa mga panuntunan ng netiquette )",
+      "sourcePage": 54,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naisasagawa ang kasanayan sa pananahi gamit ang kamay at makina",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Ang mga mag-aaral ay nailalapat ang embroidery design sa mga produkto o nakakabuo ng mga produktong gawa sa crochet na maaring pagkakitaan",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 1,
+      "text": "naipamamalas ang pang-unawa sa pagkukumpuni ng mga kagamitang may sira na yari sa kahoy, kawayan, metal, produktong de-kuryente, at iba pa",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D32",
+      "sortOrder": 2,
+      "text": "naipapamalas ang pang-unawa sa service cost",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay nakapagkukumpuni ng mga kagamitang may sira na yari sa kahoy, kawayan, metal, produktong de-kuryente, at iba pa",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-epp:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Ang mga mag-aaral ay naisagagawa ang pagtutuos sa service cost manually o gamit ang spreadsheet",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    }
+  ]
+}

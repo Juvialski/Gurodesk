@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-3-english",
+  "sourceSha256": "db4a5c2b7389f9237b21ee19873faf9b950fe55b9f0918db336269f112dc897c",
+  "sourceFileName": "FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-3-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate expanding vocabulary and understanding of high frequency words and content-specific vocabulary; understand and create simple and compound sentences for comprehending, analyzing, creating, and composing texts about regional themes and content-specific topics.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their expanding vocabulary of high-frequency and content-specific words, and simple and compound sentences to comprehend, create, and compose narrative and informational texts about regional themes and content-specific topics; and read grade level texts with appropriate speed, accuracy, and expression.",
+      "sourcePage": 61,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate expanding vocabulary and understanding of high frequency words and content-specific vocabulary; understand and create simple and compound sentences for comprehending, analyzing, creating, and composing texts about regional themes and content-specific topics.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their expanding vocabulary of high-frequency and content-specific words, and simple and compound sentences to comprehend, create, and compose narrative and informational texts about regional themes and content-specific topics; and read grade level texts with appropriate speed, accuracy, and expression.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate expanding vocabulary and understanding of high frequency words and content-specific vocabulary; understand and create simple and compound sentences for comprehending, analyzing, creating, and composing texts about national themes and content-specific topics.",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their expanding vocabulary of high-frequency and content-specific words, and simple and compound sentences to comprehend, create, and compose narrative and informational texts about national themes and content-specific topics; and read grade level texts with appropriate speed, accuracy, and expression.",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate expanding vocabulary and understanding of high frequency words and content-specific vocabulary; understand and create simple and compound sentences for comprehending, analyzing, creating, and composing texts about national themes and content-specific topics.",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their expanding vocabulary of high-frequency and content-specific words, and simple and compound sentences to comprehend, create, and compose narrative and informational texts about national themes and content-specific topics; and read grade level texts with appropriate speed, accuracy, and expression.",
+      "sourcePage": 73,
+      "verificationStatus": "verified"
+    }
+  ]
+}

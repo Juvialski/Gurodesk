@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-tourism-services",
+  "sourceSha256": "c79c468ab2c6aa496edb6586d3add6fe11298e47673e5af5dfec2a1afc713989",
+  "sourceFileName": "Tourism-Services.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-tourism-services:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners will develop comprehensive travel intermediaries, attractions and activities by proposing well-structured itineraries that showcase the unique offerings of the Philippines at specific destinations.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner will design travel intermediaries to promote attractions, tourism, culture and activities of specific places that highlight the Philippines' unique offerings at specific destinations.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands travel preliminaries, the ticketing process, completing travel service transactions, and crisis management in travel.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates solutions and alternatives to address a customer’s ticket concerns, integrate the process of ticketing for travel transactions, and performs the procedures for providing compensation entitlements to guests affected by travel disruptions aligned with ASEAN MRA Toolbox.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners understand the key concepts of tourism promotions, products and services, tour packages, ways of promoting tourism, dealing with customers, and the health, safety, and security of tourism services.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners will be able to develop tour packages, appropriately dealing with customers, in performing product marketing using promotional tools and techniques.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the overview of local guiding services, tour guiding as a profession, tourism in the Philippines, the different stages of tour guiding, tour documents, logbooks, and suppliers, and Risk Management in Tour Guiding.",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-tourism-services:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners show the characteristics and roles of a tour guide, the Filipino brand of service excellence, the stages of tour guiding, and the ability to assess risks in tour guiding and implement appropriate procedures for handling unforeseen events.",
+      "sourcePage": 16,
+      "verificationStatus": "verified"
+    }
+  ]
+}

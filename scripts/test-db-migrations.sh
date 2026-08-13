@@ -110,7 +110,7 @@ if [[ ! -d "${MIGRATIONS_DIR}" || ! -f "${FIXTURE_SQL}" || ! -f "${FRESH_ASSERT_
   die "repository migration/test files are incomplete"
 fi
 
-readonly MINIMUM_MIGRATION_COUNT=30
+readonly MINIMUM_MIGRATION_COUNT=37
 mapfile -t MIGRATIONS < <(find "${MIGRATIONS_DIR}" -maxdepth 1 -type f -name '*.sql' -print | sort)
 readonly TOTAL_MIGRATIONS="${#MIGRATIONS[@]}"
 if [[ "${TOTAL_MIGRATIONS}" -lt "${MINIMUM_MIGRATION_COUNT}" ]]; then
@@ -265,7 +265,7 @@ run_fresh() {
 }
 
 run_upgrade() {
-  echo "db migration harness: upgrade path (001-014, fixture, 015-026)"
+  echo "db migration harness: upgrade path (001-014, fixture, 015-current; ${TOTAL_MIGRATIONS} total)"
   make_temp_project
   copy_migrations 14
   if ! run_local_reset; then

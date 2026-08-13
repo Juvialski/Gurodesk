@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 5,
+      "performanceCount": 5,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -133,7 +139,212 @@
       "sortOrder": 10
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of principles in overview of organic agriculture production, maintenance of farm tools, materials and equipment, establish nursery for organic vegetable production, planting, and harvest and post-harvest handling operation following industry practices.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform maintenance of farm tools, materials and equipment, nursery establishment, planting operation and harvest and post-harvest handling operation following safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of principles in producing organic fertilizer and organic concoctions in accordance with industry practices.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform activities in producing organic concoctions and extracts and organic fertilizer in accordance with industry practices.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles of raising organic chicken in accordance with industry practices.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform activities in raising organic chicken in accordance with RA 10068 and Philippine National Standards.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding principles in raising organic hogs in accordance with industry practices.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate understanding principles in raising organic small ruminants in accordance with industry practices.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform activities in raising organic hogs in accordance with industry practices.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform activities in organic small ruminants in accordance with industry practices.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of principles in overview of organic agriculture production, maintenance of farm tools, materials and equipment, establish nursery for organic vegetable production, planting, and harvest and post-harvest handling operation following industry practices.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of principles in producing organic fertilizer and organic concoctions in accordance with industry practices.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles of raising organic chicken in accordance with industry practices.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding principles in raising organic hogs in accordance with industry practices.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate understanding principles in raising organic small ruminants in accordance with industry practices.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform maintenance of farm tools, materials and equipment, nursery establishment, planting operation and harvest and post-harvest handling operation following safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform activities in producing organic concoctions and extracts and organic fertilizer in accordance with industry practices.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform activities in raising organic chicken in accordance with RA 10068 and Philippine National Standards.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform activities in raising organic hogs in accordance with industry practices.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-organic-agriculture-production:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform activities in organic small ruminants in accordance with industry practices.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-organic-agriculture-production:period-1:item-1",
@@ -237,8 +448,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "20fd78746e29a8b34fc0823bdc48926363884de95a6aa9a04b1943690cd7ad9f"
+    "competencyPayloadSha256": "63494fc3b62f240cdb90d9af2135254d8c5ae5f33b3276f8c443540274ae060a"
   }
 }

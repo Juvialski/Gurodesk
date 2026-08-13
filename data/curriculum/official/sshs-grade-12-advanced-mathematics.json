@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 6,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -67,7 +73,172 @@
       "sortOrder": 1
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Basic Mathematical Modeling",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Angles and Their Measures",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Trigonometric Functions",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Trigonometric Identities",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "Inverse Trigonometric Functions",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "text": "Polar Coordinates*",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can analyze and model real-life situations using linear, quadratic, and exponential functions. They construct, evaluate, and verify these algebraically and graphically, apply function transformations using appropriate technology to represent and interpret solutions, and explain key function behaviors and limitations. The learners can also distinguish among these function types using data, graphs, and context, and evaluate the suitability and reasonableness of models in business, science, and everyday applications. They communicate conclusions using graphs, tables, equations, and written explanations to support sound decision-making. The learners can also model real-life phenomena using angle and radian measures, arc length, area of a sector, and trigonometric functions. They can present scenario analyses and clearly communicate their reasoning through visual and algebraic representations demonstrating how these concepts support problem-solving and informed decision-making in science, technology, and engineering.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can use their understanding of trigonometric concepts to analyze, represent, and solve mathematical and real-life situations. They can apply key trigonometric formulas to simplify expressions, justify steps, and construct proofs, and evaluate and interpret trigonometric and inverse trigonometric functions using appropriate strategies. The learners communicate ideas through graphs, equations, tables, and explanations, showing ease in shifting between different representations. When solving contextual problems, they can apply inverse trigonometric functions to generate reasonable solutions and explain their significance. *To extend their mathematical understanding, the learners can use the polar coordinate system to describe and analyze relationships that are not effectively represented in rectangular coordinates. They can locate and convert points, identify and sketch polar curves, and use these tools to model real-world situations accurately. The learners can integrate their understanding of trigonometric identities, inverse functions, and coordinate systems to build meaningful models, explain reasoning effectively, and make informed decisions, demonstrating how abstract mathematical ideas connect to practical applications in science, technology, engineering, and everyday problem-solving.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Basic Mathematical Modeling",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Angles and Their Measures",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Trigonometric Functions",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Trigonometric Identities",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "Inverse Trigonometric Functions",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "text": "Polar Coordinates*",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can analyze and model real-life situations using linear, quadratic, and exponential functions. They construct, evaluate, and verify these algebraically and graphically, apply function transformations using appropriate technology to represent and interpret solutions, and explain key function behaviors and limitations. The learners can also distinguish among these function types using data, graphs, and context, and evaluate the suitability and reasonableness of models in business, science, and everyday applications. They communicate conclusions using graphs, tables, equations, and written explanations to support sound decision-making. The learners can also model real-life phenomena using angle and radian measures, arc length, area of a sector, and trigonometric functions. They can present scenario analyses and clearly communicate their reasoning through visual and algebraic representations demonstrating how these concepts support problem-solving and informed decision-making in science, technology, and engineering.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-advanced-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can use their understanding of trigonometric concepts to analyze, represent, and solve mathematical and real-life situations. They can apply key trigonometric formulas to simplify expressions, justify steps, and construct proofs, and evaluate and interpret trigonometric and inverse trigonometric functions using appropriate strategies. The learners communicate ideas through graphs, equations, tables, and explanations, showing ease in shifting between different representations. When solving contextual problems, they can apply inverse trigonometric functions to generate reasonable solutions and explain their significance. *To extend their mathematical understanding, the learners can use the polar coordinate system to describe and analyze relationships that are not effectively represented in rectangular coordinates. They can locate and convert points, identify and sketch polar curves, and use these tools to model real-world situations accurately. The learners can integrate their understanding of trigonometric identities, inverse functions, and coordinate systems to build meaningful models, explain reasoning effectively, and make informed decisions, demonstrating how abstract mathematical ideas connect to practical applications in science, technology, engineering, and everyday problem-solving.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-advanced-mathematics:period-1:item-1",
@@ -381,8 +552,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "b4874de283081373c5795ac293d07f8acff9a5e5b0b3ce7c8abb416f3b394cc6"
+    "competencyPayloadSha256": "d3465d370e19eef1513762b5f805e02c60c16479287c45a687615f41db2534ec"
   }
 }

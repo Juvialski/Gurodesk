@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal",
+  "sourceSha256": "1147bd959d68843f05b3db94c1618af4d2101bfd68205eeb0fb8d992cac56f33",
+  "sourceFileName": "Filipino-2-Filipino-para-sa-Larang-Teknikal-Propesyonal.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa ng at pagsusuri sa mga uri at elemento ng mga tekstong multimodal sa teknikal-propesyonal na larang.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng multimodal na presentasyon ng piniling produkto o serbisyo gamit ang akademikong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagbuo ng mga teksto sa teknikal-propesyonal na larang",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng portfolio ng mga tekstong teknikal-propesyonal",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

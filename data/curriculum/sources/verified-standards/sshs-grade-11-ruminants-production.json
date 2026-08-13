@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-ruminants-production",
+  "sourceSha256": "b20c7b6150dbfc27ff97ab6d9f1b71909293a73c640ab5eb105765109864c847",
+  "sourceFileName": "Ruminants-Production.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-ruminants-production:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding on the overview, occupational safety and health standards, use and maintenance of the different tools, materials, implements, and equipment, housing, fixtures, and facilities, and forage production raising dairy and meat-type ruminants.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ruminants-production:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform activities in using and maintaining of different tools, materials, implements, and equipment, farm layout, housing, fixtures and facilities and forage production in raising dairy and meat-type ruminants in following occupational safety and health standards.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ruminants-production:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles in preparation of silage and breeding in raising dairy and meat-type ruminants.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ruminants-production:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform silage making and breeding in raising dairy and meat-type ruminants in accordance with industry practices.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ruminants-production:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles in feeding and care and management in raising dairy and meat-type ruminants.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ruminants-production:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform feeding, caring and management in raising dairy and meat-type ruminants in accordance with industry practices.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ruminants-production:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles in management practices, pre-selling activities and marketing in raising dairy and meat-type ruminants.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-ruminants-production:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform activities in management practices, pre-selling activities and marketing of raising dairy and meat-type ruminants in accordance with industry practices.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise",
+  "sourceSha256": "46060af7cc883361db7cc632a118873e1d3a8db046ef73a5fae8baf84a6324ba",
+  "sourceFileName": "Human-Movement-1-Basic-Anatomy-in-Sports-and-Exercise.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the basic structure and processes of the human body in relation to fitness, exercise, and health to optimize human movement.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform basic functional movement patterns in relation to fitness, exercise, and health to optimize human movement.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the basic human movement patterns in relation to fitness, exercise, and health to optimize human movement.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-1-basic-anatomy-in-sports-and-exercise:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform basic human movement patterns in relation to fitness, exercise, and health to optimize human movement.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

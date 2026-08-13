@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino",
+  "sourceSha256": "1e81d5650bb00cb456b5a161d3444c6830543032b5fd0beaf960dc20e3ee9377",
+  "sourceFileName": "PAG-AARAL-NG-KASAYSAYAN-AT-LIPUNANG-PILIPINO.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ang mapanuring pag-unawa at pagpapahalaga sa pagkahubog ng kamalayang pangkasaysayan tungo sa pambansang pagkakakilanlan",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng proyektong nagpapamalas ng kamalayang pangkasaysayan na angkop sa kontekstong lokal",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ang masusing pag-unawa sa iba’t ibang anyo ng pakikibaka bilang salik sa pag-usbong ng kamalayang Pilipino",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagpapahayag ng paninindigan (hal. posisyong papel, presentasyon, pahayag, adbokasiya, atbp.) na nagsusuri sa karanasan ng mga Pilipino sa pakikibaka laban sa iba’t ibang anyo ng opresyon",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ang kritikal na pagsusuri at pagpapahalaga sa kamalayang panlikás-kayang pag-unlad na tumutugon sa pangangailangang panlipunan",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng angkop na panukalang proyektong pangkomunidad na tutugon sa pangangailangan ng kinabibilangang lipunan/pamayanan",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ang malalim na pagsusuri at pagpapahalaga sa kamalayan sa pagkamamayang Pilipino at global tungo sa pagiging mapanagutan at aktibong mamamayan ng bansa at daigdig",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-pag-aaral-ng-kasaysayan-at-lipunang-pilipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng adbokasiya na nagpapakita ng pagsuporta sa mga kasalukuyang plano ng pag-unlad tungo sa pagtatamo ng kolektibong pangarap ng sambayanang Pilipino",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ]
+}

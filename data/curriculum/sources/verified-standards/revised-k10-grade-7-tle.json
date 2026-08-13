@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-7-tle",
+  "sourceSha256": "c084380893d493c840baa56882af535ac41581dec7eae6d1a594ed71c428ce90",
+  "sourceFileName": "FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 13,
+    "performance": 6
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of ICT sectors, as well as the potential career and business opportunities these sectors offer in relation to their chosen career in the future",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of current trends and emerging issues in ICT",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "demonstrate an understanding of the qualities of successful entrepreneurs in the field of ICT",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "demonstrate an understanding of the Occupational Safety and Health (OSH) standards in ICT environments",
+      "sourcePage": 69,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "demonstrate an understanding of the computer number systems",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "text": "demonstrate an understanding of conversion of computer number systems",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "text": "demonstrate an understanding of using productivity software",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners convert number systems in practical scenarios",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform the utilization of productivity tools in a safe and responsible manner",
+      "sourcePage": 70,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of the concepts and skills in agri-crops and animal production",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform agricultural practices in crop production based on industry standards",
+      "sourcePage": 72,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners illustrate the housing requirements for poultry and livestock based on industry standards.",
+      "sourcePage": 74,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of the fundamentals of the hospitality and tourism industry",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply skills in food preparation and services following safety precautions",
+      "sourcePage": 77,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of the concepts in industrial arts services",
+      "sourcePage": 78,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of the codes and standards in industrial arts services",
+      "sourcePage": 78,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 3,
+      "text": "demonstrate an understanding of the uses and maintenance of hand tools, power tools, instruments, and equipment",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 4,
+      "text": "demonstrate an understanding of the concepts and principles in performing mensuration and calculations",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-tle:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform mensuration and calculations following safety precautions.",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    }
+  ]
+}

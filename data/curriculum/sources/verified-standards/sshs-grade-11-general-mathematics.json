@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-general-mathematics",
+  "sourceSha256": "bc574279387d94de424cccfb451bd81a8b36fa878623de3b74d8138da9da41e4",
+  "sourceFileName": "GENERAL-MATHEMATICS.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 13,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "business and finance through problems involving earning money, buying, and selling",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "patterns, arithmetic and geometric sequences, and series",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "financial application of sequence and series",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to conduct a case study on payrolls to compute salaries, wages, deductions, and income for different employee profiles. Learners describe and present how they use sequences and series to make informed decisions on real-life situations involving earning money, buying and selling, acquiring loans, making investments, and planning purchases.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "measurement and conversion",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "functions and its graphs",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "piecewise functions",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "statistical variables",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to present solutions to real-life problems that require measurements and conversions (such as designing a garden, cooking recipes, or building a model) and function models. Learners interpret and explain how they make informed decisions based on the measures of central tendency and variability from data collected for a specific purpose (e.g., report presentations on the analysis of family spending trends using monthly household expenses data).",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "basic trigonometry",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "practical applications of measurements and transformational geometry",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "random variables and sampling",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to apply trigonometry and geometric concepts to estimate measurements and construct three-dimensional objects, understanding their shapes and volumes for practical uses like product packaging, furniture, and construction. Learners propose a statistical investigation identifying and justifying the sample size and sampling techniques, and draw conclusions from given data using normal distribution and expected values.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "compound interest, simple and general annuities, and business and consumer loans",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "basic concepts of a. statistical hypothesis testing b. parametric test of difference c. test of relationships d. simple linear regression",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "logical propositions, syllogisms, and fallacies",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to create a financial proposal using comparisons of different investment plans (e.g., time deposits, mutual funds, pension plans) to recommend and explain the best financial strategy. Learners make inferences and explain their reasoning for real-life problems in different disciplines (e.g., market trends, election results, sports statistics) given specific tests of difference and association. Learners evaluate arguments using logic in real-world contexts (e.g., critically analyzing misleading arguments or statements in advertisements, politics, or social media).",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ]
+}

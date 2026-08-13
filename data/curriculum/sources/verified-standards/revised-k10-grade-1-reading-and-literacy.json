@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-1-reading-and-literacy",
+  "sourceSha256": "6f67d06f2b0f5730a087dbc273bdb1cfeeccd64ccf9ee87342a0f52dea5c12b0",
+  "sourceFileName": "FINAL MATATAG Reading and Literacy CG 2023 G1.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate phonological awareness in decoding developmentally-and grade level-appropriate words; understand and create simple sentences to express meaning about oneself, family, and everyday topics (narrative and informational).",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use phonological and alphabetic knowledge to read/write words accurately with/for meaning and narrate personal experiences with family and content-specific topics.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content-specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s school and everyday topics (narrative and informational).",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing word knowledge in automatically recognizing sight words; decode high frequency words and content-specific vocabulary and use them to express ideas; and narrate personal experiences with one’s school and content-specific topics.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content-specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s community and content-specific topics (narrative and informational).",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their ongoing development in automatically recognizing sight words; decode high frequency words and content-specific vocabulary and use them to express ideas; read sentences and narrate personal experience with one’s community and content-specific topics.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s environment and content-specific topics (narrative and informational).",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners automatically recognize sight words, decode words, express ideas; read sentences with appropriate speed, accuracy, and expression; and narrate personal experiences with one’s environment and content-specific topics.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    }
+  ]
+}

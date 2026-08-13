@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -112,7 +118,172 @@
       "sortOrder": 3
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-4-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding vocabulary knowledge and grammatical awareness, comprehension of literary and informational texts, and composing and creating processes; and their receptive and productive skills in order to produce age-appropriate and gender-responsive texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply comprehension of literary and informational texts and produce narrative and expository texts (enumeration-description) based on their purpose, context (mealtimes and birthdays), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding vocabulary knowledge and grammatical awareness, comprehension of literary and informational texts, and composing and creating processes; and their receptive and productive skills in order to produce age-appropriate and gender-responsive texts based on their purpose, context, and target audience.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply comprehension of literary and informational texts and produce narrative and expository texts (enumeration-description, time order: chronology and procedural) based on their purpose, context (christenings and weddings), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding knowledge of vocabulary and grammatical structures, literal and inferential comprehension of literary and informational texts, and composing and creating processes; and apply their receptive and productive skills in order to produce culture-specific texts based on their purpose, context, and target audience.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal and inferential comprehension of literary and informational texts and produce culture-specific narrative and expository texts (time order: chronology and procedural, recount) based on their purpose, context (funerals and symposia), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding knowledge of vocabulary and grammatical structures, literal and inferential comprehension of literary and informational texts, and composing and creating processes; and apply their receptive and productive skills in order to produce culture-specific texts based on their purpose, context, and target audience.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal and inferential comprehension of literary and informational texts and produce culture-specific narrative and expository texts (recount) based on their purpose, context (national holidays), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-4-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding vocabulary knowledge and grammatical awareness, comprehension of literary and informational texts, and composing and creating processes; and their receptive and productive skills in order to produce age-appropriate and gender-responsive texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding vocabulary knowledge and grammatical awareness, comprehension of literary and informational texts, and composing and creating processes; and their receptive and productive skills in order to produce age-appropriate and gender-responsive texts based on their purpose, context, and target audience.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding knowledge of vocabulary and grammatical structures, literal and inferential comprehension of literary and informational texts, and composing and creating processes; and apply their receptive and productive skills in order to produce culture-specific texts based on their purpose, context, and target audience.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding knowledge of vocabulary and grammatical structures, literal and inferential comprehension of literary and informational texts, and composing and creating processes; and apply their receptive and productive skills in order to produce culture-specific texts based on their purpose, context, and target audience.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-4-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply comprehension of literary and informational texts and produce narrative and expository texts (enumeration-description) based on their purpose, context (mealtimes and birthdays), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply comprehension of literary and informational texts and produce narrative and expository texts (enumeration-description, time order: chronology and procedural) based on their purpose, context (christenings and weddings), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal and inferential comprehension of literary and informational texts and produce culture-specific narrative and expository texts (time order: chronology and procedural, recount) based on their purpose, context (funerals and symposia), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal and inferential comprehension of literary and informational texts and produce culture-specific narrative and expository texts (recount) based on their purpose, context (national holidays), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-4-english:period-1:item-1",
@@ -606,8 +777,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "2ab2ede9a52ba89c956693a336c9b4122970fa71b1b1923e73d957d7c8b9d83f"
+    "competencyPayloadSha256": "42ccb32b9d397827e3d39f310c983ca9aaef78a800900b169c80a9075b7cbbfd"
   }
 }

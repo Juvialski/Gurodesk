@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -95,7 +101,172 @@
       "sortOrder": 1
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang katangiang heograpikal ng kinabibilangang komunidad",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng likhang-sining (mapa) na nagpapakita ng katangiang heograpikal ng kinabibilangang komunidad",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang kultura ng kinabibilangang komunidad",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng mga likhang-sining na nagpapakita ng pagpapahalaga sa kultura ng kinabibilangang komunidad",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang pamumuhay at mga serbisyo sa kinabibilangang komunidad",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng likhang-sining na nagpapakita ng pamumuhay at mga serbisyo sa kinabibilangang komunidad",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang konsepto ng pakikipagkapuwa at pakikibahagi sa kinabibilangang komunidad",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakalalahok sa mga gawaing nagpapakita ng pakikipagkapuwa at pakikibahagi sa kinabibilangang komunidad",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang katangiang heograpikal ng kinabibilangang komunidad",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang kultura ng kinabibilangang komunidad",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang pamumuhay at mga serbisyo sa kinabibilangang komunidad",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang konsepto ng pakikipagkapuwa at pakikibahagi sa kinabibilangang komunidad",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng likhang-sining (mapa) na nagpapakita ng katangiang heograpikal ng kinabibilangang komunidad",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng mga likhang-sining na nagpapakita ng pagpapahalaga sa kultura ng kinabibilangang komunidad",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng likhang-sining na nagpapakita ng pamumuhay at mga serbisyo sa kinabibilangang komunidad",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakalalahok sa mga gawaing nagpapakita ng pakikipagkapuwa at pakikibahagi sa kinabibilangang komunidad",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-2-makabansa:period-1:item-1",
@@ -239,8 +410,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "00f34c4494f8c937a5865e38e2cd89c8b0992e278a963ca5fe6d944e87a452d2"
+    "competencyPayloadSha256": "f545fa60ebb3d30fa2fd3dd794c9dbbe82e3a373cd4eb4d98447a088a868d4a7"
   }
 }

@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-chemistry-1",
+  "sourceSha256": "7af7a27c73e17ea275149940470fd750314a915121b8e65ab681a4fd7c37c19e",
+  "sourceFileName": "Chemistry-1.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 9,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "accuracy, precision, and appropriate use of standard units of measurement are fundamental to Chemistry;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "the contributions of Planck, Bohr, and Schrödinger helped in the development of Quantum Theory, which explains the behavior of subatomic particle;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "electrons of elements are arranged according to different energy levels, subshells, and orbitals based on the quantum mechanical model; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "isotopes of elements can be both beneficial and harmful.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners make reliable measurements and record data using appropriate laboratory and/or measuring tools. They also apply significant figures, scientific notation, and unit conversion. Using the Quantum Mechanical Model, they describe electrons in levels and write electron configurations for elements. Learners explain what isotopes are and how they may be useful and possibly harmful.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "the atomic mass of an element can be described as “relative” or “average”;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "the percentage composition of elements in a compound can be used to determine empirical and molecular formulas;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "chemical compounds are named using the rules of the International Union of Pure and Applied Chemistry (IUPAC);",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 4,
+      "text": "the chemical formula of a compound is a symbolic representation of its chemical composition; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "the properties of chemical compounds depend on the type of bond between the elements in a compound.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners explain the difference between relative and average atomic mass, and they correctly name compounds using the IUPAC nomenclature standard. They write formulas particularly for compounds commonly used in everyday life. They differentiate between ionic and covalent bonds and use illustrations and diagrams to explain the Lewis structure of an ionic compound and a covalent compound, applying the octet rule. They write chemical names and formulas for ionic and covalent compounds and describe their properties. Learners predict polarity based on electronegativity and molecular geometry.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

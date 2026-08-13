@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-9-science",
+  "sourceSha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+  "sourceFileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 20,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Newton’s laws explain and predict how objects move due to the forces that act on them.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Electricity is a flow of electrons and can be measured and understood using current, voltage, and resistance in circuits.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Electromagnetic radiation travels using transverse waves of different wavelengths.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Scientists and engineers use electromagnetic radiation to design modern technologies that benefit people and society.",
+      "sourcePage": 55,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate a practical understanding of Newton’s three laws of motion to describe relationships between variables and use these to explain everyday application of Newton’s laws. Through practical investigations, learners demonstrate qualitative understanding of the features of electricity and apply their understanding of electrical circuitry in homes. Learners exhibit skills in gathering information from secondary sources to describe the frequencies across the electromagnetic spectrum and identify practical applications and detrimental effects that electromagnetic radiation may have on living things.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Evidence for continents moving includes jig-saw matching of coastlines, rock types, and the presence of similar fossils in places separated by vast distance.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "The movement of lithospheric plates provides a theory for understanding Earth’s geological history.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "The geological time scale organizes major stages in the history of the Earth over more than 4 billion years.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Radioactive decay of material inside the Earth since it was formed is its internal source of energy.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "The Earth’s interior is made up of layers of varying characteristics.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "Models represent the size, structure, and relationship of components of the Solar System",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-2:item-7",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "text": "Observable evidence and models help explain the nature and origin of the Solar System.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners exhibit skills in evaluating information from secondary sources, and draw on their scientific understanding of the location and geological setting of the Philippines to explain its unique landforms and dynamic geologic activity in a global context. They demonstrate an appreciation of the size and scale of the Earth and describe evidence for a dynamic Earth over its long geological history as well as the evidence that is used to build a model for the internal structure of the Earth. Learners demonstrate curiosity and open-mindedness in extending their knowledge and understanding of the dynamic Earth to evaluate evidence for theories for the formation of the Solar System. They describe modern scientific processes and technologies that are used by scientists to investigate the nature and evolution of the Solar System and Universe.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Transmission of traits is determined by DNA, genes, and chromosomes.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "High biodiversity means populations are more likely to overcome adverse conditions.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Human activities can adversely affect animals and plants in a variety of ecosystems.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe that the transmission of traits is determined by DNA, genes, and chromosomes. They explain that high levels of diversity help to maintain stability of an ecosystem. They research to classify critically endangered plants and animals of the Philippines and to identify strategies to protect and conserve them. They use drawings and diagrams to describe features of typical Philippine ecosystems and they conduct a survey to explore possibilities to minimize the impact of human activities.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Valid and reliable scientific investigations include identification and control of variables.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "Formation or breaking down of ionic or covalent bonds results in a chemical change.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "Bonds are formed between atoms either by sharing or transferring of electrons.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "The type of bond formed determines whether the result is a covalent or ionic compound.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "Symbols for the elements are used as a basis for writing chemical formula of compounds.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "The properties of pure substances depend on the type of bonding within them.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners carry out a valid and reliable scientific investigation showing the formation of a new substance. They demonstrate an understanding of the significance of the valence electron of an element in the formation of bonds and identify bonds as ionic, covalent, or metallic. They use their knowledge of the symbols of elements to write the formula for a number of common compounds. They draw models of possible structures of ionic compounds and research the properties of ionic, covalent, and metallic substances. They use cartoons/comic strips to create interesting learning tools.",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    }
+  ]
+}

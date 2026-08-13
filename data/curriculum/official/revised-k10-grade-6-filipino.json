@@ -4,8 +4,8 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
     "sourceConsistency": {
       "detailedTableCountsByQuarter": [
         19,
@@ -21,6 +21,12 @@
       ],
       "status": "official_source_variance",
       "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    },
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
     }
   },
   "source": {
@@ -38,7 +44,7 @@
     "byteSize": 2192086,
     "pageCount": 172,
     "pagesUsed": {
-      "from": 101,
+      "from": 100,
       "to": 116
     },
     "retrievedOn": "2026-08-11"
@@ -119,7 +125,172 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo (denotasyon, konotasyon, tono, at damdamin) na ginagamit sa pormal at di-pormal na mga sitwasyon, lumalagong kaalaman sa mga estrukturang gramatikal, kritikal at lapat na pag-unawa sa tekstong naratibo (tulang pambata, dulang pambata, kuwentong katatakutan, maikling kuwento) at tekstong impormatibo (eksposisyon), pagbuo ng teksto, at kaalaman sa mga di-berbal na pahiwatig (pisikal na paghahatid ng mensahe) at kasanayang produktibo, at paggamit tekstong multimedia sa pagusuri at pagpapakahulugan upang makabuo ng tekstong tumatalakay sa mga paksang patungkol sa bansa at global na may kaangkupan sa edad, kasarian, paksa, at kultura (pasalita, pasulat, at multimedia) na batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng sanaysay na naglalahad ng tampok na isang pangyayari sa bansa o global.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo (denotasyon, konotasyon, tono, at damdamin) na ginagamit sa pormal at di-pormal na mga sitwasyon, lumalagong kaalaman sa mga estrukturang gramatikal, kritikal at lapat na pag-unawa sa tekstong naratibo (tula, dula, maikling kuwento, at siyensiyang piksyon) at tekstong impormatibo (eksposisyon), pagbuo ng teksto, at kaalaman sa mga di-berbal na pahiwatig (pisikal na paghahatid ng mensahe) at kasanayang produktibo, at paggamit tekstong multimedia sa pagusuri at pagpapakahulugan upang makabuo ng tekstong tumatalakay sa mga paksang tungkol sa bansa at global na may kaangkupan sa edad, kasarian, paksa, at kultura (pasalita, pasulat, at multimedia) na batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 105,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng isang sanaysay tungkol sa isang suliraning pambansa o pangglobal.",
+      "sourcePage": 105,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo (denotasyon, konotasyon, tono, at damdamin) na ginagamit sa pormal at di-pormal na mga sitwasyon, lumalagong kaalaman sa mga estrukturang gramatikal, kritikal at lapat na pag-unawa sa tekstong naratibo (tula, dula, maikling kuwento, at siyensiyang piksyon) at tekstong impormatibo (panghihikayat/persweysib), pagbuo ng teksto, at kaalaman sa mga di-berbal na pahiwatig (pisikal na paghahatid ng mensahe) at kasanayang produktibo, at paggamit tekstong multimedia sa pagusuri at pagpapakahulugan upang makabuo ng tekstong tumatalakay sa mga paksang tungkol sa bansa at global na may kaangkupan sa edad, kasarian, paksa, at kultura (pasalita, pasulat, at multimedia) na batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 109,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng editoryal tungkol sa isang napapanahong usaping pambansa o pangglobal.",
+      "sourcePage": 109,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo (denotasyon, konotasyon, tono, at damdamin) na ginagamit sa pormal at di-pormal na mga sitwasyon, lumalagong kaalaman sa mga estrukturang gramatikal, kritikal at lapat na pag-unawa sa tekstong naratibo ((tula, dula, maikling kuwento, at nobela) at tekstong impormatibo (panghihikayat/persuweysib), pagbuo ng teksto, at kaalaman sa mga di-berbal na pahiwatig (pisikal na paghahatid ng mensahe) at kasanayang produktibo, at paggamit tekstong multimedia sa pagusuri at pagpapakahulugan upang makabuo ng tekstong tumatalakay sa mga paksang tungkol sa bansa at global na may kaangkupan sa edad, kasarian, paksa, at kultura (pasalita, pasulat, at multimedia) na batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 113,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng liham paanyaya sa isang tagapagsalita para magbibigay ng panayam sa paksang pambansa o pangglobal.",
+      "sourcePage": 113,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo (denotasyon, konotasyon, tono, at damdamin) na ginagamit sa pormal at di-pormal na mga sitwasyon, lumalagong kaalaman sa mga estrukturang gramatikal, kritikal at lapat na pag-unawa sa tekstong naratibo (tulang pambata, dulang pambata, kuwentong katatakutan, maikling kuwento) at tekstong impormatibo (eksposisyon), pagbuo ng teksto, at kaalaman sa mga di-berbal na pahiwatig (pisikal na paghahatid ng mensahe) at kasanayang produktibo, at paggamit tekstong multimedia sa pagusuri at pagpapakahulugan upang makabuo ng tekstong tumatalakay sa mga paksang patungkol sa bansa at global na may kaangkupan sa edad, kasarian, paksa, at kultura (pasalita, pasulat, at multimedia) na batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo (denotasyon, konotasyon, tono, at damdamin) na ginagamit sa pormal at di-pormal na mga sitwasyon, lumalagong kaalaman sa mga estrukturang gramatikal, kritikal at lapat na pag-unawa sa tekstong naratibo (tula, dula, maikling kuwento, at siyensiyang piksyon) at tekstong impormatibo (eksposisyon), pagbuo ng teksto, at kaalaman sa mga di-berbal na pahiwatig (pisikal na paghahatid ng mensahe) at kasanayang produktibo, at paggamit tekstong multimedia sa pagusuri at pagpapakahulugan upang makabuo ng tekstong tumatalakay sa mga paksang tungkol sa bansa at global na may kaangkupan sa edad, kasarian, paksa, at kultura (pasalita, pasulat, at multimedia) na batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 105,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo (denotasyon, konotasyon, tono, at damdamin) na ginagamit sa pormal at di-pormal na mga sitwasyon, lumalagong kaalaman sa mga estrukturang gramatikal, kritikal at lapat na pag-unawa sa tekstong naratibo (tula, dula, maikling kuwento, at siyensiyang piksyon) at tekstong impormatibo (panghihikayat/persweysib), pagbuo ng teksto, at kaalaman sa mga di-berbal na pahiwatig (pisikal na paghahatid ng mensahe) at kasanayang produktibo, at paggamit tekstong multimedia sa pagusuri at pagpapakahulugan upang makabuo ng tekstong tumatalakay sa mga paksang tungkol sa bansa at global na may kaangkupan sa edad, kasarian, paksa, at kultura (pasalita, pasulat, at multimedia) na batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 109,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo (denotasyon, konotasyon, tono, at damdamin) na ginagamit sa pormal at di-pormal na mga sitwasyon, lumalagong kaalaman sa mga estrukturang gramatikal, kritikal at lapat na pag-unawa sa tekstong naratibo ((tula, dula, maikling kuwento, at nobela) at tekstong impormatibo (panghihikayat/persuweysib), pagbuo ng teksto, at kaalaman sa mga di-berbal na pahiwatig (pisikal na paghahatid ng mensahe) at kasanayang produktibo, at paggamit tekstong multimedia sa pagusuri at pagpapakahulugan upang makabuo ng tekstong tumatalakay sa mga paksang tungkol sa bansa at global na may kaangkupan sa edad, kasarian, paksa, at kultura (pasalita, pasulat, at multimedia) na batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 113,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng sanaysay na naglalahad ng tampok na isang pangyayari sa bansa o global.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng isang sanaysay tungkol sa isang suliraning pambansa o pangglobal.",
+      "sourcePage": 105,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng editoryal tungkol sa isang napapanahong usaping pambansa o pangglobal.",
+      "sourcePage": 109,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng liham paanyaya sa isang tagapagsalita para magbibigay ng panayam sa paksang pambansa o pangglobal.",
+      "sourcePage": 113,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-6-filipino:period-1:item-1",
@@ -873,8 +1044,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "816535e78d5c611b1d0192ca0f385f0ac246c9545b27eca7900a58c0556a681a"
+    "competencyPayloadSha256": "8bfbd83618124172242e1deea49092c69ae87e9aa9af3b72533fc74e108474d9"
   }
 }

@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 7,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -82,7 +88,192 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "organisms are classified based on shared structural characteristics and molecular evidence, and that biological classification reflects evolutionary relationships and adaptations of organisms;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "organisms can be identified and classified to support biodiversity conservation and the prioritization of species that are extinct or at risk of extinction;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "organisms interact with one another and with abiotic factors within ecosystems; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "energy flows through ecosystems and terrestrial and aquatic ecosystems are interconnected, contributing to ecosystem balance.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "human activities and development interventions can positively and negatively impact ecosystems and natural resources;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "biotechnology and artificial intelligence contribute to improvements in health, food security, and environmental sustainability; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 7,
+      "text": "the development and application of technologies such as biotechnology and artificial intelligence (AI) involve ethical considerations and social, legal, and environmental trade-offs.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can classify organisms based on their distinctive characteristics, explain ecological interactions and energy flow within ecosystems, and present evidence-based explanations of how biodiversity conservation and ecosystem interconnections contribute to environmental sustainability.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can analyze how human activities and technological developments affect ecosystems and natural resources by explaining nutrient cycles, evaluating environmental impacts of development projects, and presenting informed perspectives on the roles, benefits, and ethical implications of biotechnology and artificial intelligence in addressing environmental and societal challenges.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "organisms are classified based on shared structural characteristics and molecular evidence, and that biological classification reflects evolutionary relationships and adaptations of organisms;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "organisms can be identified and classified to support biodiversity conservation and the prioritization of species that are extinct or at risk of extinction;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "organisms interact with one another and with abiotic factors within ecosystems; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "energy flows through ecosystems and terrestrial and aquatic ecosystems are interconnected, contributing to ecosystem balance.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "human activities and development interventions can positively and negatively impact ecosystems and natural resources;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "biotechnology and artificial intelligence contribute to improvements in health, food security, and environmental sustainability; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 7,
+      "text": "the development and application of technologies such as biotechnology and artificial intelligence (AI) involve ethical considerations and social, legal, and environmental trade-offs.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can classify organisms based on their distinctive characteristics, explain ecological interactions and energy flow within ecosystems, and present evidence-based explanations of how biodiversity conservation and ecosystem interconnections contribute to environmental sustainability.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-4:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can analyze how human activities and technological developments affect ecosystems and natural resources by explaining nutrient cycles, evaluating environmental impacts of development projects, and presenting informed perspectives on the roles, benefits, and ethical implications of biotechnology and artificial intelligence in addressing environmental and societal challenges.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-biology-4:period-1:item-1",
@@ -266,8 +457,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "dd855da99ffb922ecd31e8f45d401efbe8ef1343a3a52600b5dd25cf0a168ecd"
+    "competencyPayloadSha256": "ae9e8892f769119889ac0bdc617ef4dc9328a14ffaa21dde91df2bebcaf737f1"
   }
 }

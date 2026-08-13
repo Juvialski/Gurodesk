@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-human-movement-2-motor-skills-development",
+  "sourceSha256": "edca5434d05d7f72d84d14507f307beaa3f29217992586e0a1acc2fe4b96e40d",
+  "sourceFileName": "Human-Movement-2-Motor-Skills-Development.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-human-movement-2-motor-skills-development:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamentals of motor skills development to optimize human movement.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-2-motor-skills-development:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners execute basic functional movement patterns using different motor control theories.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-2-motor-skills-development:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze basic functional movement patterns and application of measurement techniques to optimize performance.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-human-movement-2-motor-skills-development:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners evaluate basic functional movement patterns using current trends to enhance performance.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

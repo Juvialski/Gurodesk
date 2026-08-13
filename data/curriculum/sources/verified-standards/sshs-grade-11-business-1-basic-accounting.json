@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-business-1-basic-accounting",
+  "sourceSha256": "17413049b491594614589f5f3eba43a986770f74211f3812122b73908c3ca240",
+  "sourceFileName": "Business-1-Basic-Accounting.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamental concepts and principles of accounting and accounting for service business.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze key accounting functions and principles relevant to real enterprise operations such as type of business, books of accounts used, and accounting process methodology.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of concepts and principles of accounting for merchandising business.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-1-basic-accounting:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners complete the practice sets following the accounting cycle for merchandising business using the perpetual and the periodic methods.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

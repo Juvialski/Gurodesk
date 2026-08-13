@@ -16,6 +16,8 @@
     "curriculum:verify:sources": "node scripts/verify-official-curriculum-sources.mjs",
     "curriculum:generate:files": "node scripts/generate-all-curriculum-sql.mjs data/curriculum/official supabase/seeds/generated",
     "curriculum:generate:bundle": "node scripts/generate-official-curriculum-bundle.mjs data/curriculum/official supabase/seeds/official-curriculum-complete.sql",
+    "curriculum:generate:standards-migration": "node scripts/curriculum/generate-verified-standards-migration.mjs data/curriculum/official supabase/migrations/202608130038_verified_curriculum_standards_expansion.sql",
+    "curriculum:check:standards-migration": "node scripts/check-verified-standards-migration.mjs",
     "curriculum:check:bundle": "node scripts/check-official-curriculum-bundle.mjs",
     "curriculum:generate:all": "npm run curriculum:generate:bundle",
     "validate:phase2": "node scripts/check-phase2.mjs",

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-arts-apprenticeship-theater-arts",
+  "sourceSha256": "ed93360b140f140ffbabf22216c79816ed77dde118733f8bd3c127c36fcb5a86",
+  "sourceFileName": "Arts Apprenticeship - Theater Arts.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 1,
+    "performance": 1
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-theater-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the roles of theater artists, theater production processes, professional practices, and ethical standards through apprenticeship experiences within theater organizations and creative industry settings.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-theater-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners synthesize their apprenticeship experiences that reflect knowledge and skills in theater arts, emphasizing artistic, educational, cultural values, and work ethics through work performance and creative documentation. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ]
+}

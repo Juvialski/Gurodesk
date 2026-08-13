@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -102,7 +108,172 @@
       "sortOrder": 1
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of attitude, emotions, similarities and differences of oneself and others including the concept of family, and of importance of physical health, safety, and appropriate movement concepts.",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners manage emotions, make decisions, recognize similarities and differences of people, and express oneself based on personal experiences; participate actively in various physical activities; use hands in creating models; perform coordinated body movements; and take care of one’s physical health and safety.",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners understand the value of discipline, honesty, respect, friendship, and care and concern.",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate proper discipline, honesty, respect, friendship, and care towards other people.",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of one’s identity, rights, and responsibilities as a Filipino citizen.",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners show appreciation for one’s culture; understand one’s right as a Filipino citizen; and demonstrate a sense of responsibility as a Filipino citizen.",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners appreciate the beauty of the environment through creative expressions.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners express thoughts, feelings, attitudes, and imagination through creative expressions.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of attitude, emotions, similarities and differences of oneself and others including the concept of family, and of importance of physical health, safety, and appropriate movement concepts.",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners understand the value of discipline, honesty, respect, friendship, and care and concern.",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of one’s identity, rights, and responsibilities as a Filipino citizen.",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners appreciate the beauty of the environment through creative expressions.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners manage emotions, make decisions, recognize similarities and differences of people, and express oneself based on personal experiences; participate actively in various physical activities; use hands in creating models; perform coordinated body movements; and take care of one’s physical health and safety.",
+      "sourcePage": 18,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate proper discipline, honesty, respect, friendship, and care towards other people.",
+      "sourcePage": 20,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners show appreciation for one’s culture; understand one’s right as a Filipino citizen; and demonstrate a sense of responsibility as a Filipino citizen.",
+      "sourcePage": 22,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-kindergarten-kindergarten:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners express thoughts, feelings, attitudes, and imagination through creative expressions.",
+      "sourcePage": 23,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-kindergarten-kindergarten:period-1:item-1",
@@ -566,8 +737,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "716db9c71d9ca9e3368a7c98a162dad57089a34813227f1cd6f3b783f0a27d36"
+    "competencyPayloadSha256": "90d4462acbe10f4abe7aa52f6adb71610637742ed66aefe68b9ec216b174a5cb"
   }
 }

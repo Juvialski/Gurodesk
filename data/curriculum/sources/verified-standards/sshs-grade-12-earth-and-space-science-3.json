@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-earth-and-space-science-3",
+  "sourceSha256": "09c6d0a568df5228d21b9a66a04d48b81744c34a7d1bedd121de197972d4c6f2",
+  "sourceFileName": "Earth and Space Science 3.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 9,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "observational evidence such as galaxy recession rates, cosmic microwave background radiation, and the large-scale distribution of matter provides scientific support for models explaining the origin and evolution of the universe;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "stars have measurable properties and life cycles that can be studied through spectral analysis and classification, and that planetary motions follow predictable patterns governed by gravitational laws;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "various observational techniques enable the detection of planets beyond the solar system and provide evidence that helps scientists evaluate the possibility of life in other planetary systems;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "advances in space exploration technologies enhance our understanding of Earth and other planets; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "satellite technology and remote sensing enable scientists and government agencies to observe Earth systems, monitor environmental changes, and support disaster risk reduction and environmental management.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "text": "satellite observations and remote sensing technologies provide critical data used to monitor Earth's climate system and environmental changes;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "text": "climate change results from natural processes and human activities that alter the balance of energy in Earth's climate system;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 8,
+      "text": "international agreements and national policies guide efforts to mitigate climate change and support adaptation strategies; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:content:period-1:item-9",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 9,
+      "text": "climate mitigation and adaptation strategies can strengthen community resilience and reduce the impacts of climate change.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can analyze observational and satellite data to explain models of the universe, classify stars and planetary systems, and evaluate evidence related to the existence of exoplanets and extraterrestrial life. They can apply scientific reasoning and digital tools to interpret astronomical and Earth observation data and communicate how space science and remote sensing technologies contribute to environmental monitoring and disaster risk management in the Philippines.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-3:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can analyze satellite and climate datasets to explain climate change trends and their impacts on the Philippines. They can apply scientific reasoning and data analysis to evaluate climate mitigation and adaptation strategies and communicate evidence-based recommendations for strengthening community climate resilience and sustainability.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

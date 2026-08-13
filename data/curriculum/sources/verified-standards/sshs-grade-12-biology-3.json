@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-biology-3",
+  "sourceSha256": "f8bd87faf1aaae8b42c5ab63415aba5b93a03088445d64ccc69acb5f5913ad7f",
+  "sourceFileName": "Biology 3.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 10,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "biological macromolecules such as carbohydrates, lipids, proteins, and nucleic acids are essential for cellular functions and metabolism;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "DNA and RNA are nucleic acids that store and transmit genetic information and that their molecular structures determine their biological functions;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "genetic information stored in DNA is expressed through RNA and proteins during the processes of DNA replication, transcription, and translation;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "mutations are changes in genetic material that can alter gene expression and protein structure, resulting in variation and genetic disorders;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "traits are inherited through different genetic patterns that determine the genotype and phenotype of organisms; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "changes in chromosome structure or number can influence inheritance and may lead to genetic variation or genetic disorders.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "text": "recombinant DNA technology allows the modification of genetic material and has applications in medicine, agriculture, and environmental conservation;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 8,
+      "text": "genetic variation caused by mutation and recombination can lead to evolutionary change in populations;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-9",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 9,
+      "text": "evolution is supported by scientific evidence and is reflected in the history of life on Earth through the geologic time scale;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:content:period-1:item-10",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D12",
+      "sortOrder": 10,
+      "text": "evolutionary processes such as natural selection, genetic drift, mutation, recombination, and speciation explain the emergence of species and the diversity of life on Earth;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can explain how genetic information is stored, expressed, and inherited by describing the roles of biomolecules and genetic structures, constructing models of gene expression, solving genetic cross problems to predict inheritance patterns, and presenting explanations of how mutations and chromosomal changes affect organism traits and genetic disorders.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-biology-3:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can analyze evidence of evolution and explain how genetic variation and evolutionary processes lead to speciation and biodiversity. They can also communicate the applications of recombinant DNA technology in medicine, agriculture, and environmental conservation through models, reports, or multimedia presentations.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

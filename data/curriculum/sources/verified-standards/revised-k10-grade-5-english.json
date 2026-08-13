@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-5-english",
+  "sourceSha256": "db4a5c2b7389f9237b21ee19873faf9b950fe55b9f0918db336269f112dc897c",
+  "sourceFileName": "FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-5-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding vocabulary knowledge as used in formal and informal situations; growing knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; and developing skills in composing and creating text in order to produce culture-appropriate texts based on their purpose, context, and target audience.",
+      "sourcePage": 103,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts and produce culture-appropriate texts: narrative and expository texts (explanation, news report) based on their purpose, context (national holidays), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 103,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding vocabulary knowledge as used in formal and informal situations; growing knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; and developing skills in composing and creating text in order to produce culture-appropriate texts based on their purpose, context, and target audience.",
+      "sourcePage": 107,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts and produce culture-appropriate texts: narrative and expository texts (explanation, news report) based on their purpose, context (Ramadan), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 107,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding vocabulary knowledge as used in formal and informal situations; growing knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; and developing skills in composing and creating text in order to produce culture-appropriate texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 111,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts and produce culture-appropriate texts: narrative and expository texts (explanation, news report) based on their purpose, context (Chinese New Year), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 111,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their expanding vocabulary knowledge as used in formal and informal situations; growing knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts, and developing skills in composing and creating text in order to produce culture-appropriate texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 115,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts and produce culture-appropriate texts: narrative and expository texts (explanation, news report) based on their purpose, context (Indigenous People and regional celebrations), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 115,
+      "verificationStatus": "verified"
+    }
+  ]
+}

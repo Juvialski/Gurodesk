@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-earth-and-space-science-4",
+  "sourceSha256": "a4c1d0084bab32f0ef3eb0ee2e683e4e3f506b204e73fb27cbe880836f647f31",
+  "sourceFileName": "Earth and Space Science 4.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 8,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "natural hazards originate from geological and hydrometeorological processes and may become disasters depending on the exposure, vulnerability, and capacity of communities;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "hazard maps and geospatial information are important tools for identifying areas at risk and supporting disaster risk assessment;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "structural and nature-based mitigation strategies can reduce disaster risks and lessen the impacts of hazards on communities; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 4,
+      "text": "disaster risk reduction policies and community preparedness plans help strengthen resilience and reduce disaster impacts.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 5,
+      "text": "energy production and consumption influence environmental sustainability, and that the transition to renewable energy sources can help reduce environmental impacts and support sustainable development;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 6,
+      "text": "human activities such as excessive groundwater extraction can cause land subsidence and increase risks to communities and infrastructure;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 7,
+      "text": "geological conditions and human land-use practices influence slope stability, and appropriate geotechnical interventions can reduce landslide risks; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 8,
+      "text": "sustainable energy systems, responsible land use, and resilient infrastructure contribute to disaster-resilient and sustainable communities.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can analyze hazard maps, disaster records, and risk data to assess disaster risks in local communities. They can evaluate disaster risk reduction strategies and policies and propose evidence-based recommendations that strengthen community preparedness, resilience, and disaster risk management.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-earth-and-space-science-4:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can analyze energy, land-use, and geotechnical data to evaluate environmental risks and sustainability challenges affecting communities in the Philippines. They can assess renewable energy options, investigate land stability issues, and propose evidence-based strategies for developing sustainable and disaster-resilient communities.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

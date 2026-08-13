@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -109,7 +115,92 @@
       "sortOrder": 8
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa paggamit ng komunikatibong Filipino sa kritikal na pag-unawa ng mga batayang kaalaman sa sining at disenyo, partikular na sa pagsusuri at pagpapahalaga sa mga uri ng literatura. Paghahanda ito sa pagsulat ng rebyu ng mga likhang-sining sa komunidad.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakasusulat ng rebyu ng isang likhang-sining at disenyo sa komunidad gamit ang komunikatibong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa paggamit ng komunikatibong Filipino sa kritikal na pag-unawa ng mga batayang kaalaman sa sining at disenyo at sa pagsusuri at pagpapahalaga sa mga uri nito na broadcast media, sining panteatro, sining biswal at arkitektura tungo sa pagsasagawa ng eksibit.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng eksibit ng mga anyong sining na ginagamitan ng mabisang komunikatibong Filipino.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa paggamit ng komunikatibong Filipino sa kritikal na pag-unawa ng mga batayang kaalaman sa sining at disenyo, partikular na sa pagsusuri at pagpapahalaga sa mga uri ng literatura. Paghahanda ito sa pagsulat ng rebyu ng mga likhang-sining sa komunidad.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa paggamit ng komunikatibong Filipino sa kritikal na pag-unawa ng mga batayang kaalaman sa sining at disenyo at sa pagsusuri at pagpapahalaga sa mga uri nito na broadcast media, sining panteatro, sining biswal at arkitektura tungo sa pagsasagawa ng eksibit.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakasusulat ng rebyu ng isang likhang-sining at disenyo sa komunidad gamit ang komunikatibong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng eksibit ng mga anyong sining na ginagamitan ng mabisang komunikatibong Filipino.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:period-1:item-1",
@@ -243,8 +334,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "717772bb0a025596bd08315b1f08ee70be01c8519b940e970422e9c683596dc4"
+    "competencyPayloadSha256": "bc341cbe0a181c85db50a537606d807fd2617c7f6a646512450e09e8cf31d106"
   }
 }

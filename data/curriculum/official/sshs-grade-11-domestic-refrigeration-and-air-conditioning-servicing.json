@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -128,7 +134,172 @@
       "sortOrder": 9
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of installing domestic refrigeration and air-conditioning units.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs the installation of domestic refrigeration and air-conditioning units with safety precautions",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of maintaining domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs the maintenance of domestic refrigeration and window-type air-conditioning units with safety precautions",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of troubleshooting domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs troubleshooting of domestic refrigeration and window-type air-conditioning units with safety precautions.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of repairing domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs repairing domestic refrigeration and window-type air-conditioning units with safety precautions.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of installing domestic refrigeration and air-conditioning units.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of maintaining domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of troubleshooting domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of repairing domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs the installation of domestic refrigeration and air-conditioning units with safety precautions",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs the maintenance of domestic refrigeration and window-type air-conditioning units with safety precautions",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs troubleshooting of domestic refrigeration and window-type air-conditioning units with safety precautions.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs repairing domestic refrigeration and window-type air-conditioning units with safety precautions.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:period-1:item-1",
@@ -222,8 +393,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "937e37a31650683d9572bd0f8cc6d4bede6470c1143fa8c79e17d1b9718db0d2"
+    "competencyPayloadSha256": "b14a39e657a2616ed9d3a78d5f62a33dbcaa4d6a8b276188e742df65e0fe4e1d"
   }
 }

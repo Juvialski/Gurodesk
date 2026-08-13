@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -124,7 +130,92 @@
       "sortOrder": 11
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa ng at pagsusuri sa mga uri at elemento ng mga tekstong multimodal sa teknikal-propesyonal na larang.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng multimodal na presentasyon ng piniling produkto o serbisyo gamit ang akademikong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagbuo ng mga teksto sa teknikal-propesyonal na larang",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng portfolio ng mga tekstong teknikal-propesyonal",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa ng at pagsusuri sa mga uri at elemento ng mga tekstong multimodal sa teknikal-propesyonal na larang.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagbuo ng mga teksto sa teknikal-propesyonal na larang",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng multimodal na presentasyon ng piniling produkto o serbisyo gamit ang akademikong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng portfolio ng mga tekstong teknikal-propesyonal",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-filipino-2-filipino-para-sa-larang-teknikal-propesyonal:period-1:item-1",
@@ -268,8 +359,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "2e217c7aaf129f12604041bc9fbcda2ef5965c4ed64cdb8048b71906427a3765"
+    "competencyPayloadSha256": "183eb3c2fdba4ba1bcb1522a496e0d9bac0f07a5cbb0ba2cc43fa50682433baf"
   }
 }

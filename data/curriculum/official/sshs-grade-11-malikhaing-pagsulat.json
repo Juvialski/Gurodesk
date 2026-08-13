@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -97,7 +103,92 @@
       "sortOrder": 7
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kaalaman at pag-unawa sa iba’t ibang bukal ng idea’t inspirasyon sa pagkatha, gayundin ang batayang kaalaman sa iba’t ibang pangunahing anyo ng malikhaing pagsulat tulad ng tula at maikling kuwento at sa mga elemento ng mga ito.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Naipamamalas ng mga mag-aaral ang kaalaman at pag-unawa sa proseso ng palihan at sa pagsasaalang-alang sa rebisyon ng isang malikhaing proyekto.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakasusulat ng unang borador ng piniling malikhaing proyekto – maaaring koleksiyon ng pitong tula o isang maikling kuwentong hindi bababa sa 10 pahina.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Nakapagsasagawa ng palihan nang may pagsasaalang-alang sa mga puna at mungkahi tungo sa rebisyon ng isang malikhaing proyekto.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kaalaman at pag-unawa sa iba’t ibang bukal ng idea’t inspirasyon sa pagkatha, gayundin ang batayang kaalaman sa iba’t ibang pangunahing anyo ng malikhaing pagsulat tulad ng tula at maikling kuwento at sa mga elemento ng mga ito.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Naipamamalas ng mga mag-aaral ang kaalaman at pag-unawa sa proseso ng palihan at sa pagsasaalang-alang sa rebisyon ng isang malikhaing proyekto.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakasusulat ng unang borador ng piniling malikhaing proyekto – maaaring koleksiyon ng pitong tula o isang maikling kuwentong hindi bababa sa 10 pahina.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-malikhaing-pagsulat:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Nakapagsasagawa ng palihan nang may pagsasaalang-alang sa mga puna at mungkahi tungo sa rebisyon ng isang malikhaing proyekto.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-malikhaing-pagsulat:period-1:item-1",
@@ -281,8 +372,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "e79aa57487c27f1295eb129400bd6a006e57d8135546da40e25a30adad4ebbc1"
+    "competencyPayloadSha256": "3dd7d0b530890ea1ddbc7f7f99f53956d43f1002bfb1e096468863b5e764cdd9"
   }
 }

@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 7,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -23,7 +29,7 @@
     "pageCount": 5,
     "pagesUsed": {
       "from": 2,
-      "to": 4
+      "to": 5
     },
     "retrievedOn": "2026-08-11"
   },
@@ -89,7 +95,192 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Physics is fundamental to understanding the natural world in a scientific way and leads to the development of many applications that benefit society;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "measuring should be done precisely and accurately, and must be expressed correctly; and",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "qualitative, quantitative, and graphical analysis of motion provide complementary ways to understand, describe, and predict motion.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners properly measure and use pertinent units, compute resultant vectors, and analyze motion graphs. They explain, calculate, and analyze one-dimensional, two-dimensional, and relative motion in practical contexts and solve problems using kinematic equations. They also describe and explain how basic physics principles are applied to describe and make predictions about motion in everyday situations and scenarios.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Newton's Laws of Motion, work, energy, power, and the conservation of energy are essential for understanding the behavior of objects and systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "momentum, impulse, and the laws of conservation are essential in evaluating the efficiency and safety of physical systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "rotational mechanics can maximize efficiency in physical systems; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "simple harmonic motion can be characterized by periodic motion.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners properly measure and use pertinent units, compute resultant vectors, and analyze motion graphs. They explain, calculate, and analyze one-dimensional, two-dimensional, and relative motion in practical contexts and solve problems using kinematic equations. They also describe and explain how basic physics principles are applied to describe and make predictions about motion in everyday situations and scenarios.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Physics is fundamental to understanding the natural world in a scientific way and leads to the development of many applications that benefit society;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "measuring should be done precisely and accurately, and must be expressed correctly; and",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "qualitative, quantitative, and graphical analysis of motion provide complementary ways to understand, describe, and predict motion.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Newton's Laws of Motion, work, energy, power, and the conservation of energy are essential for understanding the behavior of objects and systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "momentum, impulse, and the laws of conservation are essential in evaluating the efficiency and safety of physical systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "rotational mechanics can maximize efficiency in physical systems; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "simple harmonic motion can be characterized by periodic motion.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners properly measure and use pertinent units, compute resultant vectors, and analyze motion graphs. They explain, calculate, and analyze one-dimensional, two-dimensional, and relative motion in practical contexts and solve problems using kinematic equations. They also describe and explain how basic physics principles are applied to describe and make predictions about motion in everyday situations and scenarios.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners properly measure and use pertinent units, compute resultant vectors, and analyze motion graphs. They explain, calculate, and analyze one-dimensional, two-dimensional, and relative motion in practical contexts and solve problems using kinematic equations. They also describe and explain how basic physics principles are applied to describe and make predictions about motion in everyday situations and scenarios.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-physics-1:period-1:item-1",
@@ -243,8 +434,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "6459450d913004a9f80522592990bf9150fb574a30b8a77332b0a184a8f6f806"
+    "competencyPayloadSha256": "159fed5ddccaecaa6c2af8947e5220a21b058b0e262efe0c6642bc03099e067b"
   }
 }

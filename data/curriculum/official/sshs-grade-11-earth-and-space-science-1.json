@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 11,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -23,7 +29,7 @@
     "pageCount": 5,
     "pagesUsed": {
       "from": 2,
-      "to": 4
+      "to": 5
     },
     "retrievedOn": "2026-08-11"
   },
@@ -94,7 +100,272 @@
       "sortOrder": 5
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "the objects making up the universe have distinct characteristics;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "the interactions of the Sun, planets, and moon produce dynamic physical influences;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "the Earth is the only planet in the solar system that supports life;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "the Earth's position in the solar system contributes to its structure and dynamic nature;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "historical and contemporary models and theories provide the scientific bases for explaining the Earth’s origin, its plates, and boundaries;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 6,
+      "text": "seismic waves and their effects help to explain and understand the nature and composition of the Earth.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners describe the origin of the solar system and Earth’s historical evolution. They relate Earth’s unique position in the solar system to its composition, structure, and the dynamic nature of its outer layers. Learners explain how scientists determine the nature of Earth's interior. They also collaboratively create detailed models and scientific analyses and use evidence-based findings to illustrate the nature and composition of the Earth.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "minerals are essential for industrial development, economic growth, and technological advancement, but should be managed sustainably;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "the rock cycle is a dynamic system that forms, alters, and reforms rocks over geological time;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "various environmental factors influence the characteristics of soil;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 4,
+      "text": "the differences between renewable and non-renewable energy sources are key to making sustainable energy choices and reducing environmental impacts; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "conserving energy sources and promoting sustainable practices are key to economic and environmental sustainability.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners identify, describe, and classify a range of minerals, rocks, and soils using appropriate scientific techniques. They explain the formation and economic significance of the Philippines’ earth materials and energy sources, emphasizing the importance of sustainable mineral resource management. Learners differentiate renewable and non-renewable energy sources and develop campaigns focused on energy conservation and sustainability.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "the objects making up the universe have distinct characteristics;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "the interactions of the Sun, planets, and moon produce dynamic physical influences;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "the Earth is the only planet in the solar system that supports life;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "the Earth's position in the solar system contributes to its structure and dynamic nature;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "historical and contemporary models and theories provide the scientific bases for explaining the Earth’s origin, its plates, and boundaries;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 6,
+      "text": "seismic waves and their effects help to explain and understand the nature and composition of the Earth.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "minerals are essential for industrial development, economic growth, and technological advancement, but should be managed sustainably;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "the rock cycle is a dynamic system that forms, alters, and reforms rocks over geological time;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "various environmental factors influence the characteristics of soil;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 4,
+      "text": "the differences between renewable and non-renewable energy sources are key to making sustainable energy choices and reducing environmental impacts; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "conserving energy sources and promoting sustainable practices are key to economic and environmental sustainability.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners describe the origin of the solar system and Earth’s historical evolution. They relate Earth’s unique position in the solar system to its composition, structure, and the dynamic nature of its outer layers. Learners explain how scientists determine the nature of Earth's interior. They also collaboratively create detailed models and scientific analyses and use evidence-based findings to illustrate the nature and composition of the Earth.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners identify, describe, and classify a range of minerals, rocks, and soils using appropriate scientific techniques. They explain the formation and economic significance of the Philippines’ earth materials and energy sources, emphasizing the importance of sustainable mineral resource management. Learners differentiate renewable and non-renewable energy sources and develop campaigns focused on energy conservation and sustainability.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-earth-and-space-science-1:period-1:item-1",
@@ -238,8 +509,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "dae7e8c06392c28a6ff9c0824e132da14abe42e91b77c6d3d7d9cffc8a2fda69"
+    "competencyPayloadSha256": "0bf1f480823efb2aacba864f5689b4fe693f5c2cc3ce442f95c1f9238ae1acc6"
   }
 }

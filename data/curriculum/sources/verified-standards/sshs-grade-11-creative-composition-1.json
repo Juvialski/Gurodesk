@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-creative-composition-1",
+  "sourceSha256": "42fd1869de4523eb196257a4448dbc2de0aca0f84dc1eae7e4a3248c3e986b10",
+  "sourceFileName": "Creative-Composition-1.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of personal creative nonfiction forms, structures, and elements to narrate lived experiences with authenticity and voice.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner composes, refines, and publishes a personal nonfiction narrative through a recursive composition process that incorporates feedback, reflection, and revision to express lived experience with authenticity, insight, and narrative technique.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates deep understanding of poetic elements, structures, and devices; explores how form, imagery, sound, and language to make meaning, convey emotion, and express self in poetry.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner composes, revises, and publishes original poems through a sustained composition process, experimenting with form, sound, and voice to create emotionally resonant poetry, culminating in creative presentation across media formats.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

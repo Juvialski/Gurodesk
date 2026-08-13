@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-7-science",
+  "sourceSha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+  "sourceFileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 22,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Scientists use models to explain phenomena.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "The particle model explains the properties of solids, liquids, and gases and the processes involved in changes of state.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Diagrams and flowcharts are very useful in demonstrating and explaining the motion and arrangement of particles during changes of state.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "There are specific processes for planning, conducting, and recording scientific investigations.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "The properties of solutions such as solubility and reaction to litmus determine their use.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners recognize that scientists use models to describe the particle model of matter. They use diagrams and illustrations to explain the motion and arrangement of particles during changes of state. They demonstrate an understanding of the role of solute and solvent in solutions and the factors that affect solubility. They demonstrate skills to plan and conduct a scientific investigation making accurate measurements and using standard units.",
+      "sourcePage": 46,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Familiarity and proper use of a compound microscope are essential to observe cells.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "The organelles of plant and animal cells can be identified using a compound microscope.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "Cells are the basic unit of life and mitosis, and meiosis are the basic forms of cell division.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Fertilization occurs when a male reproductive cell fuses with a female reproductive cell.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "Sexual reproduction is the basis of heredity.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "The level of biological organization provides a simple way of connecting the simplest part of the living world to the most complex.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-2:item-7",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 7,
+      "text": "Identifying trophic levels helps understand the transfer of energy from one organism to another as shown in a food pyramid.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate understanding of the parts and function of a compound microscope and use this to identify cell structure. They recognize that the cell is the basic unit of life and that some organisms are unicellular and some are multicellular. They explain that there are two types of cell division, and that reproduction can occur through sexual or asexual processes. They use diagrams to make connections between organisms and their environment at various levels of organization. They explain the process of energy transfer through trophic levels in food chains.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Scientists and engineers analyze forces to predict their effects on movement.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Vectors differentiate the concepts of speed and velocity.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Graphing motion provides more accurate predictions about speed and velocity.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "The particle model explains natural systems and processes.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "Scientists and engineers conduct innovative research to find solutions to the current global energy crisis by seeking renewable energy solutions.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners employ scientific techniques, concepts, and models to investigate forces and motion and represent their understanding using scientific language, force diagrams, and distance-time graphs. They use their curiosity, knowledge and understanding, and skills to propose solutions to problems related to motion and energy. They explore how modern technologies might be used to overcome current global energy concerns.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Rapid movements along normal, reverse or strike-slip faults cause earthquakes.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "The damage or effects on communities depend on the magnitude of and distance from an earthquake.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "Sunlight is the Earth’s external source of energy.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Solar energy influences the atmosphere and weather patterns.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "The revolution, rotation, and the tilt of the Earth explain the patterns of day and night and the seasons.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners appreciate the value of using systems to analyze and explain natural phenomena and demonstrate their understanding in explaining the dynamics of faults and earthquakes. They are confident in identifying and assessing the earthquake risk for their local communities using authentic and reliable secondary data. They use the country’s disaster awareness and risk reduction management plans to identify and explain to others what to do in the event of an earthquake. Learners explain the cause and effects of secondary impacts that some coastal communities may experience should a tsunami be produced by either local or distant earthquake activity. Learners use reliable scientific information to identify and explain how solar energy influences the atmosphere and weather systems of the Earth and use such information to appreciate and explain the dominant processes that influence the climate of the Philippines.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 7,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -89,7 +95,192 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "the cell theory is significant in explaining the structure and function of all living organisms;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "cells can be classified according to distinguishing structures and functions;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "the cell cycle consists of a series of phases, stages, and events; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "cells have mechanisms that regulate the transport of substances in and out of the cell.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners discuss the scientific value of the interconnectedness of living organisms and their environment. They evaluate the significance of cell theory and its development in explaining the structure and function of living organisms. Learners classify cells based on their structures and functions, explain the stages and significance of the cell cycle, and describe the mechanisms of passive and active transport in maintaining homeostasis. They participate in practical activities and create presentations that showcase how these biological principles contribute to growth, repair, reproduction, and the diversity of life.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "all cells require energy, nutrients and removal of wastes;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "photosynthesis is the chemical reaction that transforms light energy into chemical energy; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "cell respiration is the chemical reaction that converts chemical energy into usable forms of energy.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe the processes of photosynthesis and cellular respiration and explain how these cellular mechanisms transform energy for life. They describe the role of cell structures in photosynthesis and differentiate the light-dependent and light-independent reactions. Learners describe the stages of cellular respiration, including glycolysis, the citric acid cycle, and the Electron Transport Chain, and explain their role in ATP production for cellular activities. They also participate in experiments to create models and presentations that demonstrate how these processes sustain ecosystem stability and support life functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "the cell theory is significant in explaining the structure and function of all living organisms;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "cells can be classified according to distinguishing structures and functions;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "the cell cycle consists of a series of phases, stages, and events; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "cells have mechanisms that regulate the transport of substances in and out of the cell.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "all cells require energy, nutrients and removal of wastes;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "photosynthesis is the chemical reaction that transforms light energy into chemical energy; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "cell respiration is the chemical reaction that converts chemical energy into usable forms of energy.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners discuss the scientific value of the interconnectedness of living organisms and their environment. They evaluate the significance of cell theory and its development in explaining the structure and function of living organisms. Learners classify cells based on their structures and functions, explain the stages and significance of the cell cycle, and describe the mechanisms of passive and active transport in maintaining homeostasis. They participate in practical activities and create presentations that showcase how these biological principles contribute to growth, repair, reproduction, and the diversity of life.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe the processes of photosynthesis and cellular respiration and explain how these cellular mechanisms transform energy for life. They describe the role of cell structures in photosynthesis and differentiate the light-dependent and light-independent reactions. Learners describe the stages of cellular respiration, including glycolysis, the citric acid cycle, and the Electron Transport Chain, and explain their role in ATP production for cellular activities. They also participate in experiments to create models and presentations that demonstrate how these processes sustain ecosystem stability and support life functions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-biology-1:period-1:item-1",
@@ -223,8 +414,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "e85b4e9516057c56fa28683a2e9753561c5bbce593911e2efa85a69118b9a7d1"
+    "competencyPayloadSha256": "689a908115bc2bbbc34cc30efa6a66b0e97c42c966bc9924badb407d65e9b1ea"
   }
 }

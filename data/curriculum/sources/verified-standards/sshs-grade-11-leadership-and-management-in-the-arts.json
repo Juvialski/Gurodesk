@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-leadership-and-management-in-the-arts",
+  "sourceSha256": "88cfcda088ba88e44a011e244c94601c9fd247c7e79168d9f011f410aa4a11d0",
+  "sourceFileName": "Leadership-and-Mangement-in-the-Arts.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamental concepts, processes, and contextual factors in production and events management, including planning, organization, resource allocation, and evaluation in artistic productions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners develop a production management plan that integrates strategic planning, resource coordination, and evaluation to ensure the effective execution of an artistic production or event.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles and processes of production and events management, including team organization, resource allocation, execution, and evaluation.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-leadership-and-management-in-the-arts:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners implement the production management plan by applying management skills and techniques to execute the production and assess its effectiveness based on set objectives and documented progress.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

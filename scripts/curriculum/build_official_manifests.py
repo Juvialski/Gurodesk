@@ -316,7 +316,7 @@ class RawStandard:
     page: int
     text: str
     standard_type: str
-    domain: str
+    domain: str | None
     sort_order: int
 
 
@@ -890,8 +890,10 @@ def make_manifest(
         period = standard.periods[0]
         if period not in {item["sequence"] for item in periods}:
             continue
-        domain_code = standard.domain if standard.domain in domain_codes.values() else domain_codes.get(normalized(standard.domain))
-        if not domain_code:
+        domain_code = None
+        if standard.domain is not None:
+            domain_code = standard.domain if standard.domain in domain_codes.values() else domain_codes.get(normalized(standard.domain))
+        if standard.domain is not None and not domain_code:
             raise ValueError(f"Unknown standard domain {standard.domain!r} for {pack['slug']}")
         if standard.standard_type not in {"content", "performance"}:
             raise ValueError(f"Unsupported standard type {standard.standard_type!r} for {pack['slug']}")

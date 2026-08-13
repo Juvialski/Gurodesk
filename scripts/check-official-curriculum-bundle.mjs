@@ -12,6 +12,7 @@ const manifests = await Promise.all(
   names.filter((name) => name.endsWith('.json')).map(async (name) => JSON.parse(await readFile(resolve(manifestDir, name), 'utf8'))),
 )
 const competencyCount = manifests.reduce((sum, manifest) => sum + manifest.competencies.length, 0)
+const standardCount = manifests.reduce((sum, manifest) => sum + (manifest.standards?.length ?? manifest.performanceStandards?.length ?? 0), 0)
 const aggregateHash = createHash('sha256')
   .update(manifests.map((manifest) => manifest.integrity.competencyPayloadSha256).sort().join('\n'))
   .digest('hex')
@@ -22,6 +23,7 @@ if (!sql.includes(`-- Aggregate manifest SHA-256: ${aggregateHash}`)) failures.p
 if (count(/^begin;$/gmu) !== 1 || count(/^commit;$/gmu) !== 1) failures.push('bundle must contain exactly one transaction')
 if (count(/^insert into public\.curriculum_competencies /gmu) !== competencyCount) failures.push(`expected ${competencyCount} competency inserts`)
 if (count(/^update public\.curriculum_competencies cc$/gmu) !== competencyCount) failures.push(`expected ${competencyCount} stable competency updates`)
+if (count(/^insert into public\.curriculum_standards /gmu) !== standardCount) failures.push(`expected ${standardCount} standard inserts`)
 if (count(/^insert into public\.source_documents /gmu) !== manifests.length) failures.push(`expected ${manifests.length} source upserts`)
 if (!sql.includes('content_hash, verification_status')) failures.push('source content hashes are not imported')
 if (!sql.includes('MATATAG-Mathematics-CG-Grades1-4-and-7.pdf')) failures.push('legacy Grade 7 Mathematics seed compatibility is missing')
@@ -34,4 +36,4 @@ if (failures.length) {
   process.exit(1)
 }
 
-console.log(`✓ official curriculum SQL bundle: ${manifests.length} manifests and ${competencyCount} stable upserts in one transaction`)
+console.log(`✓ official curriculum SQL bundle: ${manifests.length} manifests, ${competencyCount} stable competency upserts, and ${standardCount} standards in one transaction`)

@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life",
+  "sourceSha256": "8c7ea567c8a4c8ef6b2697328aa74950a08bc3e059d1312112c37a332f07aaee",
+  "sourceFileName": "Conceptual Physics and Chemistry in Daily Life.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 11,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": ":",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "scientific discoveries in physics and chemistry are shaped by the contributions of scientists and lead to innovations that improve everyday life and create diverse career opportunities in science and technology.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "principles of motion, including circular and rotational motion, explain the movement of objects and systems and guide the design and safe use of machines, transportation systems, and other technologies in everyday life.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "aerodynamic principles involving air pressure and airspeed influence the behavior of objects and are applied in the design of vehicles, structures, and technologies to improve efficiency and performance; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "light and wave phenomena, including color formation and wave interference, explain observable patterns in nature and are applied in technologies used in communication, engineering, entertainment, and industry.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 6,
+      "text": "atomic mass, formula mass, and molecular mass help determine the composition and proper use of substances in daily life such as in nutrition, medicine, and chemical products;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 7,
+      "text": "the mole concept is used by scientists to count very small particles and is applied in medicine, environmental monitoring, and industry;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 8,
+      "text": "factors such as surface area and temperature affect how fast chemical reactions occur and influence the effectiveness and shelf life of many products;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-9",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 9,
+      "text": "organic compounds are present in many materials at home and in school and are widely used in consumer products, industry, health, and medicine;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-10",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 10,
+      "text": "some organic compounds can affect the environment and contribute to issues such as air pollution and climate change; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:content:period-1:item-11",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 11,
+      "text": "changes in pressure, volume, and temperature affect gases and explain many everyday applications and technologies.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can apply key concepts of motion, aerodynamics, light, and wave behavior to explain everyday phenomena and technological innovations. They can analyze how scientific discoveries and careers in Physics contribute to societal development and demonstrate how these principles are applied in real-life technologies and industries.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-conceptual-physics-and-chemistry-in-daily-life:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can explain how basic chemistry concepts such as particle measurement, reaction rates, organic compounds, and gas relationships are applied in everyday life. They can describe simple examples of these concepts in household products, environmental issues, and common technologies.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 5,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -23,7 +29,7 @@
     "pageCount": 14,
     "pagesUsed": {
       "from": 2,
-      "to": 13
+      "to": 14
     },
     "retrievedOn": "2026-08-11"
   },
@@ -152,7 +158,192 @@
       "sortOrder": 18
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "maintaining sustainable, efficient, and secure computer systems, emphasizing Green ICT principles, effective hardware and software maintenance, system optimization, data management, and cybersecurity measures.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 2,
+      "text": "advanced features and functionalities of digital productivity tools, including word processing, spreadsheets, and presentation software, in creating complex, dynamic, and accessible content for effective",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 3,
+      "text": "communication, collaboration, and problem-solving.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 4,
+      "text": "Artificial Intelligence (AI), Blockchain, IoT, and No-Code AI Development to foster data literacy, ethical awareness, and critical thinking.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D18",
+      "sortOrder": 5,
+      "text": "No-Code web development to foster practical application skills for real-world innovation and future career opportunities.",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply sustainable and efficient ICT practices in maintaining, optimizing, and securing computer systems to minimize environmental impact, ensure data integrity, and enhance system performance through proactive hardware and software management.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners create documents and other digital outputs using advanced features and functionalities of digital productivity tools for effective communication, collaboration, and problem solving.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners develop AI-driven models and applications while adhering to ethical guidelines and best practices.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "The learners develop functional websites using no-code development tools.",
+      "sourcePage": 14,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "maintaining sustainable, efficient, and secure computer systems, emphasizing Green ICT principles, effective hardware and software maintenance, system optimization, data management, and cybersecurity measures.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 2,
+      "text": "advanced features and functionalities of digital productivity tools, including word processing, spreadsheets, and presentation software, in creating complex, dynamic, and accessible content for effective",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 3,
+      "text": "communication, collaboration, and problem-solving.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 4,
+      "text": "Artificial Intelligence (AI), Blockchain, IoT, and No-Code AI Development to foster data literacy, ethical awareness, and critical thinking.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D18",
+      "sortOrder": 5,
+      "text": "No-Code web development to foster practical application skills for real-world innovation and future career opportunities.",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply sustainable and efficient ICT practices in maintaining, optimizing, and securing computer systems to minimize environmental impact, ensure data integrity, and enhance system performance through proactive hardware and software management.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners create documents and other digital outputs using advanced features and functionalities of digital productivity tools for effective communication, collaboration, and problem solving.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners develop AI-driven models and applications while adhering to ethical guidelines and best practices.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "The learners develop functional websites using no-code development tools.",
+      "sourcePage": 14,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-empowerment-technologies:period-1:item-1",
@@ -336,8 +527,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "f960d2996b167c4ee7261d96f14111830323ba766cb78efa1faaabb6034ff7c1"
+    "competencyPayloadSha256": "b091de86ed20058319f739127040ebec34d5c87e776fcc1b737fdf167bf2119a"
   }
 }

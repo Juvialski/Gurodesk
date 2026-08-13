@@ -159,7 +159,6 @@ begin
       'sourceTitle', source_title,
       'sourceUrl', source_url,
       'academicPeriodId', period_id,
-      'curriculumPeriodId', period_id,
       'curriculumPeriodLabel', 'Quarter 1',
       'verificationStatus', 'verified'
     ),

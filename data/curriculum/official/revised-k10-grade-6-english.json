@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -98,7 +104,172 @@
       "sortOrder": 3
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-6-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their word knowledge as used in formal and informal situations; knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; composing and creating text skills; and knowledge of non-verbal cues and propaganda techniques in order to produce culture-based texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 119,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts; produce culture-based texts: narrative, expository, and persuasive texts appropriate for their purpose, context (Indigenous People and regional celebrations), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 119,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their word knowledge as used in formal and informal situations; knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; composing and creating text skills; and knowledge of non-verbal cues and propaganda techniques in order to produce culture-based texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 123,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts; produce culture-based texts: narrative, expository, and persuasive texts appropriate for their purpose, context (Indigenous People and regional celebrations), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 123,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their word knowledge as used in formal and informal situations; knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; composing and creating text skills; and knowledge of non-verbal cues and propaganda techniques in order to produce culture-based texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts; produce culture-based texts: narrative, expository, and persuasive texts appropriate for their purpose, context (Indigenous People and regional celebrations), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their word knowledge as used in formal and informal situations; knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; composing and creating text skills; and knowledge of non-verbal cues and propaganda techniques in order to produce culture-based texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts; produce culture-based texts: narrative, expository, and persuasive texts appropriate for their purpose, context (Indigenous People and regional celebrations), and target audience, using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-6-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their word knowledge as used in formal and informal situations; knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; composing and creating text skills; and knowledge of non-verbal cues and propaganda techniques in order to produce culture-based texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 119,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their word knowledge as used in formal and informal situations; knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; composing and creating text skills; and knowledge of non-verbal cues and propaganda techniques in order to produce culture-based texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 123,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their word knowledge as used in formal and informal situations; knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; composing and creating text skills; and knowledge of non-verbal cues and propaganda techniques in order to produce culture-based texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their word knowledge as used in formal and informal situations; knowledge of grammatical structures; literal, inferential, and critical comprehension of literary and informational texts; composing and creating text skills; and knowledge of non-verbal cues and propaganda techniques in order to produce culture-based texts based on one’s purpose, context, and target audience.",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-6-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts; produce culture-based texts: narrative, expository, and persuasive texts appropriate for their purpose, context (Indigenous People and regional celebrations), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 119,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts; produce culture-based texts: narrative, expository, and persuasive texts appropriate for their purpose, context (Indigenous People and regional celebrations), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 123,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts; produce culture-based texts: narrative, expository, and persuasive texts appropriate for their purpose, context (Indigenous People and regional celebrations), and target audience using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 127,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply literal, inferential, and critical comprehension of literary and informational texts; produce culture-based texts: narrative, expository, and persuasive texts appropriate for their purpose, context (Indigenous People and regional celebrations), and target audience, using simple, compound, and complex sentences, and age-appropriate and gender-sensitive language.",
+      "sourcePage": 130,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-6-english:period-1:item-1",
@@ -652,8 +823,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "27f9ff9b43b02ac6af159df98c9d3cc6399611f8cebe4f93ef1223d96cf4dadf"
+    "competencyPayloadSha256": "7ec329d1363a50f8224a76702d55a8a0e5f06b0a80967219f2c967d9e8399c39"
   }
 }

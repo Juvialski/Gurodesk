@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-basic-calculus",
+  "sourceSha256": "1ddff539672b3b310ffae0bb6552b8476c8b2f6bf8c85a3f75cc355dac0f5181",
+  "sourceFileName": "Basic Calculus.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 6,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Limits and Continuity",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Derivatives and Tangents",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Rules of Differentiation",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Applications of Derivatives",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "Antiderivatives (Indefinite Integrals)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "text": "Definite Integrals and Area",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can analyze and model real-life and mathematical situations by interpreting graphs to describe the behavior and properties of these functions and applying these insights in demonstrating continuity and limits where appropriate. They can apply their understanding of derivatives to solve problems, illustrate tangent lines, and relate derivatives to slopes. The learners also examine the relationship between continuity and differentiability and compute derivatives of algebraic, exponential, and logarithmic functions using basic differentiation rules, the Chain Rule, and implicit differentiation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can interpret and solve problems involving derivatives, related rates, and optimization in practical contexts, such as maximizing profit, minimizing cost, or modeling motion. They can also demonstrate their understanding of antiderivatives and integrals by solving real-life and mathematical problems. The learners can illustrate antiderivatives, explain the relationship between derivatives and antiderivatives, and compute antiderivatives of polynomial, radical, and exponential functions. They can apply the substitution rule to compute antiderivatives and solve related problems. The learners can interpret the definite integral as the limit of Riemann sums and apply the Fundamental Theorem of Calculus to evaluate definite integrals. They can solve problems involving areas of plane regions and apply integration in real-world contexts, such as calculating land area, material usage, and accumulated quantities.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

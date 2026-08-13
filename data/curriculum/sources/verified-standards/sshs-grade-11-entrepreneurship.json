@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-entrepreneurship",
+  "sourceSha256": "ca70003c28a61ed8f7df1ac55c216bf8c62b5d37bf4c4a3c86e343af35ffbac2",
+  "sourceFileName": "Entrepreneurship.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-entrepreneurship:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the key concepts, principles, and core competencies in entrepreneurship including the planning and resourcing of business enterprises.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-entrepreneurship:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners develop a proposal for a product or service to present to potential investors.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-entrepreneurship:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the processes of implementation, management, legalization, and performance assessment of a business enterprise.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-entrepreneurship:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners simulate a business plan in an identified market environment and assess the outcomes of the business performance.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-2-filipino",
+  "sourceSha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+  "sourceFileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-2-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa kamalayang ponolohikal, pagbigkas at pag-aaral ng mga tunog at salita tungo sa papaunlad na kasanayang panggramatika, pag-unawa at pagsusuri ng tekstong naratibo at impormatibo na magiging daan sa pagbuo ng mga payak na pangungusap at teksto tungkol sa sarili at pamilya na ginagamit sa pang-araw-araw na paksa at sitwasyon.",
+      "sourcePage": 21,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa kamalayang ponolohikal, pagbigkas ng mga tunog sa pagpapahayag ng ideya, karanasan at pagbasa ng mga pangungusap nang may kawastuhan, katatasan at tamang ekspresyon tungkol sa sarili at pamilya, at pang-araw-araw na paksang naratibo at impormatibo.",
+      "sourcePage": 21,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa kamalayang ponolohikal, pagbigkas at pag-aaral ng mga tunog at salita tungo sa papaunlad na kasanayang panggramatika, pag-unawa at pagsusuri ng tekstong naratibo at impormatibo na magiging daan sa pagbuo ng mga payak na pangungusap at teksto tungkol sa sarili at pamilya na ginagamit sa pang-araw-araw na paksa at sitwasyon.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang patuloy na pagkakaroon ng kahusayan sa pag-unlad sa kamalayang ponolohikal, pagbigkas ng mga tunog sa pagpapahayag ng ideya, karanasan at pagbasa ng mga pangungusap nang may kawastuhan, katatasan at tamang ekspresyon tungkol sa sarili, pamilya, at pang-araw-araw na paksang naratibo at impormatibo.",
+      "sourcePage": 25,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa kamalayang ponolohikal, pagbigkas at pag-aaral ng mga tunog at salita tungo sa papaunlad na kasanayang panggramatika, pag-unawa at pagsusuri ng tekstong naratibo at impormatibo na magiging daan sa pagbuo ng mga payak na pangungusap at teksto tungkol sa sarili, at komunidad na ginagamit sa pang-araw-araw na paksa at sitwasyon.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa kamalayang ponolohikal, pagbigkas ng mga tunog sa pagpapahayag ng ideya, karanasan at pagbasa ng mga pangungusap nang may kawastuhan, katatasan at tamang ekspresyon tungkol sa sarili, komunidad at pang-araw-araw na paksang naratibo at impormatibo.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa kamalayang ponolohikal, pagbigkas at pag-aaral ng mga tunog at salita tungo sa papaunlad na kasanayang panggramatika, pag-unawa at pagsusuri ng tekstong naratibo at impormatibo na magiging daan sa pagbuo ng mga payak na pangungusap at teksto tungkol sa sarili, komunidad at kapaligiran na ginagamit sa pang-araw-araw na paksa at sitwasyon.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa kamalayang ponolohikal, pagbigkas ng mga tunog sa pagpapahayag ng ideya, karanasan at pagbasa ng mga pangungusap nang may kawastuhan, katatasan at tamang ekspresyon tungkol sa sarili, komunidad, kapaligiran at pang-araw-araw na paksang naratibo at impormatibo.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    }
+  ]
+}

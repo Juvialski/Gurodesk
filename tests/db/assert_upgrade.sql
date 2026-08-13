@@ -1,4 +1,4 @@
--- Behavioral assertions for the 001-014 -> 015-029 upgrade path.
+-- Behavioral assertions for the 001-014 -> 015-current upgrade path.
 \set ON_ERROR_STOP on
 
 select set_config('request.jwt.claim.sub', '11111111-1111-4111-8111-111111111111', false);
@@ -106,6 +106,128 @@ begin
 end;
 $$;
 
+-- Migration 030 deliberately preserves the legacy Grade 7 competency UUID
+-- while correcting its canonical wording and source page. Capture the frozen
+-- assessment mapping before exercising any later saves, then prove the live
+-- curriculum has legitimately diverged from that historical authority.
+create temporary table upgrade_frozen_assessment_mapping as
+select
+  ai.id,
+  jsonb_build_object(
+    'assessmentDocumentId', ai.assessment_document_id,
+    'itemNumber', ai.item_number,
+    'canonicalCompetencyId', ai.canonical_competency_id,
+    'competencyCode', ai.competency_code_snapshot,
+    'competencyText', ai.competency_text_snapshot,
+    'competencySourcePage', ai.competency_source_page_snapshot,
+    'competencyAcademicPeriodId', ai.competency_academic_period_id_snapshot,
+    'competencyCurriculumPeriodId', ai.competency_curriculum_period_id_snapshot,
+    'competencyPeriodLabel', ai.competency_period_label_snapshot,
+    'tosRowId', ai.tos_row_id,
+    'allocationItemStart', ai.allocation_item_start,
+    'allocationItemEnd', ai.allocation_item_end,
+    'allocationIndex', ai.allocation_index,
+    'cognitiveCategoryId', ai.cognitive_category_id,
+    'cognitiveCategoryLabel', ai.cognitive_category_label_snapshot,
+    'cognitiveCategoryShortLabel', ai.cognitive_category_short_label_snapshot,
+    'pointStart', ai.point_start,
+    'pointEnd', ai.point_end,
+    'planEntryId', ai.plan_entry_id
+  ) as item_mapping,
+  ad.source_tos_document_id,
+  ad.source_tos_version_number,
+  ad.source_tos_content_snapshot,
+  ad.source_tos_raw_content_snapshot,
+  ad.total_items
+from public.assessment_items ai
+join public.assessment_documents ad
+  on ad.document_id = ai.assessment_document_id
+where ai.id = '66666666-6666-4666-8666-666666666666';
+
+do $$
+declare
+  frozen record;
+  current_competency public.curriculum_competencies%rowtype;
+  frozen_tos_row public.tos_competencies%rowtype;
+  frozen_snapshot_row jsonb;
+begin
+  select * into frozen from upgrade_frozen_assessment_mapping;
+  if frozen.id is null then
+    raise exception 'Upgrade assertion: frozen assessment mapping capture failed';
+  end if;
+
+  select * into current_competency
+  from public.curriculum_competencies
+  where id = (frozen.item_mapping ->> 'canonicalCompetencyId')::uuid;
+
+  if current_competency.id is null
+     or current_competency.verification_status <> 'verified'
+     or current_competency.competency_text is not distinct from frozen.item_mapping ->> 'competencyText'
+     or current_competency.source_page is not distinct from (frozen.item_mapping ->> 'competencySourcePage')::integer then
+    raise exception 'Upgrade assertion: migration 030 did not preserve the competency ID while correcting its canonical metadata';
+  end if;
+
+  select * into frozen_tos_row
+  from public.tos_competencies
+  where document_id = frozen.source_tos_document_id
+    and row_id = (frozen.item_mapping ->> 'tosRowId')::uuid;
+
+  select value into frozen_snapshot_row
+  from jsonb_array_elements(frozen.source_tos_content_snapshot -> 'rows')
+  where value ->> 'id' = frozen.item_mapping ->> 'tosRowId'
+  limit 1;
+
+  if frozen_tos_row.document_id is null
+     or frozen_snapshot_row is null
+     or frozen_tos_row.competency_id::text is distinct from frozen.item_mapping ->> 'canonicalCompetencyId'
+     or frozen_tos_row.competency_code_snapshot is distinct from frozen.item_mapping ->> 'competencyCode'
+     or frozen_tos_row.competency_text_snapshot is distinct from frozen.item_mapping ->> 'competencyText'
+     or frozen_tos_row.source_page_snapshot::text is distinct from frozen.item_mapping ->> 'competencySourcePage'
+     or frozen_tos_row.curriculum_period_label_snapshot is distinct from frozen.item_mapping ->> 'competencyPeriodLabel'
+     or frozen_snapshot_row #>> '{competency,id}' is distinct from frozen.item_mapping ->> 'canonicalCompetencyId'
+     or frozen_snapshot_row #>> '{competency,code}' is distinct from frozen.item_mapping ->> 'competencyCode'
+     or frozen_snapshot_row #>> '{competency,text}' is distinct from frozen.item_mapping ->> 'competencyText'
+     or frozen_snapshot_row #>> '{competency,sourcePage}' is distinct from frozen.item_mapping ->> 'competencySourcePage'
+     or frozen_snapshot_row #>> '{competency,academicPeriodId}' is distinct from frozen.item_mapping ->> 'competencyAcademicPeriodId'
+     or frozen_snapshot_row #>> '{competency,curriculumPeriodId}' is distinct from frozen.item_mapping ->> 'competencyCurriculumPeriodId'
+     or frozen_snapshot_row #>> '{competency,curriculumPeriodLabel}' is distinct from frozen.item_mapping ->> 'competencyPeriodLabel'
+     or frozen_snapshot_row -> 'cognitiveAllocations' is distinct from frozen_tos_row.cognitive_allocations then
+    raise exception 'Upgrade assertion: frozen TOS and assessment mapping authorities do not agree';
+  end if;
+end;
+$$;
+
+create function pg_temp.upgrade_item_mapping(p_item_id uuid)
+returns jsonb
+language sql
+stable
+set search_path = ''
+as $$
+  select jsonb_build_object(
+    'assessmentDocumentId', ai.assessment_document_id,
+    'itemNumber', ai.item_number,
+    'canonicalCompetencyId', ai.canonical_competency_id,
+    'competencyCode', ai.competency_code_snapshot,
+    'competencyText', ai.competency_text_snapshot,
+    'competencySourcePage', ai.competency_source_page_snapshot,
+    'competencyAcademicPeriodId', ai.competency_academic_period_id_snapshot,
+    'competencyCurriculumPeriodId', ai.competency_curriculum_period_id_snapshot,
+    'competencyPeriodLabel', ai.competency_period_label_snapshot,
+    'tosRowId', ai.tos_row_id,
+    'allocationItemStart', ai.allocation_item_start,
+    'allocationItemEnd', ai.allocation_item_end,
+    'allocationIndex', ai.allocation_index,
+    'cognitiveCategoryId', ai.cognitive_category_id,
+    'cognitiveCategoryLabel', ai.cognitive_category_label_snapshot,
+    'cognitiveCategoryShortLabel', ai.cognitive_category_short_label_snapshot,
+    'pointStart', ai.point_start,
+    'pointEnd', ai.point_end,
+    'planEntryId', ai.plan_entry_id
+  )
+  from public.assessment_items ai
+  where ai.id = p_item_id
+$$;
+
 -- The scoring synchronization trigger is behavior-tested, not inspected.  It
 -- keeps legacy `points` and new `points_possible` equal and derives locked QA
 -- state.  A deliberately old timestamp makes updated_at trigger behavior
@@ -123,6 +245,13 @@ begin
   if item_row.points <> 3 or item_row.points_possible <> 3
      or item_row.updated_at <= '2000-01-01T00:00:00Z' then
     raise exception 'Upgrade assertion: scoring synchronization/updated_at trigger failed';
+  end if;
+  if exists (
+    select 1
+    from upgrade_frozen_assessment_mapping frozen
+    where pg_temp.upgrade_item_mapping(frozen.id) is distinct from frozen.item_mapping
+  ) then
+    raise exception 'Upgrade assertion: non-mapping points update rewrote the frozen curriculum mapping';
   end if;
 end;
 $$;
@@ -174,6 +303,269 @@ begin
   where document_id = '55555555-5555-4555-8555-555555555555'::uuid;
   if version_count <> 2 then
     raise exception 'Upgrade assertion: migration 020 save did not append exactly one document version';
+  end if;
+  if exists (
+    select 1
+    from upgrade_frozen_assessment_mapping frozen
+    where pg_temp.upgrade_item_mapping(frozen.id) is distinct from frozen.item_mapping
+  ) then
+    raise exception 'Upgrade assertion: historical draft save rewrote the frozen item mapping';
+  end if;
+  if exists (
+    select 1
+    from public.assessment_documents ad
+    join upgrade_frozen_assessment_mapping frozen
+      on ad.document_id = (frozen.item_mapping ->> 'assessmentDocumentId')::uuid
+    where ad.source_tos_document_id is distinct from frozen.source_tos_document_id
+       or ad.source_tos_version_number is distinct from frozen.source_tos_version_number
+       or ad.source_tos_content_snapshot is distinct from frozen.source_tos_content_snapshot
+       or ad.source_tos_raw_content_snapshot is distinct from frozen.source_tos_raw_content_snapshot
+       or ad.total_items is distinct from frozen.total_items
+  ) then
+    raise exception 'Upgrade assertion: historical draft save rewrote its frozen TOS source snapshot';
+  end if;
+end;
+$$;
+
+-- Frozen mapping identity and provenance remain immutable even though the live
+-- curriculum row now has corrected wording/page metadata.
+do $$
+declare
+  rejected boolean;
+  other_competency_id uuid;
+begin
+  rejected := false;
+  begin
+    update public.assessment_items
+    set competency_text_snapshot = competency_text_snapshot || ' tampered'
+    where id = '66666666-6666-4666-8666-666666666666';
+  exception when others then
+    rejected := true;
+  end;
+  if not rejected then
+    raise exception 'Upgrade assertion: competency-text snapshot tampering was not rejected';
+  end if;
+
+  rejected := false;
+  begin
+    update public.assessment_items
+    set competency_source_page_snapshot = competency_source_page_snapshot + 1
+    where id = '66666666-6666-4666-8666-666666666666';
+  exception when others then
+    rejected := true;
+  end;
+  if not rejected then
+    raise exception 'Upgrade assertion: competency-page snapshot tampering was not rejected';
+  end if;
+
+  rejected := false;
+  begin
+    update public.assessment_items
+    set tos_row_id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'
+    where id = '66666666-6666-4666-8666-666666666666';
+  exception when others then
+    rejected := true;
+  end;
+  if not rejected then
+    raise exception 'Upgrade assertion: finalized-TOS row ID tampering was not rejected';
+  end if;
+
+  select id into other_competency_id
+  from public.curriculum_competencies
+  where id <> (
+    select canonical_competency_id
+    from public.assessment_items
+    where id = '66666666-6666-4666-8666-666666666666'
+  )
+  order by id
+  limit 1;
+
+  if other_competency_id is null then
+    raise exception 'Upgrade assertion: a second competency is required for ID-tamper coverage';
+  end if;
+
+  rejected := false;
+  begin
+    update public.assessment_items
+    set canonical_competency_id = other_competency_id
+    where id = '66666666-6666-4666-8666-666666666666';
+  exception when others then
+    rejected := true;
+  end;
+  if not rejected then
+    raise exception 'Upgrade assertion: canonical competency ID tampering was not rejected';
+  end if;
+
+  if exists (
+    select 1
+    from upgrade_frozen_assessment_mapping frozen
+    where pg_temp.upgrade_item_mapping(frozen.id) is distinct from frozen.item_mapping
+  ) then
+    raise exception 'Upgrade assertion: a rejected tamper changed the frozen assessment mapping';
+  end if;
+end;
+$$;
+
+-- The V2 path must also be able to create and resave a draft from the same
+-- historical finalized TOS after migration 030 corrected the live curriculum.
+-- Its point-range/master-plan constraints remain fully enforced.
+do $$
+declare
+  historical_item public.assessment_items%rowtype;
+  master_entry jsonb;
+  settings_value jsonb;
+  v2_item jsonb;
+  v2_items jsonb;
+  v2_content jsonb;
+  v2_document public.documents%rowtype;
+  saved_v2_item public.assessment_items%rowtype;
+  current_competency public.curriculum_competencies%rowtype;
+  version_count integer;
+  rejected boolean := false;
+begin
+  select * into historical_item
+  from public.assessment_items
+  where id = '66666666-6666-4666-8666-666666666666';
+
+  master_entry := jsonb_build_object(
+    'id', 'upgrade-v2-entry-1',
+    'itemNumber', 1,
+    'pointStart', 1,
+    'pointEnd', 2,
+    'pointsPossible', 2,
+    'rowId', historical_item.tos_row_id,
+    'competencyId', historical_item.canonical_competency_id,
+    'cognitiveCategoryId', historical_item.cognitive_category_id,
+    'questionType', historical_item.question_type
+  );
+  settings_value := jsonb_build_object(
+    'schemaVersion', 2,
+    'generationVersion', 'v2',
+    'numberingMode', 'point_ranges',
+    'masterPlan', jsonb_build_object(
+      'logicalItemCount', 1,
+      'totalPoints', 2,
+      'entries', jsonb_build_array(master_entry)
+    )
+  );
+  v2_item := jsonb_build_object(
+    'id', '99999999-9999-4999-8999-999999999999',
+    'itemNumber', 1,
+    'pointStart', 1,
+    'pointEnd', 2,
+    'planEntryId', 'upgrade-v2-entry-1',
+    'competencySnapshot', jsonb_build_object(
+      'id', historical_item.canonical_competency_id,
+      'code', historical_item.competency_code_snapshot,
+      'text', historical_item.competency_text_snapshot,
+      'sourcePage', historical_item.competency_source_page_snapshot,
+      'academicPeriodId', historical_item.competency_academic_period_id_snapshot,
+      'curriculumPeriodId', historical_item.competency_curriculum_period_id_snapshot,
+      'curriculumPeriodLabel', historical_item.competency_period_label_snapshot
+    ),
+    'mapping', jsonb_build_object(
+      'rowId', historical_item.tos_row_id,
+      'competencyId', historical_item.canonical_competency_id,
+      'cognitiveCategoryId', historical_item.cognitive_category_id,
+      'allocationItemStart', historical_item.allocation_item_start,
+      'allocationItemEnd', historical_item.allocation_item_end,
+      'allocationIndex', historical_item.allocation_index
+    ),
+    'cognitiveCategorySnapshot', jsonb_build_object(
+      'id', historical_item.cognitive_category_id,
+      'label', historical_item.cognitive_category_label_snapshot,
+      'shortLabel', historical_item.cognitive_category_short_label_snapshot
+    ),
+    'questionType', historical_item.question_type,
+    'prompt', 'Historical V2 fixture question',
+    'answer', historical_item.answer,
+    'pointsPossible', 2,
+    'rationale', 'Historical V2 fixture rationale',
+    'teacherNotes', '',
+    'authorshipState', 'manual',
+    'locked', false,
+    'history', jsonb_build_array()
+  );
+
+  select * into v2_document
+  from public.save_assessment_document_v2(
+    null,
+    '22222222-2222-4222-8222-222222222222'::uuid,
+    '33333333-3333-4333-8333-333333333333'::uuid,
+    'Upgrade Fixture V2 Assessment',
+    '2026-2027',
+    'Term 1',
+    'Choose one answer.',
+    'draft',
+    jsonb_build_object('settings', settings_value),
+    jsonb_build_array(v2_item),
+    'Migration 037 V2 historical snapshot creation'
+  );
+
+  if v2_document.id is null then
+    raise exception 'Upgrade assertion: V2 historical assessment creation failed';
+  end if;
+
+  select structured_content into v2_content
+  from public.documents
+  where id = v2_document.id;
+  select jsonb_agg(public.assessment_item_mirror(ai) order by ai.item_number) into v2_items
+  from public.assessment_items ai
+  where ai.assessment_document_id = v2_document.id;
+  v2_items := jsonb_set(
+    v2_items,
+    '{0,prompt}',
+    to_jsonb('Historical V2 fixture question — resaved'::text),
+    false
+  );
+
+  select * into v2_document
+  from public.save_assessment_document_v2(
+    v2_document.id,
+    '22222222-2222-4222-8222-222222222222'::uuid,
+    '33333333-3333-4333-8333-333333333333'::uuid,
+    'Upgrade Fixture V2 Assessment',
+    '2026-2027',
+    'Term 1',
+    'Choose one answer.',
+    'draft',
+    v2_content,
+    v2_items,
+    'Migration 037 V2 historical snapshot resave'
+  );
+
+  select * into saved_v2_item
+  from public.assessment_items
+  where id = '99999999-9999-4999-8999-999999999999';
+  select * into current_competency
+  from public.curriculum_competencies
+  where id = saved_v2_item.canonical_competency_id;
+  select count(*) into version_count
+  from public.document_versions
+  where document_id = v2_document.id;
+
+  if saved_v2_item.id is null
+     or saved_v2_item.prompt <> 'Historical V2 fixture question — resaved'
+     or saved_v2_item.point_start <> 1
+     or saved_v2_item.point_end <> 2
+     or saved_v2_item.plan_entry_id <> 'upgrade-v2-entry-1'
+     or saved_v2_item.competency_text_snapshot is distinct from historical_item.competency_text_snapshot
+     or saved_v2_item.competency_source_page_snapshot is distinct from historical_item.competency_source_page_snapshot
+     or current_competency.competency_text is not distinct from saved_v2_item.competency_text_snapshot
+     or current_competency.source_page is not distinct from saved_v2_item.competency_source_page_snapshot
+     or version_count <> 2 then
+    raise exception 'Upgrade assertion: V2 historical draft resave did not preserve its frozen mapping/master plan';
+  end if;
+
+  begin
+    update public.assessment_items
+    set competency_text_snapshot = competency_text_snapshot || ' tampered'
+    where id = saved_v2_item.id;
+  exception when others then
+    rejected := true;
+  end;
+  if not rejected then
+    raise exception 'Upgrade assertion: V2 frozen mapping tampering was not rejected';
   end if;
 end;
 $$;

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-physical-education-2-sports-and-dance",
+  "sourceSha256": "172700acfae0bd6d1024823fb181c6163f8fba70e0e04d77f06f7acc28fa6026",
+  "sourceFileName": "Physical-Education-2-Sports-and-Dance.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of sports to optimize personal health and promote community wellness.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners organize sports events to optimize personal health, promote community wellness, and pursue an active lifestyle.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of dance concepts and principles to optimize personal health and promote community wellness.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physical-education-2-sports-and-dance:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners organize dance events to optimize personal health, promote community wellness, and pursue an active lifestyle",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

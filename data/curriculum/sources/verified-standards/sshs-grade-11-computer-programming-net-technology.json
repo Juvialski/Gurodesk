@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-computer-programming-net-technology",
+  "sourceSha256": "e15d95363b671281ad32b9d4137d4733dd1cdfe11e11727f0c04ad9bd1ad848d",
+  "sourceFileName": "Computer-Programming-.NET-Technology.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of fundamental concepts and principles of syntax and elements in Hyper Text Mark-Up Language (HTML) and the properties and values used in Cascading Style Sheet (CSS) in developing and designing a website.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create a web portfolio using Hyper Text Mark-Up Language (HTML).",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of fundamental principles, syntax, and the properties and values of Cascading Style Sheet (CSS) rule in designing and developing interactive webpages.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create a web portfolio applying Cascading Style Sheet (CSS) rules.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Demonstrate an understanding of the principles of web responsive development by using JavaScript functions and C# programming language.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create a web application project using JavaScript and C# programming language.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Demonstrate an understanding of the principles of responsive web development by exploring features of ASP.NET Model View Controller architecture and back-end database, conversion of web to mobile application, and computation of service costing.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-computer-programming-net-technology:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create a web application following the procedures of managing the list of tasks of Creating, Reading, Updating, and Deleting (CRUD) operations with a database backend, conversion of web to mobile application, and computation of service costing.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ]
+}

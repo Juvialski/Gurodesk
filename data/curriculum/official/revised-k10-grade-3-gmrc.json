@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 24,
+      "performanceCount": 24,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -210,7 +216,972 @@
       "sortOrder": 24
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling hilig at kakayahan.",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapatatag ng mga gawi sa pag-iimpok at pagtitipid kasama ang pamilya.",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa kaniyang gampanin sa tahanan at paaralan.",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga sariling pagkilos na may paggalang sa Diyos.",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga pansariling gawain na nakabubuti sa kapaligiran.",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga pansariling karapatan na kinikilala sa pamayanan.",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling hilig at kakayahan upang malinang ang tiwala sa sarili.",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng pagpapatatag ng mga gawi sa pag-iimpok at pagtitipid kasama ang pamilya bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang pagbabahagi ng mga karanasan sa pagtugon sa mga gampanin ng isang bata sa tahanan at paaralan bilang tanda ng pagiging responsable.",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang mga pagkilos na nagpapakita ng paggalang sa Diyos bilang tanda ng pananalig sa Kaniya.",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang mga natukoy na mabuting magagawa sa kapaligiran bilang tanda ng disiplina.",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-6",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga gawain na nagbibigay-halaga sa mga karapatang tinatamasa ng bawat bata bilang tanda ng pagiging magalang.",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling paraan ng pakikilahok sa pamilya.",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikipag-ugnayan sa bawat kasapi ng pamilya.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtupad sa mga gampanin at sa mga inaasahang kilos sa tahanan at paaralan.",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikibahagi sa mga gawaing panrelihiyon o paniniwala ng pamilya.",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga gawi ng pamilya sa pangangalaga sa kalikasan.",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga mabuting kaugalian ng pamilyang Pilipino sa rehiyong kinabibilangan.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang sariling paraan ng pakikiisa sa mga gawain sa loob ng tahanan bilang tanda ng pakikiisa.",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling paraan ng wastong pakikipag-ugnayan sa bawat kasapi ng pamilya bilang paglinang sa pagiging totoo.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang pagtupad sa mga gampanin at mga inaasahang kilos sa tahanan at paaralan bilang tanda ng pagkukusa.",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang pagiging aktibo sa mga gawaing panrelihiyon o paniniwala ng pamilyang kinabibilangan bilang tanda ng pakikiisa.",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang sariling kilos na nagpapakita ng gawi ng pamilya sa pangangalaga sa kalikasan bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-6",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng pagsunod sa mabuting kaugalian ng pamilyang Pilipino sa rehiyong kinabibilangan bilang tanda ng pagiging masunurin.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa ugnayan ng sarili sa kapuwa.",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling kakayahan para sa kapuwa.",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling pagkilala sa mga taong may kapansanan o Persons with Disability (PWD) o iba pang may natatanging kondisyon.",
+      "sourcePage": 94,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa paghahandog ng panalangin sa kapuwa.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pamamahala sa mga bagay na hindi na nagagamit sa tulong ng kapuwa",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa paghikayat sa kapuwa na igalang ang mga sagisag ng bansa.",
+      "sourcePage": 97,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang mga kilos na nagpapakita ng wastong pakikitungo sa kapuwa bilang tanda ng pagiging mapagpasensiya.",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling paraan ng pagtulong sa kapuwa sa iba’t ibang situwasyon bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang mga wastong paraan ng pakikipag-ugnayan sa mga taong may kapansanan o Persons with Disability (PWD) o iba pang may natatanging kondisyon batay sa kanilang kalagayan bilang tanda ng pagiging magalang.",
+      "sourcePage": 94,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang pagpapahayag ng panalangin para sa ibang tao batay sa kanilang pangangailangan o situwasyon bilang tanda ng pagiging madasalin.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang mga gawain sa tahanan o paaralan na nagtataguyod sa pamamahala sa mga bagay na hindi nagagamit sa tulong ng kapuwa upang malinang ang pagiging masinop.",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-6",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang panghihikayat sa kapuwa na igalang ang mga sagisag ng bansa bilang tanda ng pagmamahal sa bayan.",
+      "sourcePage": 97,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga impormasyon sa barangay na kinabibilangan.",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga alituntunin sa Barangay na kinabibilangan.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga tungkulin ng mga taong nakatira sa Barangay.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikibahagi sa mga gawain ng relihiyon o paniniwala sa kinabibilangang pamayanan.",
+      "sourcePage": 101,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikiisa sa pamayanan sa pagpapanatili ng malinis na hangin.",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga kontribusyon ng mga makabagong bayani (Modern Day Heroes) sa bayan.",
+      "sourcePage": 103,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang pagbabahagi ng mga impormasyon tungkol sa barangay na kinabibilangan bilang maingat na paghuhusga sa mga nalalaman at naririnig.",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang pagpili ng mga tiyak na alituntunin sa barangay na kinabibilangan na itataguyod sa sariling paraan bilang tanda ng pakikiisa.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng pagsunod sa mga tungkulin sa kinabibilangang barangay bilang kasapi nito upang malinang ang pagiging responsable.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang pagpili ng mga paraan ng pakikibahagi sa mga gawain ng relihiyon o paniniwala sa kinabibilangang pamayanan ayon sa kaniyang kakayahan bilang tanda ng pananampalataya.",
+      "sourcePage": 101,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng pakikiisa sa pamayanan upang mapanatili ang kalinisan ng hangin bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-6",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang pagbuo ng gawain na nagtatampok sa kabayanihan ng mga makabagong bayani (modern day heroes) bilang tanda ng pagiging mapagpasalamat.",
+      "sourcePage": 103,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling hilig at kakayahan.",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapatatag ng mga gawi sa pag-iimpok at pagtitipid kasama ang pamilya.",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa kaniyang gampanin sa tahanan at paaralan.",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga sariling pagkilos na may paggalang sa Diyos.",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga pansariling gawain na nakabubuti sa kapaligiran.",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga pansariling karapatan na kinikilala sa pamayanan.",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling paraan ng pakikilahok sa pamilya.",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikipag-ugnayan sa bawat kasapi ng pamilya.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtupad sa mga gampanin at sa mga inaasahang kilos sa tahanan at paaralan.",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikibahagi sa mga gawaing panrelihiyon o paniniwala ng pamilya.",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga gawi ng pamilya sa pangangalaga sa kalikasan.",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga mabuting kaugalian ng pamilyang Pilipino sa rehiyong kinabibilangan.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa ugnayan ng sarili sa kapuwa.",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling kakayahan para sa kapuwa.",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling pagkilala sa mga taong may kapansanan o Persons with Disability (PWD) o iba pang may natatanging kondisyon.",
+      "sourcePage": 94,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa paghahandog ng panalangin sa kapuwa.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pamamahala sa mga bagay na hindi na nagagamit sa tulong ng kapuwa",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa paghikayat sa kapuwa na igalang ang mga sagisag ng bansa.",
+      "sourcePage": 97,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga impormasyon sa barangay na kinabibilangan.",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga alituntunin sa Barangay na kinabibilangan.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga tungkulin ng mga taong nakatira sa Barangay.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikibahagi sa mga gawain ng relihiyon o paniniwala sa kinabibilangang pamayanan.",
+      "sourcePage": 101,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikiisa sa pamayanan sa pagpapanatili ng malinis na hangin.",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga kontribusyon ng mga makabagong bayani (Modern Day Heroes) sa bayan.",
+      "sourcePage": 103,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling hilig at kakayahan upang malinang ang tiwala sa sarili.",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng pagpapatatag ng mga gawi sa pag-iimpok at pagtitipid kasama ang pamilya bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang pagbabahagi ng mga karanasan sa pagtugon sa mga gampanin ng isang bata sa tahanan at paaralan bilang tanda ng pagiging responsable.",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang mga pagkilos na nagpapakita ng paggalang sa Diyos bilang tanda ng pananalig sa Kaniya.",
+      "sourcePage": 83,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang mga natukoy na mabuting magagawa sa kapaligiran bilang tanda ng disiplina.",
+      "sourcePage": 84,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-1:item-6",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga gawain na nagbibigay-halaga sa mga karapatang tinatamasa ng bawat bata bilang tanda ng pagiging magalang.",
+      "sourcePage": 85,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D07",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang sariling paraan ng pakikiisa sa mga gawain sa loob ng tahanan bilang tanda ng pakikiisa.",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling paraan ng wastong pakikipag-ugnayan sa bawat kasapi ng pamilya bilang paglinang sa pagiging totoo.",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang pagtupad sa mga gampanin at mga inaasahang kilos sa tahanan at paaralan bilang tanda ng pagkukusa.",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang pagiging aktibo sa mga gawaing panrelihiyon o paniniwala ng pamilyang kinabibilangan bilang tanda ng pakikiisa.",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang sariling kilos na nagpapakita ng gawi ng pamilya sa pangangalaga sa kalikasan bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-2:item-6",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng pagsunod sa mabuting kaugalian ng pamilyang Pilipino sa rehiyong kinabibilangan bilang tanda ng pagiging masunurin.",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D13",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang mga kilos na nagpapakita ng wastong pakikitungo sa kapuwa bilang tanda ng pagiging mapagpasensiya.",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D14",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling paraan ng pagtulong sa kapuwa sa iba’t ibang situwasyon bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang mga wastong paraan ng pakikipag-ugnayan sa mga taong may kapansanan o Persons with Disability (PWD) o iba pang may natatanging kondisyon batay sa kanilang kalagayan bilang tanda ng pagiging magalang.",
+      "sourcePage": 94,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang pagpapahayag ng panalangin para sa ibang tao batay sa kanilang pangangailangan o situwasyon bilang tanda ng pagiging madasalin.",
+      "sourcePage": 95,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang mga gawain sa tahanan o paaralan na nagtataguyod sa pamamahala sa mga bagay na hindi nagagamit sa tulong ng kapuwa upang malinang ang pagiging masinop.",
+      "sourcePage": 96,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-3:item-6",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang panghihikayat sa kapuwa na igalang ang mga sagisag ng bansa bilang tanda ng pagmamahal sa bayan.",
+      "sourcePage": 97,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D19",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang pagbabahagi ng mga impormasyon tungkol sa barangay na kinabibilangan bilang maingat na paghuhusga sa mga nalalaman at naririnig.",
+      "sourcePage": 98,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D20",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang pagpili ng mga tiyak na alituntunin sa barangay na kinabibilangan na itataguyod sa sariling paraan bilang tanda ng pakikiisa.",
+      "sourcePage": 99,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D21",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng pagsunod sa mga tungkulin sa kinabibilangang barangay bilang kasapi nito upang malinang ang pagiging responsable.",
+      "sourcePage": 100,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang pagpili ng mga paraan ng pakikibahagi sa mga gawain ng relihiyon o paniniwala sa kinabibilangang pamayanan ayon sa kaniyang kakayahan bilang tanda ng pananampalataya.",
+      "sourcePage": 101,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng pakikiisa sa pamayanan upang mapanatili ang kalinisan ng hangin bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 102,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-gmrc:standard:performance:period-4:item-6",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang pagbuo ng gawain na nagtatampok sa kabayanihan ng mga makabagong bayani (modern day heroes) bilang tanda ng pagiging mapagpasalamat.",
+      "sourcePage": 103,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-3-gmrc:period-1:item-1",
@@ -454,8 +1425,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "55d7dfc4c24d97a3442fa472854f13d5e61a4d2ae7e4e6d628cda9d3ac931198"
+    "competencyPayloadSha256": "dc5485ee7c8556ba50a40b0130187c5ca99a8fd13ce8549063710327b52be218"
   }
 }

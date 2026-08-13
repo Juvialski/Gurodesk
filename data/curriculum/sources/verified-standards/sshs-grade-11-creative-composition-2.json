@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-creative-composition-2",
+  "sourceSha256": "3158352eafa4ceb34d9423877679d31c820016feab6558198b20df730dd3f900",
+  "sourceFileName": "Creative-Composition-2.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-creative-composition-2:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of the narrative structures and techniques of creative fiction, including character development, plot structure, setting, and the use of language to build story and theme.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-2:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner creates, refines and publishes original short fiction through an iterative process of planning, drafting, and revising, demonstrating imaginative storytelling, character depth, and coherent narrative structure.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-2:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of the forms and conventions of public creative nonfiction, and how facts, research, and narrative techniques are woven together to inform, engage, and influence audiences.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-creative-composition-2:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner composes, revises, and publishes public-facing creative nonfiction through research, drafting, and ethical revision, balancing personal voice and factual accuracy to inform, engage, or advocate, using appropriate platforms, for wider audiences.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-illustration",
+  "sourceSha256": "9909c269a4a8cfce02cfbaf340c508beabc16f54f2ae0e494951dd5efb59fc86",
+  "sourceFileName": "Illustration.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-illustration:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the fundamentals of illustration and drawing techniques required to create basic shapes with the illusion of volume, figures, objects, and human figures using traditional drawing techniques.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create basic shapes with the illusion of volume, figures, objects and human figures using traditional drawing techniques",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of drawing techniques for creating digital drawings of basic shapes with the illusion of volume, figures, objects, and vector art using illustration software.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create accurate digital drawings of basic shapes with the illusion of volume, figures, objects and vector art by applying various drawing techniques using illustration software.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of gathering and analyzing information for concept art and the application of digital drawing techniques to create visually appealing concept art using appropriate digital media.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create visually appealing concept art using appropriate digital media and drawing techniques to convey intended ideas.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of various illustration styles, analyzing design briefs, applying appropriate styles and techniques to create illustrations that effectively convey intended ideas using digital media, and to compute for design cost in illustration.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-illustration:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create illustrations that represent intended ideas by analyzing design briefs and applying appropriate illustration styles and techniques using digital media and compute for design cost in illustration.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    }
+  ]
+}

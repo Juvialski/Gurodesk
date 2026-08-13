@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo",
+  "sourceSha256": "2b24dd9172a92004b0e74f81a643e2053124e940a4f4c0e2e468cbc7a4a4678f",
+  "sourceFileName": "Filipino-2-Filipino-sa-Sining-at-Disenyo.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa paggamit ng komunikatibong Filipino sa kritikal na pag-unawa ng mga batayang kaalaman sa sining at disenyo, partikular na sa pagsusuri at pagpapahalaga sa mga uri ng literatura. Paghahanda ito sa pagsulat ng rebyu ng mga likhang-sining sa komunidad.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakasusulat ng rebyu ng isang likhang-sining at disenyo sa komunidad gamit ang komunikatibong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa paggamit ng komunikatibong Filipino sa kritikal na pag-unawa ng mga batayang kaalaman sa sining at disenyo at sa pagsusuri at pagpapahalaga sa mga uri nito na broadcast media, sining panteatro, sining biswal at arkitektura tungo sa pagsasagawa ng eksibit.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-sining-at-disenyo:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng eksibit ng mga anyong sining na ginagamitan ng mabisang komunikatibong Filipino.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

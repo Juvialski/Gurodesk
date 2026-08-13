@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -153,7 +159,172 @@
       "sortOrder": 14
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate effective communication in personal and interpersonal contexts through spoken, written, and multimodal forms; they understand that interaction patterns are adaptive and collaborative, and that trust-building, emotional reciprocity, and contextual understanding foster meaningful relationships.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "communication events; engage in intrapersonal communication, including goal-setting, reflection and journaling; participate in extended conversations and discussions on a variety of personal and interpersonal topics; provide short and extended responses to questions pertaining to the content and intent of conversations and correspondences; and produce short and extended personal and interpersonal correspondence in formats such as, but not limited to, letters, email, texting and messaging, and social media posts.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate effective communication in social and cultural contexts through oral, written, and multimodal forms; they understand that interaction patterns reflect social roles, group norms and dynamics, and cultural diversity, and that openness, intercultural sensitivity, inclusive language, and ethical considerations foster respectful engagement with diverse communities in public settings and digital spaces.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners are able to participate in communicative events that involve diverse social and cultural groups; engage in formal and informal interactions that reflect sensitivity to cultural norms, group roles and dynamics, and social practices; respond appropriately and respectfully in forums and public exchanges on social and cultural issues; and produce spoken, written, and multimodal texts such as public service announcements, opinion pieces, cultural narratives, community blog posts, and reflective commentaries that promote inclusive and ethical social communication.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate effective communication in academic and training contexts through spoken, written, and multimodal forms; they understand that interaction patterns in academic and training contexts are formal, structured, and discipline-specific, and that intellectual integrity, honest and respectful critique, and inclusive language foster meaningful academic and training engagement.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners produce spoken, written, and multimodal academic and technical texts for specific purposes and audiences, such as, but not limited to, articles, research reports, public speaking presentations, reviews, and podcasts; prepare note cards and reference lists in support of these texts; convert these texts into presentation format give and use feedback on the content, structure and language of communication to i Use language, tone, and structure appropriately for audience, purpose, and context in discussing a variety of academic and technical topics. Follow procedures, instructions, or processes in spoken, written, or multimodal forms (e.g., figures, diagrams, charts) to successfully achieve outcomes. Participate constructively in academic or technical lectures, presentations, or discussions by formulating and asking questions, providing feedback, and responding appropriately.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate effective communication in professional and work contexts through oral, written, and multimodal forms; they understand that professional and workplace interaction patterns are goal-oriented, concise, and context-specific, and that clarity, formality, hierarchical awareness, emotional regulation, cultural sensitivity, and ethical responsibility foster effective and professional workplace relationships.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners compose types of correspondence following specific writing conventions; create professional profiles and resumés fit for purpose and audience; draft business case studies, project proposals, and business reports; propose job ads, corporate publications, or industry articles following brand alignment practices; and participate constructively in interviews, meetings, discussions, and negotiations.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate effective communication in personal and interpersonal contexts through spoken, written, and multimodal forms; they understand that interaction patterns are adaptive and collaborative, and that trust-building, emotional reciprocity, and contextual understanding foster meaningful relationships.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate effective communication in social and cultural contexts through oral, written, and multimodal forms; they understand that interaction patterns reflect social roles, group norms and dynamics, and cultural diversity, and that openness, intercultural sensitivity, inclusive language, and ethical considerations foster respectful engagement with diverse communities in public settings and digital spaces.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate effective communication in academic and training contexts through spoken, written, and multimodal forms; they understand that interaction patterns in academic and training contexts are formal, structured, and discipline-specific, and that intellectual integrity, honest and respectful critique, and inclusive language foster meaningful academic and training engagement.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate effective communication in professional and work contexts through oral, written, and multimodal forms; they understand that professional and workplace interaction patterns are goal-oriented, concise, and context-specific, and that clarity, formality, hierarchical awareness, emotional regulation, cultural sensitivity, and ethical responsibility foster effective and professional workplace relationships.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "communication events; engage in intrapersonal communication, including goal-setting, reflection and journaling; participate in extended conversations and discussions on a variety of personal and interpersonal topics; provide short and extended responses to questions pertaining to the content and intent of conversations and correspondences; and produce short and extended personal and interpersonal correspondence in formats such as, but not limited to, letters, email, texting and messaging, and social media posts.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners are able to participate in communicative events that involve diverse social and cultural groups; engage in formal and informal interactions that reflect sensitivity to cultural norms, group roles and dynamics, and social practices; respond appropriately and respectfully in forums and public exchanges on social and cultural issues; and produce spoken, written, and multimodal texts such as public service announcements, opinion pieces, cultural narratives, community blog posts, and reflective commentaries that promote inclusive and ethical social communication.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners produce spoken, written, and multimodal academic and technical texts for specific purposes and audiences, such as, but not limited to, articles, research reports, public speaking presentations, reviews, and podcasts; prepare note cards and reference lists in support of these texts; convert these texts into presentation format give and use feedback on the content, structure and language of communication to i Use language, tone, and structure appropriately for audience, purpose, and context in discussing a variety of academic and technical topics. Follow procedures, instructions, or processes in spoken, written, or multimodal forms (e.g., figures, diagrams, charts) to successfully achieve outcomes. Participate constructively in academic or technical lectures, presentations, or discussions by formulating and asking questions, providing feedback, and responding appropriately.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-effective-communication:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners compose types of correspondence following specific writing conventions; create professional profiles and resumés fit for purpose and audience; draft business case studies, project proposals, and business reports; propose job ads, corporate publications, or industry articles following brand alignment practices; and participate constructively in interviews, meetings, discussions, and negotiations.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-effective-communication:period-1:item-1",
@@ -597,8 +768,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "947109d1c29eb8ed4922c8da3fe3156572da89ac2dbdac3492cd5a74fa1ab153"
+    "competencyPayloadSha256": "3a19777b164ce318acba6d27a59cdf7605817957966e19c1bd5379360cb8ae24"
   }
 }

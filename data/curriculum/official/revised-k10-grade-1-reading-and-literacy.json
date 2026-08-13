@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -132,7 +138,172 @@
       "sortOrder": 7
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate phonological awareness in decoding developmentally-and grade level-appropriate words; understand and create simple sentences to express meaning about oneself, family, and everyday topics (narrative and informational).",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use phonological and alphabetic knowledge to read/write words accurately with/for meaning and narrate personal experiences with family and content-specific topics.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content-specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s school and everyday topics (narrative and informational).",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing word knowledge in automatically recognizing sight words; decode high frequency words and content-specific vocabulary and use them to express ideas; and narrate personal experiences with one’s school and content-specific topics.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content-specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s community and content-specific topics (narrative and informational).",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their ongoing development in automatically recognizing sight words; decode high frequency words and content-specific vocabulary and use them to express ideas; read sentences and narrate personal experience with one’s community and content-specific topics.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s environment and content-specific topics (narrative and informational).",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners automatically recognize sight words, decode words, express ideas; read sentences with appropriate speed, accuracy, and expression; and narrate personal experiences with one’s environment and content-specific topics.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate phonological awareness in decoding developmentally-and grade level-appropriate words; understand and create simple sentences to express meaning about oneself, family, and everyday topics (narrative and informational).",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content-specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s school and everyday topics (narrative and informational).",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content-specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s community and content-specific topics (narrative and informational).",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content specific vocabulary; understand and create simple sentences in getting and expressing meaning about one’s environment and content-specific topics (narrative and informational).",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use phonological and alphabetic knowledge to read/write words accurately with/for meaning and narrate personal experiences with family and content-specific topics.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing word knowledge in automatically recognizing sight words; decode high frequency words and content-specific vocabulary and use them to express ideas; and narrate personal experiences with one’s school and content-specific topics.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their ongoing development in automatically recognizing sight words; decode high frequency words and content-specific vocabulary and use them to express ideas; read sentences and narrate personal experience with one’s community and content-specific topics.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-reading-and-literacy:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners automatically recognize sight words, decode words, express ideas; read sentences with appropriate speed, accuracy, and expression; and narrate personal experiences with one’s environment and content-specific topics.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-1-reading-and-literacy:period-1:item-1",
@@ -836,8 +1007,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "f81024c7f7f071e48cb7468663e33b73f181c2ac5ca28877028f9922267034d4"
+    "competencyPayloadSha256": "46ca1f22aafddda69afda72b250b0479f8f437dca2691a6fe92ee5c8ffc19c49"
   }
 }

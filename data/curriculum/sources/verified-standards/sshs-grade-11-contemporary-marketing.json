@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-contemporary-marketing",
+  "sourceSha256": "7b9436462abf65b769ffbb1a06981bcb85385f8b0cf3fe71432eebdc9b7c3904",
+  "sourceFileName": "Contemprary-Marketing.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamental marketing principles of both traditional and contemporary approaches.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners conduct a market analysis and apply customer-centric strategies to analyze consumer behavior, assess market opportunities, and create a targeted marketing strategy with a unique selling proposition.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of how to integrate digital marketing tools into the 7Ps of the marketing mix, utilize marketing analytics for data-driven decision-making, practice sustainable and ethical marketing, and comprehend the marketing planning process.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-marketing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners present a marketing plan for a business, integrating digital tools, the 7Ps of the marketing mix, analytics, and sustainable practices.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    }
+  ]
+}

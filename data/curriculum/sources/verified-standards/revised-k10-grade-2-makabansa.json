@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-2-makabansa",
+  "sourceSha256": "0e6521c06ad0bef218a26a2c9b1becdb8daafbeb783f1afb92da11fdf18dc35c",
+  "sourceFileName": "FINAL MATATAG Makabansa CG 2023 Grades 1-3.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang katangiang heograpikal ng kinabibilangang komunidad",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng likhang-sining (mapa) na nagpapakita ng katangiang heograpikal ng kinabibilangang komunidad",
+      "sourcePage": 28,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang kultura ng kinabibilangang komunidad",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng mga likhang-sining na nagpapakita ng pagpapahalaga sa kultura ng kinabibilangang komunidad",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang pamumuhay at mga serbisyo sa kinabibilangang komunidad",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakagagawa ng likhang-sining na nagpapakita ng pamumuhay at mga serbisyo sa kinabibilangang komunidad",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nauunawaan ang konsepto ng pakikipagkapuwa at pakikibahagi sa kinabibilangang komunidad",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-makabansa:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakalalahok sa mga gawaing nagpapakita ng pakikipagkapuwa at pakikibahagi sa kinabibilangang komunidad",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    }
+  ]
+}

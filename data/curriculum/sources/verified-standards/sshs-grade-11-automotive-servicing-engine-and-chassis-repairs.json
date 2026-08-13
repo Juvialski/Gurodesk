@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-automotive-servicing-engine-and-chassis-repairs",
+  "sourceSha256": "dfddc5e1a37547b1be672b84905bb21e984d074c4b3e26b5ef2da89303984f09",
+  "sourceFileName": "Automotive-Servicing-Engine-and-Chassis-Repairs_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-engine-and-chassis-repairs:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts, principles and processes of automotive engine repair.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-engine-and-chassis-repairs:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform automotive repair of engine cooling system, lubricating systems, intake and exhaust systems, overhaul mechanical systems, and costing of services employing appropriate safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-engine-and-chassis-repairs:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts, principles and processes of automotive chassis repair.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-automotive-servicing-engine-and-chassis-repairs:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform automotive repair of drive lines, clutch system, manual transmission/transaxle, differential, brake system, steering system, suspension system and costing of services employing appropriate safety precautions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

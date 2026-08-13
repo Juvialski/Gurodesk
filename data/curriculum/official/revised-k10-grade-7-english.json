@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -127,7 +133,172 @@
       "sortOrder": 6
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-7-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating Philippine literature (poetry) for clarity of meaning, purpose, and target audience as a foundation for publishing original literary texts that reflect local and national identity.",
+      "sourcePage": 144,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of Philippine poetry (lyric, narrative, dramatic); evaluate poetry for clarity of meaning, purpose, and target audience; and compose and publish an original multimodal literary text (poem) that represents their meaning, purpose, and target audience, and reflects their local and national identity.",
+      "sourcePage": 144,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating Philippine literature (prose) for clarity of meaning, purpose, and target audience as a foundation for publishing original literary texts that reflect local and national identity.",
+      "sourcePage": 146,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of Philippine prose (short story and novel); evaluate prose for clarity of meaning, purpose, and target audience; and compose and publish an original multimodal literary text (short story) that represents their meaning, purpose, and target audience, and reflects their local and national identity.",
+      "sourcePage": 146,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (expository texts and journalistic texts: news and press releases, and features) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational texts.",
+      "sourcePage": 148,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (expository texts, news and press releases, and features); evaluate informational texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (expository texts, news and press releases, and features) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 148,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (academic text: expository essays) and transactional texts (letter of request) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational and transactional texts.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (expository essays) and transactional texts (letter of request); evaluate informational and transactional texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (expository essays) and transactional texts (letter of request) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-7-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating Philippine literature (poetry) for clarity of meaning, purpose, and target audience as a foundation for publishing original literary texts that reflect local and national identity.",
+      "sourcePage": 144,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating Philippine literature (prose) for clarity of meaning, purpose, and target audience as a foundation for publishing original literary texts that reflect local and national identity.",
+      "sourcePage": 146,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (expository texts and journalistic texts: news and press releases, and features) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational texts.",
+      "sourcePage": 148,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (academic text: expository essays) and transactional texts (letter of request) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational and transactional texts.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-7-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of Philippine poetry (lyric, narrative, dramatic); evaluate poetry for clarity of meaning, purpose, and target audience; and compose and publish an original multimodal literary text (poem) that represents their meaning, purpose, and target audience, and reflects their local and national identity.",
+      "sourcePage": 144,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of Philippine prose (short story and novel); evaluate prose for clarity of meaning, purpose, and target audience; and compose and publish an original multimodal literary text (short story) that represents their meaning, purpose, and target audience, and reflects their local and national identity.",
+      "sourcePage": 146,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (expository texts, news and press releases, and features); evaluate informational texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (expository texts, news and press releases, and features) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 148,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (expository essays) and transactional texts (letter of request); evaluate informational and transactional texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (expository essays) and transactional texts (letter of request) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 151,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-7-english:period-1:item-1",
@@ -741,8 +912,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "516dbf8b519994d12853239a2648366be0ef9c1ec30afb573d0b0e594603c783"
+    "competencyPayloadSha256": "45427825880ada9d31360d30b79cc626ac042afc0d32f8cef058b5af9dd73bb4"
   }
 }

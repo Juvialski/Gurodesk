@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -23,7 +29,7 @@
     "pageCount": 8,
     "pagesUsed": {
       "from": 2,
-      "to": 4
+      "to": 5
     },
     "retrievedOn": "2026-08-11"
   },
@@ -131,7 +137,172 @@
       "sortOrder": 11
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of roughing-in activities for residential/building wiring systems.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform roughing-in activities for residential/building in accordance with PEC standard.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the installation and termination of wiring fixtures, as well as the use of protective devices in residential/building wiring systems.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform installation and termination of wiring fixtures, as well as the use of protective devices in residential/building wiring systems according to PEC standard.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of Fire Detection and Alarm Systems (FDAS).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate an understanding of the concepts and principles of Closed-Circuit Television (CCTV).",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform installation of Fire Detection and Alarm Systems (FDAS) according to PEC standard.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform installation of Closed-Circuit Television (CCTV) according to PEC standard.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of roughing-in activities for residential/building wiring systems.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the installation and termination of wiring fixtures, as well as the use of protective devices in residential/building wiring systems.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of Fire Detection and Alarm Systems (FDAS).",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners demonstrate an understanding of the concepts and principles of Closed-Circuit Television (CCTV).",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform roughing-in activities for residential/building in accordance with PEC standard.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform installation and termination of wiring fixtures, as well as the use of protective devices in residential/building wiring systems according to PEC standard.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform installation of Fire Detection and Alarm Systems (FDAS) according to PEC standard.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electrical-installation-maintenance:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform installation of Closed-Circuit Television (CCTV) according to PEC standard.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-electrical-installation-maintenance:period-1:item-1",
@@ -265,8 +436,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "0f3653d2224640f7dd4dc3a6013ceeedb544c30563af4b43b66efedeed1e0033"
+    "competencyPayloadSha256": "3a61d7f12c27ccd0793e342330aac35e4e8d57a7c81000186036235688ae49a9"
   }
 }

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-physics-3",
+  "sourceSha256": "b56f4424d82f3ffe372462965222e46f863be70f62b9527ba235f9e6f02ccb19",
+  "sourceFileName": "Physics 3.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 5,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-physics-3:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "the study of electrostatics is essential in explaining the electrical nature of matter; and",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "the relationships among electrical quantities, such as electric potential difference (voltage), current, and resistance are important in maintaining efficient and safe electrical systems;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "magnetism is a property of certain materials arising from the alignment of atomic magnetic domains, and that natural magnetic phenomena such as Earth's magnetic field influence navigation and living organisms;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "a moving electric charge changes the characteristics of the space around it by establishing a magnetic field in addition to its electric field, enabling moving charges to interact through magnetic forces; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "the study of electromagnetism explains the relationship between electric and magnetic fields, electromagnetic induction, and the technologies that make modern life possible.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can demonstrate their understanding of the principles of electrostatics and current electricity by using theoretical and experimental approaches to solve context-rich problems and situations involving these branches of Physics.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-physics-3:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can explain the principles of electromagnetism through theoretical and experimental approaches and can recognize their significance in electrical devices.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

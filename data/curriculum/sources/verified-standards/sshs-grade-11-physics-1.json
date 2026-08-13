@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-physics-1",
+  "sourceSha256": "d1a4ce7818551728483950b64b6f2844ad6d16ea0ba134ef1101f527c06d2c3f",
+  "sourceFileName": "Physics-1.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 7,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Physics is fundamental to understanding the natural world in a scientific way and leads to the development of many applications that benefit society;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "measuring should be done precisely and accurately, and must be expressed correctly; and",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "qualitative, quantitative, and graphical analysis of motion provide complementary ways to understand, describe, and predict motion.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners properly measure and use pertinent units, compute resultant vectors, and analyze motion graphs. They explain, calculate, and analyze one-dimensional, two-dimensional, and relative motion in practical contexts and solve problems using kinematic equations. They also describe and explain how basic physics principles are applied to describe and make predictions about motion in everyday situations and scenarios.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Newton's Laws of Motion, work, energy, power, and the conservation of energy are essential for understanding the behavior of objects and systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "momentum, impulse, and the laws of conservation are essential in evaluating the efficiency and safety of physical systems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "rotational mechanics can maximize efficiency in physical systems; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "simple harmonic motion can be characterized by periodic motion.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-physics-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners properly measure and use pertinent units, compute resultant vectors, and analyze motion graphs. They explain, calculate, and analyze one-dimensional, two-dimensional, and relative motion in practical contexts and solve problems using kinematic equations. They also describe and explain how basic physics principles are applied to describe and make predictions about motion in everyday situations and scenarios.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

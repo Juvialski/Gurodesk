@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-manual-metal-arc-welding",
+  "sourceSha256": "7dce252bcdecca8aeec30b191f8de5f95b1ed5b5fb2d731d9181d18690c8fb61",
+  "sourceFileName": "Manual-Metal-Arc-Welding_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of Manual Metal Arc Welding Process (MMAW).",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform setting-up welding machine, accessories, jigs and fixtures, stringer and weave bead patterns in carbon steel plates. Joint fit-up in workpiece/weld specimen and inspect visually following the safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of the fillet welding in carbon steel plates in PA (1F), PC (2F), PF (3F) and PE (4F) positions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform fillet welding procedures in carbon steel plates in PA (1F), PC (2F), PF (3F) and PE (4F) positions, following the safety precautions. Inspect visually and compute the service cost based on job requirements.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of the groove welding in carbon steel plates in PA (1G), PC (2G), PF (3G) and PE (4G) positions.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform groove welding procedures in carbon steel plates in PA (1G), PC (2G), PF (3G) and PE (4G) positions following the safety precautions. Inspect visually and compute the service cost based on job requirements.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of groove welding in carbon steel pipes in PA (1G), PC (2G), PH (5G) and H-LO45 (6G) positions.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-manual-metal-arc-welding:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform groove welding in carbon steel pipes in PA (1G), PC (2G), PH (5G) and H-LO45 (6G) positions following the safety precautions. Inspect visually and compute the service cost based on job requirements.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ]
+}

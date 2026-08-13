@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing",
+  "sourceSha256": "8dd01ee86633db69b2c35655b2f8b3cbc8f496cdd3c00c52d00cb9a20732def6",
+  "sourceFileName": "Commercial-Air-Conditioning-Installation-and-Servicing_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of the Commercial Air-Conditioning unit",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs the installation of the Commercial Air-Conditioning unit with safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of the Commercial Air-Conditioning unit",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-commercial-air-conditioning-installation-and-servicing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs maintenance, troubleshooting, and commissioning Commercial Air-Conditioning units with safety precautions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

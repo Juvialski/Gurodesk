@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-hotel-operation-housekeeping-services",
+  "sourceSha256": "ef3bafd99c8c77ef9fd7a70efafa7c662eedd23b9ab8f205154f9fef2e706d81",
+  "sourceFileName": "Hotel-Operation-Housekeeping-Services-a_o-Jun-9.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles, practices, and standards of providing housekeeping services in the hospitality industry.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate familiarity of the different types of hotels, classifications of guest and the services hotels provide to the guest.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners understand the principles, practices, and innovations in housekeeping services in accordance with industry standards. Analyze trends, organizational structures, room classifications, and service excellence in hospitality management, reflecting the demands of a globally competitive and sustainable tourism and hospitality sector.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners describe the functions of the different sections of the hotel, classify guest rooms and status.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles, methods, and techniques of housekeeping services, including the proper use, care, and maintenance of tools, equipment, and supplies, with emphasis on ergonomics, environmental sustainability, and best practices.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform the cleaning procedures of guest rooms in accordance to room status following Occupational Health and Safety standards.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles, techniques, and standards in housekeeping operations, including the identification and proper handling of hotel linens, laundry and ironing operations, personalized guest services, customer relations, facility evaluation, and housekeeping safety and security.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-hotel-operation-housekeeping-services:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners exhibit techniques in linen management, laundry and ironing operations, valet/butler services, customer care, and apply effective strategies for handling complaints.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    }
+  ]
+}

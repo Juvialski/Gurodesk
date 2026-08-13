@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-electronics-product-assembly-and-servicing",
+  "sourceSha256": "b8bcc232c52dfbd2bcf77e9276c0f4b5882a9b6a44d6584c0704f07b4b53349c",
+  "sourceFileName": "Electronics-Product-and-Assembly-Servicing_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the principles in electronic systems assembling and servicing, identification of electronic components, PCB designing, soldering and desoldering, and assembly of electronic products.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in assembling and testing of electronic components, and power supply assembly following existing standard.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles of appliances with electric motors, appliances with heating components, and electronic controlled lighting units.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform servicing of appliances with electric motors, appliances with heating elements, and rechargeable and electronic-controlled lighting units ensuring adherence to safety standards.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles of Closed-Circuit Television (CCTV) systems, and fire alarm systems.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform servicing of Closed-Circuit Television (CCTV) systems, and fire alarm systems ensuring adherence to safety precautions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles of audio products and systems, television, control boards and motor controllers, sensors and actuators.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-electronics-product-assembly-and-servicing:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform procedures in servicing audio products and systems, control boards and motor controllers, and sensors and actuators ensuring adherence to safety precautions.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ]
+}

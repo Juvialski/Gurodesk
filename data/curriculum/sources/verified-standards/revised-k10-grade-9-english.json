@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-9-english",
+  "sourceSha256": "db4a5c2b7389f9237b21ee19873faf9b950fe55b9f0918db336269f112dc897c",
+  "sourceFileName": "FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-9-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating Anglo-American literature (poetry, prose, and drama) for clarity of meaning, purpose, and target audience as a foundation for publishing original literary texts that reflect their expanding cultural identity.",
+      "sourcePage": 165,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of Anglo-American literature (poetry, prose, and drama); evaluate literary texts for clarity of meaning, purpose, and target audience; and compose and publish an original multimodal literary text (one-act play) that represents their meaning, purpose, and target audience, and reflects their expanding cultural identity.",
+      "sourcePage": 165,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (argumentative texts) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational texts.",
+      "sourcePage": 167,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (argumentative texts); evaluate informational texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (argumentative texts) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 167,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (argumentative texts) and transactional texts (letter of complaint) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational and transactional texts.",
+      "sourcePage": 170,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (argumentative texts) and transactional texts (letter of complaint); evaluate informational and transactional texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (argumentative texts) and transactional texts (letter of complaint) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 170,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (academic text: literature review) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational texts.",
+      "sourcePage": 173,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-9-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (literature review); evaluate informational texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (literature review) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 173,
+      "verificationStatus": "verified"
+    }
+  ]
+}

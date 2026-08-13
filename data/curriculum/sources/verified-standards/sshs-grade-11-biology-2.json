@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-biology-2",
+  "sourceSha256": "e6325c49746abe745659b0e1dd72b5f208a322ff23c249cbe2c0c45c18569b12",
+  "sourceFileName": "Biology-2.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 5,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-biology-2:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "different types of plant tissue can be identified using a microscope;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "the distinguishing characteristics of tissues of a plant are significant for the structure and function of the plant; and",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "the structure of animal tissues is critical to the successful functioning of organs and organ systems.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners describe the structure and function of plant and animal tissues by explaining how their various types contribute to growth, transport, support, and overall survival. Through diagrams, experiments, or presentations, learners describe how tissue specialization supports the functionality and adaptability of plants and animals in their environments.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "organ systems of plants maintain homeostasis; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "organ systems in animals maintain homeostasis",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-biology-2:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners explain the similarities and differences in the structures and functions of plant and animal organ systems by explaining how these systems contribute to maintaining homeostasis. Learners construct models, draw comparative diagrams, and/or create presentations to explain the interconnected roles of organ systems in supporting life processes and adapting to environmental challenges.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

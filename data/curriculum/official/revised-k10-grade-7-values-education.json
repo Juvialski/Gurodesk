@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 28,
+      "performanceCount": 28,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -237,7 +243,1132 @@
       "sortOrder": 28
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa gamit ng isip at kilos-loob sa sariling pagpapasiya at pagkilos.",
+      "sourcePage": 185,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa dignidad ng tao bilang batayan ng paggalang sa sarili, pamilya, at kapuwa.",
+      "sourcePage": 186,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapahalaga at virtue bilang batayan ng sariling pagpapasiya, pagkilos, at pakikipagkapuwa.",
+      "sourcePage": 187,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling pananampalataya sa Diyos.",
+      "sourcePage": 188,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtitipid at pag-iimpok bilang sariling pangangasiwa sa mga biyaya ng Diyos.",
+      "sourcePage": 189,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pansariling pagtugon sa panahon ng kalamidad.",
+      "sourcePage": 190,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtupad ng sariling tungkulin bilang mamamayan.",
+      "sourcePage": 191,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang wastong gamit ng isip at kilos-loob sa mga sariling pagpapasiya at pagkilos alinsunod sa katotohanan at kabutihan upang malinang ang maingat na paghuhusga",
+      "sourcePage": 185,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang sariling kilos ng pagkilala sa dignidad ng sarili, pamilya, at kapuwa upang malinang ang pagiging magalang.",
+      "sourcePage": 186,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral nang wasto ang pagpapahalaga at virtue sa mga gagawing pagpapasiya, pagkilos at pakikipagkapuwa upang malinang ang pagiging matatag.",
+      "sourcePage": 187,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang paglalapat ng sariling pananampalataya sa lahat ng oras upang malinang ang pananalig sa Diyos.",
+      "sourcePage": 188,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang pagtitipid at pag-iimpok para tulungan ang kapuwa at pamayanan ayon sa sariling kakayahan upang malinang ang pagiging mabuting katiwala.",
+      "sourcePage": 189,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-6",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang pansariling pagtugon sa panahon ng kalamidad upang malinang ang kahandaan.",
+      "sourcePage": 190,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-7",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan sa pagtupad ng sariling tungkulin bilang mamamayan upang malinang ang pagiging mapanagutan.",
+      "sourcePage": 191,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pamilya bilang sandigan ng mga pagpapahalaga.",
+      "sourcePage": 192,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtupad sa mga tungkulin sa pamilya.",
+      "sourcePage": 193,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pamilya bilang likas na institusyon ng pagmamahalan.",
+      "sourcePage": 194,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sama-samang pananalangin ng pamilya.",
+      "sourcePage": 195,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa paghubog ng konsensiya gabay ang pananampalataya ng pamilya.",
+      "sourcePage": 196,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtugon ng pamilya sa pagbabago ng klima (climate change).",
+      "sourcePage": 197,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-7",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 7,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga tungkulin ng pamilya sa bayan.",
+      "sourcePage": 198,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang mga natutuhang pagpapahalaga sa mga situwasyong kinakaharap upang malinang ang maingat na paghuhusga",
+      "sourcePage": 192,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang pagtupad sa mga tungkulin sa pamilyang kinabibilangan bilang tanda ng pagiging matiyaga.",
+      "sourcePage": 193,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang wastong paraan ng pagmamahal sa mga kasapi ng pamilya bilang tanda ng pagiging mapagmahal.",
+      "sourcePage": 194,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang sariling paraan ng pakikibahagi sa sama-samang pananalangin ng pamilya upang malinang ang pagiging madasalin.",
+      "sourcePage": 195,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang paghubog ng konsensiya gabay ang pananampalataya ng pamilya upang malinang ang maingat na paghuhusga.",
+      "sourcePage": 196,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-6",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling paraan ng wastong pagtugon ng pamilyang kinabibilangan sa pagbabago ng klima (climate change) bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 197,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-7",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 7,
+      "text": "Naisasagawa ng mag-aaral ang sariling paraan bilang bahagi ng pagtupad sa tungkulin ng pamilyang kinabibilangan sa bayan bilang tanda ang nasyonalismo.",
+      "sourcePage": 198,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtuklas at pagpapaunlad ng sariling talento at hilig kaagapay ang kapuwa.",
+      "sourcePage": 199,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapatawad at pakikipagkasundo sa kapuwa.",
+      "sourcePage": 200,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikipagkaibigan.",
+      "sourcePage": 201,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa paggalang sa mga kaugalian ng kapuwa na nakaugat sa pananampalataya.",
+      "sourcePage": 202,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang paglilingkod sa kapuwa bilang indikasyon ng pananampalataya.",
+      "sourcePage": 203,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa wastong paggamit ng tubig at enerhiya katuwang ang kapuwa.",
+      "sourcePage": 204,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-7",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 7,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa impluwensiya ng kasaysayan ng bayan sa pakikipagkapuwa.",
+      "sourcePage": 205,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang pagpapaunlad ng mga sariling talento at hilig kaagapay ang kapuwa bilang tanda ng tiwala sa sarili.",
+      "sourcePage": 199,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling kilos ng pagpapatawad at pakikipagkasundo sa kapuwa upang malinang ang pagiging mapagpakumbaba.",
+      "sourcePage": 200,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan sa pagpapatatag ng pakikipagkaibigan bilang tanda ng pagiging matapat.",
+      "sourcePage": 201,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang wastong pagtugon sa mga kaugalian ng kapuwa na nakaugat sa pananampalataya bilang tanda ng pagiging magalang.",
+      "sourcePage": 202,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang paglilingkod sa kapuwa bilang indikasyon ng pananampalataya upang malinang ang pagiging mapagmalasakit.",
+      "sourcePage": 203,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-6",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga wastong paraan ng paggamit ng tubig at enerhiya katuwang ang kapuwa upang malinang ang pagiging matipid.",
+      "sourcePage": 204,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-7",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 7,
+      "text": "Naisasagawa ng mag-aaral ang mga kilos na nagpapahalaga sa impluwensiya ng kasaysayan ng bayan sa pakikipagkapuwa upang malinang ang maingat na paghuhusga.",
+      "sourcePage": 205,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapaunlad ng sarili batay sa katangian ng pagpapakatao para sa bayan.",
+      "sourcePage": 206,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pamilya bilang gabay sa pagpili ng mga mabuting pinuno sa komunidad at bayan.",
+      "sourcePage": 207,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mapanagutang paggamit ng social media bilang mamamayan.",
+      "sourcePage": 208,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa papel ng espirituwalidad sa pagiging mabuting mamamayan.",
+      "sourcePage": 209,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagninilay sa mga isyu ng bayan bilang bahagi ng espirituwalidad.",
+      "sourcePage": 210,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapanatili ng panahanan (habitat) ng mga hayop sa pamayanan.",
+      "sourcePage": 211,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-7",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 7,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa glokalisasyon bilang tugon sa mga suliranin ng bayan.",
+      "sourcePage": 212,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang katangian ng pagpapakatao sa pagtupad ng kaniyang mga tungkulin upang malinang ang pagiging mapagmalasakit.",
+      "sourcePage": 206,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang wastong pagkilatis sa mga pinuno na may mga mabuting katangian ayon sa gabay ng pamilya upang malinang ang karunungan.",
+      "sourcePage": 207,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng mapanagutang paggamit ng social media bilang mamamayan upang malinang ang disiplina.",
+      "sourcePage": 208,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan sa pagganap ng kaniyang tungkulin sa pamayanan na ginagabayan ng espirituwalidad upang malinang ang pagiging mapanagutan.",
+      "sourcePage": 209,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang pagninilay sa mga isyu ng bayan bilang bahagi ng espirituwalidad upang malinang ang pagiging matiyaga.",
+      "sourcePage": 210,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-6",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga hakbang upang maiangat ang kamalayan sa mga panahanan (habitat) ng mga hayop sa pamayanan upang mapanatili ang pagiging mabuting katiwala.",
+      "sourcePage": 211,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-7",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 7,
+      "text": "Naisasagawa ng mag-aaral ang produkto o serbisyo na tumutugon sa pangangailangan ng pamayanang kinabibilangan alinsunod sa glokalisasyon upang malinang ang ma-inobasyon na pagiging malikhain.",
+      "sourcePage": 212,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa gamit ng isip at kilos-loob sa sariling pagpapasiya at pagkilos.",
+      "sourcePage": 185,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa dignidad ng tao bilang batayan ng paggalang sa sarili, pamilya, at kapuwa.",
+      "sourcePage": 186,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapahalaga at virtue bilang batayan ng sariling pagpapasiya, pagkilos, at pakikipagkapuwa.",
+      "sourcePage": 187,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sariling pananampalataya sa Diyos.",
+      "sourcePage": 188,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtitipid at pag-iimpok bilang sariling pangangasiwa sa mga biyaya ng Diyos.",
+      "sourcePage": 189,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pansariling pagtugon sa panahon ng kalamidad.",
+      "sourcePage": 190,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtupad ng sariling tungkulin bilang mamamayan.",
+      "sourcePage": 191,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pamilya bilang sandigan ng mga pagpapahalaga.",
+      "sourcePage": 192,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtupad sa mga tungkulin sa pamilya.",
+      "sourcePage": 193,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pamilya bilang likas na institusyon ng pagmamahalan.",
+      "sourcePage": 194,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa sama-samang pananalangin ng pamilya.",
+      "sourcePage": 195,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa paghubog ng konsensiya gabay ang pananampalataya ng pamilya.",
+      "sourcePage": 196,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtugon ng pamilya sa pagbabago ng klima (climate change).",
+      "sourcePage": 197,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-2:item-7",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 7,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mga tungkulin ng pamilya sa bayan.",
+      "sourcePage": 198,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagtuklas at pagpapaunlad ng sariling talento at hilig kaagapay ang kapuwa.",
+      "sourcePage": 199,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapatawad at pakikipagkasundo sa kapuwa.",
+      "sourcePage": 200,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pakikipagkaibigan.",
+      "sourcePage": 201,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa paggalang sa mga kaugalian ng kapuwa na nakaugat sa pananampalataya.",
+      "sourcePage": 202,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang paglilingkod sa kapuwa bilang indikasyon ng pananampalataya.",
+      "sourcePage": 203,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa wastong paggamit ng tubig at enerhiya katuwang ang kapuwa.",
+      "sourcePage": 204,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-3:item-7",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 7,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa impluwensiya ng kasaysayan ng bayan sa pakikipagkapuwa.",
+      "sourcePage": 205,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 1,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapaunlad ng sarili batay sa katangian ng pagpapakatao para sa bayan.",
+      "sourcePage": 206,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 2,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pamilya bilang gabay sa pagpili ng mga mabuting pinuno sa komunidad at bayan.",
+      "sourcePage": 207,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 3,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa mapanagutang paggamit ng social media bilang mamamayan.",
+      "sourcePage": 208,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 4,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa papel ng espirituwalidad sa pagiging mabuting mamamayan.",
+      "sourcePage": 209,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 5,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagninilay sa mga isyu ng bayan bilang bahagi ng espirituwalidad.",
+      "sourcePage": 210,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 6,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa pagpapanatili ng panahanan (habitat) ng mga hayop sa pamayanan.",
+      "sourcePage": 211,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:content:period-4:item-7",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 7,
+      "text": "Natututuhan ng mag-aaral ang pag-unawa sa glokalisasyon bilang tugon sa mga suliranin ng bayan.",
+      "sourcePage": 212,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang wastong gamit ng isip at kilos-loob sa mga sariling pagpapasiya at pagkilos alinsunod sa katotohanan at kabutihan upang malinang ang maingat na paghuhusga",
+      "sourcePage": 185,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang sariling kilos ng pagkilala sa dignidad ng sarili, pamilya, at kapuwa upang malinang ang pagiging magalang.",
+      "sourcePage": 186,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral nang wasto ang pagpapahalaga at virtue sa mga gagawing pagpapasiya, pagkilos at pakikipagkapuwa upang malinang ang pagiging matatag.",
+      "sourcePage": 187,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang paglalapat ng sariling pananampalataya sa lahat ng oras upang malinang ang pananalig sa Diyos.",
+      "sourcePage": 188,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang pagtitipid at pag-iimpok para tulungan ang kapuwa at pamayanan ayon sa sariling kakayahan upang malinang ang pagiging mabuting katiwala.",
+      "sourcePage": 189,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-6",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang pansariling pagtugon sa panahon ng kalamidad upang malinang ang kahandaan.",
+      "sourcePage": 190,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-1:item-7",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan sa pagtupad ng sariling tungkulin bilang mamamayan upang malinang ang pagiging mapanagutan.",
+      "sourcePage": 191,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang mga natutuhang pagpapahalaga sa mga situwasyong kinakaharap upang malinang ang maingat na paghuhusga",
+      "sourcePage": 192,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang pagtupad sa mga tungkulin sa pamilyang kinabibilangan bilang tanda ng pagiging matiyaga.",
+      "sourcePage": 193,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D10",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang wastong paraan ng pagmamahal sa mga kasapi ng pamilya bilang tanda ng pagiging mapagmahal.",
+      "sourcePage": 194,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D11",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang sariling paraan ng pakikibahagi sa sama-samang pananalangin ng pamilya upang malinang ang pagiging madasalin.",
+      "sourcePage": 195,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D12",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang paghubog ng konsensiya gabay ang pananampalataya ng pamilya upang malinang ang maingat na paghuhusga.",
+      "sourcePage": 196,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-6",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D13",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling paraan ng wastong pagtugon ng pamilyang kinabibilangan sa pagbabago ng klima (climate change) bilang tanda ng pagiging mapagmalasakit.",
+      "sourcePage": 197,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-2:item-7",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D14",
+      "sortOrder": 7,
+      "text": "Naisasagawa ng mag-aaral ang sariling paraan bilang bahagi ng pagtupad sa tungkulin ng pamilyang kinabibilangan sa bayan bilang tanda ang nasyonalismo.",
+      "sourcePage": 198,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D15",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang pagpapaunlad ng mga sariling talento at hilig kaagapay ang kapuwa bilang tanda ng tiwala sa sarili.",
+      "sourcePage": 199,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D16",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang mga sariling kilos ng pagpapatawad at pakikipagkasundo sa kapuwa upang malinang ang pagiging mapagpakumbaba.",
+      "sourcePage": 200,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D17",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan sa pagpapatatag ng pakikipagkaibigan bilang tanda ng pagiging matapat.",
+      "sourcePage": 201,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D18",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang wastong pagtugon sa mga kaugalian ng kapuwa na nakaugat sa pananampalataya bilang tanda ng pagiging magalang.",
+      "sourcePage": 202,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang paglilingkod sa kapuwa bilang indikasyon ng pananampalataya upang malinang ang pagiging mapagmalasakit.",
+      "sourcePage": 203,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-6",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga wastong paraan ng paggamit ng tubig at enerhiya katuwang ang kapuwa upang malinang ang pagiging matipid.",
+      "sourcePage": 204,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-3:item-7",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D21",
+      "sortOrder": 7,
+      "text": "Naisasagawa ng mag-aaral ang mga kilos na nagpapahalaga sa impluwensiya ng kasaysayan ng bayan sa pakikipagkapuwa upang malinang ang maingat na paghuhusga.",
+      "sourcePage": 205,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D22",
+      "sortOrder": 1,
+      "text": "Naisasagawa ng mag-aaral ang katangian ng pagpapakatao sa pagtupad ng kaniyang mga tungkulin upang malinang ang pagiging mapagmalasakit.",
+      "sourcePage": 206,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D23",
+      "sortOrder": 2,
+      "text": "Naisasagawa ng mag-aaral ang wastong pagkilatis sa mga pinuno na may mga mabuting katangian ayon sa gabay ng pamilya upang malinang ang karunungan.",
+      "sourcePage": 207,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D24",
+      "sortOrder": 3,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan ng mapanagutang paggamit ng social media bilang mamamayan upang malinang ang disiplina.",
+      "sourcePage": 208,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D25",
+      "sortOrder": 4,
+      "text": "Naisasagawa ng mag-aaral ang mga paraan sa pagganap ng kaniyang tungkulin sa pamayanan na ginagabayan ng espirituwalidad upang malinang ang pagiging mapanagutan.",
+      "sourcePage": 209,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D26",
+      "sortOrder": 5,
+      "text": "Naisasagawa ng mag-aaral ang pagninilay sa mga isyu ng bayan bilang bahagi ng espirituwalidad upang malinang ang pagiging matiyaga.",
+      "sourcePage": 210,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-6",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 6,
+      "text": "Naisasagawa ng mag-aaral ang mga hakbang upang maiangat ang kamalayan sa mga panahanan (habitat) ng mga hayop sa pamayanan upang mapanatili ang pagiging mabuting katiwala.",
+      "sourcePage": 211,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-7-values-education:standard:performance:period-4:item-7",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 7,
+      "text": "Naisasagawa ng mag-aaral ang produkto o serbisyo na tumutugon sa pangangailangan ng pamayanang kinabibilangan alinsunod sa glokalisasyon upang malinang ang ma-inobasyon na pagiging malikhain.",
+      "sourcePage": 212,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-7-values-education:period-1:item-1",
@@ -521,8 +1652,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "b270522767643860aee9912d37b5d2dadf327113d2911a2a746090c2f768e964"
+    "competencyPayloadSha256": "608b1b126e4ca5cd870f8050a5b07740aef6967a93c6cafb11d5c62a5d6e2406"
   }
 }

@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-earth-and-space-science-2",
+  "sourceSha256": "6afb4cbde906c883605596e5d0ccb3df3cb2ab7025a2f1505aef2107049f77aa",
+  "sourceFileName": "Earth-and-Space-Science-2.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 10,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "a range of theories have contributed to modern understanding of the dynamic nature of Earth’s lithosphere;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "tectonic plates and their movements are responsible for the current shape of the Earth’s lithosphere, and cause geologic phenomena including earthquakes and volcanic activities along the plate boundaries;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "geologic phenomena due to plate tectonics cause sudden movement of rock materials below the Earth’s surface;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "geologic phenomena due to plate tectonics—volcanism is a natural process; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "weathering, erosion, and sedimentation are processes that continually reshape Earth’s surface.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners simulate Earth's geological processes using concrete and conceptual models. They use practical examples to illustrate and explain Earth processes and their impacts on local, national, regional, and global landforms over time.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "the Earth is a complex system where energy and matter flow across interconnected subsystems, shaping the environment and sustaining life;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "the biogeochemical cycle are processes that regulate Earth's subsystems;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 3,
+      "text": "water resources are unevenly distributed across the Earth, affecting regional climate, ecosystems, and human activities;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 4,
+      "text": "water in different forms plays a vital role in forming landscapes, supporting ecosystems, and sustaining human needs;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "human activities have a profound impact on water quality and availability;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-earth-and-space-science-2:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners relate the Earth’s interconnected subsystems and describe how these impact sustaining and supporting life and ecological balance within the Philippines and on the planet. Learners describe and explain the implications of these processes for the Philippines. Learners apply scientific models and concepts, data analysis, and scientific reports to describe local and global water systems and their sustainability for the Philippines.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

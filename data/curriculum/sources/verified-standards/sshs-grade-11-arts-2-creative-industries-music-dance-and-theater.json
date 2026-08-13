@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater",
+  "sourceSha256": "c905c676267f31d5163df721a184535b439a8f04f7bae42dc7f36d9946d9a5f4",
+  "sourceFileName": "Arts-2-Creative-Industries-Music-Dance-and-Theater.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner shows understanding of the creative industries’ related laws and regulations, practices, applications, and ethical considerations; elements, materials, and techniques; and the proper use of materials, tools, equipment, and facilities in production processes in the local and global contexts of Music, Dance, and Theater.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner executes techniques, skills, and proper use of materials, tools, equipment, and facilities in mounting creative works in reference to the mapped creative industries in their specific communities as defined by relevant laws within local and global contexts.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of the socio-cultural, historical, and economic context of production; distribution; and consumption of arts as a basis for creating new works, doing art criticism, exploring audiences, exploring career opportunities, and considering entrepreneurial pathways.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-2-creative-industries-music-dance-and-theater:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner produces various creative works that highlight the importance of context in their meanings and those that reflect their potential applications and impact",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ]
+}

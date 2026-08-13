@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -118,7 +124,172 @@
       "sortOrder": 7
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-10-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating World literature (poetry, prose, and drama) for clarity of meaning, purpose, and target audience as a foundation for publishing original literary texts that reflect their expanding cultural identity.",
+      "sourcePage": 175,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of World literature (poetry, prose, and drama); evaluate literary texts for clarity of meaning, purpose, and target audience; and compose and publish an original multimodal literary text (short film) that represents their meaning, purpose, and target audience, and reflects their expanding cultural identity.",
+      "sourcePage": 175,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (journalistic texts: documentaries and vlogs) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational texts.",
+      "sourcePage": 177,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (documentaries and vlogs); evaluate informational texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (documentaries and vlogs) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 177,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (research report [stage 1] based on literature review) and transactional texts (letter of application) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational and transactional texts.",
+      "sourcePage": 180,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (research report based on literature review) and transactional texts (letter of application); evaluate informational and transactional texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (research report [stage 1] based on literature review) and transactional texts (letter of application) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 180,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (research report [stage 2] based on literature review) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational texts.",
+      "sourcePage": 183,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (research report based on literature review); evaluate informational texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (research report [stage 2] based on literature review) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 183,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-10-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating World literature (poetry, prose, and drama) for clarity of meaning, purpose, and target audience as a foundation for publishing original literary texts that reflect their expanding cultural identity.",
+      "sourcePage": 175,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (journalistic texts: documentaries and vlogs) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational texts.",
+      "sourcePage": 177,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (research report [stage 1] based on literature review) and transactional texts (letter of application) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational and transactional texts.",
+      "sourcePage": 180,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate their multiliteracies and communicative competence in evaluating informational texts (research report [stage 2] based on literature review) for clarity of meaning, purpose, and target audience as a foundation for publishing original informational texts.",
+      "sourcePage": 183,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-10-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of World literature (poetry, prose, and drama); evaluate literary texts for clarity of meaning, purpose, and target audience; and compose and publish an original multimodal literary text (short film) that represents their meaning, purpose, and target audience, and reflects their expanding cultural identity.",
+      "sourcePage": 175,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (documentaries and vlogs); evaluate informational texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (documentaries and vlogs) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 177,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (research report based on literature review) and transactional texts (letter of application); evaluate informational and transactional texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (research report [stage 1] based on literature review) and transactional texts (letter of application) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 180,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners analyze the style, form, and features of informational texts (research report based on literature review); evaluate informational texts for clarity of meaning, purpose, and target audience; and compose and publish original multimodal informational texts (research report [stage 2] based on literature review) using appropriate forms and structures that represent their meaning, purpose, and target audience.",
+      "sourcePage": 183,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-10-english:period-1:item-1",
@@ -802,8 +973,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "826189f7d10ce9f6b4ecc5d8f80efdae4c8522933ea26d5ec3aeaed4e662bf0a"
+    "competencyPayloadSha256": "2babb43d814a787aa11691a4633660a18f080d56c543c2983575912c79ea17c7"
   }
 }

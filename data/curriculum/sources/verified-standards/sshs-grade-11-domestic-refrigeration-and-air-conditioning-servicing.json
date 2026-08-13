@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing",
+  "sourceSha256": "27d4be635921d87f7f2af1870338f12ef252b5c952cebdcf873f31130c0fe6cf",
+  "sourceFileName": "Domestic-Refrigeration-and-Air-Conditioning-Servicing_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of installing domestic refrigeration and air-conditioning units.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs the installation of domestic refrigeration and air-conditioning units with safety precautions",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of maintaining domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs the maintenance of domestic refrigeration and window-type air-conditioning units with safety precautions",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of troubleshooting domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs troubleshooting of domestic refrigeration and window-type air-conditioning units with safety precautions.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands the concepts and principles of repairing domestic refrigeration and window-type air-conditioning units.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-domestic-refrigeration-and-air-conditioning-servicing:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner performs repairing domestic refrigeration and window-type air-conditioning units with safety precautions.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ]
+}

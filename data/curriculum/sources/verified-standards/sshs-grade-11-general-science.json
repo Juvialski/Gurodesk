@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-general-science",
+  "sourceSha256": "80b5fffbe358518fc7b578833c14008412272e8899b09694bb1eef3724ca6610",
+  "sourceFileName": "GENERAL-SCIENCE.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 23,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "physics principles apply to numerous aspects of everyday living;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "understanding linear and angular quantities to describe motion helps in the design of efficient machines;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "the efficiency of simple and compound machines can be improved by applying basic physics principles;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "hydraulic systems exploit the relationship between pressure, force, and area to multiply forces and perform tasks;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "analysis of electricity generation, consumption patterns, and energy-efficiency practices can lead to better energy supply and management; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 6,
+      "text": "an understanding of the properties of light and sound leads to their safe and productive application.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners identify general physics principles and their applications in daily life. They use scientific principles to solve problems, make informed decisions, and illustrate the applications of physics for self, society, and the environment. They design simple and compound machines and hydraulic systems to demonstrate applications of force, torque, center of mass, and hydraulic-related principles. They evaluate energy-efficient practices in electricity supply and consumption at home and local businesses and explore the advantages and drawbacks of light and sound in medical imaging, security, communication, and entertainment.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "past research in the field of chemistry provides the foundations for the development of helpful products and processes;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "household and personal care products contain chemical substances that determine their properties and guide their proper use and disposal;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "chemical reactions are part of human activities and present in the environment; and",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "chemicals should be handled safely, and solutions can have beneficial and harmful environmental effects.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners apply research skills to discover how scientists have impacted our lives. They recognize the significant role of different agencies in the Philippines, such as DOST and DTI, in scientific innovation and development. They show critical thinking in explaining the different substances in household and personal care products, including their benefits and potential risks of using and disposing of them. They demonstrate appropriate and safe handling and use of chemicals. They explain that chemical reactions occur in human activities and the environment, and that several chemical solutions pose a threat to the community.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 1,
+      "text": "all levels of life have systems of related parts;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D05",
+      "sortOrder": 2,
+      "text": "structures and functions are related at all levels of the organization of life;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D06",
+      "sortOrder": 3,
+      "text": "cells carry out functions that enable organisms to survive;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D07",
+      "sortOrder": 4,
+      "text": "organ systems work together to carry out essential functions of an organism;",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 5,
+      "text": "climate change affects ecosystems and the organisms living in them; and",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D08",
+      "sortOrder": 6,
+      "text": "ecosystems are finite and have limited resources.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners use examples to describe the relationships among living systems and their components and how the structure of a part relates to its function. They explain the role of cells in perpetuating life and how organ systems work together to maintain optimal health. They conduct investigations on the effects of climate change on local ecosystems.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 1,
+      "text": "planet Earth is currently the only planet in the Solar System that can support life;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D09",
+      "sortOrder": 2,
+      "text": "an appropriate amount of greenhouse gases helps regulate Earth's temperature, making it suitable for life;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D10",
+      "sortOrder": 3,
+      "text": "the Philippines is a unique country in terms of its landforms, bodies of water, climate, and biodiversity;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D11",
+      "sortOrder": 4,
+      "text": "earth materials are commonly used in human activity and industry;",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "the Philippines is continuously shaped and reshaped by geologic and hydrometeorological processes;",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 6,
+      "text": "human activities have contributed to the modification of landforms and bodies of water; and",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:content:period-4:item-7",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 7,
+      "text": "impacts of natural hazards need prevention and mitigation strategies and adaptive measures to reduce risks and strengthen resilience.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-general-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners use evidence from secondary sources to explain the uniqueness of planet Earth compared to other planets in the Solar System. They use models to describe and illustrate the distinctiveness of the Philippine Archipelago, showing how islands are formed through geological processes. They investigate the properties of rocks, minerals, and soil and apply their findings to using earth materials in the Philippines. They integrate ideas, experiences, understanding, and skills to explain geological and hydrometeorological hazards affecting the Philippines. They propose sound, viable, and sustainable mechanisms for hazard mitigation and adaptation.",
+      "sourcePage": 8,
+      "verificationStatus": "verified"
+    }
+  ]
+}

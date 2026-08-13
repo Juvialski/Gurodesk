@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -168,7 +174,172 @@
       "sortOrder": 17
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamentals of technical drafting, tools and materials in manual drafting, mensuration and calculation, drafting conventions, architectural symbols, and details in producing architectural plans.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create accurate technical drawings, and architectural plans observing relevant building codes, standards, and conventions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of drafting principles, techniques, and industry standards including mastering manual drafting, knowledge of various disciplines (architectural, structural, electrical, plumbing, mechanical).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create manual Structural, Electrical, Electronic, and Mechanical plans projects observing relevant building codes, standards, and conventions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of CAD software installation, interface navigation, creation of 2D and 3D geometries, and produce accurate 2D architectural and structural plans in CAD",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create 2D and 3D geometries, and detailed 2D architectural and structural plans projects using CAD software observing relevant building codes, standards, and conventions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding in using Computer-Aided Design (CAD) software to create detailed 2D and 3D drawings of various building systems, and compute project cost estimate align to the industry standards.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create 2D and 3D Computer-Aided Design (CAD) layouts project integrating Electrical, Electronic, Mechanical plans, Architectural Model and compute project cost estimate observing relevant building codes, standards, and conventions.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamentals of technical drafting, tools and materials in manual drafting, mensuration and calculation, drafting conventions, architectural symbols, and details in producing architectural plans.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of drafting principles, techniques, and industry standards including mastering manual drafting, knowledge of various disciplines (architectural, structural, electrical, plumbing, mechanical).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of CAD software installation, interface navigation, creation of 2D and 3D geometries, and produce accurate 2D architectural and structural plans in CAD",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding in using Computer-Aided Design (CAD) software to create detailed 2D and 3D drawings of various building systems, and compute project cost estimate align to the industry standards.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create accurate technical drawings, and architectural plans observing relevant building codes, standards, and conventions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create manual Structural, Electrical, Electronic, and Mechanical plans projects observing relevant building codes, standards, and conventions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create 2D and 3D geometries, and detailed 2D architectural and structural plans projects using CAD software observing relevant building codes, standards, and conventions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create 2D and 3D Computer-Aided Design (CAD) layouts project integrating Electrical, Electronic, Mechanical plans, Architectural Model and compute project cost estimate observing relevant building codes, standards, and conventions.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-technical-drafting:period-1:item-1",
@@ -352,8 +523,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "2b699ce1a008dd2d4e7f935be8b09f51ef1e4c29d98c680fe77c6c6fbd5d3bae"
+    "competencyPayloadSha256": "bbb164a58a67bca5ac6eb98341b9e70a17aa69168f499982be9888ced49dbe18"
   }
 }

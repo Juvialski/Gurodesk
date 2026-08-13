@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino",
+  "sourceSha256": "9e78b3961d63dfdd1943f84a2c0d61f65742d3e183a523b9a3c642eedcbb882f",
+  "sourceFileName": "Filipino-1-Wika-at-Komunikasyon-sa-Akademikong-Filipino.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kritikal na pag-unawa sa wika at mga wika sa Pilipinas tungo sa pagpapahalaga sa Filipino bilang wikang pambansa",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakasusulat ng kritikal na sanaysay na tumatalakay sa sitwasyon ng wikang Filipino sa lipunang Pilipino",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kritikal na pag-unawa sa mga batayang kaalaman sa komunikasyon at kakayahan sa akademikong Filipino sa pagsusuri ng mga teksto sa iba’t ibang disiplina tungo sa mabisang pakikipagdiskurso",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-1-wika-at-komunikasyon-sa-akademikong-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakapagsasagawa ng kritikal na talakayan tungkol sa isang napapanahong usaping panlipunan Almario, V., at Komisyon sa Wikang Filipino. Manwal sa Masinop na Pagsulat. Maynila: Komisyon sa Wikang Filipino.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-photovoltaic-systems-installation",
+  "sourceSha256": "d3b2309feb7ec97ce11f574ae9e24063a2decaad35b743df0c2e8318b2144ef9",
+  "sourceFileName": "Photovoltaic-Systems-Installation_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 3,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of solar energy system in Photovoltaic (PV) Systems Installation.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform site assessment with safety precautions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of solar energy system in Photovoltaic (PV) Systems Installation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform PV components inspection with safety precautions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the concepts and principles of Photovoltaic (Solar Energy) Systems Installation.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform photovoltaic (solar energy) systems installation with safety precautions.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-photovoltaic-systems-installation:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform commissioning of photovoltaic (solar energy) systems with safety precautions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

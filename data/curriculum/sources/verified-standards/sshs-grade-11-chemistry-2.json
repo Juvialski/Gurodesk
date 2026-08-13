@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-chemistry-2",
+  "sourceSha256": "5db5204f64bd2ee88defe534a5788097fe220e27a8207673239b19bee65d499d",
+  "sourceFileName": "Chemistry-2.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 7,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "intermolecular forces, such as hydrogen bonds, influence the physical properties of substances;",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "hydrocarbon and its derivatives play a crucial role in organic reactions and the behavior of organic compounds;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "there are four major classes of organic compounds called biomolecules: and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "carbon compounds undergo several types of common chemical reactions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, learners differentiate intermolecular forces and intramolecular forces on the molecules of liquid water. They explain the significance of the carbon-hydrogen and carbon-carbon bonds and identify the major groups of organic compounds. They write equations for the processes of photosynthesis and respiration. Furthermore, they examine the characteristics of biomolecules and discuss their significance in both biological and everyday contexts.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "there are 6 main types of chemical reactions, many of which occur naturally in the environment and in living things;",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "the mole is a fundamental unit in chemistry which is used to quantify and relate the mass of substances and to the number of particles that facilitate calculations in chemical reactions; and",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "mass relationships in chemical reactions help to understand how to calculate the amounts of reactants and products involved in chemical reactions observed in daily life activities, environmental science, and industrial processes.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-chemistry-2:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners describe different types of chemical reactions and balance a chemical equation. They explain the relationship between Avogadro’s number and the chemical unit, the mole of any substance. They explain the Law of Conservation of Mass and perform stoichiometric calculations to determine quantities of reactants and products.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ]
+}

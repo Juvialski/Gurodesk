@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-3-filipino",
+  "sourceSha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+  "sourceFileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-3-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagbigkas at pag-aaral ng mga tunog at salita tungo sa papaunlad na kasanayang panggramatika, pag-unawa at pagsusuri ng tekstong naratibo at impormatibo na magiging daan sa pagbuo ng mga tambalang pangungusap at teksto tungkol sa sarili at bansa na ginagamit sa pang-araw-araw na paksa at sitwasyon.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa pagbigkas ng mga salita, pagbasa ng mga pangungusap nang may kawastuhan, katatasan at tamang ekspresyon tungkol sa sarili at bansa na ginagamit sa pang-araw-araw na paksa at sitwasyon. Nagiging daan din ito sa pagbuo ng tekstong naratibo at impormatibo sa pagpapahayag ng ideya at karanasan gamit ang mga natutuhan sa gramatika.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagbigkas at pag-aaral ng mga tunog at salita tungo sa papaunlad na kasanayang panggramatika, pag-unawa at pagsusuri ng tekstong naratibo at impormatibo na magiging daan sa pagbuo ng mga tambalang pangungusap at teksto tungkol sa sarili at bansa na ginagamit sa pang-araw-araw na paksa at sitwasyon.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa pagbigkas ng mga salita, pagbasa ng mga pangungusap nang may kawastuhan, katatasan at tamang ekspresyon tungkol sa sarili at bansa na ginagamit sa pang-araw-araw na paksa at sitwasyon. Nagiging daan din ito sa pagbuo ng tekstong naratibo at impormatibo sa pagpapahayag ng ideya at karanasan gamit ang mga natutuhan sa gramatika.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagbigkas at pag-aaral ng mga tunog at salita tungo sa papaunlad na kasanayang panggramatika, pag-unawa at pagsusuri ng tekstong naratibo at impormatibo na magiging daan sa pagbuo ng mga tambalang pangungusap at teksto tungkol sa sarili at bansa na ginagamit sa pang-araw-araw na paksa at sitwasyon.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa pagbigkas ng mga salita, pagbasa ng mga pangungusap nang may kawastuhan, katatasan at tamang ekspresyon tungkol sa sarili at bansa na ginagamit sa pang-araw-araw na paksa at sitwasyon. Nagiging daan din ito sa pagbuo ng tekstong naratibo at impormatibo sa pagpapahayag ng ideya at karanasan gamit ang mga natutuhan sa gramatika.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagbigkas at pag-aaral ng mga tunog at salita tungo sa papaunlad na kasanayang panggramatika, pag-unawa at pagsusuri ng tekstong naratibo at impormatibo na magiging daan sa pagbuo ng mga tambalang pangungusap at teksto tungkol sa sarili at bansa na ginagamit sa pang-araw-araw na paksa at sitwasyon.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa pagbigkas ng mga salita, pagbasa ng mga pangungusap nang may kawastuhan, katatasan at tamang ekspresyon tungkol sa sarili at bansa na ginagamit sa pang-araw-araw na paksa at sitwasyon. Nagiging daan din ito sa pagbuo ng tekstong naratibo at impormatibo sa pagpapahayag ng ideya at karanasan gamit ang mga natutuhan sa gramatika.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    }
+  ]
+}

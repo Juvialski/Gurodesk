@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-10-filipino",
+  "sourceSha256": "7b7f60c05ffc3072a41d08182fb2ff86640cb03dbc075a02117316012691112e",
+  "sourceFileName": "FINAL MATATAG FILIPINO CG 2023 Grades 2-10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-10-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng Obra Maestra – El Filibusterismo para sa pagtatamo ng kaunlaran at pagtugon sa pandaigdigang pakikipag-ugnayan at pagbuo ng mga teksto sa iba’t ibang paraan (mutimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 161,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng documentary film ng El Filibusterismo na naipakikita ang kaunlaran sa usaping panlipunan na isinasaalang-alang ang elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo at etikal na kasanayan at pananagutan.",
+      "sourcePage": 161,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kasanayang komunikatibo, pagiging malikhain, at kritikal na pag-unawa at pagsusuri ng mga tekstong pampanitikan (sa Kontemporaneong Panahon /Makabagong Panahon), impormasyonal, akademik para sa pagtatamo ng kaunlaran at pagtugon sa pandaigdigang pakikipag-ugnayan, at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 165,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng isang grapikong representasyon mula sa sarbey na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo at etikal na kasanayan at pananagutan.",
+      "sourcePage": 165,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kasanayang komunikatibo, pagtataya sa realidad at pagsasaalang-alang sa mekaniks ng pag-alam sa batayang kaalaman sa tekstong akademik sa pagtatamo ng kaunlaran at pagtugon sa pandaigdigang pakikipag-ugnayan at pagbuo ng mga teksto sa iba’t ibang paraan (multimodal) para sa tiyak na layunin, pagpapakahulugan, at target na babasa o awdiyens.",
+      "sourcePage": 168,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng isang konseptuwal na balangkas na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo at etikal na kasanayan at pananagutan.",
+      "sourcePage": 168,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayang komunikatibo, pagtataya sa realidad at pagsasaalang-alang sa mekaniks sa pag-alam sa batayang kaalaman sa tekstong akademik upang makatugon sa pandaigdigang pakikipag-ugnayan bilang isang makabayang Pilipino.",
+      "sourcePage": 170,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng poster presentation ng panukalang pananaliksik na isinasaalang-alang ang mga elemento ng biswal at multimodal na may paglalapat ng kasanayang komunikatibo, at etikal na kasanayan at pananagutan.",
+      "sourcePage": 170,
+      "verificationStatus": "verified"
+    }
+  ]
+}

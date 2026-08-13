@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 5,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -23,7 +29,7 @@
     "pageCount": 5,
     "pagesUsed": {
       "from": 2,
-      "to": 4
+      "to": 5
     },
     "retrievedOn": "2026-08-11"
   },
@@ -72,7 +78,152 @@
       "sortOrder": 2
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Lines and Circles",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Graph Transformations",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "Polynomial Functions",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Rational Functions",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "Exponential and Logarithmic Functions",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can investigate and model real-life situations using graphs of equations, and polynomial and rational functions. They can determine equations of lines and circles from geometric conditions, represent real-life situations using these equations, and analyze geometric relationships both algebraically and graphically. The learners can apply basic graph transformations, such as translations and reflections, to show and explain how changes in variables affect the movement, orientation, and overall behavior of graphs. They can also graph solution sets of systems and solve line-circle systems accurately. The learners can select appropriate function types for given contexts, define variables clearly, and state assumptions and constraints. They can represent these functions using equations, tables, and graphs, with appropriate use of technology, and analyze key features such as domain and range, intercepts, asymptotes, and points of intersection. The learners can solve polynomial equations using suitable algebraic methods such as Remainder and Factor Theorems, synthetic division and long division, and interpret these solutions in context. They can evaluate the reasonableness of results by checking against constraints, units, and graphs, and by comparing alternate approaches.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can conduct an in-depth analysis of real-life situations involving rational, exponential, and logarithmic functions, such as resource optimization, electrical resistance, cooling rates, loan interests, and population growth. They can represent these relationships using appropriate models and provide justified solutions and interpretations. The learners can also define inverses of one-to-one functions, construct and interpret the inverse of an exponential function using logarithms and vice-versa, and sketch and analyze their graphs with correct domains and ranges. Furthermore, they can prove and apply the properties of logarithms to solve related equations and interpret key parameters in real-life contexts, including growth and decay, half-life, and doubling time. Using appropriate technology, they can investigate how changes in parameters can affect graph behavior and analyze connections between algebraic expressions and their graphical representations. Through these experiences, they can demonstrate the ability to connect abstract mathematical concepts to practical applications in areas such as growth and decay, signal processing, design, navigations, and optimization, while strengthening critical thinking, problem-solving, and readiness for advanced study and real-world challenges.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Lines and Circles",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Graph Transformations",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "Polynomial Functions",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Rational Functions",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "Exponential and Logarithmic Functions",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can investigate and model real-life situations using graphs of equations, and polynomial and rational functions. They can determine equations of lines and circles from geometric conditions, represent real-life situations using these equations, and analyze geometric relationships both algebraically and graphically. The learners can apply basic graph transformations, such as translations and reflections, to show and explain how changes in variables affect the movement, orientation, and overall behavior of graphs. They can also graph solution sets of systems and solve line-circle systems accurately. The learners can select appropriate function types for given contexts, define variables clearly, and state assumptions and constraints. They can represent these functions using equations, tables, and graphs, with appropriate use of technology, and analyze key features such as domain and range, intercepts, asymptotes, and points of intersection. The learners can solve polynomial equations using suitable algebraic methods such as Remainder and Factor Theorems, synthetic division and long division, and interpret these solutions in context. They can evaluate the reasonableness of results by checking against constraints, units, and graphs, and by comparing alternate approaches.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-pre-calculus:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can conduct an in-depth analysis of real-life situations involving rational, exponential, and logarithmic functions, such as resource optimization, electrical resistance, cooling rates, loan interests, and population growth. They can represent these relationships using appropriate models and provide justified solutions and interpretations. The learners can also define inverses of one-to-one functions, construct and interpret the inverse of an exponential function using logarithms and vice-versa, and sketch and analyze their graphs with correct domains and ranges. Furthermore, they can prove and apply the properties of logarithms to solve related equations and interpret key parameters in real-life contexts, including growth and decay, half-life, and doubling time. Using appropriate technology, they can investigate how changes in parameters can affect graph behavior and analyze connections between algebraic expressions and their graphical representations. Through these experiences, they can demonstrate the ability to connect abstract mathematical concepts to practical applications in areas such as growth and decay, signal processing, design, navigations, and optimization, while strengthening critical thinking, problem-solving, and readiness for advanced study and real-world challenges.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-pre-calculus:period-1:item-1",
@@ -326,8 +477,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "bb9193c7b36342bfdc0a9da3b0c36f613c5e555738be8bf49a379deaaca24db5"
+    "competencyPayloadSha256": "d3e8903de96403c362890977f6c78c6128a75cbc7572a8c39816222964db2482"
   }
 }

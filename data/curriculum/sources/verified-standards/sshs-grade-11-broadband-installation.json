@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-broadband-installation",
+  "sourceSha256": "87696e8adfcd21ee60d24b2da27821cf7844f302e7aa8488a3979cd5479cb0b7",
+  "sourceFileName": "Broadband-Installation.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-broadband-installation:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the principles, tools, safety procedures, and technical requirements necessary for the proper installation of mast, guy, and accessories in accordance with industry standards.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-broadband-installation:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform mast and cable installation in accordance with technical specifications and industry standards.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-broadband-installation:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates an understanding of the tools, technical specifications, and configuration procedures necessary to install and set up Customer Premises Equipment (CPE) effectively, ensuring optimal functionality and connectivity.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-broadband-installation:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform CPE installation and configuration in accordance with technical specifications and industry standards.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-broadband-installation:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the fundamentals of fiber optic broadband network installation, maintenance, and quality assurance.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-broadband-installation:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform installation and maintenance of fiber optic networks, achieving high signal quality, low loss, and reliable system operation, while adhering to the industry’s best practices and safety standards.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-broadband-installation:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of principles in splicing/joining fibers and installation of protection sleeves using the mechanical method as well as installation of aerial and underground cable support.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-broadband-installation:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform splicing/joining fibers and installation of protection sleeves using mechanical method as well as installation of aerial and underground cable support while adhering to the industry’s best practices and safety standards",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 13,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -117,7 +123,312 @@
       "sortOrder": 11
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "acids and bases found in everyday life and environmental systems play important roles in maintaining chemical balance in natural environments and human activities;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "different acid-base theories explain the behavior of acids and bases;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "the pH of solutions describes the concentration of hydrogen ions, and that the strength and concentration of acids and bases determine their behavior in chemical reactions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "titration curves provide graphical representations of acid-base reactions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "buffer systems maintain relatively constant pH in natural, biological, and chemical systems; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "chemical systems reach dynamic equilibrium in closed systems and that the extent and direction of reactions can be predicted using equilibrium constants and Le Chatelier’s principle.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 7,
+      "text": "mixtures can be separated based on differences in physical properties using appropriate techniques;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 8,
+      "text": "instrumental analytical techniques use measurable signals such as light absorption to determine the concentration of substances;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-9",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 9,
+      "text": "oxidation-reduction reactions involve electron transfer and changes in oxidation numbers;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-10",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 10,
+      "text": "electrochemical cells convert chemical energy into electrical energy through redox processes;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-11",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 11,
+      "text": "standard electrode potentials and cell potentials can be used to predict the direction and spontaneity of redox reactions;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-12",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 12,
+      "text": "electrolysis drives nonspontaneous redox reactions using electrical energy; and",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-13",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 13,
+      "text": "electrochemical principles are applied in technologies such as batteries, corrosion control, and sustainable energy systems.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can design and conduct investigations to analyze the properties and behavior of acids, bases, and buffer systems. They interpret pH values and titration curves using mathematical and graphical models and communicate scientific explanations using chemical equations and experimental evidence. The learners can also explain chemical equilibrium and Le Chatelier’s principle, conduct investigations to observe changes in equilibrium systems, and apply these concepts to explain industrial and environmental processes using Green Chemistry principles.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can explain different separation techniques, interpret colorimetric data to determine concentrations, and conduct investigations using appropriate techniques. The learners can analyze redox reactions and use standard reduction potentials and cell potential values to predict reactivity and spontaneity. They can also explain electrolysis processes and apply electrochemical principles to real-world systems such as batteries, corrosion control, and sustainable energy technologies.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "acids and bases found in everyday life and environmental systems play important roles in maintaining chemical balance in natural environments and human activities;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "different acid-base theories explain the behavior of acids and bases;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "the pH of solutions describes the concentration of hydrogen ions, and that the strength and concentration of acids and bases determine their behavior in chemical reactions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "titration curves provide graphical representations of acid-base reactions;",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "buffer systems maintain relatively constant pH in natural, biological, and chemical systems; and",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "chemical systems reach dynamic equilibrium in closed systems and that the extent and direction of reactions can be predicted using equilibrium constants and Le Chatelier’s principle.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 7,
+      "text": "mixtures can be separated based on differences in physical properties using appropriate techniques;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-8",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 8,
+      "text": "instrumental analytical techniques use measurable signals such as light absorption to determine the concentration of substances;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-9",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 9,
+      "text": "oxidation-reduction reactions involve electron transfer and changes in oxidation numbers;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-10",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 10,
+      "text": "electrochemical cells convert chemical energy into electrical energy through redox processes;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-11",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D09",
+      "sortOrder": 11,
+      "text": "standard electrode potentials and cell potentials can be used to predict the direction and spontaneity of redox reactions;",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-12",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 12,
+      "text": "electrolysis drives nonspontaneous redox reactions using electrical energy; and",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:content:period-1:item-13",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D11",
+      "sortOrder": 13,
+      "text": "electrochemical principles are applied in technologies such as batteries, corrosion control, and sustainable energy systems.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can design and conduct investigations to analyze the properties and behavior of acids, bases, and buffer systems. They interpret pH values and titration curves using mathematical and graphical models and communicate scientific explanations using chemical equations and experimental evidence. The learners can also explain chemical equilibrium and Le Chatelier’s principle, conduct investigations to observe changes in equilibrium systems, and apply these concepts to explain industrial and environmental processes using Green Chemistry principles.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-chemistry-3:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can explain different separation techniques, interpret colorimetric data to determine concentrations, and conduct investigations using appropriate techniques. The learners can analyze redox reactions and use standard reduction potentials and cell potential values to predict reactivity and spontaneity. They can also explain electrolysis processes and apply electrochemical principles to real-world systems such as batteries, corrosion control, and sustainable energy technologies.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-chemistry-3:period-1:item-1",
@@ -361,8 +672,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "2fcc748bc5fa85ef9acae74330ee46cdd2767d6e5a474c3fabcabd7f180f91d8"
+    "competencyPayloadSha256": "8efd0117ca66735a81563aaecda66c67a114d2d2ab730dd3d4d10411b6405a56"
   }
 }

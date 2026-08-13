@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-finite-mathematics-2",
+  "sourceSha256": "1a7deef6aa866acffbf8bbfdbfeeaf9026c5969787d1fce72a10ef859e2a093b",
+  "sourceFileName": "Finite-Mathematics-2.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 14,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Fundamental Principles of Counting",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Combination and permutation",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Variations in Counting",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "Probability of an event",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "Addition of probabilities",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "text": "Conditional probability and independent events",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to apply combinations and permutations in counting the number of ways to select and arrange objects. In addition, they are able to solve problems involving probabilities.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Divisibility",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Greatest common divisor and least common multiple",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "Modular Arithmetic",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "Fundamental concepts of graph theory",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "Graph connectivity and transversability",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:content:period-2:item-7",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 7,
+      "text": "Spanning Trees and Shortest Paths",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-2:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to perform number-theoretic operations (GCD, LCM, modular arithmetic) and solve problems involving applications of modular arithmetic and linear Diophantine equations. In addition, they are able to solve problems involving graph theory algorithms (Eulerian and Hamiltonian paths and circuits, spanning trees, shortest paths), and discuss the applications of graphs in transportation, communication, network design, productivity, etc., through a presentation or written work.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

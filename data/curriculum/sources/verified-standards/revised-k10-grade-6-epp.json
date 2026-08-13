@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-6-epp",
+  "sourceSha256": "c084380893d493c840baa56882af535ac41581dec7eae6d1a594ed71c428ce90",
+  "sourceFileName": "FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 14,
+    "performance": 7
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of utilizing web conferencing",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of utilizing online form builders",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "demonstrate an understanding of utilizing cloud storage",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "demonstrate an understanding of using productivity tools",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "demonstrate an understanding of applying slide recording",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D08",
+      "sortOrder": 6,
+      "text": "demonstrate an understanding of using block codes",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "perform the utilization of online and productivity tools in a safe and responsible manner",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "perform in a safe and responsible manner",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D09",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of the basic concepts and principles of planning the natural way of raising, harvesting, and selling of fish as a source of food and income",
+      "sourcePage": 60,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform the natural way of raising, harvesting, and selling of fish following safety precautions",
+      "sourcePage": 64,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D19",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of a simple family budget plan in managing family resources",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of the food preparation",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D26",
+      "sortOrder": 3,
+      "text": "demonstrate an understanding of the food preservation and food processing",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners prepare simple meals following kitchen operations with safety precautions",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners preserve and sell products with safety precautions.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D27",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of the basic principles of making wood or bamboo works",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of the basic principles in performing sheet metal works",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D29",
+      "sortOrder": 3,
+      "text": "demonstrate an understanding of the basic principles of performing basic electrical works",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D30",
+      "sortOrder": 4,
+      "text": "demonstrate an understanding of product development and selling",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform the basic competencies in wood or bamboo works, sheet metal works, and electrical works with safety precautions",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-epp:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners develop and sell simple project with safety precautions",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    }
+  ]
+}

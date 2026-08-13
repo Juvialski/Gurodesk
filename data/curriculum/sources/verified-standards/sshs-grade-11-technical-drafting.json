@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-technical-drafting",
+  "sourceSha256": "3a83b94f82d02d1969941a9b07f1151849452572639f7ce2fd44b8a628c894cd",
+  "sourceFileName": "Technical-Drafting_.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamentals of technical drafting, tools and materials in manual drafting, mensuration and calculation, drafting conventions, architectural symbols, and details in producing architectural plans.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create accurate technical drawings, and architectural plans observing relevant building codes, standards, and conventions.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of drafting principles, techniques, and industry standards including mastering manual drafting, knowledge of various disciplines (architectural, structural, electrical, plumbing, mechanical).",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create manual Structural, Electrical, Electronic, and Mechanical plans projects observing relevant building codes, standards, and conventions.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of CAD software installation, interface navigation, creation of 2D and 3D geometries, and produce accurate 2D architectural and structural plans in CAD",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create 2D and 3D geometries, and detailed 2D architectural and structural plans projects using CAD software observing relevant building codes, standards, and conventions.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding in using Computer-Aided Design (CAD) software to create detailed 2D and 3D drawings of various building systems, and compute project cost estimate align to the industry standards.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-technical-drafting:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create 2D and 3D Computer-Aided Design (CAD) layouts project integrating Electrical, Electronic, Mechanical plans, Architectural Model and compute project cost estimate observing relevant building codes, standards, and conventions.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ]
+}

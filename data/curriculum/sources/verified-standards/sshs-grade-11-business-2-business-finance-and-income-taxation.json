@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-business-2-business-finance-and-income-taxation",
+  "sourceSha256": "3c09bb19b355b3acfd93280a145258fc6761cd4e178660bf7eb5010732008cb6",
+  "sourceFileName": "Business-2-Business-Finance-and-Income-Taxation.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners demonstrate an understanding of the foundational concepts of finance, including financial management principles, financial system structures, and the roles of financial managers in managing both short-term and long-term funds. They also develop competencies in personal financial management, investment analysis, risk assessment, and the application of sound taxation principles.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners prepare a personal financial plan based on one’s financial capacity, including a contingency plan to address identified investment risks.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of sound principles of taxation and its purpose.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-business-2-business-finance-and-income-taxation:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Learners analyze an accomplished BIR form 2316.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-arts-apprenticeship-literary-arts",
+  "sourceSha256": "eb42efd8a2eba25071b06483cd911c8780174f2072baa378fc98496390a4f0fe",
+  "sourceFileName": "Arts Apprenticeship - Literary Arts.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 1,
+    "performance": 1
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-literary-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of literary arts production processes, literary genres, professional practices, and ethical standards through apprenticeship experiences within the publishing and print media industry.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-literary-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate proficiency in literary arts production and analysis through apprenticeship engagement and creative documentation, reflecting artistic, cultural, and ethical practices in literary arts. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ]
+}

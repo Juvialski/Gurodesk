@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -109,7 +115,92 @@
       "sortOrder": 8
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagbuo ng iba’t ibang sulating pang-isports gaya ng ulat ng laro, plano ng laro, patakarang pang-isports, at iba pang tekstong teknikal pang-isports.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng mga sulating pang-isports batay sa elemento at etika sa pagsulat gamit ang akademikong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagsulat ng iba’t ibang anyo ng mga sulating pang-isports gaya ng pangkalakalan, serbisyo, plano sa pangangalaga ng kalusugan, at iba pang sulating panserbisyo at pangkalakalan sa larang pampalakasan.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sports brochure kaugnay ng mahahalagang datos na nakalap sa pangangalaga ng mental at pisikal na kalusugan ng manlalaro sa napiling isports",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagbuo ng iba’t ibang sulating pang-isports gaya ng ulat ng laro, plano ng laro, patakarang pang-isports, at iba pang tekstong teknikal pang-isports.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa akademikong Filipino sa kritikal na pag-unawa, pagsusuri at pagsulat ng iba’t ibang anyo ng mga sulating pang-isports gaya ng pangkalakalan, serbisyo, plano sa pangangalaga ng kalusugan, at iba pang sulating panserbisyo at pangkalakalan sa larang pampalakasan.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng mga sulating pang-isports batay sa elemento at etika sa pagsulat gamit ang akademikong Filipino.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ng sports brochure kaugnay ng mahahalagang datos na nakalap sa pangangalaga ng mental at pisikal na kalusugan ng manlalaro sa napiling isports",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-filipino-2-filipino-sa-isports:period-1:item-1",
@@ -233,8 +324,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "06c7e6438f1f28181527226e1d1725a9422a9dfb2c8061208baf2a8b542786e1"
+    "competencyPayloadSha256": "be747bcec494ca30c3683da6a02ef77e10bafd0710b83b79e9ef691ac62f8078"
   }
 }

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-contemporary-literature-1",
+  "sourceSha256": "79d293d6d796e8409ca11537c206bc5148ef6184cdf5dd6dc15c34187e623468",
+  "sourceFileName": "Contemporary-Literature-1.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands literature as a personal and reflective experience that allows the reader, listener or viewer to connect with themselves and others through diverse literary forms and themes.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding and appreciation of literature by reflecting on and responding to literary texts, including poetry, in ways that show emotional resonance, cultural awareness, and personal connection.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner understands literature as a product of cultural and social contexts, and how it continues to shape and reflect contemporary realities and conversations.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-contemporary-literature-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding and appreciation of literature by interpreting and responding to texts, including short stories or a novella, through their relevance to social issues, cultural identities, and enduring human experiences, expressed through thoughtful observations and collaborative conversations.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

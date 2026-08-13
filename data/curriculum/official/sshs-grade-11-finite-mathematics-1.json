@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 13,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -23,7 +29,7 @@
     "pageCount": 5,
     "pagesUsed": {
       "from": 3,
-      "to": 4
+      "to": 5
     },
     "retrievedOn": "2026-08-11"
   },
@@ -89,7 +95,312 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Symmetries in nature and art",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Different linear transformations (geometric approach)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Tiling and Tessellations",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Frieze Patterns",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "the Golden Ratio in nature and art",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "Fibonacci Sequence in nature and art",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "text": "Fractals",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to contribute to a class exhibit of artworks inspired by geometric symmetries, tessellations, Frieze patterns, the golden ratio, the Fibonacci sequence, or fractals. Each artwork should be accompanied by a description detailing the mathematics involved.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Fundamental concepts of matrices and basic operations",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Elementary row operations",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Determinants and their properties",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Fundamental concepts of linear programming",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "Graphical method",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "Simplex Method",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to model real-world situations using matrices and matrix operations. They are also able to formulate linear programming models and solve them using either the graphical or simplex method.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Symmetries in nature and art",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Different linear transformations (geometric approach)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Tiling and Tessellations",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Frieze Patterns",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "the Golden Ratio in nature and art",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "Fibonacci Sequence in nature and art",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 7,
+      "text": "Fractals",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Fundamental concepts of matrices and basic operations",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Elementary row operations",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Determinants and their properties",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "Fundamental concepts of linear programming",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "Graphical method",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "Simplex Method",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to contribute to a class exhibit of artworks inspired by geometric symmetries, tessellations, Frieze patterns, the golden ratio, the Fibonacci sequence, or fractals. Each artwork should be accompanied by a description detailing the mathematics involved.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-finite-mathematics-1:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "By the end of the quarter, the learners are able to model real-world situations using matrices and matrix operations. They are also able to formulate linear programming models and solve them using either the graphical or simplex method.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-finite-mathematics-1:period-1:item-1",
@@ -393,8 +704,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "0c7fe1cdd089ca36155cd51e222d170dc03df5f8d2baf115b887f368977d6b57"
+    "competencyPayloadSha256": "21b29c1fe93d70d327fa786459f0e26da06e85b42dfea0849f0d953d0cc20420"
   }
 }

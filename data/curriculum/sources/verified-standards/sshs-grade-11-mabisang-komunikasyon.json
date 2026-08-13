@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-mabisang-komunikasyon",
+  "sourceSha256": "1f9120efeaf6f9e1173195900477936ab2f3911c1da8a9ec3f1ff216932499e1",
+  "sourceFileName": "MABISANG-KOMUNIKASYON-a_o-JUN-9.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 27
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang mabisang komunikasyon sa personal at interpersonal na konteksto sa anyong pasalita, pasulat, at multimodal; nauunawaan nilang ang mga padron ng interaksyon ay naiaangkop at kolaboratibo; at ang pagkakaroon ng tiwala, emosyonal na pagtugon, at pag-unawa sa konteksto ay nagpapalalim ng makakabuluhang ugnayan at pakikipagpalagayang-loob sa malalim na pag-unawa sa pinanggagalingan ng kausap.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagampanan ng mga mag-aaral ang mga tiyak na papel sa mga kontrolado at di-kontroladong personal at interpersonal na sitwasyong komunikatibo; nakalalahok sa komunikasyong intrapersonal, gaya ng pagtatakda ng layunin, pagninilay, at pagsusulat sa talaarawan; nakikibahagi sa malalalim na talakayan tungkol sa mga personal at interpersonal na paksa; nakapagbibigay ng maiikli at mahahabang tugon sa mga tanong kaugnay sa nilalaman at layunin ng usapan at korespondensiya; at nakabubuo ng iba’t ibang anyo ng personal at interpersonal na korespondensiya tulad ng liham, email, text message o chat, at post sa social media.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Pagpapakilala ng sarili at pagpapakilala ng ibang tao sa iba’t ibang uri ng tagpuan (pormal/impormal, online/offline)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "Pagbibigay ng makabuluhang mensahe sa iba’t ibang okasyon",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "Pagpapahayag ng saloobin o nararamdaman nang may pagsasaalang-alang sa damdamin ng iba • Pakikipag-usap nang “puso sa puso” • Pakikilahok sa mga usapang nangangailangan ng aktibong pakikinig at pagkakaroon ng empatiya (hal., pakikiramay at pakikidalamhati, pagbibigay ng eulohiya, atbp.) • Pagsulat ng personal na liham para sa magulang, kaibigan, kamag-anak, at guro gamit ang email • Pagsulat ng Liham-Pakikidalamhati • Pagsulat ng Liham-Pakikiramay • Pagsulat ng dyornal (travel, personal, at repleksiyon) tungkol sa mga pangyayari sa buhay • Pagsulat ng naganap o hinaing tungkol sa di magandang karanasan • Pagsulat ng blotter ng pagrereklamo sa barangay o tanggapan ng pulisya tungkol sa pang-aabusong naganap at personal na hinaing o kaso (Tematikong pagsasalaysay ng mga pangyayari) • Pagsulat ng mga mensahe sa text, email o pahayag na sulat-kamay para sa layuning personal • Pagpapahayag nang angkop ng mga damdamin at papuri • Paglutas sa mga di-pagkakasundo sa pamamagitan ng magalang na pakikipag-usap • Paglikha ng mga digital diary o vlog na nagpapahayag ng mga pansariling karanasan (hal. reels, blogs, vlogs, memes, video diaries, atbp.) • Paggamit ng multimedia sa online conversations mga usapang online (hal., voice notes, GIFs, images, atbp.)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang mabisang komunikasyon sa mga kontekstong sosyal at kultural sa anyong pasalita, pasulat, at multimodal; nauunawaan nilang ang mga padron ng interaksyon ay sumasalamin sa gampaning panlipunan, mga panlipunang pamantayan at dinamika, at kultural na pagkakaiba-iba, at ang pagiging bukas, pagkakaroon ng sensibilidad sa kultura, paggamit ng ingklusibong wika, at mga etikal na konsiderasyon ay nagpapalalim ng pakikipag-ugnayan sa iba’t ibang komunidad at pampubliko at dihital na espasyo.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakikilahok ang mga mag-aaral sa mga sitwasyong komunikatibo na kinabibilangan ng iba’t ibang pangkat sosyal at kultural; nakikibahagi sa mga pormal at di-pormal na ugnayan na nagpapakita ng sensibilidad sa mga pamantayang kultural, panlipunang gampanin at gawi; tumutugon nang may paggalang sa mga pampublikong talakayan hinggil sa mga isyung panlipunan at kultural; at nakabubuo ng mga tekstong pasalita, pasulat, at multimodal gaya ng anunsiyo, opinyon o kolum, naratibong kultural, blogs, at mapagnilay na komentaryong nagtataguyod ng ingklusibo at etikal na komunikasyong panlipunan.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang mabisang komunikasyon sa mga akademiko at pampagsasanay na konteksto sa anyong pasalita, pasulat, at multimodal; nauunawaan nila na ang mga padron ng interaksyon sa ganitong konteksto ay pormal, may estruktura, at batay sa partikular na disiplina, at na ang integridad sa intelektuwal na gawain, tapat at magalang na pagpuna, at ingklusibong wika ay nagpapalalim ng makabuluhang pakikilahok sa mga akademiko at pampagsasanay na konteksto.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ang mga mag-aaral ng mga akademiko at teknikal na tekstong pasalita, pasulat, at multimodal para sa tiyak na layon at awdyens, gaya ng artikulo, ulat-pananaliksik, presentasyon, rebyu, at podcast; nakapaghahanda ng mga tala at listahan ng mapagkakatiwalaang sanggunian bilang batayan ng mga tekstong ito; nailalapat ang mga tekstong ito sa anyong presentasyon na ginagamitan ng di-berbal na komunikasyon at multimedia; at nakapagbibigay ng tugon at nakatatanggap ng puna hinggil sa nilalaman, estruktura, at wika upang mapaunlad ang pagganap.",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Pakikilahok sa mga nakaestrukturang talakayang pangklase o seminar",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "Pagtatanong/pagmumungkahi",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "Pakikilahok sa mga debateng akademiko o talakayang panel",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "Paglalahad ng mga resulta ng saliksik o imbestigatibong ulat sa pulong o kumperensiya",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-6",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 6,
+      "text": "Pagbuo ng kagamitang biswal katulad ng dayagram, tsart, at iba pa sa paglalahad ng kaalaman",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-7",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 7,
+      "text": "Pagsulat ng mga replektibong sanaysay, posisyong papel, o kritisismo",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-8",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 8,
+      "text": "Paggawa ng mga akademikong lagom, abstrak, o reaksiyong papel",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-9",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 9,
+      "text": "Pakikipagkolaborasyon para sa mga pangkatang pagtatanghal o workshop na may feedback",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-10",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 10,
+      "text": "Pagrerekord ng naka-videong sanaysay o pasalitang pagtatanggol ng mga proyekto o tesis",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-3:item-11",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 11,
+      "text": "Pagbuo ng teksto gamit ng podcasts, infographics, o digital newsletters Pagbibigay-kahulugan sa mga akademiko at teknikal na tekstong pasalita, pasulat, at multimodal at kung paano ito hinuhubog ng awdyens, layon, at konteksto Naipamamalas ng mga mag-aaral ang kasanayan sa mabisang komunikasyon sa mga propesyonal at pantrabahong konteksto sa anyong pasalita, pasulat, at multimodal; nauunawaan nila na ang mga padron ng interaksyon ay batay sa konteksto at layon, at maikli; at na ang kalinawan, pormalidad, kaalaman sa hirarkiya, regulasyon ng emosyon, kultural na sensibilidad, at etikal na pananagutan ay nagpapalalim ng mabisang propesyonal at pantrabahong ugnayan. Nakabubuo ang mga mag-aaral ng iba’t ibang uri ng korespondensiya alinsunod sa mga kumbensiyon sa pagsulat; nakagagawa ng mga propesyonal na profiles at resumés na akma sa layon at awdyens; nakasusulat ng mga case studies, panukalang proyekto, at ulat-pangnegosyo; nakapagmumungkahi ng mga lathalang pantrabaho, publikasyong korporatibo, o artikulo para sa industriya alinsunod sa pagkakakilanlan ng organisasyon; at nakikilahok sa makabuluhang mga panayam, pulong, talakayan, at negosasyon. • Pagsulat ng nakaestrukturang mga résumé, cover letter, at liham-aplikasyon para sa trabaho o iskolarsyip • Pagsulat ng Korespondensiya Opisyal para sa iba’t ibang pangangailangan (hal., liham-pagtatanong, liham-kahilingan, liham-pagtanggi, liham-pag-uulat, liham-pagsubaybay, liham-panawagan, liham-pagpapatunay, liham-pakikiramay, liham-pakikidalamhati, atbp.) • Pagsulat ng panawagan o anunsiyong pampubliko • Pagbuo ng personal na profile (hal. LinkedIn, portfolio, at iba pang plataporma para sa propesyonal na networking ) • Pagsasanay para sa interbyu sa trabaho, paglalahad ng ideang pangnegosyo, o pakikipagnetwork • Pagsulat ng mga memo, incident report, o katitikan ng pulong • Pagsulat ng email para sa mga pormal na kahilingan, follow-up, at korespondensiya sa ibang opisina • Pagsasadula ng konsultasyon sa mga kliyente, pagsagot sa tawag ng kliyente, o propesyonal na pagpapakilala • Presentasyong pang-multimedia gamit ang mga propesyonal na app (hal., Canva, Powerpoint, atbp.) • Pagtugon sa feedback o reklamo ng mga kustomer gamit ang pasalita at pasulat na komunikasyon",
+      "sourcePage": 7,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mga mag-aaral ang kasanayan sa mabisang komunikasyon sa mga propesyonal at pantrabahong konteksto sa anyong pasalita, pasulat, at multimodal; nauunawaan nila na ang mga padron ng interaksyon ay batay sa konteksto at layon, at maikli; at na ang kalinawan, pormalidad, kaalaman sa hirarkiya, regulasyon ng emosyon, kultural na sensibilidad, at etikal na pananagutan ay nagpapalalim ng mabisang propesyonal at pantrabahong ugnayan.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nakabubuo ang mga mag-aaral ng iba’t ibang uri ng korespondensiya alinsunod sa mga kumbensiyon sa pagsulat; nakagagawa ng mga propesyonal na profiles at resumés na akma sa layon at awdyens; nakasusulat ng mga case studies, panukalang proyekto, at ulat-pangnegosyo; nakapagmumungkahi ng mga lathalang pantrabaho, publikasyong korporatibo, o artikulo para sa industriya alinsunod sa pagkakakilanlan ng organisasyon; at nakikilahok sa makabuluhang mga panayam, pulong, talakayan, at negosasyon.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Pagsulat ng nakaestrukturang mga résumé, cover letter, at liham-aplikasyon para sa trabaho o iskolarsyip",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "Pagsulat ng Korespondensiya Opisyal para sa iba’t ibang pangangailangan (hal., liham-pagtatanong, liham-kahilingan, liham-pagtanggi, liham-pag-uulat, liham-pagsubaybay, liham-panawagan, liham-pagpapatunay, liham-pakikiramay, liham-pakikidalamhati, atbp.)",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "Pagsulat ng panawagan o anunsiyong pampubliko",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-5",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 5,
+      "text": "Pagbuo ng personal na profile (hal. LinkedIn, portfolio, at iba pang plataporma para sa propesyonal na networking )",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-6",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 6,
+      "text": "Pagsasanay para sa interbyu sa trabaho, paglalahad ng ideang pangnegosyo, o pakikipagnetwork",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-7",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 7,
+      "text": "Pagsulat ng mga memo, incident report, o katitikan ng pulong",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-8",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 8,
+      "text": "Pagsulat ng email para sa mga pormal na kahilingan, follow-up, at korespondensiya sa ibang opisina",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-9",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 9,
+      "text": "Pagsasadula ng konsultasyon sa mga kliyente, pagsagot sa tawag ng kliyente, o propesyonal na pagpapakilala",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-10",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 10,
+      "text": "Presentasyong pang-multimedia gamit ang mga propesyonal na app (hal., Canva, Powerpoint, atbp.)",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-mabisang-komunikasyon:standard:performance:period-4:item-11",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 11,
+      "text": "Pagtugon sa feedback o reklamo ng mga kustomer gamit ang pasalita at pasulat na komunikasyon Nakikinig nang aktibo sa komunikasyong pantrabaho at propesyonal (hal. mga pulong, tawag sa telepono, presentasyon, panuto, atbp.) upang makapagtala ng tumpak at organisadong impormasyon bilang batayan sa pagsasakatuparan ng gawain at sanggunian sa hinaharap Mabisang pakikilahok sa interaktibong komunikasyon sa kontekstong pantrabaho at propesyonal Nakagagamit ng angkop na wika, tono, at estruktura ayon sa awdyens, layon at konteksto sa pagtalakay ng iba’t ibang usaping propesyonal o pantrabaho",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    }
+  ]
+}

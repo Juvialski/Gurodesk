@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 1,
+      "performanceCount": 1,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -22,7 +28,7 @@
     "byteSize": 292449,
     "pageCount": 7,
     "pagesUsed": {
-      "from": 3,
+      "from": 2,
       "to": 4
     },
     "retrievedOn": "2026-08-11"
@@ -77,7 +83,52 @@
       "sortOrder": 3
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of media arts production processes, professional practices, ethical standards, and industry engagement through apprenticeship experiences in media arts within creative industry settings.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates proficiency and professionalism in media arts production through apprenticeship activities and portfolio documentation, reflecting artistic, cultural, and ethical practices within the media arts industry. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates understanding of media arts production processes, professional practices, ethical standards, and industry engagement through apprenticeship experiences in media arts within creative industry settings.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learner demonstrates proficiency and professionalism in media arts production through apprenticeship activities and portfolio documentation, reflecting artistic, cultural, and ethical practices within the media arts industry. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-arts-apprenticeship-media-arts:period-1:item-1",
@@ -131,8 +182,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "1f9f1af588ef7f984f7fbee0359fcab980f3d0b7e92c090e9f87ea5f4670d22b"
+    "competencyPayloadSha256": "2e80c3446821f403346838feccc4ea83c3261b945c72bfda65ae589c697e1348"
   }
 }

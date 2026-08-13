@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-philippine-governance-philippine-politics-and-governance",
+  "sourceSha256": "94569a8e22bae115bfb1932e7baabaa6de9c0cc56b6df08a8018e8ed9b2c058c",
+  "sourceFileName": "Philippine-Governance-Philippine-Politics-and-Governance.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an in-depth understanding of the concept and principles of politics and governance, including the role of political ideologies, the concepts of state and nation, and the significance of the 1987 Constitution in shaping democratic governance, human rights, and the rule of law in the Philippines and the global context.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners critically analyze real-world political and governance issues by applying key concepts such as power, ideology, the state, and constitutional principles through research-based presentations, debates, or advocacy campaigns that reflect democratic values, human rights, and social justice.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate an understanding of the roles, functions, and powers of the executive, legislative, and judicial branches as well as the local government units (LGUs), the principles of separation of powers and checks and balances, decentralization, and the importance of public accountability as a cornerstone of democratic governance.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-philippine-governance-philippine-politics-and-governance:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners evaluate current issues and propose informed solutions (or public policies) that promote democratic values, good governance, and national development",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

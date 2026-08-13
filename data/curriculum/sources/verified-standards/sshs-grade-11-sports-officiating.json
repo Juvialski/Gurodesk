@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-11-sports-officiating",
+  "sourceSha256": "480d688f9d1dd7e1dce24daee20f9a6e88ad2140bf0d7b3b93c19a9967246e17",
+  "sourceFileName": "Sports-Officiating.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 2,
+    "performance": 2
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-sports-officiating:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamental principles and concepts of sports officiating to ensure the seamless and effective management of games and competition.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-officiating:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners evaluate the sports officiating during simulations, games, and competitions, promoting integrity and self-development.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-officiating:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the fundamental principles and concepts of sports officiating to ensure the seamless and effective management of games and competition.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-sports-officiating:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners assess sports officiating during simulations, games, and competitions, promoting integrity and self-development.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ]
+}

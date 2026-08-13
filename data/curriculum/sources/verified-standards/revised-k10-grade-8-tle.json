@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-8-tle",
+  "sourceSha256": "c084380893d493c840baa56882af535ac41581dec7eae6d1a594ed71c428ce90",
+  "sourceFileName": "FINAL MATATAG EPP_TLE CG 2023 Grades 4 - 10.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 15,
+    "performance": 7
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of ICT as a tool for online marketing",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of digital citizenship",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "demonstrate an understanding of ICT-related legal issues",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "demonstrate an understanding of the tools and equipment in ICT",
+      "sourcePage": 80,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D05",
+      "sortOrder": 5,
+      "text": "demonstrate an understanding of software applications",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 6,
+      "text": "demonstrate an understanding of graphic design tools",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-1:item-7",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 7,
+      "text": "demonstrate an understanding of video editing tools",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners create videos with graphics design in a safe and responsible manner",
+      "sourcePage": 81,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D08",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of the concepts and skills in fisheries",
+      "sourcePage": 82,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D21",
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of the concepts and skills in food processing",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform the skills in fisheries following safety precautions",
+      "sourcePage": 86,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners perform recipe quantification in food processing and develop label design for processed products",
+      "sourcePage": 87,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of the concepts of beauty care and wellness services",
+      "sourcePage": 88,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of the principles of drafting patterns in making garments",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "demonstrate an understanding of the principles in making handicrafts",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform hand spa services following safety precautions",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners draft a pattern in making garments following safety precautions",
+      "sourcePage": 89,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners apply principles in making handicrafts following safety precautions",
+      "sourcePage": 90,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D28",
+      "sortOrder": 1,
+      "text": "demonstrate an understanding of the signs and symbols of working drawings",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D29",
+      "sortOrder": 2,
+      "text": "demonstrate an understanding of the types of manuals used in industrial arts services demonstrate an understanding of the consumables and component parts in industrial arts services",
+      "sourcePage": 91,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D31",
+      "sortOrder": 3,
+      "text": "demonstrate an understanding of the concepts and principles in performing simple diagnostics and simple troubleshooting in industrial arts services",
+      "sourcePage": 92,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-tle:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners perform simple diagnostics and simple troubleshooting in industrial arts services",
+      "sourcePage": 93,
+      "verificationStatus": "verified"
+    }
+  ]
+}

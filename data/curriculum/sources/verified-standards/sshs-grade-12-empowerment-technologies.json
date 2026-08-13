@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-empowerment-technologies",
+  "sourceSha256": "c3bcea312609fe19f01d07bd5b5f07eabd2862655fe574e266fe25fff89434ce",
+  "sourceFileName": "Empowerment Technologies.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 5,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "maintaining sustainable, efficient, and secure computer systems, emphasizing Green ICT principles, effective hardware and software maintenance, system optimization, data management, and cybersecurity measures.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D06",
+      "sortOrder": 2,
+      "text": "advanced features and functionalities of digital productivity tools, including word processing, spreadsheets, and presentation software, in creating complex, dynamic, and accessible content for effective",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 3,
+      "text": "communication, collaboration, and problem-solving.",
+      "sourcePage": 5,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D10",
+      "sortOrder": 4,
+      "text": "Artificial Intelligence (AI), Blockchain, IoT, and No-Code AI Development to foster data literacy, ethical awareness, and critical thinking.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D18",
+      "sortOrder": 5,
+      "text": "No-Code web development to foster practical application skills for real-world innovation and future career opportunities.",
+      "sourcePage": 13,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners apply sustainable and efficient ICT practices in maintaining, optimizing, and securing computer systems to minimize environmental impact, ensure data integrity, and enhance system performance through proactive hardware and software management.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners create documents and other digital outputs using advanced features and functionalities of digital productivity tools for effective communication, collaboration, and problem solving.",
+      "sourcePage": 9,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 3,
+      "text": "The learners develop AI-driven models and applications while adhering to ethical guidelines and best practices.",
+      "sourcePage": 12,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-empowerment-technologies:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 4,
+      "text": "The learners develop functional websites using no-code development tools.",
+      "sourcePage": 14,
+      "verificationStatus": "verified"
+    }
+  ]
+}

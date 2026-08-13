@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-2-english",
+  "sourceSha256": "db4a5c2b7389f9237b21ee19873faf9b950fe55b9f0918db336269f112dc897c",
+  "sourceFileName": "FINAL MATATAG English CG 2023 Grades 2-10 (withAppendices).pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 4,
+    "performance": 4
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-2-english:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate phonological awareness and phonic knowledge in decoding developmentally-appropriate words; and understand and create simple sentences to express meaning about oneself, family, and everyday topics.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-english:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use phonological, phonic, and alphabet knowledge to read/write words accurately; decode high frequency words and some content-specific vocabulary; use phrases or simple sentences to express ideas about oneself, family, and everyday topics; and read grade level sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 47,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-english:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate development in decoding high frequency words and content-specific vocabulary; and understand and create simple sentences in getting and expressing meaning about their school and everyday topics.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-english:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing word knowledge to recognize sight words; decode high frequency words and content-specific vocabulary; use simple sentences to express ideas and narrate personal experiences about their school and content-specific topics; and read grade level sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-english:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content-specific vocabulary; and understand and create simple sentences in getting and expressing meaning about their community and content-specific topics.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-english:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing word knowledge to recognize sight words; decode high frequency words and content-specific vocabulary; use simple sentences to express ideas and narrate personal experiences about their community and content-specific topics; and read grade level sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 53,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-english:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding high frequency words and content-specific vocabulary; understand and create simple sentences in getting and expressing meaning about their environment and content-specific topics.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-2-english:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing word knowledge to recognize sight words; decode high frequency words and content-specific vocabulary; use simple sentences to express ideas and narrate personal experiences about their environment and content-specific topics; and read grade level sentences with appropriate speed, accuracy, and expression.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    }
+  ]
+}

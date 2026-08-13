@@ -4,8 +4,8 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained.",
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
     "sourceConsistency": {
       "detailedTableCountsByQuarter": [
         18,
@@ -21,6 +21,12 @@
       ],
       "status": "matched",
       "resolution": "The detailed quarter tables are authoritative for row-level transcription. Where the guide's final summary table differs, every detailed competency row is retained and the variance is explicit."
+    },
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
     }
   },
   "source": {
@@ -133,7 +139,172 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo, kamalayan sa gramatika (denotasyon, konotasyon), pag-unawa sa tekstong naratibo (alamat, pabula, parabula, at anekdota) at tekstong impormatibo (pag-iisa at paglalarawan), paglinang ng mga kasanayang produktibo gamit ang wika, paggamit ng mga elementong biswal sa pagsusuri, paglalarawan, at pagpapakahulugan upang makalikha ng tekstong tumatalakay sa mga paksang patungkol sa lokal na komunidad at bansa na naaangkop sa edad, nagsasaalang-alang sa kasarian, paksa, at kultura batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa pagsasalaysay ng nakawiwiling pangyayari na naglalarawan ng isang lokal na komunidad o bansa na karanasan (anekdota).",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo, kamalayan sa gramatika (denotasyon, konotasyon), pag-unawa sa tekstong naratibo (anekdota, tulang pambata, at kuwentong-bayan) at tekstong impormatibo (paglalahad muli (recount) gaya ng talaarawan at talambuhay ng sarili), paglinang ng mga kasanayang produktibo gamit ang wika, paggamit ng mga elementong biswal sa pagsusuri, paglalarawan, at pagpapakahulugan upang makalikha ng tekstong tumatalakay sa mga paksang patungkol sa lokal na komunidad at bansa na naaangkop sa edad, nagsasaalang-alang sa kasarian, paksa, at kultura batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng salaysay ng karanasan sa isang lokal na komunidad o bansa tungkol sa sarili (talambuhay ng sarili o autobiography).",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo, kamalayan sa gramatika (denotasyon, konotasyon), pag-unawa sa tekstong naratibo (mito, epiko, tulang pambata, at kuwentong kababalaghan) at tekstong impormatibo (paglalahad muli (recount) ng talambuhay (biography) ng taong may makabuluhang ambag sa lipunan), paglinang ng mga kasanayang produktibo gamit ang wika, paggamit ng mga elementong biswal sa pagsusuri, paglalarawan, at pagpapakahulugan upang makalikha ng tekstong tumatalakay sa mga paksang patungkol sa lokal na komunidad at bansa na naaangkop sa edad, nagsasaalang-alang sa kasarian, paksa, at kultura batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng talambuhay ng mga Pilipinong may makabuluhang ambag sa lipunang (recount) lokal o bansa.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo, kamalayan sa gramatika (denotasyon, konotasyon), pag-unawa sa tekstong naratibo (mito, epiko, tulang pambata, at kuwentong kababalaghan) at tekstong impormatibo (pagsusunod-sunod sa panuto, hakbang, at proseso), paglinang ng mga kasanayang produktibo gamit ang wika, paggamit ng mga elementong biswal sa pagsusuri, paglalarawan, at pagpapakahulugan upang makalikha ng tekstong tumatalakay sa mga paksang patungkol sa lokal na komunidad at bansa na naaangkop sa edad, nagsasaalang-alang sa kasarian, paksa, at kultura batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng tulang pambata na nagsasaad ng proseso ng isang gawain sa lokal na komunidad o bansa.",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo, kamalayan sa gramatika (denotasyon, konotasyon), pag-unawa sa tekstong naratibo (alamat, pabula, parabula, at anekdota) at tekstong impormatibo (pag-iisa at paglalarawan), paglinang ng mga kasanayang produktibo gamit ang wika, paggamit ng mga elementong biswal sa pagsusuri, paglalarawan, at pagpapakahulugan upang makalikha ng tekstong tumatalakay sa mga paksang patungkol sa lokal na komunidad at bansa na naaangkop sa edad, nagsasaalang-alang sa kasarian, paksa, at kultura batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo, kamalayan sa gramatika (denotasyon, konotasyon), pag-unawa sa tekstong naratibo (anekdota, tulang pambata, at kuwentong-bayan) at tekstong impormatibo (paglalahad muli (recount) gaya ng talaarawan at talambuhay ng sarili), paglinang ng mga kasanayang produktibo gamit ang wika, paggamit ng mga elementong biswal sa pagsusuri, paglalarawan, at pagpapakahulugan upang makalikha ng tekstong tumatalakay sa mga paksang patungkol sa lokal na komunidad at bansa na naaangkop sa edad, nagsasaalang-alang sa kasarian, paksa, at kultura batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo, kamalayan sa gramatika (denotasyon, konotasyon), pag-unawa sa tekstong naratibo (mito, epiko, tulang pambata, at kuwentong kababalaghan) at tekstong impormatibo (paglalahad muli (recount) ng talambuhay (biography) ng taong may makabuluhang ambag sa lipunan), paglinang ng mga kasanayang produktibo gamit ang wika, paggamit ng mga elementong biswal sa pagsusuri, paglalarawan, at pagpapakahulugan upang makalikha ng tekstong tumatalakay sa mga paksang patungkol sa lokal na komunidad at bansa na naaangkop sa edad, nagsasaalang-alang sa kasarian, paksa, at kultura batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Naipamamalas ng mag-aaral ang kahusayan sa pagpapalawak ng bokabolaryo, kamalayan sa gramatika (denotasyon, konotasyon), pag-unawa sa tekstong naratibo (mito, epiko, tulang pambata, at kuwentong kababalaghan) at tekstong impormatibo (pagsusunod-sunod sa panuto, hakbang, at proseso), paglinang ng mga kasanayang produktibo gamit ang wika, paggamit ng mga elementong biswal sa pagsusuri, paglalarawan, at pagpapakahulugan upang makalikha ng tekstong tumatalakay sa mga paksang patungkol sa lokal na komunidad at bansa na naaangkop sa edad, nagsasaalang-alang sa kasarian, paksa, at kultura batay sa layunin, konteksto, at target na madla.",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa pagsasalaysay ng nakawiwiling pangyayari na naglalarawan ng isang lokal na komunidad o bansa na karanasan (anekdota).",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng salaysay ng karanasan sa isang lokal na komunidad o bansa tungkol sa sarili (talambuhay ng sarili o autobiography).",
+      "sourcePage": 71,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng talambuhay ng mga Pilipinong may makabuluhang ambag sa lipunang (recount) lokal o bansa.",
+      "sourcePage": 75,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-filipino:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Nagagamit ng mag-aaral ang pagkakaroon ng kahusayan sa wastong gramatika, kaangkupan ng salita/retorika, estilo, at estruktura sa paggawa ng tulang pambata na nagsasaad ng proseso ng isang gawain sa lokal na komunidad o bansa.",
+      "sourcePage": 79,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-4-filipino:period-1:item-1",
@@ -857,8 +1028,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "ebb1eed1f4a0db5e67de481f2726ec942beea4e31e38c9e2aeaf12dc3ec8525a"
+    "competencyPayloadSha256": "fc6c8ce66cf5de3655488fa296c1f3c926f0b0138b6e96c3e8cec8b5890d3f02"
   }
 }

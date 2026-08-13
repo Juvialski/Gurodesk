@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 14,
+      "performanceCount": 7,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -297,7 +303,432 @@
       "sortOrder": 40
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "naipamamalas ang pag-unawa sa kahalagahan, bahagi, at basic operation ng computer",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "naipamamalas ang pag-unawa sa digital health and wellness at online security and safety",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "naipamamalas ang pag-unawa sa paggamit ng productivity software",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 4,
+      "text": "naipamamalas ang pag-unawa sa algorithm at basic process flowchart",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay nakagagawa ng iba’t ibang dokumento gamit ang computing devices at productivity tools",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Ang mga mag-aaral ay nakagagawa ng algorithm at basic process flow chart bilang bahagi ng block codin",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "naipamamalas ang pang-unawa sa natural na pamamaraan nang pagtatanim, pangangalaga, pagpaparami, pag-aani, at pagbebenta ng halamang ornamental, gulay, at punong-prutas",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naisasagawa ang natural na pamamaraan nang pagtatanim, pangangalaga, pagpaparami, pag-aani, at pagbebenta ng halamang ornamental, halamang-gulay, at punong-prutas",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 1,
+      "text": "naipamamalas ang pag-unawa sa kahalagahan ng pag-aayos, pangangalaga sa sarili, angkop na pagkilos at pananamit sa panahon ng pagdadalaga at pagbibinata",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D23",
+      "sortOrder": 2,
+      "text": "naipamamalas ang pag-unawa sa mga tungkuling pantahan",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naipapakita ang pag-aayos, pangangalaga sa sarili, angkop na pagkilos, at pananamit sa panahon ng pagdadalaga at pagbibinata",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Ang mga mag-aaral ay naisasagawa ang mga gawaing pantahan nang may pag-iingat",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D31",
+      "sortOrder": 1,
+      "text": "naipamamalas ang mga kaalaman sa mga kasangkapan at materyales sa pagguhit",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D32",
+      "sortOrder": 2,
+      "text": "naipamamalas ang mga kaalaman sa mga kasangkapan at materyales sa pagbuo ng proyekto mula sa recyclable materials",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D33",
+      "sortOrder": 3,
+      "text": "naipamamalas ang kaalaman sa pagsusukat",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D34",
+      "sortOrder": 4,
+      "text": "naipamamalas ang pang-unawa sa basic sketching, outlining, and shading",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D35",
+      "sortOrder": 5,
+      "text": "naipamamalas ang pang-unawa sa pagsulat ng letra gamit ang mga lettering styles at pagguhit ng alphabet of lines",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D37",
+      "sortOrder": 6,
+      "text": "naipamamalas ang pang-unawa sa orthographic at isometric drawing",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-7",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D39",
+      "sortOrder": 7,
+      "text": "naipamamalas ang pang-unawa sa pagre-recycle at pagtutuos ng nabuong proyekto",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naisasagawa ang pagguhit ng free-hand drawing, orthographic, at isometric drawing",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Ang mga mag-aaral ay nakagagawa ng proyekto mula sa recyclable materials na maaring pagkakitaan",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "naipamamalas ang pag-unawa sa kahalagahan, bahagi, at basic operation ng computer",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "naipamamalas ang pag-unawa sa digital health and wellness at online security and safety",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "naipamamalas ang pag-unawa sa paggamit ng productivity software",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D07",
+      "sortOrder": 4,
+      "text": "naipamamalas ang pag-unawa sa algorithm at basic process flowchart",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "naipamamalas ang pang-unawa sa natural na pamamaraan nang pagtatanim, pangangalaga, pagpaparami, pag-aani, at pagbebenta ng halamang ornamental, gulay, at punong-prutas",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D20",
+      "sortOrder": 1,
+      "text": "naipamamalas ang pag-unawa sa kahalagahan ng pag-aayos, pangangalaga sa sarili, angkop na pagkilos at pananamit sa panahon ng pagdadalaga at pagbibinata",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D23",
+      "sortOrder": 2,
+      "text": "naipamamalas ang pag-unawa sa mga tungkuling pantahan",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D31",
+      "sortOrder": 1,
+      "text": "naipamamalas ang mga kaalaman sa mga kasangkapan at materyales sa pagguhit",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D32",
+      "sortOrder": 2,
+      "text": "naipamamalas ang mga kaalaman sa mga kasangkapan at materyales sa pagbuo ng proyekto mula sa recyclable materials",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D33",
+      "sortOrder": 3,
+      "text": "naipamamalas ang kaalaman sa pagsusukat",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D34",
+      "sortOrder": 4,
+      "text": "naipamamalas ang pang-unawa sa basic sketching, outlining, and shading",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D35",
+      "sortOrder": 5,
+      "text": "naipamamalas ang pang-unawa sa pagsulat ng letra gamit ang mga lettering styles at pagguhit ng alphabet of lines",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D37",
+      "sortOrder": 6,
+      "text": "naipamamalas ang pang-unawa sa orthographic at isometric drawing",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:content:period-4:item-7",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D39",
+      "sortOrder": 7,
+      "text": "naipamamalas ang pang-unawa sa pagre-recycle at pagtutuos ng nabuong proyekto",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay nakagagawa ng iba’t ibang dokumento gamit ang computing devices at productivity tools",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Ang mga mag-aaral ay nakagagawa ng algorithm at basic process flow chart bilang bahagi ng block codin",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naisasagawa ang natural na pamamaraan nang pagtatanim, pangangalaga, pagpaparami, pag-aani, at pagbebenta ng halamang ornamental, halamang-gulay, at punong-prutas",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naipapakita ang pag-aayos, pangangalaga sa sarili, angkop na pagkilos, at pananamit sa panahon ng pagdadalaga at pagbibinata",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Ang mga mag-aaral ay naisasagawa ang mga gawaing pantahan nang may pag-iingat",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "Ang mga mag-aaral ay naisasagawa ang pagguhit ng free-hand drawing, orthographic, at isometric drawing",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-epp:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "Ang mga mag-aaral ay nakagagawa ng proyekto mula sa recyclable materials na maaring pagkakitaan",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-4-epp:period-1:item-1",
@@ -831,8 +1262,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "55554cd010999c2b8fba982fa8f19d5cbdc24dddba926313c7193d6afde7b54e"
+    "competencyPayloadSha256": "7f8c9de2de6cb71c0f41d01e6da0ce24318599e1aac2443a212bc6153c8a8c7c"
   }
 }

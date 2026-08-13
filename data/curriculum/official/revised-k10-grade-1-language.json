@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 4,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -132,7 +138,172 @@
       "sortOrder": 7
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-1-language:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate developmentally-appropriate language for interacting with others in the classroom, and expressing meanings about familiar topics; they engage with and enjoy listening to a range of texts; and recognize familiar images, icons, and symbols in their environment.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing vocabulary to talk about themselves, their families, and other everyday topics; they follow teacher’s instructions and answer questions. They listen to and respond to stories; and identify images, icons, and symbols from the environment and familiar texts.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding images, symbols, and content-specific vocabulary; they understand and create simple sentences in getting and expressing meaning about one’s school and everyday topics (narrative and informational); and they recognize features of their language and other languages in their environment.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing vocabulary to communicate with others, respond to instructions, ask questions, and express ideas; and share personal experiences about one’s school and content-specific topics.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding images, symbols, and high-frequency and content-specific vocabulary; they understand and create simple sentences in getting and retelling information from texts, about one’s community and everyday topics (narrative and informational); and they recognize how language reflect cultural practices and norms in their environment.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing vocabulary to communicate with others, record, report ideas and retell information and share personal experiences in relation to the texts they viewed or listened to, their community, and content-specific topics.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding images, symbols, and high-frequency and content-specific vocabulary; they understand and create simple sentences in getting and inferring information from texts and expressing meanings about one’s environment and everyday topics (narrative and informational); and they recognize how languages and culture are interrelated.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing vocabulary to communicate with others, participate in classroom interactions, draw and discuss information from texts; and share personal experiences in relation to the texts they viewed or listened to, their environment, and content-specific topics.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-1-language:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate developmentally-appropriate language for interacting with others in the classroom, and expressing meanings about familiar topics; they engage with and enjoy listening to a range of texts; and recognize familiar images, icons, and symbols in their environment.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding images, symbols, and content-specific vocabulary; they understand and create simple sentences in getting and expressing meaning about one’s school and everyday topics (narrative and informational); and they recognize features of their language and other languages in their environment.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding images, symbols, and high-frequency and content-specific vocabulary; they understand and create simple sentences in getting and retelling information from texts, about one’s community and everyday topics (narrative and informational); and they recognize how language reflect cultural practices and norms in their environment.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate ongoing development in decoding images, symbols, and high-frequency and content-specific vocabulary; they understand and create simple sentences in getting and inferring information from texts and expressing meanings about one’s environment and everyday topics (narrative and informational); and they recognize how languages and culture are interrelated.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-1-language:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing vocabulary to talk about themselves, their families, and other everyday topics; they follow teacher’s instructions and answer questions. They listen to and respond to stories; and identify images, icons, and symbols from the environment and familiar texts.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing vocabulary to communicate with others, respond to instructions, ask questions, and express ideas; and share personal experiences about one’s school and content-specific topics.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing vocabulary to communicate with others, record, report ideas and retell information and share personal experiences in relation to the texts they viewed or listened to, their community, and content-specific topics.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-1-language:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners use their developing vocabulary to communicate with others, participate in classroom interactions, draw and discuss information from texts; and share personal experiences in relation to the texts they viewed or listened to, their environment, and content-specific topics.",
+      "sourcePage": 45,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-1-language:period-1:item-1",
@@ -936,8 +1107,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "5027df125e3e1f3981077a5d1f032006d9d945da6237809a9bc923d39b4aea32"
+    "competencyPayloadSha256": "31d2b2930fce9ee48d40b42e7a2d3e1cedf8e78b35a268b5ae5ac9700cbaf28c"
   }
 }

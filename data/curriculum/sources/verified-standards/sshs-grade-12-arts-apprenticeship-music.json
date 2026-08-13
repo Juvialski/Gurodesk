@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "slug": "sshs-grade-12-arts-apprenticeship-music",
+  "sourceSha256": "99ef7ae56fd4a19685e5d9d7b1b4a79ed9d4e74514814fdcf5ad8d2aeed73c0a",
+  "sourceFileName": "Arts Apprenticeship - Music.pdf",
+  "verificationStatus": "verified",
+  "expectedCounts": {
+    "content": 1,
+    "performance": 1
+  },
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-music:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the roles of music artists, music production processes, professional practices, and ethical standards through apprenticeship experiences within music organizations and creative industry settings.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-arts-apprenticeship-music:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners synthesize apprenticeship experiences that reflect the learner’s musical knowledge and skills in his/her chosen field, emphasizing work ethic through performance and creative documentation. 1",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    }
+  ]
+}

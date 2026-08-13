@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 6,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -67,7 +73,172 @@
       "sortOrder": 1
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Limits and Continuity",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Derivatives and Tangents",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Rules of Differentiation",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Applications of Derivatives",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "Antiderivatives (Indefinite Integrals)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "text": "Definite Integrals and Area",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can analyze and model real-life and mathematical situations by interpreting graphs to describe the behavior and properties of these functions and applying these insights in demonstrating continuity and limits where appropriate. They can apply their understanding of derivatives to solve problems, illustrate tangent lines, and relate derivatives to slopes. The learners also examine the relationship between continuity and differentiability and compute derivatives of algebraic, exponential, and logarithmic functions using basic differentiation rules, the Chain Rule, and implicit differentiation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can interpret and solve problems involving derivatives, related rates, and optimization in practical contexts, such as maximizing profit, minimizing cost, or modeling motion. They can also demonstrate their understanding of antiderivatives and integrals by solving real-life and mathematical problems. The learners can illustrate antiderivatives, explain the relationship between derivatives and antiderivatives, and compute antiderivatives of polynomial, radical, and exponential functions. They can apply the substitution rule to compute antiderivatives and solve related problems. The learners can interpret the definite integral as the limit of Riemann sums and apply the Fundamental Theorem of Calculus to evaluate definite integrals. They can solve problems involving areas of plane regions and apply integration in real-world contexts, such as calculating land area, material usage, and accumulated quantities.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Limits and Continuity",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Derivatives and Tangents",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Rules of Differentiation",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Applications of Derivatives",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "Antiderivatives (Indefinite Integrals)",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:content:period-1:item-6",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 6,
+      "text": "Definite Integrals and Area",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners can analyze and model real-life and mathematical situations by interpreting graphs to describe the behavior and properties of these functions and applying these insights in demonstrating continuity and limits where appropriate. They can apply their understanding of derivatives to solve problems, illustrate tangent lines, and relate derivatives to slopes. The learners also examine the relationship between continuity and differentiability and compute derivatives of algebraic, exponential, and logarithmic functions using basic differentiation rules, the Chain Rule, and implicit differentiation.",
+      "sourcePage": 3,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-12-basic-calculus:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 2,
+      "text": "The learners can interpret and solve problems involving derivatives, related rates, and optimization in practical contexts, such as maximizing profit, minimizing cost, or modeling motion. They can also demonstrate their understanding of antiderivatives and integrals by solving real-life and mathematical problems. The learners can illustrate antiderivatives, explain the relationship between derivatives and antiderivatives, and compute antiderivatives of polynomial, radical, and exponential functions. They can apply the substitution rule to compute antiderivatives and solve related problems. The learners can interpret the definite integral as the limit of Riemann sums and apply the Fundamental Theorem of Calculus to evaluate definite integrals. They can solve problems involving areas of plane regions and apply integration in real-world contexts, such as calculating land area, material usage, and accumulated quantities.",
+      "sourcePage": 4,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-12-basic-calculus:period-1:item-1",
@@ -301,8 +472,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "7d22dbf1404b8c8e05c083c52a940e27d826f74805ba09c065b3ae36b703d925"
+    "competencyPayloadSha256": "ff5831b1050919e4591bc198652afa58f4c2f1cb099efd1816f8e3017172330a"
   }
 }

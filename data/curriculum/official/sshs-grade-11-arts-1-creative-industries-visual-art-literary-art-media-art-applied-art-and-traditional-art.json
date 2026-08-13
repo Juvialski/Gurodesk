@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 2,
+      "performanceCount": 2,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -109,7 +115,92 @@
       "sortOrder": 8
     }
   ],
-  "performanceStandards": [],
+  "standards": [
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the creative industries’ related laws and regulations, practices, applications, and ethical considerations in the local and global contexts of visual, literary, media, applied and/or traditional arts as well as the elements, materials, and techniques, as well as the proper use of materials, tools, equipment, and facilities in production processes.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners execute techniques and skills, as well as the proper use of materials, tools, equipment, and facilities in mounting creative works, in reference to the mapped creative industries in their specific communities as defined by relevant laws within the local and global contexts.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of socio-cultural, historical, and economic contexts of production and distribution of various art disciplines emphasizing visual arts, media, applied arts, literary arts, and/or traditional arts, as a basis for art criticism and review of their works, career opportunities, and entrepreneurial pathways.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners produce various creative works (from visual arts, media, applied arts, literary arts, and/or traditional arts), highlighting the importance of contexts in their meanings and those that reflect its potential applications and impact as aligned with applicable markets and relevant audiences for public exhibition.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of the creative industries’ related laws and regulations, practices, applications, and ethical considerations in the local and global contexts of visual, literary, media, applied and/or traditional arts as well as the elements, materials, and techniques, as well as the proper use of materials, tools, equipment, and facilities in production processes.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners demonstrate understanding of socio-cultural, historical, and economic contexts of production and distribution of various art disciplines emphasizing visual arts, media, applied arts, literary arts, and/or traditional arts, as a basis for art criticism and review of their works, career opportunities, and entrepreneurial pathways.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
+  "performanceStandards": [
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners execute techniques and skills, as well as the proper use of materials, tools, equipment, and facilities in mounting creative works, in reference to the mapped creative industries in their specific communities as defined by relevant laws within the local and global contexts.",
+      "sourcePage": 2,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": null,
+      "sortOrder": 1,
+      "text": "The learners produce various creative works (from visual arts, media, applied arts, literary arts, and/or traditional arts), highlighting the importance of contexts in their meanings and those that reflect its potential applications and impact as aligned with applicable markets and relevant audiences for public exhibition.",
+      "sourcePage": 6,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "sshs-grade-11-arts-1-creative-industries-visual-art-literary-art-media-art-applied-art-and-traditional-art:period-1:item-1",
@@ -193,8 +284,8 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "eec575aed7836032505fa05d40271cdc91feb4f25ffb273d54b5a6f9d2adad95"
+    "competencyPayloadSha256": "31a091e1e7736086528d38559e2a348e264b156a6f4d08a90178eb7e919909bf"
   }
 }
