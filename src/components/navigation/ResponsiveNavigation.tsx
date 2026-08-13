@@ -49,6 +49,7 @@ const moreNavigation: NavigationEntry[] = [
 export type ResponsiveNavigationProps = {
   profile: Profile | null
   onSignOut: () => void | Promise<void>
+  onReplayTour: () => void
 }
 
 function NavigationLink({ entry, onNavigate, className = '' }: { entry: NavigationEntry; onNavigate?: () => void; className?: string }) {
@@ -66,7 +67,7 @@ function NavigationLink({ entry, onNavigate, className = '' }: { entry: Navigati
   )
 }
 
-export function ResponsiveNavigation({ profile, onSignOut }: ResponsiveNavigationProps) {
+export function ResponsiveNavigation({ profile, onSignOut, onReplayTour }: ResponsiveNavigationProps) {
   const location = useLocation()
   const navigate = useNavigate()
   const [moreOpen, setMoreOpen] = useState(false)
@@ -126,6 +127,11 @@ export function ResponsiveNavigation({ profile, onSignOut }: ResponsiveNavigatio
     void onSignOut()
   }
 
+  function handleReplayTour() {
+    setMoreOpen(false)
+    onReplayTour()
+  }
+
   const moreActive = moreOpen || !primaryNavigation.some((entry) => {
     if (entry.to === '/') return location.pathname === '/'
     return location.pathname === entry.to || location.pathname.startsWith(`${entry.to}/`)
@@ -152,6 +158,9 @@ export function ResponsiveNavigation({ profile, onSignOut }: ResponsiveNavigatio
           <button className="nav-item nav-button" type="button" onClick={handleSignOut}>
             <LogOut size={19} aria-hidden="true" /><span>Sign out</span>
           </button>
+          <button className="nav-item nav-button" type="button" onClick={handleReplayTour}>
+            <CircleHelp size={19} aria-hidden="true" /><span>Replay Tour</span>
+          </button>
         </div>
       </aside>
 
@@ -173,6 +182,7 @@ export function ResponsiveNavigation({ profile, onSignOut }: ResponsiveNavigatio
             <div className="mobile-more-links">
               {moreNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} onNavigate={() => setMoreOpen(false)} className="mobile-more-link" />)}
               <button className="mobile-more-link" type="button" onClick={goToAdvancedDiagnostics}><Settings size={19} aria-hidden="true" /><span>Advanced diagnostics</span></button>
+              <button className="mobile-more-link" type="button" onClick={handleReplayTour}><CircleHelp size={19} aria-hidden="true" /><span>Replay Tour</span></button>
             </div>
             <div className="mobile-more-account">
               <div><span className="sidebar-account-avatar">{profile?.fullName?.slice(0, 1).toUpperCase() || 'T'}</span><span><strong>{profile?.fullName || 'Teacher'}</strong><small>{profile?.email || 'Account'}</small></span></div>

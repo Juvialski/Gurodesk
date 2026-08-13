@@ -1,7 +1,8 @@
-import { CircleHelp, FileBarChart, Files } from 'lucide-react'
+import { CircleHelp, FileBarChart, Files, RefreshCw } from 'lucide-react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { useApp } from './contexts/AppContext'
+import { signedInEntryState } from './lib/workspaceEntry'
 import { AssessmentEditorPage } from './pages/AssessmentEditorPage'
 import { AssessmentNewPage } from './pages/AssessmentNewPage'
 import { AssessmentPrintPreviewPage } from './pages/AssessmentPrintPreviewPage'
@@ -29,6 +30,21 @@ import { TosPrintPreviewPage } from './pages/TosPrintPreviewPage'
 
 function LoadingScreen({ label = 'Opening GuroDesk…' }: { label?: string }) {
   return <div className="loading-screen"><span className="loader" /><strong>{label}</strong></div>
+}
+
+function WorkspaceLoadFailure({ onRetry }: { onRetry: () => void | Promise<void> }) {
+  return (
+    <div className="loading-screen workspace-load-failure" role="alert">
+      <section className="panel workspace-load-failure-card">
+        <span className="eyebrow">Workspace unavailable</span>
+        <h1>We couldn’t open your workspace</h1>
+        <p>Check your connection and try again. Your account and saved work have not been changed.</p>
+        <button className="button primary" type="button" onClick={() => void onRetry()}>
+          <RefreshCw size={17} aria-hidden="true" /> Try again
+        </button>
+      </section>
+    </div>
+  )
 }
 
 function WorkspaceRoutes() {
@@ -71,8 +87,10 @@ function WorkspaceRoutes() {
 }
 
 function SignedInExperience() {
-  const { profile } = useApp()
-  if (!profile || !profile.onboardingCompleted) return <OnboardingPage />
+  const { profile, error, refreshWorkspace } = useApp()
+  const entryState = signedInEntryState(profile, error)
+  if (entryState === 'workspace-error') return <WorkspaceLoadFailure onRetry={refreshWorkspace} />
+  if (entryState === 'onboarding') return <OnboardingPage />
   return <WorkspaceRoutes />
 }
 

@@ -1,5 +1,17 @@
 # GuroDesk handover — public-readiness snapshot correction
 
+## 2026-08-13 — CI curriculum repair and first-time teacher tour
+
+The failing curriculum-bundle CI gate was caused by a stale generated seed, not by a validator or schema defect. `supabase/seeds/official-curriculum-complete.sql` was regenerated deterministically from the committed manifests. It now contains 196 source imports, 6,181 competency insert/update pairs, and 2,838 standards (1,635 content plus 1,203 performance) in one transaction. The aggregate manifest SHA-256 is `5be4535de2950c5717394c6e66306677e37de0914baa9265c66d487ba3665580`; the generated seed SHA-256 is `4503403d4e9ee385ebbb6fe3c6a8f6c388b9d8ae784d18555556cc5800a50b0e`. Regenerating a second time produced the same file hash. Grade 7 Mathematics legacy identity compatibility remains intact.
+
+Authenticated teachers who have completed onboarding now receive a seven-step, route-preserving product tour covering the workspace, Classes/Curriculum, Templates/TOS, Assessments, Results, Gemini BYOK settings, and replay. Completion is stored per user in best-effort local storage; storage denial never blocks the workspace. The modal supports Skip, Back, Next, Finish, Escape, focus trapping/restoration, keyboard traversal, touch-sized controls, phone viewport bounds, scroll locking, and reduced-motion behavior. Replay is available in the desktop sidebar and mobile More menu. Existing E2E helpers dismiss the first-run tour so established workflow tests retain their original intent.
+
+First-time entry was also hardened narrowly: a failed profile/workspace load now shows a retry state instead of incorrectly routing to onboarding, and the existing onboarding choice/action layouts stack safely on narrow phones. No assessment/TOS/results behavior, migration, RLS policy, image, SVG, TikZ, diagram, or visual-generation system changed.
+
+Local validation passed all three TypeScript checks, all 37 repository validators, 370 unit tests across 42 files, curriculum bundle and standards-migration checks, deterministic seed integrity checks, and the Vite production bundle. An independent regression review found no blocker. Vite retains its pre-existing non-fatal large-chunk advisory. Database fresh/upgrade tests exited 77 because `psql` is unavailable; integration and Playwright execution correctly refused to run without an isolated local Supabase stack and E2E credentials. Those service-backed gates must pass in CI/staging before production promotion and are not reported as locally green.
+
+Curriculum source status remains 175 source-complete manifests and 21 exact-source-pending manifests. This release does not invent missing source material; the pending set remains an explicit data-completeness follow-up rather than a runtime or CI blocker.
+
 ## 2026-08-13 — Historical TOS/assessment curriculum preservation
 
 Migration `202608130037_preserve_assessment_curriculum_snapshots.sql` fixes the upgrade regression caused when migration 030 legitimately corrects the live Grade 7 Mathematics competency while preserving its UUID. Finalized TOS relational/structured snapshots and each assessment's frozen source-TOS snapshot now remain the authority for historical assessment mappings. Live curriculum wording and provenance are no longer re-read during later draft scoring/content saves.
@@ -10,7 +22,7 @@ Upgrade regression coverage now proves the canonical text/page diverged while th
 
 Local validation passed: `npm ci --no-audit --no-fund` (with a writable temporary npm cache), `npm run typecheck`, `npm run typecheck:tests`, the two targeted Mathematics suites (12 tests), `npm run test:ci` (36 validators and 355 unit tests), and `npm run build` (2,079 modules). `npm run test:db:upgrade` and `npm run test:db:fresh` exited 77 because this workspace has neither Docker nor `psql`; `npm run test:integration` correctly failed closed because no isolated local Supabase credentials were available. Chromium E2E was not run for the same reason. Database, integration, and browser gates must pass in GitHub Actions/local Supabase before production promotion.
 
-Onboarding/mobile-tour implementation was intentionally not started because the database execution gates could not be completed locally. The image/TikZ/SVG/diagram/visual-generation systems were not modified.
+At that earlier checkpoint, onboarding/mobile-tour implementation had not yet started. It is now completed by the newer CI curriculum repair and first-time teacher tour section above. The image/TikZ/SVG/diagram/visual-generation systems remain unmodified.
 
 ---
 

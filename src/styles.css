@@ -229,6 +229,10 @@ tbody tr:last-child td { border-bottom: 0; }
 .loading-screen { min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 13px; color: var(--navy); background: #f7f9fc; }
 .loader { width: 28px; height: 28px; border: 3px solid #dbe6f3; border-top-color: #1766c8; border-radius: 50%; animation: spin .75s linear infinite; }
 .loading-screen strong { font-size: 12px; }
+.workspace-load-failure { padding: 16px; text-align: center; }
+.workspace-load-failure-card { width: min(460px, 100%); padding: 28px; }
+.workspace-load-failure-card h1 { margin-bottom: 10px; color: var(--navy); font-size: clamp(24px, 5vw, 31px); }
+.workspace-load-failure-card p { margin: 0 auto 20px; max-width: 370px; color: var(--muted); font-size: 14px; line-height: 1.6; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .sidebar-backdrop { display: none; }
 
@@ -294,6 +298,12 @@ tbody tr:last-child td { border-bottom: 0; }
   .metric-grid { grid-template-columns: 1fr; }
   .metric-card p { display: block; }
   .onboarding-top .brand-copy small { display: none; }
+}
+
+@media (max-width: 560px) {
+  .onboarding-card .form-footer { align-items: stretch; flex-direction: column-reverse; }
+  .onboarding-card .form-footer > span:empty { display: none; }
+  .onboarding-card .form-footer .button { width: 100%; }
 }
 
 /* Phase 2 — Curriculum Navigator */
@@ -1037,9 +1047,64 @@ button.competency-row.selected .competency-text { color: #244a74; }
 .private-curriculum-onboarding strong { color: var(--navy); font-size: 10px; }
 .private-curriculum-onboarding span { margin-top: 3px; color: #68798c; font-size: 8.5px; line-height: 1.5; }
 .private-curriculum-onboarding .button { flex: 0 0 auto; }
+
+.workflow-onboarding-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.workflow-onboarding-choice,
+.workflow-ready-card {
+  min-width: 0;
+  min-height: 124px;
+  padding: 16px;
+  border: 1px solid #dce5ef;
+  border-radius: 13px;
+  background: #fff;
+  color: #55677c;
+  text-align: left;
+  cursor: pointer;
+}
+.workflow-onboarding-choice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-content: start;
+  gap: 5px 10px;
+}
+.workflow-onboarding-choice svg { grid-row: 1 / span 3; color: #1766c8; }
+.workflow-onboarding-choice strong,
+.workflow-onboarding-choice span,
+.workflow-onboarding-choice small,
+.workflow-ready-card strong,
+.workflow-ready-card span { display: block; min-width: 0; overflow-wrap: anywhere; }
+.workflow-onboarding-choice strong,
+.workflow-ready-card strong { color: var(--navy); font-size: 14px; }
+.workflow-onboarding-choice span,
+.workflow-ready-card span { font-size: 12px; line-height: 1.5; }
+.workflow-onboarding-choice small { color: #8793a3; font-size: 10px; line-height: 1.45; }
+.workflow-onboarding-choice:hover,
+.workflow-ready-card:hover { border-color: #9cbfe1; background: #f8fbff; }
+.workflow-onboarding-choice:disabled,
+.workflow-ready-card:disabled { cursor: not-allowed; opacity: .6; }
+.workflow-ready-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px;
+}
+.workflow-ready-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.workflow-ready-card svg { color: #1766c8; }
+
 @media (max-width: 620px) {
   .private-curriculum-onboarding { align-items: stretch; flex-direction: column; }
   .private-curriculum-onboarding .button { width: 100%; justify-content: center; }
+  .workflow-onboarding-choice-grid,
+  .workflow-ready-actions { grid-template-columns: 1fr; }
+  .workflow-onboarding-choice,
+  .workflow-ready-card { min-height: 0; }
 }
 
 /* Phase 6 — per-key Gemini model availability */
@@ -1308,4 +1373,34 @@ label { font-size: 13px; line-height: 1.35; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* First-time teacher tour */
+.teacher-tour-backdrop { position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(10, 25, 45, .55); }
+.teacher-tour-dialog { width: min(560px, 100%); max-height: min(680px, calc(100vh - 32px)); overflow-x: hidden; overflow-y: auto; padding: 24px; border: 1px solid rgba(255,255,255,.35); border-radius: 20px; background: #fff; box-shadow: 0 24px 70px rgba(11, 30, 56, .3); }
+.teacher-tour-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.teacher-tour-heading .eyebrow { margin-bottom: 3px; color: #1a64ad; }
+.teacher-tour-step-count { margin: 0; color: #7c899b; font-size: 12px; font-weight: 750; }
+.teacher-tour-skip { white-space: nowrap; }
+.teacher-tour-skip-top { min-height: 44px; padding: 8px 4px; border: 0; color: #607188; background: transparent; font-weight: 750; cursor: pointer; }
+.teacher-tour-progress { height: 8px; margin: 19px 0 26px; overflow: hidden; border-radius: 999px; background: #e6edf5; }
+.teacher-tour-progress span { display: block; height: 100%; border-radius: inherit; background: #1766c8; transition: width .2s ease; }
+.teacher-tour-copy h2 { margin: 0 0 10px; color: var(--navy); font-size: clamp(23px, 4vw, 30px); line-height: 1.15; letter-spacing: -.6px; overflow-wrap: anywhere; }
+.teacher-tour-copy h2:focus { outline: 0; }
+.teacher-tour-copy p { margin: 0; color: #596b80; font-size: 15px; line-height: 1.65; overflow-wrap: anywhere; }
+.teacher-tour-destination { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 10px; margin-top: 22px; padding: 13px 14px; border: 1px solid #dbe7f4; border-radius: 12px; background: #f5f9fe; }
+.teacher-tour-destination span { grid-column: 1 / -1; color: #71849b; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+.teacher-tour-destination strong { min-width: 0; color: #1e527f; font-size: 14px; overflow-wrap: anywhere; }
+.teacher-tour-destination code { justify-self: end; max-width: 100%; color: #6d8096; font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; text-align: right; }
+.teacher-tour-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 25px; }
+.teacher-tour-navigation { display: flex; gap: 8px; }
+.teacher-tour-actions .button { min-width: 94px; }
+
+@media (max-width: 560px) {
+  .teacher-tour-backdrop { align-items: flex-end; padding: 0; }
+  .teacher-tour-dialog { width: 100%; max-height: min(760px, calc(100svh - 10px)); padding: 20px 16px max(20px, env(safe-area-inset-bottom)); border-radius: 20px 20px 0 0; }
+  .teacher-tour-copy p { font-size: 14px; }
+  .teacher-tour-actions { align-items: stretch; }
+  .teacher-tour-navigation { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+  .teacher-tour-navigation .button { width: 100%; }
 }

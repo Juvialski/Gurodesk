@@ -17,3 +17,31 @@ test('phone navigation keeps the task-first Home → Create → TOS path usable'
   await expect(appPage).toHaveURL(/\/tos\/new(?:\?.*)?$/)
   await expect(appPage.getByRole('heading', { name: 'New TOS' })).toBeVisible({ timeout: 30_000 })
 })
+
+test('teacher tour stays inside a phone viewport and restores page scrolling', async ({ appPage }) => {
+  await loginAndOpenWorkspace(appPage)
+
+  await appPage.getByRole('button', { name: 'More', exact: true }).click()
+  await appPage.getByRole('dialog', { name: 'More' }).getByRole('button', { name: 'Replay Tour', exact: true }).click()
+  const dialog = appPage.locator('.teacher-tour-dialog')
+  await expect(dialog).toBeVisible()
+  await expect(dialog.getByRole('heading', { name: 'Welcome to GuroDesk' })).toBeVisible()
+  await expect.poll(() => appPage.evaluate(() => document.body.style.overflow)).toBe('hidden')
+
+  for (let step = 0; step < 7; step += 1) {
+    const viewport = appPage.viewportSize()!
+    const bounds = await dialog.boundingBox()
+    expect(bounds).not.toBeNull()
+    expect(bounds!.x).toBeGreaterThanOrEqual(0)
+    expect(bounds!.y).toBeGreaterThanOrEqual(0)
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width + 1)
+    expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height + 1)
+    const pageWidth = await appPage.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, innerWidth }))
+    expect(pageWidth.scrollWidth).toBeLessThanOrEqual(pageWidth.innerWidth)
+    if (step < 6) await dialog.getByRole('button', { name: 'Next', exact: true }).click()
+  }
+
+  await dialog.getByRole('button', { name: 'Finish', exact: true }).click()
+  await expect(dialog).toBeHidden()
+  await expect.poll(() => appPage.evaluate(() => document.body.style.overflow)).toBe('')
+})

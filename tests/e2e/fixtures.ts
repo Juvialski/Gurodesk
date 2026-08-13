@@ -133,6 +133,17 @@ async function completeOnboarding(page: Page) {
   await page.getByRole('button', { name: 'Open workspace', exact: true }).click()
 }
 
+async function dismissTeacherTourIfVisible(page: Page) {
+  const dialog = page.getByRole('dialog', { name: 'Welcome to GuroDesk' })
+  try {
+    await dialog.waitFor({ state: 'visible', timeout: 750 })
+  } catch {
+    return
+  }
+  await dialog.getByRole('button', { name: 'Skip tour', exact: true }).click()
+  await expect(dialog).toBeHidden()
+}
+
 async function ensureGrade7MathematicsAssignment(page: Page) {
   await page.goto('/classes')
   await expect(page.getByRole('heading', { name: 'Classes' })).toBeVisible()
@@ -154,6 +165,7 @@ export async function loginAndOpenWorkspace(page: Page) {
   await page.goto('/')
 
   if (await visible(page, 'heading', /Good (?:morning|afternoon|evening)/i)) {
+    await dismissTeacherTourIfVisible(page)
     await ensureGrade7MathematicsAssignment(page)
     return
   }
@@ -161,6 +173,7 @@ export async function loginAndOpenWorkspace(page: Page) {
   if (await visible(page, 'heading', 'About you')) {
     await completeOnboarding(page)
     await expect(page.getByRole('heading', { name: /Good (?:morning|afternoon|evening)/i })).toBeVisible()
+    await dismissTeacherTourIfVisible(page)
     return
   }
 
@@ -174,6 +187,7 @@ export async function loginAndOpenWorkspace(page: Page) {
   }
 
   await expect(page.getByRole('heading', { name: /Good (?:morning|afternoon|evening)/i })).toBeVisible({ timeout: 30_000 })
+  await dismissTeacherTourIfVisible(page)
   await ensureGrade7MathematicsAssignment(page)
 }
 

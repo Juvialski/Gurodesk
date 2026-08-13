@@ -1,8 +1,11 @@
 import { FileText, GraduationCap } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { useWorkspaceSelection } from '../hooks/useWorkspaceSelection'
 import { useApp } from '../contexts/AppContext'
+import { shouldAutoOpenTeacherTour } from '../lib/teacherTour'
 import { Brand } from './Brand'
+import { TeacherTour } from './TeacherTour'
 import { ResponsiveNavigation } from './navigation/ResponsiveNavigation'
 import { WorkspaceContextBar } from './workspace/WorkspaceContextBar'
 
@@ -29,10 +32,18 @@ export function AppShell() {
   const { profile, assignments, signOut, user } = useApp()
   const location = useLocation()
   const workspace = useWorkspaceSelection(user?.id)
+  const [tourOpen, setTourOpen] = useState(false)
+
+  useEffect(() => {
+    setTourOpen(shouldAutoOpenTeacherTour(user?.id))
+  }, [user?.id])
+
+  const replayTour = useCallback(() => setTourOpen(true), [])
+  const closeTour = useCallback(() => setTourOpen(false), [])
 
   return (
     <div className="app-shell">
-      <ResponsiveNavigation profile={profile} onSignOut={signOut} />
+      <ResponsiveNavigation profile={profile} onSignOut={signOut} onReplayTour={replayTour} />
 
       <div className="app-main">
         <div className="mobile-topbar">
@@ -61,6 +72,7 @@ export function AppShell() {
         </div>
         <main className="content" id="main-content"><Outlet /></main>
       </div>
+      <TeacherTour userId={user?.id ?? null} open={tourOpen} onClose={closeTour} />
     </div>
   )
 }
