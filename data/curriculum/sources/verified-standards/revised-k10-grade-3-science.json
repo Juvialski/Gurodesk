@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-3-science",
+  "sourceSha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+  "sourceFileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+  "verificationStatus": "verified",
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Science is important in understanding how the natural world works.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Using science process skills, simple science equipment, and participating in guided activities leads to better understanding of science.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Physical properties of materials determine their use.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate simple science processes to explore common local materials, their physical properties and uses. They participate in guided science activities including simple measurements using units, such as millimeters, centimeters, and meters. They demonstrate safe handling procedures to use equipment and materials.",
+      "sourcePage": 29,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Using science process skills, simple pieces of science equipment, and participating in guided activities leads to a better understanding of science.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Characteristics of growth, response and reproduction identify living things.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "Body parts of plants and animals enable them to live and grow.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "All living things have the same basic needs that need to be met by their environment.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe the basic needs of living things. They explain how the body parts allow them to carry out their daily activities. They recognize the need to protect the environment to ensure that the basic needs of living things can be met. They observe and measure living and non- living things in their local environment. They make models and collages of living things and their basic needs.",
+      "sourcePage": 30,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Objects that change position encounter a push or a pull.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Using science processes and curiosity is important in understanding how objects move.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Light and sound are examples of energy that affect daily life.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "People can modify light and sound to make them useful.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners use everyday language to explore, describe, and make suggestions about simple movements of objects. They identify and explore sources of light and sound in their local environment and suggest how to use them safely in their lives. Learners apply their curiosity in the world around them and their creativity to propose solutions to simple challenges.",
+      "sourcePage": 31,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Non-living things found in the environment are the sources of useful products.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "Weather affects our daily activities and may pose threats to health and safety.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "The natural objects in the sky affect the activities of people.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-3-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners explore their immediate neighborhood to locate and describe useful non-living things that can be used by people to produce useful materials and objects. They learn through guided activities to make safe and careful observations of natural objects in the sky and demonstrate scientific ways of recording observations to reveal patterns in nature.",
+      "sourcePage": 32,
+      "verificationStatus": "verified"
+    }
+  ]
+}

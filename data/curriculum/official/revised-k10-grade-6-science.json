@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, sequence, period/domain relationships, and PDF page provenance are retained. Science standards were recovered without changing competency identities.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 18,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -103,7 +109,48 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-6-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate an understanding of the benefits of various separation techniques. They use diagrams and flowcharts to describe changes of state. They use the words reversible and irreversible to describe changes to materials. They demonstrate skills in the use of equipment. They recognize and apply their understanding of the features of a fair test.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate an understanding of the different ways that plants reproduce. Plan a simple scientific investigation to determine which method works best in a given habitat. They describe and provide examples of vertebrates as animals with a backbone and invertebrates as animals that do not have a backbone. They design an example of a food web showing the role of consumers, producers, scavengers, and decomposers. They identify the technical terms biotic and abiotic as referring to living and non-living things.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate objective inquiry by carrying out investigations to critically observe patterns and systems scientifically. They support their observations and conclusions using secondary sources to explain occurrences and concepts using technical scientific language. They use critical thinking skills and creativity to make models and other devices to communicate their understanding to other people.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners appreciate that volcanoes can have unexpected and severe impacts on communities and that the uncertainty and impacts of unpredicted eruptions can be offset by understanding and following alerts from authorities. Learners appreciate weather patterns that produce seasons that are largely predictable, and they use models to scientifically understand and describe natural processes and timing that can be relied upon, such as the changes of season. Learners identify that scientific models are valuable in explaining other observations of patterns in nature, such as the apparent movement of celestial objects across the sky. They exhibit respect for cultures and interpretations of natural phenomena by indigenous people over generations and balance that with respect for explaining phenomena using scientific inquiry and objectivity.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-6-science:period-1:item-1",
@@ -477,8 +524,412 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "f194efdafcd6874b8e4125d9806afb22dbd2ac70bb97c85720f56559fb4d4928"
-  }
+    "competencyPayloadSha256": "523c9b563a90e23a36783e77571cd62f7201f0b836d92522ed6c155210089a48"
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Diagrams and flowcharts demonstrate processes involving heat energy and changes of state.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Changes in materials can be either reversible or irreversible.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Mixtures and the products of their separation techniques are very useful in our daily lives.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Scientific investigations need to satisfy the features of a fair test and use accurate and reliable measurements.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate an understanding of the benefits of various separation techniques. They use diagrams and flowcharts to describe changes of state. They use the words reversible and irreversible to describe changes to materials. They demonstrate skills in the use of equipment. They recognize and apply their understanding of the features of a fair test.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Animals have systems that help them grow, respond, and reproduce.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "There are several modes of reproduction in plants.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "To be valid and reliable, scientific investigations need to include fair tests and multiple trials.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Animals can be grouped as vertebrates or invertebrates based on their characteristics.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "Producers, consumers, scavengers, and decomposers have important roles in food webs.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "Interactions within an ecosystem can have important impacts on the living things within it.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate an understanding of the different ways that plants reproduce. Plan a simple scientific investigation to determine which method works best in a given habitat. They describe and provide examples of vertebrates as animals with a backbone and invertebrates as animals that do not have a backbone. They design an example of a food web showing the role of consumers, producers, scavengers, and decomposers. They identify the technical terms biotic and abiotic as referring to living and non-living things.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Simple machines allow people to change the direction and size of forces.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Waves transfer energy between source and receiver.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Science processes and concepts help solve everyday problems.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners demonstrate objective inquiry by carrying out investigations to critically observe patterns and systems scientifically. They support their observations and conclusions using secondary sources to explain occurrences and concepts using technical scientific language. They use critical thinking skills and creativity to make models and other devices to communicate their understanding to other people.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Volcanoes are vents from which molten rock from Earth’s crust erupts onto the surface releasing pressure and gases.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "The Philippine volcanoes can violently and unpredictably erupt lava, ash, and ballistic projectiles.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "Weather and climate have predictable patterns throughout the year, which affect human activities.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "The revolution and the rotation of the Earth demonstrate observable patterns.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "Constellations are patterns of stars in the sky.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners appreciate that volcanoes can have unexpected and severe impacts on communities and that the uncertainty and impacts of unpredicted eruptions can be offset by understanding and following alerts from authorities. Learners appreciate weather patterns that produce seasons that are largely predictable, and they use models to scientifically understand and describe natural processes and timing that can be relied upon, such as the changes of season. Learners identify that scientific models are valuable in explaining other observations of patterns in nature, such as the apparent movement of celestial objects across the sky. They exhibit respect for cultures and interpretations of natural phenomena by indigenous people over generations and balance that with respect for explaining phenomena using scientific inquiry and objectivity.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Diagrams and flowcharts demonstrate processes involving heat energy and changes of state.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Changes in materials can be either reversible or irreversible.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Mixtures and the products of their separation techniques are very useful in our daily lives.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "Scientific investigations need to satisfy the features of a fair test and use accurate and reliable measurements.",
+      "sourcePage": 41,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Animals have systems that help them grow, respond, and reproduce.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "There are several modes of reproduction in plants.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "To be valid and reliable, scientific investigations need to include fair tests and multiple trials.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Animals can be grouped as vertebrates or invertebrates based on their characteristics.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "Producers, consumers, scavengers, and decomposers have important roles in food webs.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "Interactions within an ecosystem can have important impacts on the living things within it.",
+      "sourcePage": 42,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Simple machines allow people to change the direction and size of forces.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Waves transfer energy between source and receiver.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Science processes and concepts help solve everyday problems.",
+      "sourcePage": 43,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Volcanoes are vents from which molten rock from Earth’s crust erupts onto the surface releasing pressure and gases.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "The Philippine volcanoes can violently and unpredictably erupt lava, ash, and ballistic projectiles.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "Weather and climate have predictable patterns throughout the year, which affect human activities.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "The revolution and the rotation of the Earth demonstrate observable patterns.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-science:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "Constellations are patterns of stars in the sky.",
+      "sourcePage": 44,
+      "verificationStatus": "verified"
+    }
+  ]
 }

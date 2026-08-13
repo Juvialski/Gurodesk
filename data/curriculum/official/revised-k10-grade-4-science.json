@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, sequence, period/domain relationships, and PDF page provenance are retained. Science standards were recovered without changing competency identities.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 17,
+      "performanceCount": 4,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -117,7 +123,48 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-4-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe chemical properties of materials and changes to them. They demonstrate an understanding that science processes can solve everyday problems and use creativity and determination to provide examples. They exhibit objectivity and open-mindedness in gathering information related to environmental issues and concerns in the community.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners identify that plants and animals have systems whose function is to keep them alive. They observe, describe, and create representations to show how living things interact with their habitat, survive, and reproduce in specific environments. They use flowcharts to show the feeding relationship among different organisms within a given environment.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners use simple equipment and processes to measure and record data related to movement and describe and predict the way things around them move using more scientifically technical language and concepts, such as speed and force. They demonstrate an understanding that science processes are used to gain deeper understanding about forces and energy that cannot be seen directly, including the properties of magnet, light, sound, and heat. Learners apply their observation skills and objectivity to identify where energy is evident in their local communities and how it is used by people.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners use simple equipment to identify how types of soil hold water to support the growth of plants. They use instruments and secondary sources to measure and describe the characteristics of weather and use the information to make predictions about weather patterns in their local area. They demonstrate appreciation for the dangers of extreme weather events and use safe practice to protect themselves if they are caught in bad weather. Learners use personal observations and reliable secondary information sources to describe the Sun and explain its importance to life on Earth.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-4-science:period-1:item-1",
@@ -451,8 +498,392 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "9464168e476d6e66f85cb7e0eba30b3c60b994a0a4813b128f6ecb5e805e731b"
-  }
+    "competencyPayloadSha256": "2e2108466c59f8e4a82a6e6f0157bb679ba8a2b6a686e583d670d3c03b279351"
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Science inventions have brought about major changes to our daily lives.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Chemical properties of materials determine their uses.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Communication skills and open mindedness are needed in solving environmental issues.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe chemical properties of materials and changes to them. They demonstrate an understanding that science processes can solve everyday problems and use creativity and determination to provide examples. They exhibit objectivity and open-mindedness in gathering information related to environmental issues and concerns in the community.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Animals and plants have systems that function to keep them alive.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Animals and plants live in habitats that meet their basic needs.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "Animals have life cycles that include development and reproduction.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Animals can be grouped according to the food that they eat.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "Food chains show a series of living things that depend on each other for food.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "Using drawings, tables, and flowcharts is an important skill in learning science concepts and in learning about science processes.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners identify that plants and animals have systems whose function is to keep them alive. They observe, describe, and create representations to show how living things interact with their habitat, survive, and reproduce in specific environments. They use flowcharts to show the feeding relationship among different organisms within a given environment.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Science processes help in observing and predicting how things move.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Pushes and pulls can change the position and shape of objects.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Gathering scientific information helps explain the behavior of objects and materials.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "Magnets affect some objects and materials without touching them.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "Energy is present whenever there is movement, sound, light, or heat.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners use simple equipment and processes to measure and record data related to movement and describe and predict the way things around them move using more scientifically technical language and concepts, such as speed and force. They demonstrate an understanding that science processes are used to gain deeper understanding about forces and energy that cannot be seen directly, including the properties of magnet, light, sound, and heat. Learners apply their observation skills and objectivity to identify where energy is evident in their local communities and how it is used by people.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Soil and water resources are needed by plants and animals to live and grow.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "Characteristics of the weather can be observed and measured.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "The Sun is a ball of hot gases about 100 times the size of Earth, which radiates light energy needed by living things.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners use simple equipment to identify how types of soil hold water to support the growth of plants. They use instruments and secondary sources to measure and describe the characteristics of weather and use the information to make predictions about weather patterns in their local area. They demonstrate appreciation for the dangers of extreme weather events and use safe practice to protect themselves if they are caught in bad weather. Learners use personal observations and reliable secondary information sources to describe the Sun and explain its importance to life on Earth.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Science inventions have brought about major changes to our daily lives.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Chemical properties of materials determine their uses.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Communication skills and open mindedness are needed in solving environmental issues.",
+      "sourcePage": 33,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Animals and plants have systems that function to keep them alive.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Animals and plants live in habitats that meet their basic needs.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "Animals have life cycles that include development and reproduction.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Animals can be grouped according to the food that they eat.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "Food chains show a series of living things that depend on each other for food.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "Using drawings, tables, and flowcharts is an important skill in learning science concepts and in learning about science processes.",
+      "sourcePage": 34,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Science processes help in observing and predicting how things move.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Pushes and pulls can change the position and shape of objects.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Gathering scientific information helps explain the behavior of objects and materials.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "Magnets affect some objects and materials without touching them.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "Energy is present whenever there is movement, sound, light, or heat.",
+      "sourcePage": 35,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Soil and water resources are needed by plants and animals to live and grow.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "Characteristics of the weather can be observed and measured.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-4-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "The Sun is a ball of hot gases about 100 times the size of Earth, which radiates light energy needed by living things.",
+      "sourcePage": 36,
+      "verificationStatus": "verified"
+    }
+  ]
 }

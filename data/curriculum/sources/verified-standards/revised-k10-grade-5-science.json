@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-5-science",
+  "sourceSha256": "7bb2a1398893b7805e4b89df2070242681c6338d2515a362323f416bc330b9f2",
+  "sourceFileName": "FINAL MATATAG Science CG 2023 Grades 3-10.pdf",
+  "verificationStatus": "verified",
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "Scientists identify three states of matter based on shape and volume.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "Temperature can cause changes of state.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "Planned simple scientific investigations require several steps and processes.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "An understanding of matter can be applied to solve real world problems.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe three states of matter based on properties of shape and volume and identify that heat is involved in changes of state. They plan a simple scientific investigation following appropriate steps and using units such as milliliters, liters, grams, kilograms, and degrees Celsius for measuring.",
+      "sourcePage": 37,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "Animals have systems that help them grow, respond, and reproduce.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "Living things can be grouped as plants, animals, and microorganisms based on their characteristics.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "The life cycles of plants and animals allow them to survive and reproduce.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "Plants have specialized structures that help them overcome unfavorable conditions.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners describe and create models of the body systems whose function is to help humans grow, develop, and reproduce. They use tables to group living things as plants, animals, or microorganisms. They use skills of observation, predicting, measuring, and recording to plan and carry out a simple activity to observe the life cycle of a plant and compare it to the life cycles of animals.",
+      "sourcePage": 38,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "Science investigations provide evidence to support predictions and explanations.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "Forces are pushes or pulls that act in a specific direction.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "Friction is an everyday force created by two surfaces interacting.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "Gravity causes all objects to fall towards the ground.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 5,
+      "text": "Static electricity occurs when some materials rub on other materials causing charges to jump.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-3:item-6",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 6,
+      "text": "Electric current requires a pathway for charges to flow.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners use objectivity and measurement to carry out scientific investigations using fair tests and multiple trials to explore how forces influence the movement of familiar objects and extend their understanding to predict how gravity affects objects on Earth. They plan and carry out valid and reliable scientific investigations to explore frictional forces by identifying and controlling variables. They observe and describe basic features of static electricity and electric current through practical activities and use their understanding and interest to explain and show appreciation for some applications of forces and electrical energy in the home and community.",
+      "sourcePage": 39,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "Landforms influence living and non-living components of the environment.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "Rocks are composed of grains of minerals that break down to form soil.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "Weathering and erosion shape the Earth’s surface by breaking down and transporting rocks.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "The Water Cycle includes processes of evaporation, precipitation and transportation.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-4:item-5",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 5,
+      "text": "Weather disturbances feature low pressure, strong winds, and storms.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-4:item-6",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 6,
+      "text": "The planets and moons vary in physical features and composition.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:content:period-4:item-7",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 7,
+      "text": "Phases of the Moon depend on its position relative to Earth and Sun.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-5-science:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "By the end of the Quarter, learners relate changes in landforms and earth materials to processes and effects of the water cycle. They explain causes and impacts of extreme weather and identify appropriate and safe ways to respond to such events. They demonstrate curiosity as they make detailed observations guided by science classification systems and demonstrate creativity in communicating information about earth processes to other people. They show an appreciation of the scale of space in describing the features of the solar system and use models to communicate significant relationships and movements.",
+      "sourcePage": 40,
+      "verificationStatus": "verified"
+    }
+  ]
+}
