@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 15,
+      "performanceCount": 15,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -98,7 +104,158 @@
       "sortOrder": 3
     }
   ],
-  "performanceStandards": [],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "tessellate a surface using different shapes. (MG)",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "perform the four operations with decimals. (NA)",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "perform the four operations with different combinations of fractions, whole numbers, and mixed numbers. (NA)",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "describe and apply the concepts of ratio and proportion. (NA)",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "relate percentages to fractions and decimals. (NA)",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "evaluate, and perform calculations with, numbers expressed in exponential form. (NA)",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "convert between units of volume and capacity. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "find the volume of cubes and rectangular prisms. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "find the perimeter and area of triangles, parallelograms, trapezoids, and composite figures composed of triangles, squares, and rectangles. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "describe the parts of a circle. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "use pi (π) to calculate the circumference of a circle. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "find the area of a circle. (MG)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "find the area of composite figures composed of any two or more of: triangle, square, rectangle, circle, semi-circle. (MG)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "construct and interpret pie graphs. (DP)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "find common factors, greatest common factors, common multiples, and least common multiples. (NA)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-6-mathematics:period-1:item-1",
@@ -622,8 +779,462 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "f6415178b5dd21cbe9da63d523ae6fda70ffdd06661bb3ff9836a3bd7f60eb5a"
-  }
+    "competencyPayloadSha256": "e152be1b147492087f165739eada634b0c29ca918e6a1e9e551505f8c44c252b"
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "tessellation of shapes.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "translation, reflection and rotation with shapes",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "the four operations with decimals.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "the four operations with different combinations of fractions, whole numbers, and mixed numbers.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "tessellate a surface using different shapes. (MG)",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "perform the four operations with decimals. (NA)",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "perform the four operations with different combinations of fractions, whole numbers, and mixed numbers. (NA)",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "ratio and proportion.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "percentages, and their relationships with fractions and decimals.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "exponential form, including calculation using the GEMDAS rules.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "describe and apply the concepts of ratio and proportion. (NA)",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "relate percentages to fractions and decimals. (NA)",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "evaluate, and perform calculations with, numbers expressed in exponential form. (NA)",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "units of volume and capacity.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "volume of cubes and rectangular prisms.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "perimeter and area of triangles, parallelograms, trapezoids, and composite figures composed of triangles, squares, and rectangles.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "parts of a circle, including circumference.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "convert between units of volume and capacity. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "find the volume of cubes and rectangular prisms. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "find the perimeter and area of triangles, parallelograms, trapezoids, and composite figures composed of triangles, squares, and rectangles. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "describe the parts of a circle. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 5,
+      "text": "use pi (π) to calculate the circumference of a circle. (MG)",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "area of a circle",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "composite figures composed of any two or more of: triangle, square, rectangle, circle, semi-circle.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "pie graphs.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "common factors, greatest common factors, common multiples, and least common multiples.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "find the area of a circle. (MG)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "find the area of composite figures composed of any two or more of: triangle, square, rectangle, circle, semi-circle. (MG)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "construct and interpret pie graphs. (DP)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "find common factors, greatest common factors, common multiples, and least common multiples. (NA)",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "tessellation of shapes.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "translation, reflection and rotation with shapes",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "the four operations with decimals.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "the four operations with different combinations of fractions, whole numbers, and mixed numbers.",
+      "sourcePage": 48,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "ratio and proportion.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "percentages, and their relationships with fractions and decimals.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "exponential form, including calculation using the GEMDAS rules.",
+      "sourcePage": 49,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "units of volume and capacity.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "volume of cubes and rectangular prisms.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "perimeter and area of triangles, parallelograms, trapezoids, and composite figures composed of triangles, squares, and rectangles.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D01",
+      "sortOrder": 4,
+      "text": "parts of a circle, including circumference.",
+      "sourcePage": 50,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "area of a circle",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "composite figures composed of any two or more of: triangle, square, rectangle, circle, semi-circle.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "pie graphs.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-6-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "common factors, greatest common factors, common multiples, and least common multiples.",
+      "sourcePage": 51,
+      "verificationStatus": "verified"
+    }
+  ]
 }
