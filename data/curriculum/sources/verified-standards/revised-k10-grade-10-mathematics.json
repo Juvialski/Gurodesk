@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "slug": "revised-k10-grade-10-mathematics",
+  "sourceSha256": "aee8e63e6136e6c4ea7c90649a35e21c824c7db79c279f9f41e324f2e8118eac",
+  "sourceFileName": "FINAL MATATAG Mathematics CG 2023 Grades 1-10.pdf",
+  "verificationStatus": "verified",
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "the laws of sines and the laws of cosines.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "translations, reflections, and rotations, in the Cartesian plane.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "quadratic inequalities in one variable and in two variables.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "absolute value equations and inequalities in one variable and their graphs.",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "box-and-whisker plots, and cumulative frequency histograms and polygons.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "quartiles, deciles, and percentiles; interquartile range, and outliers.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "radical expressions.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "the roots of a quadratic equation.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "quadratic functions.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-2:item-6",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "equations reducible to quadratic equations.",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "equation of a circle and the graph of a circle.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "evaluation of statistical reports.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "union and intersection of events, dependent and independent events, and complementary events.",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "simple interest, compound interest, and depreciation.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "central angles; inscribed angles; and angles and lengths formed by intersecting chords, secants, and tangents of a circle.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "sectors and segments of a circle, and their areas.",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "find sides and angles in oblique triangles using the laws of sines and the laws of cosines. (MG)",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "describe translations, reflections, and rotations in the Cartesian plane. (MG)",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "solve and graph the solutions of quadratic inequalities in one variable and in two variables. (NA)",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "solve absolute value equations in one variable and absolute value inequalities in one variable, and graph the solutions. (NA)",
+      "sourcePage": 65,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 1,
+      "text": "construct and interpret box-and-whisker plots, and cumulative frequency histograms and polygons. (DP)",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "calculate quartiles, deciles, and percentiles; interquartile range, and outliers. (DP)",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "simplify, and perform operations, involving radical expressions. (NA)",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "determine the nature of roots of a quadratic equation. (NA)",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "determine the equation of a quadratic function. (NA)",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-2:item-6",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "solve equations reducible to quadratic equations and radical equations. (NA)",
+      "sourcePage": 66,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "transform the equation of a circle from center-radius form to general form, and vice versa, and determine the center and radius from a given equation. (NA)",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "graph a circle from a given equation of the circle. (NA)",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "evaluate statistical reports. (DP)",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "calculate probabilities in relation to union and intersection of events; dependent and independent events; and complementary events. (DP)",
+      "sourcePage": 67,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "calculate compound interest and depreciation. (NA)",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 2,
+      "text": "apply properties and relationships of central angles, inscribed angles, chords, secants, and tangents of circles. (MG)",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-10-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D01",
+      "sortOrder": 3,
+      "text": "define sectors and segments of a circle, and find their areas. (MG)",
+      "sourcePage": 68,
+      "verificationStatus": "verified"
+    }
+  ]
+}

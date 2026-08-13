@@ -4,8 +4,14 @@
   "verification": {
     "status": "verified",
     "verifiedOn": "2026-08-11",
-    "method": "deterministic table extraction with structural source checks",
-    "notes": "Competency text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period, and PDF page provenance are retained."
+    "method": "deterministic table extraction with structural source checks and source-pinned verified standards extraction",
+    "notes": "Competency and standard text is transcribed from the pinned official source file. Whitespace is normalized; source wording, codes, sequence, period/domain relationships, and PDF page provenance are retained.",
+    "standardsCoverage": {
+      "status": "verified",
+      "contentCount": 19,
+      "performanceCount": 20,
+      "sourcePinned": true
+    }
   },
   "source": {
     "sourceType": "curriculum_guide",
@@ -110,7 +116,208 @@
       "sortOrder": 4
     }
   ],
-  "performanceStandards": [],
+  "performanceStandards": [
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "determine measures of central tendency of ungrouped data and use the measures to draw conclusions. (DP)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "add and subtract monomials, and multiply combinations of monomials, binomials, and multinomials. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "obtain special binomial products. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "factorize different types of polynomials. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "simplify, and operate with, rational algebraic expressions and solve simple rational algebraic equations. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-6",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "obtain the rule for finding the next term in a sequence. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "plot points, find the distance between two points, and find the midpoint of line segments, on the Cartesian coordinate plane. (NA)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "finds the volume of pyramids other than square and rectangular pyramids, and the volumes of cones and spheres. (MG)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "use the Pythagorean theorem to find sides in right triangles and its converse to classify triangles. (MG)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "use the triangle inequality theorems to establish results for angles and sides in triangles. (MG)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "solve financial problems involving earning money, profit and loss, “best buys,” and buying on terms. (NA)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "solve linear equations and linear inequalities in one variable. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "graph linear inequalities in one variable. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "graph linear equations in two variables. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "solve a system of linear equations graphically and algebraically. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "use linear inequalities in two variables in the solution of problems. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "calculate measures of variability for ungrouped data. (DP)",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "interpret and analyze graphs from primary and secondary data. (DP)",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "determine the number of possible outcomes of an experiment using the Fundamental Counting Principle. (DP)",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "calculate the probability of a single event and the probability of simple combined events. (DP)",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    }
+  ],
   "competencies": [
     {
       "recordId": "revised-k10-grade-8-mathematics:period-1:item-1",
@@ -624,8 +831,592 @@
     }
   ],
   "integrity": {
-    "extractorVersion": "official-curriculum-v1",
+    "extractorVersion": "official-curriculum-v2",
     "normalization": "Unicode NFC; whitespace normalized; source wording retained",
-    "competencyPayloadSha256": "ab446fda1b48f3e1ba6abaebf025d6c971a21b609da0a3b913427f60b914d539"
-  }
+    "competencyPayloadSha256": "c281cbbfb534792a6c8f5e870cf199dc9200261bcb1bc8f1bc1a017366f1ca37"
+  },
+  "standards": [
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "measures of central tendency of ungrouped data.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "algebraic expressions and operations with monomials, binomials, and multinomials.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "special products for binomials, and factorization of polynomials.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "rational algebraic expressions and equations.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "rules for obtaining terms in sequences.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "plotting points, and finding distance and the midpoint of line segments on the Cartesian coordinate plane.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "volume of pyramids (other than square and rectangular pyramids), cones, and spheres.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "the Pythagorean Theorem.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "triangle inequality theorems.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "earning money, profit and loss, ‘best buys’, buying on terms.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "linear equations in one variable.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "linear inequalities in one variable and their graphs.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "linear equations in two variables and their graphs.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "systems of linear equations in two variables.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "linear inequalities in two variables.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "measures of variability for ungrouped data.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "interpretation and analysis of graphs from primary and secondary data.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "experimental and theoretical probability.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "the Fundamental Counting Principle.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-1",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "determine measures of central tendency of ungrouped data and use the measures to draw conclusions. (DP)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-2",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "add and subtract monomials, and multiply combinations of monomials, binomials, and multinomials. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-3",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "obtain special binomial products. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-4",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "factorize different types of polynomials. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-5",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "simplify, and operate with, rational algebraic expressions and solve simple rational algebraic equations. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-1:item-6",
+      "type": "performance",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 6,
+      "text": "obtain the rule for finding the next term in a sequence. (NA)",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-1",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "plot points, find the distance between two points, and find the midpoint of line segments, on the Cartesian coordinate plane. (NA)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-2",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "finds the volume of pyramids other than square and rectangular pyramids, and the volumes of cones and spheres. (MG)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-3",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "use the Pythagorean theorem to find sides in right triangles and its converse to classify triangles. (MG)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-4",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "use the triangle inequality theorems to establish results for angles and sides in triangles. (MG)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-2:item-5",
+      "type": "performance",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "solve financial problems involving earning money, profit and loss, “best buys,” and buying on terms. (NA)",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-1",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "solve linear equations and linear inequalities in one variable. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-2",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "graph linear inequalities in one variable. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-3",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "graph linear equations in two variables. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-4",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "solve a system of linear equations graphically and algebraically. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-3:item-5",
+      "type": "performance",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "use linear inequalities in two variables in the solution of problems. (NA)",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-4:item-1",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "calculate measures of variability for ungrouped data. (DP)",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-4:item-2",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "interpret and analyze graphs from primary and secondary data. (DP)",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-4:item-3",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "determine the number of possible outcomes of an experiment using the Fundamental Counting Principle. (DP)",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:performance:period-4:item-4",
+      "type": "performance",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "calculate the probability of a single event and the probability of simple combined events. (DP)",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    }
+  ],
+  "contentStandards": [
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-1",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D01",
+      "sortOrder": 1,
+      "text": "measures of central tendency of ungrouped data.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-2",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "algebraic expressions and operations with monomials, binomials, and multinomials.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-3",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "special products for binomials, and factorization of polynomials.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-4",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "rational algebraic expressions and equations.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-1:item-5",
+      "type": "content",
+      "quarter": 1,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "rules for obtaining terms in sequences.",
+      "sourcePage": 56,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-1",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "plotting points, and finding distance and the midpoint of line segments on the Cartesian coordinate plane.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-2",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 2,
+      "text": "volume of pyramids (other than square and rectangular pyramids), cones, and spheres.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-3",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 3,
+      "text": "the Pythagorean Theorem.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-4",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D03",
+      "sortOrder": 4,
+      "text": "triangle inequality theorems.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-2:item-5",
+      "type": "content",
+      "quarter": 2,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "earning money, profit and loss, ‘best buys’, buying on terms.",
+      "sourcePage": 57,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-1",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 1,
+      "text": "linear equations in one variable.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-2",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 2,
+      "text": "linear inequalities in one variable and their graphs.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-3",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 3,
+      "text": "linear equations in two variables and their graphs.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-4",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 4,
+      "text": "systems of linear equations in two variables.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-3:item-5",
+      "type": "content",
+      "quarter": 3,
+      "domain": "D02",
+      "sortOrder": 5,
+      "text": "linear inequalities in two variables.",
+      "sourcePage": 58,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-4:item-1",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 1,
+      "text": "measures of variability for ungrouped data.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-4:item-2",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 2,
+      "text": "interpretation and analysis of graphs from primary and secondary data.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-4:item-3",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 3,
+      "text": "experimental and theoretical probability.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    },
+    {
+      "recordId": "revised-k10-grade-8-mathematics:standard:content:period-4:item-4",
+      "type": "content",
+      "quarter": 4,
+      "domain": "D04",
+      "sortOrder": 4,
+      "text": "the Fundamental Counting Principle.",
+      "sourcePage": 59,
+      "verificationStatus": "verified"
+    }
+  ]
 }
