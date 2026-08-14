@@ -143,9 +143,7 @@ describe.sequential('Stage 1.1 standard assessment round-trip diagnostic', () =>
       source_type: 'tos',
     })
 
-    const rawSnapshotMatchesSource =
-      JSON.stringify(metadata.source_tos_raw_content_snapshot) === JSON.stringify(fixture.content)
-    expect(rawSnapshotMatchesSource).toBe(true)
+    expect(metadata.source_tos_raw_content_snapshot).toEqual(fixture.content)
 
     const reloaded = await loadAssessmentDocument(created.id, teacher.id, false)
     expect(reloaded).not.toBeNull()

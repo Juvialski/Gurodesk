@@ -797,7 +797,7 @@ export function AssessmentNewPage() {
     <>
       <PageHeader
         eyebrow="Assessment studio"
-        title="Create New Assessment"
+        title="Create assessment"
         description="Choose the assessment model for your classroom: quarterly exams from a Table of Specifications, lesson-aligned formative quizzes, or authentic performance tasks with rubrics."
         actions={
           <Link className="button ghost" to="/assessments">
@@ -919,7 +919,7 @@ export function AssessmentNewPage() {
                   <header className="assessment-v2-wizard-heading">
                     <span className="assessment-v2-wizard-number">1</span>
                     <div>
-                      <h2>Choose Finalized TOS</h2>
+                      <h2>Choose assessment source</h2>
                       <p>Select the finalized Table of Specifications this exam should follow.</p>
                     </div>
                   </header>
@@ -1042,7 +1042,7 @@ export function AssessmentNewPage() {
                   <header className="assessment-v2-wizard-heading assessment-v2-formats-heading">
                     <span className="assessment-v2-wizard-number">3</span>
                     <div>
-                      <h2>Question Formats & Review</h2>
+                      <h2>Choose question formats</h2>
                       <p>Select question formats. Cognitive coverage is validated automatically against the TOS.</p>
                     </div>
                     <div className="assessment-v2-format-actions">

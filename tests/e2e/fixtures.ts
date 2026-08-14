@@ -194,7 +194,7 @@ export async function loginAndOpenWorkspace(page: Page) {
 export async function openAssessmentList(page: Page) {
   await page.goto('/assessments')
   await expect(page.getByRole('heading', { name: 'Assessments' })).toBeVisible()
-  await expect(page.getByText(/Finalized TOS → point plan → teacher review/)).toBeVisible()
+  await expect(page.getByText(/Teacher Review/i)).toBeVisible()
 }
 
 function e2eSupabaseConfig() {

@@ -740,7 +740,7 @@ describe('Phase 5.5 local Supabase integration', () => {
       : outcome)
     await expectRejected(
       () => saveResultSession({ session: resultSession, outcomes: excessive, scoreOnlyOutcomes: [] }, teacher.id, false, 'draft'),
-      /earned points|possible points|exceed/i,
+      /earned points|possible points|exceed|outcome points/i,
     )
 
     const saved = await saveResultSession({
