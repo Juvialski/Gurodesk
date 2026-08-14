@@ -12,12 +12,20 @@ async function write(path, content) {
   console.log(`✓ ${path}`)
 }
 
+function normalize(str) {
+  return typeof str === 'string' ? str.replace(/\r\n/g, '\n') : ''
+}
+
 function replaceOnce(source, search, replacement, label, alreadyApplied = '') {
-  if (alreadyApplied && source.includes(alreadyApplied)) return source
-  if (!source.includes(search)) {
+  if (alreadyApplied && normalize(source).includes(normalize(alreadyApplied))) return source
+  if (!normalize(source).includes(normalize(search))) {
     throw new Error(`${label}: expected source text was not found. This overlay targets GuroDesk main ${TARGET_HEAD}; merge this edit surgically if main advanced.`)
   }
   const first = source.indexOf(search)
+  if (first === -1) {
+    // If exact match with source line endings differed, use normalized replace
+    return normalize(source).replace(normalize(search), normalize(replacement))
+  }
   if (source.indexOf(search, first + search.length) !== -1) {
     throw new Error(`${label}: expected one source match but found multiple; refusing an ambiguous edit.`)
   }

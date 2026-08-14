@@ -2,7 +2,7 @@ import { expect, loginAndOpenWorkspace, test } from './fixtures'
 
 const deepRoutes = [
   { path: '/create', heading: 'What do you want to create?' },
-  { path: '/documents', heading: 'My Files' },
+  { path: '/documents', heading: 'Documents' },
   { path: '/classes', heading: 'Classes' },
   { path: '/assessments', heading: 'Assessments' },
   { path: '/tos', heading: 'Table of Specifications' },
