@@ -50,6 +50,7 @@
     "schools:sync:nid": "node scripts/schools/import-deped-nid.mjs --sync",
     "test": "npm run test:unit",
     "test:unit": "vitest run tests/unit",
+    "pretest:integration": "vitest run tests/diagnostics/standard-assessment-roundtrip.test.ts",
     "test:integration": "vitest run tests/integration",
     "test:db": "bash scripts/test-db-migrations.sh --all",
     "test:db:fresh": "bash scripts/test-db-migrations.sh --fresh",
