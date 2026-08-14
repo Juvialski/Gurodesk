@@ -746,16 +746,38 @@ export async function createAssessmentFromFinalTos(
   return saveAssessmentDocument({ ...blueprint, id: '' }, false)
 }
 
+export function resolveAssessmentCreationAssignment(
+  sourceAssignmentIds: Array<string | null | undefined>,
+  explicitAssignmentId?: string | null,
+): string | null {
+  const linkedAssignmentIds = [...new Set(
+    sourceAssignmentIds
+      .map((value) => value?.trim() || '')
+      .filter(Boolean),
+  )]
+  if (linkedAssignmentIds.length > 1) {
+    throw new Error('Selected assessment sources belong to different teaching assignments.')
+  }
+
+  const linkedAssignmentId = linkedAssignmentIds[0] ?? null
+  const selectedAssignmentId = explicitAssignmentId?.trim() || null
+  if (linkedAssignmentId && selectedAssignmentId && linkedAssignmentId !== selectedAssignmentId) {
+    throw new Error('The selected teaching assignment does not match the assessment source.')
+  }
+  return linkedAssignmentId ?? selectedAssignmentId
+}
+
 export async function createAssessmentFromLessonPlan(
   lesson: LessonPlanRecord,
   userId: string,
   demo: boolean,
-  options: { totalItems?: number; title?: string; instructions?: string } = {}
+  options: { totalItems?: number; title?: string; instructions?: string; assignmentId?: string | null } = {}
 ): Promise<AssessmentRecord> {
   const snapshot = createLessonSourceSnapshot(lesson)
+  const assignmentId = resolveAssessmentCreationAssignment([lesson.assignmentId], options.assignmentId)
   const blueprint = createLessonQuizBlueprint(snapshot, {
     userId,
-    assignmentId: lesson.assignmentId,
+    assignmentId,
     title: options.title,
     instructions: options.instructions,
     totalItems: options.totalItems,
@@ -772,12 +794,16 @@ export async function createAssessmentFromUnitLessons(
   lessons: LessonPlanRecord[],
   userId: string,
   demo: boolean,
-  options: { totalItems?: number; lessonWeights?: Record<string, number>; title?: string; instructions?: string } = {}
+  options: { totalItems?: number; lessonWeights?: Record<string, number>; title?: string; instructions?: string; assignmentId?: string | null } = {}
 ): Promise<AssessmentRecord> {
   const snapshots = lessons.map((l) => createLessonSourceSnapshot(l))
+  const assignmentId = resolveAssessmentCreationAssignment(
+    lessons.map((lesson) => lesson.assignmentId),
+    options.assignmentId,
+  )
   const blueprint = createUnitQuizBlueprint(snapshots, {
     userId,
-    assignmentId: lessons[0]?.assignmentId ?? null,
+    assignmentId,
     title: options.title,
     instructions: options.instructions,
     totalItems: options.totalItems,
@@ -795,11 +821,15 @@ export async function createAssessmentPerformanceTask(
   source: { lesson?: LessonPlanRecord; lessons?: LessonPlanRecord[]; tos?: TosRecord },
   userId: string,
   demo: boolean,
-  options: { title?: string; instructions?: string; performanceTask?: Partial<PerformanceTaskContent> } = {}
+  options: { title?: string; instructions?: string; performanceTask?: Partial<PerformanceTaskContent>; assignmentId?: string | null } = {}
 ): Promise<AssessmentRecord> {
+  const assignmentId = resolveAssessmentCreationAssignment(
+    [source.lesson?.assignmentId, ...(source.lessons ?? []).map((lesson) => lesson.assignmentId), source.tos?.assignmentId],
+    options.assignmentId,
+  )
   const blueprint = createPerformanceTaskBlueprint(source, {
     userId,
-    assignmentId: source.lesson?.assignmentId || source.lessons?.[0]?.assignmentId || source.tos?.assignmentId || null,
+    assignmentId,
     title: options.title,
     instructions: options.instructions,
     performanceTask: options.performanceTask,

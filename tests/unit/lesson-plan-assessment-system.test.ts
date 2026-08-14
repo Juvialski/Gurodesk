@@ -20,6 +20,11 @@ import {
   duplicateAssessmentBlueprint,
 } from '../../src/lib/assessmentBlueprint'
 import { validateAssessmentDraft } from '../../src/lib/assessmentValidation'
+import {
+  createAssessmentFromLessonPlan,
+  createAssessmentFromUnitLessons,
+  resolveAssessmentCreationAssignment,
+} from '../../src/lib/assessmentRepository'
 import type { LessonPlanRecord } from '../../src/types/lessonPlan'
 
 function createSampleLesson(id: string, title: string, competenciesCount: number = 2): LessonPlanRecord {
@@ -204,3 +209,44 @@ describe('Lesson-Plan-Based Assessment System', () => {
     })
   })
 })
+
+describe('assessment creation assignment resolution', () => {
+  it('lets a teacher explicitly place a legacy unlinked lesson into an active assignment', () => {
+    expect(resolveAssessmentCreationAssignment([null], 'assignment-2')).toBe('assignment-2')
+  })
+
+  it('creates a legacy lesson quiz using the explicitly selected teaching assignment', async () => {
+    const legacyLesson = createSampleLesson('legacy-lesson', 'Legacy Lesson')
+    legacyLesson.assignmentId = null
+    const assessment = await createAssessmentFromLessonPlan(legacyLesson, 'teacher-1', true, {
+      assignmentId: 'assignment-2',
+      totalItems: 5,
+    })
+    expect(assessment.assignmentId).toBe('assignment-2')
+    expect(assessment.mode).toBe('lesson_quiz')
+  })
+
+  it('keeps the source assignment when a lesson or TOS is already linked', () => {
+    expect(resolveAssessmentCreationAssignment(['assignment-1'], 'assignment-1')).toBe('assignment-1')
+    expect(resolveAssessmentCreationAssignment(['assignment-1'])).toBe('assignment-1')
+  })
+
+  it('rejects overriding an already linked source with a different assignment', () => {
+    expect(() => resolveAssessmentCreationAssignment(['assignment-1'], 'assignment-2'))
+      .toThrow('does not match the assessment source')
+  })
+
+  it('rejects unit sources that belong to different teaching assignments', () => {
+    expect(() => resolveAssessmentCreationAssignment(['assignment-1', null, 'assignment-2']))
+      .toThrow('different teaching assignments')
+  })
+
+  it('rejects a unit quiz assembled from lessons linked to different classes', async () => {
+    const first = createSampleLesson('lesson-a', 'Lesson A')
+    const second = createSampleLesson('lesson-b', 'Lesson B')
+    second.assignmentId = 'assignment-2'
+    await expect(createAssessmentFromUnitLessons([first, second], 'teacher-1', true, { totalItems: 10 }))
+      .rejects.toThrow('different teaching assignments')
+  })
+})
+

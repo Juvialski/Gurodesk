@@ -56,6 +56,7 @@ import {
   type PerformanceTaskGrouping,
   type QuestionType,
 } from '../types/assessment'
+import type { TeacherAssignment } from '../types/app'
 import type { LessonPlanRecord } from '../types/lessonPlan'
 import type { TosRecord } from '../types/tos'
 import { extractErrorMessage, typeLabel } from './assessmentUi'
@@ -103,6 +104,72 @@ function getLessonObjectives(lesson: LessonPlanRecord | undefined): string[] {
   return []
 }
 
+function assignmentLabel(assignment: TeacherAssignment | undefined, fallback = 'Linked teaching assignment') {
+  if (!assignment) return fallback
+  return [assignment.gradeLevel, assignment.learningArea, assignment.schoolYear].filter(Boolean).join(' · ')
+}
+
+function TeachingAssignmentField({
+  assignments,
+  assignmentId,
+  linkedAssignmentId,
+  linkedFallbackLabel,
+  conflictMessage,
+  onChange,
+}: {
+  assignments: TeacherAssignment[]
+  assignmentId: string
+  linkedAssignmentId?: string | null
+  linkedFallbackLabel?: string
+  conflictMessage?: string
+  onChange: (assignmentId: string) => void
+}) {
+  if (conflictMessage) {
+    return <div className="form-message error" role="alert">{conflictMessage}</div>
+  }
+
+  if (linkedAssignmentId) {
+    const linkedAssignment = assignments.find((assignment) => assignment.id === linkedAssignmentId)
+    return (
+      <div className="form-group">
+        <label className="field-label"><strong>Teaching Assignment</strong></label>
+        <div className="form-message">
+          <strong>{assignmentLabel(linkedAssignment, linkedFallbackLabel)}</strong>
+          <br />This source is already linked to a teaching assignment, so the assessment will keep that class context.
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="form-group">
+      <label className="field-label" htmlFor="assessment-teaching-assignment">
+        <strong>Teaching Assignment</strong>
+        <span className="field-hint">This older source is not linked to a class yet. Choose where this assessment belongs.</span>
+      </label>
+      {assignments.length ? (
+        <select
+          id="assessment-teaching-assignment"
+          className="select"
+          value={assignmentId}
+          onChange={(event) => onChange(event.target.value)}
+        >
+          <option value="">Choose teaching assignment</option>
+          {assignments.map((assignment) => (
+            <option key={assignment.id} value={assignment.id}>
+              {assignmentLabel(assignment)}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <div className="form-message error" role="alert">
+          No active teaching assignment is available. <Link to="/classes">Set up a class first.</Link>
+        </div>
+      )}
+    </div>
+  )
+}
+
 type SetupStep = 1 | 2 | 3
 type GenerationStage = 'planning' | 'questions' | 'visuals' | 'finishing' | 'paused'
 type GenerationState = {
@@ -120,7 +187,7 @@ function replaceItem(record: AssessmentRecord, item: AssessmentRecord['items'][n
 }
 
 export function AssessmentNewPage() {
-  const { user, isDemo } = useApp()
+  const { user, isDemo, assignments } = useApp()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
@@ -162,6 +229,8 @@ export function AssessmentNewPage() {
     'fill_in_the_blank',
   ])
 
+  const [lessonQuizAssignmentId, setLessonQuizAssignmentId] = useState('')
+
   // Unit Quiz State
   const [selectedUnitLessonIds, setSelectedUnitLessonIds] = useState<string[]>([])
   const [unitTitle, setUnitTitle] = useState('')
@@ -175,6 +244,8 @@ export function AssessmentNewPage() {
     'fill_in_the_blank',
   ])
 
+  const [unitQuizAssignmentId, setUnitQuizAssignmentId] = useState('')
+
   // Performance Task State
   const [ptSourceType, setPtSourceType] = useState<'lesson' | 'tos' | 'custom'>('lesson')
   const [ptSelectedLessonId, setPtSelectedLessonId] = useState('')
@@ -185,6 +256,8 @@ export function AssessmentNewPage() {
   const [ptGrouping, setPtGrouping] = useState<PerformanceTaskGrouping>('individual')
   const [ptDuration, setPtDuration] = useState('1-2 class sessions')
   const [ptInstructions, setPtInstructions] = useState('')
+
+  const [performanceTaskAssignmentId, setPerformanceTaskAssignmentId] = useState('')
 
   useEffect(() => {
     if (!user) return
@@ -201,7 +274,9 @@ export function AssessmentNewPage() {
         setLessonPlans(lessons)
 
         const requestedTos = finals.find((document) => document.id === searchParams.get('tos'))
-        setSelectedTosId(requestedTos?.id ?? finals[0]?.id ?? '')
+        const defaultTosId = requestedTos?.id ?? finals[0]?.id ?? ''
+        setSelectedTosId(defaultTosId)
+        setPtSelectedTosId(defaultTosId)
 
         const requestedLesson = lessons.find((document) => document.id === searchParams.get('lesson'))
         if (requestedLesson) {
@@ -213,7 +288,11 @@ export function AssessmentNewPage() {
           setSelectedLessonId(lessons[0].id)
           setPtSelectedLessonId(lessons[0].id)
           if (lessons.length >= 2) {
-            setSelectedUnitLessonIds([lessons[0].id, lessons[1].id])
+            const firstLesson = lessons[0]
+            const compatibleSecond = lessons.slice(1).find((lesson) =>
+              !firstLesson.assignmentId || !lesson.assignmentId || lesson.assignmentId === firstLesson.assignmentId
+            )
+            setSelectedUnitLessonIds([firstLesson.id, (compatibleSecond ?? lessons[1]).id])
           }
         }
       })
@@ -242,6 +321,52 @@ export function AssessmentNewPage() {
     () => lessonPlans.filter((lesson) => selectedUnitLessonIds.includes(lesson.id)),
     [lessonPlans, selectedUnitLessonIds]
   )
+
+  const selectedPerformanceLesson = useMemo(
+    () => lessonPlans.find((lesson) => lesson.id === ptSelectedLessonId) ?? null,
+    [lessonPlans, ptSelectedLessonId]
+  )
+
+  const selectedPerformanceTos = useMemo(
+    () => tosDocuments.find((tos) => tos.id === ptSelectedTosId) ?? null,
+    [tosDocuments, ptSelectedTosId]
+  )
+
+  const unitLinkedAssignmentIds = useMemo(
+    () => [...new Set(selectedUnitLessons.map((lesson) => lesson.assignmentId).filter((id): id is string => Boolean(id)))],
+    [selectedUnitLessons]
+  )
+  const unitAssignmentConflict = unitLinkedAssignmentIds.length > 1
+  const linkedUnitAssignmentId = unitLinkedAssignmentIds.length === 1 ? unitLinkedAssignmentIds[0] : null
+  const linkedPerformanceAssignmentId = ptSourceType === 'lesson'
+    ? selectedPerformanceLesson?.assignmentId ?? null
+    : ptSourceType === 'tos'
+      ? selectedPerformanceTos?.assignmentId ?? null
+      : null
+
+  const resolvedLessonQuizAssignmentId = selectedLesson?.assignmentId ?? lessonQuizAssignmentId
+  const resolvedUnitQuizAssignmentId = linkedUnitAssignmentId ?? unitQuizAssignmentId
+  const resolvedPerformanceTaskAssignmentId = linkedPerformanceAssignmentId ?? performanceTaskAssignmentId
+
+  useEffect(() => {
+    setLessonQuizAssignmentId(
+      selectedLesson?.assignmentId ?? (assignments.length === 1 ? assignments[0].id : '')
+    )
+  }, [selectedLesson?.id, selectedLesson?.assignmentId, assignments])
+
+  useEffect(() => {
+    setUnitQuizAssignmentId(
+      unitAssignmentConflict
+        ? ''
+        : linkedUnitAssignmentId ?? (assignments.length === 1 ? assignments[0].id : '')
+    )
+  }, [unitAssignmentConflict, linkedUnitAssignmentId, assignments])
+
+  useEffect(() => {
+    setPerformanceTaskAssignmentId(
+      linkedPerformanceAssignmentId ?? (assignments.length === 1 ? assignments[0].id : '')
+    )
+  }, [ptSourceType, ptSelectedLessonId, ptSelectedTosId, linkedPerformanceAssignmentId, assignments])
 
   useEffect(() => {
     if (!selectedTos || pointsTouched || !allowedTypes.length) return
@@ -472,6 +597,10 @@ export function AssessmentNewPage() {
   // --- Lesson Quiz Creation ---
   async function handleCreateLessonQuiz() {
     if (!user || !selectedLesson) return
+    if (!resolvedLessonQuizAssignmentId) {
+      setError('Choose a teaching assignment before creating this lesson quiz.')
+      return
+    }
     setCreating(true)
     setError('')
     try {
@@ -479,6 +608,7 @@ export function AssessmentNewPage() {
         totalItems: quizItemCount,
         title: quizTitle.trim() || `Quiz: ${selectedLesson.title}`,
         instructions: quizInstructions.trim(),
+        assignmentId: resolvedLessonQuizAssignmentId,
       })
       navigate(`/assessments/${created.id}`)
     } catch (nextError) {
@@ -491,6 +621,14 @@ export function AssessmentNewPage() {
   // --- Unit Quiz Creation ---
   async function handleCreateUnitQuiz() {
     if (!user || selectedUnitLessons.length < 2) return
+    if (unitAssignmentConflict) {
+      setError('Selected lessons belong to different teaching assignments. Choose lessons from the same class.')
+      return
+    }
+    if (!resolvedUnitQuizAssignmentId) {
+      setError('Choose a teaching assignment before creating this unit quiz.')
+      return
+    }
     setCreating(true)
     setError('')
     try {
@@ -498,6 +636,7 @@ export function AssessmentNewPage() {
         totalItems: unitTotalItems,
         title: unitTitle.trim() || `Unit Assessment (${selectedUnitLessons.length} Lessons)`,
         instructions: unitInstructions.trim(),
+        assignmentId: resolvedUnitQuizAssignmentId,
       })
       navigate(`/assessments/${created.id}`)
     } catch (nextError) {
@@ -510,11 +649,23 @@ export function AssessmentNewPage() {
   // --- Performance Task Creation ---
   async function handleCreatePerformanceTask() {
     if (!user) return
+    if (ptSourceType === 'lesson' && !selectedPerformanceLesson) {
+      setError('Choose an anchor lesson plan before creating this performance task.')
+      return
+    }
+    if (ptSourceType === 'tos' && !selectedPerformanceTos) {
+      setError('Choose a finalized TOS before creating this performance task.')
+      return
+    }
+    if (!resolvedPerformanceTaskAssignmentId) {
+      setError('Choose a teaching assignment before creating this performance task.')
+      return
+    }
     setCreating(true)
     setError('')
     try {
-      const sourceLesson = ptSourceType === 'lesson' ? lessonPlans.find((l) => l.id === ptSelectedLessonId) : undefined
-      const sourceTosDoc = ptSourceType === 'tos' ? tosDocuments.find((t) => t.id === ptSelectedTosId) : undefined
+      const sourceLesson = ptSourceType === 'lesson' ? selectedPerformanceLesson ?? undefined : undefined
+      const sourceTosDoc = ptSourceType === 'tos' ? selectedPerformanceTos ?? undefined : undefined
 
       const defaultTaskTitle = ptTitle.trim() || (sourceLesson ? `Performance Task: ${sourceLesson.title}` : 'Authentic Performance Task')
       const created = await createAssessmentPerformanceTask(
@@ -524,6 +675,7 @@ export function AssessmentNewPage() {
         {
           title: defaultTaskTitle,
           instructions: ptInstructions.trim(),
+          assignmentId: resolvedPerformanceTaskAssignmentId,
           performanceTask: {
             title: defaultTaskTitle,
             scenario: ptScenario.trim(),
@@ -1047,6 +1199,14 @@ export function AssessmentNewPage() {
                 </div>
               )}
 
+              <TeachingAssignmentField
+                assignments={assignments}
+                assignmentId={lessonQuizAssignmentId}
+                linkedAssignmentId={selectedLesson?.assignmentId}
+                linkedFallbackLabel={[getLessonGrade(selectedLesson ?? undefined), getLessonSubject(selectedLesson ?? undefined), selectedLesson?.schoolYear].filter(Boolean).join(' · ')}
+                onChange={setLessonQuizAssignmentId}
+              />
+
               <div className="form-row-2">
                 <div className="form-group">
                   <label className="field-label">
@@ -1116,7 +1276,7 @@ export function AssessmentNewPage() {
                 <button
                   type="button"
                   className="button primary"
-                  disabled={creating || !selectedLesson || quizAllowedTypes.length === 0}
+                  disabled={creating || !selectedLesson || !resolvedLessonQuizAssignmentId || quizAllowedTypes.length === 0}
                   onClick={() => void handleCreateLessonQuiz()}
                 >
                   <Sparkles size={16} /> {creating ? 'Creating quiz…' : 'Create & Open Lesson Quiz'}
@@ -1181,6 +1341,15 @@ export function AssessmentNewPage() {
                   })}
                 </div>
               </div>
+
+              <TeachingAssignmentField
+                assignments={assignments}
+                assignmentId={unitQuizAssignmentId}
+                linkedAssignmentId={linkedUnitAssignmentId}
+                linkedFallbackLabel={selectedUnitLessons.length ? [getLessonGrade(selectedUnitLessons[0]), getLessonSubject(selectedUnitLessons[0]), selectedUnitLessons[0].schoolYear].filter(Boolean).join(' · ') : undefined}
+                conflictMessage={unitAssignmentConflict ? 'Selected lessons are linked to different teaching assignments. Choose lessons from the same class before creating a unit quiz.' : undefined}
+                onChange={setUnitQuizAssignmentId}
+              />
 
               <div className="form-row-2">
                 <div className="form-group">
@@ -1251,7 +1420,7 @@ export function AssessmentNewPage() {
                 <button
                   type="button"
                   className="button primary"
-                  disabled={creating || selectedUnitLessonIds.length < 2 || unitAllowedTypes.length === 0}
+                  disabled={creating || selectedUnitLessonIds.length < 2 || unitAssignmentConflict || !resolvedUnitQuizAssignmentId || unitAllowedTypes.length === 0}
                   onClick={() => void handleCreateUnitQuiz()}
                 >
                   <Sparkles size={16} /> {creating ? 'Building unit quiz…' : 'Create & Open Unit Quiz'}
@@ -1346,6 +1515,20 @@ export function AssessmentNewPage() {
               </div>
             )}
 
+            <TeachingAssignmentField
+              assignments={assignments}
+              assignmentId={performanceTaskAssignmentId}
+              linkedAssignmentId={linkedPerformanceAssignmentId}
+              linkedFallbackLabel={
+                ptSourceType === 'lesson'
+                  ? [getLessonGrade(selectedPerformanceLesson ?? undefined), getLessonSubject(selectedPerformanceLesson ?? undefined), selectedPerformanceLesson?.schoolYear].filter(Boolean).join(' · ')
+                  : ptSourceType === 'tos'
+                    ? [selectedPerformanceTos?.content.gradeLevel, selectedPerformanceTos?.content.learningArea, selectedPerformanceTos?.schoolYear].filter(Boolean).join(' · ')
+                    : undefined
+              }
+              onChange={setPerformanceTaskAssignmentId}
+            />
+
             <div className="form-group">
               <label className="field-label">
                 <strong>Performance Task Title</strong>
@@ -1436,7 +1619,12 @@ export function AssessmentNewPage() {
               <button
                 type="button"
                 className="button primary"
-                disabled={creating}
+                disabled={
+                  creating
+                  || !resolvedPerformanceTaskAssignmentId
+                  || (ptSourceType === 'lesson' && !selectedPerformanceLesson)
+                  || (ptSourceType === 'tos' && !selectedPerformanceTos)
+                }
                 onClick={() => void handleCreatePerformanceTask()}
               >
                 <Table size={16} /> {creating ? 'Setting up rubric…' : 'Create & Open Performance Task'}
