@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import {
   extractAmbiguousCandidateSummary,
-  promoteCandidates,
+  markCandidatesReviewed,
+  promoteCandidateToVerified,
   reconcileDistrictCandidates,
-  revertCandidatePromotion,
+  revertCandidateStatus,
   validateCandidatePayload,
 } from '../../src/lib/districtReconciliation'
 
-describe('district candidate reconciliation and validation', () => {
+describe('district candidate reconciliation and hardened verification semantics', () => {
   it('reconciles single matches with high confidence and unverified candidate state', () => {
     const nidSchools = [
       { schoolId: '112148', schoolName: 'Zurbano Elementary School' },
@@ -30,6 +31,8 @@ describe('district candidate reconciliation and validation', () => {
     expect(result.verifiedStatus).toBe('unverified')
     expect(result.summary.candidateMatches).toBe(2)
     expect(result.summary.ambiguousDuplicateNames).toBe(0)
+    expect(result.summary.verifiedCount).toBe(0)
+    expect(result.summary.reviewedCount).toBe(0)
 
     const zurbano = result.records.find((r) => r.schoolId === '112148')
     expect(zurbano).toBeDefined()
@@ -73,30 +76,7 @@ describe('district candidate reconciliation and validation', () => {
     expect(clusters[0].schoolIds).toEqual(['112166', '112273', '112293'])
   })
 
-  it('rejects candidate payloads with invalid verifiedStatus', () => {
-    expect(() => validateCandidatePayload({
-      divisionName: 'Camarines Norte',
-      regionName: 'Region V',
-      sourceName: 'DepEd SDO',
-      sourceUrl: 'https://web.depedcamnorte.ph/page/schools',
-      verifiedStatus: 'invalid_status' as unknown as 'unverified',
-      records: [
-        {
-          schoolId: '112148',
-          nidSchoolName: 'Zurbano Elementary School',
-          officialSourceSchoolName: 'Zurbano Elementary School',
-          candidateDistrict: 'DAET SOUTH',
-          sourceName: 'DepEd SDO',
-          sourceUrl: 'https://web.depedcamnorte.ph/page/schools',
-          matchMethod: 'exact',
-          confidence: 'high_single_match',
-          reviewState: 'unverified_candidate',
-        },
-      ],
-    })).toThrow('Invalid verifiedStatus')
-  })
-
-  it('allows safe promotion of single-match candidates and generates verified payload', () => {
+  it('marks candidate records as reviewed without creating a verified payload (remains unverified)', () => {
     const dataset = reconcileDistrictCandidates({
       divisionName: 'Camarines Norte',
       regionName: 'Region V',
@@ -112,29 +92,29 @@ describe('district candidate reconciliation and validation', () => {
       ],
     })
 
-    const { updatedDataset, verifiedPayload, promotedRecords } = promoteCandidates({
+    const { updatedDataset, reviewedRecords } = markCandidatesReviewed({
       dataset,
-      schoolIds: ['112148'],
-      reviewer: 'al_matubis',
-      verificationBasis: 'Human-assisted review of 1-to-1 exact name match against official SDO directory',
+      schoolIds: ['112148', '112082'],
+      reviewedBy: 'human_reviewer',
+      reviewNotes: 'Reviewed 1-to-1 name match against official SDO directory list',
     })
 
-    expect(promotedRecords.length).toBe(1)
-    expect(updatedDataset.summary.promotedCount).toBe(1)
-    expect(updatedDataset.verifiedStatus).toBe('partially_promoted')
+    expect(reviewedRecords.length).toBe(2)
+    expect(updatedDataset.summary.reviewedCount).toBe(2)
+    expect(updatedDataset.summary.verifiedCount).toBe(0)
+    expect(updatedDataset.verifiedStatus).toBe('reviewed')
 
-    const zurbanoCandidate = updatedDataset.records.find((r) => r.schoolId === '112148')
-    expect(zurbanoCandidate?.reviewState).toBe('promoted_verified')
-    expect(zurbanoCandidate?.promotedBy).toBe('al_matubis')
-    expect(zurbanoCandidate?.promotedAt).toBeDefined()
+    const zurbano = updatedDataset.records.find((r) => r.schoolId === '112148')
+    expect(zurbano?.reviewState).toBe('reviewed_candidate')
+    expect(zurbano?.reviewedBy).toBe('human_reviewer')
+    expect(zurbano?.reviewedAt).toBeDefined()
+    expect(zurbano?.verifiedAt).toBeUndefined()
+    expect(zurbano?.evidenceType).toBeUndefined()
 
-    expect(verifiedPayload.records.length).toBe(1)
-    expect(verifiedPayload.records[0].schoolId).toBe('112148')
-    expect(verifiedPayload.records[0].districtName).toBe('DAET SOUTH')
-    expect(verifiedPayload.records[0].verifiedBy).toBe('al_matubis')
+    expect(validateCandidatePayload(updatedDataset)).toBe(true)
   })
 
-  it('blocks automatic promotion of ambiguous duplicate-name candidates without override note', () => {
+  it('blocks bulk review from marking ambiguous duplicate-name candidates without explicit disambiguation', () => {
     const dataset = reconcileDistrictCandidates({
       divisionName: 'Camarines Norte',
       regionName: 'Region V',
@@ -149,47 +129,15 @@ describe('district candidate reconciliation and validation', () => {
       ],
     })
 
-    expect(() => promoteCandidates({
+    expect(() => markCandidatesReviewed({
       dataset,
       schoolIds: ['112166'],
-      reviewer: 'maintainer',
-      verificationBasis: 'Batch promotion',
-    })).toThrow('Cannot promote ambiguous duplicate-name candidate')
+      reviewedBy: 'reviewer',
+      reviewNotes: 'Bulk review attempt',
+    })).toThrow('Cannot mark ambiguous duplicate-name candidate School ID 112166')
   })
 
-  it('allows promoting ambiguous candidate when explicit disambiguation override note is provided', () => {
-    const dataset = reconcileDistrictCandidates({
-      divisionName: 'Camarines Norte',
-      regionName: 'Region V',
-      sourceName: 'DepEd Schools Division of Camarines Norte',
-      sourceUrl: 'https://web.depedcamnorte.ph/page/schools',
-      nidSchools: [
-        { schoolId: '112166', schoolName: 'San Isidro Elementary School' },
-        { schoolId: '112273', schoolName: 'San Isidro Elementary School' },
-      ],
-      sdoSchools: [
-        { schoolName: 'San Isidro Elementary School', district: 'BASUD' },
-      ],
-    })
-
-    const { updatedDataset, promotedRecords } = promoteCandidates({
-      dataset,
-      schoolIds: ['112166'],
-      reviewer: 'maintainer',
-      verificationBasis: 'Manual review',
-      allowAmbiguousOverride: true,
-      overrideNotes: {
-        '112166': 'Cross-referenced with Barangay San Isidro, Basud DepEd School Profile memo #42',
-      },
-    })
-
-    expect(promotedRecords.length).toBe(1)
-    const promoted = updatedDataset.records.find((r) => r.schoolId === '112166')
-    expect(promoted?.reviewState).toBe('promoted_verified')
-    expect(promoted?.reviewNotes).toContain('Barangay San Isidro, Basud')
-  })
-
-  it('supports reversible promotion via revertCandidatePromotion', () => {
+  it('promotes an individual candidate to VERIFIED only when structured explicit School ID evidence is supplied', () => {
     const dataset = reconcileDistrictCandidates({
       divisionName: 'Camarines Norte',
       regionName: 'Region V',
@@ -203,22 +151,101 @@ describe('district candidate reconciliation and validation', () => {
       ],
     })
 
-    const { updatedDataset } = promoteCandidates({
+    const { updatedDataset, verifiedRecord, verifiedPayload } = promoteCandidateToVerified({
       dataset,
-      schoolIds: ['112148'],
-      reviewer: 'tester',
-      verificationBasis: 'Test basis',
+      schoolId: '112148',
+      districtName: 'Daet South',
+      districtCode: '051602',
+      evidenceSourceName: 'DepEd LMS Region V School Masterlist / SDO Memorandum #141',
+      evidenceSourceUrl: 'https://web.depedcamnorte.ph/uploads/issuances/11460c57cbffd7153e092f21f779f3b9.pdf',
+      evidenceType: 'manual_document_review_with_explicit_school_id',
+      reviewedBy: 'division_planning_officer',
+      verificationNote: 'Explicit School ID 112148 verified in official DepEd Division Training roster',
     })
 
-    expect(updatedDataset.records[0].reviewState).toBe('promoted_verified')
+    expect(updatedDataset.summary.verifiedCount).toBe(1)
+    expect(updatedDataset.verifiedStatus).toBe('fully_verified')
 
-    const reverted = revertCandidatePromotion({
+    const record = updatedDataset.records.find((r) => r.schoolId === '112148')
+    expect(record?.reviewState).toBe('verified_mapping')
+    expect(record?.evidenceType).toBe('manual_document_review_with_explicit_school_id')
+    expect(record?.verifiedBy).toBe('division_planning_officer')
+    expect(record?.verifiedAt).toBeDefined()
+
+    expect(verifiedRecord.schoolId).toBe('112148')
+    expect(verifiedRecord.districtName).toBe('Daet South')
+    expect(verifiedRecord.districtCode).toBe('051602')
+    expect(verifiedRecord.evidenceType).toBe('manual_document_review_with_explicit_school_id')
+
+    expect(verifiedPayload.verificationMethod).toBe('explicit_school_id')
+    expect(verifiedPayload.records.length).toBe(1)
+    expect(verifiedPayload.records[0].schoolId).toBe('112148')
+    expect(verifiedPayload.records[0].districtName).toBe('Daet South')
+    expect(verifiedPayload.records[0].evidenceType).toBe('manual_document_review_with_explicit_school_id')
+  })
+
+  it('rejects promotion when evidenceType is missing or invalid', () => {
+    const dataset = reconcileDistrictCandidates({
+      divisionName: 'Camarines Norte',
+      regionName: 'Region V',
+      sourceName: 'DepEd Schools Division of Camarines Norte',
+      sourceUrl: 'https://web.depedcamnorte.ph/page/schools',
+      nidSchools: [
+        { schoolId: '112148', schoolName: 'Zurbano Elementary School' },
+      ],
+      sdoSchools: [
+        { schoolName: 'Zurbano Elementary School', district: 'DAET SOUTH' },
+      ],
+    })
+
+    expect(() => promoteCandidateToVerified({
+      dataset,
+      schoolId: '112148',
+      districtName: 'Daet South',
+      evidenceSourceName: 'Web Directory',
+      evidenceSourceUrl: 'https://web.depedcamnorte.ph/page/schools',
+      evidenceType: 'name_matching_only' as unknown as 'explicit_official_school_id_district', // ILLEGAL
+      reviewedBy: 'reviewer',
+      verificationNote: 'Name matches',
+    })).toThrow('Invalid evidenceType')
+  })
+
+  it('safely reverts reviewed or verified records back to candidate status', () => {
+    const dataset = reconcileDistrictCandidates({
+      divisionName: 'Camarines Norte',
+      regionName: 'Region V',
+      sourceName: 'DepEd Schools Division of Camarines Norte',
+      sourceUrl: 'https://web.depedcamnorte.ph/page/schools',
+      nidSchools: [
+        { schoolId: '112148', schoolName: 'Zurbano Elementary School' },
+      ],
+      sdoSchools: [
+        { schoolName: 'Zurbano Elementary School', district: 'DAET SOUTH' },
+      ],
+    })
+
+    const { updatedDataset } = promoteCandidateToVerified({
+      dataset,
+      schoolId: '112148',
+      districtName: 'Daet South',
+      evidenceSourceName: 'DepEd SDO',
+      evidenceSourceUrl: 'https://web.depedcamnorte.ph/page/schools',
+      evidenceType: 'explicit_official_school_id_district',
+      reviewedBy: 'reviewer',
+      verificationNote: 'Documented note',
+    })
+
+    expect(updatedDataset.records[0].reviewState).toBe('verified_mapping')
+
+    const reverted = revertCandidateStatus({
       dataset: updatedDataset,
       schoolIds: ['112148'],
     })
 
     expect(reverted.records[0].reviewState).toBe('unverified_candidate')
-    expect(reverted.records[0].promotedBy).toBeNull()
-    expect(reverted.summary.promotedCount).toBe(0)
+    expect(reverted.records[0].verifiedBy).toBeNull()
+    expect(reverted.records[0].evidenceType).toBeNull()
+    expect(reverted.summary.verifiedCount).toBe(0)
+    expect(reverted.verifiedStatus).toBe('unverified')
   })
 })

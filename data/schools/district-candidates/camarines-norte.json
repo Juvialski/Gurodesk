@@ -11,6 +11,8 @@
     "sdoSchoolCount": 311,
     "candidateMatches": 304,
     "ambiguousDuplicateNames": 15,
+    "reviewedCount": 0,
+    "verifiedCount": 0,
     "unmatchedSchools": 0
   },
   "records": [

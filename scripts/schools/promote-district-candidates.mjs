@@ -3,64 +3,84 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import {
   extractAmbiguousCandidateSummary,
-  promoteCandidates,
-  revertCandidatePromotion,
+  markCandidatesReviewed,
+  promoteCandidateToVerified,
+  revertCandidateStatus,
   validateCandidatePayload,
   validateVerifiedDistrictPayload,
 } from '../../src/lib/districtReconciliation.ts'
 
 function usage() {
   console.log(`Usage:
-  node scripts/schools/promote-district-candidates.mjs [options]
+  node scripts/schools/promote-district-candidates.mjs [action] [options]
 
-Options:
-  --candidate <path>      Path to candidate JSON (e.g. data/schools/district-candidates/camarines-norte.json)
-  --out-verified <path>   Path to output verified JSON (e.g. data/schools/verified-districts/camarines-norte.json)
-  --school-id <id>        Promote specific School ID (can be specified multiple times)
-  --all-single            Promote all non-ambiguous single-match candidate records
-  --reviewer <name>       Reviewer identity / email / maintainer tag (REQUIRED for promotion)
-  --basis <text>          Documented verification basis / rationale (REQUIRED for promotion)
-  --allow-ambiguous       Allow promotion of ambiguous duplicate-name candidate (requires explicit override note)
-  --override-note <text>  Disambiguation note for ambiguous candidate
-  --revert                Revert previously promoted candidate(s) back to unverified state
-  --audit                 Print ambiguous duplicate-name audit report and exit
-  --help                  Show this help
+Actions:
+  --verify-school         Promote a SINGLE School ID to verified using explicit School ID evidence
+  --review-school         Mark a candidate record as human-reviewed (STILL UNVERIFIED)
+  --all-single-reviewed   Mark all non-ambiguous single-match candidate records as reviewed (STILL UNVERIFIED)
+  --revert                Revert reviewed/verified status back to unverified candidate
+  --audit                 Print ambiguous duplicate-name audit report
+
+Options for --verify-school (ALL REQUIRED FOR VERIFICATION):
+  --candidate <path>            Path to candidate JSON
+  --school-id <id>              DepEd School ID to verify
+  --district-name <name>        Official verified district name
+  --district-code <code>        Optional official district code
+  --evidence-source-name <str>  Name of explicit School ID source/document
+  --evidence-source-url <url>   HTTPS URL of explicit School ID source
+  --evidence-type <type>        "explicit_official_school_id_district" OR
+                                "manual_document_review_with_explicit_school_id"
+  --reviewer <name>             Reviewer identity / maintainer ID
+  --note <text>                 Documented verification rationale
+  --out-verified <path>         Optional path to write/append verified mapping JSON
+
+Options for --review-school / --all-single-reviewed:
+  --candidate <path>            Path to candidate JSON
+  --school-id <id>              School ID (for --review-school)
+  --reviewer <name>             Reviewer identity (REQUIRED)
+  --note <text>                 Review notes / rationale (REQUIRED)
 
 Safety Rules:
-- Ambiguous duplicate-name cases are BLOCKED from automatic promotion.
-- Reviewer identity and verification basis are MANDATORY for promotion.
-- Promotion is auditable and reversible.
+- Bulk promotion to verified is STRICTLY DISABLED.
+- Exact-name matching alone is NEVER marked verified.
+- Explicit School ID evidence is MANDATORY for verification.
 `)
 }
 
 function parseArgs(argv) {
   const options = {
+    action: '',
     candidatePath: '',
     outVerifiedPath: '',
-    schoolIds: [],
-    allSingle: false,
+    schoolId: '',
+    districtName: '',
+    districtCode: null,
+    evidenceSourceName: '',
+    evidenceSourceUrl: '',
+    evidenceType: '',
     reviewer: '',
-    basis: '',
-    allowAmbiguous: false,
-    overrideNote: '',
-    revert: false,
-    audit: false,
+    note: '',
     help: false,
   }
 
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i]
     if (arg === '--help') options.help = true
+    else if (arg === '--verify-school') options.action = 'verify'
+    else if (arg === '--review-school') options.action = 'review'
+    else if (arg === '--all-single-reviewed') options.action = 'all-single-reviewed'
+    else if (arg === '--revert') options.action = 'revert'
+    else if (arg === '--audit') options.action = 'audit'
     else if (arg === '--candidate') options.candidatePath = argv[++i]
     else if (arg === '--out-verified') options.outVerifiedPath = argv[++i]
-    else if (arg === '--school-id') options.schoolIds.push(argv[++i])
-    else if (arg === '--all-single') options.allSingle = true
+    else if (arg === '--school-id') options.schoolId = argv[++i]
+    else if (arg === '--district-name') options.districtName = argv[++i]
+    else if (arg === '--district-code') options.districtCode = argv[++i]
+    else if (arg === '--evidence-source-name') options.evidenceSourceName = argv[++i]
+    else if (arg === '--evidence-source-url') options.evidenceSourceUrl = argv[++i]
+    else if (arg === '--evidence-type') options.evidenceType = argv[++i]
     else if (arg === '--reviewer') options.reviewer = argv[++i]
-    else if (arg === '--basis') options.basis = argv[++i]
-    else if (arg === '--allow-ambiguous') options.allowAmbiguous = true
-    else if (arg === '--override-note') options.overrideNote = argv[++i]
-    else if (arg === '--revert') options.revert = true
-    else if (arg === '--audit') options.audit = true
+    else if (arg === '--note') options.note = argv[++i]
     else throw new Error(`Unknown argument: ${arg}`)
   }
 
@@ -77,7 +97,7 @@ async function main() {
   const candidateRaw = JSON.parse(await readFile(options.candidatePath, 'utf8'))
   validateCandidatePayload(candidateRaw)
 
-  if (options.audit) {
+  if (options.action === 'audit' || (!options.action && !options.schoolId)) {
     const clusters = extractAmbiguousCandidateSummary(candidateRaw)
     console.log(`=== Ambiguous Duplicate-Name Audit for ${candidateRaw.divisionName} ===`)
     console.log(`Total duplicate clusters: ${clusters.length}`)
@@ -91,64 +111,99 @@ async function main() {
     return
   }
 
-  if (options.revert) {
-    if (options.schoolIds.length === 0) {
-      throw new Error('--revert requires at least one --school-id.')
-    }
-    const revertedDataset = revertCandidatePromotion({
+  if (options.action === 'revert') {
+    if (!options.schoolId) throw new Error('--revert requires --school-id <id>.')
+    const revertedDataset = revertCandidateStatus({
       dataset: candidateRaw,
-      schoolIds: options.schoolIds,
+      schoolIds: [options.schoolId],
     })
     validateCandidatePayload(revertedDataset)
     await writeFile(options.candidatePath, `${JSON.stringify(revertedDataset, null, 2)}\n`, 'utf8')
-    console.log(`✓ Reverted ${options.schoolIds.length} candidate(s) to unverified state in ${options.candidatePath}`)
+    console.log(`✓ Reverted School ID ${options.schoolId} to unverified candidate state in ${options.candidatePath}`)
     return
   }
 
-  let targetIds = [...options.schoolIds]
-  if (options.allSingle) {
+  if (options.action === 'all-single-reviewed') {
+    if (!options.reviewer || !options.note) {
+      throw new Error('--all-single-reviewed requires both --reviewer <name> and --note <text>.')
+    }
     const singleMatches = candidateRaw.records
       .filter((r) => r.reviewState === 'unverified_candidate' && r.confidence === 'high_single_match')
       .map((r) => r.schoolId)
-    targetIds = [...new Set([...targetIds, ...singleMatches])]
-  }
 
-  if (targetIds.length === 0) {
-    throw new Error('No target School IDs specified. Use --school-id <id> or --all-single.')
-  }
-
-  if (!options.reviewer || !options.basis) {
-    throw new Error('Promotion requires both --reviewer <name> and --basis <rationale>.')
-  }
-
-  const overrideNotes = {}
-  if (options.overrideNote && options.schoolIds.length > 0) {
-    options.schoolIds.forEach((id) => {
-      overrideNotes[id] = options.overrideNote
+    const { updatedDataset, reviewedRecords } = markCandidatesReviewed({
+      dataset: candidateRaw,
+      schoolIds: singleMatches,
+      reviewedBy: options.reviewer,
+      reviewNotes: options.note,
     })
+
+    validateCandidatePayload(updatedDataset)
+    await writeFile(options.candidatePath, `${JSON.stringify(updatedDataset, null, 2)}\n`, 'utf8')
+    console.log(`✓ Marked ${reviewedRecords.length} single-match candidate(s) as REVIEWED (remains UNVERIFIED) in ${options.candidatePath}`)
+    return
   }
 
-  const { updatedDataset, verifiedPayload, promotedRecords } = promoteCandidates({
-    dataset: candidateRaw,
-    schoolIds: targetIds,
-    reviewer: options.reviewer,
-    verificationBasis: options.basis,
-    allowAmbiguousOverride: options.allowAmbiguous,
-    overrideNotes,
-  })
+  if (options.action === 'review') {
+    if (!options.schoolId) throw new Error('--review-school requires --school-id <id>.')
+    if (!options.reviewer || !options.note) {
+      throw new Error('--review-school requires both --reviewer <name> and --note <text>.')
+    }
 
-  validateCandidatePayload(updatedDataset)
-  validateVerifiedDistrictPayload(verifiedPayload)
+    const { updatedDataset, reviewedRecords } = markCandidatesReviewed({
+      dataset: candidateRaw,
+      schoolIds: [options.schoolId],
+      reviewedBy: options.reviewer,
+      reviewNotes: options.note,
+    })
 
-  await writeFile(options.candidatePath, `${JSON.stringify(updatedDataset, null, 2)}\n`, 'utf8')
-  console.log(`✓ Updated candidate dataset: ${options.candidatePath} (${promotedRecords.length} record(s) marked promoted)`)
-
-  if (options.outVerifiedPath) {
-    const outTarget = resolve(options.outVerifiedPath)
-    await mkdir(dirname(outTarget), { recursive: true })
-    await writeFile(outTarget, `${JSON.stringify(verifiedPayload, null, 2)}\n`, 'utf8')
-    console.log(`✓ Wrote verified mapping payload: ${outTarget} (${verifiedPayload.records.length} records ready for import)`)
+    validateCandidatePayload(updatedDataset)
+    await writeFile(options.candidatePath, `${JSON.stringify(updatedDataset, null, 2)}\n`, 'utf8')
+    console.log(`✓ Marked School ID ${options.schoolId} as REVIEWED (remains UNVERIFIED) in ${options.candidatePath}`)
+    return
   }
+
+  if (options.action === 'verify') {
+    if (!options.schoolId) throw new Error('--verify-school requires --school-id <id>.')
+    if (!options.districtName) throw new Error('--verify-school requires --district-name <name>.')
+    if (!options.evidenceSourceName) throw new Error('--verify-school requires --evidence-source-name <str>.')
+    if (!options.evidenceSourceUrl) throw new Error('--verify-school requires --evidence-source-url <url>.')
+    if (!options.evidenceType) {
+      throw new Error(
+        '--verify-school requires --evidence-type ("explicit_official_school_id_district" or "manual_document_review_with_explicit_school_id").',
+      )
+    }
+    if (!options.reviewer) throw new Error('--verify-school requires --reviewer <name>.')
+    if (!options.note) throw new Error('--verify-school requires --note <text>.')
+
+    const { updatedDataset, verifiedRecord, verifiedPayload } = promoteCandidateToVerified({
+      dataset: candidateRaw,
+      schoolId: options.schoolId,
+      districtName: options.districtName,
+      districtCode: options.districtCode,
+      evidenceSourceName: options.evidenceSourceName,
+      evidenceSourceUrl: options.evidenceSourceUrl,
+      evidenceType: options.evidenceType,
+      reviewedBy: options.reviewer,
+      verificationNote: options.note,
+    })
+
+    validateCandidatePayload(updatedDataset)
+    validateVerifiedDistrictPayload(verifiedPayload)
+
+    await writeFile(options.candidatePath, `${JSON.stringify(updatedDataset, null, 2)}\n`, 'utf8')
+    console.log(`✓ Promoted School ID ${options.schoolId} to VERIFIED in candidate dataset: ${options.candidatePath}`)
+
+    if (options.outVerifiedPath) {
+      const outTarget = resolve(options.outVerifiedPath)
+      await mkdir(dirname(outTarget), { recursive: true })
+      await writeFile(outTarget, `${JSON.stringify(verifiedPayload, null, 2)}\n`, 'utf8')
+      console.log(`✓ Wrote verified mapping payload: ${outTarget} (1 record ready for import-verified-districts)`)
+    }
+    return
+  }
+
+  usage()
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1'))) {
