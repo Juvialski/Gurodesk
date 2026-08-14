@@ -1,4 +1,4 @@
-import type { AssessmentRecord } from '../types/assessment'
+import type { AssessmentRecord, PerformanceTaskRubric } from '../types/assessment'
 import type {
   AssessmentResultSession,
   ClassLearner,
@@ -7,6 +7,8 @@ import type {
   ResultAssessmentSnapshot,
   ResultItemOutcome,
   ResultLearnerSnapshot,
+  ResultRubricCriterionScore,
+  ResultRubricOutcome,
   ResultSaveBatch,
   ResultSessionInput,
   ScoreOnlyOutcome,
@@ -78,8 +80,8 @@ function mapClassLearner(row: DbRow): ClassLearner {
 function normalizeSnapshot(value: unknown): ResultAssessmentSnapshot {
   const source = asObject(value)
   const items = Array.isArray(source.items) ? source.items : []
-  const normalizedItems = items.map((value) => {
-    const item = asObject(value)
+  const normalizedItems = items.map((val) => {
+    const item = asObject(val)
     const pointsPossible = number(item.pointsPossible ?? item.points, 1)
     return {
       id: text(item.id),
@@ -98,12 +100,10 @@ function normalizeSnapshot(value: unknown): ResultAssessmentSnapshot {
   })
   const declaredTotal = number(source.totalPossiblePoints ?? source.total_possible_points, Number.NaN)
   const derivedTotal = normalizedItems.reduce((sum, item) => sum + itemPossiblePoints(item), 0)
-  // A legacy snapshot may carry a stale total.  Keep the immutable item rows
-  // authoritative instead of displaying a silently conflicting denominator;
-  // final-save validation still rejects a client payload that disagrees.
   const totalPossiblePoints = Number.isFinite(declaredTotal) && Math.abs(declaredTotal - derivedTotal) < 0.000001
     ? declaredTotal
-    : derivedTotal
+    : (derivedTotal || declaredTotal || 0)
+
   return {
     assessmentId: text(source.assessmentId ?? source.assessment_id),
     assessmentVersionNumber: number(source.assessmentVersionNumber ?? source.assessment_version_number, 1),
@@ -162,8 +162,51 @@ function mapScoreOnly(row: DbRow): ScoreOnlyOutcome {
   }
 }
 
-function mapSessionRow(row: DbRow, participants: DbRow[] = [], outcomes: DbRow[] = [], scores: DbRow[] = []): AssessmentResultSession {
+function mapRubricOutcomes(rows: DbRow[]): ResultRubricOutcome[] {
+  const byParticipant = new Map<string, { learnerId: string; criteriaScores: ResultRubricCriterionScore[]; updatedAt: string }>()
+  for (const row of rows) {
+    const participantId = text(row.participant_id)
+    const learnerId = text(row.learner_id)
+    const criterionId = text(row.criterion_id)
+    const selectedLevelId = nullableText(row.selected_level_id)
+    const earnedPoints = number(row.earned_points)
+    const teacherFeedback = nullableText(row.teacher_feedback)
+    const updatedAt = text(row.updated_at)
+    if (!byParticipant.has(participantId)) {
+      byParticipant.set(participantId, { learnerId, criteriaScores: [], updatedAt })
+    }
+    const entry = byParticipant.get(participantId)!
+    entry.criteriaScores.push({
+      criterionId,
+      selectedLevelId,
+      earnedPoints,
+      teacherFeedback,
+    })
+    if (updatedAt > entry.updatedAt) entry.updatedAt = updatedAt
+  }
+  return Array.from(byParticipant.entries()).map(([participantId, val]) => {
+    const totalEarnedPoints = val.criteriaScores.reduce((sum, c) => sum + c.earnedPoints, 0)
+    return {
+      participantId,
+      learnerId: val.learnerId,
+      criteriaScores: val.criteriaScores,
+      totalEarnedPoints,
+      possiblePoints: 0,
+      teacherFeedback: null,
+      updatedAt: val.updatedAt,
+    }
+  })
+}
+
+function mapSessionRow(
+  row: DbRow,
+  participants: DbRow[] = [],
+  outcomes: DbRow[] = [],
+  scores: DbRow[] = [],
+  rubrics: DbRow[] = [],
+): AssessmentResultSession {
   const snapshot = normalizeSnapshot(row.assessment_snapshot)
+  const rubricSnapshot = (asObject(row.rubric_snapshot ?? (asObject(row.assessment_snapshot) as any).rubricSnapshot)) as PerformanceTaskRubric | undefined
   const session: AssessmentResultSession = {
     id: text(row.id),
     userId: text(row.user_id),
@@ -178,6 +221,8 @@ function mapSessionRow(row: DbRow, participants: DbRow[] = [], outcomes: DbRow[]
     learners: participants.map(mapParticipant),
     itemOutcomes: outcomes.map(mapOutcome),
     scoreOnlyOutcomes: scores.map(mapScoreOnly),
+    rubricOutcomes: mapRubricOutcomes(rubrics),
+    rubricSnapshot: rubricSnapshot && Array.isArray(rubricSnapshot.criteria) ? rubricSnapshot : undefined,
     shortAnswerScoring: (() => {
       const config = clone(asObject(row.short_answer_scoring)) as Partial<AssessmentResultSession['shortAnswerScoring']>
       return {
@@ -195,10 +240,16 @@ function mapSessionRow(row: DbRow, participants: DbRow[] = [], outcomes: DbRow[]
 function localSessionListSummary(session: AssessmentResultSession): ResultSessionListSummary {
   const encodedLearnerIds = session.entryMode === 'score_only'
     ? new Set(session.scoreOnlyOutcomes.filter((outcome) => outcome.rawScore !== null).map((outcome) => outcome.participantId))
+    : session.entryMode === 'rubric'
+    ? new Set((session.rubricOutcomes ?? []).filter((o) => o.criteriaScores.length > 0).map((o) => o.participantId))
     : new Set(session.itemOutcomes.filter((outcome) => outcome.answer !== null).map((outcome) => outcome.participantId))
+
   const responseCount = session.entryMode === 'score_only'
     ? session.scoreOnlyOutcomes.filter((outcome) => outcome.rawScore !== null).length
+    : session.entryMode === 'rubric'
+    ? (session.rubricOutcomes ?? []).filter((o) => o.criteriaScores.length > 0).length
     : session.itemOutcomes.filter((outcome) => outcome.answer !== null).length
+
   return {
     ...session,
     learnerCount: session.learners.length,
@@ -212,16 +263,11 @@ function rowFromRpc(data: unknown): DbRow {
   return asObject(data)
 }
 
-/**
- * Supabase/PostgREST deployments commonly default to a 1,000-row response
- * limit.  Result outcomes are loaded in deterministic pages so a 2,000+ cell
- * class is complete without issuing one request per learner or answer.
- */
 async function loadResultRowsPaged(
-  table: 'result_session_learners' | 'result_item_outcomes' | 'result_score_only_outcomes',
+  table: 'result_session_learners' | 'result_item_outcomes' | 'result_score_only_outcomes' | 'result_rubric_outcomes',
   id: string,
   userId: string,
-  orderColumn: 'created_at' | 'item_number',
+  orderColumn: string,
 ) {
   if (!supabase) return [] as DbRow[]
   const pageSize = 900
@@ -230,11 +276,14 @@ async function loadResultRowsPaged(
     let query = supabase.from(table).select('*')
       .eq('result_session_id', id).eq('user_id', userId)
       .order(orderColumn, { ascending: true })
-    // The primary ordering column is not unique. Stable tie-breakers keep a
-    // row from moving between pages when the result has 2,000+ cells.
-    query = table === 'result_item_outcomes'
-      ? query.order('item_id', { ascending: true }).order('participant_id', { ascending: true })
-      : query.order('id', { ascending: true })
+
+    if (table === 'result_item_outcomes') {
+      query = query.order('item_id', { ascending: true }).order('participant_id', { ascending: true })
+    } else if (table === 'result_rubric_outcomes') {
+      query = query.order('participant_id', { ascending: true }).order('criterion_id', { ascending: true })
+    } else {
+      query = query.order('id', { ascending: true })
+    }
     const { data, error } = await query.range(offset, offset + pageSize - 1)
     if (error) throw error
     const page = (data ?? []) as unknown as DbRow[]
@@ -271,10 +320,6 @@ export async function saveClassLearner(input: LearnerInput, userId: string, demo
   return mapClassLearner(rowFromRpc(data))
 }
 
-/**
- * Confirmed roster imports are sent as one bounded replacement batch.  The
- * database RPC validates every row and derives ownership from auth.uid().
- */
 export async function saveClassLearnersBulk(inputs: LearnerInput[], userId: string, demo: boolean): Promise<ClassLearner[]> {
   if (inputs.length === 0) return []
   const assignmentId = inputs[0].assignmentId
@@ -339,11 +384,12 @@ export async function loadResultSessions(
 
 export async function loadResultSession(id: string, userId: string, demo: boolean): Promise<AssessmentResultSession | null> {
   if (demo || !supabase) return readDemoResultSessions(userId).find((item) => item.id === id) ?? null
-  const [sessionResult, participants, outcomes, scores] = await Promise.all([
+  const [sessionResult, participants, outcomes, scores, rubrics] = await Promise.all([
     supabase.from('result_sessions').select('*').eq('id', id).eq('user_id', userId).maybeSingle(),
     loadResultRowsPaged('result_session_learners', id, userId, 'created_at'),
     loadResultRowsPaged('result_item_outcomes', id, userId, 'item_number'),
     loadResultRowsPaged('result_score_only_outcomes', id, userId, 'created_at'),
+    loadResultRowsPaged('result_rubric_outcomes', id, userId, 'created_at'),
   ])
   if (sessionResult.error) throw sessionResult.error
   if (!sessionResult.data) return null
@@ -352,6 +398,7 @@ export async function loadResultSession(id: string, userId: string, demo: boolea
     participants,
     outcomes,
     scores,
+    rubrics,
   )
 }
 
@@ -359,6 +406,7 @@ function emptyDemoSession(input: ResultSessionInput, userId: string, assessment:
   if (assessment.status !== 'final') throw new Error('Results require a finalized assessment.')
   if (assessment.assignmentId !== input.assignmentId) throw new Error('Results assessment and assignment must match.')
   const now = new Date().toISOString()
+  const isPerfTask = assessment.mode === 'performance_task' || Boolean(assessment.performanceTask)
   const items: ResultAssessmentItemSnapshot[] = assessment.items.map((item) => ({
     id: item.id,
     itemNumber: item.itemNumber,
@@ -371,6 +419,10 @@ function emptyDemoSession(input: ResultSessionInput, userId: string, assessment:
     cognitiveCategorySnapshot: clone(item.cognitiveCategorySnapshot),
     mapping: clone(item.mapping),
   }))
+  const totalPossiblePoints = isPerfTask
+    ? (assessment.performanceTask?.rubric?.totalPoints || 0)
+    : items.reduce((total, item) => total + itemPossiblePoints(item), 0)
+
   const assessmentSnapshot: ResultAssessmentSnapshot = {
     assessmentId: assessment.id,
     assessmentVersionNumber: assessment.versionNumber,
@@ -383,8 +435,8 @@ function emptyDemoSession(input: ResultSessionInput, userId: string, assessment:
     gradingTermLabel: assessment.gradingTermLabel,
     curriculumPeriodIds: [...assessment.curriculumPeriodIds],
     curriculumPeriodLabels: [...assessment.curriculumPeriodLabels],
-    totalItems: items.length,
-    totalPossiblePoints: items.reduce((total, item) => total + itemPossiblePoints(item), 0),
+    totalItems: isPerfTask ? 0 : items.length,
+    totalPossiblePoints,
     items,
   }
   const participantSnapshots: ResultLearnerSnapshot[] = learners.map((learner) => ({
@@ -408,6 +460,8 @@ function emptyDemoSession(input: ResultSessionInput, userId: string, assessment:
     learners: participantSnapshots,
     itemOutcomes: [],
     scoreOnlyOutcomes: [],
+    rubricOutcomes: [],
+    rubricSnapshot: assessment.performanceTask?.rubric,
     shortAnswerScoring: { defaultMode: 'manual' as const, itemModes: {} },
     createdAt: now,
     updatedAt: now,
@@ -431,7 +485,7 @@ export async function createResultSession(
       throw new Error('Every selected demo learner must be active in the assignment section.')
     }
     const session = emptyDemoSession(input, userId, assessment, learners)
-    return saveDemoResultSession({ session, outcomes: [], scoreOnlyOutcomes: [] }, userId, 'draft')
+    return saveDemoResultSession({ session, outcomes: [], scoreOnlyOutcomes: [], rubricOutcomes: [] }, userId, 'draft')
   }
   const { data, error } = await supabase.rpc('create_result_session', {
     p_assessment_document_id: input.assessmentId,
@@ -467,6 +521,7 @@ export async function saveResultSession(
     p_score_only_outcomes: batch.scoreOnlyOutcomes,
     p_expected_version: batch.session.versionNumber,
     p_status: status,
+    p_rubric_outcomes: batch.rubricOutcomes ?? [],
   })
   if (error) throw error
   const row = rowFromRpc(data)
@@ -488,7 +543,6 @@ export async function deleteDraftResultSession(id: string, userId: string, demo:
   if (error) throw error
 }
 
-/** Explicitly opt in to labelled demo data; normal demo setup never seeds it. */
 export function createAndStoreDemoResultsSample(
   assessment: AssessmentRecord,
   userId: string,
@@ -496,13 +550,13 @@ export function createAndStoreDemoResultsSample(
   sectionName: string,
 ) {
   const sample = createDemoResultsSample(assessment, userId, assignmentId, sectionName)
-  sample.learners.forEach((learner) => saveDemoClassLearner({
-    id: learner.id,
-    assignmentId: learner.assignmentId,
-    sectionName: learner.sectionName,
-    displayName: learner.displayName,
-    localReference: learner.localReference,
-    status: learner.status,
-  }, userId))
-  return saveDemoResultSession({ session: sample.session, outcomes: sample.session.itemOutcomes, scoreOnlyOutcomes: [] }, userId, 'draft')
+  for (const learner of sample.learners) {
+    saveDemoClassLearner(learner, userId)
+  }
+  return saveDemoResultSession({
+    session: sample.session,
+    outcomes: sample.session.itemOutcomes,
+    scoreOnlyOutcomes: sample.session.scoreOnlyOutcomes,
+    rubricOutcomes: sample.session.rubricOutcomes,
+  }, userId, 'draft')
 }

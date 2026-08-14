@@ -333,6 +333,28 @@ export function calculateScoreOnlyTotals(rawScore: number | null, possiblePoints
   }
 }
 
+export function calculateRubricTotals(
+  outcome: { totalEarnedPoints?: number | null; criteriaScores?: Array<{ earnedPoints?: number }> } | undefined,
+  possiblePoints: number,
+): ResultTotals {
+  const possible = roundScore(finiteNonnegative(possiblePoints), 6)
+  const raw = outcome?.totalEarnedPoints === null || outcome?.totalEarnedPoints === undefined
+    ? (outcome?.criteriaScores?.reduce((sum, cs) => sum + finiteNonnegative(cs.earnedPoints), 0) ?? 0)
+    : roundScore(finiteNonnegative(outcome.totalEarnedPoints), 6)
+  const attempted = outcome?.criteriaScores?.length ?? 0
+  return {
+    rawScore: raw,
+    possiblePoints: possible,
+    percentage: possible > 0 ? roundScore((raw / possible) * 100, 2) : null,
+    attemptedItems: attempted,
+    omittedItems: 0,
+    correctItems: 0,
+    incorrectItems: 0,
+    teacherScoredItems: attempted,
+    deterministicItems: 0,
+  }
+}
+
 /** Score-only entry intentionally cannot produce item-level analysis. */
 export function canProduceItemAnalysis(entryMode: AssessmentResultSession['entryMode']): boolean {
   return entryMode !== 'score_only'

@@ -57,7 +57,7 @@ export function HelpPage() {
         <ActionCard
           to="/assessments"
           title="Assessments"
-          description="Create from a finalized TOS, review every generated question, and finalize only when ready."
+          description="Create from a finalized TOS, single lesson plan, unit module, or authentic performance task with 4-level rubrics."
           actionLabel="Open Assessments"
           icon={ClipboardCheck}
           tone="amber"

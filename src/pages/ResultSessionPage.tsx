@@ -5,12 +5,13 @@ import { AnswerButtons } from '../components/results/AnswerButtons'
 import { LearnerPicker } from '../components/results/LearnerPicker'
 import { ResultMetric } from '../components/results/ResultMetric'
 import { ResultsImportPanel } from '../components/results/ResultsImportPanel'
+import { RubricScoringGrid } from '../components/results/RubricScoringGrid'
 import { useApp } from '../contexts/AppContext'
 import { normalizeImportKey } from '../lib/resultsImport'
 import { archiveResultSession, deleteDraftResultSession, loadResultSession, saveResultSession } from '../lib/resultsRepository'
-import { calculateResultTotals, calculateScoreOnlyTotals, formatScore, itemPossiblePoints, resultItemNumberLabel, scoreResultItem } from '../lib/resultsScoring'
+import { calculateResultTotals, calculateRubricTotals, calculateScoreOnlyTotals, formatScore, itemPossiblePoints, resultItemNumberLabel, scoreResultItem } from '../lib/resultsScoring'
 import { validateResultSession } from '../lib/resultsValidation'
-import type { LearnerItemAnswer, AssessmentResultSession, ResultAssessmentItemSnapshot, ResultItemOutcome, ScoreOnlyOutcome } from '../types/results'
+import type { LearnerItemAnswer, AssessmentResultSession, ResultAssessmentItemSnapshot, ResultItemOutcome, ResultRubricCriterionScore, ResultRubricOutcome, ScoreOnlyOutcome } from '../types/results'
 
 const RESULT_AUTOSAVE_DELAY_MS = 1500
 
@@ -20,6 +21,10 @@ function itemOutcome(session: AssessmentResultSession, participantId: string, it
 
 function scoreOutcome(session: AssessmentResultSession, participantId: string) {
   return session.scoreOnlyOutcomes.find((outcome) => outcome.participantId === participantId)
+}
+
+function rubricOutcome(session: AssessmentResultSession, participantId: string) {
+  return (session.rubricOutcomes || []).find((outcome) => outcome.participantId === participantId)
 }
 
 function answerFromImportedValue(item: ResultAssessmentItemSnapshot, value: string | null): LearnerItemAnswer | null {
@@ -143,30 +148,60 @@ export function ResultSessionPage() {
     window.addEventListener('beforeunload', beforeUnload)
     return () => {
       window.removeEventListener('beforeunload', beforeUnload)
-      if (saveTimerRef.current) {
-        clearTimeout(saveTimerRef.current)
-        saveTimerRef.current = null
-      }
-      // Flush the latest complete replacement arrays when an internal route
-      // change unmounts the editor. This remains one bounded save, never a
-      // request per answer cell.
-      if (pendingSaveRef.current && userRef.current) void drainSaves()
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
+      void drainSaves()
     }
   }, [])
 
-  const participants = session?.learners ?? []
-  const items = session?.assessmentSnapshot.items ?? []
-  const activeParticipant = participants[activeParticipantIndex] ?? null
-  const activeItem = items[activeItemIndex] ?? null
-  const encodedParticipantIds = useMemo(() => new Set((session?.entryMode === 'score_only' ? session.scoreOnlyOutcomes.filter((outcome) => outcome.rawScore !== null).map((outcome) => outcome.participantId) : session?.itemOutcomes.filter((outcome) => outcome.answer !== null || outcome.earnedPoints > 0).map((outcome) => outcome.participantId)) ?? []), [session])
-  const currentOutcomes = activeParticipant ? items.map((item) => itemOutcome(session!, activeParticipant.participantId, item.id)).filter((outcome): outcome is ResultItemOutcome => Boolean(outcome)) : []
-  const currentTotals = session?.entryMode === 'score_only'
-    ? calculateScoreOnlyTotals(activeParticipant ? (scoreOutcome(session, activeParticipant.participantId)?.rawScore ?? null) : null, session.assessmentSnapshot.totalPossiblePoints)
-    : calculateResultTotals(currentOutcomes, session?.assessmentSnapshot.totalPossiblePoints)
-  const responseSlots = participants.length * items.length
-  const responsesEntered = session?.entryMode === 'score_only' ? session.scoreOnlyOutcomes.filter((outcome) => outcome.rawScore !== null).length : session?.itemOutcomes.filter((outcome) => outcome.answer !== null).length ?? 0
-  const missingResponses = session?.entryMode === 'score_only' ? Math.max(0, participants.length - responsesEntered) : Math.max(0, responseSlots - responsesEntered)
+  const items = useMemo(() => session?.assessmentSnapshot.items ?? [], [session?.assessmentSnapshot.items])
+  const participants = useMemo(() => session?.learners ?? [], [session?.learners])
+  const activeParticipant = participants[activeParticipantIndex] ?? participants[0] ?? null
+  const activeItem = items[activeItemIndex] ?? items[0] ?? null
   const readOnly = session?.status !== 'draft'
+  const isRubricMode = session?.entryMode === 'rubric'
+  const rubric = session?.rubricSnapshot
+
+  const encodedParticipantIds = useMemo(() => {
+    if (!session) return new Set<string>()
+    if (session.entryMode === 'score_only') {
+      return new Set(session.scoreOnlyOutcomes.filter((outcome) => outcome.rawScore !== null).map((outcome) => outcome.participantId))
+    }
+    if (isRubricMode) {
+      return new Set((session.rubricOutcomes || []).filter((outcome) => outcome.criteriaScores.length > 0).map((outcome) => outcome.participantId))
+    }
+    return new Set(session.itemOutcomes.filter((outcome) => outcome.answer !== null).map((outcome) => outcome.participantId))
+  }, [session, isRubricMode])
+
+  const responsesEntered = useMemo(() => {
+    if (!session) return 0
+    if (session.entryMode === 'score_only') return session.scoreOnlyOutcomes.filter((outcome) => outcome.rawScore !== null).length
+    if (isRubricMode) return (session.rubricOutcomes || []).filter((outcome) => outcome.criteriaScores.length > 0).length
+    return session.itemOutcomes.filter((outcome) => outcome.answer !== null).length
+  }, [session, isRubricMode])
+
+  const responseSlots = isRubricMode
+    ? participants.length * (rubric?.criteria?.length || 1)
+    : participants.length * Math.max(1, session?.assessmentSnapshot.totalItems ?? items.length)
+
+  const missingResponses = isRubricMode
+    ? participants.length - encodedParticipantIds.size
+    : session?.entryMode === 'score_only'
+      ? participants.length - encodedParticipantIds.size
+      : Math.max(0, responseSlots - responsesEntered)
+
+  const currentTotals = useMemo(() => {
+    if (!session || !activeParticipant) return { rawScore: 0, possiblePoints: session?.assessmentSnapshot.totalPossiblePoints ?? 0, percentage: null, attemptedItems: 0, omittedItems: 0, correctItems: 0, incorrectItems: 0, teacherScoredItems: 0, deterministicItems: 0 }
+    if (isRubricMode) {
+      const activeOutcome = rubricOutcome(session, activeParticipant.participantId)
+      return calculateRubricTotals(activeOutcome, rubric?.totalPoints || session.assessmentSnapshot.totalPossiblePoints)
+    }
+    if (session.entryMode === 'score_only') {
+      const outcome = scoreOutcome(session, activeParticipant.participantId)
+      return calculateScoreOnlyTotals(outcome?.rawScore ?? null, session.assessmentSnapshot.totalPossiblePoints)
+    }
+    const outcomes = session.itemOutcomes.filter((outcome) => outcome.participantId === activeParticipant.participantId)
+    return calculateResultTotals(outcomes, session.assessmentSnapshot.totalPossiblePoints)
+  }, [session, activeParticipant, isRubricMode, rubric])
 
   function markDirty() {
     dirtyRef.current = true
@@ -178,8 +213,6 @@ export function ResultSessionPage() {
     markDirty()
     sessionRef.current = nextSession
     pendingSaveRef.current = nextSession
-    // A final save requested by the teacher must not be downgraded by a
-    // keystroke that happens while the previous complete-array save is in flight.
     if (pendingSaveStatusRef.current !== 'final') pendingSaveStatusRef.current = 'draft'
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
     saveTimerRef.current = setTimeout(() => { saveTimerRef.current = null; void drainSaves() }, RESULT_AUTOSAVE_DELAY_MS)
@@ -201,11 +234,14 @@ export function ResultSessionPage() {
         pendingSaveRef.current = null
         setSaveState('saving')
         try {
-          const saved = await saveResultSession({ session: nextSession, outcomes: nextSession.itemOutcomes, scoreOnlyOutcomes: nextSession.scoreOnlyOutcomes }, currentUser.id, demoRef.current, status)
+          const saved = await saveResultSession({
+            session: nextSession,
+            outcomes: nextSession.itemOutcomes,
+            scoreOnlyOutcomes: nextSession.scoreOnlyOutcomes,
+            rubricOutcomes: nextSession.rubricOutcomes,
+          }, currentUser.id, demoRef.current, status)
           const newer = pendingSaveRef.current as AssessmentResultSession | null
           if (newer) {
-            // The server version belongs to the saved prefix. Rebase the latest
-            // complete local arrays onto it before the next RPC.
             const rebased = { ...newer, versionNumber: saved.versionNumber, createdAt: saved.createdAt, updatedAt: newer.updatedAt }
             pendingSaveRef.current = rebased
             sessionRef.current = rebased
@@ -219,8 +255,6 @@ export function ResultSessionPage() {
         } catch (nextError) {
           const failure = nextError instanceof Error ? nextError.message : 'Draft save failed.'
           saveFailureRef.current = failure
-          // Preserve the newest local draft for an explicit retry; never fall
-          // back to a stale array or silently discard edits.
           if (!pendingSaveRef.current) pendingSaveRef.current = sessionRef.current ?? nextSession
           setSaveState('error')
           setError(failure)
@@ -233,6 +267,17 @@ export function ResultSessionPage() {
       saveBusyRef.current = false
       drainPromiseRef.current = null
     }
+  }
+
+  function updateRubricOutcomes(updatedOutcomes: ResultRubricOutcome[]) {
+    if (!session || readOnly) return
+    const nextSession: AssessmentResultSession = {
+      ...session,
+      rubricOutcomes: updatedOutcomes,
+      updatedAt: new Date().toISOString(),
+    }
+    setSession(nextSession)
+    queueSave(nextSession)
   }
 
   function updateItemOutcome(participantId: string, item: ResultAssessmentItemSnapshot, answer: LearnerItemAnswer | null, awardedPoints?: number | null, teacherFeedback?: string | null) {
@@ -287,54 +332,59 @@ export function ResultSessionPage() {
     queueSave(nextSession)
   }
 
-  async function save(status: 'draft' | 'final' = 'draft') {
-    const currentSession = sessionRef.current ?? session
-    if (!currentSession || !user || readOnly) return
-    if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
-    const validation = validateResultSession(currentSession)
-    if (!validation.ready) { setError(validation.errors[0]?.message ?? 'Correct the result session before saving.'); return }
-    setSaving(true); setSaveState('saving'); setError(''); saveFailureRef.current = null
-    pendingSaveRef.current = currentSession
+  async function save(status: 'draft' | 'final') {
+    if (!user || !session) return
+    if (status === 'final') {
+      const validation = validateResultSession(session)
+      if (!validation.ready) {
+        setError(validation.errors.map((e) => e.message).join('. '))
+        return
+      }
+    }
     pendingSaveStatusRef.current = status
-    sessionRef.current = currentSession
+    setSaving(true)
+    setError('')
     try {
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
+      pendingSaveRef.current = session
       await drainSaves()
-      if (!saveFailureRef.current) setMessage(status === 'final' ? 'Results finalized. Historical snapshots are now read-only.' : 'Draft saved.')
+      if (saveFailureRef.current) throw new Error(saveFailureRef.current)
+      setMessage(status === 'final' ? 'Result session finalized and locked.' : 'Result draft saved.')
     } catch (nextError) {
-      setSaveState('error')
       setError(nextError instanceof Error ? nextError.message : 'Unable to save results.')
-    } finally { setSaving(false) }
+    } finally {
+      setSaving(false)
+    }
   }
 
   async function deleteDraft() {
-    if (!session || !user || session.status !== 'draft') return
-    if (!window.confirm(`Delete the draft result set “${session.title}”? Imported results in this draft will also be removed.`)) return
-    if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
-    pendingSaveRef.current = null
-    setSaving(true); setError('')
+    if (!user || !session || session.status !== 'draft') return
+    if (!window.confirm('Delete this draft result session? Encoded responses will be removed.')) return
+    setSaving(true)
     try {
       await deleteDraftResultSession(session.id, user.id, isDemo)
       navigate('/results')
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : 'Unable to delete this draft result set.')
-    } finally { setSaving(false) }
+      setError(nextError instanceof Error ? nextError.message : 'Unable to delete draft.')
+      setSaving(false)
+    }
   }
 
   async function archiveFinal() {
-    if (!session || !user || session.status !== 'final') return
-    if (!window.confirm(`Archive “${session.title}”? Archived history remains available but can no longer be edited.`)) return
-    setSaving(true); setError('')
+    if (!user || !session || session.status !== 'final') return
+    if (!window.confirm('Archive this result session? It will be moved to archived history.')) return
+    setSaving(true)
     try {
       const archived = await archiveResultSession(session.id, user.id, isDemo)
-      sessionRef.current = archived
-      setSession(archived)
-      setMessage('Result history archived. It remains available for teacher reports.')
+      if (archived) setSession(archived)
+      navigate('/results')
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : 'Unable to archive this result set.')
-    } finally { setSaving(false) }
+      setError(nextError instanceof Error ? nextError.message : 'Unable to archive result session.')
+      setSaving(false)
+    }
   }
 
-  function applyImport(preview: import('../lib/resultsImport').ResultsImportPreview): boolean {
+  function applyImport(preview: import('../lib/resultsImport').ResultsImportPreview) {
     if (!session || readOnly) return false
     const byDisplayName = new Map<string, typeof participants>()
     const byReference = new Map<string, typeof participants>()
@@ -359,9 +409,6 @@ export function ResultSessionPage() {
         (resolved.ambiguous ? ambiguous : missing).push(row.learnerKey)
       } else resolvedRows.push({ row, participant: resolved.participant })
     }
-    // A teacher must correct the whole mapping before any row is staged. This
-    // prevents an import with one misspelled or duplicate name from producing
-    // a misleading partial result set.
     if (missing.length || ambiguous.length) {
       const issues = [missing.length ? `Not found: ${missing.join(', ')}` : '', ambiguous.length ? `Ambiguous: ${ambiguous.join(', ')}` : ''].filter(Boolean)
       setMessage(`Import not applied. Correct every learner mapping first. ${issues.join('. ')}.`)
@@ -398,8 +445,6 @@ export function ResultSessionPage() {
   if (!session) return <div className="form-message error results-alert">{error || 'Result session unavailable.'}</div>
 
   const renderItemEditor = (participantId: string, item: ResultAssessmentItemSnapshot) => {
-    // Keep one full editor mounted on a phone. The item navigator still lets a
-    // teacher jump directly to any numbered slot without a giant DOM tree.
     if (item.id !== activeItem?.id) return null
     const outcome = itemOutcome(session, participantId, item.id)
     const mode = session.shortAnswerScoring.itemModes[item.id] ?? session.shortAnswerScoring.defaultMode
@@ -416,10 +461,23 @@ export function ResultSessionPage() {
   return <>
     <div className="results-sticky-actions"><div><Link className="text-link" to="/results"><ArrowLeft size={15} /> Results</Link><strong>{session.title}</strong><small>{session.assessmentSnapshot.assessmentTitle} · {session.sectionName}</small></div><div className="results-save-actions"><span className={`results-save-state ${saveState}`}>{saveState === 'saved' ? 'Saved' : saveState === 'saving' ? 'Saving…' : saveState === 'pending' ? 'Draft pending' : 'Save error'}</span>{session.status === 'draft' && <><button className="button ghost" type="button" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button><button className="button primary" type="button" disabled={saving} onClick={() => void save('final')}><Check size={15} /> Finalize</button><button className="button ghost danger" type="button" disabled={saving} onClick={() => void deleteDraft()}><Trash2 size={15} /> Delete draft</button></>}{session.status === 'final' && <button className="button ghost" type="button" disabled={saving} onClick={() => void archiveFinal()}><Archive size={15} /> Archive history</button>}</div></div>
     {error && <div className="form-message error results-alert">{error}</div>}{message && <div className="form-message results-alert">{message}</div>}
-    <section className="results-session-intro"><div><span className={`results-status ${session.status}`}>{session.status}</span><h1>{session.title}</h1><p>{session.assessmentSnapshot.assessmentTitle} · {session.assessmentSnapshot.totalItems} items · {session.assessmentSnapshot.totalPossiblePoints} possible points</p></div><ResultsImportPanel mode={session.entryMode} sectionName={session.sectionName} itemCount={session.assessmentSnapshot.totalItems} possiblePoints={session.assessmentSnapshot.totalPossiblePoints} items={items} onConfirm={applyImport} /></section>
-    <section className="results-metric-grid compact"><ResultMetric label="Learners encoded" value={encodedParticipantIds.size} hint={`of ${participants.length}`} tone="green" /><ResultMetric label="Responses" value={responsesEntered} hint={session.entryMode === 'score_only' ? 'scores entered' : `of ${responseSlots}`} /><ResultMetric label="Missing" value={missingResponses} hint="not answered" tone={missingResponses ? 'amber' : 'green'} /><ResultMetric label="Current learner" value={activeParticipant ? `${formatScore(currentTotals.rawScore)}/${formatScore(currentTotals.possiblePoints)}` : '—'} hint={currentTotals.percentage === null ? 'percentage unavailable' : `${currentTotals.percentage}%`} tone="slate" /></section>
-    {session.entryMode === 'answer_sheet' && <div className="results-workspace"><aside className="panel results-picker-panel"><div className="results-section-heading compact"><div><h2>Learners</h2><p>Choose one, then enter answers rapidly.</p></div></div><LearnerPicker learners={participants} activeParticipantId={activeParticipant?.participantId ?? ''} encodedParticipantIds={encodedParticipantIds} onSelect={(participantId) => { const index = participants.findIndex((participant) => participant.participantId === participantId); if (index >= 0) setActiveParticipantIndex(index) }} /></aside><main className="results-encoding-main"><div className="results-item-nav" aria-label="Assessment items">{items.map((item, index) => <button className={index === activeItemIndex ? 'selected' : ''} type="button" key={item.id} onClick={() => setActiveItemIndex(index)}>{resultItemNumberLabel(item)}<small>{itemOutcome(session, activeParticipant?.participantId ?? '', item.id)?.answer ? 'done' : 'empty'}</small></button>)}</div><div className="results-next-actions" aria-label="Assessment item navigation"><button className="button secondary" type="button" disabled={activeItemIndex <= 0} onClick={() => setActiveItemIndex((index) => Math.max(0, index - 1))}>Previous item <ChevronLeft size={15} /></button><button className="button secondary" type="button" disabled={activeItemIndex >= items.length - 1} onClick={() => setActiveItemIndex((index) => Math.min(items.length - 1, index + 1))}>Next item <ChevronRight size={15} /></button></div><div className="results-progress-banner"><div><strong>{activeParticipant?.displayName}</strong><small>{activeParticipantIndex + 1} of {participants.length} learners · {currentTotals.attemptedItems}/{items.length} attempted</small></div><div className="results-progress-track"><span style={{ width: `${items.length ? Math.min(100, currentTotals.attemptedItems / items.length * 100) : 0}%` }} /></div><div className="results-next-actions"><button className="icon-button" type="button" disabled={activeParticipantIndex <= 0} onClick={() => setActiveParticipantIndex((index) => Math.max(0, index - 1))} aria-label="Previous learner"><ChevronLeft size={18} /></button><button className="button secondary" type="button" onClick={() => setActiveParticipantIndex((index) => Math.min(participants.length - 1, index + 1))}>Next learner <ChevronRight size={15} /></button></div></div><div className="results-item-list">{items.map((item) => renderItemEditor(activeParticipant?.participantId ?? '', item))}</div></main></div>}
-    {session.entryMode === 'item' && <div className="results-item-mode"><div className="results-item-nav" aria-label="Assessment items">{items.map((item, index) => <button className={index === activeItemIndex ? 'selected' : ''} type="button" key={item.id} onClick={() => setActiveItemIndex(index)}>{resultItemNumberLabel(item)}<small>{new Set(session.itemOutcomes.filter((outcome) => outcome.itemId === item.id && outcome.answer !== null).map((outcome) => outcome.participantId)).size}/{participants.length}</small></button>)}</div><section className="results-item-class-panel"><div className="results-section-heading"><div><span className="eyebrow">Item mode</span><h2>Question {activeItem ? resultItemNumberLabel(activeItem) : ""}</h2><p>Mark this response across the class, then move directly to another item.</p></div><div className="results-next-actions"><button className="icon-button" type="button" disabled={activeItemIndex <= 0} onClick={() => setActiveItemIndex((index) => Math.max(0, index - 1))} aria-label="Previous item"><ChevronLeft size={18} /></button><button className="button secondary" type="button" onClick={() => setActiveItemIndex((index) => Math.min(items.length - 1, index + 1))}>Next item <ChevronRight size={15} /></button></div></div>{activeItem && <div className="results-class-response-list">{participants.map((participant) => { const outcome = itemOutcome(session, participant.participantId, activeItem.id); const teacherScored = activeItem.questionType === 'constructed_response' || activeItem.questionType === 'problem_solving' || activeItem.questionType === 'essay' || activeItem.questionType === 'short_answer' && (session.shortAnswerScoring.itemModes[activeItem.id] ?? session.shortAnswerScoring.defaultMode) === 'manual'; const teacherAnswer = (answer: LearnerItemAnswer | null) => teacherScored ? preserveTeacherAttempt(activeItem, outcome, answer) : answer; return <div className="results-class-response-row" key={participant.participantId}><div><strong>{participant.displayName}</strong><small>{participant.localReference || 'No local reference'}</small></div><AnswerButtons item={activeItem} value={outcome?.answer ?? null} disabled={readOnly} onChange={(answer) => updateItemOutcome(participant.participantId, activeItem, teacherAnswer(answer))} />{teacherScored && <><button className="results-response-marker compact" type="button" disabled={readOnly || (Boolean(outcome?.answer) && (outcome?.earnedPoints ?? 0) > 0)} onClick={() => updateItemOutcome(participant.participantId, activeItem, Boolean(outcome?.answer) && (outcome?.earnedPoints ?? 0) <= 0 ? null : teacherResponseMarker(activeItem), outcome?.earnedPoints ?? null, outcome?.teacherFeedback ?? null)}>{outcome?.answer ? 'Present' : 'Mark present'}</button><input className="results-inline-points" type="number" inputMode="decimal" min="0" max={itemPossiblePoints(activeItem)} step="0.01" value={outcome?.earnedPoints ?? ''} disabled={readOnly} aria-label={`Awarded points for ${participant.displayName}`} onChange={(event) => updateItemOutcome(participant.participantId, activeItem, teacherResponseMarker(activeItem), event.target.value === '' ? null : Number(event.target.value))} /></>}</div>})}</div>}</section></div>}
-    {session.entryMode === 'score_only' && <section className="panel results-score-only-panel"><div className="results-score-only-note"><CircleAlert size={17} /><p><strong>Score-only mode</strong> records an overall raw score efficiently. It cannot produce item, option, competency, or cognitive-category analysis.</p></div><div className="results-score-list">{participants.map((participant) => { const outcome = scoreOutcome(session, participant.participantId); return <label className="results-score-row" key={participant.participantId}><span><strong>{participant.displayName}</strong><small>{participant.localReference || 'No local reference'}</small></span><input type="number" inputMode="decimal" min="0" max={session.assessmentSnapshot.totalPossiblePoints} step="0.01" value={outcome?.rawScore ?? ''} disabled={readOnly} placeholder="Raw score" aria-label={`Raw score for ${participant.displayName}`} onChange={(event) => updateScoreOnly(participant.participantId, event.target.value)} /><b>/ {formatScore(session.assessmentSnapshot.totalPossiblePoints)}</b></label> })}</div></section>}
+    <section className="results-session-intro"><div><span className={`results-status ${session.status}`}>{session.status}</span><h1>{session.title}</h1><p>{session.assessmentSnapshot.assessmentTitle} · {isRubricMode ? `${rubric?.criteria?.length || 0} criteria` : `${session.assessmentSnapshot.totalItems} items`} · {session.assessmentSnapshot.totalPossiblePoints} possible points</p></div>{!isRubricMode && <ResultsImportPanel mode={session.entryMode} sectionName={session.sectionName} itemCount={session.assessmentSnapshot.totalItems} possiblePoints={session.assessmentSnapshot.totalPossiblePoints} items={items} onConfirm={applyImport} />}</section>
+    <section className="results-metric-grid compact"><ResultMetric label="Learners encoded" value={encodedParticipantIds.size} hint={`of ${participants.length}`} tone="green" /><ResultMetric label="Responses" value={responsesEntered} hint={isRubricMode ? 'rubric scored' : session.entryMode === 'score_only' ? 'scores entered' : `of ${responseSlots}`} /><ResultMetric label="Missing" value={missingResponses} hint="not answered" tone={missingResponses ? 'amber' : 'green'} /><ResultMetric label="Current learner" value={activeParticipant ? `${formatScore(currentTotals.rawScore)}/${formatScore(currentTotals.possiblePoints)}` : '—'} hint={currentTotals.percentage === null ? 'percentage unavailable' : `${currentTotals.percentage}%`} tone="slate" /></section>
+
+    {isRubricMode && rubric && (
+      <div className="results-rubric-workspace">
+        <RubricScoringGrid
+          rubric={rubric}
+          learners={participants}
+          outcomes={session.rubricOutcomes || []}
+          onChange={updateRubricOutcomes}
+          disabled={readOnly}
+        />
+      </div>
+    )}
+
+    {!isRubricMode && session.entryMode === 'answer_sheet' && <div className="results-workspace"><aside className="panel results-picker-panel"><div className="results-section-heading compact"><div><h2>Learners</h2><p>Choose one, then enter answers rapidly.</p></div></div><LearnerPicker learners={participants} activeParticipantId={activeParticipant?.participantId ?? ''} encodedParticipantIds={encodedParticipantIds} onSelect={(participantId) => { const index = participants.findIndex((participant) => participant.participantId === participantId); if (index >= 0) setActiveParticipantIndex(index) }} /></aside><main className="results-encoding-main"><div className="results-item-nav" aria-label="Assessment items">{items.map((item, index) => <button className={index === activeItemIndex ? 'selected' : ''} type="button" key={item.id} onClick={() => setActiveItemIndex(index)}>{resultItemNumberLabel(item)}<small>{itemOutcome(session, activeParticipant?.participantId ?? '', item.id)?.answer ? 'done' : 'empty'}</small></button>)}</div><div className="results-next-actions" aria-label="Assessment item navigation"><button className="button secondary" type="button" disabled={activeItemIndex <= 0} onClick={() => setActiveItemIndex((index) => Math.max(0, index - 1))}>Previous item <ChevronLeft size={15} /></button><button className="button secondary" type="button" disabled={activeItemIndex >= items.length - 1} onClick={() => setActiveItemIndex((index) => Math.min(items.length - 1, index + 1))}>Next item <ChevronRight size={15} /></button></div><div className="results-progress-banner"><div><strong>{activeParticipant?.displayName}</strong><small>{activeParticipantIndex + 1} of {participants.length} learners · {currentTotals.attemptedItems}/{items.length} attempted</small></div><div className="results-progress-track"><span style={{ width: `${items.length ? Math.min(100, currentTotals.attemptedItems / items.length * 100) : 0}%` }} /></div><div className="results-next-actions"><button className="icon-button" type="button" disabled={activeParticipantIndex <= 0} onClick={() => setActiveParticipantIndex((index) => Math.max(0, index - 1))} aria-label="Previous learner"><ChevronLeft size={18} /></button><button className="button secondary" type="button" onClick={() => setActiveParticipantIndex((index) => Math.min(participants.length - 1, index + 1))}>Next learner <ChevronRight size={15} /></button></div></div><div className="results-item-list">{items.map((item) => renderItemEditor(activeParticipant?.participantId ?? '', item))}</div></main></div>}
+    {!isRubricMode && session.entryMode === 'item' && <div className="results-item-mode"><div className="results-item-nav" aria-label="Assessment items">{items.map((item, index) => <button className={index === activeItemIndex ? 'selected' : ''} type="button" key={item.id} onClick={() => setActiveItemIndex(index)}>{resultItemNumberLabel(item)}<small>{new Set(session.itemOutcomes.filter((outcome) => outcome.itemId === item.id && outcome.answer !== null).map((outcome) => outcome.participantId)).size}/{participants.length}</small></button>)}</div><section className="results-item-class-panel"><div className="results-section-heading"><div><span className="eyebrow">Item mode</span><h2>Question {activeItem ? resultItemNumberLabel(activeItem) : ""}</h2><p>Mark this response across the class, then move directly to another item.</p></div><div className="results-next-actions"><button className="icon-button" type="button" disabled={activeItemIndex <= 0} onClick={() => setActiveItemIndex((index) => Math.max(0, index - 1))} aria-label="Previous item"><ChevronLeft size={18} /></button><button className="button secondary" type="button" onClick={() => setActiveItemIndex((index) => Math.min(items.length - 1, index + 1))}>Next item <ChevronRight size={15} /></button></div></div>{activeItem && <div className="results-class-response-list">{participants.map((participant) => { const outcome = itemOutcome(session, participant.participantId, activeItem.id); const teacherScored = activeItem.questionType === 'constructed_response' || activeItem.questionType === 'problem_solving' || activeItem.questionType === 'essay' || activeItem.questionType === 'short_answer' && (session.shortAnswerScoring.itemModes[activeItem.id] ?? session.shortAnswerScoring.defaultMode) === 'manual'; const teacherAnswer = (answer: LearnerItemAnswer | null) => teacherScored ? preserveTeacherAttempt(activeItem, outcome, answer) : answer; return <div className="results-class-response-row" key={participant.participantId}><div><strong>{participant.displayName}</strong><small>{participant.localReference || 'No local reference'}</small></div><AnswerButtons item={activeItem} value={outcome?.answer ?? null} disabled={readOnly} onChange={(answer) => updateItemOutcome(participant.participantId, activeItem, teacherAnswer(answer))} />{teacherScored && <><button className="results-response-marker compact" type="button" disabled={readOnly || (Boolean(outcome?.answer) && (outcome?.earnedPoints ?? 0) > 0)} onClick={() => updateItemOutcome(participant.participantId, activeItem, Boolean(outcome?.answer) && (outcome?.earnedPoints ?? 0) <= 0 ? null : teacherResponseMarker(activeItem), outcome?.earnedPoints ?? null, outcome?.teacherFeedback ?? null)}>{outcome?.answer ? 'Present' : 'Mark present'}</button><input className="results-inline-points" type="number" inputMode="decimal" min="0" max={itemPossiblePoints(activeItem)} step="0.01" value={outcome?.earnedPoints ?? ''} disabled={readOnly} aria-label={`Awarded points for ${participant.displayName}`} onChange={(event) => updateItemOutcome(participant.participantId, activeItem, teacherResponseMarker(activeItem), event.target.value === '' ? null : Number(event.target.value))} /></>}</div>})}</div>}</section></div>}
+    {!isRubricMode && session.entryMode === 'score_only' && <section className="panel results-score-only-panel"><div className="results-score-only-note"><CircleAlert size={17} /><p><strong>Score-only mode</strong> records an overall raw score efficiently. It cannot produce item, option, competency, or cognitive-category analysis.</p></div><div className="results-score-list">{participants.map((participant) => { const outcome = scoreOutcome(session, participant.participantId); return <label className="results-score-row" key={participant.participantId}><span><strong>{participant.displayName}</strong><small>{participant.localReference || 'No local reference'}</small></span><input type="number" inputMode="decimal" min="0" max={session.assessmentSnapshot.totalPossiblePoints} step="0.01" value={outcome?.rawScore ?? ''} disabled={readOnly} placeholder="Raw score" aria-label={`Raw score for ${participant.displayName}`} onChange={(event) => updateScoreOnly(participant.participantId, event.target.value)} /><b>/ {formatScore(session.assessmentSnapshot.totalPossiblePoints)}</b></label> })}</div></section>}
   </>
 }

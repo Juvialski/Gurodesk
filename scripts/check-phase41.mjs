@@ -11,17 +11,30 @@ async function loadTypeScriptModule(file) {
   let output = ts.transpileModule(source, {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
   }).outputText
-  if (file === 'src/lib/assessmentBlueprint.ts') {
-    const mathOutput = ts.transpileModule(read('src/lib/assessmentMathText.ts'), {
-      compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
-    }).outputText
-    const mathUrl = `data:text/javascript;base64,${Buffer.from(mathOutput).toString('base64')}`
+  if (file === 'src/lib/assessmentBlueprint.ts' || file === 'src/lib/assessmentValidation.ts') {
+    const transpileToDataUrl = (relPath) => {
+      const src = read(relPath)
+      const out = ts.transpileModule(src, {
+        compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
+      }).outputText
+      return `data:text/javascript;base64,${Buffer.from(out).toString('base64')}`
+    }
+    const mathUrl = transpileToDataUrl('src/lib/assessmentMathText.ts')
     let planningOutput = ts.transpileModule(read('src/lib/assessmentVisualPlanning.ts'), {
       compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
     }).outputText
     planningOutput = planningOutput.replace("from './assessmentMathText'", `from '${mathUrl}'`)
     const planningUrl = `data:text/javascript;base64,${Buffer.from(planningOutput).toString('base64')}`
-    output = output.replace("from './assessmentVisualPlanning'", `from '${planningUrl}'`)
+
+    const coverageUrl = transpileToDataUrl('src/lib/assessmentCoveragePlan.ts')
+    const lessonSnapshotUrl = transpileToDataUrl('src/lib/assessmentLessonSnapshot.ts')
+    const rubricUrl = transpileToDataUrl('src/lib/performanceTaskRubric.ts')
+
+    output = output
+      .replace("from './assessmentVisualPlanning'", `from '${planningUrl}'`)
+      .replace("from './assessmentCoveragePlan'", `from '${coverageUrl}'`)
+      .replace("from './assessmentLessonSnapshot'", `from '${lessonSnapshotUrl}'`)
+      .replace("from './performanceTaskRubric'", `from '${rubricUrl}'`)
   }
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)
 }

@@ -33,7 +33,7 @@ export const TEACHER_TOUR_STEPS: readonly TeacherTourStep[] = [
   },
   {
     title: 'Build and review assessments',
-    description: 'Generate or build assessments from a finalized TOS. Review and edit every question before finalizing the test.',
+    description: 'Create tests, lesson quizzes, unit quizzes, or authentic performance tasks with rubrics. Review and edit every question or rubric before finalizing.',
     destination: 'Assessments',
     route: '/assessments',
   },

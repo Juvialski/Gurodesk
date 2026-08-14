@@ -47,8 +47,8 @@ export function CreateHubPage() {
         />
         <ActionCard
           to="/assessments/new"
-          title="Test / Quiz"
-          description="Create a teacher-reviewed test from a finalized TOS."
+          title="Assessment / Task"
+          description="Create a test from a finalized TOS, lesson quiz, unit quiz, or authentic performance task."
           actionLabel="Start"
           icon={ClipboardCheck}
           tone="amber"

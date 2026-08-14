@@ -3,16 +3,28 @@ import type {
   AssessmentAnswer,
   AssessmentAuthorshipState,
   AssessmentBlueprint,
+  AssessmentCognitiveCategorySnapshot,
   AssessmentCompetencySnapshot,
+  AssessmentCoveragePlan,
   AssessmentFactoryOptions,
   AssessmentItem,
   AssessmentItemMapping,
+  AssessmentLessonSourceSnapshot,
   AssessmentMasterPlan,
-  AssessmentTosSnapshot,
+  AssessmentMode,
   AssessmentSettings,
+  AssessmentSourceType,
+  AssessmentTosSnapshot,
+  LessonCoverageItemMapping,
+  PerformanceTaskContent,
   QuestionType,
+  TosAssessmentItemMapping,
 } from '../types/assessment'
+import type { LessonPlanContent, LessonPlanRecord } from '../types/lessonPlan'
 import type { TosContent, TosRecord } from '../types/tos'
+import { allocateLessonCoverage } from './assessmentCoveragePlan'
+import { createLessonSourceSnapshot } from './assessmentLessonSnapshot'
+import { calculateRubricTotalPoints, createPerformanceTaskContent } from './performanceTaskRubric'
 import { withResolvedAssessmentVisualPlan } from './assessmentVisualPlanning'
 
 function normalizeItemPoints(item: Partial<AssessmentItem>) {
@@ -38,9 +50,6 @@ let fallbackIdCounter = 0
 
 function stableId(prefix: string) {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID()
-  // Browser and supported Node runtimes provide randomUUID.  This fallback is
-  // only for constrained test environments and remains a stable opaque ID once
-  // persisted; it is not used to make any assessment decision.
   fallbackIdCounter += 1
   return `${prefix}-${fallbackIdCounter.toString(36)}`
 }
@@ -140,33 +149,30 @@ function validateAllocationRanges(tos: TosRecord) {
       }
     })
   })
-  if (expected.size !== total || [...expected].some((item, index) => item !== index + 1)) throw new Error('The finalized TOS item ranges must cover exactly 1..N.')
+  for (let itemNumber = 1; itemNumber <= total; itemNumber += 1) {
+    if (!expected.has(itemNumber)) throw new Error('The finalized TOS has gaps in its item allocation ranges.')
+  }
 }
 
-/**
- * Expand a finalized TOS allocation into exactly one deterministic item per
- * allocated number.  There is no model/AI call here: row and category ranges
- * are the sole source of item-to-competency mapping.
- */
-export function createAssessmentBlueprint(tos: TosRecord, options: AssessmentFactoryOptions = {}): AssessmentBlueprint {
-  if (tos.status !== 'final') throw new Error('Assessments can only be created from a finalized TOS.')
+export function createAssessmentBlueprint(
+  tos: TosRecord,
+  options: AssessmentFactoryOptions = {},
+): AssessmentBlueprint {
+  assertSourceIsFinal(tos)
   validateAllocationRanges(tos)
   const sourceTos = sourceSnapshot(tos)
   const content = sourceTos.content
-  const rows = [...content.rows].sort((a, b) => a.sortOrder - b.sortOrder || a.id.localeCompare(b.id, 'en'))
   const items: AssessmentItem[] = []
+  const rows = [...content.rows].sort((a, b) => a.sortOrder - b.sortOrder || a.id.localeCompare(b.id, 'en'))
   rows.forEach((row) => {
-    const rowCompetency = competencySnapshot(row)
-    const allocations = [...row.cognitiveAllocations].sort((a, b) => {
-      const aStart = a.itemStart ?? Number.MAX_SAFE_INTEGER
-      const bStart = b.itemStart ?? Number.MAX_SAFE_INTEGER
-      return aStart - bStart || a.categoryId.localeCompare(b.categoryId, 'en')
-    })
+    const allocations = [...row.cognitiveAllocations].sort((a, b) => (a.itemStart ?? Number.MAX_SAFE_INTEGER) - (b.itemStart ?? Number.MAX_SAFE_INTEGER) || a.categoryId.localeCompare(b.categoryId, 'en'))
     allocations.forEach((allocation) => {
       if (!allocation.itemCount || allocation.itemStart === null || allocation.itemEnd === null) return
       const category = categoryForAllocation(content, allocation)
+      const compSnapshot = competencySnapshot(row)
       for (let itemNumber = allocation.itemStart; itemNumber <= allocation.itemEnd; itemNumber += 1) {
-        const mapping: AssessmentItemMapping = {
+        const mapping: TosAssessmentItemMapping = {
+          kind: 'tos',
           rowId: row.id,
           competencyId: row.competency.id,
           cognitiveCategoryId: category.id,
@@ -177,7 +183,7 @@ export function createAssessmentBlueprint(tos: TosRecord, options: AssessmentFac
         items.push({
           id: stableId('assessment-item'),
           itemNumber,
-          competencySnapshot: clone(rowCompetency),
+          competencySnapshot: compSnapshot,
           cognitiveCategorySnapshot: { id: category.id, label: category.label, shortLabel: category.shortLabel },
           mapping,
           prompt: '',
@@ -216,6 +222,8 @@ export function createAssessmentBlueprint(tos: TosRecord, options: AssessmentFac
     settings: clone(DEFAULT_ASSESSMENT_SETTINGS),
     versionNumber: options.versionNumber ?? 1,
     status: 'draft',
+    mode: 'standard',
+    sourceType: 'tos',
     sourceTos: clone(sourceTos),
     items,
     createdAt: now,
@@ -223,59 +231,42 @@ export function createAssessmentBlueprint(tos: TosRecord, options: AssessmentFac
   }
 }
 
-
-
-/**
- * Build a V2 logical-question blueprint from a frozen master plan.  The source
- * TOS remains immutable, while point ranges become the learner-facing
- * numbering unit.  One logical question may therefore consume multiple points.
- */
 export function createAssessmentBlueprintV2(
   tos: TosRecord,
   masterPlan: AssessmentMasterPlan,
   options: AssessmentFactoryOptions = {},
 ): AssessmentBlueprint {
-  if (tos.status !== 'final') throw new Error('Assessments can only be created from a finalized TOS.')
-  validateAllocationRanges(tos)
-  if (masterPlan.generationVersion !== 'v2' || masterPlan.numberingMode !== 'point_ranges') throw new Error('A valid V2 master plan is required.')
-  if (!Number.isSafeInteger(masterPlan.totalPoints) || masterPlan.totalPoints < 1) throw new Error('The V2 master plan must have a positive whole-number point total.')
-  if (masterPlan.entries.length !== masterPlan.logicalItemCount || !masterPlan.entries.length) throw new Error('The V2 master plan logical question count is invalid.')
+  assertSourceIsFinal(tos)
+  if (!masterPlan || masterPlan.generationVersion !== 'v2' || !Array.isArray(masterPlan.entries) || masterPlan.entries.length === 0) {
+    throw new Error('A validated Assessment Generation V2 master plan is required.')
+  }
   const sourceTos = sourceSnapshot(tos)
   const content = sourceTos.content
-  const rowMap = new Map(content.rows.map((row) => [row.id, row]))
-  const bucketMap = new Map(masterPlan.pointBuckets.map((bucket) => [bucket.id, bucket]))
-  let pointCursor = 1
-  const items = masterPlan.entries.map((entry, index): AssessmentItem => {
-    if (entry.itemNumber !== index + 1) throw new Error('V2 master plan logical item numbers must be contiguous from 1.')
-    if (entry.pointStart !== pointCursor || entry.pointEnd !== entry.pointStart + entry.pointsPossible - 1) throw new Error('V2 master plan point ranges must be exactly contiguous.')
-    pointCursor = entry.pointEnd + 1
-    const bucket = bucketMap.get(entry.bucketId)
-    const row = rowMap.get(entry.rowId)
-    if (!bucket || !row || row.id !== bucket.rowId || row.competency.id !== entry.competencyId || bucket.competencyId !== entry.competencyId || bucket.cognitiveCategoryId !== entry.cognitiveCategoryId) {
-      throw new Error('The V2 master plan mapping no longer matches the finalized TOS snapshot.')
-    }
+  const rows = new Map(content.rows.map((row) => [row.id, row]))
+  const items: AssessmentItem[] = masterPlan.entries.map((entry) => {
+    const row = rows.get(entry.rowId)
+    if (!row) throw new Error(`The master plan references missing TOS row ${entry.rowId}.`)
     const allocation = row.cognitiveAllocations.find((candidate) => candidate.categoryId === entry.cognitiveCategoryId)
-    if (!allocation || allocation.itemStart === null || allocation.itemEnd === null || allocation.itemCount < 1) throw new Error('The V2 master plan references a missing finalized TOS cognitive allocation.')
+    if (!allocation || allocation.itemStart === null || allocation.itemEnd === null) {
+      throw new Error(`The master plan references missing cognitive category ${entry.cognitiveCategoryId} for ${row.id}.`)
+    }
     const category = categoryForAllocation(content, allocation)
-    // V2 logical questions are point-based chunks, not one-to-one copies of
-    // source TOS item slots. Keep a stable anchor inside the immutable source
-    // allocation rather than pretending logical order is a source item index.
-    const allocationIndex = 0
-    const mapping: AssessmentItemMapping = {
+    const mapping: TosAssessmentItemMapping = {
+      kind: 'tos',
       rowId: row.id,
       competencyId: row.competency.id,
       cognitiveCategoryId: category.id,
       allocationItemStart: allocation.itemStart,
       allocationItemEnd: allocation.itemEnd,
-      allocationIndex,
+      allocationIndex: 0,
     }
-    return {
+    const item: AssessmentItem = {
       id: stableId('assessment-item'),
       itemNumber: entry.itemNumber,
       pointStart: entry.pointStart,
       pointEnd: entry.pointEnd,
       planEntryId: entry.id,
-      competencySnapshot: clone(competencySnapshot(row)),
+      competencySnapshot: competencySnapshot(row),
       cognitiveCategorySnapshot: { id: category.id, label: category.label, shortLabel: category.shortLabel },
       mapping,
       prompt: '',
@@ -294,8 +285,9 @@ export function createAssessmentBlueprintV2(
       visualStatus: entry.visualRequirement === 'none' ? 'not_required' : 'pending',
       visualAttempts: 0,
     }
+    return withResolvedAssessmentVisualPlan(item, { visualPolicy: 'balanced' })
   })
-  if (pointCursor !== masterPlan.totalPoints + 1) throw new Error('The V2 master plan does not cover exactly 1..total points.')
+  items.sort((a, b) => a.itemNumber - b.itemNumber)
   const now = timestamp(options)
   return {
     id: options.id || stableId('assessment'),
@@ -317,14 +309,13 @@ export function createAssessmentBlueprintV2(
       schemaVersion: 2,
       generationVersion: 'v2',
       numberingMode: 'point_ranges',
-      visualPolicy: 'balanced',
-      mode: 'manual_per_item',
-      allowedTypes: [...new Set(masterPlan.entries.map((entry) => entry.questionType))],
       targetTotalPoints: masterPlan.totalPoints,
       masterPlan: clone(masterPlan),
     },
     versionNumber: options.versionNumber ?? 1,
     status: 'draft',
+    mode: 'standard',
+    sourceType: 'tos',
     sourceTos: clone(sourceTos),
     items,
     createdAt: now,
@@ -332,88 +323,453 @@ export function createAssessmentBlueprintV2(
   }
 }
 
-export const createAssessmentFromTos = createAssessmentBlueprint
-export const buildAssessmentBlueprint = createAssessmentBlueprint
+/**
+ * Creates an Assessment Blueprint for a single lesson plan quiz.
+ * Deterministically distributes test items across the lesson's competencies and cognitive categories.
+ */
+export function createLessonQuizBlueprint(
+  lessonInput: LessonPlanRecord | AssessmentLessonSourceSnapshot | { id: string; title?: string; content: LessonPlanContent; updatedAt?: string; versionNumber?: number },
+  options: AssessmentFactoryOptions & {
+    totalItems?: number
+    settings?: Partial<AssessmentSettings>
+  } = {}
+): AssessmentBlueprint {
+  const lessonSnapshot = 'learningObjectives' in lessonInput && Array.isArray(lessonInput.competencies)
+    ? (lessonInput as AssessmentLessonSourceSnapshot)
+    : createLessonSourceSnapshot(lessonInput as LessonPlanRecord)
 
-function normalizeAnswer(answer: AssessmentAnswer | undefined, questionType: QuestionType): AssessmentAnswer {
-  if (!answer || answer.type !== questionType) return emptyAnswer(questionType)
-  return clone(answer)
-}
+  const totalItems = Number.isSafeInteger(options.totalItems) && Number(options.totalItems) > 0
+    ? Number(options.totalItems)
+    : 10
 
-function normalizeSettings(settings: AssessmentSettings | undefined): AssessmentSettings {
-  const source = (settings && typeof settings === 'object' ? settings : {}) as AssessmentSettings
-  const allowed = Array.isArray(source.allowedTypes) && source.allowedTypes.length
-    ? [...new Set(source.allowedTypes)] as QuestionType[]
-    : [...DEFAULT_ASSESSMENT_SETTINGS.allowedTypes]
-  const mode = source.mode === 'fixed_counts' || source.mode === 'percentages' || source.mode === 'manual_per_item'
-    ? source.mode
-    : 'auto_balanced'
-  return {
-    ...clone(DEFAULT_ASSESSMENT_SETTINGS),
-    ...clone(source),
-    schemaVersion: Number(source.schemaVersion ?? 1),
-    generationVersion: source.generationVersion === 'v2' ? 'v2' : 'v1',
-    numberingMode: source.numberingMode === 'point_ranges' ? 'point_ranges' : 'legacy_items',
-    generationInstructions: String(source.generationInstructions ?? '').slice(0, 4000),
-    masterPlan: source.masterPlan === undefined ? undefined : clone(source.masterPlan),
-    mode,
-    visualPolicy: source.visualPolicy === 'off' || source.visualPolicy === 'more_visuals' ? source.visualPolicy : 'balanced',
-    allowedTypes: allowed,
-    counts: source.counts ? { ...source.counts } : undefined,
-    percentages: source.percentages ? { ...source.percentages } : undefined,
-    defaultPoints: { ...DEFAULT_ASSESSMENT_SETTINGS.defaultPoints, ...(source.defaultPoints ?? {}) },
-    targetTotalPoints: source.targetTotalPoints === null || source.targetTotalPoints === undefined ? null : Number(source.targetTotalPoints),
-  }
-}
+  const coveragePlan = allocateLessonCoverage({
+    lessons: [lessonSnapshot],
+    totalItems,
+  })
 
-/** Normalize persisted/imported data without changing the immutable source snapshot. */
-export function normalizeAssessmentBlueprint(input: AssessmentBlueprint): AssessmentBlueprint {
-  const result = clone(input)
-  result.status = result.status === 'final' || result.status === 'archived' ? result.status : 'draft'
-  result.instructions = result.instructions ?? ''
-  result.curriculumPeriodIds = [...(result.curriculumPeriodIds ?? [])]
-  result.curriculumPeriodLabels = [...(result.curriculumPeriodLabels ?? [])]
-  result.totalItems = Number(result.totalItems)
-  result.settings = normalizeSettings(result.settings)
-  result.items = (result.items ?? []).map((item, index) => withResolvedAssessmentVisualPlan({
-    ...item,
-    id: item.id || stableId('assessment-item'),
-    itemNumber: Number(item.itemNumber ?? index + 1),
-    pointStart: item.pointStart === undefined ? undefined : Number(item.pointStart),
-    pointEnd: item.pointEnd === undefined ? undefined : Number(item.pointEnd),
-    planEntryId: item.planEntryId ? String(item.planEntryId) : undefined,
-    prompt: item.prompt ?? '',
-    questionType: item.questionType ?? 'multiple_choice',
-    answer: normalizeAnswer(item.answer, item.questionType ?? 'multiple_choice'),
-    authorshipState: (['empty', 'ai_suggestion', 'teacher_accepted', 'teacher_edited', 'manual'] as AssessmentAuthorshipState[]).includes(item.authorshipState) ? item.authorshipState : 'empty',
-    rationale: item.rationale ?? '',
-    teacherNotes: item.teacherNotes ?? '',
-    pointsPossible: normalizeItemPoints(item),
-    points: item.points === null || item.points === undefined ? normalizeItemPoints(item) : Number(item.points),
-    qaState: (['empty', 'generated', 'verified', 'needs_review', 'teacher_edited', 'answer_needs_recheck', 'locked', 'repair_needed'] as const).includes(item.qaState as never) ? item.qaState : 'empty',
-    locked: item.locked === true,
-    history: Array.isArray(item.history) ? item.history.slice(-5).map((version) => clone(version)) : [],
-  })).sort((a, b) => a.itemNumber - b.itemNumber)
-  result.totalPoints = deriveAssessmentTotalPoints(result.items)
-  return result
-}
+  const items: AssessmentItem[] = coveragePlan.entries.flatMap((entry) => {
+    return entry.allocatedItemNumbers.map((itemNumber): AssessmentItem => {
+      const compSnapshot: AssessmentCompetencySnapshot = lessonSnapshot.competencies.find((c) => c.id === entry.competencyId) ?? {
+        id: entry.competencyId,
+        code: entry.competencyCode ?? null,
+        text: entry.competencyStatement,
+        sourcePage: null,
+        academicPeriodId: null,
+        curriculumPeriodId: null,
+        curriculumPeriodLabel: lessonSnapshot.gradingTermLabel || '',
+      }
 
-export const normalizeAssessment = normalizeAssessmentBlueprint
+      const cognitiveCategorySnapshot: AssessmentCognitiveCategorySnapshot = {
+        id: entry.cognitiveCategoryId,
+        label: entry.cognitiveCategoryLabel || entry.cognitiveCategoryId,
+        shortLabel: entry.cognitiveCategoryId.slice(0, 3).toUpperCase(),
+      }
 
-/** Duplicate an assessment while preserving every source/mapping snapshot. */
-export function duplicateAssessmentBlueprint(source: AssessmentBlueprint, options: AssessmentFactoryOptions = {}): AssessmentBlueprint {
-  const normalized = normalizeAssessmentBlueprint(source)
+      const mapping: LessonCoverageItemMapping = {
+        kind: 'lesson_coverage',
+        coverageEntryId: entry.id,
+        sourceLessonId: lessonSnapshot.id,
+        competencyId: entry.competencyId,
+        cognitiveCategoryId: entry.cognitiveCategoryId,
+        allocationIndex: 0,
+        allocationItemStart: itemNumber,
+        allocationItemEnd: itemNumber,
+        rowId: entry.id,
+      }
+
+      return {
+        id: stableId('assessment-item'),
+        itemNumber,
+        competencySnapshot: clone(compSnapshot),
+        cognitiveCategorySnapshot,
+        mapping,
+        prompt: '',
+        questionType: 'multiple_choice',
+        answer: emptyAnswer(),
+        authorshipState: 'empty',
+        rationale: '',
+        teacherNotes: '',
+        pointsPossible: 1,
+        points: 1,
+        qaState: 'empty',
+        locked: false,
+        history: [],
+      }
+    })
+  })
+
+  items.sort((a, b) => a.itemNumber - b.itemNumber)
+
   const now = timestamp(options)
   return {
-    ...normalized,
     id: options.id || stableId('assessment'),
-    title: options.title ?? `${normalized.title || 'Assessment'} — Copy`,
+    userId: options.userId ?? '',
+    assignmentId: options.assignmentId === undefined ? null : options.assignmentId,
+    title: options.title ?? `${lessonSnapshot.lessonTitle || lessonSnapshot.title || 'Lesson'} Quiz`,
+    instructions: options.instructions ?? 'Answer each question to the best of your ability.',
+    gradeLevel: lessonSnapshot.gradeLevel,
+    learningArea: lessonSnapshot.learningArea,
+    schoolYear: lessonSnapshot.schoolYear,
+    gradingTermId: lessonSnapshot.gradingTermId || '',
+    gradingTermLabel: lessonSnapshot.gradingTermLabel || '',
+    curriculumPeriodIds: lessonSnapshot.curriculumPeriodIds ? [...lessonSnapshot.curriculumPeriodIds] : [],
+    curriculumPeriodLabels: lessonSnapshot.curriculumPeriodLabels ? [...lessonSnapshot.curriculumPeriodLabels] : [],
+    totalItems: items.length,
+    totalPoints: items.reduce((sum, item) => sum + item.pointsPossible, 0),
+    settings: {
+      ...clone(DEFAULT_ASSESSMENT_SETTINGS),
+      ...(options.settings || {}),
+    },
+    versionNumber: options.versionNumber ?? 1,
     status: 'draft',
+    mode: 'lesson_quiz',
+    sourceType: 'lesson_plan',
+    sourceLesson: clone(lessonSnapshot),
+    coveragePlan: clone(coveragePlan),
+    items,
     createdAt: now,
     updatedAt: now,
-    sourceTos: clone(normalized.sourceTos),
-    items: normalized.items.map((item) => ({ ...clone(item), id: stableId('assessment-item') })),
   }
 }
 
+/**
+ * Creates an Assessment Blueprint for a multi-lesson unit quiz.
+ * Deterministically balances test item counts across multiple lesson plans.
+ */
+export function createUnitQuizBlueprint(
+  lessonInputs: (LessonPlanRecord | AssessmentLessonSourceSnapshot | { id: string; title?: string; content: LessonPlanContent; updatedAt?: string; versionNumber?: number })[],
+  options: AssessmentFactoryOptions & {
+    totalItems?: number
+    lessonWeights?: Record<string, number>
+    settings?: Partial<AssessmentSettings>
+  } = {}
+): AssessmentBlueprint {
+  if (!lessonInputs || lessonInputs.length < 2) {
+    throw new Error('Unit Quiz requires at least 2 lesson plans.')
+  }
+
+  const lessonSnapshots: AssessmentLessonSourceSnapshot[] = lessonInputs.map((input) =>
+    'learningObjectives' in input && Array.isArray(input.competencies)
+      ? (input as AssessmentLessonSourceSnapshot)
+      : createLessonSourceSnapshot(input as LessonPlanRecord)
+  )
+
+  const primaryLesson = lessonSnapshots[0]
+  for (let i = 1; i < lessonSnapshots.length; i += 1) {
+    const candidate = lessonSnapshots[i]
+    if (candidate.gradeLevel && primaryLesson.gradeLevel && candidate.gradeLevel.toLowerCase() !== primaryLesson.gradeLevel.toLowerCase()) {
+      throw new Error(`All lessons in a Unit Quiz must have the same grade level (found "${primaryLesson.gradeLevel}" and "${candidate.gradeLevel}").`)
+    }
+    if (candidate.learningArea && primaryLesson.learningArea && candidate.learningArea.toLowerCase() !== primaryLesson.learningArea.toLowerCase()) {
+      throw new Error(`All lessons in a Unit Quiz must have the same learning area (found "${primaryLesson.learningArea}" and "${candidate.learningArea}").`)
+    }
+  }
+
+  const totalItems = Number.isSafeInteger(options.totalItems) && Number(options.totalItems) > 0
+    ? Number(options.totalItems)
+    : Math.max(10, lessonSnapshots.length * 5)
+
+  const coveragePlan = allocateLessonCoverage({
+    lessons: lessonSnapshots,
+    totalItems,
+    lessonWeights: options.lessonWeights,
+  })
+
+  const items: AssessmentItem[] = coveragePlan.entries.flatMap((entry) => {
+    const parentLesson = lessonSnapshots.find((l) => l.id === entry.sourceLessonId) ?? primaryLesson
+    const compSnapshot: AssessmentCompetencySnapshot = parentLesson.competencies.find((c) => c.id === entry.competencyId) ?? {
+      id: entry.competencyId,
+      code: entry.competencyCode ?? null,
+      text: entry.competencyStatement,
+      sourcePage: null,
+      academicPeriodId: null,
+      curriculumPeriodId: null,
+      curriculumPeriodLabel: parentLesson.gradingTermLabel || '',
+    }
+
+    const cognitiveCategorySnapshot: AssessmentCognitiveCategorySnapshot = {
+      id: entry.cognitiveCategoryId,
+      label: entry.cognitiveCategoryLabel || entry.cognitiveCategoryId,
+      shortLabel: entry.cognitiveCategoryId.slice(0, 3).toUpperCase(),
+    }
+
+    return entry.allocatedItemNumbers.map((itemNumber): AssessmentItem => {
+      const mapping: LessonCoverageItemMapping = {
+        kind: 'lesson_coverage',
+        coverageEntryId: entry.id,
+        sourceLessonId: parentLesson.id,
+        competencyId: entry.competencyId,
+        cognitiveCategoryId: entry.cognitiveCategoryId,
+        allocationIndex: 0,
+        allocationItemStart: itemNumber,
+        allocationItemEnd: itemNumber,
+        rowId: entry.id,
+      }
+
+      return {
+        id: stableId('assessment-item'),
+        itemNumber,
+        competencySnapshot: clone(compSnapshot),
+        cognitiveCategorySnapshot,
+        mapping,
+        prompt: '',
+        questionType: 'multiple_choice',
+        answer: emptyAnswer(),
+        authorshipState: 'empty',
+        rationale: '',
+        teacherNotes: '',
+        pointsPossible: 1,
+        points: 1,
+        qaState: 'empty',
+        locked: false,
+        history: [],
+      }
+    })
+  })
+
+  items.sort((a, b) => a.itemNumber - b.itemNumber)
+
+  const allCurriculumPeriodLabels = Array.from(
+    new Set(lessonSnapshots.flatMap((l) => l.curriculumPeriodLabels ?? []))
+  )
+
+  const now = timestamp(options)
+  return {
+    id: options.id || stableId('assessment'),
+    userId: options.userId ?? '',
+    assignmentId: options.assignmentId === undefined ? null : options.assignmentId,
+    title: options.title ?? `Unit Quiz (${lessonSnapshots.length} Lessons)`,
+    instructions: options.instructions ?? 'Read and answer each question carefully.',
+    gradeLevel: primaryLesson.gradeLevel,
+    learningArea: primaryLesson.learningArea,
+    schoolYear: primaryLesson.schoolYear,
+    gradingTermId: primaryLesson.gradingTermId || '',
+    gradingTermLabel: primaryLesson.gradingTermLabel || '',
+    curriculumPeriodIds: primaryLesson.curriculumPeriodIds ? [...primaryLesson.curriculumPeriodIds] : [],
+    curriculumPeriodLabels: allCurriculumPeriodLabels,
+    totalItems: items.length,
+    totalPoints: items.reduce((sum, item) => sum + item.pointsPossible, 0),
+    settings: {
+      ...clone(DEFAULT_ASSESSMENT_SETTINGS),
+      ...(options.settings || {}),
+    },
+    versionNumber: options.versionNumber ?? 1,
+    status: 'draft',
+    mode: 'unit_quiz',
+    sourceType: 'multi_lesson_plan',
+    sourceLessons: clone(lessonSnapshots),
+    coveragePlan: clone(coveragePlan),
+    items,
+    createdAt: now,
+    updatedAt: now,
+  }
+}
+
+/**
+ * Creates an Authentic Performance Task Blueprint with analytic scoring rubrics.
+ * Dedicated payload structure: does NOT create fake constructed_response items.
+ */
+export function createPerformanceTaskBlueprint(
+  source: {
+    lesson?: LessonPlanRecord | AssessmentLessonSourceSnapshot | { id: string; title?: string; content: LessonPlanContent; updatedAt?: string; versionNumber?: number }
+    lessons?: (LessonPlanRecord | AssessmentLessonSourceSnapshot | { id: string; title?: string; content: LessonPlanContent; updatedAt?: string; versionNumber?: number })[]
+    tos?: TosRecord
+  },
+  options: AssessmentFactoryOptions & {
+    performanceTask?: Partial<PerformanceTaskContent>
+  } = {}
+): AssessmentBlueprint {
+  let gradeLevel = ''
+  let learningArea = ''
+  let schoolYear = ''
+  let gradingTermLabel = ''
+  let curriculumPeriodLabels: string[] = []
+  let sourceLesson: AssessmentLessonSourceSnapshot | undefined
+  let sourceLessons: AssessmentLessonSourceSnapshot[] | undefined
+  let sourceTos: AssessmentTosSnapshot | undefined
+  let sourceType: AssessmentSourceType = 'lesson_plan'
+  let compAlignments: AssessmentCompetencySnapshot[] = []
+  let learningObjectives: string[] = []
+
+  if (source.lesson) {
+    sourceLesson = 'learningObjectives' in source.lesson && Array.isArray(source.lesson.competencies)
+      ? (source.lesson as AssessmentLessonSourceSnapshot)
+      : createLessonSourceSnapshot(source.lesson as LessonPlanRecord)
+    gradeLevel = sourceLesson.gradeLevel
+    learningArea = sourceLesson.learningArea
+    schoolYear = sourceLesson.schoolYear
+    gradingTermLabel = sourceLesson.gradingTermLabel || ''
+    curriculumPeriodLabels = sourceLesson.curriculumPeriodLabels ?? []
+    sourceType = 'lesson_plan'
+    compAlignments = sourceLesson.competencies
+    learningObjectives = sourceLesson.learningObjectives
+  } else if (source.lessons && source.lessons.length > 0) {
+    sourceLessons = source.lessons.map((input) =>
+      'learningObjectives' in input && Array.isArray(input.competencies)
+        ? (input as AssessmentLessonSourceSnapshot)
+        : createLessonSourceSnapshot(input as LessonPlanRecord)
+    )
+    const first = sourceLessons[0]
+    gradeLevel = first.gradeLevel
+    learningArea = first.learningArea
+    schoolYear = first.schoolYear
+    gradingTermLabel = first.gradingTermLabel || ''
+    curriculumPeriodLabels = Array.from(new Set(sourceLessons.flatMap((l) => l.curriculumPeriodLabels ?? [])))
+    sourceType = 'multi_lesson_plan'
+    compAlignments = sourceLessons.flatMap((l) => l.competencies)
+    learningObjectives = sourceLessons.flatMap((l) => l.learningObjectives)
+  } else if (source.tos) {
+    sourceTos = sourceSnapshot(source.tos)
+    gradeLevel = sourceTos.content.gradeLevel
+    learningArea = sourceTos.content.learningArea
+    schoolYear = sourceTos.schoolYear
+    gradingTermLabel = sourceTos.content.gradingTermLabel || ''
+    curriculumPeriodLabels = [...sourceTos.content.curriculumPeriodLabels]
+    sourceType = 'tos'
+    compAlignments = sourceTos.content.rows.map((r) => competencySnapshot(r))
+  }
+
+  const performanceTask = createPerformanceTaskContent({
+    title: options.title || `${learningArea || 'Curriculum'} Performance Task`,
+    learningObjectives: learningObjectives.slice(0, 5),
+    competencyAlignment: compAlignments,
+    ...options.performanceTask,
+  })
+
+  const totalPoints = performanceTask.rubric?.totalPoints || calculateRubricTotalPoints(performanceTask.rubric)
+
+  const now = timestamp(options)
+  return {
+    id: options.id || stableId('assessment'),
+    userId: options.userId ?? '',
+    assignmentId: options.assignmentId === undefined ? null : options.assignmentId,
+    title: options.title ?? performanceTask.title,
+    instructions: options.instructions ?? performanceTask.studentInstructions,
+    gradeLevel,
+    learningArea,
+    schoolYear,
+    gradingTermId: '',
+    gradingTermLabel,
+    curriculumPeriodIds: [],
+    curriculumPeriodLabels,
+    totalItems: 0,
+    totalPoints,
+    settings: {
+      ...clone(DEFAULT_ASSESSMENT_SETTINGS),
+      mode: 'manual_per_item',
+    },
+    versionNumber: options.versionNumber ?? 1,
+    status: 'draft',
+    mode: 'performance_task',
+    sourceType,
+    sourceTos,
+    sourceLesson,
+    sourceLessons,
+    performanceTask,
+    items: [],
+    createdAt: now,
+    updatedAt: now,
+  }
+}
+
+function normalizeItemMapping(rawMapping: any, itemNumber: number): AssessmentItemMapping {
+  if (!rawMapping || typeof rawMapping !== 'object') {
+    return {
+      kind: 'tos',
+      rowId: `row-${itemNumber}`,
+      competencyId: `comp-${itemNumber}`,
+      cognitiveCategoryId: 'remembering',
+      allocationItemStart: itemNumber,
+      allocationItemEnd: itemNumber,
+      allocationIndex: 0,
+    }
+  }
+  if (rawMapping.kind === 'lesson_coverage' || rawMapping.coverageEntryId) {
+    return {
+      kind: 'lesson_coverage',
+      coverageEntryId: String(rawMapping.coverageEntryId || rawMapping.rowId || `cov-${itemNumber}`),
+      sourceLessonId: String(rawMapping.sourceLessonId || ''),
+      sourceLessonIds: Array.isArray(rawMapping.sourceLessonIds) ? rawMapping.sourceLessonIds.map(String) : undefined,
+      competencyId: String(rawMapping.competencyId || ''),
+      cognitiveCategoryId: String(rawMapping.cognitiveCategoryId || 'remembering'),
+      allocationIndex: Number(rawMapping.allocationIndex) || 0,
+      allocationItemStart: Number.isSafeInteger(Number(rawMapping.allocationItemStart)) ? Number(rawMapping.allocationItemStart) : itemNumber,
+      allocationItemEnd: Number.isSafeInteger(Number(rawMapping.allocationItemEnd)) ? Number(rawMapping.allocationItemEnd) : itemNumber,
+      rowId: rawMapping.rowId ? String(rawMapping.rowId) : undefined,
+    }
+  }
+  return {
+    kind: 'tos',
+    rowId: String(rawMapping.rowId || `row-${itemNumber}`),
+    competencyId: String(rawMapping.competencyId || `comp-${itemNumber}`),
+    cognitiveCategoryId: String(rawMapping.cognitiveCategoryId || 'remembering'),
+    allocationItemStart: Number.isSafeInteger(Number(rawMapping.allocationItemStart)) ? Number(rawMapping.allocationItemStart) : itemNumber,
+    allocationItemEnd: Number.isSafeInteger(Number(rawMapping.allocationItemEnd)) ? Number(rawMapping.allocationItemEnd) : itemNumber,
+    allocationIndex: Number(rawMapping.allocationIndex) || 0,
+  }
+}
+
+export function normalizeAssessmentBlueprint(assessment: AssessmentBlueprint): AssessmentBlueprint {
+  const isPerfTask = assessment.mode === 'performance_task' || Boolean(assessment.performanceTask)
+  const items = Array.isArray(assessment.items) ? assessment.items.map((item, index) => {
+    const rawNumber = Number(item.itemNumber)
+    const itemNumber = Number.isSafeInteger(rawNumber) && rawNumber > 0 ? rawNumber : index + 1
+    const pointsPossible = normalizeItemPoints(item)
+    return {
+      ...item,
+      itemNumber,
+      mapping: normalizeItemMapping(item.mapping, itemNumber),
+      pointsPossible,
+      points: pointsPossible,
+      authorshipState: (item.authorshipState || 'empty') as AssessmentAuthorshipState,
+      qaState: item.qaState || 'empty',
+      locked: Boolean(item.locked),
+      history: Array.isArray(item.history) ? clone(item.history) : [],
+    }
+  }) : []
+
+  const totalPoints = isPerfTask
+    ? (assessment.performanceTask?.rubric?.totalPoints || calculateRubricTotalPoints(assessment.performanceTask?.rubric) || assessment.totalPoints || 0)
+    : deriveAssessmentTotalPoints(items)
+
+  const mode: AssessmentMode = assessment.mode || (isPerfTask ? 'performance_task' : assessment.sourceLesson ? 'lesson_quiz' : assessment.sourceLessons ? 'unit_quiz' : 'standard')
+  const sourceType: AssessmentSourceType = assessment.sourceType || (assessment.sourceLesson ? 'lesson_plan' : assessment.sourceLessons ? 'multi_lesson_plan' : 'tos')
+
+  return {
+    ...clone(assessment),
+    mode,
+    sourceType,
+    totalItems: isPerfTask ? 0 : items.length,
+    totalPoints,
+    items,
+  }
+}
+
+export function duplicateAssessmentBlueprint(assessment: AssessmentBlueprint, options: AssessmentFactoryOptions = {}): AssessmentBlueprint {
+  const normalized = normalizeAssessmentBlueprint(assessment)
+  const now = timestamp(options)
+  const items: AssessmentItem[] = normalized.items.map((item) => ({
+    ...clone(item),
+    id: stableId('assessment-item'),
+  }))
+  return {
+    ...clone(normalized),
+    id: options.id || stableId('assessment'),
+    title: options.title ?? `${normalized.title} (Copy)`,
+    status: 'draft',
+    versionNumber: 1,
+    items,
+    createdAt: now,
+    updatedAt: now,
+  }
+}
+
+function assertSourceIsFinal(tos: TosRecord) {
+  if (tos.status !== 'final') throw new Error('Assessments can only be created from a finalized TOS.')
+  if (!tos.id) throw new Error('The finalized TOS needs a persisted document ID before assessment creation.')
+}
+
+export const buildAssessmentBlueprint = createAssessmentBlueprint
+export const createAssessmentFromTos = createAssessmentBlueprint
 export const duplicateAssessment = duplicateAssessmentBlueprint
+export const normalizeAssessment = normalizeAssessmentBlueprint

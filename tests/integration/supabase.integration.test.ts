@@ -595,7 +595,7 @@ describe('Phase 5.5 local Supabase integration', () => {
     await expectRejected(
       () => saveAssessmentDocument({
         ...draftAssessment,
-        sourceTos: { ...draftAssessment.sourceTos, id: crypto.randomUUID() },
+        sourceTos: draftAssessment.sourceTos ? { ...draftAssessment.sourceTos, id: crypto.randomUUID() } : undefined,
       }, false),
       /assignment and source cannot change/i,
     )
@@ -689,7 +689,7 @@ describe('Phase 5.5 local Supabase integration', () => {
     const reloaded = await loadAssessmentDocument(finalAssessment.id, teacher.id, false)
     expect(reloaded?.status).toBe('final')
     expect(reloaded?.title).toBe(finalAssessment.title)
-    expect(reloaded?.sourceTos.id).toBe(sourceTos.id)
+    expect(reloaded?.sourceTos?.id).toBe(sourceTos.id)
     expect(reloaded?.items.map((item) => item.id)).toEqual(finalAssessment.items.map((item) => item.id))
     expect(reloaded?.items.map((item) => item.answer.type)).toEqual(['multiple_choice', 'problem_solving', 'essay'])
     expect(reloaded?.totalPoints).toBe(16)

@@ -16,15 +16,15 @@ function mappedRecord(items: AssessmentItem[]): AssessmentRecord {
       defaultPoints: { multiple_choice: 1 },
       targetTotalPoints: null,
     },
-    sourceTos: {
+    sourceTos: record.sourceTos ? {
       ...record.sourceTos,
       content: {
         rows: [{
           competency: { id: 'competency-1' },
           cognitiveAllocations: [{ categoryId: 'remembering', itemStart: 1, itemEnd: items.length }],
         }],
-      } as AssessmentRecord['sourceTos']['content'],
-    },
+      } as NonNullable<AssessmentRecord['sourceTos']>['content'],
+    } : undefined,
   }
 }
 

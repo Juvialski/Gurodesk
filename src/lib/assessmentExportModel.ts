@@ -202,7 +202,9 @@ export function buildAssessmentExportModel(assessment: Assessment, options: Asse
       gradeLevel: clean(assessment.gradeLevel), learningArea: clean(assessment.learningArea), schoolYear: clean(assessment.schoolYear), gradingTerm: clean(assessment.gradingTermLabel),
       ...(mode === 'teacher' ? { curriculumPeriods: assessment.curriculumPeriodLabels.map(clean).filter(Boolean).join(', ') } : {}),
       totalItems: assessment.items.length,
-      totalPoints: assessmentTotalPoints(assessment),
+      totalPoints: assessment.mode === 'performance_task' && assessment.performanceTask?.rubric
+        ? (assessment.performanceTask.rubric.totalPoints || assessment.totalPoints || 0)
+        : assessmentTotalPoints(assessment),
       numberingMode: assessment.settings?.numberingMode ?? 'legacy_items',
     },
     questions,

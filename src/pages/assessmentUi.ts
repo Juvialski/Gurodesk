@@ -9,7 +9,11 @@ import type { AssessmentVisualRequirement, AssessmentVisualStatus } from '../typ
 import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
 
 export type AssessmentItemType = QuestionType
-export type AssessmentRecordView = AssessmentRecord & { sourceTosTitle: string }
+export type AssessmentRecordView = AssessmentRecord & {
+  sourceTosTitle: string
+  sourceLessonTitle?: string
+  sourceLessonTitles?: string[]
+}
 export type AssessmentViewMode = 'simple' | 'advanced'
 export type AssessmentPreparationStage = 'questions' | 'visuals' | 'qa'
 
@@ -28,15 +32,20 @@ export function normalizeAssessment(recordValue: AssessmentRecord): AssessmentRe
   const value = recordValue as AssessmentRecord & UnknownRecord
   const items = Array.isArray(value.items) ? value.items : []
   const totalItems = Number(value.totalItems || items.length)
-  const totalPoints = items.reduce((sum, item) => sum + pointsForItem(item as AssessmentItem), 0)
+  const isPerfTask = recordValue.mode === 'performance_task' || Boolean(recordValue.performanceTask)
+  const totalPoints = isPerfTask
+    ? (recordValue.performanceTask?.rubric?.totalPoints || recordValue.totalPoints || 0)
+    : items.reduce((sum, item) => sum + pointsForItem(item as AssessmentItem), 0)
   return {
     ...recordValue,
     title: recordValue.title || 'Untitled assessment',
     instructions: recordValue.instructions || '',
-    totalItems,
+    totalItems: isPerfTask ? 0 : totalItems,
     totalPoints,
     items,
     sourceTosTitle: recordValue.sourceTos?.title || 'Finalized TOS',
+    sourceLessonTitle: recordValue.sourceLesson?.title,
+    sourceLessonTitles: recordValue.sourceLessons?.map((l) => l.title),
   }
 }
 

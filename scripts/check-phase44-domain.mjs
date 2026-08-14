@@ -11,17 +11,35 @@ async function load(file, replacements = []) {
   let output = ts.transpileModule(source, {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
   }).outputText
-  if (output.includes("from './assessmentVisualPlanning'")) {
-    const mathOutput = ts.transpileModule(read('src/lib/assessmentMathText.ts'), {
+  const transpileToDataUrl = (relPath) => {
+    const src = read(relPath)
+    const out = ts.transpileModule(src, {
       compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
     }).outputText
-    const mathUrl = `data:text/javascript;base64,${Buffer.from(mathOutput).toString('base64')}`
+    return `data:text/javascript;base64,${Buffer.from(out).toString('base64')}`
+  }
+
+  if (output.includes("from './assessmentVisualPlanning'")) {
+    const mathUrl = transpileToDataUrl('src/lib/assessmentMathText.ts')
     let planningOutput = ts.transpileModule(read('src/lib/assessmentVisualPlanning.ts'), {
       compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022, removeComments: false },
     }).outputText
     planningOutput = planningOutput.replace("from './assessmentMathText'", `from '${mathUrl}'`)
     const planningUrl = `data:text/javascript;base64,${Buffer.from(planningOutput).toString('base64')}`
     output = output.replace("from './assessmentVisualPlanning'", `from '${planningUrl}'`)
+  }
+
+  if (output.includes("from './assessmentCoveragePlan'")) {
+    const coverageUrl = transpileToDataUrl('src/lib/assessmentCoveragePlan.ts')
+    output = output.replace("from './assessmentCoveragePlan'", `from '${coverageUrl}'`)
+  }
+  if (output.includes("from './assessmentLessonSnapshot'")) {
+    const lessonSnapshotUrl = transpileToDataUrl('src/lib/assessmentLessonSnapshot.ts')
+    output = output.replace("from './assessmentLessonSnapshot'", `from '${lessonSnapshotUrl}'`)
+  }
+  if (output.includes("from './performanceTaskRubric'")) {
+    const rubricUrl = transpileToDataUrl('src/lib/performanceTaskRubric.ts')
+    output = output.replace("from './performanceTaskRubric'", `from '${rubricUrl}'`)
   }
   for (const [pattern, replacement] of replacements) output = output.replace(pattern, replacement)
   return import(`data:text/javascript;base64,${Buffer.from(output).toString('base64')}`)

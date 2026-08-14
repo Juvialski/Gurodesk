@@ -232,9 +232,9 @@ function e2eAssessmentItemWire(item: AssessmentItem) {
 function e2eAssessmentMirror(record: AssessmentRecord) {
   return {
     schemaVersion: 1,
-    sourceTos: structuredClone(record.sourceTos),
-    sourceTosDocumentId: record.sourceTos.id,
-    sourceTosVersionNumber: record.sourceTos.versionNumber,
+    sourceTos: record.sourceTos ? structuredClone(record.sourceTos) : undefined,
+    sourceTosDocumentId: record.sourceTos?.id ?? null,
+    sourceTosVersionNumber: record.sourceTos?.versionNumber ?? null,
     title: record.title,
     instructions: record.instructions,
     gradeLevel: record.gradeLevel,

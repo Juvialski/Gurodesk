@@ -2,15 +2,34 @@ import type {
   AssessmentAnswer,
   AssessmentAuthorshipState,
   AssessmentBlueprint,
+  AssessmentCoveragePlan,
   AssessmentItem,
+  AssessmentItemMapping,
+  AssessmentLessonSourceSnapshot,
   AssessmentMasterPlan,
+  AssessmentMode,
   AssessmentRecord,
+  AssessmentSourceType,
   AssessmentTosSnapshot,
+  LessonCoverageItemMapping,
+  PerformanceTaskContent,
   QuestionType,
+  TosAssessmentItemMapping,
 } from '../types/assessment'
 import type { AssessmentVisual, AssessmentVisualRequirement, AssessmentVisualStatus } from '../types/assessmentVisual'
+import type { LessonPlanRecord } from '../types/lessonPlan'
 import type { TosContent, TosRecord } from '../types/tos'
-import { createAssessmentBlueprint, createAssessmentBlueprintV2, duplicateAssessmentBlueprint, normalizeAssessmentBlueprint } from './assessmentBlueprint'
+import {
+  createAssessmentBlueprint,
+  createAssessmentBlueprintV2,
+  createLessonQuizBlueprint,
+  createPerformanceTaskBlueprint,
+  createUnitQuizBlueprint,
+  duplicateAssessmentBlueprint,
+  normalizeAssessmentBlueprint,
+} from './assessmentBlueprint'
+import { createLessonSourceSnapshot } from './assessmentLessonSnapshot'
+import { calculateRubricTotalPoints, validatePerformanceTaskRubric } from './performanceTaskRubric'
 import { deriveAssessmentTotalPoints, normalizeItemPoints } from './assessmentScoring'
 import { validateAssessmentForFinal } from './assessmentGeneration'
 import { isAssessmentVisual } from './assessmentVisualValidation'
@@ -153,12 +172,12 @@ function normalizeAnswer(value: unknown, questionType: QuestionType, choices: un
     return {
       type: 'fill_in_the_blank',
       blanks: (Array.isArray(answer.blanks) ? answer.blanks : []).map((blank, index) => {
-        const value = asObject(blank)
+        const val = asObject(blank)
         return {
-          id: text(value.id, `blank-${index + 1}`),
-          acceptedAnswers: (Array.isArray(value.acceptedAnswers) ? value.acceptedAnswers : []).map(String),
-          ...(value.caseSensitive !== undefined ? { caseSensitive: value.caseSensitive === true } : {}),
-          ...(value.pointsPossible !== undefined ? { pointsPossible: Number(value.pointsPossible) } : {}),
+          id: text(val.id, `blank-${index + 1}`),
+          acceptedAnswers: (Array.isArray(val.acceptedAnswers) ? val.acceptedAnswers : []).map(String),
+          ...(val.caseSensitive !== undefined ? { caseSensitive: val.caseSensitive === true } : {}),
+          ...(val.pointsPossible !== undefined ? { pointsPossible: Number(val.pointsPossible) } : {}),
         }
       }),
     }
@@ -178,12 +197,12 @@ function normalizeAnswer(value: unknown, questionType: QuestionType, choices: un
       finalAnswer: typeof answer.finalAnswer === 'number' ? answer.finalAnswer : text(answer.finalAnswer),
       solutionOutline: text(answer.solutionOutline),
       ...(Array.isArray(answer.subparts) ? { subparts: answer.subparts.map((subpart, index) => {
-        const value = asObject(subpart)
+        const val = asObject(subpart)
         return {
-          id: text(value.id, `part-${index + 1}`), prompt: text(value.prompt),
-          ...(value.expectedAnswer !== undefined ? { expectedAnswer: typeof value.expectedAnswer === 'number' ? value.expectedAnswer : String(value.expectedAnswer) } : {}),
-          pointsPossible: Number(value.pointsPossible ?? 1),
-          ...(Array.isArray(value.scoringCriteria) ? { scoringCriteria: value.scoringCriteria as never } : {}),
+          id: text(val.id, `part-${index + 1}`), prompt: text(val.prompt),
+          ...(val.expectedAnswer !== undefined ? { expectedAnswer: typeof val.expectedAnswer === 'number' ? val.expectedAnswer : String(val.expectedAnswer) } : {}),
+          pointsPossible: Number(val.pointsPossible ?? 1),
+          ...(Array.isArray(val.scoringCriteria) ? { scoringCriteria: val.scoringCriteria as never } : {}),
         }
       }) } : {}),
       ...(Array.isArray(answer.scoringCriteria) ? { scoringCriteria: answer.scoringCriteria as never } : {}),
@@ -192,25 +211,20 @@ function normalizeAnswer(value: unknown, questionType: QuestionType, choices: un
   if (questionType === 'matching') {
     return {
       type: 'matching',
-      prompts: (Array.isArray(answer.prompts) ? answer.prompts : []).map((prompt, index) => { const value = asObject(prompt); return { id: text(value.id, `prompt-${index + 1}`), text: text(value.text) } }),
-      choices: (Array.isArray(answer.choices) ? answer.choices : []).map((choice, index) => { const value = asObject(choice); return { id: text(value.id, `choice-${index + 1}`), text: text(value.text), ...(value.label !== undefined ? { label: String(value.label) } : {}) } }),
-      mappings: (Array.isArray(answer.mappings) ? answer.mappings : []).map((mapping) => { const value = asObject(mapping); return { promptId: text(value.promptId), choiceId: text(value.choiceId), ...(value.pointsPossible !== undefined ? { pointsPossible: Number(value.pointsPossible) } : {}) } }),
-      // Preserve the canonical generated wire shape: false is represented by
-      // absence. Re-introducing `reusableChoices:false` during a reload makes
-      // an otherwise unchanged locked Matching item JSON-distinct on the next
-      // full assessment save, which correctly trips the database lock guard.
+      prompts: (Array.isArray(answer.prompts) ? answer.prompts : []).map((prompt, index) => { const val = asObject(prompt); return { id: text(val.id, `prompt-${index + 1}`), text: text(val.text) } }),
+      choices: (Array.isArray(answer.choices) ? answer.choices : []).map((choice, index) => { const val = asObject(choice); return { id: text(val.id, `choice-${index + 1}`), text: text(val.text), ...(val.label !== undefined ? { label: String(val.label) } : {}) } }),
+      mappings: (Array.isArray(answer.mappings) ? answer.mappings : []).map((mapping) => { const val = asObject(mapping); return { promptId: text(val.promptId), choiceId: text(val.choiceId), ...(val.pointsPossible !== undefined ? { pointsPossible: Number(val.pointsPossible) } : {}) } }),
       ...(answer.reusableChoices === true ? { reusableChoices: true } : {}),
       ...(answer.pointsPerMatch !== undefined ? { pointsPerMatch: Number(answer.pointsPerMatch) } : {}),
       ...(answer.groupPointsPossible !== undefined ? { groupPointsPossible: Number(answer.groupPointsPossible) } : {}),
     }
   }
   if (questionType === 'multiple_select') {
-    const sourceChoices = Array.isArray(answer.choices) ? answer.choices : Array.isArray(choices) ? choices : []
     return {
       type: 'multiple_select',
-      choices: sourceChoices.map((choice, index) => { const value = asObject(choice); return { id: text(value.id, `choice-${index + 1}`), text: text(value.text) } }),
+      choices: (Array.isArray(answer.choices) ? answer.choices : []).map((choice, index) => { const val = asObject(choice); return { id: text(val.id, `choice-${index + 1}`), text: text(val.text) } }),
       choiceIds: (Array.isArray(answer.choiceIds) ? answer.choiceIds : []).map(String),
-      scoringPolicy: 'all_or_nothing',
+      scoringPolicy: answer.scoringPolicy === 'all_or_nothing' ? 'all_or_nothing' : undefined,
     }
   }
   if (questionType === 'essay') {
@@ -218,15 +232,15 @@ function normalizeAnswer(value: unknown, questionType: QuestionType, choices: un
       type: 'essay',
       keyPoints: (Array.isArray(answer.keyPoints) ? answer.keyPoints : []).map(String),
       ...(Array.isArray(answer.rubric) ? { rubric: answer.rubric as never } : {}),
-      ...(answer.expectedResponse !== undefined ? { expectedResponse: String(answer.expectedResponse) } : {}),
-      ...(answer.scoringNotes !== undefined ? { scoringNotes: String(answer.scoringNotes) } : {}),
+      ...(typeof answer.expectedResponse === 'string' ? { expectedResponse: answer.expectedResponse } : {}),
+      ...(typeof answer.scoringNotes === 'string' ? { scoringNotes: answer.scoringNotes } : {}),
     }
   }
   return {
     type: 'constructed_response',
-    expectedResponse: text(answer.expectedResponse ?? answer.expected),
+    expectedResponse: text(answer.expectedResponse),
     sampleResponse: text(answer.sampleResponse),
-    ...(answer.rubricGuidance ? { rubricGuidance: String(answer.rubricGuidance) } : {}),
+    ...(typeof answer.rubricGuidance === 'string' ? { rubricGuidance: answer.rubricGuidance } : {}),
     ...(Array.isArray(answer.expectedElements) ? { expectedElements: answer.expectedElements.map(String) } : {}),
     ...(Array.isArray(answer.rubric) ? { rubric: answer.rubric as never } : {}),
   }
@@ -234,66 +248,96 @@ function normalizeAnswer(value: unknown, questionType: QuestionType, choices: un
 
 function mapItem(row: DbRow): AssessmentItem {
   const questionType = text(row.question_type, 'multiple_choice') as QuestionType
-  const storedAnswer = asObject(row.answer)
-  const storedVisual = isAssessmentVisual(storedAnswer._visual) ? storedAnswer._visual as AssessmentVisual : undefined
-  const storedVisualPlan = visualPlanFromAnswer(storedAnswer)
+  const answerRow = asObject(row.answer)
+  const rawPoints = row.points_possible ?? row.points
+  const points = rawPoints === null || rawPoints === undefined || rawPoints === ''
+    ? 1
+    : Number(rawPoints)
+  const visual = isAssessmentVisual(answerRow._visual) ? (answerRow._visual as AssessmentVisual) : undefined
+  const visualPlan = visualPlanFromAnswer(answerRow)
+  const rawNumber = Number(row.item_number)
+  const itemNumber = Number.isSafeInteger(rawNumber) && rawNumber > 0 ? rawNumber : 1
+
+  const isLessonCoverage = Boolean(row.coverage_entry_id || (row.mapping && (row.mapping as any).kind === 'lesson_coverage'))
+  const mapping: AssessmentItemMapping = isLessonCoverage
+    ? {
+        kind: 'lesson_coverage',
+        coverageEntryId: text(row.coverage_entry_id || (row.mapping as any)?.coverageEntryId || `cov-${itemNumber}`),
+        sourceLessonId: text(row.source_lesson_id || (row.mapping as any)?.sourceLessonId || ''),
+        sourceLessonIds: Array.isArray((row.mapping as any)?.sourceLessonIds) ? (row.mapping as any).sourceLessonIds.map(String) : undefined,
+        competencyId: text(row.canonical_competency_id || (row.mapping as any)?.competencyId || row.competency_code_snapshot || `comp-${itemNumber}`),
+        cognitiveCategoryId: text(row.cognitive_category_id || (row.mapping as any)?.cognitiveCategoryId || 'remembering'),
+        allocationIndex: Number(row.allocation_index ?? (row.mapping as any)?.allocationIndex ?? 0),
+        allocationItemStart: Number.isSafeInteger(Number(row.allocation_item_start ?? (row.mapping as any)?.allocationItemStart)) ? Number(row.allocation_item_start ?? (row.mapping as any)?.allocationItemStart) : itemNumber,
+        allocationItemEnd: Number.isSafeInteger(Number(row.allocation_item_end ?? (row.mapping as any)?.allocationItemEnd)) ? Number(row.allocation_item_end ?? (row.mapping as any)?.allocationItemEnd) : itemNumber,
+        rowId: text(row.tos_row_id || (row.mapping as any)?.rowId || row.coverage_entry_id || `cov-${itemNumber}`),
+      }
+    : {
+        kind: 'tos',
+        rowId: text(row.tos_row_id || (row.mapping as any)?.rowId || `row-${itemNumber}`),
+        competencyId: text(row.canonical_competency_id || (row.mapping as any)?.competencyId || `comp-${itemNumber}`),
+        cognitiveCategoryId: text(row.cognitive_category_id || (row.mapping as any)?.cognitiveCategoryId || 'remembering'),
+        allocationItemStart: Number.isSafeInteger(Number(row.allocation_item_start ?? (row.mapping as any)?.allocationItemStart)) ? Number(row.allocation_item_start ?? (row.mapping as any)?.allocationItemStart) : itemNumber,
+        allocationItemEnd: Number.isSafeInteger(Number(row.allocation_item_end ?? (row.mapping as any)?.allocationItemEnd)) ? Number(row.allocation_item_end ?? (row.mapping as any)?.allocationItemEnd) : itemNumber,
+        allocationIndex: Number(row.allocation_index ?? (row.mapping as any)?.allocationIndex ?? 0),
+      }
+
   return {
     id: text(row.id),
-    itemNumber: Number(row.item_number),
-    ...(nullableNumber(row.point_start) !== null ? { pointStart: Number(row.point_start) } : {}),
-    ...(nullableNumber(row.point_end) !== null ? { pointEnd: Number(row.point_end) } : {}),
-    ...(text(row.plan_entry_id).trim() ? { planEntryId: text(row.plan_entry_id).trim() } : {}),
+    itemNumber,
+    pointStart: row.point_start === null || row.point_start === undefined ? undefined : Number(row.point_start),
+    pointEnd: row.point_end === null || row.point_end === undefined ? undefined : Number(row.point_end),
+    planEntryId: nullableText(row.plan_entry_id) ?? undefined,
     competencySnapshot: {
-      id: text(row.canonical_competency_id),
-      code: nullableText(row.competency_code_snapshot),
-      text: text(row.competency_text_snapshot),
-      sourcePage: nullableNumber(row.competency_source_page_snapshot),
-      academicPeriodId: nullableText(row.competency_academic_period_id_snapshot),
-      curriculumPeriodId: nullableText(row.competency_curriculum_period_id_snapshot),
-      curriculumPeriodLabel: text(row.competency_period_label_snapshot),
+      id: text(row.canonical_competency_id || (row.competencySnapshot as any)?.id || mapping.competencyId),
+      code: nullableText(row.competency_code_snapshot ?? (row.competencySnapshot as any)?.code),
+      text: text(row.competency_text_snapshot ?? (row.competencySnapshot as any)?.text),
+      sourcePage: nullableNumber(row.competency_source_page_snapshot ?? (row.competencySnapshot as any)?.sourcePage),
+      academicPeriodId: nullableText(row.competency_academic_period_id_snapshot ?? (row.competencySnapshot as any)?.academicPeriodId),
+      curriculumPeriodId: nullableText(row.competency_curriculum_period_id_snapshot ?? (row.competencySnapshot as any)?.curriculumPeriodId),
+      curriculumPeriodLabel: text(row.competency_period_label_snapshot ?? (row.competencySnapshot as any)?.curriculumPeriodLabel),
     },
     cognitiveCategorySnapshot: {
-      id: text(row.cognitive_category_id),
-      label: text(row.cognitive_category_label_snapshot),
-      shortLabel: text(row.cognitive_category_short_label_snapshot),
+      id: text(row.cognitive_category_id || (row.cognitiveCategorySnapshot as any)?.id || mapping.cognitiveCategoryId),
+      label: text(row.cognitive_category_label_snapshot ?? (row.cognitiveCategorySnapshot as any)?.label, 'Remembering'),
+      shortLabel: text(row.cognitive_category_short_label_snapshot ?? (row.cognitiveCategorySnapshot as any)?.shortLabel, 'REM'),
     },
-    mapping: {
-      rowId: text(row.tos_row_id),
-      competencyId: text(row.canonical_competency_id),
-      cognitiveCategoryId: text(row.cognitive_category_id),
-      allocationItemStart: Number(row.allocation_item_start),
-      allocationItemEnd: Number(row.allocation_item_end),
-      allocationIndex: Number(row.allocation_index),
-    },
+    mapping,
     prompt: text(row.prompt),
     questionType,
     answer: normalizeAnswer(row.answer, questionType, row.choices),
     authorshipState: text(row.authorship_state, 'empty') as AssessmentAuthorshipState,
     rationale: text(row.rationale),
     teacherNotes: text(row.teacher_notes),
-    pointsPossible: row.points_possible === null || row.points_possible === undefined ? normalizeItemPoints({ points: row.points === null || row.points === undefined ? 1 : Number(row.points) }) : Number(row.points_possible),
-    points: row.points === null || row.points === undefined ? (row.points_possible === null || row.points_possible === undefined ? 1 : Number(row.points_possible)) : Number(row.points),
+    pointsPossible: Number.isFinite(points) && points > 0 ? points : 1,
+    points: Number.isFinite(points) && points > 0 ? points : 1,
     qaState: text(row.qa_state, 'empty') as AssessmentItem['qaState'],
-    locked: row.locked === true,
-    history: Array.isArray(row.version_history) ? clone(row.version_history) as AssessmentItem['history'] : Array.isArray(row.qa_history) ? clone(row.qa_history) as AssessmentItem['history'] : [],
-    ...(storedVisual ? { visual: clone(storedVisual) } : {}),
-    ...storedVisualPlan,
+    locked: Boolean(row.locked),
+    history: Array.isArray(row.version_history) ? clone(row.version_history as AssessmentItem['history']) : Array.isArray(row.history) ? clone(row.history as AssessmentItem['history']) : [],
+    visual,
+    ...visualPlan,
   }
 }
 
-function sourceSnapshotFromRow(
-  metadata: DbRow,
-  document: DbRow,
-): AssessmentTosSnapshot {
-  const content = preserveTosContentSnapshot(metadata.source_tos_content_snapshot, { schoolYear: text(document.school_year) })
+function sourceSnapshotFromRow(metadata: DbRow, document: DbRow): AssessmentTosSnapshot | undefined {
+  const structured = asObject(document.structured_content)
+  const structuredTos = asObject(structured.sourceTos)
+  if (!metadata.source_tos_document_id && !structured.sourceTos) return undefined
+  const content = preserveTosContentSnapshot(metadata.source_tos_content_snapshot ?? structuredTos.content, {
+    title: text(document.title),
+    assessmentTitle: text(document.title),
+    schoolYear: text(document.school_year),
+    gradingTermLabel: text(document.academic_period_label),
+    totalItems: Number(metadata.total_items ?? 0),
+  })
   return {
-    id: text(metadata.source_tos_document_id),
-    versionNumber: Number(metadata.source_tos_version_number ?? 0),
-    title: text(content.title, text(document.title)),
+    id: text(metadata.source_tos_document_id ?? structuredTos.id),
+    versionNumber: Number(metadata.source_tos_version_number ?? structuredTos.versionNumber ?? 1),
+    title: text(content.title || document.title),
     status: 'final',
     assignmentId: nullableText(metadata.assignment_id ?? document.assignment_id),
     schoolYear: text(content.schoolYear, text(document.school_year)),
-    academicPeriodLabel: nullableText(content.gradingTermLabel ?? document.academic_period_label),
+    academicPeriodLabel: text(content.gradingTermLabel, text(document.academic_period_label)),
     content,
   }
 }
@@ -304,30 +348,61 @@ function mapAssessmentDocument(
   itemRows: DbRow[],
   versionNumber: number,
 ): AssessmentRecord {
+  const structured = asObject(document.structured_content)
+  const isPerfTask = metadata.mode === 'performance_task' || structured.mode === 'performance_task' || Boolean(structured.performanceTask)
+  const isLessonQuiz = metadata.mode === 'lesson_quiz' || structured.mode === 'lesson_quiz' || (!isPerfTask && Boolean(structured.sourceLesson))
+  const isUnitQuiz = metadata.mode === 'unit_quiz' || structured.mode === 'unit_quiz' || (!isPerfTask && !isLessonQuiz && Boolean(structured.sourceLessons))
+
+  const mode: AssessmentMode = isPerfTask ? 'performance_task' : isLessonQuiz ? 'lesson_quiz' : isUnitQuiz ? 'unit_quiz' : 'standard'
+  const sourceType: AssessmentSourceType = (metadata.source_type || structured.sourceType || (isLessonQuiz ? 'lesson_plan' : isUnitQuiz ? 'multi_lesson_plan' : 'tos')) as AssessmentSourceType
+
   const sourceTos = sourceSnapshotFromRow(metadata, document)
-  const content = sourceTos.content
-  const persistedSettings = (asObject(metadata.settings ?? metadata.assessment_settings ?? asObject(document.structured_content).settings) as AssessmentRecord['settings']) ?? undefined
+  const sourceLesson = structured.sourceLesson as AssessmentLessonSourceSnapshot | undefined
+  const sourceLessons = structured.sourceLessons as AssessmentLessonSourceSnapshot[] | undefined
+  const coveragePlan = structured.coveragePlan as AssessmentCoveragePlan | undefined
+  const performanceTask = structured.performanceTask as PerformanceTaskContent | undefined
+
+  const persistedSettings = (asObject(metadata.settings ?? metadata.assessment_settings ?? structured.settings) as AssessmentRecord['settings']) ?? undefined
   const isV2 = Number(persistedSettings?.schemaVersion ?? 1) >= 2 && persistedSettings?.generationVersion === 'v2'
+
+  const gradeLevel = text(structured.gradeLevel || sourceTos?.content?.gradeLevel || sourceLesson?.gradeLevel || sourceLessons?.[0]?.gradeLevel)
+  const learningArea = text(structured.learningArea || sourceTos?.content?.learningArea || sourceLesson?.learningArea || sourceLessons?.[0]?.learningArea)
+  const schoolYear = text(structured.schoolYear || sourceTos?.content?.schoolYear || sourceLesson?.schoolYear || document.school_year)
+  const gradingTermId = text(structured.gradingTermId || sourceTos?.content?.gradingTermId || sourceLesson?.gradingTermId)
+  const gradingTermLabel = text(structured.gradingTermLabel || sourceTos?.content?.gradingTermLabel || sourceLesson?.gradingTermLabel || document.academic_period_label)
+
+  const items = itemRows.map(mapItem).sort((a, b) => a.itemNumber - b.itemNumber)
+  const totalItems = isPerfTask ? 0 : isV2 ? items.length : Number(metadata.total_items ?? sourceTos?.content?.totalItems ?? items.length)
+  const totalPoints = isPerfTask
+    ? (performanceTask?.rubric?.totalPoints || calculateRubricTotalPoints(performanceTask?.rubric) || 0)
+    : deriveAssessmentTotalPoints(items)
+
   const record: AssessmentRecord = {
     id: text(document.id),
     userId: text(metadata.user_id ?? document.user_id),
     assignmentId: nullableText(metadata.assignment_id ?? document.assignment_id),
     title: text(document.title),
-    instructions: text(metadata.instructions),
-    gradeLevel: text(content.gradeLevel),
-    learningArea: text(content.learningArea),
-    schoolYear: text(content.schoolYear, text(document.school_year)),
-    gradingTermId: text(content.gradingTermId),
-    gradingTermLabel: text(content.gradingTermLabel, text(document.academic_period_label)),
-    curriculumPeriodIds: Array.isArray(content.curriculumPeriodIds) ? content.curriculumPeriodIds.map(String) : [],
-    curriculumPeriodLabels: Array.isArray(content.curriculumPeriodLabels) ? content.curriculumPeriodLabels.map(String) : [],
-    totalItems: isV2 ? itemRows.length : Number(metadata.total_items ?? content.totalItems ?? itemRows.length),
-    totalPoints: deriveAssessmentTotalPoints(itemRows.map(mapItem)),
+    instructions: text(metadata.instructions ?? structured.instructions),
+    gradeLevel,
+    learningArea,
+    schoolYear,
+    gradingTermId,
+    gradingTermLabel,
+    curriculumPeriodIds: Array.isArray(structured.curriculumPeriodIds) ? structured.curriculumPeriodIds.map(String) : Array.isArray(sourceTos?.content?.curriculumPeriodIds) ? sourceTos.content.curriculumPeriodIds.map(String) : [],
+    curriculumPeriodLabels: Array.isArray(structured.curriculumPeriodLabels) ? structured.curriculumPeriodLabels.map(String) : Array.isArray(sourceTos?.content?.curriculumPeriodLabels) ? sourceTos.content.curriculumPeriodLabels.map(String) : [],
+    totalItems,
+    totalPoints,
     settings: persistedSettings,
     versionNumber,
     status: text(document.status, 'draft') as AssessmentRecord['status'],
+    mode,
+    sourceType,
     sourceTos,
-    items: itemRows.map(mapItem).sort((a, b) => a.itemNumber - b.itemNumber),
+    sourceLesson,
+    sourceLessons,
+    coveragePlan,
+    performanceTask,
+    items,
     createdAt: text(document.created_at),
     updatedAt: text(document.updated_at),
   }
@@ -358,9 +433,15 @@ function mapNestedAssessment(document: DbRow, versionNumber: number): Assessment
 function assessmentContentMirror(record: AssessmentRecord) {
   return {
     schemaVersion: record.settings?.generationVersion === 'v2' ? 2 : 1,
-    sourceTos: clone(record.sourceTos),
-    sourceTosDocumentId: record.sourceTos.id,
-    sourceTosVersionNumber: record.sourceTos.versionNumber,
+    mode: record.mode || 'standard',
+    sourceType: record.sourceType || 'tos',
+    sourceTos: record.sourceTos ? clone(record.sourceTos) : undefined,
+    sourceTosDocumentId: record.sourceTos?.id,
+    sourceTosVersionNumber: record.sourceTos?.versionNumber,
+    sourceLesson: record.sourceLesson ? clone(record.sourceLesson) : undefined,
+    sourceLessons: record.sourceLessons ? clone(record.sourceLessons) : undefined,
+    coveragePlan: record.coveragePlan ? clone(record.coveragePlan) : undefined,
+    performanceTask: record.performanceTask ? clone(record.performanceTask) : undefined,
     title: record.title,
     instructions: record.instructions,
     gradeLevel: record.gradeLevel,
@@ -371,7 +452,9 @@ function assessmentContentMirror(record: AssessmentRecord) {
     curriculumPeriodIds: [...record.curriculumPeriodIds],
     curriculumPeriodLabels: [...record.curriculumPeriodLabels],
     totalItems: record.totalItems,
-    totalPoints: deriveAssessmentTotalPoints(record.items),
+    totalPoints: record.mode === 'performance_task'
+      ? (record.performanceTask?.rubric?.totalPoints || calculateRubricTotalPoints(record.performanceTask?.rubric) || 0)
+      : deriveAssessmentTotalPoints(record.items),
     settings: clone(record.settings ?? {}),
     items: record.items.map((item) => itemWire(item)),
   }
@@ -379,9 +462,6 @@ function assessmentContentMirror(record: AssessmentRecord) {
 
 function itemWire(item: AssessmentItem) {
   const answer = clone(item.answer) as unknown as Record<string, unknown>
-  // The relational assessment_items projection predates visuals.  Keep this
-  // additive, validated reserved key inside its JSON answer payload so the
-  // existing RPC/mirror/version machinery persists it without a migration.
   delete answer._visual
   delete answer._visualPlan
   if (item.visual && isAssessmentVisual(item.visual)) answer._visual = clone(item.visual)
@@ -409,9 +489,6 @@ function itemWire(item: AssessmentItem) {
     prompt: item.prompt ?? '',
     answer,
     pointsPossible: normalizeItemPoints(item),
-    // Keep the legacy wire column aligned with the canonical value.  Older
-    // RPCs only read `points`; the additive migration mirrors it into
-    // points_possible for those callers.
     points: normalizeItemPoints(item),
     rationale: item.rationale ?? '',
     teacherNotes: item.teacherNotes ?? '',
@@ -427,13 +504,6 @@ function assertSourceIsFinal(tos: TosRecord) {
   if (!tos.id) throw new Error('The finalized TOS needs a persisted document ID before assessment creation.')
 }
 
-/**
- * The visible finalized TOS JSON may contain a local-manifest fallback
- * competency ID.  Production's normalized `tos_competencies` projection is the
- * authority and already contains the verified canonical UUID/snapshots.  Resolve
- * the whole source in set queries before expanding it; never cast a fallback ID
- * or silently weaken the database FK/finalization checks.
- */
 async function canonicalizeFinalTosForProduction(tos: TosRecord): Promise<TosRecord> {
   if (!supabase) return tos
   const { data: projectedRows, error: projectionError } = await supabase
@@ -516,12 +586,39 @@ function assertBlueprintIntegrity(record: AssessmentRecord, existing?: Assessmen
   if (!record.id || !record.userId) throw new Error('Assessment identity is required.')
   if (record.status === 'archived') throw new Error('Archived assessments cannot be edited.')
   if (existing && existing.status !== 'draft') throw new Error('Only draft assessments can be edited.')
-  if (existing && (
+
+  const mode = record.mode || 'standard'
+
+  if (mode === 'performance_task') {
+    if (!record.performanceTask) throw new Error('Performance Task content is required.')
+    const rubricVal = validatePerformanceTaskRubric(record.performanceTask.rubric)
+    if (!rubricVal.valid) throw new Error(`Invalid Performance Task rubric: ${rubricVal.errors.map((e) => e.message).join(', ')}`)
+    if (requireFinal) validateAssessmentForFinal(record)
+    return
+  }
+
+  if (mode === 'lesson_quiz') {
+    if (!record.sourceLesson) throw new Error('Lesson quiz requires a valid source lesson snapshot.')
+    if (record.items.length < 1) throw new Error('Lesson quiz requires at least one question item.')
+    if (requireFinal) validateAssessmentForFinal(record)
+    return
+  }
+
+  if (mode === 'unit_quiz') {
+    if (!record.sourceLessons || record.sourceLessons.length < 2) throw new Error('Unit quiz requires at least 2 source lesson snapshots.')
+    if (record.items.length < 1) throw new Error('Unit quiz requires at least one question item.')
+    if (requireFinal) validateAssessmentForFinal(record)
+    return
+  }
+
+  // Standard TOS mode integrity checks
+  if (existing && existing.sourceTos && record.sourceTos && (
     existing.assignmentId !== record.assignmentId
     || existing.sourceTos.id !== record.sourceTos.id
     || existing.sourceTos.versionNumber !== record.sourceTos.versionNumber
     || JSON.stringify(existing.sourceTos.content) !== JSON.stringify(record.sourceTos.content)
   )) throw new Error('Assessment assignment and finalized TOS snapshot are immutable.')
+
   const isV2 = Number(record.settings?.schemaVersion ?? 1) >= 2 && record.settings?.generationVersion === 'v2'
   if (isV2) {
     const plan = record.settings?.masterPlan
@@ -551,36 +648,39 @@ function assertBlueprintIntegrity(record: AssessmentRecord, existing?: Assessmen
     if (requireFinal) validateAssessmentForFinal(record)
     return
   }
+
   if (!Number.isSafeInteger(record.totalItems) || record.totalItems < 1 || record.items.length !== record.totalItems) {
     throw new Error('Assessment items must exactly match the finalized TOS total.')
   }
-  const expected = createAssessmentBlueprint({
-    ...record.sourceTos,
-    userId: record.userId,
-    title: record.sourceTos.title,
-    status: 'final',
-    versionNumber: record.sourceTos.versionNumber,
-    createdAt: record.createdAt,
-    updatedAt: record.updatedAt,
-  } as TosRecord)
-  const seen = new Set<number>()
-  for (const item of record.items) {
-    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1) {
-      throw new Error('Assessment item numbering must use positive exact integers.')
+  if (record.sourceTos) {
+    const expected = createAssessmentBlueprint({
+      ...record.sourceTos,
+      userId: record.userId,
+      title: record.sourceTos.title,
+      status: 'final',
+      versionNumber: record.sourceTos.versionNumber,
+      createdAt: record.createdAt,
+      updatedAt: record.updatedAt,
+    } as TosRecord)
+    const seen = new Set<number>()
+    for (const item of record.items) {
+      if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1) {
+        throw new Error('Assessment item numbering must use positive exact integers.')
+      }
+      if (seen.has(item.itemNumber)) {
+        throw new Error('Assessment item numbering cannot contain duplicates.')
+      }
+      seen.add(item.itemNumber)
     }
-    if (seen.has(item.itemNumber)) {
-      throw new Error('Assessment item numbering cannot contain duplicates.')
+    const orderedNumbers = [...seen].sort((a, b) => a - b)
+    if (orderedNumbers.some((number, index) => number !== index + 1)) {
+      throw new Error('Assessment item numbering must be contiguous from 1 with no gaps.')
     }
-    seen.add(item.itemNumber)
-  }
-  const orderedNumbers = [...seen].sort((a, b) => a - b)
-  if (orderedNumbers.some((number, index) => number !== index + 1)) {
-    throw new Error('Assessment item numbering must be contiguous from 1 with no gaps.')
-  }
-  for (const item of record.items) {
-    const canonical = expected.items[item.itemNumber - 1]
-    if (!canonical || mappingKey(canonical) !== mappingKey(item)) {
-      throw new Error(`Assessment item ${item.itemNumber} no longer matches the finalized TOS mapping.`)
+    for (const item of record.items) {
+      const canonical = expected.items[item.itemNumber - 1]
+      if (!canonical || mappingKey(canonical) !== mappingKey(item)) {
+        throw new Error(`Assessment item ${item.itemNumber} no longer matches the finalized TOS mapping.`)
+      }
     }
   }
   if (requireFinal) validateAssessmentForFinal(record)
@@ -643,9 +743,72 @@ export async function createAssessmentFromFinalTos(
     writeDemoAssessments([...readDemoAssessments().filter((item) => item.id !== blueprint.id), blueprint])
     return blueprint
   }
-  // The database allocates the document UUID inside the security-definer RPC;
-  // the factory UUID is useful for demo persistence but must not be treated as an
-  // existing production row.
+  return saveAssessmentDocument({ ...blueprint, id: '' }, false)
+}
+
+export async function createAssessmentFromLessonPlan(
+  lesson: LessonPlanRecord,
+  userId: string,
+  demo: boolean,
+  options: { totalItems?: number; title?: string; instructions?: string } = {}
+): Promise<AssessmentRecord> {
+  const snapshot = createLessonSourceSnapshot(lesson)
+  const blueprint = createLessonQuizBlueprint(snapshot, {
+    userId,
+    assignmentId: lesson.assignmentId,
+    title: options.title,
+    instructions: options.instructions,
+    totalItems: options.totalItems,
+  })
+  if (demo || !supabase) {
+    assertBlueprintIntegrity(blueprint)
+    writeDemoAssessments([...readDemoAssessments().filter((item) => item.id !== blueprint.id), blueprint])
+    return blueprint
+  }
+  return saveAssessmentDocument({ ...blueprint, id: '' }, false)
+}
+
+export async function createAssessmentFromUnitLessons(
+  lessons: LessonPlanRecord[],
+  userId: string,
+  demo: boolean,
+  options: { totalItems?: number; lessonWeights?: Record<string, number>; title?: string; instructions?: string } = {}
+): Promise<AssessmentRecord> {
+  const snapshots = lessons.map((l) => createLessonSourceSnapshot(l))
+  const blueprint = createUnitQuizBlueprint(snapshots, {
+    userId,
+    assignmentId: lessons[0]?.assignmentId ?? null,
+    title: options.title,
+    instructions: options.instructions,
+    totalItems: options.totalItems,
+    lessonWeights: options.lessonWeights,
+  })
+  if (demo || !supabase) {
+    assertBlueprintIntegrity(blueprint)
+    writeDemoAssessments([...readDemoAssessments().filter((item) => item.id !== blueprint.id), blueprint])
+    return blueprint
+  }
+  return saveAssessmentDocument({ ...blueprint, id: '' }, false)
+}
+
+export async function createAssessmentPerformanceTask(
+  source: { lesson?: LessonPlanRecord; lessons?: LessonPlanRecord[]; tos?: TosRecord },
+  userId: string,
+  demo: boolean,
+  options: { title?: string; instructions?: string; performanceTask?: Partial<PerformanceTaskContent> } = {}
+): Promise<AssessmentRecord> {
+  const blueprint = createPerformanceTaskBlueprint(source, {
+    userId,
+    assignmentId: source.lesson?.assignmentId || source.lessons?.[0]?.assignmentId || source.tos?.assignmentId || null,
+    title: options.title,
+    instructions: options.instructions,
+    performanceTask: options.performanceTask,
+  })
+  if (demo || !supabase) {
+    assertBlueprintIntegrity(blueprint)
+    writeDemoAssessments([...readDemoAssessments().filter((item) => item.id !== blueprint.id), blueprint])
+    return blueprint
+  }
   return saveAssessmentDocument({ ...blueprint, id: '' }, false)
 }
 
@@ -731,15 +894,17 @@ export async function saveAssessmentDocument(record: AssessmentRecord, demo: boo
   if (normalized.status === 'archived') throw new Error('Archived assessments cannot be edited.')
   if (normalized.status === 'final') validateAssessmentForFinal(normalized)
   if (!normalized.assignmentId) throw new Error('A teacher-owned assignment is required.')
-  if (!normalized.sourceTos.id) throw new Error('The finalized TOS source is required.')
+  if (normalized.mode === 'standard' && !normalized.sourceTos?.id) throw new Error('The finalized TOS source is required.')
+
   assertBlueprintIntegrity({ ...normalized, id: normalized.id || 'temp-id' })
   const saveRpc = normalized.settings?.generationVersion === 'v2' && Number(normalized.settings?.schemaVersion ?? 1) >= 2
     ? 'save_assessment_document_v2'
     : 'save_assessment_document'
+
   const { data, error } = await supabase.rpc(saveRpc, {
     p_document_id: normalized.id || null,
     p_assignment_id: normalized.assignmentId,
-    p_source_tos_document_id: normalized.sourceTos.id,
+    p_source_tos_document_id: normalized.sourceTos?.id || null,
     p_title: normalized.title,
     p_school_year: normalized.schoolYear,
     p_academic_period_label: normalized.gradingTermLabel || null,

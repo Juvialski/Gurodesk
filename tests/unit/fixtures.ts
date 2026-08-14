@@ -86,7 +86,7 @@ export function assessmentRecord(items: AssessmentItem[]): AssessmentRecord {
       academicPeriodLabel: 'Quarter 1',
       content: {
         rows: [],
-      } as unknown as AssessmentRecord['sourceTos']['content'],
+      } as unknown as NonNullable<AssessmentRecord['sourceTos']>['content'],
     },
     items,
     createdAt: fixedNow,

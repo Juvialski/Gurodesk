@@ -70,15 +70,22 @@ export function DashboardPage() {
         updatedAt: tos.updatedAt,
         to: `/tos/${tos.id}`,
       })))
-      if (assessmentResult.status === 'fulfilled') work.push(...assessmentResult.value.map((assessment) => ({
-        id: assessment.id,
-        title: assessment.title || 'Untitled assessment',
-        kind: 'Test / Quiz',
-        status: assessment.status,
-        detail: `${assessment.items.length} question${assessment.items.length === 1 ? '' : 's'}`,
-        updatedAt: assessment.updatedAt,
-        to: `/assessments/${assessment.id}`,
-      })))
+      if (assessmentResult.status === 'fulfilled') work.push(...assessmentResult.value.map((assessment) => {
+        const isPerfTask = assessment.mode === 'performance_task' || Boolean(assessment.performanceTask)
+        const kindLabel = assessment.mode === 'lesson_quiz' ? 'Lesson Quiz' : assessment.mode === 'unit_quiz' ? 'Unit Quiz' : assessment.mode === 'performance_task' ? 'Performance Task' : 'Assessment'
+        const detailLabel = isPerfTask
+          ? `${assessment.performanceTask?.rubric.criteria.length ?? 0} rubric criteria · ${assessment.performanceTask?.rubric.totalPoints ?? assessment.totalPoints ?? 0} pts`
+          : `${assessment.items.length} question${assessment.items.length === 1 ? '' : 's'}`
+        return {
+          id: assessment.id,
+          title: assessment.title || 'Untitled assessment',
+          kind: kindLabel,
+          status: assessment.status,
+          detail: detailLabel,
+          updatedAt: assessment.updatedAt,
+          to: `/assessments/${assessment.id}`,
+        }
+      }))
       if (resultResult.status === 'fulfilled') work.push(...resultResult.value.map((session: ResultSessionListSummary) => ({
         id: session.id,
         title: session.title || 'Untitled result entry',
@@ -113,7 +120,7 @@ export function DashboardPage() {
         <div className="home-task-grid">
           <ActionCard to={`/lesson-plans/new${assignmentQuery}`} title="Lesson Plan" description="Start with a topic, then add verified curriculum alignment as needed." actionLabel="Start" icon={BookOpenCheck} tone="blue" />
           <ActionCard to={`/tos/new${assignmentQuery}`} title="TOS" description="Plan assessment coverage from taught competencies." actionLabel="Start" icon={TableProperties} tone="green" />
-          <ActionCard to="/assessments/new" title="Test / Quiz" description="Create a teacher-reviewed test from a finalized TOS." actionLabel="Start" icon={ClipboardCheck} tone="amber" />
+          <ActionCard to="/assessments/new" title="Assessment" description="Create a test, quiz, or authentic performance task." actionLabel="Start" icon={ClipboardCheck} tone="amber" />
           <ActionCard to="/results" title="Enter Results" description="Record answers or scores and review class evidence." actionLabel="Start" icon={ChartNoAxesColumnIncreasing} tone="slate" />
         </div>
       </section>

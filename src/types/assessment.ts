@@ -5,7 +5,7 @@ export type AssessmentStatus = 'draft' | 'final' | 'archived'
 
 /**
  * A question format is deliberately independent from the TOS cognitive
- * category.  Keep this union as the single registry used by editors,
+ * category. Keep this union as the single registry used by editors,
  * validation, persistence, and exports.
  */
 export type QuestionType =
@@ -174,7 +174,7 @@ export type AssessmentAnswer =
   | AssessmentEssayAnswer
 
 export type AssessmentCompetencySnapshot = {
-  /** Canonical production curriculum UUID (or the immutable source ID used by the TOS snapshot). */
+  /** Canonical production curriculum UUID (or the immutable source ID used by the TOS/lesson snapshot). */
   id: string
   code: string | null
   text: string
@@ -182,6 +182,8 @@ export type AssessmentCompetencySnapshot = {
   academicPeriodId: string | null
   curriculumPeriodId: string | null
   curriculumPeriodLabel: string
+  contentStandards?: string[]
+  performanceStandards?: string[]
 }
 
 export type AssessmentCognitiveCategorySnapshot = {
@@ -190,13 +192,151 @@ export type AssessmentCognitiveCategorySnapshot = {
   shortLabel: string
 }
 
-export type AssessmentItemMapping = {
+export type AssessmentMode = 'standard' | 'lesson_quiz' | 'unit_quiz' | 'performance_task'
+export type AssessmentSourceType = 'tos' | 'lesson_plan' | 'multi_lesson_plan'
+
+export type TosAssessmentItemMapping = {
+  kind?: 'tos'
   rowId: string
   competencyId: string
   cognitiveCategoryId: string
   allocationItemStart: number
   allocationItemEnd: number
   allocationIndex: number
+  sourceLessonId?: never
+  coverageEntryId?: never
+}
+
+export type LessonCoverageItemMapping = {
+  kind: 'lesson_coverage'
+  coverageEntryId: string
+  sourceLessonId: string
+  sourceLessonIds?: string[]
+  competencyId: string
+  cognitiveCategoryId: string
+  allocationIndex: number
+  allocationItemStart?: number
+  allocationItemEnd?: number
+  /** Compatibility projection for legacy consumers; never a fake TOS row */
+  rowId?: string
+}
+
+export type AssessmentItemMapping = TosAssessmentItemMapping | LessonCoverageItemMapping
+
+export function isLessonCoverageMapping(mapping: AssessmentItemMapping | undefined | null): mapping is LessonCoverageItemMapping {
+  return Boolean(mapping && (mapping.kind === 'lesson_coverage' || ('coverageEntryId' in mapping && Boolean((mapping as any).coverageEntryId))))
+}
+
+export function isTosMapping(mapping: AssessmentItemMapping | undefined | null): mapping is TosAssessmentItemMapping {
+  return Boolean(mapping && !isLessonCoverageMapping(mapping))
+}
+
+export type AssessmentLessonSourceSnapshot = {
+  id: string
+  versionNumber?: number
+  title: string
+  lessonTitle?: string
+  lessonFocus?: string
+  gradeLevel: string
+  learningArea: string
+  schoolYear: string
+  gradingTermId?: string
+  gradingTermLabel?: string
+  curriculumPeriodIds?: string[]
+  curriculumPeriodLabels?: string[]
+  learningObjectives: string[]
+  competencies: AssessmentCompetencySnapshot[]
+  contentStandards?: string[]
+  performanceStandards?: string[]
+  lessonPerformanceStandard?: string
+  resources?: string[]
+  sourceUpdatedAt?: string
+}
+
+export type AssessmentCoveragePlanEntry = {
+  id: string
+  sourceLessonId: string
+  lessonTitle: string
+  competencyId: string
+  competencyCode?: string | null
+  competencyStatement: string
+  cognitiveCategoryId: string
+  cognitiveCategoryLabel?: string
+  targetItemCount: number
+  targetPoints?: number
+  allocatedItemNumbers: number[]
+  sourceObjectiveTexts?: string[]
+}
+
+export type AssessmentCoveragePlanLesson = {
+  lessonId: string
+  title: string
+  lessonTitle?: string
+  weight: number
+  allocatedItemCount: number
+  competencyCount: number
+}
+
+export type AssessmentCoveragePlan = {
+  lessons: AssessmentCoveragePlanLesson[]
+  entries: AssessmentCoveragePlanEntry[]
+  totalItems: number
+}
+
+export type PerformanceTaskRubricLevel = {
+  id: string
+  label: string
+  descriptor: string
+  points: number
+}
+
+export type PerformanceTaskRubricCriterion = {
+  id: string
+  name: string
+  description: string
+  pointsPossible: number
+  levels: PerformanceTaskRubricLevel[]
+}
+
+export type PerformanceTaskRubric = {
+  id?: string
+  title?: string
+  criteria: PerformanceTaskRubricCriterion[]
+  totalPoints: number
+}
+
+export type PerformanceTaskMilestone = {
+  id: string
+  title: string
+  description?: string
+  targetDuration?: string
+}
+
+export type PerformanceTaskGrouping = 'individual' | 'group' | 'either'
+
+export type PerformanceTaskContent = {
+  title: string
+  scenario: string
+  learningObjectives: string[]
+  competencyAlignment: AssessmentCompetencySnapshot[]
+  contentStandards?: string[]
+  performanceStandards?: string[]
+  teacherInstructions: string
+  studentInstructions: string
+  expectedOutput: string
+  grouping: PerformanceTaskGrouping
+  resources: string[]
+  constraints: string[]
+  duration?: string
+  dueDate?: string
+  milestones: PerformanceTaskMilestone[]
+  rubric: PerformanceTaskRubric
+  teacherNotes?: string
+  differentiation?: string
+  reflection?: {
+    enabled: boolean
+    prompt?: string
+  }
 }
 
 export type AssessmentTosSnapshot = {
@@ -221,7 +361,7 @@ export type AssessmentItem = {
   planEntryId?: string
   competencySnapshot: AssessmentCompetencySnapshot
   cognitiveCategorySnapshot: AssessmentCognitiveCategorySnapshot
-  /** Exact deterministic TOS row/category allocation that produced this item. */
+  /** Exact deterministic TOS row/category allocation or lesson coverage that produced this item. */
   mapping: AssessmentItemMapping
   prompt: string
   questionType: QuestionType
@@ -229,7 +369,7 @@ export type AssessmentItem = {
   authorshipState: AssessmentAuthorshipState
   rationale?: string
   teacherNotes?: string
-  /** Derived scoring value.  Legacy records may only carry `points`. */
+  /** Derived scoring value. Legacy records may only carry `points`. */
   pointsPossible: number
   /** @deprecated Use pointsPossible. Kept for old clients and database mirrors. */
   points?: number | null
@@ -284,7 +424,6 @@ export type AssessmentItemVersion = {
   visualSourceHash?: string
   visualUpdatedAt?: string
 }
-
 
 export type AssessmentNumberingMode = 'legacy_items' | 'point_ranges'
 export type AssessmentGenerationVersion = 'v1' | 'v2'
@@ -384,7 +523,20 @@ export type AssessmentBlueprint = {
   settings?: AssessmentSettings
   versionNumber: number
   status: AssessmentStatus
-  sourceTos: AssessmentTosSnapshot
+  /** Assessment mode: standard, lesson_quiz, unit_quiz, or performance_task. Defaults to 'standard'. */
+  mode?: AssessmentMode
+  /** Assessment source provenance. Defaults to 'tos'. */
+  sourceType?: AssessmentSourceType
+  /** TOS snapshot for standard TOS-backed assessments. */
+  sourceTos?: AssessmentTosSnapshot
+  /** Single lesson source snapshot for lesson_quiz or single-lesson performance_task. */
+  sourceLesson?: AssessmentLessonSourceSnapshot
+  /** Multi-lesson source snapshots for unit_quiz. */
+  sourceLessons?: AssessmentLessonSourceSnapshot[]
+  /** Deterministic coverage plan for unit quizzes. */
+  coveragePlan?: AssessmentCoveragePlan
+  /** Dedicated content payload for performance tasks. */
+  performanceTask?: PerformanceTaskContent
   items: AssessmentItem[]
   createdAt: string
   updatedAt: string

@@ -3,6 +3,7 @@ import type {
   AssessmentCognitiveCategorySnapshot,
   AssessmentCompetencySnapshot,
   AssessmentItemMapping,
+  PerformanceTaskRubric,
   QuestionType,
 } from './assessment'
 
@@ -45,7 +46,7 @@ export type RosterImportRow = {
 }
 
 export type ResultSessionStatus = 'draft' | 'final' | 'archived'
-export type ResultEntryMode = 'answer_sheet' | 'item' | 'score_only'
+export type ResultEntryMode = 'answer_sheet' | 'item' | 'score_only' | 'rubric'
 export type ShortAnswerScoringMode = 'manual' | 'normalized_exact'
 
 export type ResultAssessmentItemSnapshot = {
@@ -195,6 +196,23 @@ export type ScoreOnlyOutcome = {
   updatedAt: string
 }
 
+export type ResultRubricCriterionScore = {
+  criterionId: string
+  selectedLevelId: string | null
+  earnedPoints: number
+  teacherFeedback: string | null
+}
+
+export type ResultRubricOutcome = {
+  participantId: string
+  learnerId: string
+  criteriaScores: ResultRubricCriterionScore[]
+  totalEarnedPoints: number
+  possiblePoints: number
+  teacherFeedback: string | null
+  updatedAt: string
+}
+
 export type ShortAnswerScoringConfig = {
   defaultMode: ShortAnswerScoringMode
   itemModes: Record<string, ShortAnswerScoringMode>
@@ -214,6 +232,8 @@ export type AssessmentResultSession = {
   learners: ResultLearnerSnapshot[]
   itemOutcomes: ResultItemOutcome[]
   scoreOnlyOutcomes: ScoreOnlyOutcome[]
+  rubricOutcomes?: ResultRubricOutcome[]
+  rubricSnapshot?: PerformanceTaskRubric
   shortAnswerScoring: ShortAnswerScoringConfig
   createdAt: string
   updatedAt: string
@@ -236,6 +256,7 @@ export type ResultDraftPatch = Pick<
   | 'entryMode'
   | 'itemOutcomes'
   | 'scoreOnlyOutcomes'
+  | 'rubricOutcomes'
   | 'shortAnswerScoring'
   | 'versionNumber'
 >
@@ -263,4 +284,5 @@ export type ResultSaveBatch = {
    */
   outcomes: ResultItemOutcome[]
   scoreOnlyOutcomes: ScoreOnlyOutcome[]
+  rubricOutcomes?: ResultRubricOutcome[]
 }

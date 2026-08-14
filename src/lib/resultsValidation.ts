@@ -135,14 +135,16 @@ export function validateResultSession(session: AssessmentResultSession): ResultV
   }
   if (!session.shortAnswerScoring || (shortAnswerScoring.defaultMode !== 'manual' && shortAnswerScoring.defaultMode !== 'normalized_exact')) addIssue(errors, 'short-answer-mode', 'Short-answer scoring mode must be manual or explicitly normalized_exact.', 'error')
   if (session.entryMode === 'score_only' && session.itemOutcomes.length) addIssue(errors, 'score-only-items', 'Score-only sessions cannot contain item-level outcomes.', 'error')
+  if (session.entryMode === 'rubric' && session.itemOutcomes.length) addIssue(errors, 'rubric-items', 'Rubric sessions cannot contain item-level outcomes.', 'error')
   if (session.entryMode !== 'score_only' && session.scoreOnlyOutcomes.length) addIssue(errors, 'item-mode-scores', 'Item-level sessions cannot contain score-only outcomes.', 'error')
+  if (session.entryMode !== 'rubric' && (session.rubricOutcomes?.length ?? 0) > 0) addIssue(errors, 'rubric-mode-scores', 'Non-rubric sessions cannot contain rubric outcomes.', 'error')
   const outcomes = validateResultOutcomes({ ...session, shortAnswerScoring }, errors, warnings)
   void outcomes
   return { ready: errors.length === 0, errors, warnings }
 }
 
 export function validateResultOutcomes(
-  session: Pick<AssessmentResultSession, 'entryMode' | 'learners' | 'assessmentSnapshot' | 'shortAnswerScoring' | 'itemOutcomes' | 'scoreOnlyOutcomes'>,
+  session: Pick<AssessmentResultSession, 'entryMode' | 'learners' | 'assessmentSnapshot' | 'shortAnswerScoring' | 'itemOutcomes' | 'scoreOnlyOutcomes' | 'rubricOutcomes' | 'rubricSnapshot'>,
   errors: ResultValidationIssue[] = [],
   warnings: ResultValidationIssue[] = [],
 ): { errors: ResultValidationIssue[]; warnings: ResultValidationIssue[] } {
@@ -190,6 +192,15 @@ export function validateResultOutcomes(
     if (!participants.has(score.participantId) || participantLearners.get(score.participantId) !== score.learnerId) addIssue(errors, 'score-participant', 'A score-only outcome must reference the exact learner paired with this result participant.', 'error', { participantId: score.participantId })
     if (!Number.isFinite(score.possiblePoints) || score.possiblePoints !== session.assessmentSnapshot.totalPossiblePoints) addIssue(errors, 'score-only-possible', 'Score-only possible points must equal the immutable assessment total.', 'error', { participantId: score.participantId })
     if (score.rawScore !== null && (!Number.isFinite(score.rawScore) || score.rawScore < 0 || score.rawScore > score.possiblePoints)) addIssue(errors, 'score-only-range', 'A score-only raw score must be within the possible-point range.', 'error', { participantId: score.participantId })
+  }
+  if (session.entryMode === 'rubric' && Array.isArray(session.rubricOutcomes)) {
+    const rubricParticipants = new Set<string>()
+    for (const outcome of session.rubricOutcomes) {
+      if (rubricParticipants.has(outcome.participantId)) addIssue(errors, 'duplicate-rubric-outcome', 'Only one rubric outcome may exist per participant.', 'error', { participantId: outcome.participantId })
+      rubricParticipants.add(outcome.participantId)
+      if (!participants.has(outcome.participantId) || participantLearners.get(outcome.participantId) !== outcome.learnerId) addIssue(errors, 'rubric-participant', 'A rubric outcome must reference the exact learner paired with this result participant.', 'error', { participantId: outcome.participantId })
+      if (!Number.isFinite(outcome.totalEarnedPoints) || outcome.totalEarnedPoints < 0 || outcome.totalEarnedPoints > outcome.possiblePoints) addIssue(errors, 'rubric-points-range', 'Rubric earned points must be finite and within the rubric point range.', 'error', { participantId: outcome.participantId })
+    }
   }
   if (session.entryMode === 'score_only' && session.itemOutcomes.length === 0 && session.scoreOnlyOutcomes.length === 0) addIssue(warnings, 'no-results', 'No scores have been entered yet.', 'warning')
   return { errors, warnings }

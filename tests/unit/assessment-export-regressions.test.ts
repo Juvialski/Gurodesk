@@ -59,7 +59,7 @@ function mixedAssessment(): AssessmentRecord {
       assignmentId: 'assignment-1',
       schoolYear: '2026-2027',
       academicPeriodLabel: 'Quarter 1',
-      content: { rows: [] } as unknown as AssessmentRecord['sourceTos']['content'],
+      content: { rows: [] } as unknown as NonNullable<AssessmentRecord['sourceTos']>['content'],
     },
     items,
     createdAt: fixedNow,
@@ -266,7 +266,7 @@ describe('assessment export and preview persistence regressions', () => {
       visualUpdatedAt: fixedNow,
     })
     expect(loaded?.items[0].history?.[0]).toMatchObject({ visualRequirement: 'helpful', visualStatus: 'pending', visualSourceHash })
-    expect(loaded?.sourceTos.id).toBe(tos.id)
+    expect(loaded?.sourceTos?.id).toBe(tos.id)
     expect(loaded?.versionNumber).toBeGreaterThan(saved.versionNumber - 1)
 
     const duplicate = await duplicateAssessmentDocument(loaded!, true)
@@ -276,6 +276,6 @@ describe('assessment export and preview persistence regressions', () => {
     expect(duplicate.items[0].visual).toEqual(ASSESSMENT_VISUAL_FIXTURES.irregularConcavePentagon)
     expect(duplicate.items[0]).toMatchObject({ visualRequirement: 'helpful', visualStatus: 'succeeded', visualSourceHash })
     expect(duplicate.items[0].history?.[0]).toMatchObject({ visualRequirement: 'helpful', visualStatus: 'pending', visualSourceHash })
-    expect(duplicate.sourceTos.content).toEqual(loaded?.sourceTos.content)
+    expect(duplicate.sourceTos?.content).toEqual(loaded?.sourceTos?.content)
   })
 })

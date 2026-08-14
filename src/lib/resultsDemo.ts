@@ -6,6 +6,7 @@ import type {
   ResultAssessmentItemSnapshot,
   ResultItemOutcome,
   ResultLearnerSnapshot,
+  ResultRubricOutcome,
   ResultSaveBatch,
   ScoreOnlyOutcome,
 } from '../types/results'
@@ -100,13 +101,19 @@ export function saveDemoResultSession(batch: ResultSaveBatch, userId: string, st
   if (existing && existing.status !== 'draft') throw new Error('Only draft demo result sessions can be edited.')
   if (existing && existing.versionNumber !== batch.session.versionNumber) throw new Error('This demo result draft changed elsewhere.')
   if (batch.session.userId !== userId) throw new Error('Demo result ownership is invalid.')
-  if (!['answer_sheet', 'item', 'score_only'].includes(batch.session.entryMode)) throw new Error('Demo result entry mode is invalid.')
-  if (batch.session.assessmentSnapshot.items.length !== batch.session.assessmentSnapshot.totalItems
-    || batch.session.assessmentSnapshot.totalItems < 1
-    || !Number.isFinite(batch.session.assessmentSnapshot.totalPossiblePoints)
-    || batch.session.assessmentSnapshot.totalPossiblePoints < 0) {
-    throw new Error('Demo result assessment snapshot totals are invalid.')
+  if (!['answer_sheet', 'item', 'score_only', 'rubric'].includes(batch.session.entryMode)) throw new Error('Demo result entry mode is invalid.')
+
+  const isRubricMode = batch.session.entryMode === 'rubric'
+
+  if (!isRubricMode) {
+    if (batch.session.assessmentSnapshot.items.length !== batch.session.assessmentSnapshot.totalItems
+      || batch.session.assessmentSnapshot.totalItems < 1
+      || !Number.isFinite(batch.session.assessmentSnapshot.totalPossiblePoints)
+      || batch.session.assessmentSnapshot.totalPossiblePoints < 0) {
+      throw new Error('Demo result assessment snapshot totals are invalid.')
+    }
   }
+
   if (batch.session.assessmentSnapshot.assignmentId !== batch.session.assignmentId
     || batch.session.assessmentId !== batch.session.assessmentSnapshot.assessmentId) {
     throw new Error('Demo result assessment and assignment snapshots are inconsistent.')
@@ -149,50 +156,51 @@ export function saveDemoResultSession(batch: ResultSaveBatch, userId: string, st
     throw new Error('Demo result batch is too large.')
   }
   if (batch.session.entryMode === 'score_only' && batch.outcomes.length > 0) throw new Error('Score-only sessions cannot contain item outcomes.')
-  if (batch.session.entryMode !== 'score_only' && batch.scoreOnlyOutcomes.length > 0) throw new Error('Item-entry sessions cannot contain score-only outcomes.')
+  if (batch.session.entryMode !== 'score_only' && !isRubricMode && batch.scoreOnlyOutcomes.length > 0) throw new Error('Item-entry sessions cannot contain score-only outcomes.')
+
   const participants = participantIds
   const items = new Set(batch.session.assessmentSnapshot.items.map((item) => item.id))
   const itemById = new Map(batch.session.assessmentSnapshot.items.map((item) => [item.id, item]))
   const outcomeKeys = new Set<string>()
   const normalizedOutcomes: ResultItemOutcome[] = []
-  if (batch.outcomes.some((outcome) => !participants.has(outcome.participantId)
-    || !items.has(outcome.itemId)
-    || outcome.resultSessionId !== batch.session.id
-    || outcome.learnerId !== batch.session.learners.find((learner) => learner.participantId === outcome.participantId)?.learnerId)) {
-    throw new Error('Demo result outcomes do not belong to the session snapshot.')
+
+  if (!isRubricMode) {
+    if (batch.outcomes.some((outcome) => !participants.has(outcome.participantId)
+      || !items.has(outcome.itemId)
+      || outcome.resultSessionId !== batch.session.id
+      || outcome.learnerId !== batch.session.learners.find((learner) => learner.participantId === outcome.participantId)?.learnerId)) {
+      throw new Error('Demo result outcomes do not belong to the session snapshot.')
+    }
+    for (const outcome of batch.outcomes) {
+      const item = itemById.get(outcome.itemId)
+      const key = `${outcome.participantId}:${outcome.itemId}`
+      if (!item || outcomeKeys.has(key)) throw new Error('Demo result outcomes contain a duplicate or unknown item.')
+      outcomeKeys.add(key)
+      if (!Number.isFinite(outcome.earnedPoints) || outcome.earnedPoints < 0) {
+        throw new Error('Earned points must be a finite nonnegative number.')
+      }
+      if (outcome.earnedPoints > outcome.possiblePoints) {
+        throw new Error('Earned points cannot exceed possible points.')
+      }
+      if (outcome.itemNumber !== item.itemNumber || outcome.possiblePoints !== item.points) {
+        throw new Error('Demo result outcome points do not match the assessment snapshot.')
+      }
+      const shortMode = batch.session.shortAnswerScoring.itemModes[item.id] ?? batch.session.shortAnswerScoring.defaultMode
+      normalizedOutcomes.push(scoreResultItem({
+        resultSessionId: batch.session.id,
+        participantId: outcome.participantId,
+        learnerId: outcome.learnerId,
+        item,
+        answer: outcome.answer,
+        awardedPoints: outcome.earnedPoints,
+        teacherFeedback: outcome.teacherFeedback,
+        shortAnswerMode: shortMode,
+        outcomeId: outcome.id,
+        now: outcome.updatedAt || new Date().toISOString(),
+      }))
+    }
   }
-  for (const outcome of batch.outcomes) {
-    const item = itemById.get(outcome.itemId)
-    const key = `${outcome.participantId}:${outcome.itemId}`
-    if (!item || outcomeKeys.has(key)) throw new Error('Demo result outcomes contain a duplicate or unknown item.')
-    outcomeKeys.add(key)
-    if (!Number.isFinite(outcome.earnedPoints) || outcome.earnedPoints < 0) {
-      throw new Error('Earned points must be a finite nonnegative number.')
-    }
-    if (outcome.earnedPoints > outcome.possiblePoints) {
-      throw new Error('Earned points cannot exceed possible points.')
-    }
-    if (outcome.itemNumber !== item.itemNumber || outcome.possiblePoints !== item.points) {
-      throw new Error('Demo result outcome points do not match the assessment snapshot.')
-    }
-    const shortMode = batch.session.shortAnswerScoring.itemModes[item.id] ?? batch.session.shortAnswerScoring.defaultMode
-    // Recompute objective correctness and all-or-nothing points from the
-    // immutable item snapshot. Constructed responses and manual short answers
-    // remain teacher-scored, but the scorer still enforces null correctness and
-    // bounds the teacher-entered points.
-    normalizedOutcomes.push(scoreResultItem({
-      resultSessionId: batch.session.id,
-      participantId: outcome.participantId,
-      learnerId: outcome.learnerId,
-      item,
-      answer: outcome.answer,
-      awardedPoints: outcome.earnedPoints,
-      teacherFeedback: outcome.teacherFeedback,
-      shortAnswerMode: shortMode,
-      outcomeId: outcome.id,
-      now: outcome.updatedAt || new Date().toISOString(),
-    }))
-  }
+
   if (batch.scoreOnlyOutcomes.some((outcome) => !participants.has(outcome.participantId)
     || outcome.learnerId !== batch.session.learners.find((learner) => learner.participantId === outcome.participantId)?.learnerId)) {
     throw new Error('Demo score outcomes do not belong to the session snapshot.')
@@ -203,6 +211,12 @@ export function saveDemoResultSession(batch: ResultSaveBatch, userId: string, st
       throw new Error('Demo score outcome is outside the assessment point range.')
     }
   }
+
+  const normalizedRubricOutcomes: ResultRubricOutcome[] = (batch.rubricOutcomes ?? batch.session.rubricOutcomes ?? []).map((ro) => ({
+    ...clone(ro),
+    updatedAt: ro.updatedAt || new Date().toISOString(),
+  }))
+
   const now = new Date().toISOString()
   const saved: AssessmentResultSession = {
     ...clone(batch.session),
@@ -213,6 +227,7 @@ export function saveDemoResultSession(batch: ResultSaveBatch, userId: string, st
     versionNumber: (existing?.versionNumber ?? batch.session.versionNumber ?? 0) + 1,
     itemOutcomes: clone(normalizedOutcomes),
     scoreOnlyOutcomes: clone(batch.scoreOnlyOutcomes),
+    rubricOutcomes: normalizedRubricOutcomes,
   }
   write(DEMO_RESULTS_KEY, [...values.filter((item) => item.id !== saved.id || item.userId !== userId), saved])
   return clone(saved)
@@ -233,16 +248,11 @@ export function deleteDemoDraftResultSession(id: string, userId: string) {
   const found = readDemoResultSessions(userId).find((item) => item.id === id)
   if (found && found.status !== 'draft') throw new Error('Only draft demo result sessions may be deleted.')
   write(DEMO_RESULTS_KEY, read<AssessmentResultSession>(DEMO_RESULTS_KEY).filter((item) => !(item.id === id && item.userId === userId)))
-  // Match the database cascade: only planning records dependent on this
-  // deletable draft are removed. Final/archived result sessions never reach
-  // this function, so historical remediation evidence is preserved.
   if (typeof localStorage !== 'undefined') {
     try {
       const parsed = JSON.parse(localStorage.getItem(DEMO_REMEDIATION_KEY) ?? '[]') as Array<{ userId?: string; resultSessionId?: string }>
       if (Array.isArray(parsed)) localStorage.setItem(DEMO_REMEDIATION_KEY, JSON.stringify(parsed.filter((plan) => !(plan.userId === userId && plan.resultSessionId === id))))
     } catch {
-      // A malformed optional demo cache is treated as empty by the remediation
-      // repository; result deletion must still complete predictably.
       localStorage.removeItem(DEMO_REMEDIATION_KEY)
     }
   }
@@ -289,7 +299,8 @@ export function createDemoResultsSample(
     updatedAt: now,
   }))
   const items = itemSnapshotFromAssessment(assessment)
-  const snapshot = {
+  const isPerfTask = assessment.mode === 'performance_task' || Boolean(assessment.performanceTask)
+  const snapshot: AssessmentResultSession['assessmentSnapshot'] = {
     assessmentId: assessment.id,
     assessmentVersionNumber: assessment.versionNumber,
     assessmentTitle: assessment.title,
@@ -301,8 +312,8 @@ export function createDemoResultsSample(
     gradingTermLabel: assessment.gradingTermLabel,
     curriculumPeriodIds: [...assessment.curriculumPeriodIds],
     curriculumPeriodLabels: [...assessment.curriculumPeriodLabels],
-    totalItems: items.length,
-    totalPossiblePoints: items.reduce((sum, item) => sum + item.points, 0),
+    totalItems: isPerfTask ? 0 : items.length,
+    totalPossiblePoints: isPerfTask ? (assessment.performanceTask?.rubric?.totalPoints || 0) : items.reduce((sum, item) => sum + item.points, 0),
     items,
   }
   const participantSnapshots: ResultLearnerSnapshot[] = learners.map((learner) => ({
@@ -355,12 +366,14 @@ export function createDemoResultsSample(
     assessmentId: assessment.id,
     administrationDate: now.slice(0, 10),
     title: `${assessment.title} — Demo results`,
-    entryMode: 'answer_sheet',
+    entryMode: isPerfTask ? 'rubric' : 'answer_sheet',
     status: 'draft',
     assessmentSnapshot: snapshot,
     learners: participantSnapshots,
     itemOutcomes,
     scoreOnlyOutcomes: [],
+    rubricOutcomes: [],
+    rubricSnapshot: assessment.performanceTask?.rubric,
     shortAnswerScoring: { defaultMode: 'manual', itemModes: {} },
     createdAt: now,
     updatedAt: now,

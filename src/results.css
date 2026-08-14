@@ -373,3 +373,228 @@
 .results-analysis-tabs button,
 .results-import-actions .button { font-size: 12px; }
 .results-import-status strong { font-size: 12px; }
+
+/* Performance Task Rubric Scoring styles */
+.rubric-scoring-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.rubric-scoring-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.rubric-scoring-header h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  color: var(--navy);
+}
+
+.rubric-scoring-header p {
+  margin: 0;
+  font-size: 12px;
+  color: #718096;
+}
+
+.rubric-scoring-total-pill {
+  background: #edf5ff;
+  border: 1px solid #c2dbf8;
+  border-radius: 10px;
+  padding: 8px 14px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.rubric-scoring-total-pill span {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  font-weight: 700;
+  color: #1a569b;
+}
+
+.rubric-scoring-total-pill strong {
+  display: block;
+  font-size: 18px;
+  color: #0d4e9c;
+}
+
+.rubric-scoring-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rubric-scoring-criterion-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  background: #fbfcfe;
+}
+
+.rubric-criterion-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.criterion-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #2b6cb0;
+  background: #ebf4ff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-bottom: 4px;
+}
+
+.rubric-criterion-top h4 {
+  margin: 2px 0 4px;
+  font-size: 15px;
+  color: var(--navy);
+}
+
+.criterion-desc {
+  margin: 0;
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.criterion-points-summary label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.criterion-points-summary input {
+  width: 60px;
+  height: 34px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+}
+
+.criterion-points-summary small {
+  font-size: 11px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.rubric-levels-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.rubric-level-choice-btn {
+  background: white;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all .15s ease-in-out;
+}
+
+.rubric-level-choice-btn:hover:not(:disabled) {
+  border-color: #93c5fd;
+  background: #f8fafc;
+}
+
+.rubric-level-choice-btn.selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.level-btn-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.level-btn-head strong {
+  font-size: 11.5px;
+  color: #1e293b;
+}
+
+.rubric-level-choice-btn.selected .level-btn-head strong {
+  color: #1d4ed8;
+}
+
+.level-btn-pts {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.rubric-level-choice-btn.selected .level-btn-pts {
+  color: #2563eb;
+}
+
+.level-selected-check {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.level-btn-descriptor {
+  margin: 0;
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: #475569;
+}
+
+.rubric-criterion-feedback-box input {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  font-size: 11px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  color: #334155;
+}
+
+.rubric-criterion-feedback-box input:focus {
+  outline: none;
+  border-color: #93c5fd;
+}
+
+@media (max-width: 768px) {
+  .rubric-levels-selection-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .rubric-levels-selection-grid {
+    grid-template-columns: 1fr;
+  }
+}

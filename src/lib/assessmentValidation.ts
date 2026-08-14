@@ -10,6 +10,7 @@ import type {
   QuestionType,
   AssessmentScoringCriterion,
 } from '../types/assessment'
+import { calculateRubricTotalPoints, validatePerformanceTaskRubric } from './performanceTaskRubric'
 
 function normalizeItemPoints(item: Partial<AssessmentItem>) {
   const raw: unknown = item.pointsPossible ?? item.points
@@ -80,6 +81,7 @@ function expectedMappings(source: AssessmentTosSnapshot) {
       for (let itemNumber = allocation.itemStart; itemNumber <= allocation.itemEnd; itemNumber += 1) {
         result.set(itemNumber, {
           mapping: {
+            kind: 'tos',
             rowId: row.id,
             competencyId: row.competency.id,
             cognitiveCategoryId: category.id,
@@ -109,7 +111,6 @@ function sourcePlacementStatus(source: AssessmentTosSnapshot) {
   return { numbers, duplicate }
 }
 
-
 function isV2Assessment(assessment: AssessmentBlueprint) {
   return Number(assessment.settings?.schemaVersion ?? 1) >= 2
     && assessment.settings?.generationVersion === 'v2'
@@ -128,11 +129,13 @@ function v2SourceMapping(source: AssessmentTosSnapshot, item: AssessmentItem) {
   }
   return {
     mapping: {
+      kind: 'tos',
       rowId: row.id,
       competencyId: row.competency.id,
       cognitiveCategoryId: category.id,
       allocationItemStart: allocation.itemStart,
       allocationItemEnd: allocation.itemEnd,
+      allocationIndex: 0,
     },
     competency: {
       id: row.competency.id,
@@ -147,315 +150,269 @@ function v2SourceMapping(source: AssessmentTosSnapshot, item: AssessmentItem) {
   }
 }
 
-function cleanText(value: unknown) {
-  return typeof value === 'string' ? value.normalize('NFKC').trim().replace(/\s+/gu, ' ') : ''
-}
-
-/**
- * Keep assessmentValidation self-contained for the project's data-URL
- * validator harness (which loads this module without resolving runtime
- * imports).  The dedicated assessmentVisualValidation module is the public,
- * detailed validator; this boundary check mirrors its safety contract so a
- * malformed visual can never pass assessment finalization.
- */
-function assessmentVisualErrors(value: unknown): string[] {
-  const errors: string[] = []
-  const root = value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : null
-  if (!root) return ['Visual must be an object.']
-  const rootKeys = new Set(['id', 'kind', 'version', 'width', 'height', 'altText', 'primitives'])
-  Object.keys(root).filter((key) => !rootKeys.has(key)).forEach((key) => errors.push(`Visual property ${key} is not supported.`))
-  // Keep numeric fields strict at finalization too; coercing JSON strings here
-  // would make the final validator disagree with the client/Edge renderers.
-  const width = typeof root.width === 'number' ? root.width : Number.NaN
-  const height = typeof root.height === 'number' ? root.height : Number.NaN
-  const visualId = typeof root.id === 'string' ? root.id.normalize('NFKC').trim() : ''
-  if (!visualId || visualId.length > 80 || /[<>]/u.test(visualId)) errors.push('Visual id must be bounded plain text.')
-  if (root.kind !== 'geometry') errors.push("Visual kind must be 'geometry'.")
-  if (root.version !== 1) errors.push('Visual version must be 1.')
-  if (!Number.isFinite(width) || width < 64 || width > 1600 || !Number.isFinite(height) || height < 64 || height > 1200) errors.push('Visual dimensions must be finite and within the safe canvas bounds.')
-  const alt = typeof root.altText === 'string' ? root.altText.normalize('NFKC').trim() : ''
-  if (!alt || alt.length > 240 || /[<>]/u.test(alt) || /^(image|diagram)$/iu.test(alt)) errors.push('Visual alt text must be useful bounded plain text (not a generic image label).')
-  if (!Array.isArray(root.primitives) || root.primitives.length < 1 || root.primitives.length > 80) errors.push('Visual primitives must contain between 1 and 80 supported primitives.')
-  const types = new Set(['point', 'segment', 'polygon', 'circle', 'arc', 'angleArc', 'textLabel', 'tickMark', 'equalSideMark', 'parallelMark', 'perpendicularMark', 'arrow', 'dashedSegment', 'cartesianAxes', 'cartesianPlot'])
-  const colors = new Set(['ink', 'blue', 'red', 'green', 'gold', 'purple', 'gray'])
-  const primitiveKeys: Record<string, string[]> = {
-    point: ['type', 'x', 'y', 'radius', 'color', 'strokeWidth'],
-    segment: ['type', 'x1', 'y1', 'x2', 'y2', 'color', 'strokeWidth'],
-    dashedSegment: ['type', 'x1', 'y1', 'x2', 'y2', 'color', 'strokeWidth'],
-    arrow: ['type', 'x1', 'y1', 'x2', 'y2', 'color', 'strokeWidth'],
-    polygon: ['type', 'points', 'color', 'fill', 'strokeWidth'],
-    circle: ['type', 'cx', 'cy', 'radius', 'color', 'fill', 'strokeWidth'],
-    arc: ['type', 'cx', 'cy', 'radius', 'startAngle', 'endAngle', 'color', 'strokeWidth'],
-    angleArc: ['type', 'vertex', 'radius', 'startAngle', 'endAngle', 'color', 'strokeWidth'],
-    textLabel: ['type', 'x', 'y', 'text', 'color', 'textSize', 'anchor'],
-    tickMark: ['type', 'x1', 'y1', 'x2', 'y2', 'count', 'color', 'strokeWidth'],
-    equalSideMark: ['type', 'x1', 'y1', 'x2', 'y2', 'count', 'color', 'strokeWidth'],
-    parallelMark: ['type', 'x1', 'y1', 'x2', 'y2', 'count', 'color', 'strokeWidth'],
-    perpendicularMark: ['type', 'x', 'y', 'angle', 'size', 'color', 'strokeWidth'],
-    cartesianAxes: ['type', 'axisId', 'x', 'y', 'width', 'height', 'xMin', 'xMax', 'yMin', 'yMax', 'xTick', 'yTick', 'showGrid', 'xLabel', 'yLabel', 'color', 'strokeWidth'],
-    cartesianPlot: ['type', 'axisId', 'points', 'showPoints', 'dashed', 'color', 'strokeWidth'],
-  }
-  const finiteInside = (number: unknown, limit: number) => typeof number === 'number' && Number.isFinite(number) && number >= 0 && number <= limit
-  const checkColor = (entry: Record<string, unknown>) => { if (entry.color !== undefined && !colors.has(String(entry.color))) errors.push('Visual elements must use the fixed colour palette.'); if (entry.fill !== undefined && !colors.has(String(entry.fill))) errors.push('Visual fills must use the fixed colour palette.') }
-  const checkLine = (entry: Record<string, unknown>) => { if (!finiteInside(entry.x1, width) || !finiteInside(entry.y1, height) || !finiteInside(entry.x2, width) || !finiteInside(entry.y2, height)) errors.push('Visual line coordinates must be finite and inside the canvas.'); if (entry.x1 === entry.x2 && entry.y1 === entry.y2) errors.push('Visual line elements must have distinct endpoints.') }
-  if (Array.isArray(root.primitives)) root.primitives.forEach((raw, index) => {
-    const entry = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw as Record<string, unknown> : null
-    if (!entry) { errors.push(`Visual element ${index + 1} must be an object.`); return }
-    const type = String(entry.type)
-    if (!types.has(type)) { errors.push(`Visual element ${index + 1} type is unsupported.`); return }
-    Object.keys(entry).filter((key) => !primitiveKeys[type].includes(key)).forEach((key) => errors.push(`Visual primitive property ${key} is not supported.`))
-    checkColor(entry)
-    if (entry.strokeWidth !== undefined && !(typeof entry.strokeWidth === 'number' && Number.isInteger(entry.strokeWidth) && [1, 2, 3].includes(entry.strokeWidth))) errors.push('Visual stroke widths must be the number 1, 2, or 3.')
-    if (['segment', 'dashedSegment', 'arrow', 'tickMark', 'equalSideMark', 'parallelMark'].includes(type)) checkLine(entry)
-    else if (type === 'point') { if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height)) errors.push('Visual point coordinates must be finite and inside the canvas.'); if (entry.radius !== undefined && !(typeof entry.radius === 'number' && Number.isFinite(entry.radius) && entry.radius >= 0.5 && entry.radius <= 40)) errors.push('Visual point radius is outside the safe range.') }
-    else if (type === 'polygon') { if (!Array.isArray(entry.points) || entry.points.length < 3 || entry.points.length > 12) errors.push('Visual polygons must contain 3–12 vertices.'); if (Array.isArray(entry.points)) entry.points.forEach((point) => { const candidate = point && typeof point === 'object' && !Array.isArray(point) ? point as Record<string, unknown> : {}; if (!finiteInside(candidate.x, width) || !finiteInside(candidate.y, height)) errors.push('Visual polygon coordinates must be finite and inside the canvas.') }) }
-    else if (type === 'circle' || type === 'arc') { const cx = entry.cx as number; const cy = entry.cy as number; const radius = entry.radius as number; if (!finiteInside(cx, width) || !finiteInside(cy, height) || typeof radius !== 'number' || !Number.isFinite(radius) || radius < 0.5 || radius > 800 || cx - radius < 0 || cx + radius > width || cy - radius < 0 || cy + radius > height) errors.push('Visual circle/arc geometry must be finite and fit inside the canvas.'); if (type === 'arc' && (typeof entry.startAngle !== 'number' || typeof entry.endAngle !== 'number' || !Number.isFinite(entry.startAngle) || !Number.isFinite(entry.endAngle) || Math.abs(entry.startAngle) > 720 || Math.abs(entry.endAngle) > 720 || Math.abs(entry.endAngle - entry.startAngle) <= 0 || Math.abs(entry.endAngle - entry.startAngle) > 360)) errors.push('Visual arc angles must define a bounded nonzero span.') }
-    else if (type === 'angleArc') { const vertex = entry.vertex && typeof entry.vertex === 'object' && !Array.isArray(entry.vertex) ? entry.vertex as Record<string, unknown> : {}; const radius = entry.radius as number; if (!finiteInside(vertex.x, width) || !finiteInside(vertex.y, height) || typeof radius !== 'number' || !Number.isFinite(radius) || radius < 0.5 || radius > 800 || Number(vertex.x) - radius < 0 || Number(vertex.x) + radius > width || Number(vertex.y) - radius < 0 || Number(vertex.y) + radius > height) errors.push('Visual angle arc geometry must be finite and fit inside the canvas.'); if (typeof entry.startAngle !== 'number' || typeof entry.endAngle !== 'number' || !Number.isFinite(entry.startAngle) || !Number.isFinite(entry.endAngle) || Math.abs(entry.startAngle) > 720 || Math.abs(entry.endAngle) > 720 || Math.abs(entry.endAngle - entry.startAngle) <= 0 || Math.abs(entry.endAngle - entry.startAngle) > 360) errors.push('Visual angle arc angles must define a bounded nonzero span.') }
-    else if (type === 'textLabel') { const label = typeof entry.text === 'string' ? entry.text.normalize('NFKC').trim() : ''; if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height) || !label || label.length > 80 || /[<>]/u.test(label)) errors.push('Visual labels must use bounded plain text and in-canvas coordinates.'); if (entry.textSize !== undefined && !['small', 'medium', 'large'].includes(String(entry.textSize))) errors.push('Visual textSize is unsupported.'); if (entry.anchor !== undefined && !['start', 'middle', 'end'].includes(String(entry.anchor))) errors.push('Visual text anchor is unsupported.') }
-    else if (type === 'perpendicularMark') { if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height) || typeof entry.angle !== 'number' || !Number.isFinite(entry.angle) || (typeof entry.angle === 'number' && Math.abs(entry.angle) > 720) || typeof entry.size !== 'number' || !Number.isFinite(entry.size) || entry.size < 2 || entry.size > 80) errors.push('Visual perpendicular marks must use bounded coordinates and dimensions.'); if (typeof entry.x === 'number' && typeof entry.y === 'number' && typeof entry.angle === 'number' && typeof entry.size === 'number') { const radians = entry.angle * Math.PI / 180; const ux = Math.cos(radians); const uy = Math.sin(radians); const px = -uy; const py = ux; const corners = [{ x: entry.x, y: entry.y }, { x: entry.x + ux * entry.size, y: entry.y + uy * entry.size }, { x: entry.x + (ux + px) * entry.size, y: entry.y + (uy + py) * entry.size }, { x: entry.x + px * entry.size, y: entry.y + py * entry.size }]; if (corners.some((corner) => !finiteInside(corner.x, width) || !finiteInside(corner.y, height))) errors.push('Visual perpendicular marks must fit inside the canvas.') } }
-    else if (type === 'cartesianAxes') {
-      const numeric = (value: unknown, min = -10000, max = 10000) => typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max
-      const axisId = typeof entry.axisId === 'string' ? entry.axisId.normalize('NFKC').trim() : ''
-      if (!axisId || axisId.length > 80 || /[<>]/u.test(axisId)) errors.push('Cartesian axis IDs must be bounded plain text.')
-      if (!finiteInside(entry.x, width) || !finiteInside(entry.y, height) || !numeric(entry.width, 80, width) || !numeric(entry.height, 80, height) || Number(entry.x) + Number(entry.width) > width || Number(entry.y) + Number(entry.height) > height) errors.push('Cartesian plot rectangles must fit inside the visual canvas.')
-      if (![entry.xMin, entry.xMax, entry.yMin, entry.yMax].every((value) => numeric(value))) errors.push('Cartesian mathematical bounds must be finite and bounded.')
-      if (typeof entry.xMin === 'number' && typeof entry.xMax === 'number' && !(entry.xMin < 0 && entry.xMax > 0 && entry.xMin < entry.xMax)) errors.push('Cartesian x bounds must straddle zero and increase.')
-      if (typeof entry.yMin === 'number' && typeof entry.yMax === 'number' && !(entry.yMin < 0 && entry.yMax > 0 && entry.yMin < entry.yMax)) errors.push('Cartesian y bounds must straddle zero and increase.')
-      if (entry.xTick !== undefined && !numeric(entry.xTick, 0.000001, 10000)) errors.push('Cartesian x tick spacing must be positive.')
-      if (entry.yTick !== undefined && !numeric(entry.yTick, 0.000001, 10000)) errors.push('Cartesian y tick spacing must be positive.')
-      if (entry.showGrid !== undefined && typeof entry.showGrid !== 'boolean') errors.push('Cartesian showGrid must be boolean.')
-      for (const label of [entry.xLabel, entry.yLabel]) if (label !== undefined && (typeof label !== 'string' || !label.normalize('NFKC').trim() || label.length > 40 || /[<>]/u.test(label))) errors.push('Cartesian axis labels must be bounded plain text.')
-    }
-    else if (type === 'cartesianPlot') {
-      const axisId = typeof entry.axisId === 'string' ? entry.axisId.normalize('NFKC').trim() : ''
-      if (!axisId || axisId.length > 80 || /[<>]/u.test(axisId)) errors.push('Cartesian plots need a valid axis ID.')
-      if (!Array.isArray(entry.points) || entry.points.length < 2 || entry.points.length > 160) errors.push('Cartesian plots must contain 2–160 sampled points.')
-      if (Array.isArray(entry.points)) entry.points.forEach((point) => { const candidate = point && typeof point === 'object' && !Array.isArray(point) ? point as Record<string, unknown> : {}; if (Object.keys(candidate).some((key) => !['x', 'y'].includes(key)) || typeof candidate.x !== 'number' || !Number.isFinite(candidate.x) || Math.abs(candidate.x) > 10000 || typeof candidate.y !== 'number' || !Number.isFinite(candidate.y) || Math.abs(candidate.y) > 10000) errors.push('Cartesian sampled points must use finite bounded x/y coordinates only.') })
-      if (entry.showPoints !== undefined && typeof entry.showPoints !== 'boolean') errors.push('Cartesian showPoints must be boolean.')
-      if (entry.dashed !== undefined && typeof entry.dashed !== 'boolean') errors.push('Cartesian dashed must be boolean.')
-    }
-    if (['tickMark', 'equalSideMark', 'parallelMark'].includes(type) && entry.count !== undefined && !(typeof entry.count === 'number' && Number.isInteger(entry.count) && [1, 2, 3].includes(entry.count))) errors.push('Visual mark counts must be the number 1, 2, or 3.')
-  })
-  if (Array.isArray(root.primitives)) {
-    const axes = new Map<string, Record<string, unknown>>()
-    root.primitives.forEach((raw, index) => {
-      const entry = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw as Record<string, unknown> : null
-      if (!entry || entry.type !== 'cartesianAxes' || typeof entry.axisId !== 'string') return
-      const key = entry.axisId.normalize('NFKC').trim()
-      if (axes.has(key)) errors.push(`Cartesian axis ID at element ${index + 1} must be unique.`)
-      else axes.set(key, entry)
-    })
-    root.primitives.forEach((raw, index) => {
-      const entry = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw as Record<string, unknown> : null
-      if (!entry || entry.type !== 'cartesianPlot' || typeof entry.axisId !== 'string') return
-      const axis = axes.get(entry.axisId.normalize('NFKC').trim())
-      if (!axis) { errors.push(`Cartesian plot at element ${index + 1} must reference existing axes.`); return }
-      if (!Array.isArray(entry.points) || typeof axis.xMin !== 'number' || typeof axis.xMax !== 'number' || typeof axis.yMin !== 'number' || typeof axis.yMax !== 'number') return
-      const xMin = axis.xMin; const xMax = axis.xMax; const yMin = axis.yMin; const yMax = axis.yMax
-      if (entry.points.some((rawPoint) => { const point = rawPoint && typeof rawPoint === 'object' && !Array.isArray(rawPoint) ? rawPoint as Record<string, unknown> : {}; return typeof point.x === 'number' && typeof point.y === 'number' && (point.x < xMin || point.x > xMax || point.y < yMin || point.y > yMax) })) errors.push(`Cartesian plot at element ${index + 1} must stay inside the referenced bounds.`)
-    })
-  }
-  return errors
-}
-
-function acceptedAnswersError(accepted: unknown, caseSensitive: unknown, label: string) {
-  const errors: string[] = []
-  if (!Array.isArray(accepted) || accepted.length < 1) errors.push(`${label} questions require at least one accepted answer.`)
-  const values = (Array.isArray(accepted) ? accepted : []).map((value: unknown) => cleanText(value))
-  if (values.some((value: string) => !value)) errors.push(`${label} accepted answers must be nonblank.`)
-  if (caseSensitive !== undefined && typeof caseSensitive !== 'boolean') errors.push(`${label} case sensitivity must be boolean when provided.`)
-  const unique = new Set(values.map((value: string) => caseSensitive === true ? value : value.toLocaleLowerCase('en')))
-  if (unique.size !== values.length) errors.push(`${label} accepted answers must be unique.`)
-  return errors
-}
-
-function criteriaErrors(criteria: unknown, expectedTotal: number, label: string) {
-  const errors: string[] = []
-  if (criteria === undefined) return errors
-  if (!Array.isArray(criteria)) return [`${label} rubric criteria must be an array.`]
-  const ids = new Set<string>()
-  let total = 0
-  for (const criterion of criteria as unknown[]) {
-    const value = criterion && typeof criterion === 'object' ? criterion as Partial<AssessmentScoringCriterion> : {}
-    const id = cleanText(value.id)
-    const criterionLabel = cleanText(value.label)
-    const points = Number(value.pointsPossible)
-    if (!id || ids.has(id)) errors.push(`${label} rubric criterion IDs must be unique and nonblank.`)
-    if (!criterionLabel) errors.push(`${label} rubric criterion labels must be nonblank.`)
-    if (!Number.isFinite(points) || points <= 0) errors.push(`${label} rubric criterion points must be positive.`)
-    ids.add(id)
-    if (Number.isFinite(points)) total += points
-  }
-  if (Number.isFinite(expectedTotal) && Math.abs(total - expectedTotal) > 0.000001) errors.push(`${label} rubric points must total ${expectedTotal}.`)
-  return errors
-}
-
-function answerError(answer: AssessmentAnswer | undefined, questionType: QuestionType, item: AssessmentItem) {
-  const errors: string[] = []
-  if (!answer || answer.type !== questionType) return [`The structured answer must match ${questionType}.`]
+function answerError(answer: AssessmentAnswer | undefined, questionType: QuestionType, item: AssessmentItem): string[] {
+  if (!answer || typeof answer !== 'object') return ['Answer must be configured.']
+  if (answer.type !== questionType) return [`Answer type "${answer.type}" does not match question type "${questionType}".`]
+  const totalItemPoints = normalizeItemPoints(item)
   if (answer.type === 'multiple_choice') {
-    const choices = Array.isArray(answer.choices) ? answer.choices : []
-    // 2–6 choices is a product safety range/good practice for this exporter,
-    // not a claim about a nationwide DepEd requirement.
-    if (!Array.isArray(choices) || choices.length < 2 || choices.length > 6) errors.push('Multiple-choice questions require 2–6 choices.')
-    const choiceIds = new Set<string>()
-    const choiceTexts = new Set<string>()
-    for (const choice of choices ?? []) {
-      const id = typeof choice?.id === 'string' ? choice.id.trim() : ''
-      const text = typeof choice?.text === 'string' ? choice.text.trim() : ''
-      if (!id || !text) errors.push('Every multiple-choice option needs a nonblank ID and text.')
-      if (choiceIds.has(id)) errors.push('Multiple-choice option IDs must be unique.')
-      if (choiceTexts.has(text.toLocaleLowerCase('en'))) errors.push('Multiple-choice option text must be unique without case differences.')
-      choiceIds.add(id); choiceTexts.add(text.toLocaleLowerCase('en'))
+    if (!Array.isArray(answer.choices) || answer.choices.length < 2) return ['Multiple choice questions require at least 2 choices.']
+    if (answer.choices.some((choice) => !choice || typeof choice.text !== 'string' || !choice.text.trim())) return ['Multiple choice choices cannot be empty.']
+    const choiceIds = new Set(answer.choices.map((choice) => choice.id))
+    if (choiceIds.size !== answer.choices.length) return ['Multiple choice choice IDs must be unique.']
+    if (!answer.choiceId || !choiceIds.has(answer.choiceId)) return ['Multiple choice correct choice must select an existing choice.']
+    const textSet = new Set<string>()
+    for (const choice of answer.choices) {
+      const normalized = choice.text.trim().toLowerCase()
+      if (textSet.has(normalized)) return ['Multiple choice choices cannot be duplicate.']
+      textSet.add(normalized)
     }
-    const correct = typeof answer.choiceId === 'string' ? answer.choiceId.trim() : ''
-    if (!correct || !choiceIds.has(correct)) errors.push('The correct multiple-choice option must reference an existing choice ID.')
-  } else if (answer.type === 'true_false') {
-    if (typeof answer.value !== 'boolean') errors.push('A true/false answer must be a boolean.')
-  } else if (answer.type === 'short_answer' || answer.type === 'identification') {
-    errors.push(...acceptedAnswersError(answer.acceptedAnswers, answer.caseSensitive, answer.type === 'short_answer' ? 'Short-answer' : 'Identification'))
-  } else if (answer.type === 'fill_in_the_blank') {
-    const blanks = Array.isArray(answer.blanks) ? answer.blanks : []
-    if (!Array.isArray(answer.blanks) || blanks.length < 1) errors.push('Fill-in-the-blank questions require at least one blank.')
-    const ids = new Set<string>()
-    let explicitTotal = 0
-    let hasExplicitPoints = false
-    let explicitPointCount = 0
-    for (const blank of blanks) {
-      const id = cleanText(blank?.id)
-      if (!id || ids.has(id)) errors.push('Fill-in-the-blank IDs must be unique and nonblank.')
-      ids.add(id)
-      errors.push(...acceptedAnswersError(blank?.acceptedAnswers, blank?.caseSensitive, 'Fill-in-the-blank'))
-      if (blank?.pointsPossible !== undefined) {
-        hasExplicitPoints = true
-        explicitPointCount += 1
-        const points = Number(blank.pointsPossible)
-        if (!Number.isFinite(points) || points <= 0) errors.push('Fill-in-the-blank blank points must be positive.')
-        else explicitTotal += points
-      }
-    }
-    if (hasExplicitPoints && explicitPointCount !== blanks.length) errors.push('Fill-in-the-blank points must be provided for every blank or omitted for every blank.')
-    if (hasExplicitPoints && Math.abs(explicitTotal - normalizeItemPoints(item)) > 0.000001) errors.push(`Fill-in-the-blank blank points must total ${normalizeItemPoints(item)}.`)
-  } else if (answer.type === 'numerical_answer') {
-    if (!Number.isFinite(answer.value)) errors.push('Numerical answers require a finite expected number.')
-    if (answer.tolerance !== undefined && (!Number.isFinite(answer.tolerance) || answer.tolerance < 0)) errors.push('Numerical tolerance must be zero or greater.')
-    if (answer.unit !== undefined && typeof answer.unit !== 'string') errors.push('Numerical units must be text when provided.')
-    if (answer.requireUnit !== undefined && typeof answer.requireUnit !== 'boolean') errors.push('Numerical requireUnit must be boolean when provided.')
-    if (answer.requireUnit && !cleanText(answer.unit)) errors.push('A required numerical unit cannot be blank.')
-  } else if (answer.type === 'problem_solving') {
-    if ((typeof answer.finalAnswer !== 'string' && typeof answer.finalAnswer !== 'number') || (typeof answer.finalAnswer === 'string' && !cleanText(answer.finalAnswer))) errors.push('Problem-solving questions require a final answer.')
-    if (!cleanText(answer.solutionOutline)) errors.push('Problem-solving questions require a solution outline.')
-    if (answer.subparts !== undefined) {
-      const subparts = Array.isArray(answer.subparts) ? answer.subparts : []
-      if (!Array.isArray(answer.subparts)) errors.push('Problem-solving subparts must be an array.')
-      const ids = new Set<string>()
-      let total = 0
-      for (const subpart of subparts) {
-        const id = cleanText(subpart?.id)
-        const points = Number(subpart?.pointsPossible)
-        if (!id || ids.has(id)) errors.push('Problem-solving subpart IDs must be unique and nonblank.')
-        if (!cleanText(subpart?.prompt)) errors.push('Problem-solving subparts require a prompt.')
-        if (!Number.isFinite(points) || points <= 0) errors.push('Problem-solving subpart points must be positive.')
-        ids.add(id); if (Number.isFinite(points)) total += points
-        errors.push(...criteriaErrors(subpart?.scoringCriteria, points, 'Problem-solving subpart'))
-      }
-      if (subparts.length && Math.abs(total - normalizeItemPoints(item)) > 0.000001) errors.push(`Problem-solving subpart points must total ${normalizeItemPoints(item)}.`)
-    }
-    errors.push(...criteriaErrors(answer.scoringCriteria, normalizeItemPoints(item), 'Problem-solving'))
-  } else if (answer.type === 'matching') {
-    const prompts = Array.isArray(answer.prompts) ? answer.prompts : []
-    const choices = Array.isArray(answer.choices) ? answer.choices : []
-    const mappings = Array.isArray(answer.mappings) ? answer.mappings : []
-    if (!Array.isArray(answer.prompts) || prompts.length < 1) errors.push('Matching questions require Column A prompts.')
-    if (!Array.isArray(answer.choices) || choices.length < prompts.length) errors.push('Matching questions require enough Column B choices.')
-    const promptIds = new Set<string>(); const choiceIds = new Set<string>(); const choiceTexts = new Set<string>()
-    for (const prompt of prompts) {
-      const id = cleanText(prompt?.id)
-      if (!id || promptIds.has(id) || !cleanText(prompt?.text)) errors.push('Matching prompt IDs and text must be unique and nonblank.')
-      promptIds.add(id)
-    }
-    for (const choice of choices) {
-      const id = cleanText(choice?.id); const text = cleanText(choice?.text)
-      if (!id || choiceIds.has(id) || !text || choiceTexts.has(text.toLocaleLowerCase('en'))) errors.push('Matching choice IDs and text must be unique and nonblank.')
-      choiceIds.add(id); choiceTexts.add(text.toLocaleLowerCase('en'))
-    }
-    if (!Array.isArray(answer.mappings) || mappings.length !== prompts.length) errors.push('Matching mappings must contain exactly one response for every Column A prompt.')
-    const mappedPrompts = new Set<string>(); const mappedChoices = new Set<string>(); let explicitTotal = 0; let hasExplicitPoints = false; let explicitPointCount = 0
-    for (const mapping of mappings) {
-      const promptId = cleanText(mapping?.promptId); const choiceId = cleanText(mapping?.choiceId)
-      if (!promptIds.has(promptId) || !choiceIds.has(choiceId) || mappedPrompts.has(promptId)) errors.push('Matching mappings must reference each valid prompt exactly once.')
-      if (!answer.reusableChoices && mappedChoices.has(choiceId)) errors.push('Matching choices cannot be reused unless reusableChoices is enabled.')
-      mappedPrompts.add(promptId); mappedChoices.add(choiceId)
-      if (mapping?.pointsPossible !== undefined) { hasExplicitPoints = true; explicitPointCount += 1; const points = Number(mapping.pointsPossible); if (!Number.isFinite(points) || points <= 0) errors.push('Matching points must be positive.'); else explicitTotal += points }
-    }
-    if (answer.reusableChoices !== undefined && typeof answer.reusableChoices !== 'boolean') errors.push('Matching reusableChoices must be boolean.')
-    if (answer.pointsPerMatch !== undefined && (!Number.isFinite(answer.pointsPerMatch) || answer.pointsPerMatch <= 0)) errors.push('Matching pointsPerMatch must be positive.')
-    if (answer.groupPointsPossible !== undefined && (!Number.isFinite(answer.groupPointsPossible) || answer.groupPointsPossible <= 0)) errors.push('Matching group points must be positive.')
-    if (hasExplicitPoints && explicitPointCount !== mappings.length) errors.push('Matching points must be provided for every scored match or omitted for every match.')
-    if (hasExplicitPoints && Math.abs(explicitTotal - normalizeItemPoints(item)) > 0.000001) errors.push(`Matching response points must total ${normalizeItemPoints(item)}.`)
-    if (answer.pointsPerMatch !== undefined && Number.isFinite(answer.pointsPerMatch) && answer.pointsPerMatch > 0 && Math.abs(answer.pointsPerMatch * mappings.length - normalizeItemPoints(item)) > 0.000001) errors.push(`Matching pointsPerMatch must total ${normalizeItemPoints(item)} across all responses.`)
-    if (answer.groupPointsPossible !== undefined && Math.abs(answer.groupPointsPossible - normalizeItemPoints(item)) > 0.000001) errors.push(`Matching group points must equal ${normalizeItemPoints(item)}.`)
-  } else if (answer.type === 'multiple_select') {
-    const ids = new Set<string>(); const texts = new Set<string>()
-    if (!Array.isArray(answer.choices) || answer.choices.length < 2) errors.push('Multiple-select questions require at least two choices.')
-    for (const choice of answer.choices ?? []) {
-      const id = cleanText(choice?.id); const text = cleanText(choice?.text)
-      if (!id || ids.has(id) || !text || texts.has(text.toLocaleLowerCase('en'))) errors.push('Multiple-select choice IDs and text must be unique and nonblank.')
-      ids.add(id); texts.add(text.toLocaleLowerCase('en'))
-    }
-    if (!Array.isArray(answer.choiceIds) || answer.choiceIds.length < 1 || new Set(answer.choiceIds).size !== answer.choiceIds.length || answer.choiceIds.some((id) => !ids.has(id))) errors.push('Multiple-select answers must contain one or more existing unique choice IDs.')
-    if (answer.scoringPolicy !== undefined && answer.scoringPolicy !== 'all_or_nothing') errors.push('Multiple-select scoring must use all-or-nothing.')
-  } else if (answer.type === 'essay') {
-    if (!Array.isArray(answer.keyPoints) || answer.keyPoints.length < 1 || answer.keyPoints.some((point) => !cleanText(point))) errors.push('Essay questions require one or more nonblank key points.')
-    if (answer.scoringNotes !== undefined && typeof answer.scoringNotes !== 'string') errors.push('Essay scoring notes must be text when provided.')
-    errors.push(...criteriaErrors(answer.rubric, normalizeItemPoints(item), 'Essay'))
-  } else {
-    if (typeof answer.expectedResponse !== 'string' || !answer.expectedResponse.trim()) errors.push('Constructed-response questions require a nonblank expected response.')
-    if (typeof answer.sampleResponse !== 'string' || !answer.sampleResponse.trim()) errors.push('Constructed-response questions require a nonblank sample response.')
-    if (answer.rubricGuidance !== undefined && typeof answer.rubricGuidance !== 'string') errors.push('Constructed-response rubric guidance must be text when provided.')
-    if (answer.expectedElements !== undefined && (!Array.isArray(answer.expectedElements) || answer.expectedElements.some((element) => !cleanText(element)))) errors.push('Constructed-response expected elements must be nonblank text.')
-    errors.push(...criteriaErrors(answer.rubric, normalizeItemPoints(item), 'Constructed-response'))
+    return []
   }
-  return errors
+  if (answer.type === 'true_false') {
+    if (typeof answer.value !== 'boolean') return ['True/False questions require a boolean answer.']
+    return []
+  }
+  if (answer.type === 'short_answer') {
+    if (!Array.isArray(answer.acceptedAnswers) || !answer.acceptedAnswers.length) return ['Short answer questions require at least one accepted answer.']
+    if (answer.acceptedAnswers.some((entry) => typeof entry !== 'string' || !entry.trim())) return ['Accepted short answers cannot be blank.']
+    const textSet = new Set<string>()
+    for (const text of answer.acceptedAnswers) {
+      const normalized = answer.caseSensitive ? text.trim() : text.trim().toLowerCase()
+      if (textSet.has(normalized)) return ['Accepted short answers cannot be duplicate.']
+      textSet.add(normalized)
+    }
+    return []
+  }
+  if (answer.type === 'identification') {
+    if (!Array.isArray(answer.acceptedAnswers) || !answer.acceptedAnswers.length) return ['Identification questions require at least one accepted answer.']
+    if (answer.acceptedAnswers.some((entry) => typeof entry !== 'string' || !entry.trim())) return ['Accepted identification answers cannot be blank.']
+    const textSet = new Set<string>()
+    for (const text of answer.acceptedAnswers) {
+      const normalized = answer.caseSensitive ? text.trim() : text.trim().toLowerCase()
+      if (textSet.has(normalized)) return ['Accepted identification answers cannot be duplicate.']
+      textSet.add(normalized)
+    }
+    return []
+  }
+  if (answer.type === 'fill_in_the_blank') {
+    if (!Array.isArray(answer.blanks) || !answer.blanks.length) return ['Fill-in-the-blank questions require at least one blank.']
+    const blankIds = new Set<string>()
+    let hasExplicitPoints = false
+    let explicitPointsSum = 0
+    let missingExplicitPoints = 0
+    for (const blank of answer.blanks) {
+      if (!blank || typeof blank.id !== 'string' || !blank.id.trim()) return ['Every blank must have a unique ID.']
+      if (blankIds.has(blank.id)) return ['Blank IDs must be unique within a question.']
+      blankIds.add(blank.id)
+      if (!Array.isArray(blank.acceptedAnswers) || !blank.acceptedAnswers.length) return ['Every blank requires at least one accepted answer.']
+      if (blank.acceptedAnswers.some((entry) => typeof entry !== 'string' || !entry.trim())) return ['Blank accepted answers cannot be blank.']
+      if (blank.pointsPossible !== undefined && blank.pointsPossible !== null) {
+        hasExplicitPoints = true
+        const pts = Number(blank.pointsPossible)
+        if (!Number.isFinite(pts) || pts <= 0) return ['Explicit blank points must be positive.']
+        explicitPointsSum += pts
+      } else {
+        missingExplicitPoints += 1
+      }
+    }
+    if (hasExplicitPoints) {
+      if (missingExplicitPoints > 0) return ['If any blank specifies points, every blank must specify points.']
+      if (Math.abs(explicitPointsSum - totalItemPoints) > 0.001) {
+        return [`Sum of blank points (${explicitPointsSum}) must equal the item points (${totalItemPoints}).`]
+      }
+    }
+    return []
+  }
+  if (answer.type === 'numerical_answer') {
+    if (typeof answer.value !== 'number' || !Number.isFinite(answer.value)) return ['Numerical answer requires a valid number.']
+    if (answer.tolerance !== undefined && (typeof answer.tolerance !== 'number' || answer.tolerance < 0 || !Number.isFinite(answer.tolerance))) {
+      return ['Numerical tolerance must be a nonnegative number.']
+    }
+    return []
+  }
+  if (answer.type === 'problem_solving') {
+    if (answer.finalAnswer === undefined || answer.finalAnswer === null || String(answer.finalAnswer).trim() === '') {
+      return ['Problem solving questions require a final answer.']
+    }
+    if (Array.isArray(answer.subparts) && answer.subparts.length > 0) {
+      let subpartsSum = 0
+      for (const subpart of answer.subparts) {
+        if (!subpart || typeof subpart.prompt !== 'string' || !subpart.prompt.trim()) return ['Every subpart requires a prompt.']
+        const pts = Number(subpart.pointsPossible)
+        if (!Number.isFinite(pts) || pts <= 0) return ['Subpart points must be positive.']
+        subpartsSum += pts
+      }
+      if (Math.abs(subpartsSum - totalItemPoints) > 0.001) {
+        return [`Sum of subpart points (${subpartsSum}) must equal the item points (${totalItemPoints}).`]
+      }
+    }
+    return []
+  }
+  if (answer.type === 'matching') {
+    if (!Array.isArray(answer.prompts) || answer.prompts.length < 2) return ['Matching questions require at least 2 prompts.']
+    if (!Array.isArray(answer.choices) || answer.choices.length < 2) return ['Matching questions require at least 2 choices.']
+    if (!Array.isArray(answer.mappings) || answer.mappings.length < 2) return ['Matching questions require at least 2 mappings.']
+    const promptIds = new Set(answer.prompts.map((p) => p.id))
+    const choiceIds = new Set(answer.choices.map((c) => c.id))
+    const mappedPromptIds = new Set<string>()
+    const mappedChoiceIds = new Set<string>()
+    let hasExplicitMatchPoints = false
+    let matchPointsSum = 0
+    let missingMatchPoints = 0
+    for (const mapping of answer.mappings) {
+      if (!promptIds.has(mapping.promptId)) return ['Matching prompt mapping references an unknown prompt ID.']
+      if (!choiceIds.has(mapping.choiceId)) return ['Matching choice mapping references an unknown choice ID.']
+      if (mappedPromptIds.has(mapping.promptId)) return ['Each matching prompt can only be mapped once.']
+      mappedPromptIds.add(mapping.promptId)
+      if (!answer.reusableChoices && mappedChoiceIds.has(mapping.choiceId)) {
+        return ['Matching choice cannot be mapped more than once unless reusableChoices is true.']
+      }
+      mappedChoiceIds.add(mapping.choiceId)
+      if (mapping.pointsPossible !== undefined && mapping.pointsPossible !== null) {
+        hasExplicitMatchPoints = true
+        const pts = Number(mapping.pointsPossible)
+        if (!Number.isFinite(pts) || pts <= 0) return ['Explicit match points must be positive.']
+        matchPointsSum += pts
+      } else {
+        missingMatchPoints += 1
+      }
+    }
+    if (hasExplicitMatchPoints) {
+      if (missingMatchPoints > 0) return ['If any match specifies points, every scored match must specify points.']
+      if (Math.abs(matchPointsSum - totalItemPoints) > 0.001) {
+        return [`Sum of match points (${matchPointsSum}) must equal the item points (${totalItemPoints}).`]
+      }
+    }
+    return []
+  }
+  if (answer.type === 'multiple_select') {
+    if (!Array.isArray(answer.choices) || answer.choices.length < 2) return ['Multiple select questions require at least 2 choices.']
+    if (!Array.isArray(answer.choiceIds) || answer.choiceIds.length === 0) return ['Multiple select questions require at least one correct choice.']
+    const choiceIds = new Set(answer.choices.map((c) => c.id))
+    if (answer.choiceIds.some((id) => !choiceIds.has(id))) return ['Multiple select correct choice IDs must exist in choices.']
+    return []
+  }
+  if (answer.type === 'constructed_response') {
+    if (typeof answer.expectedResponse !== 'string' || !answer.expectedResponse.trim()) return ['Constructed response questions require an expected response.']
+    return []
+  }
+  if (answer.type === 'essay') {
+    if (!Array.isArray(answer.keyPoints) || !answer.keyPoints.length) return ['Essay questions require at least one key point.']
+    if (Array.isArray(answer.rubric) && answer.rubric.length > 0) {
+      let rubricSum = 0
+      for (const crit of answer.rubric) {
+        if (!crit || typeof crit.label !== 'string' || !crit.label.trim()) return ['Every essay rubric criterion requires a label.']
+        const pts = Number(crit.pointsPossible)
+        if (!Number.isFinite(pts) || pts <= 0) return ['Essay rubric criterion points must be positive.']
+        rubricSum += pts
+      }
+      if (Math.abs(rubricSum - totalItemPoints) > 0.001) {
+        return [`Sum of essay rubric points (${rubricSum}) must equal the item points (${totalItemPoints}).`]
+      }
+    }
+    return []
+  }
+  return []
 }
 
-function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'): AssessmentValidationResult {
+function assessmentVisualErrors(visual: unknown): string[] {
+  if (!visual || typeof visual !== 'object') return []
+  const v = visual as Record<string, unknown>
+  if (typeof v.tikzSource !== 'string' || !v.tikzSource.trim()) return ['Diagram visual must have valid TikZ source.']
+  return []
+}
+
+function validateCommon(
+  assessment: AssessmentBlueprint,
+  mode: 'draft' | 'final',
+): AssessmentValidationResult {
   const errors: AssessmentValidationIssue[] = []
   const warnings: AssessmentValidationIssue[] = []
-  const add = (key: string, message: string, item?: AssessmentItem, incomplete = false) => {
-    const severity = mode === 'draft' && incomplete ? 'warning' : 'error'
-    const target = issue(key, message, item, severity)
-    if (severity === 'warning') warnings.push(target)
-    else errors.push(target)
+
+  const add = (key: string, message: string, item?: AssessmentItem, isWarning = false) => {
+    const target = isWarning ? warnings : errors
+    target.push(issue(key, message, item, isWarning ? 'warning' : 'error'))
   }
 
-  if (!assessment.sourceTos || assessment.sourceTos.status !== 'final') add('source-tos', 'The assessment must retain a finalized source TOS snapshot.')
-  const sourceTotal = Number(assessment.sourceTos?.content?.totalItems)
-  if (!Number.isSafeInteger(sourceTotal) || sourceTotal < 1) add('source-total', 'The source TOS total must be a positive whole number.')
-  const v2 = isV2Assessment(assessment)
-  const masterPlan = v2 ? assessment.settings?.masterPlan : undefined
-  const expectedItemCount = v2 ? Number(masterPlan?.logicalItemCount) : sourceTotal
-  if (!Number.isSafeInteger(expectedItemCount) || expectedItemCount < 1) add('total-items', 'Assessment logical question count must be a positive whole number.')
-  if (assessment.totalItems !== expectedItemCount) add('total-items', v2 ? 'Assessment totalItems must exactly match the frozen V2 master-plan logical question count.' : 'Assessment totalItems must exactly match the source TOS total.')
-  if (assessment.items.length !== expectedItemCount) add('item-count', `Assessment must contain exactly ${expectedItemCount} logical question(s).`)
-  if (v2 && (!masterPlan || masterPlan.generationVersion !== 'v2' || masterPlan.numberingMode !== 'point_ranges' || masterPlan.totalPoints !== assessment.totalPoints)) add('master-plan', 'Assessment V2 must retain its immutable point-range master plan and total points.')
-  const derivedTotal = deriveAssessmentTotalPoints(assessment.items)
-  if (assessment.totalPoints !== undefined && (!Number.isFinite(assessment.totalPoints) || Math.abs(Number(assessment.totalPoints) - derivedTotal) > 0.000001)) {
-    add('total-points', `Assessment totalPoints must equal the derived item-point sum (${derivedTotal}).`)
+  if (!assessment) {
+    add('blueprint', 'Assessment blueprint is required.')
+    return { ready: false, errors, warnings }
   }
-  if (!assessment.title.trim()) add('title', 'Assessment title is required.', undefined, true)
-  if (!assessment.learningArea.trim()) add('learning-area', 'Learning area is required.', undefined, true)
+
+  const isPerfTask = assessment.mode === 'performance_task' || Boolean(assessment.performanceTask)
+  const isLessonQuiz = assessment.mode === 'lesson_quiz'
+  const isUnitQuiz = assessment.mode === 'unit_quiz'
+  const isTosBased = !isPerfTask && !isLessonQuiz && !isUnitQuiz
+
+  if (!assessment.title || !assessment.title.trim()) add('title', 'Assessment title is required.')
+  if (!assessment.schoolYear || !assessment.schoolYear.trim()) add('schoolYear', 'School year is required.')
+
+  // ---------------------------------------------------------
+  // Performance Task Specific Validation
+  // ---------------------------------------------------------
+  if (isPerfTask) {
+    const pt = assessment.performanceTask
+    if (!pt) {
+      add('performance-task', 'Performance Task content is missing.')
+    } else {
+      if (!pt.title || !pt.title.trim()) add('performance-task-title', 'Performance Task title is required.')
+      if (!pt.scenario || !pt.scenario.trim()) add('performance-task-scenario', 'Performance Task scenario is required.', undefined, mode === 'draft')
+      if (!pt.studentInstructions || !pt.studentInstructions.trim()) add('performance-task-instructions', 'Student instructions are required.', undefined, mode === 'draft')
+      if (!pt.expectedOutput || !pt.expectedOutput.trim()) add('performance-task-output', 'Expected output/product is required.', undefined, mode === 'draft')
+
+      const rubricResult = validatePerformanceTaskRubric(pt.rubric)
+      rubricResult.errors.forEach((e) => add(`rubric-${e.field}`, e.message))
+      rubricResult.warnings.forEach((w) => add(`rubric-${w.field}`, w.message, undefined, true))
+
+      const totalRubricPts = pt.rubric?.totalPoints ?? calculateRubricTotalPoints(pt.rubric)
+      if (totalRubricPts <= 0) add('rubric-points', 'Performance Task rubric must have positive total points.')
+    }
+    return { ready: errors.length === 0 && warnings.length === 0, errors, warnings }
+  }
+
+  // ---------------------------------------------------------
+  // Lesson Quiz & Unit Quiz Specific Validation
+  // ---------------------------------------------------------
+  if (isLessonQuiz) {
+    if (!assessment.sourceLesson) {
+      add('source-lesson', 'Lesson Quiz requires a source lesson plan snapshot.')
+    }
+  }
+
+  if (isUnitQuiz) {
+    if (!assessment.sourceLessons || assessment.sourceLessons.length < 2) {
+      add('source-lessons', 'Unit Quiz requires at least 2 source lesson plan snapshots.')
+    } else {
+      const primaryGrade = assessment.sourceLessons[0].gradeLevel
+      const primarySubject = assessment.sourceLessons[0].learningArea
+      for (let i = 1; i < assessment.sourceLessons.length; i += 1) {
+        const candidate = assessment.sourceLessons[i]
+        if (candidate.gradeLevel && primaryGrade && candidate.gradeLevel.toLowerCase() !== primaryGrade.toLowerCase()) {
+          add('unit-grade-mismatch', `All lessons in a Unit Quiz must have the same grade level (found "${primaryGrade}" and "${candidate.gradeLevel}").`)
+        }
+        if (candidate.learningArea && primarySubject && candidate.learningArea.toLowerCase() !== primarySubject.toLowerCase()) {
+          add('unit-subject-mismatch', `All lessons in a Unit Quiz must have the same learning area (found "${primarySubject}" and "${candidate.learningArea}").`)
+        }
+      }
+    }
+  }
+
+  // ---------------------------------------------------------
+  // Item-Based Assessments Validation (TOS, Lesson, Unit)
+  // ---------------------------------------------------------
+  const expectedItemCount = isTosBased ? Number(assessment.sourceTos?.content.totalItems ?? assessment.totalItems) : assessment.items.length
+  if (!Number.isSafeInteger(expectedItemCount) || expectedItemCount < 1) {
+    add('total-items', 'Assessment must contain at least one item.')
+  }
+
+  if (assessment.items.length !== expectedItemCount) {
+    add('item-count', `Assessment item count (${assessment.items.length}) does not match expected total (${expectedItemCount}).`)
+  }
 
   const settings = assessment.settings
-  const allowedTypes = new Set(settings?.allowedTypes ?? QUESTION_TYPES)
+  const allowedTypes = new Set<QuestionType>(settings?.allowedTypes ?? QUESTION_TYPES)
+
   if (settings) {
-    if (!Array.isArray(settings.allowedTypes) || settings.allowedTypes.length < 1) add('allowed-question-types', 'At least one question type must be enabled.')
-    if (!['auto_balanced', 'fixed_counts', 'percentages', 'manual_per_item'].includes(settings.mode)) add('distribution-mode', 'Question-type distribution mode is invalid.')
-    if (settings.visualPolicy !== undefined && !['off', 'balanced', 'more_visuals'].includes(settings.visualPolicy)) add('visual-policy', 'Assessment visual policy is invalid.')
-    if (settings.targetTotalPoints !== null && settings.targetTotalPoints !== undefined && (!Number.isFinite(Number(settings.targetTotalPoints)) || Number(settings.targetTotalPoints) < 0)) add('target-points', 'Target total points must be nonnegative.')
-    for (const [type, value] of Object.entries(settings.defaultPoints ?? {})) {
-      if (!QUESTION_TYPES.includes(type as QuestionType) || !Number.isFinite(Number(value)) || Number(value) <= 0) add('default-points', `Default points for ${type} must be positive.`)
-    }
     for (const [type, count] of Object.entries(settings.counts ?? {})) {
       if (!QUESTION_TYPES.includes(type as QuestionType) || !allowedTypes.has(type as QuestionType)) add('distribution-disabled-type', `Disabled question type ${type} cannot receive a count.`)
       if (!Number.isSafeInteger(Number(count)) || Number(count) < 0) add('distribution-count', `Question type count for ${type} must be a nonnegative whole number.`)
@@ -469,6 +426,9 @@ function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'
   const numbers = new Set<number>()
   const pointRanges = new Set<string>()
   let pointCursor = 1
+  const v2 = isTosBased && isV2Assessment(assessment)
+  const masterPlan = v2 ? assessment.settings?.masterPlan : undefined
+
   for (const item of assessment.items) {
     if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || item.itemNumber > expectedItemCount) add('item-number', 'Logical question number must be a whole number within 1..N.', item)
     if (numbers.has(item.itemNumber)) add('duplicate-item-number', 'Logical question numbers must not be duplicated.', item)
@@ -487,28 +447,37 @@ function validateCommon(assessment: AssessmentBlueprint, mode: 'draft' | 'final'
   }
   if (v2 && pointCursor !== Number(masterPlan?.totalPoints) + 1) add('point-range-total', 'V2 point ranges must cover exactly 1 through the frozen total-points value.')
 
-  const expected = v2 ? new Map() : expectedMappings(assessment.sourceTos)
-  const sourcePlacement = sourcePlacementStatus(assessment.sourceTos)
-  const sourceNumbers = [...sourcePlacement.numbers].sort((a, b) => a - b)
-  if (sourcePlacement.duplicate || (!v2 && (expected.size !== sourceTotal || sourceNumbers.length !== sourceTotal || sourceNumbers.some((number, index) => number !== index + 1)))) add('source-blueprint', 'The source TOS ranges are invalid or overlapping.')
+  const expected = isTosBased ? (v2 ? new Map() : expectedMappings(assessment.sourceTos!)) : new Map()
+  if (isTosBased && assessment.sourceTos) {
+    const sourcePlacement = sourcePlacementStatus(assessment.sourceTos)
+    const sourceNumbers = [...sourcePlacement.numbers].sort((a, b) => a - b)
+    const sourceTotal = Number(assessment.sourceTos.content.totalItems)
+    if (sourcePlacement.duplicate || (!v2 && (expected.size !== sourceTotal || sourceNumbers.length !== sourceTotal || sourceNumbers.some((number, index) => number !== index + 1)))) add('source-blueprint', 'The source TOS ranges are invalid or overlapping.')
+  }
+
   const seenMappings = new Set<string>()
   const planEntries = new Map((masterPlan?.entries ?? []).map((entry) => [entry.itemNumber, entry]))
   for (const item of assessment.items) {
-    const expectedItem = v2 ? v2SourceMapping(assessment.sourceTos, item) : expected.get(item.itemNumber)
-    if (!expectedItem) {
-      add('unmapped-item', 'Every question must map to an allocated source TOS row and cognitive category.', item)
-      continue
+    if (isTosBased && assessment.sourceTos) {
+      const expectedItem = v2 ? v2SourceMapping(assessment.sourceTos, item) : expected.get(item.itemNumber)
+      if (!expectedItem) {
+        add('unmapped-item', 'Every question must map to an allocated source TOS row and cognitive category.', item)
+        continue
+      }
+      const mappingKey = `${item.mapping?.rowId ?? ''}|${item.mapping?.cognitiveCategoryId ?? ''}|${item.itemNumber}`
+      if (seenMappings.has(mappingKey)) add('duplicate-mapping', 'Question mappings must not be duplicated.', item)
+      seenMappings.add(mappingKey)
+      if (v2) {
+        const planEntry = planEntries.get(item.itemNumber)
+        if (!planEntry || item.planEntryId !== planEntry.id || item.pointStart !== planEntry.pointStart || item.pointEnd !== planEntry.pointEnd || normalizeItemPoints(item) !== planEntry.pointsPossible || item.questionType !== planEntry.questionType || item.mapping.rowId !== planEntry.rowId || item.mapping.competencyId !== planEntry.competencyId || item.mapping.cognitiveCategoryId !== planEntry.cognitiveCategoryId) add('master-plan-item', 'This V2 question no longer matches its frozen master-plan entry.', item)
+        if (item.mapping.allocationItemStart !== expectedItem.mapping.allocationItemStart || item.mapping.allocationItemEnd !== expectedItem.mapping.allocationItemEnd || item.mapping.rowId !== expectedItem.mapping.rowId || item.mapping.competencyId !== expectedItem.mapping.competencyId || item.mapping.cognitiveCategoryId !== expectedItem.mapping.cognitiveCategoryId) add('mapping-mismatch', 'Question mapping must remain inside its immutable source TOS competency/CPD allocation.', item)
+      } else if (!same(item.mapping, expectedItem.mapping)) add('mapping-mismatch', 'Item mapping must exactly match the immutable source TOS blueprint.', item)
+      if (!same(item.competencySnapshot, expectedItem.competency)) add('competency-snapshot', 'The competency snapshot no longer matches the source TOS row.', item)
+      if (!same(item.cognitiveCategorySnapshot, expectedItem.category)) add('cognitive-snapshot', 'The cognitive-category snapshot no longer matches the source TOS allocation.', item)
+    } else if (isLessonQuiz || isUnitQuiz) {
+      if (!item.competencySnapshot || !item.competencySnapshot.text) add('competency-snapshot', 'Question must include a valid competency alignment snapshot.', item)
+      if (!item.cognitiveCategorySnapshot || !item.cognitiveCategorySnapshot.id) add('cognitive-snapshot', 'Question must include a cognitive category alignment snapshot.', item)
     }
-    const mappingKey = `${item.mapping?.rowId ?? ''}|${item.mapping?.cognitiveCategoryId ?? ''}|${item.itemNumber}`
-    if (seenMappings.has(mappingKey)) add('duplicate-mapping', 'Question mappings must not be duplicated.', item)
-    seenMappings.add(mappingKey)
-    if (v2) {
-      const planEntry = planEntries.get(item.itemNumber)
-      if (!planEntry || item.planEntryId !== planEntry.id || item.pointStart !== planEntry.pointStart || item.pointEnd !== planEntry.pointEnd || normalizeItemPoints(item) !== planEntry.pointsPossible || item.questionType !== planEntry.questionType || item.mapping.rowId !== planEntry.rowId || item.mapping.competencyId !== planEntry.competencyId || item.mapping.cognitiveCategoryId !== planEntry.cognitiveCategoryId) add('master-plan-item', 'This V2 question no longer matches its frozen master-plan entry.', item)
-      if (item.mapping.allocationItemStart !== expectedItem.mapping.allocationItemStart || item.mapping.allocationItemEnd !== expectedItem.mapping.allocationItemEnd || item.mapping.rowId !== expectedItem.mapping.rowId || item.mapping.competencyId !== expectedItem.mapping.competencyId || item.mapping.cognitiveCategoryId !== expectedItem.mapping.cognitiveCategoryId) add('mapping-mismatch', 'Question mapping must remain inside its immutable source TOS competency/CPD allocation.', item)
-    } else if (!same(item.mapping, expectedItem.mapping)) add('mapping-mismatch', 'Item mapping must exactly match the immutable source TOS blueprint.', item)
-    if (!same(item.competencySnapshot, expectedItem.competency)) add('competency-snapshot', 'The competency snapshot no longer matches the source TOS row.', item)
-    if (!same(item.cognitiveCategorySnapshot, expectedItem.category)) add('cognitive-snapshot', 'The cognitive-category snapshot no longer matches the source TOS allocation.', item)
 
     if (!QUESTION_TYPES.includes(item.questionType)) add('question-type', 'Question type is not supported.', item)
     if (!allowedTypes.has(item.questionType)) add('disabled-question-type', 'This item uses a question type disabled for the assessment.', item)

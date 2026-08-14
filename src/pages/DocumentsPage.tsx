@@ -99,16 +99,22 @@ export function DocumentsPage() {
       } else warnings.push('TOS documents could not be loaded.')
 
       if (assessmentResult.status === 'fulfilled') {
-        next.push(...assessmentResult.value.map((assessment) => ({
-          id: assessment.id,
-          kind: 'assessment' as const,
-          title: assessment.title || 'Untitled assessment',
-          status: assessment.status,
-          detail: `${assessment.items.length} question${assessment.items.length === 1 ? '' : 's'}`,
-          updatedAt: assessment.updatedAt,
-          to: `/assessments/${assessment.id}`,
-          exportTo: `/assessments/${assessment.id}/print`,
-        })))
+        next.push(...assessmentResult.value.map((assessment) => {
+          const isPerfTask = assessment.mode === 'performance_task' || Boolean(assessment.performanceTask)
+          const detail = isPerfTask
+            ? `${assessment.performanceTask?.rubric.criteria.length ?? 0} rubric criteria · ${assessment.performanceTask?.rubric.totalPoints ?? assessment.totalPoints ?? 0} pts`
+            : `${assessment.items.length} question${assessment.items.length === 1 ? '' : 's'}`
+          return {
+            id: assessment.id,
+            kind: 'assessment' as const,
+            title: assessment.title || 'Untitled assessment',
+            status: assessment.status,
+            detail,
+            updatedAt: assessment.updatedAt,
+            to: `/assessments/${assessment.id}`,
+            exportTo: `/assessments/${assessment.id}/print`,
+          }
+        }))
       } else warnings.push('Assessments could not be loaded.')
 
       if (resultResult.status === 'fulfilled') {
