@@ -18,7 +18,6 @@ function numeric(value: string) { const parsed = Number(value); return Number.is
 function signatory(role: string, name: string, title: string) { return { role, name: clean(name), title: clean(title) } }
 function exportStatusLabel(status: TosRecord['status']) { return status === 'final' ? '' : status === 'archived' ? 'ARCHIVED COPY' : 'DRAFT COPY' }
 
-
 function buildCurriculumGroups(record: TosRecord) {
   const groups = new Map<string, {
     key: string
@@ -32,14 +31,7 @@ function buildCurriculumGroups(record: TosRecord) {
     const period = clean(row.competency.curriculumPeriodLabel) || 'Curriculum period'
     const contentArea = clean(row.competency.contentArea) || 'Other curriculum content'
     const key = `${row.competency.academicPeriodId ?? period}:${row.competency.domainId ?? contentArea}`
-    const current = groups.get(key) ?? {
-      key,
-      curriculumPeriod: period,
-      contentArea,
-      contentStandards: [],
-      performanceStandards: [],
-      competencyRowNumbers: [],
-    }
+    const current = groups.get(key) ?? { key, curriculumPeriod: period, contentArea, contentStandards: [], performanceStandards: [], competencyRowNumbers: [] }
     current.competencyRowNumbers.push(index + 1)
     for (const standard of row.competency.standards ?? []) {
       const target = standard.type === 'content' ? current.contentStandards : current.performanceStandards
@@ -57,30 +49,18 @@ export function buildTosExportModel(record: TosRecord, profile: Profile, prefere
     documentTitle: 'TABLE OF SPECIFICATIONS',
     status: record.status,
     identity: { teacherName: clean(profile.fullName), positionTitle: clean(profile.positionTitle), schoolName: clean(profile.schoolName), region: clean(profile.region), division: clean(profile.division), district: clean(profile.district) },
-    title: clean(content.title),
-    assessmentTitle: clean(content.assessmentTitle),
-    gradeLevel: clean(content.gradeLevel),
-    learningArea: clean(content.learningArea),
-    sections: content.sections.join(', '),
-    schoolYear: clean(content.schoolYear),
-    gradingTerm: clean(content.gradingTermLabel),
-    curriculumPeriod: content.curriculumPeriodLabels.join(', '),
-    totalItems: content.totalItems,
+    title: clean(content.title), assessmentTitle: clean(content.assessmentTitle), gradeLevel: clean(content.gradeLevel), learningArea: clean(content.learningArea),
+    sections: content.sections.join(','), schoolYear: clean(content.schoolYear), gradingTerm: clean(content.gradingTermLabel),
+    curriculumPeriod: content.curriculumPeriodLabels.join(', '), totalItems: content.totalItems,
     weightingMethod: content.weightingMethod === 'instructional_time' ? 'Instructional time' : content.weightingMethod === 'manual_percentage' ? 'Manual percentage' : 'Equal weighting',
     categories: content.cognitiveCategories.map(({ id, label, shortLabel }) => ({ id, label: clean(label), shortLabel: clean(shortLabel) })),
     curriculumGroups: buildCurriculumGroups(record),
     rows: content.rows.map((row, index) => ({
-      rowNumber: index + 1,
-      competencyCode: clean(row.competency.code),
-      competency: clean(row.competency.text),
-      contentArea: clean(row.competency.contentArea),
-      curriculumPeriod: clean(row.competency.curriculumPeriodLabel),
-      instructionalMinutes: numeric(row.instructionalMinutes),
-      weightPercent: Number(row.computedWeightPercent),
+      rowNumber: index + 1, competencyCode: clean(row.competency.code), competency: clean(row.competency.text),
+      contentArea: clean(row.competency.contentArea), curriculumPeriod: clean(row.competency.curriculumPeriodLabel),
+      instructionalMinutes: numeric(row.instructionalMinutes), weightPercent: Number(row.computedWeightPercent),
       cognitiveItems: content.cognitiveCategories.map((category) => row.cognitiveAllocations.find((item) => item.categoryId === category.id)?.itemCount ?? 0),
-      itemCount: row.itemCount,
-      itemPlacement: row.itemRangeLabel,
-      notes: clean(row.notes),
+      itemCount: row.itemCount, itemPlacement: row.itemRangeLabel, notes: clean(row.notes),
     })),
     notes: clean(content.notes),
     signatories: [
@@ -94,11 +74,9 @@ export function buildTosExportModel(record: TosRecord, profile: Profile, prefere
 function safeFilename(value: string) {
   return value.replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 90) || 'table-of-specifications'
 }
-
 export function tosExportFilename(model: TosExportModel, extension: 'pdf' | 'xlsx') {
   return `${safeFilename(`${model.gradeLevel} ${model.learningArea} - ${model.title || 'TOS'}`)}.${extension}`
 }
-
 function fitText(doc: jsPDF, text: string, width: number, size: number) {
   doc.setFontSize(size)
   return doc.splitTextToSize(text || ' ', width) as string[]
@@ -121,7 +99,7 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
   const headers = ['#', 'Code', 'Learning competency', 'Curriculum period', 'Minutes', 'Weight %', ...model.categories.filter((_, index) => index < categoryCount).map((item) => item.shortLabel), 'Items', 'Placement', 'Notes']
   const statusHeaderOffset = exportStatusLabel(model.status) ? 12 : 0
   const contentBottom = pageHeight - 42
-  const firstTableTop = margin + 22 + statusHeaderOffset + (5 * 13) + 7 + 30
+  const firstTableTop = margin + 22 + statusHeaderOffset + (7 * 13) + 7 + 30
   const subsequentTableTop = margin + 22 + statusHeaderOffset + 30
 
   function pageHeader(first: boolean) {
@@ -138,21 +116,22 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
         `District: ${model.identity.district}`, `Grade/Section: ${[model.gradeLevel, model.sections].filter(Boolean).join(' – ')}`,
         `Learning Area: ${model.learningArea}`, `School Year: ${model.schoolYear}`,
         `Grading Term: ${model.gradingTerm}`, `Curriculum Period: ${model.curriculumPeriod}`,
-        `Assessment: ${model.assessmentTitle}`, `TOS: ${model.title}`,
-        `Total Items: ${model.totalItems}`,
+        `Assessment: ${model.assessmentTitle}`, `TOS: ${model.title}`, `Total Items: ${model.totalItems}`,
       ]
       metadata.forEach((text, index) => doc.text(text, margin + (index % 2) * usable / 2, y + Math.floor(index / 2) * 13))
       y += Math.ceil(metadata.length / 2) * 13 + 7
     }
     let x = margin
     const height = 30
-    headers.forEach((header, index) => { doc.setFillColor(240, 240, 240); doc.rect(x, y, widths[index], height, 'FD'); doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5); const lines = fitText(doc, header, widths[index] - 5, 6.5); doc.text(lines, x + widths[index] / 2, y + 10, { align: 'center' }); x += widths[index] })
+    headers.forEach((header, index) => {
+      doc.setFillColor(240, 240, 240); doc.rect(x, y, widths[index], height, 'FD')
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5)
+      const lines = fitText(doc, header, widths[index] - 5, 6.5)
+      doc.text(lines, x + widths[index] / 2, y + 10, { align: 'center' }); x += widths[index]
+    })
     return y + height
   }
 
-  // Use separate point budgets for the metadata-heavy first page and repeated
-  // table-header pages. `paginateTosRows` splits an oversized competency/notes
-  // cell into continuation rows; no line is sliced.
   const wrappedRows = model.rows.map((row) => {
     const values: Array<string | number> = [row.rowNumber, row.competencyCode, [row.contentArea, row.competency].filter(Boolean).join(' — '), row.curriculumPeriod, row.instructionalMinutes ?? '', row.weightPercent.toFixed(2), ...row.cognitiveItems.filter((_, index) => index < categoryCount), row.itemCount, row.itemPlacement, row.notes]
     return { cells: values.map((value, index) => fitText(doc, String(value), widths[index] - 5, 6.4)) }
@@ -160,8 +139,7 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
   const tablePages = paginateTosRows(wrappedRows, {
     firstPageHeight: Math.max(20, contentBottom - firstTableTop),
     subsequentPageHeight: Math.max(20, contentBottom - subsequentTableTop),
-    lineHeight: 8,
-    rowPadding: 12,
+    lineHeight: 8, rowPadding: 12,
   })
   const pagesToRender = tablePages.length ? tablePages : [{ rows: [], lineCount: 0 }]
   pagesToRender.forEach((tablePage, pageIndex) => {
@@ -171,8 +149,7 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
       const rowHeight = Math.max(20, segment.height)
       let x = margin
       segment.cells.forEach((lines, index) => {
-        doc.rect(x, y, widths[index], rowHeight)
-        doc.setFont('helvetica', 'normal'); doc.setFontSize(6.4)
+        doc.rect(x, y, widths[index], rowHeight); doc.setFont('helvetica', 'normal'); doc.setFontSize(6.4)
         doc.text(lines, index === 2 || index === segment.cells.length - 1 ? x + 3 : x + widths[index] / 2, y + 9, { align: index === 2 || index === segment.cells.length - 1 ? 'left' : 'center' })
         x += widths[index]
       })
@@ -183,8 +160,8 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
   const totalLabel = `TOTAL: ${model.rows.reduce((sum, row) => sum + row.weightPercent, 0).toFixed(2)}% · ${model.rows.reduce((sum, row) => sum + row.itemCount, 0)} items`
   const plainPageHeader = () => {
     let y = margin
-    doc.setTextColor(0, 0, 0)
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.text(model.documentTitle, pageWidth / 2, y + 8, { align: 'center' }); y += 22
+    doc.setTextColor(0, 0, 0); doc.setFont('helvetica', 'bold'); doc.setFontSize(13)
+    doc.text(model.documentTitle, pageWidth / 2, y + 8, { align: 'center' }); y += 22
     const statusLabel = exportStatusLabel(model.status)
     if (statusLabel) { doc.setFontSize(8); doc.text(statusLabel, pageWidth / 2, y, { align: 'center' }); y += 12 }
     return y + 10
@@ -195,25 +172,20 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
     let contextY = plainPageHeader()
     doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.text('CURRICULUM CONTENT AND STANDARDS', margin, contextY); contextY += 16
     for (const group of model.curriculumGroups) {
-      const standardLines = [
-        ...group.contentStandards.map((value) => `Content Standard: ${value}`),
-        ...group.performanceStandards.map((value) => `Performance Standard: ${value}`),
-      ]
+      const standardLines = [...group.contentStandards.map((value) => `Content Standard: ${value}`), ...group.performanceStandards.map((value) => `Performance Standard: ${value}`)]
       const body = standardLines.length ? standardLines : ['No separately verified standard is stored for this curriculum group.']
       const wrapped = body.flatMap((value) => fitText(doc, value, usable - 10, 7.2))
       const headingHeight = 23
       const boxHeight = headingHeight + Math.max(14, wrapped.length * 8 + 8)
       if (contextY + boxHeight > contentBottom) { doc.addPage(); contextY = plainPageHeader() }
-      doc.rect(margin, contextY, usable, boxHeight)
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5); doc.text(`${group.curriculumPeriod} · ${group.contentArea}`, margin + 5, contextY + 10)
+      doc.rect(margin, contextY, usable, boxHeight); doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5)
+      doc.text(`${group.curriculumPeriod} · ${group.contentArea}`, margin + 5, contextY + 10)
       doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5); doc.text(`Competency rows ${group.competencyRowNumbers.join(', ')}`, margin + 5, contextY + 19)
       doc.setFontSize(7.2); doc.text(wrapped, margin + 5, contextY + headingHeight + 7)
       contextY += boxHeight + 5
     }
   }
 
-  // Totals and global notes use their own pages.  This makes the table and
-  // signatures independent of note length and guarantees there is no overlap.
   doc.addPage()
   let y = plainPageHeader()
   doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.text(totalLabel, margin, y); y += 16
@@ -240,7 +212,10 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
     })
   }
   const pageCount = doc.getNumberOfPages()
-  for (let page = 1; page <= pageCount; page += 1) { doc.setPage(page); doc.setFontSize(6.5); doc.setTextColor(90, 90, 90); doc.text(`Page ${page} of ${pageCount}`, pageWidth - margin, pageHeight - 16, { align: 'right' }) }
+  for (let page = 1; page <= pageCount; page += 1) {
+    doc.setPage(page); doc.setFontSize(6.5); doc.setTextColor(90, 90, 90)
+    doc.text(`Page ${page} of ${pageCount}`, pageWidth - margin, pageHeight - 16, { align: 'right' })
+  }
   doc.save(tosExportFilename(model, 'pdf'))
 }
 

@@ -1,0 +1,64 @@
+GURODESK — FIX GEMINI DISTRICT/PAGINATION REGRESSION
+Date: 2026-08-14
+Broken commit audited: 1d13db10b6601421010d32433a5a4c839a93fe92
+Known-good parent for the unrelated curriculum seed:
+acdf7c3ac6ab0ed13ce865b020a81de18cd6a693
+
+DO THIS AUTONOMOUSLY.
+
+1. Inspect current GitHub main first. Preserve newer unrelated work if main advanced.
+2. Run:
+   node scripts/repair-district-regression.mjs
+3. The repair MUST:
+   - restore supabase/seeds/official-curriculum-complete.sql exactly from the known-good parent;
+   - preserve all district/profile/pagination work from the newer commit;
+   - add District to LessonPlanDocumentView browser/print preview;
+   - add District to TosDocumentView browser/print preview and metadata;
+   - increase the TOS PDF first-page metadata height budget from 5 rows to 7 rows;
+   - add scripts/check-school-district-preview-contract.mjs.
+4. Do NOT regenerate, truncate, rewrite, or "optimize" the curriculum seed.
+5. Do NOT touch Gemini generation, TikZ, curriculum manifests, assessment scoring, results, or remediation.
+
+REQUIRED VALIDATION
+
+Run all of these:
+- npm run validate:schools
+- npm run typecheck
+- npm run typecheck:tests
+- npm run typecheck:e2e
+- npm run validate:all
+- npm run test:unit
+- npm run build
+- npm run test:db:fresh
+- npm run test:db:upgrade
+- npm run test:e2e
+
+The official curriculum bundle validator MUST report:
+- 196 manifests/sources as expected by the existing generated bundle contract
+- 6181 competency inserts
+- 6181 stable competency updates
+- 2838 standard inserts
+- exactly one begin/commit transaction
+
+PHONE/DOCUMENT CHECK
+
+At 360, 390, and 412 CSS px verify:
+- school rows do not overlap;
+- Load more schools continues beyond letter B;
+- District entry/filter remains usable;
+- selected school does not retain a stale district.
+
+With a profile containing District verify:
+- Lesson Plan browser preview/print shows District;
+- Lesson Plan PDF/DOCX shows District;
+- TOS browser preview/print shows District;
+- TOS PDF/DOCX/XLSX shows District;
+- Assessment preview/export still shows District;
+- no first-page TOS table overlap after the expanded metadata header.
+
+Before committing:
+- git diff --stat must NOT show a new mass deletion in curriculum data.
+- supabase/seeds/official-curriculum-complete.sql must match the known-good parent content.
+- CI must be green.
+
+Commit only the surgical repair.

@@ -1,0 +1,45 @@
+GURODESK — DIRECT AI STUDIO DISTRICT + CURRICULUM CI FIX
+Inspected GitHub main: 1d13db10b6601421010d32433a5a4c839a93fe92
+
+This ZIP contains ACTUAL replacement source files. It does not require Git history.
+
+1. Replace the supplied files at their exact root-relative paths.
+2. Run:
+   npm run curriculum:generate:bundle
+3. Confirm this generated file becomes a changed file:
+   supabase/seeds/official-curriculum-complete.sql
+4. Run:
+   npm run curriculum:check:bundle
+   npm run validate:schools
+   node scripts/check-school-district-preview-contract.mjs
+   npm run typecheck
+   npm run typecheck:tests
+   npm run typecheck:e2e
+   npm run validate:all
+   npm run test:unit
+   npm run build
+
+DO NOT use git show / git restore / old commits.
+DO NOT hand-edit the generated curriculum SQL.
+DO NOT edit data/curriculum/official/*.json.
+
+Before the user manually pushes, the changed-file list must include:
+- src/components/LessonPlanDocumentView.tsx
+- src/components/TosDocumentView.tsx
+- src/lib/tosExport.ts
+- scripts/generate-official-curriculum-bundle.mjs
+- scripts/check-school-district-preview-contract.mjs
+- supabase/seeds/official-curriculum-complete.sql
+
+The generated bundle must pass the current contract:
+- 196 source upserts
+- 6,181 competency inserts
+- 6,181 competency updates
+- 2,838 standard inserts
+- exactly one BEGIN/COMMIT transaction
+- current aggregate manifest hash
+
+Preserve District/profile/pagination/mobile-school fixes.
+Do not modify Gemini generation, TikZ, assessment scoring, curriculum manifests, results, or remediation.
+
+AI Studio may lack psql. If so, do not claim DB tests passed there; GitHub CI is authoritative for fresh/upgrade migrations, integration, and Chromium E2E.

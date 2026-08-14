@@ -27,6 +27,7 @@ export function LessonPlanDocumentView({ model }: { model: LessonPlanExportModel
         <strong>{model.labels.department}</strong>
         {model.identity.region && <p>{model.identity.region}</p>}
         {model.identity.division && <p>{model.identity.division}</p>}
+        {model.identity.district && <p>{model.identity.district}</p>}
         {model.identity.schoolName && <p className="print-school-name">{model.identity.schoolName}</p>}
         <h1>{model.documentTitle}</h1>
       </header>
@@ -34,6 +35,7 @@ export function LessonPlanDocumentView({ model }: { model: LessonPlanExportModel
       <table className="print-meta-table">
         <tbody>
           <tr><th>{model.labels.teacher}</th><td>{model.identity.teacherName}</td></tr>
+          {model.identity.district && <tr><th>District</th><td>{model.identity.district}</td></tr>}
           <tr><th>{model.labels.gradeSection}</th><td>{gradeAndSection}</td></tr>
           <tr><th>{model.labels.learningArea}</th><td>{model.lesson.learningArea}</td></tr>
           <tr><th>{model.labels.lessonTitle}</th><td>{model.lesson.title}</td></tr>
