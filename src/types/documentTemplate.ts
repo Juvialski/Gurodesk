@@ -21,6 +21,7 @@ export type LessonTemplateFieldKey =
   | 'schoolName'
   | 'region'
   | 'division'
+  | 'district'
   | 'gradeLevel'
   | 'sections'
   | 'gradeSection'
@@ -102,6 +103,7 @@ export const LESSON_TEMPLATE_FIELDS: Array<{
   { key: 'schoolName', label: 'School', group: 'Identity', important: true },
   { key: 'region', label: 'Region', group: 'Identity' },
   { key: 'division', label: 'Schools Division', group: 'Identity' },
+  { key: 'district', label: 'District', group: 'Identity' },
   { key: 'gradeLevel', label: 'Grade level', group: 'Lesson details' },
   { key: 'sections', label: 'Section/s', group: 'Lesson details' },
   { key: 'gradeSection', label: 'Grade level and section/s', group: 'Lesson details', important: true },

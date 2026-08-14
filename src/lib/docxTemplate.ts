@@ -183,6 +183,7 @@ export function buildLessonTemplateValues(model: LessonPlanExportModel): LessonT
     schoolName: model.identity.schoolName,
     region: model.identity.region,
     division: model.identity.division,
+    district: model.identity.district,
     gradeLevel: model.lesson.gradeLevel,
     sections: model.lesson.sections,
     gradeSection: [model.lesson.gradeLevel, model.lesson.sections].filter(Boolean).join(' - '),

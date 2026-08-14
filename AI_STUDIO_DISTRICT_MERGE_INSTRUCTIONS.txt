@@ -1,0 +1,109 @@
+GURODESK — SCHOOL DISTRICT + MOBILE SCHOOL PICKER + A–Z PAGINATION
+Target inspected main: acdf7c3ac6ab0ed13ce865b020a81de18cd6a693
+Date: 2026-08-14
+
+THIS PACKAGE SUPERSEDES:
+GuroDesk_School_Picker_Mobile_AZ_Fix_20260814.zip
+
+PURPOSE
+1. Fix overlapping school search rows on mobile.
+2. Remove the first-20 / letter-B browsing cutoff by adding paginated results.
+3. Add District as first-class teacher/school identity.
+4. Persist District in profiles and immutable historical school snapshots.
+5. Put District into built-in Lesson Plan, TOS, and Assessment document headers.
+6. Expose District to lesson DOCX custom-template mappings and TOS XLSX mappings.
+7. Support verified official School ID -> District mappings where available.
+8. NEVER infer district from municipality, province, or school name.
+
+IMPORTANT SOURCE RULE
+DepEd NID is the official national source for Region -> Division -> School ID/School Name,
+but it does not expose a complete nationwide district mapping.
+
+District mappings may be added only when an official DepEd source explicitly maps a School ID
+to a District (for example an official Schools Division school directory).
+Until then the teacher may enter District once; save it as:
+  district_source = 'manual'
+  district_verified = false
+
+Do not label a teacher-entered district as verified.
+
+PRODUCTION DATABASE
+The equivalent district schema/RPC migration has already been applied directly to the connected
+GuroDesk Supabase project. KEEP the migration file in the repository anyway so fresh/upgrade
+environments and migration history remain reproducible. It is idempotent.
+
+APPLY
+1. Preserve all legitimate newer work if main advanced.
+2. Copy the package's direct replacement files at their exact root-relative paths:
+   - src/types/school.ts
+   - src/lib/schoolDirectory.ts
+   - src/lib/schoolDirectoryRepository.ts
+   - src/components/SchoolPicker.tsx
+   - src/school-directory.css
+   - supabase/migrations/202608140040_school_district_identity.sql
+   - scripts/apply-school-district-overlay.mjs
+   - scripts/check-school-district-contract.mjs
+   - scripts/schools/import-verified-districts.mjs
+   - tests/unit/schoolDistrict.test.ts
+3. Run:
+   node scripts/apply-school-district-overlay.mjs
+4. Inspect every changed shared file. If the overlay reports a source mismatch because main advanced,
+   merge the equivalent small edit surgically. DO NOT overwrite newer unrelated work.
+5. Ensure package.json validate:schools includes check-school-district-contract.mjs.
+6. Run:
+   npm run validate:schools
+   npm run typecheck
+   npm run typecheck:tests
+   npm run typecheck:e2e
+   npm run test:unit
+   npm run build
+7. Run BOTH:
+   npm run test:db:fresh
+   npm run test:db:upgrade
+8. Run the normal CI validators. Do not disable validators to make this pass.
+
+PHONE VALIDATION — REQUIRED
+Test at 360, 390 and 412 CSS px:
+- Region selector
+- Division selector
+- verified District selector when mappings exist
+- manual District field when no mapping exists
+- long school names wrap; rows NEVER overlap
+- selecting a division can browse beyond B using Load more schools
+- repeated Load more reaches later alphabetic schools
+- School ID exact search
+- partial school-name search
+- selecting a school saves School ID / Region / Division / District
+- manually entered District survives refresh/save
+- verified district cannot be silently replaced by a different manual district
+- changing school does not retain a stale district from the old school
+
+DOCUMENT VALIDATION — REQUIRED
+With a profile containing District, verify District appears in:
+- built-in lesson-plan preview / PDF / DOCX
+- custom lesson DOCX field list/value mapping
+- built-in TOS preview / PDF / DOCX
+- TOS XLSX field values / custom mapping list
+- Assessment Student / Teacher / Answer Key preview
+- Assessment PDF / DOCX
+- newly created document/assessment/result school_identity_snapshot
+
+HISTORICAL RULE
+Never backfill an old finalized document with today's District. Existing historical snapshots stay
+unchanged. New records capture the profile District at creation.
+
+DO NOT TOUCH
+- Gemini generation contracts
+- TikZ generation/rendering/export
+- assessment scoring/question logic
+- curriculum manifests/data
+- result scoring/item analysis/remediation
+unless required only to pass an already-existing regression check unrelated to this package.
+
+COMMIT ONLY AFTER ALL CHECKS PASS.
+
+
+VERIFIED DISTRICT ENRICHMENT
+Use scripts/schools/import-verified-districts.mjs only with reviewed official-source mappings that
+explicitly contain School ID + District. Do not mark name-only/fuzzy joins as verified. New verified
+mappings can be synced later without changing the picker or profile schema.

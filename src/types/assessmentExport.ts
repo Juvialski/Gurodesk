@@ -14,6 +14,7 @@ export type AssessmentExportOptions = {
   schoolName?: string
   region?: string
   division?: string
+  district?: string
   learnerName?: string
   section?: string
   includeAnswer?: boolean
@@ -57,6 +58,7 @@ export type AssessmentExportMetadata = {
   schoolName: string
   region: string
   division: string
+  district: string
   learnerName?: string
   section?: string
   gradeLevel: string

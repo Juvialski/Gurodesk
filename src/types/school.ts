@@ -8,6 +8,11 @@ export type PhilippineSchool = {
   regionName: string
   divisionCode: string | null
   divisionName: string
+  districtCode: string | null
+  districtName: string | null
+  districtSourceName: string | null
+  districtSourceUrl: string | null
+  districtVerifiedAt: string | null
   municipality: string | null
   province: string | null
   schoolType: string | null
@@ -29,9 +34,16 @@ export type SchoolDivisionOption = {
   divisionName: string
 }
 
+export type SchoolDistrictOption = {
+  districtCode: string | null
+  districtName: string
+}
+
 export type SchoolSearchOptions = {
   query?: string
   region?: string
   division?: string
+  district?: string
   limit?: number
+  offset?: number
 }

@@ -16,7 +16,7 @@ export type AssessmentResponseKind =
 export type AssessmentVisualScale = 'standard' | 'large' | 'cartesian'
 
 export type AssessmentPaperIdentityLine = {
-  role: 'republic' | 'department' | 'region' | 'division' | 'school'
+  role: 'republic' | 'department' | 'region' | 'division' | 'district' | 'school'
   text: string
 }
 
@@ -231,6 +231,7 @@ function identityLines(model: AssessmentExportModel): AssessmentPaperIdentityLin
   ]
   if (text(model.metadata.region)) lines.push({ role: 'region', text: text(model.metadata.region) })
   if (text(model.metadata.division)) lines.push({ role: 'division', text: text(model.metadata.division) })
+  if (text(model.metadata.district)) lines.push({ role: 'district', text: text(model.metadata.district) })
   if (text(model.metadata.schoolName)) lines.push({ role: 'school', text: text(model.metadata.schoolName) })
   return lines
 }

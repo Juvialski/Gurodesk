@@ -267,6 +267,7 @@ export function buildLessonPlanExportModel(
       schoolName: clean(profile.schoolName),
       region: clean(profile.region),
       division: clean(profile.division),
+      district: clean(profile.district),
     },
     lesson: {
       title: display(content.lessonTitle || content.lessonFocus),
@@ -434,6 +435,7 @@ export async function downloadLessonPlanDocx(
     }),
     ...(model.identity.region ? [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 20 }, children: [new TextRun({ text: model.identity.region, size: 16, color: TEXT })] })] : []),
     ...(model.identity.division ? [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 20 }, children: [new TextRun({ text: model.identity.division, size: 16, color: TEXT })] })] : []),
+    ...(model.identity.district ? [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 20 }, children: [new TextRun({ text: model.identity.district, size: 16, color: TEXT })] })] : []),
     ...(model.identity.schoolName ? [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 90 }, children: [new TextRun({ text: model.identity.schoolName, bold: true, size: 18, color: TEXT })] })] : []),
     new Paragraph({
       alignment: AlignmentType.CENTER,
@@ -648,6 +650,7 @@ export function downloadLessonPlanPdf(
   pdfHeaderLine(ctx, model.labels.department, { bold: true, size: 10, gap: 12 })
   pdfHeaderLine(ctx, model.identity.region, { size: 8.2, gap: 11 })
   pdfHeaderLine(ctx, model.identity.division, { size: 8.2, gap: 11 })
+  pdfHeaderLine(ctx, model.identity.district, { size: 8.2, gap: 11 })
   pdfHeaderLine(ctx, model.identity.schoolName, { bold: true, size: 8.8, gap: 18 })
 
   doc.setFont('helvetica', 'bold')

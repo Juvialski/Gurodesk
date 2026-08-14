@@ -54,6 +54,7 @@ export function AssessmentPrintPreviewPage() {
       schoolName: profile.schoolName,
       region: profile.region,
       division: profile.division,
+      district: profile.district ?? '',
       includeAnswer: mode !== 'student',
       includeCompetency: mode === 'teacher' && showCompetency,
       includeCognitiveCategory: mode === 'teacher' && showCognitive,

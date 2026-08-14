@@ -29,6 +29,7 @@ export type LessonExportIdentity = {
   schoolName: string
   region: string
   division: string
+  district: string
 }
 
 export type LessonExportSection = {

@@ -4,7 +4,7 @@ export type XlsxColumnLocator = { kind: 'worksheet_column'; sheetName: string; c
 export type TosTemplateLocator = XlsxCellLocator | XlsxColumnLocator
 
 export type TosTemplateFieldKey =
-  | 'teacherName' | 'teacherPosition' | 'schoolName' | 'region' | 'division'
+  | 'teacherName' | 'teacherPosition' | 'schoolName' | 'region' | 'division' | 'district'
   | 'gradeLevel' | 'sections' | 'gradeSection' | 'learningArea' | 'schoolYear'
   | 'gradingTerm' | 'curriculumPeriod' | 'tosTitle' | 'assessmentTitle' | 'totalItems' | 'weightingMethod'
   | 'competencyRowNumber' | 'competencyCode' | 'competency' | 'rowCurriculumPeriod'
@@ -73,6 +73,7 @@ export const TOS_TEMPLATE_FIELDS: Array<{
   { key: 'schoolName', label: 'School', group: 'Identity', important: true },
   { key: 'region', label: 'Region', group: 'Identity' },
   { key: 'division', label: 'Schools Division', group: 'Identity' },
+  { key: 'district', label: 'District', group: 'Identity' },
   { key: 'gradeLevel', label: 'Grade level', group: 'TOS details', important: true },
   { key: 'sections', label: 'Section/s', group: 'TOS details' },
   { key: 'gradeSection', label: 'Grade level and section/s', group: 'TOS details' },

@@ -6,6 +6,7 @@ export type TosExportIdentity = {
   schoolName: string
   region: string
   division: string
+  district: string
 }
 
 

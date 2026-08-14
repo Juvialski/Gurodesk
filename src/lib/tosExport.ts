@@ -56,7 +56,7 @@ export function buildTosExportModel(record: TosRecord, profile: Profile, prefere
   return {
     documentTitle: 'TABLE OF SPECIFICATIONS',
     status: record.status,
-    identity: { teacherName: clean(profile.fullName), positionTitle: clean(profile.positionTitle), schoolName: clean(profile.schoolName), region: clean(profile.region), division: clean(profile.division) },
+    identity: { teacherName: clean(profile.fullName), positionTitle: clean(profile.positionTitle), schoolName: clean(profile.schoolName), region: clean(profile.region), division: clean(profile.division), district: clean(profile.district) },
     title: clean(content.title),
     assessmentTitle: clean(content.assessmentTitle),
     gradeLevel: clean(content.gradeLevel),
@@ -134,10 +134,12 @@ export function downloadTosPdf(model: TosExportModel, preferences: TeacherExport
       doc.setFontSize(8.5); doc.setFont('helvetica', 'normal')
       const metadata = [
         `Teacher: ${model.identity.teacherName}`, `School: ${model.identity.schoolName}`,
-        `Grade/Section: ${[model.gradeLevel, model.sections].filter(Boolean).join(' – ')}`, `Learning Area: ${model.learningArea}`,
-        `School Year: ${model.schoolYear}`, `Grading Term: ${model.gradingTerm}`,
-        `Curriculum Period: ${model.curriculumPeriod}`, `Assessment: ${model.assessmentTitle}`,
-        `TOS: ${model.title}`, `Total Items: ${model.totalItems}`,
+        `Region: ${model.identity.region}`, `Schools Division: ${model.identity.division}`,
+        `District: ${model.identity.district}`, `Grade/Section: ${[model.gradeLevel, model.sections].filter(Boolean).join(' – ')}`,
+        `Learning Area: ${model.learningArea}`, `School Year: ${model.schoolYear}`,
+        `Grading Term: ${model.gradingTerm}`, `Curriculum Period: ${model.curriculumPeriod}`,
+        `Assessment: ${model.assessmentTitle}`, `TOS: ${model.title}`,
+        `Total Items: ${model.totalItems}`,
       ]
       metadata.forEach((text, index) => doc.text(text, margin + (index % 2) * usable / 2, y + Math.floor(index / 2) * 13))
       y += Math.ceil(metadata.length / 2) * 13 + 7
@@ -261,7 +263,7 @@ BUILTIN_TOS_MAPPINGS.push(...BUILTIN_COLUMNS.map(([fieldKey, columnAddress]) => 
 export function buildTosXlsxValues(model: TosExportModel): TosXlsxValues {
   const scalar: TosXlsxValues['scalar'] = {
     teacherName: model.identity.teacherName, teacherPosition: model.identity.positionTitle, schoolName: model.identity.schoolName,
-    region: model.identity.region, division: model.identity.division, gradeLevel: model.gradeLevel, sections: model.sections,
+    region: model.identity.region, division: model.identity.division, district: model.identity.district, gradeLevel: model.gradeLevel, sections: model.sections,
     gradeSection: [model.gradeLevel, model.sections].filter(Boolean).join(' – '),
     learningArea: model.learningArea, schoolYear: model.schoolYear, gradingTerm: model.gradingTerm,
     curriculumPeriod: model.curriculumPeriod, tosTitle: [exportStatusLabel(model.status), model.title].filter(Boolean).join(' — '), assessmentTitle: model.assessmentTitle,

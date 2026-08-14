@@ -1,12 +1,18 @@
-GURODESK — SCHOOL DIRECTORY BUILD HOTFIX
+GURODESK SCHOOL DISTRICT + MOBILE A–Z SCHOOL PICKER FIX
 
-Target broken main: b8511ece875531795d908e67679ac1bf8027b984
+Upload/extract this ZIP at the repository root.
 
-Upload/extract this ZIP at the repository root. It directly fixes the two TypeScript blockers visible in Render:
-- missing school identity fields on Profile
-- wrong ./supabaseClient import
+Then tell AI Studio / your coding agent:
 
-It also makes build/CI auto-run the idempotent school overlay so Onboarding, Settings, profile persistence, and validation are no longer left half-applied.
+"Apply AI_STUDIO_DISTRICT_MERGE_INSTRUCTIONS.txt exactly. This package supersedes the previous
+GuroDesk_School_Picker_Mobile_AZ_Fix_20260814.zip. Preserve newer unrelated work. Run the district
+overlay, full school validation, type checks, unit tests, build, fresh and upgrade migrations,
+then mobile-test 360/390/412px. Do not alter Gemini, TikZ, assessment scoring, or curriculum data."
 
-Preferred AI Studio instruction:
-"Apply AI_STUDIO_BUILD_HOTFIX_20260814.txt exactly. Commit the overlay result only after validate:schools, typecheck, unit tests, and build pass. Preserve assessment/Gemini/TikZ code."
+Key behavior:
+- Region -> Schools Division -> District -> School where verified district mappings exist.
+- When a verified district map is not available, District remains a teacher-entered profile/document field.
+- District is never inferred from municipality.
+- School results paginate 20 at a time with "Load more schools", so browsing is not limited to A/B.
+- Long school names wrap into auto-height rows and must never overlap.
+- District is persisted in document history and included in built-in document headers.

@@ -197,7 +197,7 @@ export function buildAssessmentExportModel(assessment: Assessment, options: Asse
     title,
     instructions: mode === 'answer_key' ? '' : assessment.instructions,
     metadata: {
-      teacherName: clean(options.teacherName), positionTitle: clean(options.positionTitle), schoolName: clean(options.schoolName), region: clean(options.region), division: clean(options.division),
+      teacherName: clean(options.teacherName), positionTitle: clean(options.positionTitle), schoolName: clean(options.schoolName), region: clean(options.region), division: clean(options.division), district: clean(options.district),
       ...(mode !== 'answer_key' ? { learnerName: clean(options.learnerName), section: clean(options.section) } : {}),
       gradeLevel: clean(assessment.gradeLevel), learningArea: clean(assessment.learningArea), schoolYear: clean(assessment.schoolYear), gradingTerm: clean(assessment.gradingTermLabel),
       ...(mode === 'teacher' ? { curriculumPeriods: assessment.curriculumPeriodLabels.map(clean).filter(Boolean).join(', ') } : {}),

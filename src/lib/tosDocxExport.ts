@@ -188,6 +188,7 @@ function curriculumContextTable(model: TosExportModel) {
 export async function buildTosDocxBlob(model: TosExportModel, paper: ExportPaperSize = 'a4') {
   const metadata = [
     ['Teacher', model.identity.teacherName, 'School', model.identity.schoolName],
+    ['Schools Division', model.identity.division, 'District', model.identity.district],
     ['Grade / Section', [model.gradeLevel, model.sections].filter(Boolean).join(' – '), 'Learning Area', model.learningArea],
     ['School Year', model.schoolYear, 'School Grading Term', model.gradingTerm],
     ['Curriculum-Guide Period', model.curriculumPeriod, 'Total Items', model.totalItems],
@@ -217,6 +218,7 @@ export async function buildTosDocxBlob(model: TosExportModel, paper: ExportPaper
   ]
   if (model.identity.region) children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 10 }, children: [text(model.identity.region, { size: 13 })] }))
   if (model.identity.division) children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 10 }, children: [text(model.identity.division, { size: 13 })] }))
+  if (model.identity.district) children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 10 }, children: [text(model.identity.district, { size: 13 })] }))
   if (model.identity.schoolName) children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 35 }, children: [text(model.identity.schoolName, { bold: true, size: 15 })] }))
 
   children.push(
