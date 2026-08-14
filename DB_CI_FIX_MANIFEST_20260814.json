@@ -1,0 +1,24 @@
+{
+  "baseline_sha": "254d2ef31fa72c72963041a73a9aedad06c27573",
+  "remote_lineage_markers": [
+    "20260813224107_enable_pg_net.sql",
+    "20260813224409_enable_http_extension.sql",
+    "20260813224732_add_internal_deped_region_sync.sql",
+    "20260813224752_seed_deped_region_i_schools.sql",
+    "20260813224858_seed_deped_region_ii_schools.sql",
+    "20260813224953_seed_deped_region_iii_schools.sql",
+    "20260813225201_add_internal_deped_next_region_sync.sql",
+    "20260813225223_fix_internal_deped_next_region_sync.sql",
+    "20260813225240_seed_next_deped_school_region_01.sql",
+    "20260813225402_seed_next_deped_school_region_02.sql",
+    "20260813225452_seed_next_deped_school_region_03.sql",
+    "20260813225611_seed_next_deped_school_region_04.sql",
+    "20260813225708_seed_next_deped_school_region_05.sql",
+    "20260813225810_seed_next_deped_school_region_06.sql",
+    "20260813232931_add_school_district_identity.sql"
+  ],
+  "new_fix_migration": "20260813233000_document_version_snapshot_metadata.sql",
+  "production_school_count_observed": 47944,
+  "production_regions_observed": 18,
+  "production_divisions_observed": 227
+}

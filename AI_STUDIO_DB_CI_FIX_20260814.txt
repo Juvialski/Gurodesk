@@ -1,0 +1,105 @@
+GURODESK — CI + SUPABASE MIGRATION REPAIR
+Date: 2026-08-14
+GitHub baseline inspected: 254d2ef31fa72c72963041a73a9aedad06c27573
+Repository: Juvialski/Gurodesk
+
+PURPOSE
+-------
+This root-relative overlay repairs two confirmed database release blockers:
+
+1. Supabase production has 15 migration versions after 202608130039 that are
+   recorded remotely but missing from the GitHub migration directory.
+   Supabase therefore reports:
+   "Remote migration versions not found in local migrations directory."
+
+2. GitHub upgrade CI fails when migration
+   202608140041_assessment_provenance_and_rubric_scoring.sql calls the
+   multi-mode assessment save RPC, because that RPC inserts version metadata
+   into public.document_versions columns that the Phase 1 schema never added:
+   title, status, created_by.
+
+CONFIRMED LIVE SUPABASE STATE
+-----------------------------
+Project ref inspected: hmeybakjxtzmiebtxonc
+
+public.document_versions currently has only the legacy Phase 1 fields:
+id, document_id, version_number, structured_content, change_note, created_at.
+
+The school directory itself is populated and must be preserved:
+47,944 active schools, 18 regions, 227 divisions.
+
+PRODUCTION-ONLY MIGRATION HISTORY
+---------------------------------
+The exact remote versions restored as local lineage markers are:
+
+20260813224107 enable_pg_net
+20260813224409 enable_http_extension
+20260813224732 add_internal_deped_region_sync
+20260813224752 seed_deped_region_i_schools
+20260813224858 seed_deped_region_ii_schools
+20260813224953 seed_deped_region_iii_schools
+20260813225201 add_internal_deped_next_region_sync
+20260813225223 fix_internal_deped_next_region_sync
+20260813225240 seed_next_deped_school_region_01
+20260813225402 seed_next_deped_school_region_02
+20260813225452 seed_next_deped_school_region_03
+20260813225611 seed_next_deped_school_region_04
+20260813225708 seed_next_deped_school_region_05
+20260813225810 seed_next_deped_school_region_06
+20260813232931 add_school_district_identity
+
+Those historical production migrations performed one-off online school-directory
+sync work. Their replacement local files are intentional lineage markers only.
+DO NOT reintroduce live HTTP/NID calls into fresh/CI migration execution.
+
+NEW ADDITIVE FIX
+----------------
+20260813233000_document_version_snapshot_metadata.sql
+
+This adds nullable:
+- public.document_versions.title
+- public.document_versions.status
+- public.document_versions.created_by
+
+It intentionally does NOT backfill old version rows, because using the current
+document title/status for an old version would falsify historical metadata.
+
+DO NOT
+------
+- Do not delete or edit rows in supabase_migrations.schema_migrations.
+- Do not wipe/reset production.
+- Do not delete the 47,944 production school rows.
+- Do not rerun remote online DepEd/NID scraping as part of migrations.
+- Do not weaken tests.
+- Do not change Gemini assessment contracts, TikZ, scoring, item analysis,
+  remediation, curriculum manifests, or historical result snapshots for this fix.
+- Do not push to GitHub from AI Studio. The user pushes manually.
+
+AI STUDIO
+---------
+1. Read /GURODESK_AGENT_RULES.md first if present.
+2. Overlay every file in this ZIP at its exact root-relative path.
+3. Confirm all 16 new migration files appear in the changed-files list.
+4. Do not remove existing migrations 039, 040, or 041.
+5. Run the strongest available validation:
+     npm run test:ci
+     npm run test:db:fresh
+     npm run test:db:upgrade
+   If local Supabase/psql is unavailable, report those DB tests as NOT RUN;
+   do not claim they passed.
+6. Do not manually alter the hosted Supabase migration-history table.
+7. After the user pushes, GitHub CI/Supabase deployment is the release gate.
+
+EXPECTED ORDER
+--------------
+.../202608130039_philippine_school_identity.sql
+.../20260813224107_*.sql
+...
+.../20260813232931_add_school_district_identity.sql
+.../20260813233000_document_version_snapshot_metadata.sql
+.../202608140040_school_district_identity.sql
+.../202608140041_assessment_provenance_and_rubric_scoring.sql
+
+The 202608140040 migration is idempotent and remains the deterministic district
+schema implementation. The 20260813232931 file is only the historical remote
+version marker required to reconcile Supabase migration lineage.
