@@ -1,0 +1,18 @@
+GURODESK STAGE 1 RECOVERY — RESTORE ONLY
+
+Current audited GitHub main before this recovery: ff5b34184e9425a9c2582876df43a481395076a3
+
+The previous AI Studio operation accidentally deleted three files in commit 50105bdf2bf38038cd90c7e07b698b246a4bd77c.
+This package restores those exact pre-deletion files only.
+
+IMPORTANT:
+- Add/restore the files in this ZIP at their exact root-relative paths.
+- DO NOT delete, rename, truncate, refactor, or clean up any other file.
+- Keep supabase/migrations/202608140044_repair_standard_assessment_snapshot_insert.sql exactly as it currently exists.
+- Do not modify migration 042, migration 043, assessment Gemini/TikZ, scoring, results, curriculum, or school data.
+- Before push, changed files should be ONLY the three restored files listed below (plus this instruction file only if your workspace intentionally keeps handoff instructions; otherwise do not commit this instruction file):
+  1. FULL_REPO_FIX_PACKAGE_20260814.json
+  2. supabase/migrations/202608140041_assessment_provenance_and_rubric_scoring.sql
+  3. supabase/functions/performance-task-generator/index.ts
+
+Do not begin Stage 2 assessment work. Push only the restoration and then stop.
