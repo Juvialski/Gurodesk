@@ -1,0 +1,52 @@
+name: Curriculum Bundle Artifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/curriculum/official/**'
+      - 'scripts/generate-official-curriculum-bundle.mjs'
+      - 'scripts/generate-all-curriculum-sql.mjs'
+      - 'scripts/check-official-curriculum-bundle.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    name: Generate and package official curriculum SQL bundle
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate curriculum manifests
+        run: npm run curriculum:validate
+
+      - name: Generate curriculum SQL bundle
+        run: npm run curriculum:generate:bundle
+
+      - name: Validate generated bundle
+        run: npm run curriculum:check:bundle -- supabase/seeds/official-curriculum-complete.sql
+
+      - name: Upload curriculum bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gurodesk-official-curriculum-bundle
+          path: supabase/seeds/official-curriculum-complete.sql
+          retention-days: 7
+          if-no-files-found: error

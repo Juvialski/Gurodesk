@@ -31,10 +31,21 @@ for (const required of ['instructional_pacing_plans', 'instructional_pacing_entr
 
 const seedMigration = await read('supabase/migrations/202608080003_seed_g7_mathematics.sql')
 if ((seedMigration.match(/insert into public\.curriculum_competencies/g) ?? []).length !== 52) fail('Legacy Grade 7 seed migration must retain its 52 competency inserts.')
-const completeSeed = await read('supabase/seeds/official-curriculum-complete.sql')
-if ((completeSeed.match(/^insert into public\.curriculum_competencies /gmu) ?? []).length !== 6181) fail('Complete official seed must contain 6,181 competency inserts.')
-if (!completeSeed.includes('MATATAG-Mathematics-CG-Grades1-4-and-7.pdf') || !completeSeed.includes(manifest.source.sourceUrl)) {
-  fail('Complete official seed is missing legacy Grade 7 source compatibility.')
+const generatorSource = await read('scripts/generate-official-curriculum-bundle.mjs')
+if (!generatorSource.includes('MATATAG-Mathematics-CG-Grades1-4-and-7.pdf') || !generatorSource.includes('grade7Math.source.sourceUrl')) {
+  fail('Official curriculum generator is missing legacy Grade 7 source compatibility.')
+}
+let completeSeed = null
+try {
+  completeSeed = await read('supabase/seeds/official-curriculum-complete.sql')
+} catch {
+  // Untracked generated artifact is checked deterministically by check-official-curriculum-bundle.mjs
+}
+if (completeSeed) {
+  if ((completeSeed.match(/^insert into public\.curriculum_competencies /gmu) ?? []).length !== 6181) fail('Complete official seed must contain 6,181 competency inserts.')
+  if (!completeSeed.includes('MATATAG-Mathematics-CG-Grades1-4-and-7.pdf') || !completeSeed.includes(manifest.source.sourceUrl)) {
+    fail('Complete official seed is missing legacy Grade 7 source compatibility.')
+  }
 }
 
 const packageJson = JSON.parse(await read('package.json'))

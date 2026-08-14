@@ -24,6 +24,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Verify generated curriculum bundle is not tracked
+        shell: bash
+        run: |
+          if git ls-files --error-unmatch supabase/seeds/official-curriculum-complete.sql > /dev/null 2>&1; then
+            echo "::error::supabase/seeds/official-curriculum-complete.sql must not be tracked in Git"
+            exit 1
+          fi
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:

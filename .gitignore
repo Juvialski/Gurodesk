@@ -10,3 +10,5 @@ dist
 *.tsbuildinfo
 __pycache__/
 *.py[cod]
+
+supabase/seeds/official-curriculum-complete.sql
