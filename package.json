@@ -45,7 +45,7 @@
     "validate:phase44": "node scripts/check-phase44-domain.mjs && node scripts/check-phase44-ai-editor.mjs",
     "validate:phase54": "node scripts/check-phase54.mjs",
     "validate:all": "node scripts/run-existing-validators.mjs",
-    "validate:schools": "node scripts/check-school-directory-contract.mjs && node scripts/check-school-district-contract.mjs && node scripts/schools/validate-school-directory.mjs data/schools/philippine-schools.sample.json",
+    "validate:schools": "node scripts/check-school-directory-contract.mjs && node scripts/check-school-district-contract.mjs && node scripts/schools/validate-school-directory.mjs data/schools/philippine-schools.sample.json && node scripts/schools/validate-district-candidates.mjs data/schools/district-candidates/camarines-norte.json",
     "schools:import:nid": "node scripts/schools/import-deped-nid.mjs",
     "schools:sync:nid": "node scripts/schools/import-deped-nid.mjs --sync",
     "test": "npm run test:unit",

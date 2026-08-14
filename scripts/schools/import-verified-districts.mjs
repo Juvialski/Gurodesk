@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { readFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
 
 function usage() {
   console.log(`Usage:
@@ -38,7 +39,7 @@ function clean(value) {
   return String(value ?? '').trim()
 }
 
-function validatePayload(payload) {
+export function validatePayload(payload) {
   const errors = []
   const sourceName = clean(payload.sourceName)
   const sourceUrl = clean(payload.sourceUrl)
@@ -46,6 +47,13 @@ function validatePayload(payload) {
 
   if (!sourceName) errors.push('sourceName is required.')
   if (!/^https:\/\//i.test(sourceUrl)) errors.push('sourceUrl must be HTTPS.')
+  
+  // Must be official DepEd or Gov domain
+  const isOfficialDomain = /^https:\/\/(?:[a-zA-Z0-9-]+\.)*(?:deped\.gov\.ph|gov\.ph|deped[a-zA-Z0-9-]*\.ph)(?:\/|$)/i.test(sourceUrl)
+  if (!isOfficialDomain) {
+    errors.push(`sourceUrl "${sourceUrl}" is not recognized as an official DepEd or Philippine Government domain.`)
+  }
+
   if (method !== 'explicit_school_id') {
     errors.push('verificationMethod must be "explicit_school_id"; name-only/fuzzy joins are not accepted as verified.')
   }
@@ -150,7 +158,9 @@ async function main() {
   console.log('✓ Verified district mappings synced to philippine_schools.')
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.stack ?? error.message : error)
-  process.exit(1)
-})
+if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1'))) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.stack ?? error.message : error)
+    process.exit(1)
+  })
+}
