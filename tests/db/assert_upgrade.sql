@@ -683,4 +683,174 @@ begin
 end;
 $$;
 
+-- Multi-mode assessment source guards must allow an explicitly assigned
+-- legacy lesson plan (assignment_id is NULL) without weakening standard TOS
+-- protections. This reproduces the production lesson-quiz creation path.
+insert into public.documents (
+  id, user_id, assignment_id, document_type, title, school_year,
+  academic_period_label, status, structured_content
+) values (
+  '77777777-7777-4777-8777-777777777777'::uuid,
+  '11111111-1111-4111-8111-111111111111'::uuid,
+  null,
+  'lesson_plan',
+  'Upgrade Legacy Lesson Plan',
+  '2026-2027',
+  'Term 1',
+  'final',
+  jsonb_build_object(
+    'lessonTitle', 'Upgrade Legacy Lesson Plan',
+    'gradeLevel', 'Grade 7',
+    'learningArea', 'Mathematics'
+  )
+);
+
+select public.save_assessment_document(
+  null,
+  '22222222-2222-4222-8222-222222222222'::uuid,
+  null,
+  'Upgrade Lesson Quiz',
+  '2026-2027',
+  'Term 1',
+  'Answer each question.',
+  'draft',
+  jsonb_build_object(
+    'mode', 'lesson_quiz',
+    'sourceType', 'lesson_plan',
+    'title', 'Upgrade Lesson Quiz',
+    'sourceLesson', jsonb_build_object(
+      'id', '77777777-7777-4777-8777-777777777777',
+      'title', 'Upgrade Legacy Lesson Plan',
+      'lessonTitle', 'Upgrade Legacy Lesson Plan',
+      'gradeLevel', 'Grade 7',
+      'learningArea', 'Mathematics',
+      'schoolYear', '2026-2027',
+      'gradingTermLabel', 'Term 1',
+      'learningObjectives', jsonb_build_array('Classify polygons.'),
+      'competencies', jsonb_build_array(
+        jsonb_build_object(
+          'id', 'legacy-comp-1',
+          'code', null,
+          'text', 'Classify polygons.',
+          'sourcePage', null,
+          'academicPeriodId', null,
+          'curriculumPeriodId', null,
+          'curriculumPeriodLabel', 'Term 1'
+        )
+      )
+    ),
+    'coveragePlan', jsonb_build_object(
+      'totalItems', 1,
+      'entries', jsonb_build_array(
+        jsonb_build_object(
+          'id', 'cov-legacy-comp-1-remembering',
+          'sourceLessonId', '77777777-7777-4777-8777-777777777777',
+          'competencyId', 'legacy-comp-1',
+          'competencyCode', null,
+          'competencyStatement', 'Classify polygons.',
+          'cognitiveCategoryId', 'remembering',
+          'cognitiveCategoryLabel', 'Remembering',
+          'targetItemCount', 1,
+          'targetPoints', 1,
+          'allocatedItemNumbers', jsonb_build_array(1)
+        )
+      )
+    ),
+    'settings', '{}'::jsonb,
+    'items', '[]'::jsonb
+  ),
+  jsonb_build_array(
+    jsonb_build_object(
+      'id', '88888888-8888-4888-8888-888888888888',
+      'itemNumber', 1,
+      'competencySnapshot', jsonb_build_object(
+        'id', 'legacy-comp-1',
+        'code', null,
+        'text', 'Classify polygons.',
+        'sourcePage', null,
+        'academicPeriodId', null,
+        'curriculumPeriodId', null,
+        'curriculumPeriodLabel', 'Term 1'
+      ),
+      'cognitiveCategorySnapshot', jsonb_build_object(
+        'id', 'remembering',
+        'label', 'Remembering',
+        'shortLabel', 'REM'
+      ),
+      'mapping', jsonb_build_object(
+        'kind', 'lesson_coverage',
+        'coverageEntryId', 'cov-legacy-comp-1-remembering',
+        'sourceLessonId', '77777777-7777-4777-8777-777777777777',
+        'competencyId', 'legacy-comp-1',
+        'cognitiveCategoryId', 'remembering',
+        'allocationItemStart', 1,
+        'allocationItemEnd', 1,
+        'allocationIndex', 0,
+        'rowId', 'cov-legacy-comp-1-remembering'
+      ),
+      'prompt', '',
+      'questionType', 'multiple_choice',
+      'answer', jsonb_build_object(
+        'type', 'multiple_choice',
+        'choices', jsonb_build_array(
+          jsonb_build_object('id', 'choice-a', 'text', 'Triangle'),
+          jsonb_build_object('id', 'choice-b', 'text', 'Circle')
+        ),
+        'choiceId', 'choice-a'
+      ),
+      'pointsPossible', 1,
+      'points', 1,
+      'authorshipState', 'empty',
+      'qaState', 'empty',
+      'locked', false,
+      'history', '[]'::jsonb
+    )
+  ),
+  'Mode-aware lesson quiz regression assertion'
+);
+
+do $$
+declare
+  quiz_row public.documents%rowtype;
+  metadata_row public.assessment_documents%rowtype;
+  quiz_item public.assessment_items%rowtype;
+begin
+  select * into quiz_row
+  from public.documents
+  where user_id = '11111111-1111-4111-8111-111111111111'::uuid
+    and document_type = 'assessment'
+    and title = 'Upgrade Lesson Quiz'
+  order by created_at desc
+  limit 1;
+
+  if quiz_row.id is null
+     or quiz_row.assignment_id is distinct from '22222222-2222-4222-8222-222222222222'::uuid then
+    raise exception 'Upgrade assertion: lesson quiz with explicit assignment was not saved';
+  end if;
+
+  select * into metadata_row
+  from public.assessment_documents
+  where document_id = quiz_row.id;
+
+  if metadata_row.document_id is null
+     or metadata_row.mode <> 'lesson_quiz'
+     or metadata_row.source_type <> 'lesson_plan'
+     or metadata_row.source_tos_document_id is not null
+     or metadata_row.source_lesson_document_id is distinct from '77777777-7777-4777-8777-777777777777'::uuid then
+    raise exception 'Upgrade assertion: lesson quiz provenance metadata is incorrect';
+  end if;
+
+  select * into quiz_item
+  from public.assessment_items
+  where assessment_document_id = quiz_row.id and item_number = 1;
+
+  if quiz_item.id is null
+     or quiz_item.tos_row_id is not null
+     or quiz_item.coverage_entry_id is distinct from 'cov-legacy-comp-1-remembering'
+     or quiz_item.source_lesson_id is distinct from '77777777-7777-4777-8777-777777777777'::uuid then
+    raise exception 'Upgrade assertion: lesson quiz item coverage provenance is incorrect';
+  end if;
+end;
+$$;
+
 select 'upgrade application and behavior assertions: ok' as result;
