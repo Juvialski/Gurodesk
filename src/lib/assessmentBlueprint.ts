@@ -106,7 +106,7 @@ function emptyAnswer(questionType: QuestionType = 'multiple_choice'): Assessment
   return { type: 'multiple_choice', choices: [], choiceId: '' }
 }
 
-const DEFAULT_ASSESSMENT_SETTINGS: AssessmentSettings = {
+export const DEFAULT_ASSESSMENT_SETTINGS: AssessmentSettings = {
   schemaVersion: 1,
   mode: 'auto_balanced',
   visualPolicy: 'balanced',

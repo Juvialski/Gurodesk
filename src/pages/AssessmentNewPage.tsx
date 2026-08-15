@@ -47,11 +47,14 @@ import {
 } from '../lib/assessmentRepository'
 import { loadLessonPlans } from '../lib/repository'
 import { loadTosDocuments } from '../lib/tosRepository'
+import { DEFAULT_ASSESSMENT_SETTINGS } from '../lib/assessmentBlueprint'
+import { applyQuestionTypeDistributionToEmptySlots } from '../lib/assessmentDistribution'
 import {
   ASSESSMENT_QUESTION_TYPES,
   type AssessmentCpdKey,
   type AssessmentMode,
   type AssessmentRecord,
+  type AssessmentSettings,
   type AssessmentVisualPolicy,
   type PerformanceTaskGrouping,
   type QuestionType,
@@ -427,52 +430,19 @@ export function AssessmentNewPage() {
     )
   }
 
-  // --- TOS Full Generator ---
-  async function generateAssessment(resumeRecord?: AssessmentRecord) {
-    if (!user || !selectedTos) return
-    const currentValidation = validateAssessmentV2Setup(selectedTos, setup)
-    if (!currentValidation.ready) {
-      setError(currentValidation.errors[0]?.message ?? 'Complete the assessment setup before generating.')
-      return
-    }
+  // --- Full Assessment Generation Pipeline ---
+  async function runAssessmentGenerationPipeline(
+    initialRecord: AssessmentRecord,
+    options: { teacherContext?: string; modelLabel?: string } = {}
+  ) {
+    if (!user) return
     controllerRef.current?.abort()
     const controller = new AbortController()
     controllerRef.current = controller
     setError('')
-    let working = resumeRecord ?? workingRecord
+    let working = initialRecord
     let activeQuestion: AssessmentRecord['items'][number] | null = null
     try {
-      if (!working) {
-        setGeneration({ stage: 'planning', current: 0, total: 1, message: 'Designing the full assessment plan…' })
-        const planned = await createAssessmentMasterPlan({
-          tos: selectedTos,
-          setup,
-          demo: isDemo,
-          title: tosTitle.trim(),
-          instructions: tosInstructions.trim(),
-          signal: controller.signal,
-        })
-        setGeneration({
-          stage: 'planning',
-          current: 1,
-          total: 1,
-          message: `Master plan ready${planned.model ? ` · ${planned.model}` : ''}`,
-          model: planned.model,
-        })
-        working = await createAssessmentFromMasterPlan(
-          selectedTos,
-          planned.plan,
-          user.id,
-          isDemo,
-          tosTitle.trim() || undefined,
-          tosInstructions.trim(),
-          visualPolicy,
-          generationInstructions.trim(),
-          allowedTypes
-        )
-        setWorkingRecord(working)
-      }
-
       const pendingQuestions = working.items.filter(assessmentItemNeedsQuestionGeneration)
       let completedQuestions = working.items.length - pendingQuestions.length
       setGeneration({
@@ -480,7 +450,7 @@ export function AssessmentNewPage() {
         current: completedQuestions,
         total: working.items.length,
         message: pendingQuestions.length
-          ? 'Generating questions from the frozen master plan…'
+          ? 'Generating questions from curriculum alignment…'
           : 'All questions are already saved.',
       })
 
@@ -501,7 +471,7 @@ export function AssessmentNewPage() {
           item: source,
           demo: isDemo,
           alternative: recoveringBlankMachineDraft,
-          teacherContext: generationInstructions.trim(),
+          teacherContext: options.teacherContext ?? '',
           signal: controller.signal,
           onQuestionReady: async (draftSuggestion) => {
             const savedDraftItem = applyAssessmentItemSuggestion(source, draftSuggestion, {
@@ -594,8 +564,79 @@ export function AssessmentNewPage() {
     }
   }
 
+  // --- Assessment Generator Entry Point ---
+  async function generateAssessment(resumeRecord?: AssessmentRecord) {
+    if (!user) return
+    let working = resumeRecord ?? workingRecord
+    if (working) {
+      const teacherContext = working.mode === 'lesson_quiz'
+        ? quizInstructions.trim()
+        : working.mode === 'unit_quiz'
+          ? unitInstructions.trim()
+          : generationInstructions.trim()
+      await runAssessmentGenerationPipeline(working, { teacherContext })
+      return
+    }
+
+    if (mode === 'tos') {
+      if (!selectedTos) return
+      const currentValidation = validateAssessmentV2Setup(selectedTos, setup)
+      if (!currentValidation.ready) {
+        setError(currentValidation.errors[0]?.message ?? 'Complete the assessment setup before generating.')
+        return
+      }
+      controllerRef.current?.abort()
+      const controller = new AbortController()
+      controllerRef.current = controller
+      setError('')
+      try {
+        setGeneration({ stage: 'planning', current: 0, total: 1, message: 'Designing the full assessment plan…' })
+        const planned = await createAssessmentMasterPlan({
+          tos: selectedTos,
+          setup,
+          demo: isDemo,
+          title: tosTitle.trim(),
+          instructions: tosInstructions.trim(),
+          signal: controller.signal,
+        })
+        setGeneration({
+          stage: 'planning',
+          current: 1,
+          total: 1,
+          message: `Master plan ready${planned.model ? ` · ${planned.model}` : ''}`,
+          model: planned.model,
+        })
+        working = await createAssessmentFromMasterPlan(
+          selectedTos,
+          planned.plan,
+          user.id,
+          isDemo,
+          tosTitle.trim() || undefined,
+          tosInstructions.trim(),
+          visualPolicy,
+          generationInstructions.trim(),
+          allowedTypes
+        )
+        setWorkingRecord(working)
+        await runAssessmentGenerationPipeline(working, { teacherContext: generationInstructions.trim() })
+      } catch (nextError) {
+        if (controller.signal.aborted || (nextError instanceof DOMException && nextError.name === 'AbortError')) {
+          setGeneration({ stage: 'paused', current: 0, total: 1, message: 'Generation stopped. Completed work remains saved.' })
+          return
+        }
+        const detail = extractErrorMessage(nextError, 'Assessment planning paused.')
+        setError(detail)
+        setGeneration({ stage: 'paused', current: 0, total: 1, message: detail })
+      }
+    } else if (mode === 'lesson_quiz') {
+      await handleCreateLessonQuiz(true)
+    } else if (mode === 'unit_quiz') {
+      await handleCreateUnitQuiz(true)
+    }
+  }
+
   // --- Lesson Quiz Creation ---
-  async function handleCreateLessonQuiz() {
+  async function handleCreateLessonQuiz(autoGenerate = true) {
     if (!user || !selectedLesson) return
     if (!resolvedLessonQuizAssignmentId) {
       setError('Choose a teaching assignment before creating this lesson quiz.')
@@ -604,13 +645,36 @@ export function AssessmentNewPage() {
     setCreating(true)
     setError('')
     try {
-      const created = await createAssessmentFromLessonPlan(selectedLesson, user.id, isDemo, {
+      let created = await createAssessmentFromLessonPlan(selectedLesson, user.id, isDemo, {
         totalItems: quizItemCount,
         title: quizTitle.trim() || `Quiz: ${selectedLesson.title}`,
         instructions: quizInstructions.trim(),
         assignmentId: resolvedLessonQuizAssignmentId,
       })
-      navigate(`/assessments/${created.id}`)
+      if (quizAllowedTypes.length > 0) {
+        const quizSettings: AssessmentSettings = {
+          ...DEFAULT_ASSESSMENT_SETTINGS,
+          allowedTypes: quizAllowedTypes,
+          mode: 'auto_balanced',
+        }
+        const distribution = applyQuestionTypeDistributionToEmptySlots(created.items, quizSettings)
+        created = {
+          ...created,
+          items: distribution.items,
+          settings: {
+            ...DEFAULT_ASSESSMENT_SETTINGS,
+            ...created.settings,
+            allowedTypes: quizAllowedTypes,
+          },
+        }
+        created = await saveAssessmentDocument(created, isDemo)
+      }
+      setWorkingRecord(created)
+      if (!autoGenerate) {
+        navigate(`/assessments/${created.id}`)
+        return
+      }
+      await runAssessmentGenerationPipeline(created, { teacherContext: quizInstructions.trim() })
     } catch (nextError) {
       setError(extractErrorMessage(nextError, 'Unable to create lesson quiz.'))
     } finally {
@@ -619,7 +683,7 @@ export function AssessmentNewPage() {
   }
 
   // --- Unit Quiz Creation ---
-  async function handleCreateUnitQuiz() {
+  async function handleCreateUnitQuiz(autoGenerate = true) {
     if (!user || selectedUnitLessons.length < 2) return
     if (unitAssignmentConflict) {
       setError('Selected lessons belong to different teaching assignments. Choose lessons from the same class.')
@@ -632,13 +696,36 @@ export function AssessmentNewPage() {
     setCreating(true)
     setError('')
     try {
-      const created = await createAssessmentFromUnitLessons(selectedUnitLessons, user.id, isDemo, {
+      let created = await createAssessmentFromUnitLessons(selectedUnitLessons, user.id, isDemo, {
         totalItems: unitTotalItems,
         title: unitTitle.trim() || `Unit Assessment (${selectedUnitLessons.length} Lessons)`,
         instructions: unitInstructions.trim(),
         assignmentId: resolvedUnitQuizAssignmentId,
       })
-      navigate(`/assessments/${created.id}`)
+      if (unitAllowedTypes.length > 0) {
+        const unitSettings: AssessmentSettings = {
+          ...DEFAULT_ASSESSMENT_SETTINGS,
+          allowedTypes: unitAllowedTypes,
+          mode: 'auto_balanced',
+        }
+        const distribution = applyQuestionTypeDistributionToEmptySlots(created.items, unitSettings)
+        created = {
+          ...created,
+          items: distribution.items,
+          settings: {
+            ...DEFAULT_ASSESSMENT_SETTINGS,
+            ...created.settings,
+            allowedTypes: unitAllowedTypes,
+          },
+        }
+        created = await saveAssessmentDocument(created, isDemo)
+      }
+      setWorkingRecord(created)
+      if (!autoGenerate) {
+        navigate(`/assessments/${created.id}`)
+        return
+      }
+      await runAssessmentGenerationPipeline(created, { teacherContext: unitInstructions.trim() })
     } catch (nextError) {
       setError(extractErrorMessage(nextError, 'Unable to create unit quiz.'))
     } finally {
@@ -1275,11 +1362,19 @@ export function AssessmentNewPage() {
                 </Link>
                 <button
                   type="button"
+                  className="button secondary"
+                  disabled={creating || !selectedLesson || !resolvedLessonQuizAssignmentId || quizAllowedTypes.length === 0}
+                  onClick={() => void handleCreateLessonQuiz(false)}
+                >
+                  <FileText size={16} /> Create Empty Draft
+                </button>
+                <button
+                  type="button"
                   className="button primary"
                   disabled={creating || !selectedLesson || !resolvedLessonQuizAssignmentId || quizAllowedTypes.length === 0}
-                  onClick={() => void handleCreateLessonQuiz()}
+                  onClick={() => void handleCreateLessonQuiz(true)}
                 >
-                  <Sparkles size={16} /> {creating ? 'Creating quiz…' : 'Create & Open Lesson Quiz'}
+                  <Sparkles size={16} /> {creating ? 'Generating quiz…' : 'Generate Lesson Quiz'}
                 </button>
               </div>
             </div>
@@ -1419,11 +1514,19 @@ export function AssessmentNewPage() {
                 </Link>
                 <button
                   type="button"
+                  className="button secondary"
+                  disabled={creating || selectedUnitLessonIds.length < 2 || unitAssignmentConflict || !resolvedUnitQuizAssignmentId || unitAllowedTypes.length === 0}
+                  onClick={() => void handleCreateUnitQuiz(false)}
+                >
+                  <FileText size={16} /> Create Empty Draft
+                </button>
+                <button
+                  type="button"
                   className="button primary"
                   disabled={creating || selectedUnitLessonIds.length < 2 || unitAssignmentConflict || !resolvedUnitQuizAssignmentId || unitAllowedTypes.length === 0}
-                  onClick={() => void handleCreateUnitQuiz()}
+                  onClick={() => void handleCreateUnitQuiz(true)}
                 >
-                  <Sparkles size={16} /> {creating ? 'Building unit quiz…' : 'Create & Open Unit Quiz'}
+                  <Sparkles size={16} /> {creating ? 'Generating unit quiz…' : 'Generate Unit Quiz'}
                 </button>
               </div>
             </div>
