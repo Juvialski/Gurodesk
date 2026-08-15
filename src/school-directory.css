@@ -244,8 +244,8 @@
 }
 
 .button.compact {
-  min-height: 40px;
-  padding: 8px 11px;
+  min-height: 44px;
+  padding: 8px 12px;
 }
 
 @media (max-width: 600px) {
