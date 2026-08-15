@@ -450,11 +450,12 @@
   @page { margin:18mm 10mm 12mm; }
   .assessment-document-continuation { position:fixed; z-index:0; top:-13mm; left:0; right:0; display:grid; justify-items:center; color:#222; font-size:8pt; line-height:1.25; }
   .assessment-document-continuation span { color:#555; font-size:7.5pt; }
-  .assessment-document-header { position:relative; z-index:1; background:#fff; }
+  .assessment-document-header { position:relative; z-index:1; background:#fff; break-inside:avoid; page-break-inside:avoid; }
   .assessment-document-identity { margin-bottom:2.5mm; font-size:7.5pt; }
-  .assessment-document-meta-table { margin-top:3mm; }
+  .assessment-document-meta-table { margin-top:3mm; break-inside:avoid; page-break-inside:avoid; }
   .assessment-document-meta-row > span { padding:1.7mm 2mm; font-size:7.5pt; }
-  .assessment-document-question-visual-large { width:100mm; max-width:100mm; max-height:68mm; }
+  .assessment-document-question, .assessment-document-row { break-inside:avoid; page-break-inside:avoid; }
+  .assessment-document-question-visual-large { width:100mm; max-width:100mm; max-height:68mm; break-inside:avoid; page-break-inside:avoid; }
 }
 
 /* Compact pre-finalization gallery for teacher inspection of every generated diagram. */

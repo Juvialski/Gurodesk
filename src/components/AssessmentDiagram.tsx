@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ErrorBoundary } from './ErrorBoundary'
 import { ASSESSMENT_VISUAL_FIXTURES } from '../lib/assessmentVisualFixtures'
 import { AssessmentTikzDiagram } from './AssessmentTikzDiagram'
 import { validateAssessmentVisual } from '../lib/assessmentVisualValidation'
@@ -192,7 +193,14 @@ export function AssessmentDiagram({ visual, className = '' }: { visual?: Assessm
   const fallback = visual.tikzCode && visual.primitives.length === 0
     ? <div className="assessment-tikz-placeholder" role="img" aria-label={visual.altText}>Preparing diagram…</div>
     : <AssessmentSvgDiagram visual={visual} />
-  return <AssessmentTikzDiagram visual={visual} className={className} fallback={fallback} />
+  return (
+    <ErrorBoundary
+      resetKeys={[visual.id, visual.tikzCode]}
+      fallback={<div className="assessment-tikz-render-error" role="status">Unable to render diagram. Edit geometry or regenerate.</div>}
+    >
+      <AssessmentTikzDiagram visual={visual} className={className} fallback={fallback} />
+    </ErrorBoundary>
+  )
 }
 
 function appendElement(visual: AssessmentVisual, element: AssessmentVisualElement): AssessmentVisual {

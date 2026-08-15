@@ -1,6 +1,7 @@
-import { FileText, GraduationCap } from 'lucide-react'
+import { CheckCircle2, FileText, GraduationCap, WifiOff } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { useOnlineStatus } from '../hooks/useOnlineStatus'
 import { useWorkspaceSelection } from '../hooks/useWorkspaceSelection'
 import { useApp } from '../contexts/AppContext'
 import { shouldAutoOpenTeacherTour } from '../lib/teacherTour'
@@ -32,6 +33,7 @@ export function AppShell() {
   const { profile, assignments, signOut, user } = useApp()
   const location = useLocation()
   const workspace = useWorkspaceSelection(user?.id)
+  const { isOnline, wasOffline } = useOnlineStatus()
   const [tourOpen, setTourOpen] = useState(false)
 
   useEffect(() => {
@@ -46,6 +48,18 @@ export function AppShell() {
       <ResponsiveNavigation profile={profile} onSignOut={signOut} onReplayTour={replayTour} />
 
       <div className="app-main">
+        {!isOnline && (
+          <div className="connectivity-banner offline" role="status">
+            <WifiOff size={15} aria-hidden="true" />
+            <span>Offline mode — your changes are safely saved locally</span>
+          </div>
+        )}
+        {isOnline && wasOffline && (
+          <div className="connectivity-banner online" role="status">
+            <CheckCircle2 size={15} aria-hidden="true" />
+            <span>Back online — changes synced</span>
+          </div>
+        )}
         <div className="mobile-topbar">
           <Brand compact />
           <span className="mobile-avatar" aria-label={`${profile?.fullName || 'Teacher'} account`}>{profile?.fullName?.slice(0, 1).toUpperCase() || 'T'}</span>

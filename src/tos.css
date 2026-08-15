@@ -161,6 +161,7 @@
   .tos-preview-page, .tos-print-stage { background: #fff !important; padding: 0 !important; display: block !important; overflow: visible !important; }
   .tos-print-document, .paper-letter .tos-print-document, .paper-legal .tos-print-document { width: 100% !important; min-width: 0 !important; min-height: auto !important; padding: 8mm !important; margin: 0 !important; box-shadow: none !important; }
   .tos-print-table th { background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .tos-print-table tr, .tos-print-table td, .tos-print-table th { break-inside: avoid; page-break-inside: avoid; }
   .tos-print-table, .tos-print-table th, .tos-print-table td, .tos-print-document .print-meta-table, .tos-print-document .print-meta-table th, .tos-print-document .print-meta-table td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
