@@ -28,7 +28,7 @@ function withoutAssessmentVisual(item: AssessmentItem): AssessmentItem {
 function withoutAssessmentVisuals(record: AssessmentRecord): AssessmentRecord {
   return {
     ...record,
-    settings: { ...(record.settings ?? {}), visualPolicy: 'off' },
+    settings: record.settings ? { ...record.settings, visualPolicy: 'off' } : undefined,
     items: record.items.map(withoutAssessmentVisual),
   }
 }
