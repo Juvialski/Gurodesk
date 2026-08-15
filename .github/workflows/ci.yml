@@ -151,6 +151,9 @@ jobs:
             printf 'E2E_SUPABASE_ANON_KEY=%s\n' "${anon_key}"
           } >> "${GITHUB_ENV}"
 
+      - name: Smoke test configured Edge Function preflights
+        run: node scripts/smoke-edge-function-preflights.mjs
+
       - name: Run fresh migration test
         run: npm run test:db:fresh
 

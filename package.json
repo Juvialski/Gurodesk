@@ -58,11 +58,12 @@
     "test:e2e:prepare": "node scripts/prepare-e2e-user.mjs",
     "test:e2e": "playwright test",
     "pretest:ci": "node scripts/apply-school-district-overlay.mjs",
-    "test:ci": "npm run validate:schools && npm run typecheck && npm run typecheck:tests && npm run typecheck:e2e && npm run validate:all && npm run test:unit && npm run build:bundle",
+    "test:ci": "npm run validate:schools && npm run typecheck && npm run typecheck:tests && npm run typecheck:e2e && npm run validate:edge-functions && npm run validate:all && npm run test:unit && npm run build:bundle",
     "test:release": "bash scripts/test-release.sh",
     "validate:phase6": "node scripts/check-phase6-curriculum.mjs && node scripts/check-phase6-custom-curriculum.mjs",
     "validate:phase6:curriculum": "node scripts/check-phase6-curriculum.mjs",
-    "validate:phase6:custom": "node scripts/check-phase6-custom-curriculum.mjs"
+    "validate:phase6:custom": "node scripts/check-phase6-custom-curriculum.mjs",
+    "validate:edge-functions": "node scripts/check-edge-function-source-contract.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

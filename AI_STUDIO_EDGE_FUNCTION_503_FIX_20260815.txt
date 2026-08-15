@@ -1,0 +1,37 @@
+GURODESK — PRODUCTION ASSESSMENT EDGE FUNCTION 503 FIX
+Source snapshot: GitHub main 9da54d35fbd5fe984c50ee6c447de763160542c8
+
+This ZIP is a FULL PROJECT ROOT, not a patch and not a Git-history-dependent handoff.
+Read /GURODESK_AGENT_RULES.md first and follow it for the entire task.
+
+The production failure being repaired:
+- assessment-question-generator returned repeated HTTP 503 responses to browser OPTIONS preflights.
+- The function source redeclared assessmentContent and metadataContent in the same block scope, preventing the Edge Function from booting correctly.
+
+Actual fixes already present in this uploaded project:
+1. supabase/functions/assessment-question-generator/index.ts
+   - removed the duplicate block-scoped declarations and reuses the earlier verified values.
+2. scripts/check-edge-function-source-contract.cjs
+   - static CI guard for Edge Function parser/declaration-collision failures.
+3. scripts/smoke-edge-function-preflights.mjs
+   - local Supabase Edge Runtime OPTIONS smoke test for every function configured in supabase/config.toml.
+4. package.json
+   - test:ci now runs validate:edge-functions.
+5. .github/workflows/ci.yml
+   - Local Supabase job now smoke-tests configured Edge Function preflights before migration/integration/E2E work.
+
+AI STUDIO INSTRUCTIONS
+- Treat the uploaded files as the authoritative full project root.
+- Do not use git show, git restore, old SHAs, or Git history to reconstruct files.
+- Do not remove unrelated newer work.
+- Do not change assessment contracts, TikZ behavior, scoring, TOS mappings, curriculum manifests, or historical data while applying this hotfix.
+- Inspect the five files listed above and keep the fix surgical.
+- Run npm run validate:edge-functions.
+- Run npm run test:ci.
+- If a local Supabase runtime is available, run the repository's normal local integration flow; the new CI smoke test must report 2xx OPTIONS for assessment-question-generator and the other configured Edge Functions.
+- Do not claim a hosted Edge Function deploy succeeded unless it was actually deployed/verified.
+
+IMPORTANT PRODUCTION FOLLOW-UP
+A frontend/Render deployment alone does NOT repair the currently hosted Supabase function. After the code is manually pushed, ensure production assessment-question-generator is deployed from the same corrected main revision using the project's normal Supabase deployment workflow, then verify its OPTIONS preflight returns 2xx instead of 503.
+
+The user manually pushes to GitHub. Do not attempt GitHub writes from ChatGPT tooling.
