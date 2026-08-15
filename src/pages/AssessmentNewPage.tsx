@@ -387,10 +387,10 @@ export function AssessmentNewPage() {
     () => ({
       totalPoints,
       allowedTypes,
-      visualPolicy,
+      visualPolicy: 'off',
       generationInstructions: generationInstructions.trim(),
     }),
-    [totalPoints, allowedTypes, visualPolicy, generationInstructions]
+    [totalPoints, allowedTypes, generationInstructions]
   )
 
   const setupValidation = useMemo(() => validateAssessmentV2Setup(selectedTos, setup), [selectedTos, setup])
@@ -507,7 +507,9 @@ export function AssessmentNewPage() {
         }
       }
 
-      const visualIds = working.items.filter((item) => item.visualRequirement === 'required').map((item) => item.id)
+      // Assessment diagrams are temporarily disabled for every creation mode.
+      // Keep this stage empty so question generation goes straight to review.
+      const visualIds: string[] = []
       if (visualIds.length) {
         setGeneration({ stage: 'visuals', current: 0, total: visualIds.length, message: 'Creating planned diagrams…' })
         const visualSummary = await enrichAssessmentVisualsSequentially({
@@ -613,7 +615,7 @@ export function AssessmentNewPage() {
           isDemo,
           tosTitle.trim() || undefined,
           tosInstructions.trim(),
-          visualPolicy,
+          'off',
           generationInstructions.trim(),
           allowedTypes
         )
@@ -665,6 +667,7 @@ export function AssessmentNewPage() {
             ...DEFAULT_ASSESSMENT_SETTINGS,
             ...created.settings,
             allowedTypes: quizAllowedTypes,
+            visualPolicy: 'off',
           },
         }
         created = await saveAssessmentDocument(created, isDemo)
@@ -716,6 +719,7 @@ export function AssessmentNewPage() {
             ...DEFAULT_ASSESSMENT_SETTINGS,
             ...created.settings,
             allowedTypes: unitAllowedTypes,
+            visualPolicy: 'off',
           },
         }
         created = await saveAssessmentDocument(created, isDemo)

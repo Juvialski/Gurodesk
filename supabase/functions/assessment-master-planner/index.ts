@@ -7,6 +7,7 @@ import { callGemini, GeminiHttpError, GeminiResponseError, parseGeminiJson } fro
 type Row = Record<string, unknown>
 type CredentialRow = { api_key_ciphertext: string; api_key_iv: string; encryption_key_source: EncryptionKeySource }
 type VisualPolicy = 'off' | 'balanced' | 'more_visuals'
+const ASSESSMENT_VISUALS_ENABLED = false
 type Cpd = 'remembering' | 'understanding' | 'applying' | 'analyzing' | 'evaluating' | 'creating' | 'other'
 type Bucket = {
   id: string
@@ -296,7 +297,9 @@ Deno.serve(async (req) => {
     if (Object.keys(body ?? {}).some((key) => !allowedBodyKeys.has(key))) return json({ error: 'Unsupported master-planner request fields.' }, 400)
     const sourceTosId = clean(body.sourceTosId, 80)
     const totalPoints = integer(body.totalPoints)
-    const visualPolicy: VisualPolicy = body.visualPolicy === 'off' || body.visualPolicy === 'more_visuals' ? body.visualPolicy : 'balanced'
+    const visualPolicy: VisualPolicy = ASSESSMENT_VISUALS_ENABLED
+      ? (body.visualPolicy === 'off' || body.visualPolicy === 'more_visuals' ? body.visualPolicy : 'balanced')
+      : 'off'
     if (!UUID.test(sourceTosId) || !Number.isSafeInteger(totalPoints) || totalPoints < 1 || totalPoints > 1000) return json({ error: 'A finalized TOS and supported total point value are required.' }, 400)
     const allowedTypes = Array.isArray(body.allowedTypes) ? [...new Set(body.allowedTypes.filter((type): type is AssessmentQuestionType => QUESTION_TYPES.has(String(type))))] : []
     if (!allowedTypes.length) return json({ error: 'Select at least one supported question type.' }, 400)

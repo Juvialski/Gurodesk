@@ -18,6 +18,7 @@ type PreferenceRow = { language_preference?: string; local_language_name?: strin
 
 const QUESTION_TYPES = new Set<QuestionType>(['multiple_choice', 'true_false', 'short_answer', 'constructed_response', 'identification', 'fill_in_the_blank', 'numerical_answer', 'problem_solving', 'matching', 'multiple_select', 'essay'])
 const LANGUAGE_OPTIONS = new Set(['Auto', 'English', 'Filipino', 'English + Filipino', 'Mother tongue / local language'])
+const ASSESSMENT_VISUALS_ENABLED = false
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 function json(body: unknown, status = 200) { return new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }) }
@@ -401,6 +402,7 @@ function answerLeakCorrectionGuidance(error: unknown, candidate: Row | null, que
 }
 
 function enforceGeneratedVisualPlan(candidate: Row, plannedVisual: { requirement: string; intent: string }, isV2: boolean) {
+  if (!ASSESSMENT_VISUALS_ENABLED) return { ...candidate, visualRequirement: 'none', visualIntent: '' }
   if (plannedVisual.requirement === 'required') {
     if (clean(candidate.visualRequirement, 20) !== 'required' || !clean(candidate.visualIntent, 500) || !promptDependsOnVisual(candidate.prompt)) {
       throw new AssessmentContractError('The generated visual question was still answerable without its required diagram. Regenerate the item so the diagram supplies essential problem data.', 'VISUAL_INVALID')
@@ -652,6 +654,10 @@ Deno.serve(async (req) => {
     auditPayload = { userId, assessmentId, itemId, questionType: serverType, alternative: body.alternative === true, model: settings.preferredModel, fallbackUsed: false, outcome: 'error' }
     let responseModel: AiModelId = settings.preferredModel; let fallbackUsed = false
     if (operation === 'visual') {
+      if (!ASSESSMENT_VISUALS_ENABLED) {
+        auditPayload.model = responseModel; auditPayload.outcome = 'success'; await audit(admin, auditPayload)
+        return json({ assessmentId, itemId, questionType: serverType, visual: null, model: responseModel, fallbackUsed: false, providerRequestCount: 0, visualsDisabled: true })
+      }
       candidateValidationStarted = true
       const approved = validateCandidate(body.candidate, serverType, resources, false, immutable)
       if (clean(approved.prompt) !== clean(item.prompt) || stableJson(approved.answer) !== stableJson(savedAnswerForVisual(item.answer))) {
@@ -828,7 +834,7 @@ Deno.serve(async (req) => {
     if (operation === 'repair') { candidateValidationStarted = true; const current = validateCandidate(body.candidate, serverType, resources, false, immutable); const repairSettings = { ...settings, preferredModel: isLiteModel(settings.preferredModel) ? settings.preferredModel : DEFAULT_MODEL, fallbackModel: isLiteModel(settings.preferredModel) && settings.preferredModel !== DEFAULT_MODEL ? DEFAULT_MODEL : DEFAULT_FALLBACK_MODEL }; const output = await callWithLiteFallback(apiKey, repairSettings, buildRepairPrompt(serverType, immutable, current, list(body.issues, 8, 500), list(body.repairGuidance, 8, 700)), serverType); responseModel = output.modelUsed; fallbackUsed = output.fallbackUsed; providerRequestCount = output.providerRequestCount; candidate = validateCandidate(canonicalQuestionProviderEnvelope(parseJson(output.output)), serverType, resources, true, immutable) }
     else {
       const teacherContext = clean(body.teacherContext, 1200)
-      const plannedVisual = savedVisualPlan(item.answer)
+      const plannedVisual = ASSESSMENT_VISUALS_ENABLED ? savedVisualPlan(item.answer) : { requirement: 'none', intent: '' }
       candidateValidationStarted = true
       const generated = await generateValidatedQuestionCandidate(apiKey, settings, buildGenerationPrompt(serverType, immutable, language, teacherContext, resources, plannedVisual), serverType, resources, immutable, plannedVisual, isV2)
       responseModel = generated.modelUsed; fallbackUsed = generated.fallbackUsed; providerRequestCount = generated.providerRequestCount

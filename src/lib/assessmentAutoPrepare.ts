@@ -11,6 +11,28 @@ function replaceItem(record: AssessmentRecord, replacement: AssessmentItem): Ass
   return { ...record, items: record.items.map((item) => item.id === replacement.id ? replacement : item) }
 }
 
+function withoutAssessmentVisual(item: AssessmentItem): AssessmentItem {
+  return {
+    ...item,
+    visual: undefined,
+    visualRequirement: 'none',
+    visualIntent: '',
+    visualStatus: 'not_required',
+    visualAttempts: 0,
+    visualError: undefined,
+    visualSourceHash: undefined,
+    visualUpdatedAt: undefined,
+  }
+}
+
+function withoutAssessmentVisuals(record: AssessmentRecord): AssessmentRecord {
+  return {
+    ...record,
+    settings: { ...(record.settings ?? {}), visualPolicy: 'off' },
+    items: record.items.map(withoutAssessmentVisual),
+  }
+}
+
 function providerBoundary(error: unknown) {
   const category = String((error as { failureCategory?: unknown })?.failureCategory ?? '')
   if (['provider_configuration', 'provider_authentication', 'provider_quota', 'provider_rate_limit', 'unknown_provider_failure'].includes(category)) return true
@@ -124,6 +146,8 @@ export async function autoPrepareAssessmentPaper(args: {
   generateItem?: typeof generateAssessmentItemSuggestion
   generateVisual?: typeof generateAssessmentVisualSuggestion
   enrichVisuals?: typeof enrichAssessmentVisualsSequentially
+  /** Temporary release switch: keep the paper entirely text-only. */
+  disableVisuals?: boolean
 }): Promise<AssessmentAutoPrepareResult> {
   const maxRounds = Math.max(1, Math.min(3, Math.floor(args.maxRounds ?? 3)))
   const generateMissing = args.generateMissing ?? generateMissingAssessmentItems
@@ -133,8 +157,12 @@ export async function autoPrepareAssessmentPaper(args: {
   // Resolve the whole paper before the first pass. This persists optional
   // candidates that are intentionally skipped as none/not_required, while
   // required prompts and existing teacher visuals remain untouched.
-  const initialVisualBalance = resolveAssessmentVisualPlans(args.assessment.items, { learningArea: args.assessment.learningArea, visualPolicy: args.assessment.settings?.visualPolicy })
-  let working: AssessmentRecord = { ...args.assessment, items: initialVisualBalance.items }
+  const initialVisualBalance = args.disableVisuals
+    ? null
+    : resolveAssessmentVisualPlans(args.assessment.items, { learningArea: args.assessment.learningArea, visualPolicy: args.assessment.settings?.visualPolicy })
+  let working: AssessmentRecord = args.disableVisuals
+    ? withoutAssessmentVisuals(args.assessment)
+    : { ...args.assessment, items: initialVisualBalance!.items }
   let generated = 0
   let regenerated = 0
   let providerPaused = false
@@ -176,28 +204,34 @@ export async function autoPrepareAssessmentPaper(args: {
       if (providerPaused || args.signal?.aborted) break
     }
 
-    const visualBalance = resolveAssessmentVisualPlans(working.items, { learningArea: working.learningArea, visualPolicy: working.settings?.visualPolicy })
-    working = { ...working, items: visualBalance.items }
-    await args.onCheckpoint?.(working)
-    const visualIds = new Set([...visualBalance.requiredItemIds, ...visualBalance.optionalItemIds])
-    const visualCandidates = working.items.filter((item) => visualIds.has(item.id) && !item.locked && item.qaState !== 'locked' && assessmentVisualPlanForItem(item).eligible)
-    if (visualCandidates.length) {
-      args.onProgress?.({ phase: 'visual', round, message: `Enriching ${visualCandidates.length} diagram${visualCandidates.length === 1 ? '' : 's'} sequentially.` })
-      const visualSummary = await enrichVisuals({
-        assessment: working,
-        demo: args.demo,
-        itemIds: visualCandidates.map((item) => item.id),
-        signal: args.signal,
-        generate: generateVisual,
-        onItem: (item, outcome) => {
-          working = replaceItem(working, item)
-          args.onProgress?.({ phase: 'visual', round, itemId: item.id, itemNumber: item.itemNumber, message: outcome.status === 'success' ? `Added the visual for Item ${item.itemNumber}.` : `Item ${item.itemNumber} kept its question; visual enrichment needs review.` })
-        },
-      })
+    if (args.disableVisuals) {
+      // Temporary text-only mode: do not schedule, retry, or persist diagrams.
+      working = withoutAssessmentVisuals(working)
       await args.onCheckpoint?.(working)
-      if (visualSummary.providerPaused || args.signal?.aborted) {
-        providerPaused = true
-        break
+    } else {
+      const visualBalance = resolveAssessmentVisualPlans(working.items, { learningArea: working.learningArea, visualPolicy: working.settings?.visualPolicy })
+      working = { ...working, items: visualBalance.items }
+      await args.onCheckpoint?.(working)
+      const visualIds = new Set([...visualBalance.requiredItemIds, ...visualBalance.optionalItemIds])
+      const visualCandidates = working.items.filter((item) => visualIds.has(item.id) && !item.locked && item.qaState !== 'locked' && assessmentVisualPlanForItem(item).eligible)
+      if (visualCandidates.length) {
+        args.onProgress?.({ phase: 'visual', round, message: `Enriching ${visualCandidates.length} diagram${visualCandidates.length === 1 ? '' : 's'} sequentially.` })
+        const visualSummary = await enrichVisuals({
+          assessment: working,
+          demo: args.demo,
+          itemIds: visualCandidates.map((item) => item.id),
+          signal: args.signal,
+          generate: generateVisual,
+          onItem: (item, outcome) => {
+            working = replaceItem(working, item)
+            args.onProgress?.({ phase: 'visual', round, itemId: item.id, itemNumber: item.itemNumber, message: outcome.status === 'success' ? `Added the visual for Item ${item.itemNumber}.` : `Item ${item.itemNumber} kept its question; visual enrichment needs review.` })
+          },
+        })
+        await args.onCheckpoint?.(working)
+        if (visualSummary.providerPaused || args.signal?.aborted) {
+          providerPaused = true
+          break
+        }
       }
     }
 
@@ -239,10 +273,15 @@ export async function autoPrepareAssessmentPaper(args: {
       if (args.signal?.aborted) break
       const current = working.items.find((item) => item.id === itemId)
       if (!current) continue
-      const repairContext = blockerRepairContext(working, itemId, args.teacherContext ?? working.instructions, round)
+      const visualIssues = visualOnlyBlockerIssues(blockers.review, itemId)
+      const repairContext = [
+        blockerRepairContext(working, itemId, args.teacherContext ?? working.instructions, round),
+        ...(args.disableVisuals && visualIssues.length
+          ? ['TEMPORARY TEXT-ONLY MODE: Diagrams are disabled. Rewrite this item as a fully self-contained text question. Remove every dependency on a diagram, figure, graph, or visual while preserving the fixed competency, cognitive category, question type, and points.']
+          : []),
+      ].join('\n').slice(0, 1200)
       try {
-        const visualIssues = visualOnlyBlockerIssues(blockers.review, itemId)
-        if (visualIssues.length) {
+        if (visualIssues.length && !args.disableVisuals) {
           if (visualRepairAttempted.has(itemId)) {
             const message = 'Dedicated visual repair already reached its one automatic retry limit; the question was preserved unchanged.'
             for (let index = repairFailures.length - 1; index >= 0; index -= 1) if (repairFailures[index].itemId === itemId) repairFailures.splice(index, 1)
