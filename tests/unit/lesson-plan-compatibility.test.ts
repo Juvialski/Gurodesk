@@ -126,6 +126,17 @@ describe('lesson plan schema v2 compatibility', () => {
     expect(blank.alignmentPurpose).toBe('regular')
     expect(blank.curriculumAlignments).toEqual([])
     expect(blank.primaryCompetencyId).toBeNull()
+    expect(blank.lessonPlanFormat).toBe('ilaw')
+  })
+
+  it('requires four sessions when a lesson is explicitly configured as a Daily Lesson Log', () => {
+    const content = readyContent()
+    content.lessonPlanFormat = 'daily_lesson_log'
+    content.numberOfSessions = 1
+    expect(validateLessonPlan(content).items.find((item) => item.key === 'daily-lesson-log-sessions')?.passed).toBe(false)
+
+    content.numberOfSessions = 4
+    expect(validateLessonPlan(content).items.find((item) => item.key === 'daily-lesson-log-sessions')?.passed).toBe(true)
   })
 
   it('adapts a v1 lesson without mutating it or losing its competency snapshot', () => {

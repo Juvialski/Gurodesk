@@ -36,44 +36,47 @@ function LessonPlanMultiSessionView({ multi }: { multi: LessonPlanMultiSessionEx
       <table className="print-meta-table lesson-multisession-meta">
         <tbody>
           <tr>
-            <th>Name of Lesson / Pangalan ng Aralin</th>
+            <th>{multi.multiLabels.lessonName}</th>
             <td>{multi.lesson.title}</td>
           </tr>
           <tr>
-            <th>Learning Area / Asignatura</th>
+            <th>{multi.multiLabels.learningArea}</th>
             <td>{multi.lesson.learningArea}</td>
           </tr>
           <tr>
-            <th>Term / Week</th>
+            <th>{multi.multiLabels.termWeek}</th>
             <td>{multi.lesson.gradingTerm} | {multi.lesson.weekLabel}</td>
           </tr>
           <tr>
-            <th>Grade Level & Section</th>
+            <th>{multi.multiLabels.gradeSection}</th>
             <td>{gradeAndSection}</td>
           </tr>
           <tr>
-            <th>Teacher / Guro</th>
+            <th>{multi.multiLabels.teacher}</th>
             <td>{multi.identity.teacherName}</td>
           </tr>
           <tr>
-            <th>No. of Sessions / Tagal</th>
+            <th>{multi.multiLabels.sessionsDuration}</th>
             <td>{sessionSummary}</td>
           </tr>
+          <tr><th>{multi.labels.schoolYear}</th><td>{multi.lesson.schoolYear === 'Not specified' ? '' : multi.lesson.schoolYear}</td></tr>
+          <tr><th>{multi.labels.date}</th><td>{multi.lesson.lessonDate === 'Not specified' ? '' : multi.lesson.lessonDate}</td></tr>
+          <tr><th>{multi.labels.curriculumPeriod}</th><td>{multi.lesson.curriculumPeriod === 'Not specified' ? '' : multi.lesson.curriculumPeriod}</td></tr>
           <tr>
-            <th>References / Sanggunian</th>
+            <th>{multi.multiLabels.references}</th>
             <td>
               <div className="print-preserve-lines">
-                <strong>A. References:</strong>
-                {multi.referencesDetail.officialReferences.map((r, i) => <div key={i}>• {r}</div>)}
-                <strong style={{ marginTop: '4px', display: 'block' }}>B. Other Learning Sources:</strong>
-                {multi.referencesDetail.otherLearningSources.map((r, i) => <div key={i}>{r}</div>)}
-                <strong style={{ marginTop: '4px', display: 'block' }}>C. Low-Tech Alternatives:</strong>
-                {multi.referencesDetail.lowTechAlternatives.map((r, i) => <div key={i}>{r}</div>)}
+                <strong>A. {multi.multiLabels.officialReferences}:</strong>
+                {multi.referencesDetail.officialReferences.length ? multi.referencesDetail.officialReferences.map((r, i) => <div key={i}>• {r}</div>) : <div>{multi.multiLabels.noEntry}</div>}
+                <strong style={{ marginTop: '4px', display: 'block' }}>B. {multi.multiLabels.otherSources}:</strong>
+                {multi.referencesDetail.otherLearningSources.length ? multi.referencesDetail.otherLearningSources.map((r, i) => <div key={i}>{r}</div>) : <div>{multi.multiLabels.noEntry}</div>}
+                <strong style={{ marginTop: '4px', display: 'block' }}>C. {multi.multiLabels.lowTechAlternatives}:</strong>
+                {multi.referencesDetail.lowTechAlternatives.length ? multi.referencesDetail.lowTechAlternatives.map((r, i) => <div key={i}>{r}</div>) : <div>{multi.multiLabels.noEntry}</div>}
               </div>
             </td>
           </tr>
           <tr>
-            <th>Declaration of AI use</th>
+            <th>{multi.multiLabels.aiDeclaration}</th>
             <td><em className="print-preserve-lines">{multi.aiDeclarationStatement}</em></td>
           </tr>
         </tbody>
@@ -81,13 +84,13 @@ function LessonPlanMultiSessionView({ multi }: { multi: LessonPlanMultiSessionEx
 
       {/* 5-Column Multi-Session Grid Table */}
       <div className="print-section-heading" style={{ marginTop: '16px' }}>
-        <strong>ILAW FOUR-SESSION PEDAGOGICAL MATRIX (DepEd Order No. 016, s. 2026)</strong>
+        <strong>{multi.multiLabels.matrixHeading}</strong>
       </div>
       <div className="lesson-multisession-table-wrap">
         <table className="lesson-multisession-grid-table">
           <thead>
             <tr>
-              <th style={{ width: '24%' }}>Dimensions & Guide Questions</th>
+              <th style={{ width: '24%' }}>{multi.multiLabels.dimensionsGuide}</th>
               {multi.sessionHeaders.map((h, idx) => (
                 <th key={idx} style={{ width: '19%' }}>{h}</th>
               ))}
@@ -107,7 +110,7 @@ function LessonPlanMultiSessionView({ multi }: { multi: LessonPlanMultiSessionEx
                 ) : (
                   row.sessions.map((sText, sIdx) => (
                     <td key={sIdx} className="session-col">
-                      <div className="print-preserve-lines">{sText || '—'}</div>
+                      <div className="print-preserve-lines">{sText || multi.multiLabels.noEntry}</div>
                     </td>
                   ))
                 )}
@@ -119,15 +122,15 @@ function LessonPlanMultiSessionView({ multi }: { multi: LessonPlanMultiSessionEx
 
       {/* Self-Check Rubric Table */}
       <div className="print-section-heading" style={{ marginTop: '20px' }}>
-        <strong>RUBRIC FOR LESSON PLANNING SELF-CHECK AND/OR PEER COACHING</strong>
+        <strong>{multi.multiLabels.rubricHeading}</strong>
       </div>
       <table className="lesson-rubric-table">
         <thead>
           <tr>
-            <th style={{ width: '55%' }}>I can say that in my lesson plan...</th>
-            <th style={{ width: '10%', textAlign: 'center' }}>Yes</th>
-            <th style={{ width: '10%', textAlign: 'center' }}>Not Yet</th>
-            <th style={{ width: '25%' }}>Why? / What will make it better?</th>
+            <th style={{ width: '55%' }}>{multi.multiLabels.rubricCriterion}</th>
+            <th style={{ width: '10%', textAlign: 'center' }}>{multi.multiLabels.yes}</th>
+            <th style={{ width: '10%', textAlign: 'center' }}>{multi.multiLabels.notYet}</th>
+            <th style={{ width: '25%' }}>{multi.multiLabels.improvement}</th>
           </tr>
         </thead>
         <tbody>
@@ -144,11 +147,11 @@ function LessonPlanMultiSessionView({ multi }: { multi: LessonPlanMultiSessionEx
 
       {/* Instructional Coaching Box */}
       <div className="print-section-heading" style={{ marginTop: '16px' }}>
-        <strong>NOTES FOR INSTRUCTIONAL COACHING SESSION</strong>
+        <strong>{multi.multiLabels.coachingHeading}</strong>
       </div>
       <div className="lesson-coaching-box">
-        <p>{multi.coachingNotes}</p>
-        <p className="coaching-placeholder">Observations / Next Coaching Steps: ____________________________________________________________________________________</p>
+        {multi.coachingNotes && <p>{multi.coachingNotes}</p>}
+        <p className="coaching-placeholder">{multi.multiLabels.coachingPlaceholder} ____________________________________________________________________________________</p>
       </div>
 
       {/* Signatories */}
@@ -169,14 +172,14 @@ function LessonPlanMultiSessionView({ multi }: { multi: LessonPlanMultiSessionEx
 
       {/* Clean Footer */}
       <footer className="lesson-multisession-footer">
-        <small>Prepared with GuroDesk · Philippine Public School Teacher Workspace | DepEd Order No. 016, s. 2026 Compliant · Teacher-Authored Learning Plan</small>
+        <small>{multi.multiLabels.footer}</small>
       </footer>
     </article>
   )
 }
 
 export function LessonPlanDocumentView({ model }: { model: LessonPlanExportModel }) {
-  if (model.templateLabel === 'ILAW Multi-Session Log' && model.multiSession) {
+  if (model.templateLabel === 'Daily Lesson Log' && model.multiSession) {
     return <LessonPlanMultiSessionView multi={model.multiSession} />
   }
 

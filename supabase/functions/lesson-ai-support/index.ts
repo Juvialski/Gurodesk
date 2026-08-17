@@ -56,6 +56,7 @@ type RequestBody = {
     gradingTermLabel?: string
     durationMinutes?: number
     numberOfSessions?: number
+    lessonPlanFormat?: 'ilaw' | 'daily_lesson_log'
     learnerContext?: string
     currentFormativeAssessment?: string
     teachingSetup?: {
@@ -476,6 +477,7 @@ function contextText(body: RequestBody) {
     ctx.teacherIntent ? `Current teacher-selected objectives/intention: ${ctx.teacherIntent}` : '',
     ctx.durationMinutes ? `Minutes per session: ${ctx.durationMinutes}` : '',
     ctx.numberOfSessions ? `Number of sessions: ${ctx.numberOfSessions}` : '',
+    ctx.lessonPlanFormat === 'daily_lesson_log' ? 'Lesson-plan format: Daily Lesson Log (four-session grid). Use explicit Session 1, Session 2, Session 3, and Session 4 markers when organizing session-specific suggestions.' : '',
     ctx.learnerContext ? `Teacher-provided class-level context: ${ctx.learnerContext}` : '',
     setup.languagePreference ? `Teacher language preference: ${setup.languagePreference}` : '',
     setup.localLanguageName ? `Teacher-specified local language: ${setup.localLanguageName}` : '',

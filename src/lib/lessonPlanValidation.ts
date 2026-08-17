@@ -26,6 +26,12 @@ export function validateLessonPlan(content: LessonPlanContent): LessonPlanValida
     && (content.alignmentPurpose !== 'other' || hasText(content.alignmentNote, 4))
   const items = [
     {
+      key: 'daily-lesson-log-sessions',
+      label: 'Daily Lesson Log uses four sessions',
+      passed: content.lessonPlanFormat !== 'daily_lesson_log' || content.numberOfSessions === 4,
+      detail: 'The Daily Lesson Log grid is a four-session format. Switch to ILAW for another session count, or set the DLL to four sessions.',
+    },
+    {
       key: 'lesson-focus',
       label: 'Lesson topic or focus is clear',
       passed: hasText(content.lessonFocus, 3),

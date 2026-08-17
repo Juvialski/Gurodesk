@@ -17,6 +17,25 @@ export type AiSupportType = AiRevisionSupportType | AiSuggestionSupportType
 
 export type LessonPlanStatus = 'draft' | 'final' | 'archived'
 
+export type LessonPlanFormat = 'ilaw' | 'daily_lesson_log'
+
+export const LESSON_PLAN_FORMAT_OPTIONS: Array<{
+  value: LessonPlanFormat
+  label: string
+  description: string
+}> = [
+  {
+    value: 'ilaw',
+    label: 'ILAW Lesson Plan',
+    description: 'Flexible Intentions, Learning Experience, Assessing Learning, and Ways Forward planning.',
+  },
+  {
+    value: 'daily_lesson_log',
+    label: 'Daily Lesson Log (DLL)',
+    description: 'Four-session weekly grid with session-by-session planning and reflection.',
+  },
+]
+
 export type LessonPlanAiDeclaration = {
   used: boolean
   categories: Array<'limited' | 'guided' | 'suggested'>
@@ -125,6 +144,8 @@ export type LegacyLessonPlanContentV1 = Omit<
 
 export type LessonPlanContent = Omit<LessonPlanContentBase, 'schemaVersion'> & {
   schemaVersion: 2
+  /** Persisted per-plan format choice; omitted legacy records normalize to ILAW. */
+  lessonPlanFormat?: LessonPlanFormat
   lessonFocus: string
   lessonFocusSource: 'teacher' | 'curriculum_derived'
   lessonFocusSourceId: string | null
@@ -201,6 +222,7 @@ export type LessonAiSupportRequest = {
     gradingTermLabel?: string
     durationMinutes?: number
     numberOfSessions?: number
+    lessonPlanFormat?: LessonPlanFormat
     learnerContext?: string
     currentFormativeAssessment?: string
     teachingSetup?: LessonAiTeachingSetup

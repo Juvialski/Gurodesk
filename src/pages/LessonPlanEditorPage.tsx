@@ -21,7 +21,7 @@ import {
   saveLessonPlan,
 } from '../lib/repository'
 import type { CurriculumNavigatorBundle, SchoolYearCalendar } from '../types/curriculum'
-import type { AiSupportType, LessonAiSupportResponse, LessonPlanContent, LessonPlanRecord, LessonQuickDraft } from '../types/lessonPlan'
+import { LESSON_PLAN_FORMAT_OPTIONS, type AiSupportType, type LessonAiSupportResponse, type LessonPlanContent, type LessonPlanFormat, type LessonPlanRecord, type LessonQuickDraft } from '../types/lessonPlan'
 import { createDefaultTeacherLessonPreferences, LESSON_LANGUAGE_OPTIONS, type TeacherLessonPreferences } from '../types/teachingSetup'
 import type { TeacherAssignment } from '../types/app'
 import '../workflows.css'
@@ -171,6 +171,7 @@ type LessonSimpleFlowProps = {
   onUpdateContent: (mutator: (content: LessonPlanContent) => void) => void
   onAssignmentChange: (id: string) => void
   onSelectPeriod: (label: string) => void
+  onLessonPlanFormatChange: (value: LessonPlanFormat) => void
   onTopicChange: (value: string) => void
   onTopicSuggestion: (id: string, label: string) => void
   onToggleCompetency: (id: string) => void
@@ -203,6 +204,7 @@ function LessonSimpleFlow({
   onUpdateContent,
   onAssignmentChange,
   onSelectPeriod,
+  onLessonPlanFormatChange,
   onTopicChange,
   onTopicSuggestion,
   onToggleCompetency,
@@ -234,6 +236,7 @@ function LessonSimpleFlow({
         <div className="workflow-chip-group"><span className="workflow-field-label">Curriculum-guide period</span><div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.curriculumPeriodLabel === period.label} className={`workflow-chip ${plan.content.curriculumPeriodLabel === period.label ? 'selected' : ''}`} onClick={() => onSelectPeriod(period.label)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div></div>
         <div className="workflow-chip-group"><span className="workflow-field-label">School grading term</span><div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.gradingTermLabel === period.label} className={`workflow-chip ${plan.content.gradingTermLabel === period.label ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">Loading grading terms…</span>}</div></div>
         <div className="workflow-chip-group"><span className="workflow-field-label">Lesson length</span><div className="workflow-chip-row">{[45, 60, 90].map((minutes) => <button type="button" key={minutes} aria-pressed={plan.content.durationMinutes === minutes} className={`workflow-chip ${plan.content.durationMinutes === minutes ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.durationMinutes = minutes })}>{minutes} min</button>)}</div></div>
+        <div className="workflow-chip-group"><span className="workflow-field-label">Lesson plan type</span><div className="workflow-chip-row workflow-format-chips">{LESSON_PLAN_FORMAT_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={(plan.content.lessonPlanFormat ?? 'ilaw') === item.value} className={`workflow-chip ${((plan.content.lessonPlanFormat ?? 'ilaw') === item.value) ? 'selected' : ''}`} title={item.description} onClick={() => onLessonPlanFormatChange(item.value)}>{item.label}</button>)}</div></div>
         <div className="workflow-chip-group"><span className="workflow-field-label">Lesson language</span><div className="workflow-chip-row workflow-language-chips">{LESSON_LANGUAGE_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={simpleLanguage === item.value} className={`workflow-chip ${simpleLanguage === item.value ? 'selected' : ''}`} onClick={() => onLanguageChange(item.value)}>{item.label}</button>)}</div></div>
       </div>
 
@@ -674,6 +677,7 @@ export function LessonPlanEditorPage() {
     gradingTermLabel: plan.content.gradingTermLabel,
     durationMinutes: plan.content.durationMinutes,
     numberOfSessions: plan.content.numberOfSessions,
+    lessonPlanFormat: plan.content.lessonPlanFormat ?? 'ilaw',
     learnerContext: plan.content.learnerContext || preferences.typicalClassProfile,
     currentFormativeAssessment: plan.content.assessingLearning.formativeAssessments,
     teachingSetup: {
@@ -721,6 +725,10 @@ export function LessonPlanEditorPage() {
         onUpdateContent={updateContent}
         onAssignmentChange={changeAssignment}
         onSelectPeriod={selectCurriculumPeriod}
+        onLessonPlanFormatChange={(value) => updateContent((content) => {
+          content.lessonPlanFormat = value
+          if (value === 'daily_lesson_log') content.numberOfSessions = 4
+        })}
         onTopicChange={changeLessonFocus}
         onTopicSuggestion={useTopicSuggestion}
         onToggleCompetency={toggleCompetency}
@@ -761,7 +769,8 @@ export function LessonPlanEditorPage() {
               <label>School grading term<select value={plan.content.gradingTermLabel} onChange={(event) => updateContent((c) => { c.gradingTermLabel = event.target.value })}>{calendar?.periods.map((item) => <option key={item.id}>{item.label}</option>)}</select></label>
               <label>Lesson date<input type="date" value={plan.content.lessonDate} onChange={(event) => updateContent((c) => { c.lessonDate = event.target.value })} /></label>
               <label>Week / schedule<input value={plan.content.weekLabel} onChange={(event) => updateContent((c) => { c.weekLabel = event.target.value })} placeholder="e.g. Week 3" /></label>
-              <label>No. of sessions<input type="number" min="1" max="20" value={plan.content.numberOfSessions} onChange={(event) => updateContent((c) => { c.numberOfSessions = Math.max(1, Number(event.target.value) || 1) })} /></label>
+              <label>Lesson plan type<select value={plan.content.lessonPlanFormat ?? 'ilaw'} onChange={(event) => updateContent((c) => { const value = event.target.value as LessonPlanFormat; c.lessonPlanFormat = value; if (value === 'daily_lesson_log') c.numberOfSessions = 4 })}>{LESSON_PLAN_FORMAT_OPTIONS.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
+              <label>No. of sessions<input type="number" min="1" max="20" disabled={plan.content.lessonPlanFormat === 'daily_lesson_log'} value={plan.content.numberOfSessions} onChange={(event) => updateContent((c) => { c.numberOfSessions = Math.max(1, Number(event.target.value) || 1) })} />{plan.content.lessonPlanFormat === 'daily_lesson_log' && <small className="field-help">Daily Lesson Log uses four sessions.</small>}</label>
               <label>Minutes per session<input type="number" min="10" max="300" value={plan.content.durationMinutes} onChange={(event) => updateContent((c) => { c.durationMinutes = Math.max(10, Number(event.target.value) || 60) })} /></label>
               <label>Lesson language<select value={plan.content.lessonLanguage} onChange={(event) => updateContent((c) => { c.lessonLanguage = event.target.value })}>{LESSON_LANGUAGE_OPTIONS.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
             </div>

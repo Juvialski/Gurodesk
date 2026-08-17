@@ -20,11 +20,14 @@ import type { TeacherLessonPreferences } from '../types/teachingSetup'
 import type {
   ExportPaperSize,
   LessonPlanExportModel,
+  LessonPlanMultiSessionLabels,
   LessonPlanMultiSessionExportModel,
   MultiSessionGridRow,
   SelfCheckRubricItem,
   TeacherExportPreferences,
+  ExportTemplateId,
 } from '../types/export'
+import { validateLessonPlan } from './lessonPlanValidation'
 
 const TEXT = '000000'
 const MUTED = '444444'
@@ -158,6 +161,56 @@ const FILIPINO_FIELD_LABELS = {
   alignmentNote: 'Tala sa pagkakahanay',
 } as const
 
+const ENGLISH_MULTI_LABELS: LessonPlanMultiSessionLabels = {
+  lessonName: 'Name of Lesson',
+  learningArea: 'Learning Area',
+  termWeek: 'Term / Week',
+  gradeSection: 'Grade Level & Section',
+  teacher: 'Teacher',
+  sessionsDuration: 'No. of Sessions / Duration',
+  references: 'References',
+  officialReferences: 'Official / curriculum references',
+  otherSources: 'Other learning sources',
+  lowTechAlternatives: 'Low-tech alternatives',
+  aiDeclaration: 'Declaration of AI use',
+  matrixHeading: 'DAILY LESSON LOG · FOUR-SESSION PEDAGOGICAL MATRIX',
+  dimensionsGuide: 'Dimensions & Guide Questions',
+  rubricHeading: 'RUBRIC FOR LESSON PLANNING SELF-CHECK AND/OR PEER COACHING',
+  rubricCriterion: 'I can say that in my lesson plan...',
+  yes: 'Yes',
+  notYet: 'Not Yet',
+  improvement: 'Why? / What will make it better?',
+  coachingHeading: 'NOTES FOR INSTRUCTIONAL COACHING SESSION',
+  coachingPlaceholder: 'Observations / Next Coaching Steps:',
+  footer: 'Prepared with GuroDesk · Teacher-Authored Daily Lesson Log',
+  noEntry: '—',
+}
+
+const FILIPINO_MULTI_LABELS: LessonPlanMultiSessionLabels = {
+  lessonName: 'Pangalan ng Aralin',
+  learningArea: 'Larangan ng Pagkatuto',
+  termWeek: 'Termino / Linggo',
+  gradeSection: 'Baitang / Seksyon',
+  teacher: 'Guro',
+  sessionsDuration: 'Bilang ng Sesyon / Tagal',
+  references: 'Mga Sanggunian',
+  officialReferences: 'Opisyal / sanggunian sa kurikulum',
+  otherSources: 'Iba pang sanggunian sa pagkatuto',
+  lowTechAlternatives: 'Mga alternatibong gamit na mababa ang teknolohiya',
+  aiDeclaration: 'Deklarasyon sa Paggamit ng AI',
+  matrixHeading: 'TALAARAWANG TALA NG ARALIN · APAT-SESYONG TALAHANAYAN NG PAGKATUTO',
+  dimensionsGuide: 'Mga Dimensyon at Gabay na Tanong',
+  rubricHeading: 'RUBRIK PARA SA SARILING PAGSUSURI AT/O PAGGABAY NG KASAMAHANG GURO',
+  rubricCriterion: 'Masasabi ko na sa aking banghay-aralin...',
+  yes: 'Oo',
+  notYet: 'Hindi pa',
+  improvement: 'Bakit? / Ano ang magpapahusay dito?',
+  coachingHeading: 'MGA TALA PARA SA SESYON NG PAGGABAY SA PAGTUTURO',
+  coachingPlaceholder: 'Mga Obserbasyon / Susunod na Hakbang:',
+  footer: 'Inihanda gamit ang GuroDesk · Talaan ng Araling Isinulat ng Guro',
+  noEntry: '—',
+}
+
 function looksFilipino(text: string) {
   const normalized = ` ${text.toLowerCase().replace(/[^a-záéíóúñ\s-]/g, ' ')} `
   const markers = [' ang ', ' mga ', ' ng ', ' sa ', ' ay ', ' upang ', ' mag-aaral', ' aralin', ' gawain', ' pagkatuto', ' natutukoy', ' naipapaliwanag', ' nakagagawa']
@@ -234,14 +287,14 @@ function competencyAndStandards(plan: LessonPlanRecord, language: 'english' | 'f
   return lines.join('\n')
 }
 
-function splitIntoFourSessions(rawText: string, fallbackTheme = ''): string[] {
+function splitIntoFourSessions(rawText: string): string[] {
   const text = clean(rawText)
   if (!text) return ['', '', '', '']
 
   // Check for explicit session markers like "Session 1:", "Day 1:", "Sesyon 1:", "Unang Sesyon:"
   const sessionPattern = /(?:^|\n)(?:Session|Day|Sesyon)\s*([1-4])[:.\-\s]|(?:^|\n)(?:Unang|Ikalawang|Ikatlong|Ikaapat na)\s+Sesyon[:.\-\s]/gi
   const matches = [...text.matchAll(sessionPattern)]
-  if (matches.length >= 2) {
+  if (matches.length >= 1) {
     const slots = ['', '', '', '']
     for (let i = 0; i < matches.length; i++) {
       const match = matches[i]
@@ -270,9 +323,9 @@ function splitIntoFourSessions(rawText: string, fallbackTheme = ''): string[] {
   // Check for numbered steps (1., 2., 3., 4.)
   const numberedPattern = /(?:^|\n)(\d+)\.\s+/g
   const numMatches = [...text.matchAll(numberedPattern)]
-  if (numMatches.length >= 4) {
+  if (numMatches.length >= 1) {
     const slots = ['', '', '', '']
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < Math.min(4, numMatches.length); i++) {
       const start = numMatches[i].index! + numMatches[i][0].length
       const end = (i + 1 < numMatches.length) ? numMatches[i + 1].index! : text.length
       slots[i] = text.slice(start, end).trim()
@@ -293,29 +346,33 @@ function splitIntoFourSessions(rawText: string, fallbackTheme = ''): string[] {
     ]
   }
 
-  // Unified fallback: deliver clear progression across sessions
-  if (fallbackTheme) {
-    return [
-      `Session 1 · Foundation & Discovery:\n${text}`,
-      `Session 2 · Guided Exploration & Practice:\n${text}`,
-      `Session 3 · Independent Application & Problem Solving:\n${text}`,
-      `Session 4 · Synthesis, Evaluation & Reflection:\n${text}`,
-    ]
-  }
-
-  return [text, text, text, text]
+  // Preserve teacher text without claiming that one undifferentiated entry
+  // applies to every session. Unfilled cells remain available for editing.
+  return [paragraphs[0] || text, paragraphs[1] || '', paragraphs[2] || '', paragraphs[3] || '']
 }
 
-const DEFAULT_SELF_CHECK_RUBRIC_ITEMS: SelfCheckRubricItem[] = [
-  { criterion: 'Intentions are clearly stated, with appropriate learning competencies articulated.', status: 'yes' },
-  { criterion: 'Intentions are evident across all sections, there is coherence.', status: 'yes' },
-  { criterion: 'Learning experience is clear – another teacher can implement this lesson without additional explanation.', status: 'yes' },
-  { criterion: 'Learning experience is well-designed, with intentionally embedded Learning Design Principles.', status: 'yes' },
-  { criterion: 'Learning experience maximizes available opportunities for integration.', status: 'yes' },
-  { criterion: 'Learning experience is inclusive, provides opportunities to support learners with disabilities, barriers, and unique contexts.', status: 'yes' },
-  { criterion: 'Assessment strategies are integrated throughout the session to see learners\' progress or if they need support.', status: 'yes' },
-  { criterion: 'Assessment strategies generate evidence if learning is successful.', status: 'yes' },
-  { criterion: 'The following interventions are actionable, providing ways to extend or adjust learning based on reflections.', status: 'yes' },
+const ENGLISH_SELF_CHECK_CRITERIA = [
+  'Intentions are clearly stated, with appropriate learning competencies articulated.',
+  'Intentions are evident across all sections; there is coherence.',
+  'Learning experience is clear—another teacher can implement this lesson without additional explanation.',
+  'Learning experience is well-designed, with intentionally embedded learning-design principles.',
+  'Learning experience maximizes available opportunities for integration.',
+  'Learning experience is inclusive and provides appropriate classroom-level support.',
+  'Assessment strategies are integrated throughout the sessions to see learner progress.',
+  'Assessment strategies generate evidence of successful learning.',
+  'Interventions are actionable and provide ways to extend or adjust learning.',
+]
+
+const FILIPINO_SELF_CHECK_CRITERIA = [
+  'Malinaw ang mga layunin at naipahayag ang angkop na mga kasanayan sa pagkatuto.',
+  'Makikita ang mga layunin sa lahat ng bahagi at magkakaugnay ang mga ito.',
+  'Malinaw ang karanasan sa pagkatuto at maisasagawa ito ng ibang guro.',
+  'Maayos ang disenyo ng karanasan sa pagkatuto at may angkop na mga prinsipyo sa pagkatuto.',
+  'Nagamit nang makabuluhan ang mga pagkakataon para sa integrasyon.',
+  'Inklusibo ang plano at nagbibigay ng angkop na suporta sa mga mag-aaral.',
+  'Nakasama ang pagtataya sa mga sesyon upang makita ang progreso ng mga mag-aaral.',
+  'Nakagagawa ang mga estratehiya ng sapat na katibayan ng pagkatuto.',
+  'Isinasaad ang mga susunod na hakbang at interbensyon nang malinaw at maisasagawa.',
 ]
 
 export function buildLessonPlanMultiSessionExportModel(
@@ -327,7 +384,7 @@ export function buildLessonPlanMultiSessionExportModel(
   const content = plan.content
   const language = resolveExportLanguage(plan, preferences, lessonPreferences)
   const labels = language === 'filipino' ? FILIPINO_LABELS : ENGLISH_LABELS
-  const fieldLabels = language === 'filipino' ? FILIPINO_FIELD_LABELS : ENGLISH_FIELD_LABELS
+  const multiLabels = language === 'filipino' ? FILIPINO_MULTI_LABELS : ENGLISH_MULTI_LABELS
 
   const sessionHeaders = language === 'filipino'
     ? ['Sesyon 1 / Unang Sesyon', 'Sesyon 2 / Ikalawang Sesyon', 'Sesyon 3 / Ikatlong Sesyon', 'Sesyon 4 / Ikaapat na Sesyon']
@@ -337,22 +394,14 @@ export function buildLessonPlanMultiSessionExportModel(
   const refLines = rawReferences ? rawReferences.split(/\r?\n/).map(clean).filter(Boolean) : []
   const officialReferences = refLines.filter((l) => /deped|curriculum|bow|order|matatag|exemplar/i.test(l))
   const otherLearningSources = refLines.filter((l) => !/deped|curriculum|bow|order|matatag|exemplar/i.test(l))
-  if (!officialReferences.length) {
-    officialReferences.push('Department of Education. Guidelines on Lesson Planning and Learning Design (DepEd Order No. 016, s. 2026).')
-    if (content.curriculumPeriodLabel) {
-      officialReferences.push(`Department of Education. ${content.learningArea} Grade ${content.gradeLevel} Curriculum Budget of Work (${content.curriculumPeriodLabel}).`)
-    }
-  }
-  if (!otherLearningSources.length) {
-    otherLearningSources.push('Teacher-prepared activity cards, problem sheets, manipulatives, and answer-checking guides.')
-  }
-  const lowTechAlternatives = [
-    'Graphing paper, enlarged coordinate grids, number-line strips, ruler, colored pencils, printed task cards, and teacher read-aloud support.',
-  ]
+  const lowTechAlternatives: string[] = []
 
-  const aiDeclarationStatement = content.aiDeclaration.used && content.aiDeclaration.statement
-    ? `${content.aiDeclaration.statement} (Compliant with DepEd Order No. 003, s. 2026 Annex A)`
-    : 'AI was used as support in organizing the four-session sequence, checking the clarity of directions and worked examples, and reviewing the alignment of the activities and assessments with the Budget of Work. The teacher remains responsible for validating, contextualizing, and delivering the final lesson according to learners\' needs and classroom realities. (DepEd Order No. 003, s. 2026 Annex A compliant)'
+  const aiDeclarationStatement = clean(content.aiDeclaration.statement)
+    || (content.aiDeclaration.used
+      ? 'AI assistance was used in preparing this lesson plan. The teacher remains responsible for reviewing, adapting, validating, and approving the final plan.'
+      : language === 'filipino'
+        ? 'Walang ginamit na tulong ng AI sa paghahanda ng banghay-araling ito.'
+        : 'No AI assistance was used in the preparation of this lesson plan.')
 
   const objectivesSessions = splitIntoFourSessions(content.intentions.learningObjectives)
   const preLessonSessions = splitIntoFourSessions(content.learningExperience.preLessonActivity)
@@ -363,6 +412,29 @@ export function buildLessonPlanMultiSessionExportModel(
   const formativeSessions = splitIntoFourSessions(content.assessingLearning.formativeAssessments)
   const extendedSessions = splitIntoFourSessions(content.waysForward.extendedLearning)
   const reflectionSessions = splitIntoFourSessions(content.waysForward.reflection)
+  const validation = validateLessonPlan(content)
+  const validationByKey = new Map(validation.items.map((item) => [item.key, item]))
+  const rubricCriteria = language === 'filipino' ? FILIPINO_SELF_CHECK_CRITERIA : ENGLISH_SELF_CHECK_CRITERIA
+  const buildRubricItem = (criterion: string, keys: string[], extraPassed = true): SelfCheckRubricItem => {
+    const failed = keys.map((key) => validationByKey.get(key)).filter((item): item is NonNullable<typeof item> => Boolean(item && !item.passed))
+    const passed = extraPassed && failed.length === 0
+    return {
+      criterion,
+      status: passed ? 'yes' : 'not_yet',
+      improvementNote: passed ? undefined : failed.map((item) => item.detail).join(' ') || 'Add and confirm the teacher-authored details for this criterion.',
+    }
+  }
+  const rubricItems: SelfCheckRubricItem[] = [
+    buildRubricItem(rubricCriteria[0], ['competency', 'objectives']),
+    buildRubricItem(rubricCriteria[1], ['objectives', 'experience']),
+    buildRubricItem(rubricCriteria[2], ['experience']),
+    buildRubricItem(rubricCriteria[3], ['experience']),
+    buildRubricItem(rubricCriteria[4], [], Boolean(clean(content.learningExperience.integrationContextualization))),
+    buildRubricItem(rubricCriteria[5], [], Boolean(clean(content.learningExperience.inclusionAccommodations))),
+    buildRubricItem(rubricCriteria[6], ['assessment']),
+    buildRubricItem(rubricCriteria[7], ['assessment']),
+    buildRubricItem(rubricCriteria[8], ['ways-forward']),
+  ]
 
   const rows: MultiSessionGridRow[] = [
     {
@@ -371,12 +443,7 @@ export function buildLessonPlanMultiSessionExportModel(
       guideQuestions: language === 'filipino'
         ? 'Bumuo ng malinaw na mental model at konsepto para sa bawat sesyon.'
         : 'Build a precise mental model and concept focus for each session.',
-      sessions: [
-        `Session 1 Concept:\nFoundational exploration of ${content.lessonFocus || content.lessonTitle || 'the lesson concept'}.`,
-        `Session 2 Concept:\nGuided practice and direct analysis of ${content.lessonFocus || 'key relationships'}.`,
-        `Session 3 Concept:\nIndependent problem solving and contextualized application.`,
-        `Session 4 Concept:\nSynthesis, evaluation of strategies, and performance application.`,
-      ],
+      sessions: objectivesSessions,
     },
     {
       key: 'standards',
@@ -394,7 +461,7 @@ export function buildLessonPlanMultiSessionExportModel(
       guideQuestions: language === 'filipino'
         ? 'Isulat ang tiyak na kaalaman, kasanayan, o gawain mula sa kasanayan para sa bawat sesyon.'
         : 'Write the smaller knowledge, skills, or tasks from the competency that learners work on: "By the end of the session, learners can: 1. ... 2. ..."',
-      sessions: objectivesSessions.map((obj, i) => obj ? `By the end of the session, learners can:\n${obj}` : `By the end of Session ${i + 1}, learners demonstrate mastery of targeted skills.`),
+      sessions: objectivesSessions,
     },
     {
       key: 'learner_context',
@@ -403,7 +470,7 @@ export function buildLessonPlanMultiSessionExportModel(
         ? 'Mga obserbasyon sa mga mag-aaral: kalakasan, interes, posibleng hadlang, at nakaplanong suporta.'
         : 'Observations of learners, recent performance, strengths, interests, possible barriers to learning, and planned support.',
       isFullSpan: true,
-      fullSpanContent: clean(content.learnerContext) || 'Strengths and interests: visual models, collaborative problem solving, and immediate answer checking.\nPossible barriers: limited graphing materials, difficulty with multi-step symbolic procedures, and spatial anxiety.\nPlanned support: enlarged diagrams, color-coded markers, formula cards, peer tutoring, and reduced-number practice sets.',
+      fullSpanContent: clean(content.learnerContext),
       sessions: ['', '', '', ''],
     },
     {
@@ -413,7 +480,7 @@ export function buildLessonPlanMultiSessionExportModel(
         ? 'Daloy ng pagkatuto mula sa kongkreto at biswal patungo sa simboliko at sariling paggamit.'
         : 'Pedagogical progression from concrete and visual representations to symbolic procedures and independent application.',
       isFullSpan: true,
-      fullSpanContent: 'The lesson sequence moves from concrete and visual representations to symbolic procedures and independent application. Each session includes explicit success criteria, teacher modeling, guided practice, collaborative reasoning, frequent checks for understanding, differentiated response options, and reflection.',
+      fullSpanContent: clean([content.learningExperience.preLessonActivity, content.learningExperience.lessonFlow, content.learningExperience.inclusionAccommodations].filter(Boolean).join('\n\n')),
       sessions: ['', '', '', ''],
     },
     {
@@ -463,7 +530,7 @@ export function buildLessonPlanMultiSessionExportModel(
         ? 'Pangkalahatang diskarte sa pagtataya at pangangalap ng katibayan ng pagkatuto.'
         : 'General assessment approach, evaluation criteria, and evidence gathering across sessions.',
       isFullSpan: true,
-      fullSpanContent: clean(content.assessingLearning.evidenceOfLearning) || 'Assess learners\' conceptual understanding, procedural accuracy, formula application, and communication of solutions. Evidence comes from observation, student products, formative quick-check quizzes, error analysis, performance tasks, and peer verification.',
+      fullSpanContent: clean([content.assessingLearning.formativeAssessments, content.assessingLearning.evidenceOfLearning].filter(Boolean).join('\n\n')),
       sessions: ['', '', '', ''],
     },
     {
@@ -481,7 +548,7 @@ export function buildLessonPlanMultiSessionExportModel(
         ? 'Gamitin ang resulta upang magdesisyon sa susunod na hakbang: muling ituro, interbensyon, o enrichment.'
         : 'Use student work and error patterns to decide next steps: reteach key concepts, small-group intervention, or enrichment.',
       isFullSpan: true,
-      fullSpanContent: clean(content.waysForward.nextSteps) || 'Use error patterns, quiz results, and student explanations to decide next steps. Reteach confusing concepts through visual models; provide formula practice; conduct small-group remediation on difficult operations. Advanced learners create original application problems or assist peers.',
+      fullSpanContent: clean([content.waysForward.nextSteps, content.waysForward.reflection].filter(Boolean).join('\n\n')),
       sessions: ['', '', '', ''],
     },
     {
@@ -521,10 +588,11 @@ export function buildLessonPlanMultiSessionExportModel(
   ].filter((item) => item.name || item.role === labels.preparedBy)
 
   return {
-    documentTitle: language === 'filipino' ? 'ILAW BANGHAY-ARALIN (4-SESYON)' : 'DAILY LESSON LOG | ILAW Multi-Session Format',
-    templateLabel: 'ILAW Multi-Session Log',
+    documentTitle: language === 'filipino' ? 'DAILY LESSON LOG (4-SESYON)' : 'DAILY LESSON LOG (4-SESSION FORMAT)',
+    templateLabel: 'Daily Lesson Log',
     language,
     labels,
+    multiLabels,
     status: plan.status,
     identity: {
       teacherName: display(profile.fullName, ''),
@@ -544,7 +612,7 @@ export function buildLessonPlanMultiSessionExportModel(
       gradingTerm: display(content.gradingTermLabel),
       lessonDate: formatDate(content.lessonDate, language),
       weekLabel: display(content.weekLabel),
-      sessions: `${content.numberOfSessions || 4}`,
+      sessions: `${content.lessonPlanFormat === 'daily_lesson_log' ? 4 : (content.numberOfSessions || 4)}`,
       duration: language === 'filipino'
         ? `${content.durationMinutes || 60} minuto bawat sesyon`
         : `${content.durationMinutes || 60} minutes per session`,
@@ -557,8 +625,8 @@ export function buildLessonPlanMultiSessionExportModel(
     },
     aiDeclarationStatement,
     rows,
-    rubricItems: DEFAULT_SELF_CHECK_RUBRIC_ITEMS,
-    coachingNotes: 'Notes for instructional coaching session: Focus on gradual release of responsibility, formative check alignment, and student-centered questioning techniques.',
+    rubricItems,
+    coachingNotes: '',
     signatories,
   }
 }
@@ -568,11 +636,19 @@ export function buildLessonPlanExportModel(
   profile: Profile,
   preferences: TeacherExportPreferences,
   lessonPreferences?: TeacherLessonPreferences | null,
+  templateOverride?: ExportTemplateId,
 ): LessonPlanExportModel {
   const content = plan.content
   const language = resolveExportLanguage(plan, preferences, lessonPreferences)
   const labels = language === 'filipino' ? FILIPINO_LABELS : ENGLISH_LABELS
   const fieldLabels = language === 'filipino' ? FILIPINO_FIELD_LABELS : ENGLISH_FIELD_LABELS
+  const effectiveTemplateId = templateOverride ?? (
+    content.lessonPlanFormat === 'daily_lesson_log'
+      ? 'gurodesk_ilaw_multisession'
+      : content.lessonPlanFormat === 'ilaw'
+        ? 'gurodesk_ilaw_standard'
+        : preferences.defaultTemplateId
+  )
   const signatories = [
     {
       role: labels.preparedBy,
@@ -595,7 +671,7 @@ export function buildLessonPlanExportModel(
 
   return {
     documentTitle: labels.documentTitle,
-    templateLabel: preferences.defaultTemplateId === 'gurodesk_ilaw_multisession' ? 'ILAW Multi-Session Log' : 'ILAW Standard',
+    templateLabel: effectiveTemplateId === 'gurodesk_ilaw_multisession' ? 'Daily Lesson Log' : 'ILAW Standard',
     language,
     labels,
     status: plan.status,
@@ -791,21 +867,24 @@ export async function downloadLessonPlanMultiSessionDocx(
   ]
 
   const metaRows = [
-    docxMetaRow('Name of Lesson / Pangalan ng Aralin', multiModel.lesson.title),
-    docxMetaRow('Learning Area / Asignatura', multiModel.lesson.learningArea),
-    docxMetaRow('Term / Week', `${multiModel.lesson.gradingTerm} | ${multiModel.lesson.weekLabel}`),
-    docxMetaRow('Grade Level and Section / Baitang/Pangkat', gradeAndSection),
-    docxMetaRow('Teacher / Guro', multiModel.identity.teacherName),
-    docxMetaRow('No. of Sessions / Bilang ng Sesyon', sessionSummary),
-    docxMetaRow('References / Mga Sanggunian', [
-      'A. References:',
-      ...multiModel.referencesDetail.officialReferences.map((r) => `• ${r}`),
-      'B. Other Learning Sources:',
-      ...multiModel.referencesDetail.otherLearningSources,
-      'C. Low-Tech Alternatives:',
-      ...multiModel.referencesDetail.lowTechAlternatives,
+    docxMetaRow(multiModel.multiLabels.lessonName, multiModel.lesson.title),
+    docxMetaRow(multiModel.multiLabels.learningArea, multiModel.lesson.learningArea),
+    docxMetaRow(multiModel.multiLabels.termWeek, `${multiModel.lesson.gradingTerm} | ${multiModel.lesson.weekLabel}`),
+    docxMetaRow(multiModel.multiLabels.gradeSection, gradeAndSection),
+    docxMetaRow(multiModel.multiLabels.teacher, multiModel.identity.teacherName),
+    docxMetaRow(multiModel.multiLabels.sessionsDuration, sessionSummary),
+    docxMetaRow(multiModel.labels.schoolYear, multiModel.lesson.schoolYear),
+    docxMetaRow(multiModel.labels.date, multiModel.lesson.lessonDate),
+    docxMetaRow(multiModel.labels.curriculumPeriod, multiModel.lesson.curriculumPeriod),
+    docxMetaRow(multiModel.multiLabels.references, [
+      `A. ${multiModel.multiLabels.officialReferences}:`,
+      ...(multiModel.referencesDetail.officialReferences.length ? multiModel.referencesDetail.officialReferences.map((r) => `• ${r}`) : [multiModel.multiLabels.noEntry]),
+      `B. ${multiModel.multiLabels.otherSources}:`,
+      ...(multiModel.referencesDetail.otherLearningSources.length ? multiModel.referencesDetail.otherLearningSources : [multiModel.multiLabels.noEntry]),
+      `C. ${multiModel.multiLabels.lowTechAlternatives}:`,
+      ...(multiModel.referencesDetail.lowTechAlternatives.length ? multiModel.referencesDetail.lowTechAlternatives : [multiModel.multiLabels.noEntry]),
     ].join('\n')),
-    docxMetaRow('Declaration of AI use / Deklarasyon sa Paggamit ng AI', multiModel.aiDeclarationStatement),
+    docxMetaRow(multiModel.multiLabels.aiDeclaration, multiModel.aiDeclarationStatement),
   ]
 
   // Multi-session table headers: [Dimension, Session 1, Session 2, Session 3, Session 4]
@@ -816,7 +895,7 @@ export async function downloadLessonPlanMultiSessionDocx(
         width: { size: 24, type: WidthType.PERCENTAGE },
         shading: { fill: HEADER_BG, type: ShadingType.CLEAR, color: 'auto' },
         margins: { top: 80, bottom: 80, left: 90, right: 90 },
-        children: [new Paragraph({ children: [new TextRun({ text: 'Dimensions & DepEd Guide', bold: true, size: 16, color: TEXT })] })],
+        children: [new Paragraph({ children: [new TextRun({ text: multiModel.multiLabels.dimensionsGuide, bold: true, size: 16, color: TEXT })] })],
       }),
       ...multiModel.sessionHeaders.map((headerText) => new TableCell({
         width: { size: 19, type: WidthType.PERCENTAGE },
@@ -874,25 +953,25 @@ export async function downloadLessonPlanMultiSessionDocx(
           width: { size: 55, type: WidthType.PERCENTAGE },
           shading: { fill: HEADER_BG, type: ShadingType.CLEAR, color: 'auto' },
           margins: { top: 60, bottom: 60, left: 80, right: 80 },
-          children: [new Paragraph({ children: [new TextRun({ text: 'I can say that in my lesson plan...', bold: true, size: 15, color: TEXT })] })],
+          children: [new Paragraph({ children: [new TextRun({ text: multiModel.multiLabels.rubricCriterion, bold: true, size: 15, color: TEXT })] })],
         }),
         new TableCell({
           width: { size: 10, type: WidthType.PERCENTAGE },
           shading: { fill: HEADER_BG, type: ShadingType.CLEAR, color: 'auto' },
           margins: { top: 60, bottom: 60, left: 60, right: 60 },
-          children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: 'Yes', bold: true, size: 15, color: TEXT })] })],
+          children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: multiModel.multiLabels.yes, bold: true, size: 15, color: TEXT })] })],
         }),
         new TableCell({
           width: { size: 10, type: WidthType.PERCENTAGE },
           shading: { fill: HEADER_BG, type: ShadingType.CLEAR, color: 'auto' },
           margins: { top: 60, bottom: 60, left: 60, right: 60 },
-          children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: 'Not Yet', bold: true, size: 15, color: TEXT })] })],
+          children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: multiModel.multiLabels.notYet, bold: true, size: 15, color: TEXT })] })],
         }),
         new TableCell({
           width: { size: 25, type: WidthType.PERCENTAGE },
           shading: { fill: HEADER_BG, type: ShadingType.CLEAR, color: 'auto' },
           margins: { top: 60, bottom: 60, left: 80, right: 80 },
-          children: [new Paragraph({ children: [new TextRun({ text: 'Why? / What will make it better?', bold: true, size: 15, color: TEXT })] })],
+          children: [new Paragraph({ children: [new TextRun({ text: multiModel.multiLabels.improvement, bold: true, size: 15, color: TEXT })] })],
         }),
       ],
     }),
@@ -929,19 +1008,19 @@ export async function downloadLessonPlanMultiSessionDocx(
       borders: tableBorders(),
       rows: metaRows,
     }),
-    docxSectionHeading('ILAW FOUR-SESSION PEDAGOGICAL MATRIX (DepEd Order No. 016, s. 2026)'),
+    docxSectionHeading(multiModel.multiLabels.matrixHeading),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       borders: tableBorders(),
       rows: [tableHeaderRow, ...gridRows],
     }),
-    docxSectionHeading('RUBRIC FOR LESSON PLANNING SELF-CHECK AND/OR PEER COACHING'),
+    docxSectionHeading(multiModel.multiLabels.rubricHeading),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       borders: tableBorders(),
       rows: rubricRows,
     }),
-    docxSectionHeading('NOTES FOR INSTRUCTIONAL COACHING SESSION'),
+    docxSectionHeading(multiModel.multiLabels.coachingHeading),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       borders: tableBorders(),
@@ -953,7 +1032,7 @@ export async function downloadLessonPlanMultiSessionDocx(
               margins: { top: 90, bottom: 90, left: 100, right: 100 },
               children: [
                 new Paragraph({ children: [new TextRun({ text: multiModel.coachingNotes, size: 16, color: TEXT })] }),
-                new Paragraph({ spacing: { before: 100 }, children: [new TextRun({ text: 'Observations / Agreed Actions: ____________________________________________________________________________________', size: 15, color: MUTED })] }),
+                new Paragraph({ spacing: { before: 100 }, children: [new TextRun({ text: `${multiModel.multiLabels.coachingPlaceholder} ____________________________________________________________________________________`, size: 15, color: MUTED })] }),
               ],
             }),
           ],
@@ -980,7 +1059,7 @@ export async function downloadLessonPlanMultiSessionDocx(
       spacing: { before: 200, after: 40 },
       children: [
         new TextRun({
-          text: 'Prepared with GuroDesk · Philippine Public School Teacher Workspace | DepEd Order No. 016, s. 2026 Compliant · Teacher-Authored Learning Plan',
+          text: multiModel.multiLabels.footer,
           size: 13,
           color: MUTED,
           italics: true,
@@ -991,8 +1070,8 @@ export async function downloadLessonPlanMultiSessionDocx(
 
   const document = new Document({
     creator: multiModel.identity.teacherName,
-    title: `${multiModel.lesson.title} - ILAW Multi-Session Log`,
-    description: 'DepEd Order No. 016, s. 2026 ILAW 4-Session Lesson Plan',
+    title: `${multiModel.lesson.title} - Daily Lesson Log`,
+    description: 'GuroDesk Daily Lesson Log four-session lesson plan',
     sections: [{
       properties: {
         page: {
@@ -1005,14 +1084,14 @@ export async function downloadLessonPlanMultiSessionDocx(
   })
 
   const blob = await Packer.toBlob(document)
-  saveBlob(blob, `${safeFilename(`${multiModel.lesson.gradeLevel} ${multiModel.lesson.learningArea} - ${multiModel.lesson.title} - ILAW Multi-Session`)}.docx`)
+  saveBlob(blob, `${safeFilename(`${multiModel.lesson.gradeLevel} ${multiModel.lesson.learningArea} - ${multiModel.lesson.title} - Daily Lesson Log`)}.docx`)
 }
 
 export async function downloadLessonPlanDocx(
   model: LessonPlanExportModel,
   preferences: TeacherExportPreferences,
 ) {
-  if (preferences.defaultTemplateId === 'gurodesk_ilaw_multisession' && model.multiSession) {
+  if (model.templateLabel === 'Daily Lesson Log' && model.multiSession) {
     return downloadLessonPlanMultiSessionDocx(model.multiSession, preferences)
   }
 
@@ -1258,21 +1337,24 @@ export function downloadLessonPlanMultiSessionPdf(
   ctx.y += 18
 
   // Top metadata rows
-  pdfMetaRow(ctx, 'Name of Lesson / Pangalan ng Aralin', multiModel.lesson.title)
-  pdfMetaRow(ctx, 'Learning Area / Asignatura', multiModel.lesson.learningArea)
-  pdfMetaRow(ctx, 'Term / Week', `${multiModel.lesson.gradingTerm} | ${multiModel.lesson.weekLabel}`)
-  pdfMetaRow(ctx, 'Grade Level and Section', gradeAndSection)
-  pdfMetaRow(ctx, 'Teacher / Guro', multiModel.identity.teacherName)
-  pdfMetaRow(ctx, 'No. of Sessions / Tagal', sessionSummary)
-  pdfMetaRow(ctx, 'References / Mga Sanggunian', [
-    'A. References:',
-    ...multiModel.referencesDetail.officialReferences.map((r) => `• ${r}`),
-    'B. Other Learning Sources:',
-    ...multiModel.referencesDetail.otherLearningSources,
-    'C. Low-Tech Alternatives:',
-    ...multiModel.referencesDetail.lowTechAlternatives,
+  pdfMetaRow(ctx, multiModel.multiLabels.lessonName, multiModel.lesson.title)
+  pdfMetaRow(ctx, multiModel.multiLabels.learningArea, multiModel.lesson.learningArea)
+  pdfMetaRow(ctx, multiModel.multiLabels.termWeek, `${multiModel.lesson.gradingTerm} | ${multiModel.lesson.weekLabel}`)
+  pdfMetaRow(ctx, multiModel.multiLabels.gradeSection, gradeAndSection)
+  pdfMetaRow(ctx, multiModel.multiLabels.teacher, multiModel.identity.teacherName)
+  pdfMetaRow(ctx, multiModel.multiLabels.sessionsDuration, sessionSummary)
+  pdfMetaRow(ctx, multiModel.labels.schoolYear, multiModel.lesson.schoolYear)
+  pdfMetaRow(ctx, multiModel.labels.date, multiModel.lesson.lessonDate)
+  pdfMetaRow(ctx, multiModel.labels.curriculumPeriod, multiModel.lesson.curriculumPeriod)
+  pdfMetaRow(ctx, multiModel.multiLabels.references, [
+    `A. ${multiModel.multiLabels.officialReferences}:`,
+    ...(multiModel.referencesDetail.officialReferences.length ? multiModel.referencesDetail.officialReferences.map((r) => `• ${r}`) : [multiModel.multiLabels.noEntry]),
+    `B. ${multiModel.multiLabels.otherSources}:`,
+    ...(multiModel.referencesDetail.otherLearningSources.length ? multiModel.referencesDetail.otherLearningSources : [multiModel.multiLabels.noEntry]),
+    `C. ${multiModel.multiLabels.lowTechAlternatives}:`,
+    ...(multiModel.referencesDetail.lowTechAlternatives.length ? multiModel.referencesDetail.lowTechAlternatives : [multiModel.multiLabels.noEntry]),
   ].join('\n'))
-  pdfMetaRow(ctx, 'Declaration of AI use (DO 3, 2026)', multiModel.aiDeclarationStatement)
+  pdfMetaRow(ctx, multiModel.multiLabels.aiDeclaration, multiModel.aiDeclarationStatement)
   ctx.y += 12
 
   // 5-Column Multi-Session Matrix Table
@@ -1291,7 +1373,7 @@ export function downloadLessonPlanMultiSessionPdf(
     ctx.doc.setFont('helvetica', 'bold')
     ctx.doc.setFontSize(8)
     ctx.doc.setTextColor(0, 0, 0)
-    ctx.doc.text('Dimensions & Guide', ctx.x + 5, top + 14)
+    ctx.doc.text(multiModel.multiLabels.dimensionsGuide, ctx.x + 5, top + 14)
 
     multiModel.sessionHeaders.forEach((headerText, i) => {
       const colX = ctx.x + col0Width + sessionColWidth * i
@@ -1302,7 +1384,7 @@ export function downloadLessonPlanMultiSessionPdf(
     ctx.y = top + headerHeight
   }
 
-  pdfSection(ctx, 'ILAW FOUR-SESSION PEDAGOGICAL MATRIX (DepEd Order No. 016, s. 2026)')
+  pdfSection(ctx, multiModel.multiLabels.matrixHeading)
   drawMatrixTableHeader()
 
   for (const row of multiModel.rows) {
@@ -1371,7 +1453,7 @@ export function downloadLessonPlanMultiSessionPdf(
 
   // Rubric Table
   ctx.y += 14
-  pdfSection(ctx, 'RUBRIC FOR LESSON PLANNING SELF-CHECK AND/OR PEER COACHING')
+  pdfSection(ctx, multiModel.multiLabels.rubricHeading)
   const rubricCol0 = Math.round(tableWidth * 0.55)
   const rubricCol1 = Math.round(tableWidth * 0.10)
   const rubricCol2 = Math.round(tableWidth * 0.10)
@@ -1385,13 +1467,13 @@ export function downloadLessonPlanMultiSessionPdf(
     ctx.doc.setFont('helvetica', 'bold')
     ctx.doc.setFontSize(7.8)
     ctx.doc.setTextColor(0, 0, 0)
-    ctx.doc.text('I can say that in my lesson plan...', ctx.x + 5, top + 12)
+    ctx.doc.text(multiModel.multiLabels.rubricCriterion, ctx.x + 5, top + 12)
     ctx.doc.line(ctx.x + rubricCol0, top, ctx.x + rubricCol0, top + 18)
-    ctx.doc.text('Yes', ctx.x + rubricCol0 + 12, top + 12)
+    ctx.doc.text(multiModel.multiLabels.yes, ctx.x + rubricCol0 + 12, top + 12)
     ctx.doc.line(ctx.x + rubricCol0 + rubricCol1, top, ctx.x + rubricCol0 + rubricCol1, top + 18)
-    ctx.doc.text('Not Yet', ctx.x + rubricCol0 + rubricCol1 + 7, top + 12)
+    ctx.doc.text(multiModel.multiLabels.notYet, ctx.x + rubricCol0 + rubricCol1 + 7, top + 12)
     ctx.doc.line(ctx.x + rubricCol0 + rubricCol1 + rubricCol2, top, ctx.x + rubricCol0 + rubricCol1 + rubricCol2, top + 18)
-    ctx.doc.text('Why? / What will make it better?', ctx.x + rubricCol0 + rubricCol1 + rubricCol2 + 5, top + 12)
+    ctx.doc.text(multiModel.multiLabels.improvement, ctx.x + rubricCol0 + rubricCol1 + rubricCol2 + 5, top + 12)
     ctx.y = top + 18
   }
   drawRubricHeader()
@@ -1429,16 +1511,16 @@ export function downloadLessonPlanMultiSessionPdf(
 
   // Instructional coaching box
   ctx.y += 14
-  pdfSection(ctx, 'NOTES FOR INSTRUCTIONAL COACHING SESSION')
+  pdfSection(ctx, multiModel.multiLabels.coachingHeading)
   pdfEnsure(ctx, 45)
   const coachTop = ctx.y
   ctx.doc.rect(ctx.x, coachTop, tableWidth, 40)
   ctx.doc.setFont('helvetica', 'normal')
   ctx.doc.setFontSize(7.8)
-  ctx.doc.text(multiModel.coachingNotes, ctx.x + 6, coachTop + 12)
+  if (multiModel.coachingNotes) ctx.doc.text(multiModel.coachingNotes, ctx.x + 6, coachTop + 12)
   ctx.doc.setFont('helvetica', 'italic')
   ctx.doc.setTextColor(90, 90, 90)
-  ctx.doc.text('Observations / Next Coaching Steps: ____________________________________________________________________________________________________', ctx.x + 6, coachTop + 30)
+  ctx.doc.text(`${multiModel.multiLabels.coachingPlaceholder} ____________________________________________________________________________________________________`, ctx.x + 6, coachTop + 30)
   ctx.y = coachTop + 48
 
   if (multiModel.signatories.length) {
@@ -1452,18 +1534,18 @@ export function downloadLessonPlanMultiSessionPdf(
     doc.setFont('helvetica', 'normal')
     doc.setFontSize(7)
     doc.setTextColor(100, 100, 100)
-    doc.text('Prepared with GuroDesk · Philippine Public School Teacher Workspace | DepEd Order No. 016, s. 2026 Compliant', margin, pageHeight - 16)
+    doc.text(multiModel.multiLabels.footer, margin, pageHeight - 16)
     doc.text(`Page ${pageNumber} of ${pageCount}`, pageWidth - margin, pageHeight - 16, { align: 'right' })
   }
 
-  doc.save(`${safeFilename(`${multiModel.lesson.gradeLevel} ${multiModel.lesson.learningArea} - ${multiModel.lesson.title} - ILAW Multi-Session`)}.pdf`)
+  doc.save(`${safeFilename(`${multiModel.lesson.gradeLevel} ${multiModel.lesson.learningArea} - ${multiModel.lesson.title} - Daily Lesson Log`)}.pdf`)
 }
 
 export function downloadLessonPlanPdf(
   model: LessonPlanExportModel,
   preferences: TeacherExportPreferences,
 ) {
-  if (preferences.defaultTemplateId === 'gurodesk_ilaw_multisession' && model.multiSession) {
+  if (model.templateLabel === 'Daily Lesson Log' && model.multiSession) {
     return downloadLessonPlanMultiSessionPdf(model.multiSession, preferences)
   }
 

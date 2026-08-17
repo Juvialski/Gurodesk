@@ -144,8 +144,9 @@ describe('lesson-plan export compatibility', () => {
     expect(grounding).not.toContain('Additional competency 2')
   })
 
-  it('builds a rich ILAW Multi-Session 4-session log model compliant with DepEd DO 16, s. 2026', () => {
+  it('builds a grounded Daily Lesson Log model with four session columns', () => {
     const plan = exportPlan()
+    plan.content.lessonPlanFormat = 'daily_lesson_log'
     plan.content.intentions.learningObjectives = 'Session 1: Identify regular polygons.\nSession 2: Calculate sum of interior angles.\nSession 3: Solve complex polygon problems.\nSession 4: Present geometric real-world applications.'
     plan.content.learningExperience.preLessonActivity = 'Day 1: Shape identification.\nDay 2: Angle review.\nDay 3: Error analysis.\nDay 4: Self-check readiness.'
     plan.content.learningExperience.lessonFlow = '1. Concept modeling.\n2. Guided station work.\n3. Independent problem solving.\n4. Synthesis presentation.'
@@ -157,7 +158,7 @@ describe('lesson-plan export compatibility', () => {
     }
 
     const model = buildLessonPlanExportModel(plan, profile, multiPreferences)
-    expect(model.templateLabel).toBe('ILAW Multi-Session Log')
+    expect(model.templateLabel).toBe('Daily Lesson Log')
     expect(model.multiSession).toBeDefined()
 
     const multi = model.multiSession!
@@ -179,8 +180,23 @@ describe('lesson-plan export compatibility', () => {
     expect(formativeRow?.sessions[2]).toContain('5-item formative quiz')
 
     expect(multi.rubricItems).toHaveLength(9)
-    expect(multi.rubricItems.every((item) => item.status === 'yes')).toBe(true)
-    expect(multi.aiDeclarationStatement).toContain('DepEd Order No. 003, s. 2026')
-    expect(multi.coachingNotes).toContain('instructional coaching')
+    expect(multi.rubricItems.some((item) => item.status === 'not_yet')).toBe(true)
+    expect(multi.aiDeclarationStatement).toBe('No AI assistance was used in the preparation of this lesson plan.')
+    expect(multi.coachingNotes).toBe('')
+    expect(multi.referencesDetail.officialReferences).toEqual([])
+    expect(multi.referencesDetail.lowTechAlternatives).toEqual([])
+  })
+
+  it('does not duplicate unstructured text across Daily Lesson Log sessions', () => {
+    const plan = exportPlan()
+    plan.content.lessonPlanFormat = 'daily_lesson_log'
+    plan.content.intentions.learningObjectives = 'Learners classify polygons using observable attributes.'
+
+    const model = buildLessonPlanExportModel(plan, profile, preferences)
+    const objectives = model.multiSession?.rows.find((row) => row.key === 'objectives')
+
+    expect(objectives?.sessions).toEqual(['Learners classify polygons using observable attributes.', '', '', ''])
+    expect(model.lesson.sessions).toBe('1')
+    expect(model.multiSession?.lesson.sessions).toBe('4')
   })
 })

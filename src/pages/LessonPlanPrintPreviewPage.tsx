@@ -15,6 +15,7 @@ import type { TeacherExportPreferences } from '../types/export'
 import type { TeacherLessonPreferences } from '../types/teachingSetup'
 
 const BUILTIN_ID = 'gurodesk_ilaw_standard'
+const DAILY_LESSON_LOG_ID = 'gurodesk_ilaw_multisession'
 
 export function LessonPlanPrintPreviewPage() {
   const { id = '' } = useParams()
@@ -51,6 +52,9 @@ export function LessonPlanPrintPreviewPage() {
       setCustomTemplates(templates)
       const defaultTemplate = templates.find((item) => item.isDefault)
       if (defaultTemplate) setSelectedTemplateId(defaultTemplate.id)
+      else if (nextPlan.content.lessonPlanFormat === 'daily_lesson_log') setSelectedTemplateId(DAILY_LESSON_LOG_ID)
+      else if (nextPlan.content.lessonPlanFormat === 'ilaw') setSelectedTemplateId(BUILTIN_ID)
+      else setSelectedTemplateId(nextPreferences.defaultTemplateId)
     }).catch((err) => {
       if (mounted) setError(err instanceof Error ? err.message : 'Unable to load printable lesson plan.')
     }).finally(() => { if (mounted) setLoading(false) })
@@ -65,9 +69,10 @@ export function LessonPlanPrintPreviewPage() {
     return preferences
   }, [preferences, selectedTemplateId])
 
+  const templateOverride = selectedTemplateId === DAILY_LESSON_LOG_ID ? DAILY_LESSON_LOG_ID : BUILTIN_ID
   const model = useMemo(() => plan && profile && activePreferences
-    ? buildLessonPlanExportModel(plan, profile, activePreferences, lessonPreferences)
-    : null, [plan, profile, activePreferences, lessonPreferences])
+    ? buildLessonPlanExportModel(plan, profile, activePreferences, lessonPreferences, templateOverride)
+    : null, [plan, profile, activePreferences, lessonPreferences, templateOverride])
 
   const selectedCustomTemplate = customTemplates.find((item) => item.id === selectedTemplateId) ?? null
 
@@ -118,7 +123,7 @@ export function LessonPlanPrintPreviewPage() {
   const selectedLabel = selectedCustomTemplate?.name
     ? selectedCustomTemplate.name
     : isMultiSession
-      ? 'ILAW Multi-Session Log (4-Session Grid)'
+      ? 'Daily Lesson Log (DLL)'
       : 'ILAW Standard'
 
   return (
@@ -133,12 +138,12 @@ export function LessonPlanPrintPreviewPage() {
         <div className="preview-template-picker">
           <button className="template-picker-trigger" onClick={() => setTemplateMenuOpen((value) => !value)}><FileText size={15} /><span>{selectedLabel}</span><ChevronDown size={15} /></button>
           {templateMenuOpen && <div className="preview-template-menu">
-            <button onClick={() => { setSelectedTemplateId('gurodesk_ilaw_multisession'); setTemplateMenuOpen(false) }}>
+            <button onClick={() => { setSelectedTemplateId(DAILY_LESSON_LOG_ID); setTemplateMenuOpen(false) }}>
               <div>
-                <strong>ILAW Multi-Session Log (4-Session Grid)</strong>
-                <small>DepEd Order No. 016, s. 2026 weekly matrix & coaching rubric</small>
+                <strong>Daily Lesson Log (DLL)</strong>
+                <small>Four-session weekly grid with session planning and reflection</small>
               </div>
-              {selectedTemplateId === 'gurodesk_ilaw_multisession' && <Check size={15} />}
+              {selectedTemplateId === DAILY_LESSON_LOG_ID && <Check size={15} />}
             </button>
             <button onClick={() => { setSelectedTemplateId('gurodesk_ilaw_standard'); setTemplateMenuOpen(false) }}>
               <div>

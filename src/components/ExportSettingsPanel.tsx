@@ -34,8 +34,6 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
     }
   }
 
-  const template = EXPORT_TEMPLATE_OPTIONS.find((item) => item.id === preferences.defaultTemplateId) ?? EXPORT_TEMPLATE_OPTIONS[0]
-
   return (
     <section className="panel export-settings-panel">
       <div className="panel-heading">
@@ -44,9 +42,23 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
       </div>
 
       {loading ? <div className="settings-inline-loading">Loading export settings…</div> : <>
-        <div className="export-template-card">
-          <div><strong>{template.label}</strong><p>{template.description}</p></div>
-          <span className="phase-pill">Built-in fallback</span>
+        <div className="settings-subsection export-template-selector">
+          <strong>Default lesson-plan format</strong>
+          <p className="field-help">Choose the built-in format opened by default when you preview or download a lesson plan.</p>
+          <div className="export-template-options">
+            {EXPORT_TEMPLATE_OPTIONS.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                className={`export-template-option ${preferences.defaultTemplateId === item.id ? 'selected' : ''}`}
+                aria-pressed={preferences.defaultTemplateId === item.id}
+                onClick={() => setPreferences((current) => ({ ...current, defaultTemplateId: item.id }))}
+              >
+                <span className="export-template-option-copy"><strong>{item.label}</strong><small>{item.description}</small></span>
+                {preferences.defaultTemplateId === item.id && <CheckCircle2 size={17} aria-hidden="true" />}
+              </button>
+            ))}
+          </div>
         </div>
 
 

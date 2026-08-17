@@ -47,6 +47,31 @@ export type MultiSessionGridRow = {
   fullSpanContent?: string
 }
 
+export type LessonPlanMultiSessionLabels = {
+  lessonName: string
+  learningArea: string
+  termWeek: string
+  gradeSection: string
+  teacher: string
+  sessionsDuration: string
+  references: string
+  officialReferences: string
+  otherSources: string
+  lowTechAlternatives: string
+  aiDeclaration: string
+  matrixHeading: string
+  dimensionsGuide: string
+  rubricHeading: string
+  rubricCriterion: string
+  yes: string
+  notYet: string
+  improvement: string
+  coachingHeading: string
+  coachingPlaceholder: string
+  footer: string
+  noEntry: string
+}
+
 export type SelfCheckRubricItem = {
   criterion: string
   status: 'yes' | 'not_yet' | 'empty'
@@ -58,6 +83,7 @@ export type LessonPlanMultiSessionExportModel = {
   templateLabel: string
   language: 'english' | 'filipino'
   labels: LessonExportLabels
+  multiLabels: LessonPlanMultiSessionLabels
   status: 'draft' | 'final' | 'archived'
   identity: LessonExportIdentity
   lesson: {
@@ -153,8 +179,8 @@ export const EXPORT_TEMPLATE_OPTIONS: Array<{ id: ExportTemplateId; label: strin
   },
   {
     id: 'gurodesk_ilaw_multisession',
-    label: 'ILAW Multi-Session Log (4-Session Weekly Grid)',
-    description: 'Official DepEd Order No. 016, s. 2026 weekly matrix with session-by-session flow, formative quizzes, cross-curricular integration, and self-check coaching rubric.',
+    label: 'Daily Lesson Log (DLL)',
+    description: 'Four-session weekly grid with session-by-session flow, formative assessment, and reflection.',
   },
 ]
 

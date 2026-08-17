@@ -20,6 +20,7 @@ export function createBlankLessonContent(assignment: TeacherAssignment): LessonP
     schemaVersion: 2,
     framework: 'ILAW',
     policyCode: 'DO 016, s. 2026',
+    lessonPlanFormat: 'ilaw',
     lessonTitle: '',
     lessonFocus: '',
     lessonFocusSource: 'teacher',
@@ -81,6 +82,11 @@ export function normalizeLessonContent(
   const normalized: LessonPlanContent = {
     ...source,
     schemaVersion: 2,
+    lessonPlanFormat: current?.lessonPlanFormat === 'daily_lesson_log'
+      ? 'daily_lesson_log'
+      : current?.lessonPlanFormat === 'ilaw'
+        ? 'ilaw'
+        : undefined,
     lessonFocus: current?.lessonFocus ?? source.lessonTitle,
     lessonFocusSource: current?.lessonFocusSource ?? 'teacher',
     lessonFocusSourceId: current?.lessonFocusSourceId ?? null,
