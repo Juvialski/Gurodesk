@@ -219,11 +219,11 @@ function drawPdfQuestionHead(ctx: PdfContext, question: AssessmentPaperQuestion,
 }
 
 function drawPdfChoiceList(ctx: PdfContext, question: AssessmentPaperQuestion, contentX: number, contentWidth: number) {
-  ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(9)
+  ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(9.5)
   question.choices.forEach((choice) => {
     let prefix = `${choice.label}. `
     if (choice.checkbox) { ctx.doc.rect(contentX + 5, ctx.y - 7, 7, 7); prefix = `   ${choice.label}. ` }
-    drawWrappedPdfText(ctx, `${prefix}${choice.text}`, contentX + 5, contentWidth - 10, { size: 9, lineHeight: 10.5, after: 2 })
+    drawWrappedPdfText(ctx, `${prefix}${choice.text}`, contentX + 5, contentWidth - 10, { size: 9.5, lineHeight: 11, after: 2 })
   })
 }
 
@@ -539,8 +539,8 @@ async function docxQuestion(paper: AssessmentPaperPresentationModel, question: A
     children: [docxText(question.numberLabel, { bold: true, size: 20 }), docxText(question.prompt, { size: 20, leadingSpace: true }), ...(question.pointLabel ? [docxText(`(${question.pointLabel})`, { size: 16, color: MUTED, leadingSpace: true })] : [])],
   }))
   if (question.visual) children.push(await docxVisualParagraph(question, question.visual))
-  question.subparts.forEach((part) => children.push(new Paragraph({ keepNext: true, keepLines: true, spacing: { after: 30 }, children: [docxText(`(${part.label}) ${part.prompt} (${part.pointLabel})`, { size: 18 })] })))
-  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') question.choices.forEach((choice, index) => children.push(new Paragraph({ keepNext: index < question.choices.length - 1, spacing: { after: 28 }, indent: { left: 260 }, children: [docxText(`${choice.checkbox ? '☐ ' : ''}${choice.label}. ${choice.text}`, { size: 18 })] })))
+  question.subparts.forEach((part) => children.push(new Paragraph({ keepNext: true, keepLines: true, spacing: { after: 30 }, children: [docxText(`(${part.label}) ${part.prompt} (${part.pointLabel})`, { size: 20 })] })))
+  if (question.questionType === 'multiple_choice' || question.questionType === 'multiple_select') question.choices.forEach((choice, index) => children.push(new Paragraph({ keepNext: index < question.choices.length - 1, spacing: { after: 28 }, indent: { left: 260 }, children: [docxText(`${choice.checkbox ? '☐ ' : ''}${choice.label}. ${choice.text}`, { size: 20 })] })))
   if (question.questionType === 'matching') children.push(docxMatchingTable(question))
   const { response } = question
   const kind = response.kind

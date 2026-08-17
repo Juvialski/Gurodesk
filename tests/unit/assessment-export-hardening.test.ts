@@ -2,7 +2,7 @@ import PizZip from 'pizzip'
 import { describe, expect, it } from 'vitest'
 import { assessmentDuplicateLevel, assessmentSimilarityConcentration, assessmentVisualSemanticFindings, promptRequiresAssessmentVisual } from '../../src/lib/assessmentFinalQa'
 import { normalizeAssessmentMathText, hasUnsupportedAssessmentMathMarkup } from '../../src/lib/assessmentMathText'
-import { assessmentQuestionTypesAreContiguous, assessmentResponseKind, assessmentSectionTitle, assessmentUsesContiguousTypeSections, recommendedAssessmentResponseLines } from '../../src/lib/assessmentExportPresentation'
+import { assessmentQuestionTypesAreContiguous, assessmentResponseKind, assessmentSectionTitle, assessmentUsesContiguousTypeSections, cleanTrueFalsePrompt, recommendedAssessmentResponseLines } from '../../src/lib/assessmentExportPresentation'
 import { buildAssessmentDocxBlob } from '../../src/lib/assessmentExport'
 import { buildAssessmentExportModel } from '../../src/lib/assessmentExportModel'
 import { ASSESSMENT_VISUAL_FIXTURES } from '../../src/lib/assessmentVisualFixtures'
@@ -29,7 +29,20 @@ describe('assessment export presentation hardening', () => {
     expect(normalizeAssessmentMathText('If $\\sqrt{a} = \\sqrt[3]{b}$, then $a^3 = b^2$.')).toBe('If √(a) = ∛(b), then a³ = b².')
     expect(normalizeAssessmentMathText('If $\\sqrt{a} = \\sqrt[3]{b}$, then a3 = b2.')).toBe('If √(a) = ∛(b), then a³ = b².')
     expect(normalizeAssessmentMathText('The box volume is 50cm3 and base area is 10cm2.')).toBe('The box volume is 50cm³ and base area is 10cm².')
+    expect(normalizeAssessmentMathText('50cm3')).toBe('50cm³')
+    expect(normalizeAssessmentMathText('10cm2')).toBe('10cm²')
+    expect(normalizeAssessmentMathText('_____ 6.')).toBe('_____ 6.')
+    expect(normalizeAssessmentMathText('_____ 10.')).toBe('_____ 10.')
+    expect(normalizeAssessmentMathText('x_1 + x_2')).toBe('x₁ + x₂')
     expect(hasUnsupportedAssessmentMathMarkup('Use $\\unknown{q}$ here')).toBe(true)
+  })
+
+  it('strips redundant meta-instructions from True/False statements', () => {
+    expect(cleanTrueFalsePrompt('Determine whether the following statement is true or false: The sum of the principal square root of 64 and the cube root of 27 is 11.')).toBe('The sum of the principal square root of 64 and the cube root of 27 is 11.')
+    expect(cleanTrueFalsePrompt("Analyze the following statement: 'The difference between the principal square root of 169 and the cube root of 343 is equal to the cube root of 8.' Determine if this statement is True or False.")).toBe('The difference between the principal square root of 169 and the cube root of 343 is equal to the cube root of 8.')
+    expect(cleanTrueFalsePrompt('Determine whether the following statement is true or false: If the cube root of a positive integer n is 8, then its principal square root is an integer.')).toBe('If the cube root of a positive integer n is 8, then its principal square root is an integer.')
+    expect(cleanTrueFalsePrompt("Consider the following mathematical claim: 'The difference between the square root of 144 and the cube root of 64 is equal to 8.' Evaluating this claim, determine whether it is true or false.")).toBe('The difference between the square root of 144 and the cube root of 64 is equal to 8.')
+    expect(cleanTrueFalsePrompt('Read the student-generated mathematical conjecture: If a is a perfect square and b is a perfect cube such that the principal square root of a is equal to the principal cube root of b (√(a) = ∛(b)), then a³ = b². Determine if this created conjecture is true or false.')).toBe('If a is a perfect square and b is a perfect cube such that the principal square root of a is equal to the principal cube root of b (√(a) = ∛(b)), then a³ = b².')
   })
 
   it('builds Word as a native editable paper and embeds vector assessment diagrams', async () => {

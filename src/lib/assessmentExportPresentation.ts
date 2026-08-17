@@ -113,8 +113,8 @@ const TYPE_LABELS: Record<QuestionType, string> = {
 
 const SECTION_DIRECTIONS: Record<QuestionType, { english: string; filipino: string }> = {
   multiple_choice: {
-    english: 'Directions: Read each question carefully. Choose the letter of the correct answer.',
-    filipino: 'Panuto: Basahing mabuti ang bawat tanong. Piliin ang titik ng tamang sagot.',
+    english: 'Directions: Read each question carefully. Choose the letter of the correct answer and write it on the space provided before each number.',
+    filipino: 'Panuto: Basahing mabuti ang bawat tanong. Piliin ang titik ng tamang sagot at isulat ito sa patlang bago ang bawat bilang.',
   },
   true_false: {
     english: 'Directions: Write TRUE if the statement is correct and FALSE if it is incorrect. Write your answer on the space provided before each number.',
@@ -156,6 +156,30 @@ const SECTION_DIRECTIONS: Record<QuestionType, { english: string; filipino: stri
     english: 'Directions: Write a clear and well-organized essay addressing the prompt below. You will be evaluated on content, organization, and clarity of ideas.',
     filipino: 'Panuto: Sumulat ng isang maayos at makabuluhang sanaysay batay sa paksa. Mamarkahan ang iyong gawa ayon sa nilalaman, organisasyon, at kalinawan ng kaisipan.',
   },
+}
+
+/** Clean meta-instruction boilerplate from True/False statements since section directions already instruct the learner. */
+export function cleanTrueFalsePrompt(raw: string): string {
+  let cleaned = raw.trim()
+  cleaned = cleaned.replace(/^(?:(?:Determine|State|Identify)\s+(?:whether|if)\s+(?:the\s+following\s+statement\s+is\s+(?:true\s+or\s+false|correct\s+or\s+incorrect)|this\s+is\s+(?:true\s+or\s+false))[:.]?\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:Analyze|Consider|Evaluate|Read)\s+(?:the\s+following\s+(?:mathematical\s+)?(?:statement|claim|conjecture)|the\s+student-generated\s+(?:mathematical\s+)?conjecture)[:.]?\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:Tukuyin|Suriin|Alamin)\s+kung\s+ang\s+sumusunod\s+na\s+pahayag\s+ay\s+(?:tama\s+o\s+mali|wasto\s+o\s+di-wasto)[:.]?\s*)/iu, '')
+
+  cleaned = cleaned.replace(/(?:[,\s]*(?:Evaluating\s+this\s+claim,\s*)?(?:determine|identify|state)\s+(?:if|whether)\s+(?:this\s+(?:statement|claim|created\s+conjecture)|it)\s+is\s+(?:true\s+or\s+false|correct\s+or\s+incorrect)\.?\s*)$/iu, '')
+  cleaned = cleaned.replace(/(?:[,\s]*is\s+this\s+statement\s+(?:true\s+or\s+false|correct\s+or\s+incorrect)\??\s*)$/iu, '')
+  cleaned = cleaned.replace(/(?:[,\s]*(?:tukuyin|alamin)\s+kung\s+(?:ito|ang\s+pahayag)\s+ay\s+(?:tama\s+o\s+mali|wasto\s+o\s+hindi)\.?\s*)$/iu, '')
+
+  cleaned = cleaned.trim()
+  if ((cleaned.startsWith("'") && cleaned.endsWith("'")) || (cleaned.startsWith('"') && cleaned.endsWith('"'))) {
+    cleaned = cleaned.slice(1, -1).trim()
+  }
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1)
+    if (!/[.?!]$/.test(cleaned)) {
+      cleaned += '.'
+    }
+  }
+  return cleaned || raw
 }
 
 export function assessmentSectionDirections(type: QuestionType, language?: string) {
@@ -339,8 +363,9 @@ function paperQuestion(model: AssessmentExportModel, question: AssessmentExportQ
       : responseKind === 'fill_structured'
         ? Math.max(1, blanksFor(question).length)
         : 0
-  const prompt = 'prompt' in question ? text(question.prompt) : ''
-  const isDepEdPrecedingBlank = model.mode === 'student' && question.questionType === 'true_false'
+  const rawPrompt = 'prompt' in question ? text(question.prompt) : ''
+  const prompt = question.questionType === 'true_false' ? cleanTrueFalsePrompt(rawPrompt) : rawPrompt
+  const isDepEdPrecedingBlank = model.mode === 'student' && (question.questionType === 'multiple_choice' || question.questionType === 'true_false' || question.questionType === 'identification')
   const numberLabel = isDepEdPrecedingBlank
     ? `_____ ${question.numberLabel || question.itemNumber}.`
     : `${question.numberLabel || question.itemNumber}.`

@@ -100,10 +100,12 @@ function superscripts(value: string) {
 
 function subscripts(value: string) {
   return value
-    .replace(/_\s*\{([^{}]+)\}/gu, (_, content: string) => {
+    .replace(/(?<!_)_{1}(?!_)\s*\{([^{}]+)\}/gu, (_, content: string) => {
       return [...content].map((ch) => SUBSCRIPT_MAP[ch] ?? ch).join('')
     })
-    .replace(/_\s*([0-9a-zA-Z+-])/gu, (_, ch: string) => SUBSCRIPT_MAP[ch] ?? `_${ch}`)
+    .replace(/([a-zA-Z0-9)\]])_(?!_)([0-9a-zA-Z+-])\b/gu, (_, base: string, ch: string) => {
+      return `${base}${SUBSCRIPT_MAP[ch] ?? `_${ch}`}`
+    })
 }
 
 export function normalizeAssessmentMathText(input: string | null | undefined) {
