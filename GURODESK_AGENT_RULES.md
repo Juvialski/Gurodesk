@@ -58,3 +58,9 @@ Do not disable validators to make CI green.
 For UI, test 360 / 390 / 412 px.
 For DB changes, preserve production data and fresh/upgrade compatibility.
 Do not claim a test passed if the environment could not actually run it.
+
+## Workspace Skills
+When modifying assessments, export renderers, or question generation:
+- Follow `.agents/skills/deped-assessment-standards/SKILL.md` for official DepEd bilingual directions, True/False format, blanks, and typography rules.
+- Follow `.agents/skills/assessment-export-qa/SKILL.md` for 4-target verification (DOCX, PDF, Web Preview, Browser Print) and math normalizer safety.
+
