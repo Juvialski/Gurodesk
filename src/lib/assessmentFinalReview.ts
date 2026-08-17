@@ -4,6 +4,7 @@ import { classifyAssessmentRisk, objectiveQuestionType, teacherScoredQuestionTyp
 import { assessmentDuplicateLevel, assessmentSimilarityConcentration, assessmentVisualSemanticFindings } from './assessmentFinalQa'
 import { hasUnsupportedAssessmentMathMarkup } from './assessmentMathText'
 import { assessmentQuestionTypesAreContiguous } from './assessmentExportPresentation'
+import { calculateRubricTotalPoints, validatePerformanceTaskRubric } from './performanceTaskRubric'
 
 type UnknownRecord = Record<string, unknown>
 function record(value: unknown): UnknownRecord { return value && typeof value === 'object' && !Array.isArray(value) ? value as UnknownRecord : {} }
@@ -80,11 +81,65 @@ function malformedNotation(prompt: string) {
 export function reviewAssessmentForFinalization(assessment: AssessmentRecord, options: { acknowledgedWarningCodes?: string[] } = {}): AssessmentFinalReview {
   const hardErrors: AssessmentFinalReviewIssue[] = []
   const warnings: AssessmentFinalReviewIssue[] = []
+  const isPerfTask = assessment.mode === 'performance_task' || Boolean(assessment.performanceTask)
+  const isLessonQuiz = assessment.mode === 'lesson_quiz'
+  const isUnitQuiz = assessment.mode === 'unit_quiz'
+  const isTosBased = !isPerfTask && !isLessonQuiz && !isUnitQuiz
+
+  if (isPerfTask) {
+    const pt = assessment.performanceTask
+    if (!pt) {
+      add(hardErrors, 'performance-task-missing', 'Performance Task content is missing.')
+    } else {
+      if (!pt.title || !pt.title.trim()) add(hardErrors, 'performance-task-title', 'Performance Task title is required.')
+      if (!pt.scenario || !pt.scenario.trim()) add(hardErrors, 'performance-task-scenario', 'Performance Task scenario is required.')
+      if (!pt.studentInstructions || !pt.studentInstructions.trim()) add(hardErrors, 'performance-task-instructions', 'Student instructions are required.')
+      if (!pt.expectedOutput || !pt.expectedOutput.trim()) add(hardErrors, 'performance-task-output', 'Expected output/product is required.')
+
+      const rubricResult = validatePerformanceTaskRubric(pt.rubric)
+      rubricResult.errors.forEach((e) => add(hardErrors, `rubric-${e.field}`, e.message))
+      rubricResult.warnings.forEach((w) => add(warnings, `rubric-${w.field}`, w.message, undefined, true))
+
+      const totalRubricPts = pt.rubric?.totalPoints ?? calculateRubricTotalPoints(pt.rubric)
+      if (totalRubricPts <= 0) add(hardErrors, 'rubric-points', 'Performance Task rubric must have positive total points.')
+
+      const acknowledgedWarningCodes = [...new Set(options.acknowledgedWarningCodes ?? [])]
+      const unacknowledgedWarnings = warnings.filter((entry) => !acknowledgedWarningCodes.includes(entry.code))
+      return {
+        ready: hardErrors.length === 0 && unacknowledgedWarnings.length === 0,
+        canFinalize: hardErrors.length === 0,
+        acknowledgedWarningCodes,
+        hardErrors,
+        warnings,
+        suspiciousItemIds: [],
+        metrics: {
+          itemCount: 1,
+          expectedItemCount: 1,
+          totalPoints: totalRubricPts,
+          objectivePoints: 0,
+          teacherScoredPoints: totalRubricPts,
+          completedItems: 1,
+          needsReviewItems: 0,
+          typeCounts: { constructed_response: 1 },
+          typePoints: { constructed_response: totalRubricPts },
+          competencyItemCounts: {},
+          competencyPoints: {},
+          cognitiveItemCounts: {},
+          cognitivePoints: {},
+        },
+      }
+    }
+  }
+
   const assessmentSettings = record(record(assessment).settings)
   const isV2 = Number(assessmentSettings.schemaVersion ?? 1) >= 2 && assessmentSettings.generationVersion === 'v2' && assessmentSettings.numberingMode === 'point_ranges'
   const masterPlan = isV2 ? record(assessmentSettings.masterPlan) : {}
-  const expected = isV2 ? Number(masterPlan.logicalItemCount) : Number(assessment.totalItems)
-  const source = sourceMappings(assessment)
+  const expected = isV2
+    ? Number(masterPlan.logicalItemCount)
+    : isTosBased
+      ? Number(assessment.totalItems)
+      : Number(assessment.totalItems || assessment.items.length)
+  const source = isTosBased ? sourceMappings(assessment) : new Map<number, { competencyId: string; cognitiveCategoryId: string }>()
   const numbers = new Set<number>()
   let pointCursor = 1
   const typeCounts: Partial<Record<QuestionType, number>> = {}
@@ -112,7 +167,7 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
     competencyPoints[competencyId] = (competencyPoints[competencyId] ?? 0) + metricPoints
     cognitiveItemCounts[cognitiveId] = (cognitiveItemCounts[cognitiveId] ?? 0) + 1
     cognitivePoints[cognitiveId] = (cognitivePoints[cognitiveId] ?? 0) + metricPoints
-    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || item.itemNumber > expected) add(hardErrors, 'item-number', isV2 ? 'Logical question number is missing, duplicated, or outside the frozen master plan.' : 'Item number is missing, duplicated, or outside the source TOS slots.', item)
+    if (!Number.isSafeInteger(item.itemNumber) || item.itemNumber < 1 || item.itemNumber > expected) add(hardErrors, 'item-number', isV2 ? 'Logical question number is missing, duplicated, or outside the frozen master plan.' : isTosBased ? 'Item number is missing, duplicated, or outside the source TOS slots.' : 'Question number is missing, duplicated, or outside the assessment count.', item)
     if (numbers.has(item.itemNumber)) add(hardErrors, 'duplicate-item-number', 'Item numbers must not be duplicated.', item)
     numbers.add(item.itemNumber)
     if (isV2) {
@@ -123,15 +178,19 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
       if (!Number.isSafeInteger(pointStart) || !Number.isSafeInteger(pointEnd) || pointStart !== pointCursor || pointEnd !== pointStart + points - 1) add(hardErrors, 'point-range', 'Point ranges must be contiguous and exactly match pointsPossible.', item)
       if (Number.isSafeInteger(pointEnd)) pointCursor = pointEnd + 1
       if (!v2SourceMappingValid(assessment, item)) add(hardErrors, 'tos-mapping', 'Finalized TOS competency or cognitive mapping changed.', item)
-    } else {
+    } else if (isTosBased) {
       const mapped = source.get(item.itemNumber)
       if (!mapped || mapped.competencyId !== item.mapping.competencyId || mapped.cognitiveCategoryId !== item.mapping.cognitiveCategoryId || item.mapping.competencyId !== item.competencySnapshot.id) add(hardErrors, 'tos-mapping', 'Finalized TOS item, competency, or cognitive mapping changed.', item)
+    } else {
+      if (!item.competencySnapshot.id || (item.mapping.competencyId && item.mapping.competencyId !== item.competencySnapshot.id)) {
+        add(hardErrors, 'competency-mapping', 'Question competency mapping is invalid or missing.', item)
+      }
     }
     if (!ASSESSMENT_QUESTION_TYPES.includes(type) || (allowed.length > 0 && !allowed.includes(type))) add(hardErrors, 'question-type', 'Question type is unsupported or disabled for this assessment.', item)
     const deterministic = validateAssessmentItemDeterministic(item, { allowedTypes: allowed.length ? allowed : undefined, expectedItemNumber: item.itemNumber, expectedCompetencyId: item.competencySnapshot.id, expectedCognitiveCategoryId: item.cognitiveCategorySnapshot.id })
     deterministic.errors.forEach((entry) => add(hardErrors, entry.code, entry.message, item))
     deterministic.warnings.forEach((entry) => add(warnings, entry.code, entry.message, item, true))
-    if (!item.prompt.trim()) add(hardErrors, 'missing-item', 'Every TOS slot needs a question prompt.', item)
+    if (!item.prompt.trim()) add(hardErrors, 'missing-item', isTosBased ? 'Every TOS slot needs a question prompt.' : 'Every question requires a prompt.', item)
     else completedItems += 1
     if (!Number.isFinite(points) || points <= 0) add(hardErrors, 'points', 'Points possible must be positive and finite.', item)
     const qaState = String(itemRecord.qaState ?? '')
@@ -162,7 +221,7 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
     }
   })
   const distributionMode = String(assessmentSettings.mode ?? 'auto_balanced')
-  if (distributionMode !== 'manual_per_item' && !assessmentQuestionTypesAreContiguous(assessment.items)) {
+  if (isTosBased && distributionMode !== 'manual_per_item' && !assessmentQuestionTypesAreContiguous(assessment.items)) {
     add(hardErrors, 'question-type-sections', 'Automatic question-type modes require contiguous grouped test sections. Reapply the distribution to empty slots or switch to Manual per item before finalization.')
   }
 
@@ -177,7 +236,7 @@ export function reviewAssessmentForFinalization(assessment: AssessmentRecord, op
   }
   const concentration = assessmentSimilarityConcentration(assessment.items)
   if (concentration) add(warnings, 'evidence-concentration', `${concentration.points} point(s) (${Math.round(concentration.share * 100)}%) are concentrated in a closely related question cluster: Items ${concentration.itemNumbers.join(', ')}. Confirm that this weighting matches the intended evidence.`, undefined, true)
-  for (let itemNumber = 1; itemNumber <= expected; itemNumber += 1) if (!numbers.has(itemNumber)) add(hardErrors, 'missing-slot', isV2 ? `Logical question ${itemNumber} from the frozen master plan is missing.` : `Item ${itemNumber} from the finalized TOS is missing.`)
+  for (let itemNumber = 1; itemNumber <= expected; itemNumber += 1) if (!numbers.has(itemNumber)) add(hardErrors, 'missing-slot', isV2 ? `Logical question ${itemNumber} from the frozen master plan is missing.` : isTosBased ? `Item ${itemNumber} from the finalized TOS is missing.` : `Question ${itemNumber} is missing.`)
   if (assessment.items.length !== expected) add(hardErrors, 'item-count', `Assessment must contain exactly ${expected} logical question(s).`)
   if (isV2 && pointCursor !== Number(masterPlan.totalPoints) + 1) add(hardErrors, 'point-range-total', 'Point-range numbering must cover exactly 1 through the frozen assessment total points.')
   const dominantPattern = Math.max(0, ...Object.values(answerPatterns))

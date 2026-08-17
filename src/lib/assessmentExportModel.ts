@@ -1,4 +1,4 @@
-import type { Assessment, AssessmentAnswer, AssessmentItem, QuestionType } from '../types/assessment'
+import type { Assessment, AssessmentAnswer, AssessmentCognitiveCategorySnapshot, AssessmentCompetencySnapshot, AssessmentItem, QuestionType } from '../types/assessment'
 import { normalizeAssessmentMathText } from './assessmentMathText'
 import { recommendedAssessmentResponseLines } from './assessmentExportPresentation'
 import { neutralAssessmentVisualAltText } from './assessmentVisualValidation'
@@ -183,12 +183,104 @@ function answerKeyQuestion(item: AssessmentItem): AssessmentAnswerKeyExportQuest
   return { itemNumber: item.itemNumber, numberLabel: numberLabelForItem(item), questionType: questionType(item), answerSpaceLines: 0, pointsPossible: pointsForItem(item), points: pointsForItem(item), answer: item.answer, ...(item.visual ? { visual: item.visual } : {}), ...(scoringGuide(item) ? { scoringGuide: normalizeAssessmentMathText(scoringGuide(item)) } : {}) }
 }
 
+function performanceTaskQuestions(assessment: Assessment, mode: AssessmentExportOptions['mode'], _options: AssessmentExportOptions) {
+  const pt = assessment.performanceTask
+  if (!pt) return []
+  const rubricTotalPts = pt.rubric?.totalPoints || 0
+  const criteriaText = pt.rubric?.criteria?.map((c, i) => {
+    const levelsText = c.levels?.map((l) => `  - Level ${l.id || l.label} (${l.points} pts - ${l.label}): ${l.descriptor}`).join('\n') || ''
+    return `${i + 1}. ${c.name} (${c.pointsPossible} pts)${c.description ? `\n   ${c.description}` : ''}${levelsText ? `\n${levelsText}` : ''}`
+  }).join('\n\n') || ''
+
+  const milestones = Array.isArray(pt.milestones) ? pt.milestones : []
+  const prompt = [
+    pt.scenario ? `Scenario / Context:\n${pt.scenario}` : '',
+    pt.expectedOutput ? `Deliverable / Output:\n${pt.expectedOutput}` : '',
+    milestones.length ? `Milestones:\n${milestones.map((m, i) => `• Milestone ${i + 1}: ${m.title}${m.description ? ` - ${m.description}` : ''}`).join('\n')}` : '',
+  ].filter(Boolean).join('\n\n')
+
+  const base = {
+    itemNumber: 1,
+    numberLabel: '1',
+    questionType: 'constructed_response' as const,
+    prompt: normalizeAssessmentMathText(prompt),
+    pointsPossible: rubricTotalPts,
+    points: rubricTotalPts,
+  }
+
+  const rubricCriteria = pt.rubric?.criteria?.map((c) => ({
+    id: c.id,
+    label: c.name,
+    pointsPossible: c.pointsPossible,
+    description: c.description,
+  })) || []
+
+  const answerPayload: AssessmentAnswer = {
+    type: 'constructed_response',
+    expectedResponse: pt.expectedOutput || '',
+    sampleResponse: pt.expectedOutput || '',
+    rubric: rubricCriteria,
+  }
+
+  if (mode === 'student') {
+    return [{
+      ...base,
+      answerSpaceLines: 8,
+      choices: [],
+    } as AssessmentStudentExportQuestion]
+  }
+
+  if (mode === 'answer_key') {
+    return [{
+      ...base,
+      answerSpaceLines: 0,
+      answer: answerPayload,
+      ...(criteriaText ? { scoringGuide: `Analytic Rubric Criteria (${rubricTotalPts} pts total):\n\n${criteriaText}` } : {}),
+    } as AssessmentAnswerKeyExportQuestion]
+  }
+
+  const primaryCompetency = pt.competencyAlignment?.[0]
+  const competencySnapshot: AssessmentCompetencySnapshot | undefined = primaryCompetency ? {
+    id: primaryCompetency.id,
+    code: primaryCompetency.code ?? null,
+    text: primaryCompetency.text ?? '',
+    sourcePage: primaryCompetency.sourcePage ?? null,
+    academicPeriodId: primaryCompetency.academicPeriodId ?? null,
+    curriculumPeriodId: primaryCompetency.curriculumPeriodId ?? null,
+    curriculumPeriodLabel: primaryCompetency.curriculumPeriodLabel ?? '',
+  } : undefined
+
+  const cognitiveCategorySnapshot: AssessmentCognitiveCategorySnapshot = {
+    id: 'synthesis',
+    label: 'Creating / Synthesis',
+    shortLabel: 'Synthesis',
+  }
+
+  return [{
+    ...base,
+    answerSpaceLines: 4,
+    choices: [],
+    competency: competencySnapshot,
+    cognitiveCategory: cognitiveCategorySnapshot,
+    answer: answerPayload,
+    ...(pt.teacherInstructions ? { rationale: pt.teacherInstructions } : {}),
+    ...(criteriaText ? { scoringGuide: `Scoring Rubric:\n\n${criteriaText}` } : {}),
+  } as AssessmentTeacherExportQuestion]
+}
+
 export function buildAssessmentExportModel(assessment: Assessment, options: AssessmentExportOptions): AssessmentExportModel {
   const language = resolveLanguage(assessment, options)
   const labels = language === 'filipino' ? FILIPINO_LABELS : ENGLISH_LABELS
   const mode = options.mode
   const title = clean(assessment.title) || labels.documentTitle
-  const questions = mode === 'student' ? assessment.items.map(studentQuestion) : mode === 'answer_key' ? assessment.items.map(answerKeyQuestion) : assessment.items.map((item) => teacherQuestion(item, options))
+  const isPerfTask = (assessment.mode === 'performance_task' || Boolean(assessment.performanceTask)) && assessment.items.length === 0
+  const questions = isPerfTask
+    ? performanceTaskQuestions(assessment, mode, options)
+    : mode === 'student'
+      ? assessment.items.map(studentQuestion)
+      : mode === 'answer_key'
+        ? assessment.items.map(answerKeyQuestion)
+        : assessment.items.map((item) => teacherQuestion(item, options))
   return {
     mode,
     language,
@@ -201,7 +293,7 @@ export function buildAssessmentExportModel(assessment: Assessment, options: Asse
       ...(mode !== 'answer_key' ? { learnerName: clean(options.learnerName), section: clean(options.section) } : {}),
       gradeLevel: clean(assessment.gradeLevel), learningArea: clean(assessment.learningArea), schoolYear: clean(assessment.schoolYear), gradingTerm: clean(assessment.gradingTermLabel),
       ...(mode === 'teacher' ? { curriculumPeriods: assessment.curriculumPeriodLabels.map(clean).filter(Boolean).join(', ') } : {}),
-      totalItems: assessment.items.length,
+      totalItems: isPerfTask ? (assessment.performanceTask?.rubric?.criteria?.length || 1) : assessment.items.length,
       totalPoints: assessment.mode === 'performance_task' && assessment.performanceTask?.rubric
         ? (assessment.performanceTask.rubric.totalPoints || assessment.totalPoints || 0)
         : assessmentTotalPoints(assessment),

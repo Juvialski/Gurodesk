@@ -379,6 +379,38 @@ export function AssessmentEditorPage() {
 
   async function persistVerifiedAssessment(sourceInput: AssessmentRecord, useTransientSuggestions = true) {
     const source = normalizeAssessment(sourceInput)
+    if (source.mode === 'performance_task' || Boolean(source.performanceTask)) {
+      const draft = { ...source, title: title.trim() || source.title, instructions: instructions.trim() || source.instructions, status: 'draft' as const }
+      const validation = localValidation(draft)
+      const firstReview = reviewAssessmentForFinalization(draft)
+      const acknowledgedWarningCodes = [...new Set(firstReview.warnings.map((entry) => entry.code))]
+      const verifiedReview = reviewAssessmentForFinalization(draft, { acknowledgedWarningCodes })
+      setWarningsAccepted(true)
+      setReview(verifiedReview)
+      setReviewOpen(verifiedReview.hardErrors.length > 0)
+
+      const savedDraft = await saveAssessmentDocument(draft, isDemo)
+      recordRef.current = savedDraft
+      setRecordValue(savedDraft)
+      setTitle(savedDraft.title)
+      setInstructions(savedDraft.instructions)
+
+      if (verifiedReview.hardErrors.length > 0 || validation.errors.length > 0) {
+        const grouped = finalReviewMessages(verifiedReview).errors
+        const blockerCount = Math.max(grouped.length, validation.errors.length, 1)
+        return { finalized: false, record: savedDraft, acceptedCount: 1, blockerCount, review: verifiedReview }
+      }
+
+      const finalized = { ...savedDraft, status: 'final' as const }
+      const savedFinal = await saveAssessmentDocument(finalized, isDemo)
+      recordRef.current = savedFinal
+      setRecordValue(savedFinal)
+      const finalReview = reviewAssessmentForFinalization(savedFinal, { acknowledgedWarningCodes })
+      setReview(finalReview)
+      setReviewOpen(false)
+      return { finalized: true, record: savedFinal, acceptedCount: 1, blockerCount: 0, review: finalReview }
+    }
+
     const acceptedIds = new Set<string>()
     const structurallyBlocked = new Set<number>()
     const nextItems = source.items.map((item) => {
@@ -447,11 +479,11 @@ export function AssessmentEditorPage() {
     try {
       const result = await persistVerifiedAssessment(recordRef.current ?? recordValue, true)
       if (!result.finalized) {
-        setSavedMessage(`${result.acceptedCount} completed item${result.acceptedCount === 1 ? '' : 's'} accepted, teacher-verified, locked, and saved.`)
-        setError(`${result.blockerCount} structural blocker${result.blockerCount === 1 ? '' : 's'} remain. Use Generate & prepare paper to let Gemini retry AI-generated blockers automatically.`)
+        setSavedMessage(view.mode === 'performance_task' ? 'Performance task draft saved with remaining review items.' : `${result.acceptedCount} completed item${result.acceptedCount === 1 ? '' : 's'} accepted, teacher-verified, locked, and saved.`)
+        setError(view.mode === 'performance_task' ? 'Complete the required performance task fields and rubric criteria before finalization.' : `${result.blockerCount} structural blocker${result.blockerCount === 1 ? '' : 's'} remain. Use Generate & prepare paper to let Gemini retry AI-generated blockers automatically.`)
         return
       }
-      setSavedMessage(`${result.acceptedCount} completed item${result.acceptedCount === 1 ? '' : 's'} accepted, teacher-verified, locked, and assessment finalized.`)
+      setSavedMessage(view.mode === 'performance_task' ? 'Performance task verified, locked, and finalized.' : `${result.acceptedCount} completed item${result.acceptedCount === 1 ? '' : 's'} accepted, teacher-verified, locked, and assessment finalized.`)
     } catch (nextError) {
       setError(extractErrorMessage(nextError, 'Unable to accept, verify, and finalize the assessment.'))
     } finally {
