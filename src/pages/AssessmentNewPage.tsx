@@ -84,13 +84,13 @@ const CPD_LABELS: Record<AssessmentCpdKey, string> = {
   other: 'Other',
 }
 
-function getLessonGrade(lesson: LessonPlanRecord | undefined) {
+function getLessonGrade(lesson: LessonPlanRecord | null | undefined) {
   return lesson?.content?.gradeLevel || ''
 }
-function getLessonSubject(lesson: LessonPlanRecord | undefined) {
+function getLessonSubject(lesson: LessonPlanRecord | null | undefined) {
   return lesson?.content?.learningArea || ''
 }
-function getLessonCompetencies(lesson: LessonPlanRecord | undefined) {
+function getLessonCompetencies(lesson: LessonPlanRecord | null | undefined) {
   if (!lesson?.content) return []
   if (lesson.content.curriculumAlignments && lesson.content.curriculumAlignments.length > 0) {
     return lesson.content.curriculumAlignments
@@ -100,7 +100,7 @@ function getLessonCompetencies(lesson: LessonPlanRecord | undefined) {
   }
   return []
 }
-function getLessonObjectives(lesson: LessonPlanRecord | undefined): string[] {
+function getLessonObjectives(lesson: LessonPlanRecord | null | undefined): string[] {
   const obj = lesson?.content?.intentions?.learningObjectives
   if (Array.isArray(obj)) return obj
   if (typeof obj === 'string' && obj.trim()) return [obj.trim()]
@@ -904,6 +904,7 @@ export function AssessmentNewPage() {
           className={`assessment-mode-card ${mode === 'tos' ? 'selected' : ''}`}
           onClick={() => {
             setMode('tos')
+            setStep(1)
             setError('')
           }}
         >
@@ -921,6 +922,7 @@ export function AssessmentNewPage() {
           className={`assessment-mode-card ${mode === 'lesson_quiz' ? 'selected' : ''}`}
           onClick={() => {
             setMode('lesson_quiz')
+            setStep(1)
             setError('')
           }}
         >
@@ -938,6 +940,7 @@ export function AssessmentNewPage() {
           className={`assessment-mode-card ${mode === 'unit_quiz' ? 'selected' : ''}`}
           onClick={() => {
             setMode('unit_quiz')
+            setStep(1)
             setError('')
           }}
         >
@@ -955,6 +958,7 @@ export function AssessmentNewPage() {
           className={`assessment-mode-card ${mode === 'performance_task' ? 'selected' : ''}`}
           onClick={() => {
             setMode('performance_task')
+            setStep(1)
             setError('')
           }}
         >
@@ -1230,19 +1234,9 @@ export function AssessmentNewPage() {
         </div>
       )}
 
-      {/* MODE 2: LESSON QUIZ */}
+      {/* MODE 2: LESSON QUIZ WIZARD */}
       {mode === 'lesson_quiz' && (
-        <section className="panel assessment-form-card">
-          <div className="assessment-section-heading">
-            <span className="mode-icon-badge">
-              <BookOpen size={20} />
-            </span>
-            <div>
-              <h2>Create Single-Lesson Quiz</h2>
-              <p>Generate a targeted formative assessment grounded directly in your daily lesson plan.</p>
-            </div>
-          </div>
-
+        <div className="assessment-v2-wizard-shell">
           {!lessonPlans.length ? (
             <EmptyState
               icon={BookOpen}
@@ -1254,151 +1248,250 @@ export function AssessmentNewPage() {
               </Link>
             </EmptyState>
           ) : (
-            <div className="assessment-flow-form">
-              <div className="form-group">
-                <label className="field-label">
-                  <strong>Select Lesson Plan</strong>
-                  <span className="field-hint">The quiz will align to this lesson plan’s competencies and objectives.</span>
-                </label>
-                <select
-                  className="select"
-                  value={selectedLessonId}
-                  onChange={(e) => setSelectedLessonId(e.target.value)}
-                >
-                  {lessonPlans.map((lesson) => (
-                    <option key={lesson.id} value={lesson.id}>
-                      {lesson.title} ({[getLessonGrade(lesson), getLessonSubject(lesson)].filter(Boolean).join(' · ') || 'Context'})
-                    </option>
-                  ))}
-                </select>
+            <>
+              <div className="assessment-v2-stepper" aria-label="Lesson quiz setup progress">
+                {([
+                  [1, 'Source Lesson'],
+                  [2, 'Quiz Setup'],
+                  [3, 'Formats & Generate'],
+                ] as const).map(([num, label]) => (
+                  <div
+                    key={num}
+                    className={`assessment-v2-step ${step === num ? 'active' : step > num ? 'done' : ''}`}
+                  >
+                    <span>{step > num ? <Check size={14} /> : num}</span>
+                    <strong>{label}</strong>
+                  </div>
+                ))}
               </div>
 
-              {selectedLesson && (
-                <div className="source-preview-banner">
-                  <strong>Aligned Competencies:</strong>
-                  <ul>
-                    {getLessonCompetencies(selectedLesson).map((c) => (
-                      <li key={c.id}>
-                        {c.code ? <b>{c.code}: </b> : null}
-                        {c.text}
-                      </li>
-                    ))}
-                    {getLessonCompetencies(selectedLesson).length === 0 && (
-                      <li>Preserves general lesson objectives and learning content.</li>
-                    )}
-                  </ul>
-                </div>
+              {step === 1 && (
+                <section className="panel assessment-v2-wizard-card">
+                  <header className="assessment-v2-wizard-heading">
+                    <span className="assessment-v2-wizard-number">1</span>
+                    <div>
+                      <h2>Choose lesson plan</h2>
+                      <p>Select the active daily lesson plan this formative quiz will align to.</p>
+                    </div>
+                  </header>
+
+                  <div className="assessment-v2-source-list" role="listbox" aria-label="Active lesson plans">
+                    {lessonPlans.map((lesson) => {
+                      const chosen = selectedLessonId === lesson.id
+                      return (
+                        <button
+                          key={lesson.id}
+                          type="button"
+                          role="option"
+                          aria-selected={chosen}
+                          className={`assessment-v2-source-card ${chosen ? 'selected' : ''}`}
+                          onClick={() => setSelectedLessonId(lesson.id)}
+                        >
+                          <span className="assessment-v2-source-icon">
+                            {chosen ? <Check size={18} /> : <BookOpen size={18} />}
+                          </span>
+                          <span className="assessment-v2-source-copy">
+                            <strong>{lesson.title || 'Untitled Lesson'}</strong>
+                            <small>
+                              {[getLessonGrade(lesson), getLessonSubject(lesson), lesson.schoolYear]
+                                .filter(Boolean)
+                                .join(' · ') || 'Unspecified context'}
+                            </small>
+                            <small>{getLessonCompetencies(lesson).length} competencies</small>
+                          </span>
+                          {chosen && <span className="assessment-v2-selected-pill">Selected</span>}
+                        </button>
+                      )
+                    })}
+                  </div>
+
+                  {selectedLesson && (
+                    <div className="source-preview-banner" style={{ margin: '0 24px 18px' }}>
+                      <strong>Aligned Competencies:</strong>
+                      <ul>
+                        {getLessonCompetencies(selectedLesson).map((c) => (
+                          <li key={c.id}>
+                            {c.code ? <b>{c.code}: </b> : null}
+                            {c.text}
+                          </li>
+                        ))}
+                        {getLessonCompetencies(selectedLesson).length === 0 && (
+                          <li>Preserves general lesson objectives and learning content.</li>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+
+                  <footer className="assessment-v2-wizard-footer">
+                    <Link className="button ghost" to="/assessments">
+                      <ArrowLeft size={16} /> Cancel
+                    </Link>
+                    <button
+                      className="button primary"
+                      type="button"
+                      disabled={!selectedLesson}
+                      onClick={() => setStep(2)}
+                    >
+                      Continue <ArrowRight size={16} />
+                    </button>
+                  </footer>
+                </section>
               )}
 
-              <TeachingAssignmentField
-                assignments={assignments}
-                assignmentId={lessonQuizAssignmentId}
-                linkedAssignmentId={selectedLesson?.assignmentId}
-                linkedFallbackLabel={[getLessonGrade(selectedLesson ?? undefined), getLessonSubject(selectedLesson ?? undefined), selectedLesson?.schoolYear].filter(Boolean).join(' · ')}
-                onChange={setLessonQuizAssignmentId}
-              />
+              {step === 2 && (
+                <section className="panel assessment-v2-wizard-card">
+                  <header className="assessment-v2-wizard-heading">
+                    <span className="assessment-v2-wizard-number">2</span>
+                    <div>
+                      <h2>Quiz Setup</h2>
+                      <p>Set the quiz title, length, teaching assignment, and learner directions.</p>
+                    </div>
+                  </header>
 
-              <div className="form-row-2">
-                <div className="form-group">
-                  <label className="field-label">
-                    <strong>Quiz Title</strong>
-                  </label>
-                  <input
-                    type="text"
-                    className="input"
-                    value={quizTitle}
-                    placeholder={selectedLesson ? `Quiz: ${selectedLesson.title}` : 'e.g. Formative Check 1'}
-                    onChange={(e) => setQuizTitle(e.target.value)}
-                  />
-                </div>
+                  <div className="assessment-v2-primary-fields">
+                    <label>
+                      <span>Quiz title <small>(optional)</small></span>
+                      <input
+                        value={quizTitle}
+                        onChange={(e) => setQuizTitle(e.target.value)}
+                        placeholder={selectedLesson ? `Quiz: ${selectedLesson.title}` : 'e.g. Formative Check 1'}
+                      />
+                    </label>
 
-                <div className="form-group">
-                  <label className="field-label">
-                    <strong>Number of Questions / Items</strong>
-                  </label>
-                  <select
-                    className="select"
-                    value={quizItemCount}
-                    onChange={(e) => setQuizItemCount(Number(e.target.value))}
-                  >
-                    <option value={5}>5 Questions (Quick Check · ~10 mins)</option>
-                    <option value={10}>10 Questions (Standard Quiz · ~20 mins)</option>
-                    <option value={15}>15 Questions (Extended Quiz · ~30 mins)</option>
-                    <option value={20}>20 Questions (Summative Formative · ~45 mins)</option>
-                  </select>
-                </div>
-              </div>
+                    <label>
+                      <span>Number of questions / items</span>
+                      <select
+                        className="select"
+                        value={quizItemCount}
+                        onChange={(e) => setQuizItemCount(Number(e.target.value))}
+                      >
+                        <option value={5}>5 Questions (Quick Check · ~10 mins)</option>
+                        <option value={10}>10 Questions (Standard Quiz · ~20 mins)</option>
+                        <option value={15}>15 Questions (Extended Quiz · ~30 mins)</option>
+                        <option value={20}>20 Questions (Summative Formative · ~45 mins)</option>
+                      </select>
+                    </label>
 
-              <div className="form-group">
-                <label className="field-label">
-                  <strong>Allowed Question Formats</strong>
-                </label>
-                <div className="assessment-v2-format-grid">
-                  {ASSESSMENT_QUESTION_TYPES.map((type) => {
-                    const checked = quizAllowedTypes.includes(type)
-                    return (
-                      <label key={type} className={`assessment-v2-format-chip ${checked ? 'selected' : ''}`}>
-                        <input type="checkbox" checked={checked} onChange={() => toggleQuizType(type)} />
-                        <span className="assessment-v2-format-check">{checked && <Check size={14} />}</span>
-                        <strong>{typeLabel(type)}</strong>
-                      </label>
-                    )
-                  })}
-                </div>
-              </div>
+                    <TeachingAssignmentField
+                      assignments={assignments}
+                      assignmentId={lessonQuizAssignmentId}
+                      linkedAssignmentId={selectedLesson?.assignmentId}
+                      linkedFallbackLabel={[getLessonGrade(selectedLesson ?? undefined), getLessonSubject(selectedLesson ?? undefined), selectedLesson?.schoolYear].filter(Boolean).join(' · ')}
+                      onChange={setLessonQuizAssignmentId}
+                    />
 
-              <div className="form-group">
-                <label className="field-label">
-                  <strong>Directions for Learners</strong>
-                </label>
-                <textarea
-                  rows={2}
-                  className="textarea"
-                  value={quizInstructions}
-                  placeholder="Read each question carefully and write your answers on the space provided..."
-                  onChange={(e) => setQuizInstructions(e.target.value)}
-                />
-              </div>
+                    <label>
+                      <span>Directions for learners <small>(optional)</small></span>
+                      <textarea
+                        rows={3}
+                        value={quizInstructions}
+                        placeholder="Read each question carefully and write your answers on the space provided..."
+                        onChange={(e) => setQuizInstructions(e.target.value)}
+                      />
+                    </label>
+                  </div>
 
-              <div className="assessment-form-actions">
-                <Link className="button ghost" to="/assessments">
-                  <ArrowLeft size={16} /> Cancel
-                </Link>
-                <button
-                  type="button"
-                  className="button secondary"
-                  disabled={creating || !selectedLesson || !resolvedLessonQuizAssignmentId || quizAllowedTypes.length === 0}
-                  onClick={() => void handleCreateLessonQuiz(false)}
-                >
-                  <FileText size={16} /> Create Empty Draft
-                </button>
-                <button
-                  type="button"
-                  className="button primary"
-                  disabled={creating || !selectedLesson || !resolvedLessonQuizAssignmentId || quizAllowedTypes.length === 0}
-                  onClick={() => void handleCreateLessonQuiz(true)}
-                >
-                  <Sparkles size={16} /> {creating ? 'Generating quiz…' : 'Generate Lesson Quiz'}
-                </button>
-              </div>
-            </div>
+                  <footer className="assessment-v2-wizard-footer">
+                    <button className="button ghost" type="button" onClick={() => setStep(1)}>
+                      <ArrowLeft size={16} /> Back
+                    </button>
+                    <button
+                      className="button primary"
+                      type="button"
+                      disabled={!resolvedLessonQuizAssignmentId}
+                      onClick={() => setStep(3)}
+                    >
+                      Continue <ArrowRight size={16} />
+                    </button>
+                  </footer>
+                </section>
+              )}
+
+              {step === 3 && (
+                <section className="panel assessment-v2-wizard-card assessment-v2-formats-card">
+                  <header className="assessment-v2-wizard-heading assessment-v2-formats-heading">
+                    <span className="assessment-v2-wizard-number">3</span>
+                    <div>
+                      <h2>Choose question formats</h2>
+                      <p>Select allowed question types for this lesson quiz.</p>
+                    </div>
+                    <div className="assessment-v2-format-actions">
+                      <span>{quizAllowedTypes.length} selected</span>
+                      <button
+                        type="button"
+                        className="button ghost compact"
+                        onClick={() => setQuizAllowedTypes(DEFAULT_TYPES)}
+                      >
+                        Select all
+                      </button>
+                      <button
+                        type="button"
+                        className="button ghost compact"
+                        onClick={() => setQuizAllowedTypes([])}
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </header>
+
+                  <div className="assessment-v2-format-grid">
+                    {ASSESSMENT_QUESTION_TYPES.map((type) => {
+                      const checked = quizAllowedTypes.includes(type)
+                      return (
+                        <label key={type} className={`assessment-v2-format-chip ${checked ? 'selected' : ''}`}>
+                          <input type="checkbox" checked={checked} onChange={() => toggleQuizType(type)} />
+                          <span className="assessment-v2-format-check">{checked && <Check size={14} />}</span>
+                          <strong>{typeLabel(type)}</strong>
+                        </label>
+                      )
+                    })}
+                  </div>
+
+                  <div className="assessment-v2-coverage-compact ready">
+                    <div className="assessment-v2-coverage-title">
+                      <BookOpen size={19} />
+                      <div>
+                        <strong>Target Lesson: {selectedLesson?.title || 'Selected Lesson'}</strong>
+                        <small>
+                          {quizItemCount} questions planned · {getLessonCompetencies(selectedLesson).length} competencies covered
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <footer className="assessment-v2-wizard-footer assessment-v2-generate-footer">
+                    <button className="button ghost" type="button" onClick={() => setStep(2)}>
+                      <ArrowLeft size={16} /> Back
+                    </button>
+                    <div className="assessment-v2-wizard-footer-actions">
+                      <button
+                        type="button"
+                        className="button secondary"
+                        disabled={creating || !selectedLesson || !resolvedLessonQuizAssignmentId || quizAllowedTypes.length === 0}
+                        onClick={() => void handleCreateLessonQuiz(false)}
+                      >
+                        <FileText size={16} /> Create Empty Draft
+                      </button>
+                      <button
+                        type="button"
+                        className="button primary assessment-v2-generate-button"
+                        disabled={creating || !selectedLesson || !resolvedLessonQuizAssignmentId || quizAllowedTypes.length === 0}
+                        onClick={() => void handleCreateLessonQuiz(true)}
+                      >
+                        <Sparkles size={17} /> {creating ? 'Generating quiz…' : 'Generate Lesson Quiz'}
+                      </button>
+                    </div>
+                  </footer>
+                </section>
+              )}
+            </>
           )}
-        </section>
+        </div>
       )}
 
-      {/* MODE 3: UNIT QUIZ */}
+      {/* MODE 3: UNIT QUIZ WIZARD */}
       {mode === 'unit_quiz' && (
-        <section className="panel assessment-form-card">
-          <div className="assessment-section-heading">
-            <span className="mode-icon-badge">
-              <Layers size={20} />
-            </span>
-            <div>
-              <h2>Create Multi-Lesson Unit Quiz</h2>
-              <p>Select multiple lessons to create a proportional, balanced unit quiz across learning competencies.</p>
-            </div>
-          </div>
-
+        <div className="assessment-v2-wizard-shell">
           {lessonPlans.length < 2 ? (
             <EmptyState
               icon={Layers}
@@ -1410,335 +1503,573 @@ export function AssessmentNewPage() {
               </Link>
             </EmptyState>
           ) : (
-            <div className="assessment-flow-form">
-              <div className="form-group">
-                <label className="field-label">
-                  <strong>Select Lessons in this Unit ({selectedUnitLessonIds.length} selected)</strong>
-                  <span className="field-hint">Choose 2 or more lesson plans to include in this unit assessment.</span>
-                </label>
-                <div className="unit-lesson-picker-grid">
-                  {lessonPlans.map((lesson) => {
-                    const selected = selectedUnitLessonIds.includes(lesson.id)
-                    return (
-                      <label key={lesson.id} className={`unit-lesson-card ${selected ? 'selected' : ''}`}>
-                        <input
-                          type="checkbox"
-                          checked={selected}
-                          onChange={() => toggleUnitLesson(lesson.id)}
-                        />
-                        <div className="unit-lesson-card-info">
-                          <strong>{lesson.title}</strong>
-                          <small>
-                            {[getLessonGrade(lesson), getLessonSubject(lesson)].filter(Boolean).join(' · ')}
-                          </small>
-                          <small>
-                            {getLessonCompetencies(lesson).length} competencies
-                          </small>
-                        </div>
-                      </label>
-                    )
-                  })}
-                </div>
-              </div>
-
-              <TeachingAssignmentField
-                assignments={assignments}
-                assignmentId={unitQuizAssignmentId}
-                linkedAssignmentId={linkedUnitAssignmentId}
-                linkedFallbackLabel={selectedUnitLessons.length ? [getLessonGrade(selectedUnitLessons[0]), getLessonSubject(selectedUnitLessons[0]), selectedUnitLessons[0].schoolYear].filter(Boolean).join(' · ') : undefined}
-                conflictMessage={unitAssignmentConflict ? 'Selected lessons are linked to different teaching assignments. Choose lessons from the same class before creating a unit quiz.' : undefined}
-                onChange={setUnitQuizAssignmentId}
-              />
-
-              <div className="form-row-2">
-                <div className="form-group">
-                  <label className="field-label">
-                    <strong>Unit Quiz Title</strong>
-                  </label>
-                  <input
-                    type="text"
-                    className="input"
-                    value={unitTitle}
-                    placeholder="e.g. Unit 1 Assessment: Forces and Motion"
-                    onChange={(e) => setUnitTitle(e.target.value)}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="field-label">
-                    <strong>Total Assessment Items</strong>
-                  </label>
-                  <select
-                    className="select"
-                    value={unitTotalItems}
-                    onChange={(e) => setUnitTotalItems(Number(e.target.value))}
+            <>
+              <div className="assessment-v2-stepper" aria-label="Unit quiz setup progress">
+                {([
+                  [1, 'Unit Lessons'],
+                  [2, 'Unit Setup'],
+                  [3, 'Formats & Generate'],
+                ] as const).map(([num, label]) => (
+                  <div
+                    key={num}
+                    className={`assessment-v2-step ${step === num ? 'active' : step > num ? 'done' : ''}`}
                   >
-                    <option value={15}>15 Items (Short Unit Check)</option>
-                    <option value={20}>20 Items (Standard Unit Exam)</option>
-                    <option value={25}>25 Items (Comprehensive Unit Exam)</option>
-                    <option value={30}>30 Items (Full Summative Assessment)</option>
-                  </select>
+                    <span>{step > num ? <Check size={14} /> : num}</span>
+                    <strong>{label}</strong>
+                  </div>
+                ))}
+              </div>
+
+              {step === 1 && (
+                <section className="panel assessment-v2-wizard-card">
+                  <header className="assessment-v2-wizard-heading">
+                    <span className="assessment-v2-wizard-number">1</span>
+                    <div>
+                      <h2>Choose unit lessons</h2>
+                      <p>Select 2 or more lesson plans across which questions will be proportionally distributed.</p>
+                    </div>
+                    <div className="assessment-v2-format-actions">
+                      <span>{selectedUnitLessonIds.length} selected</span>
+                    </div>
+                  </header>
+
+                  <div className="assessment-v2-source-list" role="listbox" aria-label="Unit lesson plans" aria-multiselectable="true">
+                    {lessonPlans.map((lesson) => {
+                      const chosen = selectedUnitLessonIds.includes(lesson.id)
+                      return (
+                        <button
+                          key={lesson.id}
+                          type="button"
+                          role="option"
+                          aria-selected={chosen}
+                          className={`assessment-v2-source-card ${chosen ? 'selected' : ''}`}
+                          onClick={() => toggleUnitLesson(lesson.id)}
+                        >
+                          <span className="assessment-v2-source-icon">
+                            {chosen ? <Check size={18} /> : <Layers size={18} />}
+                          </span>
+                          <span className="assessment-v2-source-copy">
+                            <strong>{lesson.title || 'Untitled Lesson'}</strong>
+                            <small>
+                              {[getLessonGrade(lesson), getLessonSubject(lesson), lesson.schoolYear]
+                                .filter(Boolean)
+                                .join(' · ') || 'Unspecified context'}
+                            </small>
+                            <small>{getLessonCompetencies(lesson).length} competencies</small>
+                          </span>
+                          {chosen && <span className="assessment-v2-selected-pill">Included</span>}
+                        </button>
+                      )
+                    })}
+                  </div>
+
+                  {unitAssignmentConflict && (
+                    <div className="form-message error" role="alert" style={{ margin: '0 24px 18px' }}>
+                      Selected lessons are linked to different teaching assignments. Choose lessons from the same class before creating a unit quiz.
+                    </div>
+                  )}
+
+                  <footer className="assessment-v2-wizard-footer">
+                    <Link className="button ghost" to="/assessments">
+                      <ArrowLeft size={16} /> Cancel
+                    </Link>
+                    <button
+                      className="button primary"
+                      type="button"
+                      disabled={selectedUnitLessonIds.length < 2 || unitAssignmentConflict}
+                      onClick={() => setStep(2)}
+                    >
+                      Continue <ArrowRight size={16} />
+                    </button>
+                  </footer>
+                </section>
+              )}
+
+              {step === 2 && (
+                <section className="panel assessment-v2-wizard-card">
+                  <header className="assessment-v2-wizard-heading">
+                    <span className="assessment-v2-wizard-number">2</span>
+                    <div>
+                      <h2>Unit Quiz Setup</h2>
+                      <p>Define the unit title, exam length, class context, and instructions.</p>
+                    </div>
+                  </header>
+
+                  <div className="assessment-v2-primary-fields">
+                    <label>
+                      <span>Unit quiz title <small>(optional)</small></span>
+                      <input
+                        value={unitTitle}
+                        onChange={(e) => setUnitTitle(e.target.value)}
+                        placeholder={`Unit Assessment (${selectedUnitLessons.length} Lessons)`}
+                      />
+                    </label>
+
+                    <label>
+                      <span>Total assessment items</span>
+                      <select
+                        className="select"
+                        value={unitTotalItems}
+                        onChange={(e) => setUnitTotalItems(Number(e.target.value))}
+                      >
+                        <option value={15}>15 Items (Short Unit Check)</option>
+                        <option value={20}>20 Items (Standard Unit Exam)</option>
+                        <option value={25}>25 Items (Comprehensive Unit Exam)</option>
+                        <option value={30}>30 Items (Full Summative Assessment)</option>
+                      </select>
+                    </label>
+
+                    <TeachingAssignmentField
+                      assignments={assignments}
+                      assignmentId={unitQuizAssignmentId}
+                      linkedAssignmentId={linkedUnitAssignmentId}
+                      linkedFallbackLabel={selectedUnitLessons.length ? [getLessonGrade(selectedUnitLessons[0]), getLessonSubject(selectedUnitLessons[0]), selectedUnitLessons[0].schoolYear].filter(Boolean).join(' · ') : undefined}
+                      conflictMessage={unitAssignmentConflict ? 'Selected lessons are linked to different teaching assignments. Choose lessons from the same class before creating a unit quiz.' : undefined}
+                      onChange={setUnitQuizAssignmentId}
+                    />
+
+                    <label>
+                      <span>Directions for learners <small>(optional)</small></span>
+                      <textarea
+                        rows={3}
+                        value={unitInstructions}
+                        placeholder="Answer all questions in the sections below..."
+                        onChange={(e) => setUnitInstructions(e.target.value)}
+                      />
+                    </label>
+                  </div>
+
+                  <footer className="assessment-v2-wizard-footer">
+                    <button className="button ghost" type="button" onClick={() => setStep(1)}>
+                      <ArrowLeft size={16} /> Back
+                    </button>
+                    <button
+                      className="button primary"
+                      type="button"
+                      disabled={unitAssignmentConflict || !resolvedUnitQuizAssignmentId}
+                      onClick={() => setStep(3)}
+                    >
+                      Continue <ArrowRight size={16} />
+                    </button>
+                  </footer>
+                </section>
+              )}
+
+              {step === 3 && (
+                <section className="panel assessment-v2-wizard-card assessment-v2-formats-card">
+                  <header className="assessment-v2-wizard-heading assessment-v2-formats-heading">
+                    <span className="assessment-v2-wizard-number">3</span>
+                    <div>
+                      <h2>Choose question formats</h2>
+                      <p>Select question formats to include in this unit assessment.</p>
+                    </div>
+                    <div className="assessment-v2-format-actions">
+                      <span>{unitAllowedTypes.length} selected</span>
+                      <button
+                        type="button"
+                        className="button ghost compact"
+                        onClick={() => setUnitAllowedTypes(DEFAULT_TYPES)}
+                      >
+                        Select all
+                      </button>
+                      <button
+                        type="button"
+                        className="button ghost compact"
+                        onClick={() => setUnitAllowedTypes([])}
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </header>
+
+                  <div className="assessment-v2-format-grid">
+                    {ASSESSMENT_QUESTION_TYPES.map((type) => {
+                      const checked = unitAllowedTypes.includes(type)
+                      return (
+                        <label key={type} className={`assessment-v2-format-chip ${checked ? 'selected' : ''}`}>
+                          <input type="checkbox" checked={checked} onChange={() => toggleUnitQuizType(type)} />
+                          <span className="assessment-v2-format-check">{checked && <Check size={14} />}</span>
+                          <strong>{typeLabel(type)}</strong>
+                        </label>
+                      )
+                    })}
+                  </div>
+
+                  <div className="assessment-v2-coverage-compact ready">
+                    <div className="assessment-v2-coverage-title">
+                      <Layers size={19} />
+                      <div>
+                        <strong>Unit Scope: {selectedUnitLessons.length} Lessons</strong>
+                        <small>
+                          {unitTotalItems} items planned · {selectedUnitLessons.reduce((acc, l) => acc + getLessonCompetencies(l).length, 0)} total competencies across unit
+                        </small>
+                      </div>
+                    </div>
+                    {selectedUnitLessons.length > 0 && (
+                      <div className="assessment-v2-coverage-chips">
+                        {selectedUnitLessons.map((l) => (
+                          <span key={l.id}>
+                            <Check size={12} /> {l.title} <b>({getLessonCompetencies(l).length})</b>
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <footer className="assessment-v2-wizard-footer assessment-v2-generate-footer">
+                    <button className="button ghost" type="button" onClick={() => setStep(2)}>
+                      <ArrowLeft size={16} /> Back
+                    </button>
+                    <div className="assessment-v2-wizard-footer-actions">
+                      <button
+                        type="button"
+                        className="button secondary"
+                        disabled={creating || selectedUnitLessonIds.length < 2 || unitAssignmentConflict || !resolvedUnitQuizAssignmentId || unitAllowedTypes.length === 0}
+                        onClick={() => void handleCreateUnitQuiz(false)}
+                      >
+                        <FileText size={16} /> Create Empty Draft
+                      </button>
+                      <button
+                        type="button"
+                        className="button primary assessment-v2-generate-button"
+                        disabled={creating || selectedUnitLessonIds.length < 2 || unitAssignmentConflict || !resolvedUnitQuizAssignmentId || unitAllowedTypes.length === 0}
+                        onClick={() => void handleCreateUnitQuiz(true)}
+                      >
+                        <Sparkles size={17} /> {creating ? 'Generating unit quiz…' : 'Generate Unit Quiz'}
+                      </button>
+                    </div>
+                  </footer>
+                </section>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* MODE 4: PERFORMANCE TASK WIZARD */}
+      {mode === 'performance_task' && (
+        <div className="assessment-v2-wizard-shell">
+          <div className="assessment-v2-stepper" aria-label="Performance task setup progress">
+            {([
+              [1, 'Curriculum Source'],
+              [2, 'Task Scenario'],
+              [3, 'Rubric & Timeline'],
+            ] as const).map(([num, label]) => (
+              <div
+                key={num}
+                className={`assessment-v2-step ${step === num ? 'active' : step > num ? 'done' : ''}`}
+              >
+                <span>{step > num ? <Check size={14} /> : num}</span>
+                <strong>{label}</strong>
+              </div>
+            ))}
+          </div>
+
+          {step === 1 && (
+            <section className="panel assessment-v2-wizard-card">
+              <header className="assessment-v2-wizard-heading">
+                <span className="assessment-v2-wizard-number">1</span>
+                <div>
+                  <h2>Curriculum Source Alignment</h2>
+                  <p>Anchor this task to a lesson plan, a TOS, or custom standards.</p>
+                </div>
+              </header>
+
+              <div style={{ padding: '18px 24px 8px' }}>
+                <div className="assessment-v2-segmented" role="radiogroup">
+                  <button
+                    type="button"
+                    className={ptSourceType === 'lesson' ? 'selected' : ''}
+                    onClick={() => setPtSourceType('lesson')}
+                  >
+                    <strong>From Lesson Plan</strong>
+                    <small>Anchor to active daily lesson</small>
+                  </button>
+                  <button
+                    type="button"
+                    className={ptSourceType === 'tos' ? 'selected' : ''}
+                    onClick={() => setPtSourceType('tos')}
+                  >
+                    <strong>From TOS</strong>
+                    <small>Anchor to finalized TOS</small>
+                  </button>
+                  <button
+                    type="button"
+                    className={ptSourceType === 'custom' ? 'selected' : ''}
+                    onClick={() => setPtSourceType('custom')}
+                  >
+                    <strong>Custom Context</strong>
+                    <small>Teacher-defined standards</small>
+                  </button>
                 </div>
               </div>
 
-              <div className="form-group">
-                <label className="field-label">
-                  <strong>Allowed Question Formats</strong>
-                </label>
-                <div className="assessment-v2-format-grid">
-                  {ASSESSMENT_QUESTION_TYPES.map((type) => {
-                    const checked = unitAllowedTypes.includes(type)
+              {ptSourceType === 'lesson' && (
+                <div className="assessment-v2-source-list" role="listbox" aria-label="Anchor lesson plans">
+                  {lessonPlans.map((lesson) => {
+                    const chosen = ptSelectedLessonId === lesson.id
                     return (
-                      <label key={type} className={`assessment-v2-format-chip ${checked ? 'selected' : ''}`}>
-                        <input type="checkbox" checked={checked} onChange={() => toggleUnitQuizType(type)} />
-                        <span className="assessment-v2-format-check">{checked && <Check size={14} />}</span>
-                        <strong>{typeLabel(type)}</strong>
-                      </label>
+                      <button
+                        key={lesson.id}
+                        type="button"
+                        role="option"
+                        aria-selected={chosen}
+                        className={`assessment-v2-source-card ${chosen ? 'selected' : ''}`}
+                        onClick={() => setPtSelectedLessonId(lesson.id)}
+                      >
+                        <span className="assessment-v2-source-icon">
+                          {chosen ? <Check size={18} /> : <BookOpen size={18} />}
+                        </span>
+                        <span className="assessment-v2-source-copy">
+                          <strong>{lesson.title || 'Untitled Lesson'}</strong>
+                          <small>
+                            {[getLessonGrade(lesson), getLessonSubject(lesson), lesson.schoolYear]
+                              .filter(Boolean)
+                              .join(' · ') || 'Unspecified context'}
+                          </small>
+                          <small>{getLessonCompetencies(lesson).length} competencies</small>
+                        </span>
+                        {chosen && <span className="assessment-v2-selected-pill">Selected</span>}
+                      </button>
                     )
                   })}
+                  {!lessonPlans.length && (
+                    <div className="form-message" role="status">
+                      No lesson plans available. <Link to="/lesson-plans/new">Create a lesson plan</Link> or switch to TOS / Custom context.
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
 
-              <div className="form-group">
-                <label className="field-label">
-                  <strong>Directions for Learners</strong>
-                </label>
-                <textarea
-                  rows={2}
-                  className="textarea"
-                  value={unitInstructions}
-                  placeholder="Answer all questions in the sections below..."
-                  onChange={(e) => setUnitInstructions(e.target.value)}
+              {ptSourceType === 'tos' && (
+                <div className="assessment-v2-source-list" role="listbox" aria-label="Anchor TOS documents">
+                  {tosDocuments.map((tos) => {
+                    const chosen = ptSelectedTosId === tos.id
+                    return (
+                      <button
+                        key={tos.id}
+                        type="button"
+                        role="option"
+                        aria-selected={chosen}
+                        className={`assessment-v2-source-card ${chosen ? 'selected' : ''}`}
+                        onClick={() => setPtSelectedTosId(tos.id)}
+                      >
+                        <span className="assessment-v2-source-icon">
+                          {chosen ? <Check size={18} /> : <ShieldCheck size={18} />}
+                        </span>
+                        <span className="assessment-v2-source-copy">
+                          <strong>{tos.title || 'Untitled TOS'}</strong>
+                          <small>
+                            {[tos.content.gradeLevel, tos.content.learningArea, tos.content.schoolYear]
+                              .filter(Boolean)
+                              .join(' · ')}
+                          </small>
+                          <small>{tos.content.rows.length} competencies</small>
+                        </span>
+                        {chosen && <span className="assessment-v2-selected-pill">Selected</span>}
+                      </button>
+                    )
+                  })}
+                  {!tosDocuments.length && (
+                    <div className="form-message" role="status">
+                      No finalized TOS available. <Link to="/tos">Open TOS Builder</Link> or switch to Lesson Plan / Custom context.
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {ptSourceType === 'custom' && (
+                <div className="source-preview-banner" style={{ margin: '8px 24px 18px' }}>
+                  <strong>Standalone Task Authoring</strong>
+                  <p style={{ margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '12.5px' }}>
+                    This performance task will be authored with custom teacher-defined competencies and rubric criteria.
+                  </p>
+                </div>
+              )}
+
+              <div style={{ padding: '0 24px 18px' }}>
+                <TeachingAssignmentField
+                  assignments={assignments}
+                  assignmentId={performanceTaskAssignmentId}
+                  linkedAssignmentId={linkedPerformanceAssignmentId}
+                  linkedFallbackLabel={
+                    ptSourceType === 'lesson'
+                      ? [getLessonGrade(selectedPerformanceLesson ?? undefined), getLessonSubject(selectedPerformanceLesson ?? undefined), selectedPerformanceLesson?.schoolYear].filter(Boolean).join(' · ')
+                      : ptSourceType === 'tos'
+                        ? [selectedPerformanceTos?.content.gradeLevel, selectedPerformanceTos?.content.learningArea, selectedPerformanceTos?.schoolYear].filter(Boolean).join(' · ')
+                        : undefined
+                  }
+                  onChange={setPerformanceTaskAssignmentId}
                 />
               </div>
 
-              <div className="assessment-form-actions">
+              <footer className="assessment-v2-wizard-footer">
                 <Link className="button ghost" to="/assessments">
                   <ArrowLeft size={16} /> Cancel
                 </Link>
                 <button
-                  type="button"
-                  className="button secondary"
-                  disabled={creating || selectedUnitLessonIds.length < 2 || unitAssignmentConflict || !resolvedUnitQuizAssignmentId || unitAllowedTypes.length === 0}
-                  onClick={() => void handleCreateUnitQuiz(false)}
-                >
-                  <FileText size={16} /> Create Empty Draft
-                </button>
-                <button
-                  type="button"
                   className="button primary"
-                  disabled={creating || selectedUnitLessonIds.length < 2 || unitAssignmentConflict || !resolvedUnitQuizAssignmentId || unitAllowedTypes.length === 0}
-                  onClick={() => void handleCreateUnitQuiz(true)}
+                  type="button"
+                  disabled={
+                    !resolvedPerformanceTaskAssignmentId
+                    || (ptSourceType === 'lesson' && !selectedPerformanceLesson)
+                    || (ptSourceType === 'tos' && !selectedPerformanceTos)
+                  }
+                  onClick={() => setStep(2)}
                 >
-                  <Sparkles size={16} /> {creating ? 'Generating unit quiz…' : 'Generate Unit Quiz'}
+                  Continue <ArrowRight size={16} />
                 </button>
-              </div>
-            </div>
+              </footer>
+            </section>
           )}
-        </section>
-      )}
 
-      {/* MODE 4: PERFORMANCE TASK */}
-      {mode === 'performance_task' && (
-        <section className="panel assessment-form-card">
-          <div className="assessment-section-heading">
-            <span className="mode-icon-badge">
-              <Table size={20} />
-            </span>
-            <div>
-              <h2>Create Authentic Performance Task</h2>
-              <p>Design a real-world, product-oriented task with DepEd-aligned 4-level analytic scoring rubric.</p>
-            </div>
-          </div>
+          {step === 2 && (
+            <section className="panel assessment-v2-wizard-card">
+              <header className="assessment-v2-wizard-heading">
+                <span className="assessment-v2-wizard-number">2</span>
+                <div>
+                  <h2>Task Scenario & Output</h2>
+                  <p>Frame the authentic real-world problem using the DepEd GRASPS model.</p>
+                </div>
+              </header>
 
-          <div className="assessment-flow-form">
-            <div className="form-group">
-              <label className="field-label">
-                <strong>Curriculum Source Alignment</strong>
-                <span className="field-hint">Anchor this task to a lesson plan, a TOS, or custom standards.</span>
-              </label>
-              <div className="assessment-v2-segmented" role="radiogroup">
+              <div className="assessment-v2-primary-fields">
+                <label>
+                  <span>Performance task title <small>(optional)</small></span>
+                  <input
+                    value={ptTitle}
+                    placeholder={
+                      selectedPerformanceLesson
+                        ? `Performance Task: ${selectedPerformanceLesson.title}`
+                        : 'e.g. Community Waste Audit and Waste Reduction Proposal'
+                    }
+                    onChange={(e) => setPtTitle(e.target.value)}
+                  />
+                </label>
+
+                <label>
+                  <span>
+                    Real-world scenario (GRASPS model)
+                    <small>State the Goal, Role, Audience, Situation, Product, and Standards.</small>
+                  </span>
+                  <textarea
+                    rows={4}
+                    value={ptScenario}
+                    placeholder="e.g. As a youth environmental officer, you are tasked to inspect household solid waste segregation and present a realistic reduction plan to the Barangay Council..."
+                    onChange={(e) => setPtScenario(e.target.value)}
+                  />
+                </label>
+
+                <label>
+                  <span>Expected deliverable / output</span>
+                  <input
+                    value={ptExpectedOutput}
+                    placeholder="e.g. A 2-page infographic brochure with data analysis and action steps"
+                    onChange={(e) => setPtExpectedOutput(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <footer className="assessment-v2-wizard-footer">
+                <button className="button ghost" type="button" onClick={() => setStep(1)}>
+                  <ArrowLeft size={16} /> Back
+                </button>
                 <button
+                  className="button primary"
                   type="button"
-                  className={ptSourceType === 'lesson' ? 'selected' : ''}
-                  onClick={() => setPtSourceType('lesson')}
+                  onClick={() => setStep(3)}
                 >
-                  From Lesson Plan
+                  Continue <ArrowRight size={16} />
+                </button>
+              </footer>
+            </section>
+          )}
+
+          {step === 3 && (
+            <section className="panel assessment-v2-wizard-card">
+              <header className="assessment-v2-wizard-heading">
+                <span className="assessment-v2-wizard-number">3</span>
+                <div>
+                  <h2>Rubric, Grouping & Instructions</h2>
+                  <p>Configure student collaboration mode, timeline, and learner instructions.</p>
+                </div>
+              </header>
+
+              <div className="assessment-v2-primary-fields">
+                <div className="form-row-2">
+                  <label>
+                    <span>
+                      <Users size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                      Grouping mode
+                    </span>
+                    <select
+                      className="select"
+                      value={ptGrouping}
+                      onChange={(e) => setPtGrouping(e.target.value as PerformanceTaskGrouping)}
+                    >
+                      <option value="individual">Individual Project</option>
+                      <option value="group">Collaborative Group Task</option>
+                      <option value="either">Individual or Group Choice</option>
+                    </select>
+                  </label>
+
+                  <label>
+                    <span>
+                      <Clock size={14} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                      Target timeline
+                    </span>
+                    <input
+                      value={ptDuration}
+                      placeholder="e.g. 1-2 weeks / 3 class sessions"
+                      onChange={(e) => setPtDuration(e.target.value)}
+                    />
+                  </label>
+                </div>
+
+                <label>
+                  <span>Student instructions <small>(optional)</small></span>
+                  <textarea
+                    rows={3}
+                    value={ptInstructions}
+                    placeholder="Follow the project milestones, consult the analytic rubric for criteria, and submit your final work by the due date."
+                    onChange={(e) => setPtInstructions(e.target.value)}
+                  />
+                </label>
+
+                <div className="assessment-v2-coverage-compact ready">
+                  <div className="assessment-v2-coverage-title">
+                    <Table size={19} />
+                    <div>
+                      <strong>DepEd 4-Level Analytic Scoring Rubric</strong>
+                      <small>
+                        Provisions 4 competency-anchored performance levels (Exemplary, Proficient, Developing, Beginning) with milestone checkpoints.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <footer className="assessment-v2-wizard-footer assessment-v2-generate-footer">
+                <button className="button ghost" type="button" onClick={() => setStep(2)}>
+                  <ArrowLeft size={16} /> Back
                 </button>
                 <button
                   type="button"
-                  className={ptSourceType === 'tos' ? 'selected' : ''}
-                  onClick={() => setPtSourceType('tos')}
+                  className="button primary assessment-v2-generate-button"
+                  disabled={
+                    creating
+                    || !resolvedPerformanceTaskAssignmentId
+                    || (ptSourceType === 'lesson' && !selectedPerformanceLesson)
+                    || (ptSourceType === 'tos' && !selectedPerformanceTos)
+                  }
+                  onClick={() => void handleCreatePerformanceTask()}
                 >
-                  From TOS
+                  <Table size={16} /> {creating ? 'Setting up rubric…' : 'Create & Open Performance Task'}
                 </button>
-                <button
-                  type="button"
-                  className={ptSourceType === 'custom' ? 'selected' : ''}
-                  onClick={() => setPtSourceType('custom')}
-                >
-                  Custom Context
-                </button>
-              </div>
-            </div>
-
-            {ptSourceType === 'lesson' && (
-              <div className="form-group">
-                <label className="field-label">
-                  <strong>Select Anchor Lesson Plan</strong>
-                </label>
-                <select
-                  className="select"
-                  value={ptSelectedLessonId}
-                  onChange={(e) => setPtSelectedLessonId(e.target.value)}
-                >
-                  {lessonPlans.map((lesson) => (
-                    <option key={lesson.id} value={lesson.id}>
-                      {lesson.title} ({[getLessonGrade(lesson), getLessonSubject(lesson)].filter(Boolean).join(' · ') || 'Context'})
-                    </option>
-                  ))}
-                  {!lessonPlans.length && <option value="">No lesson plans available</option>}
-                </select>
-              </div>
-            )}
-
-            {ptSourceType === 'tos' && (
-              <div className="form-group">
-                <label className="field-label">
-                  <strong>Select Anchor TOS</strong>
-                </label>
-                <select
-                  className="select"
-                  value={ptSelectedTosId}
-                  onChange={(e) => setPtSelectedTosId(e.target.value)}
-                >
-                  {tosDocuments.map((tos) => (
-                    <option key={tos.id} value={tos.id}>
-                      {tos.title}
-                    </option>
-                  ))}
-                  {!tosDocuments.length && <option value="">No finalized TOS documents available</option>}
-                </select>
-              </div>
-            )}
-
-            <TeachingAssignmentField
-              assignments={assignments}
-              assignmentId={performanceTaskAssignmentId}
-              linkedAssignmentId={linkedPerformanceAssignmentId}
-              linkedFallbackLabel={
-                ptSourceType === 'lesson'
-                  ? [getLessonGrade(selectedPerformanceLesson ?? undefined), getLessonSubject(selectedPerformanceLesson ?? undefined), selectedPerformanceLesson?.schoolYear].filter(Boolean).join(' · ')
-                  : ptSourceType === 'tos'
-                    ? [selectedPerformanceTos?.content.gradeLevel, selectedPerformanceTos?.content.learningArea, selectedPerformanceTos?.schoolYear].filter(Boolean).join(' · ')
-                    : undefined
-              }
-              onChange={setPerformanceTaskAssignmentId}
-            />
-
-            <div className="form-group">
-              <label className="field-label">
-                <strong>Performance Task Title</strong>
-              </label>
-              <input
-                type="text"
-                className="input"
-                value={ptTitle}
-                placeholder="e.g. Community Waste Audit and Waste Reduction Proposal"
-                onChange={(e) => setPtTitle(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="field-label">
-                <strong>Real-World Scenario (GRASPS Model)</strong>
-                <span className="field-hint">State the Goal, Role, Audience, and Situation clearly.</span>
-              </label>
-              <textarea
-                rows={3}
-                className="textarea"
-                value={ptScenario}
-                placeholder="e.g. As a youth environmental officer, you are tasked to inspect household solid waste segregation and present a realistic reduction plan to the Barangay Council..."
-                onChange={(e) => setPtScenario(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="field-label">
-                <strong>Expected Deliverable / Output</strong>
-              </label>
-              <input
-                type="text"
-                className="input"
-                value={ptExpectedOutput}
-                placeholder="e.g. A 2-page infographic brochure with data analysis and action steps"
-                onChange={(e) => setPtExpectedOutput(e.target.value)}
-              />
-            </div>
-
-            <div className="form-row-2">
-              <div className="form-group">
-                <label className="field-label">
-                  <Users size={14} /> <strong>Grouping</strong>
-                </label>
-                <select
-                  className="select"
-                  value={ptGrouping}
-                  onChange={(e) => setPtGrouping(e.target.value as PerformanceTaskGrouping)}
-                >
-                  <option value="individual">Individual Project</option>
-                  <option value="group">Collaborative Group Task</option>
-                  <option value="either">Individual or Group Choice</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label className="field-label">
-                  <Clock size={14} /> <strong>Target Timeline</strong>
-                </label>
-                <input
-                  type="text"
-                  className="input"
-                  value={ptDuration}
-                  placeholder="e.g. 1-2 weeks / 3 class sessions"
-                  onChange={(e) => setPtDuration(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label className="field-label">
-                <strong>Student Instructions</strong>
-              </label>
-              <textarea
-                rows={2}
-                className="textarea"
-                value={ptInstructions}
-                placeholder="Follow the project milestones, consult the analytic rubric for criteria, and submit your final work by the due date."
-                onChange={(e) => setPtInstructions(e.target.value)}
-              />
-            </div>
-
-            <div className="assessment-form-actions">
-              <Link className="button ghost" to="/assessments">
-                <ArrowLeft size={16} /> Cancel
-              </Link>
-              <button
-                type="button"
-                className="button primary"
-                disabled={
-                  creating
-                  || !resolvedPerformanceTaskAssignmentId
-                  || (ptSourceType === 'lesson' && !selectedPerformanceLesson)
-                  || (ptSourceType === 'tos' && !selectedPerformanceTos)
-                }
-                onClick={() => void handleCreatePerformanceTask()}
-              >
-                <Table size={16} /> {creating ? 'Setting up rubric…' : 'Create & Open Performance Task'}
-              </button>
-            </div>
-          </div>
-        </section>
+              </footer>
+            </section>
+          )}
+        </div>
       )}
     </>
   )

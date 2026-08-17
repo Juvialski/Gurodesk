@@ -6,8 +6,8 @@ GitHub `main` is the source of truth.
 
 ## GitHub workflow
 For ChatGPT, treat GitHub as READ-ONLY for GuroDesk.
-Do not attempt pushes, commits, branch creation, PR writes, file writes, or retries.
-The user manually pushes.
+Do not attempt pushes, commits, branch creation, PR writes, file writes, or retries for ChatGPT.
+Antigravity is exempted from this restriction and is allowed to stage, commit, and push when requested.
 
 When the user says `pushed`, re-read current GitHub main, inspect the actual diff, and inspect CI.
 
