@@ -94,6 +94,8 @@ function superscripts(value: string) {
       return [...content].map((ch) => SUPERSCRIPT_MAP[ch] ?? ch).join('')
     })
     .replace(/\^\s*([0-9a-zA-Z+-])/gu, (_, ch: string) => SUPERSCRIPT_MAP[ch] ?? `^${ch}`)
+    .replace(/\b([a-zA-Z])([23456789])\b/gu, (_, letter: string, power: string) => `${letter}${SUPERSCRIPT_MAP[power] ?? power}`)
+    .replace(/(?<=\d|\b)(cm|mm|km|in|ft|yd|mi|m)([23])\b/gu, (_, unit: string, power: string) => `${unit}${SUPERSCRIPT_MAP[power] ?? power}`)
 }
 
 function subscripts(value: string) {

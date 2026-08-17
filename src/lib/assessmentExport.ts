@@ -184,14 +184,19 @@ function estimatePdfQuestionHeight(ctx: PdfContext, paper: AssessmentPaperPresen
   return height + PDF_QUESTION_GAP
 }
 
-function drawPdfSectionHeader(ctx: PdfContext, title: string, firstQuestionCoreHeight = 0) {
+function drawPdfSectionHeader(ctx: PdfContext, title: string, directions?: string, firstQuestionCoreHeight = 0) {
   // A section heading should never be orphaned at the bottom of a page.
-  ensurePdfSpace(ctx, 31 + Math.min(Math.max(firstQuestionCoreHeight, 24), 150))
+  const extraHeight = directions ? pdfTextHeight(ctx.doc, directions, ctx.width, 8.5, 10.5) + 6 : 0
+  ensurePdfSpace(ctx, 31 + extraHeight + Math.min(Math.max(firstQuestionCoreHeight, 24), 150))
   ctx.doc.setFont('helvetica', 'bold'); ctx.doc.setFontSize(10); ctx.doc.setTextColor(35, 58, 82)
   ctx.doc.text(pdfSafeText(title), ctx.x, ctx.y)
   ctx.y += 5
   ctx.doc.setDrawColor(160, 174, 188); ctx.doc.setLineWidth(0.6); ctx.doc.line(ctx.x, ctx.y, ctx.x + ctx.width, ctx.y)
-  ctx.y += 12
+  ctx.y += 10
+  if (directions) {
+    ctx.doc.setFont('helvetica', 'italic'); ctx.doc.setFontSize(8.5); ctx.doc.setTextColor(71, 85, 105)
+    drawWrappedPdfText(ctx, directions, ctx.x, ctx.width, { size: 8.5, lineHeight: 10.5, after: 8 })
+  }
   ctx.doc.setTextColor(0, 0, 0)
 }
 
@@ -203,30 +208,30 @@ function drawPdfQuestionHead(ctx: PdfContext, question: AssessmentPaperQuestion,
   if (question.pointLabel) {
     const pointText = `(${question.pointLabel})`
     ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(8)
-    ctx.doc.text(pdfSafeText(pointText), ctx.x + ctx.width, startY, { align: 'right' })
-    pointReserve = Math.min(ctx.width * 0.22, ctx.doc.getTextWidth(pdfSafeText(pointText)) + 10)
+    pointReserve = ctx.doc.getTextWidth(pointText) + 8
+    ctx.doc.text(pointText, ctx.x + ctx.width - pointReserve + 8, startY)
   }
-  drawWrappedPdfText(ctx, question.prompt, contentX, ctx.width - (contentX - ctx.x) - pointReserve, { size: 9.5, after: 4 })
+  ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(9.5)
+  const promptWidth = ctx.width - 28 - pointReserve
+  drawWrappedPdfText(ctx, question.prompt, contentX, promptWidth, { size: 9.5, after: 4 })
 }
 
 function drawPdfChoiceList(ctx: PdfContext, question: AssessmentPaperQuestion, contentX: number, contentWidth: number) {
+  ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(9)
   question.choices.forEach((choice) => {
-    const label = `${choice.label}. ${choice.text}`
-    const lines = wrappedPdfLines(ctx.doc, label, contentWidth - (choice.checkbox ? 18 : 6), 9)
-    ensurePdfSpace(ctx, lines.length * 10 + 2)
-    if (choice.checkbox) { ctx.doc.rect(contentX, ctx.y - 7, 7, 7); lines.forEach((line, lineIndex) => ctx.doc.text(pdfSafeText(line), contentX + 13, ctx.y + lineIndex * 10)) }
-    else lines.forEach((line, lineIndex) => ctx.doc.text(pdfSafeText(line), contentX + 4, ctx.y + lineIndex * 10))
-    ctx.y += lines.length * 10 + 2
+    let prefix = `${choice.label}. `
+    if (choice.checkbox) { ctx.doc.rect(contentX + 5, ctx.y - 7, 7, 7); prefix = `   ${choice.label}. ` }
+    drawWrappedPdfText(ctx, `${prefix}${choice.text}`, contentX + 5, contentWidth - 10, { size: 9, lineHeight: 10.5, after: 2 })
   })
-  ctx.y += 3
 }
 
 function drawPdfMatching(ctx: PdfContext, question: AssessmentPaperQuestion, contentX: number, contentWidth: number) {
-  const gap = 18; const half = (contentWidth - gap) / 2; const startY = ctx.y
-  const drawColumn = (x: number, heading: string, entries: string[]) => {
-    let y = startY
-    ctx.doc.setFont('helvetica', 'bold'); ctx.doc.setFontSize(8.7); ctx.doc.text(pdfSafeText(heading), x, y); y += 12
-    ctx.doc.setFont('helvetica', 'normal')
+  const gap = 16
+  const half = (contentWidth - gap) / 2
+  const drawColumn = (x: number, header: string, entries: string[]) => {
+    let y = ctx.y
+    ctx.doc.setFont('helvetica', 'bold'); ctx.doc.setFontSize(9); ctx.doc.text(pdfSafeText(header), x, y)
+    y += 12; ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(8.7)
     entries.forEach((entry) => {
       const lines = wrappedPdfLines(ctx.doc, entry, half - 8, 8.7)
       lines.forEach((line) => { ctx.doc.text(pdfSafeText(line), x, y); y += 10 })
@@ -252,12 +257,7 @@ function drawHorizontalAnswerLines(ctx: PdfContext, x: number, width: number, co
 function drawPdfResponse(ctx: PdfContext, question: AssessmentPaperQuestion, contentX: number, contentWidth: number) {
   const { response } = question
   const kind = response.kind
-  if (kind === 'none' || kind === 'fill_inline' || kind === 'matching') return
-  if (kind === 'true_false') {
-    ensurePdfSpace(ctx, 24); ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(9)
-    ctx.doc.rect(contentX, ctx.y - 7, 8, 8); ctx.doc.text(pdfSafeText(response.trueFalseLabels[0]), contentX + 13, ctx.y)
-    ctx.doc.rect(contentX + 70, ctx.y - 7, 8, 8); ctx.doc.text(pdfSafeText(response.trueFalseLabels[1]), contentX + 83, ctx.y); ctx.y += 20; return
-  }
+  if (kind === 'none' || kind === 'fill_inline' || kind === 'matching' || kind === 'true_false') return
   if (kind === 'numerical') {
     ensurePdfSpace(ctx, 27); ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(8.8)
     ctx.doc.text(pdfSafeText(`${response.answerLabel}:`), contentX, ctx.y); ctx.doc.line(contentX + 40, ctx.y + 2, contentX + contentWidth * 0.58, ctx.y + 2)
@@ -318,7 +318,7 @@ export function buildAssessmentPdf(model: AssessmentExportModel, paperSize: Expo
   ctx.pageHeader = (initial = false) => pdfHeader(ctx, paper, initial)
   pdfHeader(ctx, paper, true)
   paper.sections.forEach((section) => {
-    if (section.title && section.questions[0]) drawPdfSectionHeader(ctx, section.title, estimatePdfQuestionCoreHeight(ctx, section.questions[0]))
+    if (section.title && section.questions[0]) drawPdfSectionHeader(ctx, section.title, section.directions, estimatePdfQuestionCoreHeight(ctx, section.questions[0]))
     section.questions.forEach((question) => drawPdfQuestion(ctx, paper, question))
   })
   return doc
@@ -373,16 +373,35 @@ function docxIdentityHeader(paper: AssessmentPaperPresentationModel): Paragraph[
 
 function docxAssessmentInfoTable(paper: AssessmentPaperPresentationModel) {
   const rows = paper.header.metadataRows.map((row) => {
-    const columnSpan = row.length === 1 ? 6 : row.length === 2 ? 3 : row.length === 3 ? 2 : 1
+    if (row.length === 2) {
+      return new TableRow({
+        cantSplit: true,
+        children: [
+          docxLabelValueCell(row[0].label, row[0].value || row[0].placeholder || '', 3),
+          docxLabelValueCell(row[1].label, row[1].value || row[1].placeholder || '', 3),
+        ],
+      })
+    }
+    if (row.length === 3) {
+      return new TableRow({
+        cantSplit: true,
+        children: [
+          docxLabelValueCell(row[0].label, row[0].value || row[0].placeholder || '', 2),
+          docxLabelValueCell(row[1].label, row[1].value || row[1].placeholder || '', 2),
+          docxLabelValueCell(row[2].label, row[2].value || row[2].placeholder || '', 2),
+        ],
+      })
+    }
     return new TableRow({
-      children: row.map((field) => docxLabelValueCell(field.label, field.value || field.placeholder || '', columnSpan)),
+      cantSplit: true,
+      children: [docxLabelValueCell(row[0].label, row[0].value || row[0].placeholder || '', 6)],
     })
   })
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
     layout: TableLayoutType.FIXED,
-    borders: docxTableBorders(DOCX_LIGHT_BORDER, 4),
     columnWidths: [1666, 1667, 1667, 1666, 1667, 1667],
+    borders: docxTableBorders(DOCX_LIGHT_BORDER, 3),
     rows,
   })
 }
@@ -394,13 +413,23 @@ function docxContinuationHeader(paper: AssessmentPaperPresentationModel) {
   ] })
 }
 
-function docxSectionHeading(text: string) {
-  return new Paragraph({
-    keepNext: true,
-    spacing: { before: 200, after: 90 },
-    border: { bottom: { style: BorderStyle.SINGLE, size: 7, color: TEXT, space: 4 } },
-    children: [docxText(text, { bold: true, size: 21 })],
-  })
+function docxSectionHeading(text: string, directions?: string) {
+  const paragraphs: Paragraph[] = [
+    new Paragraph({
+      keepNext: true,
+      spacing: { before: 200, after: directions ? 40 : 90 },
+      border: { bottom: { style: BorderStyle.SINGLE, size: 7, color: TEXT, space: 4 } },
+      children: [docxText(text, { bold: true, size: 21 })],
+    }),
+  ]
+  if (directions) {
+    paragraphs.push(new Paragraph({
+      keepNext: true,
+      spacing: { before: 40, after: 100 },
+      children: [docxText(directions, { size: 18, italics: true, color: MUTED })],
+    }))
+  }
+  return paragraphs
 }
 
 function pngFallbackBytes() {
@@ -414,21 +443,23 @@ async function svgPngFallback(svg: string, width: number, height: number) {
   const url = URL.createObjectURL(blob)
   try {
     const image = new Image()
-    const loaded = new Promise<void>((resolve, reject) => { image.onload = () => resolve(); image.onerror = () => reject(new Error('Unable to rasterize assessment SVG fallback.')) })
+    const loaded = new Promise<void>((resolve, reject) => {
+      image.onload = () => resolve()
+      image.onerror = () => reject(new Error('Image decode error'))
+    })
     image.src = url
     await loaded
-    const scale = 2
     const canvas = document.createElement('canvas')
-    canvas.width = Math.max(1, Math.round(width * scale))
-    canvas.height = Math.max(1, Math.round(height * scale))
+    canvas.width = Math.max(1, Math.round(width * 2))
+    canvas.height = Math.max(1, Math.round(height * 2))
     const context = canvas.getContext('2d')
     if (!context) return pngFallbackBytes()
     context.fillStyle = '#ffffff'
     context.fillRect(0, 0, canvas.width, canvas.height)
-    context.scale(scale, scale)
-    context.drawImage(image, 0, 0, width, height)
-    const png = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'))
-    return png ? new Uint8Array(await png.arrayBuffer()) : pngFallbackBytes()
+    context.drawImage(image, 0, 0, canvas.width, canvas.height)
+    const pngBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'))
+    if (!pngBlob) return pngFallbackBytes()
+    return new Uint8Array(await pngBlob.arrayBuffer())
   } catch {
     return pngFallbackBytes()
   } finally {
@@ -444,19 +475,20 @@ function docxVisualDimensions(question: AssessmentPaperQuestion, visual: Assessm
   return { width: Math.max(1, Math.round(visual.width * scale)), height: Math.max(1, Math.round(visual.height * scale)) }
 }
 
-async function docxVisualParagraph(question: AssessmentPaperQuestion, visual: AssessmentVisual) {
-  const svg = assessmentVisualSvgMarkup(visual)
-  if (!svg) return new Paragraph({ spacing: { after: 70 }, children: [docxText(`[Diagram unavailable: ${visual.altText}]`, { size: 16, color: MUTED })] })
+async function docxVisualParagraph(question: AssessmentPaperQuestion, visual: AssessmentVisual): Promise<Paragraph> {
   const dimensions = docxVisualDimensions(question, visual)
-  const fallback = await svgPngFallback(svg, dimensions.width, dimensions.height)
+  const svg = assessmentVisualSvgMarkup(visual)
+  const svgBinary = new TextEncoder().encode(svg)
+  const pngFallback = await svgPngFallback(svg, dimensions.width, dimensions.height)
   return new Paragraph({
     alignment: AlignmentType.CENTER,
+    keepLines: true,
     keepNext: true,
-    spacing: { before: 45, after: 90 },
+    spacing: { before: 55, after: 70 },
     children: [new ImageRun({
       type: 'svg',
-      data: new TextEncoder().encode(svg),
-      fallback: { type: 'png', data: fallback },
+      data: svgBinary,
+      fallback: { type: 'png', data: pngFallback },
       transformation: dimensions,
       altText: { title: 'Assessment diagram', description: visual.altText, name: visual.id },
     })],
@@ -510,7 +542,9 @@ async function docxQuestion(paper: AssessmentPaperPresentationModel, question: A
   if (question.questionType === 'matching') children.push(docxMatchingTable(question))
   const { response } = question
   const kind = response.kind
-  if (kind === 'true_false') children.push(new Paragraph({ spacing: { before: 45, after: 70 }, children: [docxText(`☐ ${response.trueFalseLabels[0]}      ☐ ${response.trueFalseLabels[1]}`, { size: 18 })] }))
+  if (kind === 'true_false') {
+    // DepEd True/False uses the preceding blank line before the question number.
+  }
   else if (kind === 'numerical') children.push(new Paragraph({ spacing: { before: 45, after: 70 }, children: [docxText(`${response.answerLabel}: ____________________    ${response.unitLabel}: __________`, { size: 18 })] }))
   else if (kind === 'single_line') for (let index = 0; index < Math.max(1, response.lines); index += 1) children.push(docxWritingLine())
   else if (kind === 'fill_structured') response.blankLabels.forEach((label) => children.push(new Paragraph({ spacing: { before: 35, after: 55 }, children: [docxText(`${response.answerLabel} ${label}: ____________________________________`, { size: 18 })] })))
@@ -547,7 +581,7 @@ export async function buildAssessmentDocxBlob(model: AssessmentExportModel, pape
     children.push(new Paragraph({ keepLines: true, spacing: { after: 110 }, children: [docxText(paper.header.instructions, { size: 19 })] }))
   }
   for (const section of paper.sections) {
-    if (section.title) children.push(docxSectionHeading(section.title))
+    if (section.title) children.push(...docxSectionHeading(section.title, section.directions))
     for (const question of section.questions) children.push(...await docxQuestion(paper, question))
   }
   const size = docxPaperSize(paperSize)
@@ -583,7 +617,7 @@ function printQuestionMarkup(paper: AssessmentPaperPresentationModel, question: 
   const { response } = question
   const kind = response.kind
   let responseMarkup = ''
-  if (kind === 'true_false') responseMarkup = `<div class="true-false"><span class="check-box"></span> ${escapeHtml(response.trueFalseLabels[0])} <span class="check-box"></span> ${escapeHtml(response.trueFalseLabels[1])}</div>`
+  if (kind === 'true_false') responseMarkup = ''
   else if (kind === 'numerical') responseMarkup = `<div class="numeric-response">${escapeHtml(response.answerLabel)}: ____________________ &nbsp;&nbsp; ${escapeHtml(response.unitLabel)}: __________</div>`
   else if (kind === 'single_line') responseMarkup = `<div class="response-lines">${'<div class="response-line"></div>'.repeat(Math.max(1, response.lines))}</div>`
   else if (kind === 'fill_structured') responseMarkup = `<div class="response-lines">${response.blankLabels.map((label) => `<div>${escapeHtml(response.answerLabel)} ${escapeHtml(label)}: ____________________________________</div>`).join('')}</div>`
@@ -597,7 +631,7 @@ export function assessmentPrintHtml(model: AssessmentExportModel) {
   const paper = buildAssessmentPaperPresentation(model)
   const identity = paper.header.identityLines.map((line) => `<span class="identity-${line.role}">${escapeHtml(line.text)}</span>`).join('')
   const metadata = paper.header.metadataRows.map((row) => `<div class="metadata-row" data-columns="${row.length}">${row.map((field) => `<span><b>${escapeHtml(field.label)}:</b> ${escapeHtml(field.value || field.placeholder || '')}</span>`).join('')}</div>`).join('')
-  const questions = paper.sections.map((section) => `${section.title ? `<h2 class="assessment-section-heading">${escapeHtml(section.title)}</h2>` : ''}${section.questions.map((question) => printQuestionMarkup(paper, question)).join('')}`).join('')
+  const questions = paper.sections.map((section) => `${section.title ? `<div class="assessment-section-head"><h2 class="assessment-section-heading">${escapeHtml(section.title)}</h2>${section.directions ? `<p class="assessment-section-directions">${escapeHtml(section.directions)}</p>` : ''}</div>` : ''}${section.questions.map((question) => printQuestionMarkup(paper, question)).join('')}`).join('')
   return `<article class="assessment-document assessment-document-${paper.mode}" data-paper-model="assessment-paper-v1" data-continuation-document-title="${escapeHtml(paper.header.continuationDocumentTitle)}" data-continuation-assessment-title="${escapeHtml(paper.header.continuationAssessmentTitle)}"><div class="continuation-header"><strong>${escapeHtml(paper.header.continuationDocumentTitle)}</strong><span>${escapeHtml(paper.header.continuationAssessmentTitle)}</span></div><header><div class="identity">${identity}</div><strong class="document-title">${escapeHtml(paper.header.documentTitle)}</strong><h1>${escapeHtml(paper.header.assessmentTitle)}</h1><div class="metadata">${metadata}</div>${paper.header.instructions ? `<div class="instructions"><b>${escapeHtml(paper.header.instructionsLabel)}</b><p>${escapeHtml(paper.header.instructions)}</p></div>` : ''}</header><main>${questions}</main></article>`
 }
 

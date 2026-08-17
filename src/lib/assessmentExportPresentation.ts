@@ -70,6 +70,7 @@ export type AssessmentPaperQuestion = {
 export type AssessmentPaperSection = {
   key: string
   title: string
+  directions: string
   questionType: QuestionType | null
   questions: AssessmentPaperQuestion[]
 }
@@ -108,6 +109,59 @@ const TYPE_LABELS: Record<QuestionType, string> = {
   matching: 'Matching Type',
   multiple_select: 'Multiple Select',
   essay: 'Essay / Extended Response',
+}
+
+const SECTION_DIRECTIONS: Record<QuestionType, { english: string; filipino: string }> = {
+  multiple_choice: {
+    english: 'Directions: Read each question carefully. Choose the letter of the correct answer and write it on the space provided before each number.',
+    filipino: 'Panuto: Basahing mabuti ang bawat tanong. Piliin ang titik ng tamang sagot at isulat ito sa patlang bago ang bawat bilang.',
+  },
+  true_false: {
+    english: 'Directions: Write TRUE if the statement is correct and FALSE if it is incorrect. Write your answer on the space provided before each number.',
+    filipino: 'Panuto: Isulat ang TAMA kung ang pahayag ay wasto at MALI kung ito ay hindi wasto. Isulat ang sagot sa patlang bago ang bilang.',
+  },
+  short_answer: {
+    english: 'Directions: Answer each question briefly and concisely on the space provided.',
+    filipino: 'Panuto: Sagutin nang maikli at tuwiran ang bawat katanungan sa nakalaang espasyo.',
+  },
+  constructed_response: {
+    english: 'Directions: Provide a well-reasoned and complete explanation for each question based on the given concept or data.',
+    filipino: 'Panuto: Magbigay ng komprehensibo at malinaw na paliwanag para sa bawat tanong batay sa ibinigay na konsepto.',
+  },
+  identification: {
+    english: 'Directions: Identify the term or concept being described in each statement. Write your answer on the space provided before each number.',
+    filipino: 'Panuto: Tukuyin ang konseptong inilalarawan sa bawat bilang. Isulat ang tamang sagot sa patlang bago ang bawat bilang.',
+  },
+  fill_in_the_blank: {
+    english: 'Directions: Fill in the blank(s) with the correct word or phrase to complete each statement.',
+    filipino: 'Panuto: Punan ang patlang ng tamang salita o parirala upang mabuo ang bawat pahayag.',
+  },
+  numerical_answer: {
+    english: 'Directions: Solve each problem and write the final numerical value with its appropriate unit on the space provided.',
+    filipino: 'Panuto: Lutasin ang bawat suliranin at isulat ang tiyak na bilang at wastong yunit sa nakalaang espasyo.',
+  },
+  problem_solving: {
+    english: 'Directions: Read and solve each problem carefully. Show your complete solution on the space provided.',
+    filipino: 'Panuto: Basahin at lutasin ang bawat suliranin. Ipakita ang kumpletong solusyon sa nakalaang espasyo.',
+  },
+  matching: {
+    english: 'Directions: Match the items in Column A with their corresponding descriptions in Column B. Write the letter of the correct answer on the space provided before each number in Column A.',
+    filipino: 'Panuto: Itambal ang mga pahayag sa Hanay A sa kanilang kaugnay na paglalarawan sa Hanay B. Isulat ang titik ng tamang sagot sa patlang bago ang bawat bilang sa Hanay A.',
+  },
+  multiple_select: {
+    english: 'Directions: Select ALL options that correctly answer the question. More than one choice may be correct.',
+    filipino: 'Panuto: Piliin ang LAHAT ng tamang sagot na tumutugon sa katanungan. Maaaring higit sa isa ang tamang sagot.',
+  },
+  essay: {
+    english: 'Directions: Write a clear and well-organized essay addressing the prompt below. You will be evaluated on content, organization, and clarity of ideas.',
+    filipino: 'Panuto: Sumulat ng isang maayos at makabuluhang sanaysay batay sa paksa. Mamarkahan ang iyong gawa ayon sa nilalaman, organisasyon, at kalinawan ng kaisipan.',
+  },
+}
+
+export function assessmentSectionDirections(type: QuestionType, language?: string) {
+  const entry = SECTION_DIRECTIONS[type]
+  if (!entry) return ''
+  return language === 'filipino' ? entry.filipino : entry.english
 }
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII']
@@ -286,12 +340,16 @@ function paperQuestion(model: AssessmentExportModel, question: AssessmentExportQ
         ? Math.max(1, blanksFor(question).length)
         : 0
   const prompt = 'prompt' in question ? text(question.prompt) : ''
+  const isDepEdPrecedingBlank = model.mode === 'student' && (question.questionType === 'true_false' || question.questionType === 'multiple_choice' || question.questionType === 'identification')
+  const numberLabel = isDepEdPrecedingBlank
+    ? `_____ ${question.numberLabel || question.itemNumber}.`
+    : `${question.numberLabel || question.itemNumber}.`
   return {
     source: question,
     key: `item-${question.itemNumber}`,
     itemNumber: question.itemNumber,
     questionType: question.questionType,
-    numberLabel: `${question.numberLabel || question.itemNumber}.`,
+    numberLabel,
     pointLabel: model.metadata.numberingMode === 'point_ranges' ? '' : model.mode === 'student' && question.pointsPossible <= 1 ? '' : `${question.pointsPossible} ${model.labels.points}`,
     prompt,
     choices,
@@ -323,14 +381,14 @@ export function buildAssessmentPaperPresentation(model: AssessmentExportModel): 
   const useSections = model.mode !== 'answer_key' && assessmentUsesContiguousTypeSections(model.questions)
   const sections: AssessmentPaperSection[] = []
   if (!useSections) {
-    sections.push({ key: 'assessment-items', title: '', questionType: null, questions })
+    sections.push({ key: 'assessment-items', title: '', directions: '', questionType: null, questions })
   } else {
     let sectionIndex = -1
     for (const question of questions) {
       let section = sections[sections.length - 1]
       if (!section || section.questionType !== question.questionType) {
         sectionIndex += 1
-        section = { key: `section-${sectionIndex + 1}-${question.questionType}`, title: assessmentSectionTitle(question.questionType, sectionIndex), questionType: question.questionType, questions: [] }
+        section = { key: `section-${sectionIndex + 1}-${question.questionType}`, title: assessmentSectionTitle(question.questionType, sectionIndex), directions: assessmentSectionDirections(question.questionType, model.language), questionType: question.questionType, questions: [] }
         sections.push(section)
       }
       section.questions.push(question)

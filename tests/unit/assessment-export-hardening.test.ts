@@ -27,6 +27,8 @@ describe('assessment export presentation hardening', () => {
     expect(normalizeAssessmentMathText('$\\frac{1}{2}$ of 8')).toBe('(1)/(2) of 8')
     expect(normalizeAssessmentMathText('Solve $\\sqrt{144}$ and $\\sqrt[3]{b}$.')).toBe('Solve √(144) and ∛(b).')
     expect(normalizeAssessmentMathText('If $\\sqrt{a} = \\sqrt[3]{b}$, then $a^3 = b^2$.')).toBe('If √(a) = ∛(b), then a³ = b².')
+    expect(normalizeAssessmentMathText('If $\\sqrt{a} = \\sqrt[3]{b}$, then a3 = b2.')).toBe('If √(a) = ∛(b), then a³ = b².')
+    expect(normalizeAssessmentMathText('The box volume is 50cm3 and base area is 10cm2.')).toBe('The box volume is 50cm³ and base area is 10cm².')
     expect(hasUnsupportedAssessmentMathMarkup('Use $\\unknown{q}$ here')).toBe(true)
   })
 
@@ -57,7 +59,9 @@ describe('assessment export presentation hardening', () => {
     expect(documentXml).toContain('Republic of the Philippines')
     expect(documentXml).toContain('Department of Education')
     expect(documentXml).toContain('Part I - Multiple Choice')
+    expect(documentXml).toContain('Directions: Read each question carefully')
     expect(documentXml).toContain('Part II - Matching Type')
+    expect(documentXml).toContain('Directions: Match the items in Column A')
     expect(documentXml).toContain('Sample School')
     expect(documentXml).not.toContain('[Diagram:')
   })

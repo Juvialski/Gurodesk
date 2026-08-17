@@ -101,6 +101,7 @@ function buildGenerationPrompt(type: QuestionType, immutable: Row, language: str
       ? 'ANTI-ANSWER-LEAK RULE: accepted answer text belongs only in the answer object. Never copy an accepted answer into the learner prompt, even when the competency or master-plan task intent contains that term.'
       : 'Do not place the correct answer in learner-facing hints or labels.',
     `referencedResources must be ${resources.length ? 'an array containing only exact teacher-listed resource strings actually used' : 'an empty array [] because the teacher supplied no resources'}.`,
+    'When writing mathematical formulas, exponents, and roots, use standard notation (e.g. x^2, a^3 = b^2, \\sqrt{a}, \\sqrt[3]{b}, cm^2, 10^5).',
     plannedVisual.requirement === 'required'
       ? 'VISUAL CONTRACT (MANDATORY): this slot was selected BEFORE question generation as a REQUIRED visual item. Return visualRequirement exactly "required". Write a prompt that explicitly tells the learner to use/refer to the diagram/figure/graph. At least one ESSENTIAL given, label, measure, position, or relationship needed to solve the question must appear only in the future diagram and MUST NOT be duplicated in the written stem. The question must be invalid/incomplete without the diagram; the visual is problem data, not decoration.'
       : plannedVisual.requirement === 'helpful'

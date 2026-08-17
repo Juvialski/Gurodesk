@@ -23,7 +23,7 @@ assert.match(exportSource, /drawPdfVisual\(ctx, question, question\.visual/, 'PD
 assert.match(modelSource, /normalizeAssessmentMathText\(item\.prompt\)/, 'export model normalizes bounded math markup without changing persisted content')
 assert.match(modelSource, /neutralAssessmentVisualAltText/, 'student export derives learner-safe visual accessibility text from deterministic geometry')
 assert.match(viewSource, /assessment-document-matching-grid/, 'print preview uses a real matching grid')
-assert.match(viewSource, /assessment-document-true-false/, 'print preview uses explicit True\/False controls')
+assert.match(viewSource, /assessment-document-section-directions/, 'print preview uses DepEd standard section directions')
 assert.match(exportSource, /question-core/, 'print HTML keeps each long-response stem and visual together before answer-space pagination')
 assert.match(viewSource, /assessment-document-question-core/, 'preview print DOM keeps the question stem and visual in one printable core')
 assert.match(reviewSource, /assessmentVisualSemanticFindings/, 'final review blocks missing or contradictory required visuals')

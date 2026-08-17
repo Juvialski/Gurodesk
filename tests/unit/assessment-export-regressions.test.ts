@@ -178,7 +178,7 @@ describe('assessment export model and renderer regressions', () => {
     expect(html).toContain('assessment-section-heading')
     expect(html).toContain('question-core')
     expect(html).toContain('matching-grid')
-    expect(html).toContain('true-false')
+    expect(html).toContain('assessment-question-true_false')
     expect(html).not.toContain('Response: __________________________________')
   })
 

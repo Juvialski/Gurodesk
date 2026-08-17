@@ -15,8 +15,7 @@ function visibleAnnotation(annotation: AssessmentPaperAnnotation, options: { sho
 
 function StudentResponse({ question }: { question: AssessmentPaperQuestion }) {
   const response = question.response
-  if (response.kind === 'none' || response.kind === 'matching' || response.kind === 'fill_inline') return null
-  if (response.kind === 'true_false') return <div className="assessment-document-true-false"><span className="assessment-document-checkbox" /> {response.trueFalseLabels[0]} <span className="assessment-document-checkbox" /> {response.trueFalseLabels[1]}</div>
+  if (response.kind === 'none' || response.kind === 'matching' || response.kind === 'fill_inline' || response.kind === 'true_false') return null
   if (response.kind === 'numerical') return <div className="assessment-document-numerical"><span>{response.answerLabel}: ____________________</span><span>{response.unitLabel}: __________</span></div>
   if (response.kind === 'fill_structured') return <div className="assessment-document-answer-space">{response.blankLabels.map((label) => <span key={label}>{response.answerLabel} {label}: __________________________________________</span>)}</div>
   return <>
@@ -61,7 +60,7 @@ export function AssessmentDocumentView({ model, showCompetency = false, showCogn
     </header>
     <div className="assessment-document-items">
       {paper.sections.map((section) => <div className="assessment-document-section" key={section.key}>
-        {section.title && <h2 className="assessment-document-section-heading">{section.title}</h2>}
+        {section.title && <div className="assessment-document-section-head"><h2 className="assessment-document-section-heading">{section.title}</h2>{section.directions && <p className="assessment-document-section-directions">{section.directions}</p>}</div>}
         {section.questions.map((question) => {
           const annotations = question.annotations.filter((annotation) => visibleAnnotation(annotation, annotationOptions))
           return <div key={question.key} className="assessment-document-question-wrapper">
