@@ -1,0 +1,17 @@
+{
+  "name": "GuroDesk",
+  "short_name": "GuroDesk",
+  "description": "DepEd planning and paperwork workspace for teachers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b2d5b",
+  "theme_color": "#0b2d5b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

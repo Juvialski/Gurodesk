@@ -51,6 +51,8 @@ export function DocumentsPage() {
   const [loadWarnings, setLoadWarnings] = useState<string[]>([])
   const [query, setQuery] = useState('')
   const [kind, setKind] = useState<'all' | DocumentKind>('all')
+  const [statusFilter, setStatusFilter] = useState<'all' | 'final' | 'draft'>('all')
+  const [sortBy, setSortBy] = useState<'updated_desc' | 'updated_asc' | 'title_asc' | 'title_desc'>('updated_desc')
 
   useEffect(() => {
     if (!user) {
@@ -140,12 +142,21 @@ export function DocumentsPage() {
 
   const visibleDocuments = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase()
-    return documents.filter((document) => {
+    const filtered = documents.filter((document) => {
       if (kind !== 'all' && document.kind !== kind) return false
+      if (statusFilter === 'final' && !document.status.toLowerCase().includes('final') && !document.status.toLowerCase().includes('complete') && !document.status.toLowerCase().includes('approved')) return false
+      if (statusFilter === 'draft' && (document.status.toLowerCase().includes('final') || document.status.toLowerCase().includes('complete') || document.status.toLowerCase().includes('approved'))) return false
       if (!needle) return true
       return `${document.title} ${document.detail} ${TYPE_META[document.kind].label}`.toLocaleLowerCase().includes(needle)
     })
-  }, [documents, kind, query])
+
+    return filtered.sort((a, b) => {
+      if (sortBy === 'updated_asc') return a.updatedAt.localeCompare(b.updatedAt)
+      if (sortBy === 'title_asc') return a.title.localeCompare(b.title)
+      if (sortBy === 'title_desc') return b.title.localeCompare(a.title)
+      return b.updatedAt.localeCompare(a.updatedAt)
+    })
+  }, [documents, kind, query, sortBy, statusFilter])
 
   return (
     <>
@@ -157,7 +168,7 @@ export function DocumentsPage() {
       />
 
       <section className="panel">
-        <div className="form-grid two">
+        <div className="form-grid four" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
           <label>
             Search documents
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by title, subject, topic, or type" />
@@ -170,6 +181,23 @@ export function DocumentsPage() {
               <option value="tos">TOS</option>
               <option value="assessment">Assessments</option>
               <option value="results">Results</option>
+            </select>
+          </label>
+          <label>
+            Status
+            <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as 'all' | 'final' | 'draft')}>
+              <option value="all">All statuses</option>
+              <option value="draft">Drafts in progress</option>
+              <option value="final">Finalized / Complete</option>
+            </select>
+          </label>
+          <label>
+            Sort by
+            <select value={sortBy} onChange={(event) => setSortBy(event.target.value as typeof sortBy)}>
+              <option value="updated_desc">Recently updated</option>
+              <option value="updated_asc">Oldest first</option>
+              <option value="title_asc">Title (A to Z)</option>
+              <option value="title_desc">Title (Z to A)</option>
             </select>
           </label>
         </div>

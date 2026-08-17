@@ -6,6 +6,7 @@ import { useWorkspaceSelection } from '../hooks/useWorkspaceSelection'
 import { useApp } from '../contexts/AppContext'
 import { shouldAutoOpenTeacherTour } from '../lib/teacherTour'
 import { Brand } from './Brand'
+import { ErrorBoundary } from './ErrorBoundary'
 import { TeacherTour } from './TeacherTour'
 import { ResponsiveNavigation } from './navigation/ResponsiveNavigation'
 import { WorkspaceContextBar } from './workspace/WorkspaceContextBar'
@@ -45,6 +46,7 @@ export function AppShell() {
 
   return (
     <div className="app-shell">
+      <a href="#main-content" className="skip-to-content">Skip to main content</a>
       <ResponsiveNavigation profile={profile} onSignOut={signOut} onReplayTour={replayTour} />
 
       <div className="app-main">
@@ -84,7 +86,11 @@ export function AppShell() {
             onChange={workspace.setSelection}
           />
         </div>
-        <main className="content" id="main-content"><Outlet /></main>
+        <main className="content" id="main-content">
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
+        </main>
       </div>
       <TeacherTour userId={user?.id ?? null} open={tourOpen} onClose={closeTour} />
     </div>

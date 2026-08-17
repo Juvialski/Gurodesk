@@ -1,4 +1,4 @@
-import { BookMarked, Plus, School, Trash2 } from 'lucide-react'
+import { BookMarked, Edit2, Plus, School, Trash2, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PageHeader } from '../components/PageHeader'
@@ -16,8 +16,11 @@ function sourceLabel(kind: CurriculumSourceKind) {
 }
 
 export function ClassesPage() {
-  const { user, profile, assignments, createAssignment, removeAssignment } = useApp()
+  const { user, profile, assignments, createAssignment, updateAssignment, removeAssignment } = useApp()
   const [open, setOpen] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editingSections, setEditingSections] = useState<string[]>([])
+  const [editingDraft, setEditingDraft] = useState('')
   const [gradeLevel, setGradeLevel] = useState('Grade 7')
   const [learningArea, setLearningArea] = useState('Mathematics')
   const [sectionDraft, setSectionDraft] = useState('')
@@ -103,6 +106,31 @@ export function ClassesPage() {
     setSectionDraft('')
   }
 
+  function startEdit(item: (typeof assignments)[0]) {
+    setEditingId(item.id)
+    setEditingSections([...item.sections])
+    setEditingDraft('')
+  }
+
+  function addEditSection() {
+    const next = editingDraft.trim().replace(/\s+/g, ' ')
+    if (!next) return
+    if (!editingSections.includes(next)) setEditingSections((curr) => [...curr, next])
+    setEditingDraft('')
+  }
+
+  async function saveEdit(id: string) {
+    if (editingSections.length === 0) {
+      setMessage('A class must have at least one section.')
+      return
+    }
+    await updateAssignment(id, { sections: editingSections })
+    setEditingId(null)
+    setEditingSections([])
+    setEditingDraft('')
+    setMessage(null)
+  }
+
   return (
     <>
       <PageHeader
@@ -149,18 +177,65 @@ export function ClassesPage() {
       <div className="panel table-panel">
         <div className="responsive-table">
           <table>
-            <thead><tr><th>Grade</th><th>Learning area</th><th>Curriculum</th><th>Sections</th><th>School year</th><th></th></tr></thead>
+            <thead><tr><th>Grade</th><th>Learning area</th><th>Curriculum</th><th>Sections</th><th>School year</th><th>Actions</th></tr></thead>
             <tbody>
-              {assignments.map((item) => (
-                <tr key={item.id}>
-                  <td><span className="table-grade"><School size={15} /> {item.gradeLevel}</span></td>
-                  <td><strong>{item.learningArea}</strong></td>
-                  <td><span className={`curriculum-source-badge ${item.curriculumSourceKind}`}>{sourceLabel(item.curriculumSourceKind)}</span></td>
-                  <td>{item.sections.map((section) => <span className="tag" key={section}>{section}</span>)}</td>
-                  <td>{item.schoolYear}</td>
-                  <td><button className="icon-button danger" onClick={() => void removeAssignment(item.id)} aria-label="Delete assignment"><Trash2 size={16} /></button></td>
-                </tr>
-              ))}
+              {assignments.map((item) => {
+                const isEditing = editingId === item.id
+                return (
+                  <tr key={item.id}>
+                    <td><span className="table-grade"><School size={15} /> {item.gradeLevel}</span></td>
+                    <td><strong>{item.learningArea}</strong></td>
+                    <td><span className={`curriculum-source-badge ${item.curriculumSourceKind}`}>{sourceLabel(item.curriculumSourceKind)}</span></td>
+                    <td>
+                      {isEditing ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                          <div style={{ display: 'flex', gap: '6px' }}>
+                            <input
+                              value={editingDraft}
+                              onChange={(e) => setEditingDraft(e.target.value)}
+                              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addEditSection() } }}
+                              placeholder="New section..."
+                              style={{ minHeight: '32px', padding: '4px 8px', fontSize: '13px' }}
+                            />
+                            <button type="button" className="button secondary" style={{ minHeight: '32px', padding: '4px 10px', fontSize: '12px' }} onClick={addEditSection}>Add</button>
+                          </div>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                            {editingSections.map((sec) => (
+                              <button
+                                type="button"
+                                key={sec}
+                                className="tag"
+                                style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                                onClick={() => setEditingSections((curr) => curr.filter((s) => s !== sec))}
+                              >
+                                {sec} <X size={12} />
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        item.sections.map((section) => <span className="tag" key={section}>{section}</span>)
+                      )}
+                    </td>
+                    <td>{item.schoolYear}</td>
+                    <td>
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        {isEditing ? (
+                          <>
+                            <button className="button primary" style={{ minHeight: '32px', padding: '4px 10px', fontSize: '12px' }} onClick={() => void saveEdit(item.id)}>Save</button>
+                            <button className="button ghost" style={{ minHeight: '32px', padding: '4px 8px', fontSize: '12px' }} onClick={() => setEditingId(null)}>Cancel</button>
+                          </>
+                        ) : (
+                          <>
+                            <button className="icon-button" onClick={() => startEdit(item)} aria-label="Edit sections" title="Edit sections"><Edit2 size={15} /></button>
+                            <button className="icon-button danger" onClick={() => void removeAssignment(item.id)} aria-label="Delete assignment" title="Delete class"><Trash2 size={15} /></button>
+                          </>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>

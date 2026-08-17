@@ -1,4 +1,4 @@
-import { Database, RotateCcw, Save, ShieldCheck, UserRound, School, FileText, Sparkles, Settings2 } from 'lucide-react'
+import { Database, Download, RotateCcw, Save, ShieldCheck, UserRound, School, FileText, Sparkles, Settings2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AiSetupPanel } from '../components/AiSetupPanel'
@@ -8,7 +8,9 @@ import { DocumentTemplatesPanel } from '../components/DocumentTemplatesPanel'
 import { TosTemplatesPanel } from '../components/TosTemplatesPanel'
 import { useApp } from '../contexts/AppContext'
 import { POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
+import { clearDemoAssessmentDocuments } from '../lib/assessmentRepository'
 import { demoStore } from '../lib/demoStore'
+import { clearDemoRemediationPlans, clearDemoResultSessions } from '../lib/resultsDemo'
 import { clearDemoTosDocuments } from '../lib/tosRepository'
 import { PageHeader } from '../components/PageHeader'
 import { SchoolPicker } from '../components/SchoolPicker'
@@ -43,7 +45,7 @@ function categoryFromHash(hash: string): SettingsCategory | null {
 }
 
 export function SettingsPage() {
-  const { profile, backendMode, backendConfigured, isDemo, updateProfile, refreshWorkspace } = useApp()
+  const { profile, assignments, backendMode, backendConfigured, isDemo, updateProfile, refreshWorkspace } = useApp()
   const location = useLocation()
   const navigate = useNavigate()
   const [form, setForm] = useState<Profile | null>(profile)
@@ -84,8 +86,32 @@ export function SettingsPage() {
   function resetDemo() {
     if (backendMode !== 'demo') return
     clearDemoTosDocuments()
+    clearDemoAssessmentDocuments()
+    clearDemoResultSessions()
+    clearDemoRemediationPlans()
     demoStore.reset()
     void refreshWorkspace()
+  }
+
+  function exportBackup() {
+    const backup = {
+      gurodeskVersion: '0.5.0',
+      exportedAt: new Date().toISOString(),
+      profile,
+      assignments,
+      lessonPlans: demoStore.getStoredLessonPlans(),
+      lessonPreferences: profile ? demoStore.getLessonPreferences(profile.id) : null,
+      exportPreferences: profile ? demoStore.getExportPreferences(profile.id) : null,
+    }
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement('a')
+    anchor.href = url
+    anchor.download = `gurodesk-workspace-${new Date().toISOString().slice(0, 10)}.json`
+    document.body.appendChild(anchor)
+    anchor.click()
+    document.body.removeChild(anchor)
+    URL.revokeObjectURL(url)
   }
 
   function selectCategory(nextCategory: SettingsCategory) {
@@ -104,7 +130,7 @@ export function SettingsPage() {
           {category === 'teaching' && <section className="settings-stack"><section className="panel workflow-settings-card"><div className="panel-heading"><div><span className="eyebrow">Teaching</span><h2>Classes and planning defaults</h2><p>Update your classes or adjust the defaults used when a new lesson starts.</p></div><Link className="button secondary" to="/classes">Open Classes</Link></div></section>{profile && <TeachingSetupPanel userId={profile.id} isDemo={isDemo} />}</section>}
           {category === 'documents' && <section className="settings-stack"><section className="panel workflow-settings-card"><span className="eyebrow">Documents</span><h2>Export defaults and templates</h2><p>Choose how new documents are prepared. Existing records keep their saved content.</p></section>{profile && <ExportSettingsPanel userId={profile.id} profile={profile} isDemo={isDemo} />}{profile && <DocumentTemplatesPanel userId={profile.id} isDemo={isDemo} />}{profile && <TosTemplatesPanel userId={profile.id} isDemo={isDemo} />}</section>}
           {category === 'ai' && <section className="settings-stack"><section className="panel workflow-settings-card"><span className="eyebrow">AI assistance</span><h2>Optional Gemini help</h2><p>Connect your own Gemini key if you want AI-assisted drafts. GuroDesk still works without it.</p></section><AiSetupPanel isDemo={isDemo} /></section>}
-          {category === 'system' && <section className="panel system-panel workflow-settings-card"><span className="system-icon"><Database size={22} /></span><span className="eyebrow">Advanced / System</span><h2>Technical workspace details</h2><p className="workflow-system-intro">These details help with troubleshooting. They are not needed for everyday teaching.</p><div className="status-lines"><div><span>Backend mode</span><strong>{backendMode === 'demo' ? 'Local demo' : 'Supabase'}</strong></div><div><span>Supabase environment</span><strong>{backendConfigured ? 'Configured' : 'Not configured'}</strong></div><div><span>Row-level security</span><strong>{backendMode === 'supabase' ? 'Enabled by migrations' : 'Not applicable in demo'}</strong></div><div><span>AI connection</span><strong>Teacher-owned Gemini setup</strong></div></div><div className="security-note"><ShieldCheck size={18} /><p>GuroDesk keeps technical provider and security diagnostics in this advanced area. Your document workflows remain usable when AI is disconnected.</p></div>{backendMode === 'demo' && <button className="button ghost" onClick={resetDemo}><RotateCcw size={16} /> Reset demo data</button>}</section>}
+          {category === 'system' && <section className="panel system-panel workflow-settings-card"><span className="system-icon"><Database size={22} /></span><span className="eyebrow">Advanced / System</span><h2>Technical workspace details</h2><p className="workflow-system-intro">These details help with troubleshooting. They are not needed for everyday teaching.</p><div className="status-lines"><div><span>Backend mode</span><strong>{backendMode === 'demo' ? 'Local demo' : 'Supabase'}</strong></div><div><span>Supabase environment</span><strong>{backendConfigured ? 'Configured' : 'Not configured'}</strong></div><div><span>Row-level security</span><strong>{backendMode === 'supabase' ? 'Enabled by migrations' : 'Not applicable in demo'}</strong></div><div><span>AI connection</span><strong>Teacher-owned Gemini setup</strong></div></div><div className="security-note"><ShieldCheck size={18} /><p>GuroDesk keeps technical provider and security diagnostics in this advanced area. Your document workflows remain usable when AI is disconnected.</p></div><div className="inline-actions" style={{ marginTop: '16px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}><button className="button secondary" type="button" onClick={exportBackup}><Download size={16} /> Export workspace backup</button>{backendMode === 'demo' && <button className="button ghost" onClick={resetDemo}><RotateCcw size={16} /> Reset demo data</button>}</div></section>}
         </section>
       </div>
     </>

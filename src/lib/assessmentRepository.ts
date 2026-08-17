@@ -60,6 +60,10 @@ function writeDemoAssessments(records: AssessmentRecord[]) {
   if (typeof localStorage !== 'undefined') localStorage.setItem(DEMO_ASSESSMENTS_KEY, JSON.stringify(records))
 }
 
+export function clearDemoAssessmentDocuments() {
+  if (typeof localStorage !== 'undefined') localStorage.removeItem(DEMO_ASSESSMENTS_KEY)
+}
+
 function text(value: unknown, fallback = '') {
   return value === null || value === undefined ? fallback : String(value)
 }

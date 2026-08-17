@@ -43,6 +43,19 @@ function write<T>(key: string, values: T[]) {
   if (typeof localStorage !== 'undefined') localStorage.setItem(key, JSON.stringify(values))
 }
 
+export function clearDemoResultSessions() {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.removeItem(DEMO_RESULTS_KEY)
+    localStorage.removeItem(DEMO_LEARNERS_KEY)
+  }
+}
+
+export function clearDemoRemediationPlans() {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.removeItem(DEMO_REMEDIATION_KEY)
+  }
+}
+
 function sameJson(left: unknown, right: unknown) {
   return JSON.stringify(left) === JSON.stringify(right)
 }

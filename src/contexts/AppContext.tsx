@@ -15,6 +15,7 @@ import {
   deleteTeacherAssignment,
   loadTeacherWorkspace,
   saveTeacherProfile,
+  updateTeacherAssignment,
 } from '../lib/repository'
 import { isSupabaseConfigured, supabase } from '../lib/supabase'
 
@@ -36,6 +37,7 @@ type AppContextValue = {
   refreshWorkspace: () => Promise<void>
   updateProfile: (profile: Profile) => Promise<void>
   createAssignment: (assignment: Omit<TeacherAssignment, 'id'>) => Promise<void>
+  updateAssignment: (id: string, updates: Partial<Pick<TeacherAssignment, 'sections' | 'isActive'>>) => Promise<void>
   removeAssignment: (id: string) => Promise<void>
   clearError: () => void
 }
@@ -181,6 +183,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  async function updateAssignment(id: string, updates: Partial<Pick<TeacherAssignment, 'sections' | 'isActive'>>) {
+    try {
+      const updated = await updateTeacherAssignment(id, updates, isDemo)
+      setAssignments((items) => items.map((item) => (item.id === id ? updated : item)))
+      setError(null)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unable to update assignment.'
+      setError(message)
+      throw err
+    }
+  }
+
   async function removeAssignment(id: string) {
     try {
       await deleteTeacherAssignment(id, isDemo)
@@ -212,6 +226,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       refreshWorkspace,
       updateProfile,
       createAssignment,
+      updateAssignment,
       removeAssignment,
       clearError: () => setError(null),
     }),

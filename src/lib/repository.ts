@@ -159,6 +159,34 @@ export async function deleteTeacherAssignment(id: string, demo: boolean) {
   if (error) throw error
 }
 
+export async function updateTeacherAssignment(
+  id: string,
+  updates: Partial<Pick<TeacherAssignment, 'sections' | 'isActive'>>,
+  demo: boolean,
+) {
+  if (demo || !supabase) {
+    const next = demoStore.getAssignments().map((item) => item.id === id ? { ...item, ...updates } : item)
+    demoStore.saveAssignments(next)
+    const found = next.find((item) => item.id === id)
+    if (!found) throw new Error('Assignment not found.')
+    return found
+  }
+
+  const patch: Record<string, unknown> = {}
+  if (updates.sections !== undefined) patch.section_names = updates.sections
+  if (updates.isActive !== undefined) patch.is_active = updates.isActive
+
+  const { data, error } = await supabase
+    .from('teacher_assignments')
+    .update(patch)
+    .eq('id', id)
+    .select('*')
+    .single()
+
+  if (error) throw error
+  return mapAssignment(data as Record<string, unknown>)
+}
+
 
 function mapCurriculumVersion(row: Record<string, unknown>): CurriculumVersionSummary {
   return {

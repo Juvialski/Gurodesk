@@ -12,7 +12,7 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('docx')) return 'vendor-docx'
+            if (id.includes('docx') || id.includes('pizzip') || id.includes('docx-preview')) return 'vendor-docx'
             if (id.includes('xlsx')) return 'vendor-xlsx'
             if (id.includes('jspdf') || id.includes('html2canvas')) return 'vendor-pdf'
             if (id.includes('lucide-react')) return 'vendor-icons'
