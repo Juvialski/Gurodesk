@@ -7,7 +7,9 @@ GitHub `main` is the source of truth.
 ## GitHub workflow
 For ChatGPT, treat GitHub as READ-ONLY for GuroDesk.
 Do not attempt pushes, commits, branch creation, PR writes, file writes, or retries for ChatGPT.
-Antigravity is exempted from this restriction and is allowed to stage, commit, and push when requested.
+
+Antigravity is exempted from the read-only restriction and is allowed to stage, commit, and push directly when requested.
+**CRITICAL MANDATE FOR ANTIGRAVITY**: Before pushing to GitHub, Antigravity MUST ALWAYS run and pass the full CI suite (`npm run test:ci`, encompassing `validate:schools`, `typecheck`, `typecheck:tests`, `typecheck:e2e`, `validate:edge-functions`, `validate:all`, `test:unit`, and `build:bundle`). Never push any commit to `main` without first verifying that all CI tests pass.
 
 When the user says `pushed`, re-read current GitHub main, inspect the actual diff, and inspect CI.
 
