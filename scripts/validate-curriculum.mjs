@@ -1,12 +1,34 @@
 import { createHash } from 'node:crypto'
+import { readdirSync, statSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 
-const paths = process.argv.slice(2)
-if (!paths.length) {
+const rawPaths = process.argv.slice(2)
+if (!rawPaths.length) {
   console.error('Usage: node scripts/validate-curriculum.mjs <manifest.json> [...]')
   process.exit(2)
 }
+
+const paths = rawPaths.flatMap((entry) => {
+  if (entry.includes('*')) {
+    const dir = dirname(entry)
+    const baseDir = dir.includes('*') ? '.' : dir
+    const pattern = new RegExp(`^${entry.split(/[/\\]/).pop().replace(/\./g, '\\.').replace(/\*/g, '.*')}$`)
+    return readdirSync(resolve(baseDir))
+      .filter((file) => pattern.test(file))
+      .map((file) => join(baseDir, file))
+  }
+  try {
+    if (statSync(resolve(entry)).isDirectory()) {
+      return readdirSync(resolve(entry))
+        .filter((file) => file.endsWith('.json'))
+        .map((file) => join(entry, file))
+    }
+  } catch {
+    // let readFile handle non-existent file
+  }
+  return [entry]
+})
 
 const failures = []
 let manifestCount = 0
