@@ -280,24 +280,24 @@
 .workflow-sections-field > small { margin-top: 4px; color: #64748b; font-size: 11.5px; font-weight: 500; }
 .workflow-advanced-link { margin-top: 10px; }
 
-.settings-workflow-layout { display: grid; grid-template-columns: minmax(200px, .28fr) minmax(0, .72fr); gap: 18px; align-items: start; }
-.settings-category-nav { display: grid; gap: 6px; position: sticky; top: 88px; }
-.settings-category-nav button { width: 100%; gap: 10px; padding: 12px; border: 1px solid transparent; border-radius: 12px; background: transparent; color: #475569; text-align: left; cursor: pointer; }
+.settings-workflow-layout { display: grid; grid-template-columns: minmax(220px, .28fr) minmax(0, .72fr); gap: 20px; align-items: start; }
+.settings-category-nav { display: grid; gap: 8px; position: sticky; top: 88px; }
+.settings-category-nav button { width: 100%; gap: 12px; padding: 14px 16px; border: 1.5px solid transparent; border-radius: 14px; background: transparent; color: #475569; text-align: left; cursor: pointer; transition: all .15s ease; }
 .settings-category-nav button:hover { background: #f1f5f9; }
-.settings-category-nav button.active { border-color: #bfdbfe; color: #1d4ed8; background: #eff6ff; }
+.settings-category-nav button.active { border-color: #bfdbfe; color: #1d4ed8; background: #eff6ff; box-shadow: 0 1px 3px rgba(37, 99, 235, 0.06); }
 .settings-category-nav button > span:last-child { min-width: 0; }
 .settings-category-nav strong, .settings-category-nav small { display: block; }
-.settings-category-nav strong { font-size: 13.5px; font-weight: 750; }
-.settings-category-nav small { margin-top: 2px; color: #64748b; font-size: 11.5px; line-height: 1.4; }
+.settings-category-nav strong { font-size: 14px; font-weight: 750; }
+.settings-category-nav small { margin-top: 3px; color: #64748b; font-size: 12px; line-height: 1.4; }
 .settings-category-nav button.active small { color: #3b82f6; }
-.settings-category-icon { width: 34px; height: 34px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 10px; background: #f1f5f9; color: #475569; }
+.settings-category-icon { width: 36px; height: 36px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 11px; background: #f1f5f9; color: #475569; }
 .settings-category-nav button.active .settings-category-icon { color: #1d4ed8; background: #dbeafe; }
 .settings-category-content { min-width: 0; }
-.settings-stack { display: grid; gap: 16px; }
-.workflow-settings-card { padding: 22px; }
-.workflow-settings-card h2 { margin: 0 0 5px; color: var(--navy); font-size: 20px; font-weight: 800; }
-.workflow-settings-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
-.workflow-system-intro { margin-bottom: 16px !important; }
+.settings-stack { display: grid; gap: 20px; }
+.workflow-settings-card { padding: 26px 28px; border-radius: 16px; }
+.workflow-settings-card h2 { margin: 0 0 6px; color: var(--navy); font-size: 21px; font-weight: 800; }
+.workflow-settings-card p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.6; }
+.workflow-system-intro { margin-bottom: 18px !important; }
 
 /* Keep the newer narrow-screen-safe onboarding cards introduced after the shell. */
 .workflow-onboarding-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
