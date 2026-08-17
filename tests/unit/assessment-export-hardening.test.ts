@@ -25,6 +25,8 @@ describe('assessment export presentation hardening', () => {
     expect(normalizeAssessmentMathText('Find $\\angle ABC$ when $x=70^\\circ$.')).toBe('Find ∠ABC when x=70°.')
     expect(normalizeAssessmentMathText('Area is $6\\times4=24\\text{ cm}^2$.')).toContain('6×4=24 cm²')
     expect(normalizeAssessmentMathText('$\\frac{1}{2}$ of 8')).toBe('(1)/(2) of 8')
+    expect(normalizeAssessmentMathText('Solve $\\sqrt{144}$ and $\\sqrt[3]{b}$.')).toBe('Solve √(144) and ∛(b).')
+    expect(normalizeAssessmentMathText('If $\\sqrt{a} = \\sqrt[3]{b}$, then $a^3 = b^2$.')).toBe('If √(a) = ∛(b), then a³ = b².')
     expect(hasUnsupportedAssessmentMathMarkup('Use $\\unknown{q}$ here')).toBe(true)
   })
 

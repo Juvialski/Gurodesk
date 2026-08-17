@@ -9,43 +9,105 @@
 
 const SIMPLE_COMMANDS: Array<[RegExp, string]> = [
   [/\\angle\s*/gu, '∠'],
+  [/\\triangle\s*/gu, '△'],
   [/\\times(?![A-Za-z])/gu, '×'],
   [/\\cdot(?![A-Za-z])/gu, '·'],
   [/\\div(?![A-Za-z])/gu, '÷'],
   [/\\pm(?![A-Za-z])/gu, '±'],
+  [/\\mp(?![A-Za-z])/gu, '∓'],
   [/\\leq?(?![A-Za-z])/gu, '≤'],
   [/\\geq?(?![A-Za-z])/gu, '≥'],
-  [/\\neq(?![A-Za-z])/gu, '≠'],
+  [/\\neq?(?![A-Za-z])/gu, '≠'],
   [/\\approx(?![A-Za-z])/gu, '≈'],
+  [/\\equiv(?![A-Za-z])/gu, '≡'],
   [/\\infty(?![A-Za-z])/gu, '∞'],
   [/\\parallel(?![A-Za-z])/gu, '∥'],
   [/\\perp(?![A-Za-z])/gu, '⊥'],
   [/\\pi(?![A-Za-z])/gu, 'π'],
+  [/\\theta(?![A-Za-z])/gu, 'θ'],
+  [/\\alpha(?![A-Za-z])/gu, 'α'],
+  [/\\beta(?![A-Za-z])/gu, 'β'],
+  [/\\gamma(?![A-Za-z])/gu, 'γ'],
+  [/\\delta(?![A-Za-z])/gu, 'δ'],
+  [/\\mu(?![A-Za-z])/gu, 'µ'],
+  [/\\sigma(?![A-Za-z])/gu, 'σ'],
+  [/\\in(?![A-Za-z])/gu, '∈'],
+  [/\\notin(?![A-Za-z])/gu, '∉'],
+  [/\\subset(?![A-Za-z])/gu, '⊂'],
+  [/\\subseteq(?![A-Za-z])/gu, '⊆'],
+  [/\\cup(?![A-Za-z])/gu, '∪'],
+  [/\\cap(?![A-Za-z])/gu, '∩'],
+  [/\\(?:emptyset|varnothing)(?![A-Za-z])/gu, '∅'],
+  [/\\(?:rightarrow|to)(?![A-Za-z])/gu, '→'],
+  [/\\leftarrow(?![A-Za-z])/gu, '←'],
+  [/\\leftrightarrow(?![A-Za-z])/gu, '↔'],
+  [/\\Rightarrow(?![A-Za-z])/gu, '⇒'],
+  [/\\Leftarrow(?![A-Za-z])/gu, '⇐'],
+  [/\\Leftrightarrow(?![A-Za-z])/gu, '⇔'],
+  [/\\(?:degree|circ)(?![A-Za-z])/gu, '°'],
 ]
 
+const SUPERSCRIPT_MAP: Record<string, string> = {
+  '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴',
+  '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹',
+  '+': '⁺', '-': '⁻', '=': '⁼', '(': '⁽', ')': '⁾',
+  'a': 'ᵃ', 'b': 'ᵇ', 'c': 'ᶜ', 'd': 'ᵈ', 'e': 'ᵉ',
+  'f': 'ᶠ', 'g': 'ᵍ', 'h': 'ʰ', 'i': 'ⁱ', 'j': 'ʲ',
+  'k': 'ᵏ', 'l': 'ˡ', 'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ',
+  'p': 'ᵖ', 'r': 'ʳ', 's': 'ˢ', 't': 'ᵗ', 'u': 'ᵘ',
+  'v': 'ᵛ', 'w': 'ʷ', 'x': 'ˣ', 'y': 'ʸ', 'z': 'ᶻ',
+}
+
+const SUBSCRIPT_MAP: Record<string, string> = {
+  '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
+  '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉',
+  '+': '₊', '-': '₋', '=': '₌', '(': '₍', ')': '₎',
+  'a': 'ₐ', 'e': 'ₑ', 'h': 'ₕ', 'i': 'ᵢ', 'j': 'ⱼ',
+  'k': 'ₖ', 'l': 'ₗ', 'm': 'ₘ', 'n': 'ₙ', 'o': 'ₒ',
+  'p': 'ₚ', 'r': 'ᵣ', 's': 'ₛ', 't': 'ₜ', 'u': 'ᵤ',
+  'v': 'ᵥ', 'x': 'ₓ',
+}
+
 function simpleFractions(value: string) {
-  // Keep fractions readable in plain export text without pretending to be a
-  // full TeX layout engine. Run a few passes for small nested content.
   let next = value
   for (let pass = 0; pass < 3; pass += 1) next = next.replace(/\\frac\s*\{([^{}]+)\}\s*\{([^{}]+)\}/gu, '($1)/($2)')
   return next
 }
 
-function simpleSquareRoots(value: string) {
-  return value.replace(/\\sqrt\s*\{([^{}]+)\}/gu, '√($1)')
+function simpleRoots(value: string) {
+  return value
+    .replace(/\\sqrt\s*\[\s*3\s*\]\s*\{([^{}]+)\}/gu, '∛($1)')
+    .replace(/\\sqrt\s*\[\s*3\s*\]\s*([0-9a-zA-Z])/gu, '∛$1')
+    .replace(/\\sqrt\s*\[\s*4\s*\]\s*\{([^{}]+)\}/gu, '∜($1)')
+    .replace(/\\sqrt\s*\[\s*4\s*\]\s*([0-9a-zA-Z])/gu, '∜$1')
+    .replace(/\\sqrt\s*\[\s*([^{}[\]]+)\s*\]\s*\{([^{}]+)\}/gu, '($1)√($2)')
+    .replace(/\\sqrt\s*\[\s*([^{}[\]]+)\s*\]\s*([0-9a-zA-Z])/gu, '($1)√$2')
+    .replace(/\\sqrt\s*\{([^{}]+)\}/gu, '√($1)')
+    .replace(/\\sqrt\s+([0-9a-zA-Z]+)/gu, '√$1')
+    .replace(/\\sqrt(?![a-zA-Z])/gu, '√')
 }
 
 function superscripts(value: string) {
   return value
     .replace(/\^\s*\{?\s*\\circ\s*\}?/gu, '°')
-    .replace(/\^\s*\{?\s*2\s*\}?/gu, '²')
-    .replace(/\^\s*\{?\s*3\s*\}?/gu, '³')
+    .replace(/\^\s*\{([^{}]+)\}/gu, (_, content: string) => {
+      return [...content].map((ch) => SUPERSCRIPT_MAP[ch] ?? ch).join('')
+    })
+    .replace(/\^\s*([0-9a-zA-Z+-])/gu, (_, ch: string) => SUPERSCRIPT_MAP[ch] ?? `^${ch}`)
+}
+
+function subscripts(value: string) {
+  return value
+    .replace(/_\s*\{([^{}]+)\}/gu, (_, content: string) => {
+      return [...content].map((ch) => SUBSCRIPT_MAP[ch] ?? ch).join('')
+    })
+    .replace(/_\s*([0-9a-zA-Z+-])/gu, (_, ch: string) => SUBSCRIPT_MAP[ch] ?? `_${ch}`)
 }
 
 export function normalizeAssessmentMathText(input: string | null | undefined) {
   let value = (input ?? '').normalize('NFKC')
   value = value.replace(/\\\(|\\\)|\\\[|\\\]/gu, '')
-  value = simpleFractions(simpleSquareRoots(superscripts(value)))
+  value = simpleFractions(simpleRoots(superscripts(subscripts(value))))
   SIMPLE_COMMANDS.forEach(([pattern, replacement]) => { value = value.replace(pattern, replacement) })
   value = value
     .replace(/\\text\s*\{([^{}]*)\}/gu, '$1')

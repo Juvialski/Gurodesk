@@ -354,9 +354,9 @@ function docxCell(text: string, options: { bold?: boolean; width?: number; align
   })
 }
 
-function docxLabelValueCell(label: string, value: string, width = 50) {
+function docxLabelValueCell(label: string, value: string, columnSpan = 3) {
   return new TableCell({
-    width: { size: width, type: WidthType.PERCENTAGE },
+    columnSpan,
     margins: { top: 75, bottom: 75, left: 105, right: 105 },
     children: [new Paragraph({ children: [docxText(`${label}:`, { bold: true, size: 18 }), docxText(value || '____________________', { size: 18, leadingSpace: true })] })],
   })
@@ -372,10 +372,19 @@ function docxIdentityHeader(paper: AssessmentPaperPresentationModel): Paragraph[
 }
 
 function docxAssessmentInfoTable(paper: AssessmentPaperPresentationModel) {
-  const rows = paper.header.metadataRows.map((row) => new TableRow({
-    children: row.map((field) => docxLabelValueCell(field.label, field.value || field.placeholder || '', 100 / row.length)),
-  }))
-  return new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, layout: TableLayoutType.FIXED, borders: docxTableBorders(DOCX_LIGHT_BORDER, 4), rows })
+  const rows = paper.header.metadataRows.map((row) => {
+    const columnSpan = row.length === 1 ? 6 : row.length === 2 ? 3 : row.length === 3 ? 2 : 1
+    return new TableRow({
+      children: row.map((field) => docxLabelValueCell(field.label, field.value || field.placeholder || '', columnSpan)),
+    })
+  })
+  return new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    layout: TableLayoutType.FIXED,
+    borders: docxTableBorders(DOCX_LIGHT_BORDER, 4),
+    columnWidths: [1666, 1667, 1667, 1666, 1667, 1667],
+    rows,
+  })
 }
 
 function docxContinuationHeader(paper: AssessmentPaperPresentationModel) {
