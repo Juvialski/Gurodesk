@@ -7,7 +7,7 @@ import { callGemini, GeminiHttpError, GeminiResponseError, parseGeminiJson } fro
 type Row = Record<string, unknown>
 type CredentialRow = { api_key_ciphertext: string; api_key_iv: string; encryption_key_source: EncryptionKeySource }
 type VisualPolicy = 'off' | 'balanced' | 'more_visuals'
-const ASSESSMENT_VISUALS_ENABLED = false
+const ASSESSMENT_VISUALS_ENABLED = true
 type Cpd = 'remembering' | 'understanding' | 'applying' | 'analyzing' | 'evaluating' | 'creating' | 'other'
 type Bucket = {
   id: string
@@ -110,6 +110,7 @@ function normalizeCpd(id: unknown, label: unknown): Cpd {
   return 'other'
 }
 function isMathArea(value: string) { return /\bmath(?:ematics)?\b|\bmathematika\b/i.test(value) }
+function isVisualEligibleArea(value: string) { return /\bmath(?:ematics)?\b|\bmathematika\b|\bcalculus\b|\bscience\b|\bphysics\b|\bchemistry\b|\bbiology\b|\bgeometry\b|\bstatistics\b|\bstem\b|\btle\b/i.test(value) }
 function isLanguageArea(value: string) { return /\benglish\b|\bfilipino\b|\blanguage\b|\breading\b|\bliterature\b|\bcommunication\b/i.test(value) }
 function suitability(type: AssessmentQuestionType, cpd: Cpd, learningArea: string) {
   if (cpd === 'creating' && isMathArea(learningArea) && type === 'problem_solving') return 'strong'
@@ -209,8 +210,8 @@ function buildPrompt(args: { gradeLevel: string; learningArea: string; title: st
     '- Prefer a varied, natural test. Avoid unnecessary essays or long responses when a concise format is better.',
     '- For Evaluating/Creating, use the higher-order types made available in the bucket constraints.',
     '- visualRequirement=required only when the learner genuinely needs information contained in the diagram/graph. Do not use decorative visuals.',
-    !isMathArea(args.learningArea) ? '- Automatic required visuals are limited to Mathematics: every entry MUST use visualRequirement="none" and visualIntent="".' : args.visualPolicy === 'off' ? '- Visual policy is Off: every entry MUST use visualRequirement="none" and visualIntent="".' : args.visualPolicy === 'balanced' ? '- Balanced visuals: keep most questions text-only. Required visuals must not exceed floor(logicalQuestionCount / 4), with zero required visuals for fewer than 4 logical questions.' : '- More visuals: you may mark more genuinely diagram-dependent tasks as required, but keep text-sufficient questions visualRequirement="none"; never add decorative or answer-revealing visuals.',
-    '- taskIntent is a concise instruction for the later question generator. It must define what the question should assess without writing the final question or answer.',
+    !isVisualEligibleArea(args.learningArea) ? '- Automatic required visuals are limited to visual-eligible subjects (Mathematics, Science, STEM): every entry MUST use visualRequirement="none" and visualIntent="".' : args.visualPolicy === 'off' ? '- Visual policy is Off: every entry MUST use visualRequirement="none" and visualIntent="".' : args.visualPolicy === 'balanced' ? '- Balanced visuals: keep most questions text-only. Required visuals must not exceed floor(logicalQuestionCount / 4), with zero required visuals for fewer than 4 logical questions.' : '- More visuals: you may mark more genuinely diagram-dependent tasks as required, but keep text-sufficient questions visualRequirement="none"; never add decorative or answer-revealing visuals.',
+    '- taskIntent is a concise instruction for the later question generator. It must define what the question should assess without writing the final question or answer. When multiple entries target the same bucket or competency, each entry taskIntent MUST assess a distinctly different subtopic, concept facet, formula, or real-world application so generated questions never duplicate each other.',
     '- Return entries in conventional contiguous question-type sections. Group all Multiple Choice together first, then other objective/short formats, and put Problem Solving / Constructed Response / Essay later. Do NOT interleave the same question type across the paper.',
     '- The sum of pointsPossible across all entries must equal the exact total points.',
     '',
@@ -246,7 +247,7 @@ function validateProviderPlan(value: Row, buckets: Bucket[], totalPoints: number
     return { bucketId, questionType, pointsPossible, taskIntent, visualRequirement, visualIntent }
   })
   const requiredVisuals = entries.filter((entry) => entry.visualRequirement === 'required').length
-  if (!isMathArea(learningArea) && requiredVisuals > 0) throw new Error('Automatic required visuals are limited to Mathematics.')
+  if (!isVisualEligibleArea(learningArea) && requiredVisuals > 0) throw new Error('Automatic required visuals are limited to Mathematics, Science, and STEM.')
   if (visualPolicy === 'balanced') {
     const balancedLimit = entries.length < 4 ? 0 : Math.floor(entries.length / 4)
     if (requiredVisuals > balancedLimit) throw new Error(`Balanced visual policy allows at most ${balancedLimit} required visual${balancedLimit === 1 ? '' : 's'} for ${entries.length} logical questions.`)

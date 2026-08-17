@@ -4,7 +4,7 @@ import { emptyLessonCompetencySnapshot, syncLessonCompetencyProjection } from '.
 import { buildLessonPlanExportModel } from '../../src/lib/lessonPlanExport'
 import { createBlankLessonPlan, normalizeLessonContent } from '../../src/lib/lessonPlanFactory'
 import type { Profile, TeacherAssignment } from '../../src/types/app'
-import { createDefaultTeacherExportPreferences } from '../../src/types/export'
+import { createDefaultTeacherExportPreferences, type TeacherExportPreferences } from '../../src/types/export'
 import type { LegacyLessonPlanContentV1, LessonPlanCompetencySnapshot, LessonPlanRecord } from '../../src/types/lessonPlan'
 
 const assignment: TeacherAssignment = {
@@ -142,5 +142,45 @@ describe('lesson-plan export compatibility', () => {
     expect(grounding).toContain('Primary competency: M7-primary')
     expect(grounding).toContain('Additional competency 1: M7-additional')
     expect(grounding).not.toContain('Additional competency 2')
+  })
+
+  it('builds a rich ILAW Multi-Session 4-session log model compliant with DepEd DO 16, s. 2026', () => {
+    const plan = exportPlan()
+    plan.content.intentions.learningObjectives = 'Session 1: Identify regular polygons.\nSession 2: Calculate sum of interior angles.\nSession 3: Solve complex polygon problems.\nSession 4: Present geometric real-world applications.'
+    plan.content.learningExperience.preLessonActivity = 'Day 1: Shape identification.\nDay 2: Angle review.\nDay 3: Error analysis.\nDay 4: Self-check readiness.'
+    plan.content.learningExperience.lessonFlow = '1. Concept modeling.\n2. Guided station work.\n3. Independent problem solving.\n4. Synthesis presentation.'
+    plan.content.assessingLearning.formativeAssessments = 'Session 1: 5-item identification check.\nSession 2: Angle calculation board work.\nSession 3: 5-item formative quiz with answer key.\nSession 4: Performance rubric rating.'
+
+    const multiPreferences: TeacherExportPreferences = {
+      ...preferences,
+      defaultTemplateId: 'gurodesk_ilaw_multisession',
+    }
+
+    const model = buildLessonPlanExportModel(plan, profile, multiPreferences)
+    expect(model.templateLabel).toBe('ILAW Multi-Session Log')
+    expect(model.multiSession).toBeDefined()
+
+    const multi = model.multiSession!
+    expect(multi.sessionHeaders).toHaveLength(4)
+    expect(multi.rows.length).toBeGreaterThanOrEqual(14)
+
+    const objectivesRow = multi.rows.find((r) => r.key === 'objectives')
+    expect(objectivesRow).toBeDefined()
+    expect(objectivesRow?.sessions[0]).toContain('Identify regular polygons')
+    expect(objectivesRow?.sessions[1]).toContain('Calculate sum of interior angles')
+
+    const preLessonRow = multi.rows.find((r) => r.key === 'pre_lesson')
+    expect(preLessonRow).toBeDefined()
+    expect(preLessonRow?.sessions[0]).toContain('Shape identification')
+    expect(preLessonRow?.sessions[1]).toContain('Angle review')
+
+    const formativeRow = multi.rows.find((r) => r.key === 'formative_assessment')
+    expect(formativeRow).toBeDefined()
+    expect(formativeRow?.sessions[2]).toContain('5-item formative quiz')
+
+    expect(multi.rubricItems).toHaveLength(9)
+    expect(multi.rubricItems.every((item) => item.status === 'yes')).toBe(true)
+    expect(multi.aiDeclarationStatement).toContain('DepEd Order No. 003, s. 2026')
+    expect(multi.coachingNotes).toContain('instructional coaching')
   })
 })

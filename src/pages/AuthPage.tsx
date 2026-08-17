@@ -1,4 +1,11 @@
-import { ArrowRight, CheckCircle2, LockKeyhole, Sparkles } from 'lucide-react'
+import {
+  ArrowRight,
+  BookOpenCheck,
+  CalendarRange,
+  LockKeyhole,
+  ShieldCheck,
+  Sparkles,
+} from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { useApp } from '../contexts/AppContext'
 import { Brand } from '../components/Brand'
@@ -28,18 +35,46 @@ export function AuthPage() {
   return (
     <div className="auth-page">
       <section className="auth-hero">
-        <div className="auth-hero-inner">
+        <header className="auth-hero-top">
           <Brand />
-          <span className="hero-kicker"><Sparkles size={15} /> Built for Philippine public-school teachers</span>
-          <h1>Less paperwork.<br />More time to teach.</h1>
-          <p>One workspace for curriculum-aware lesson planning, TOS, assessments, results, and teacher reports.</p>
-          <div className="hero-checks">
-            <span><CheckCircle2 size={18} /> School-year aware</span>
-            <span><CheckCircle2 size={18} /> Curriculum-grounded architecture</span>
-            <span><CheckCircle2 size={18} /> Secure Supabase foundation</span>
+        </header>
+
+        <div className="auth-hero-body">
+          <div className="hero-kicker">
+            <Sparkles size={14} className="hero-kicker-icon" />
+            <span>Built for Philippine public-school teachers</span>
+          </div>
+
+          <h1 className="auth-hero-title">
+            Less paperwork.
+            <span className="auth-hero-highlight">More time to teach.</span>
+          </h1>
+
+          <p className="auth-hero-desc">
+            One unified workspace for curriculum-aware lesson planning, Table of Specifications (TOS), DepEd assessments, and student analytics.
+          </p>
+
+          <div className="hero-feature-pills">
+            <span className="hero-pill">
+              <CalendarRange size={15} />
+              <span>School-year aware</span>
+            </span>
+            <span className="hero-pill">
+              <BookOpenCheck size={15} />
+              <span>196 DepEd curriculum manifests</span>
+            </span>
+            <span className="hero-pill">
+              <ShieldCheck size={15} />
+              <span>Zero-leak AI boundaries</span>
+            </span>
           </div>
         </div>
+
+        <footer className="auth-hero-footer">
+          <span className="auth-hero-footer-note">DepEd K-12 & Matatag Standards Compliant</span>
+        </footer>
       </section>
+
       <section className="auth-panel-wrap">
         <div className="auth-card">
           <div className="auth-heading">
@@ -52,11 +87,41 @@ export function AuthPage() {
 
           {backendConfigured && (
             <form onSubmit={submit} className="stack-form">
-              <label>Email<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" /></label>
-              <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete={mode === 'signin' ? 'current-password' : 'new-password'} /></label>
+              <label>
+                Email
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoComplete="email"
+                  placeholder="teacher@deped.gov.ph"
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
+                  placeholder="••••••••"
+                />
+              </label>
               {message && <div className="form-message">{message}</div>}
-              <button className="button primary full" disabled={busy}>{busy ? 'Working…' : mode === 'signin' ? 'Sign in' : 'Create account'} <ArrowRight size={17} /></button>
-              <button type="button" className="text-button" onClick={() => { setMode(mode === 'signin' ? 'signup' : 'signin'); setMessage(null) }}>
+              <button className="button primary full" disabled={busy} type="submit">
+                {busy ? 'Working…' : mode === 'signin' ? 'Sign in' : 'Create account'} <ArrowRight size={17} />
+              </button>
+              <button
+                type="button"
+                className="text-button auth-switch-button"
+                onClick={() => {
+                  setMode(mode === 'signin' ? 'signup' : 'signin')
+                  setMessage(null)
+                }}
+              >
                 {mode === 'signin' ? 'Need an account? Create one' : 'Already have an account? Sign in'}
               </button>
             </form>
@@ -64,10 +129,20 @@ export function AuthPage() {
 
           <div className="demo-actions">
             {backendConfigured && <div className="divider"><span>or preview locally</span></div>}
-            <button className="button secondary full" onClick={() => void enterDemo(true)}>Open sample teacher workspace</button>
-            <button className="button ghost full" onClick={() => void enterDemo(false)}>Test onboarding from scratch</button>
+            <button className="button secondary full" type="button" onClick={() => void enterDemo(true)}>
+              Open sample teacher workspace
+            </button>
+            <button className="button ghost full" type="button" onClick={() => void enterDemo(false)}>
+              Test onboarding from scratch
+            </button>
           </div>
-          <p className="privacy-note">Demo mode stores data only in this browser. Gemini keys are never placed in browser environment variables.</p>
+
+          <div className="privacy-callout">
+            <ShieldCheck size={16} className="privacy-callout-icon" />
+            <p className="privacy-note">
+              Demo mode stores data only in this browser. Gemini API keys are never placed in client bundles.
+            </p>
+          </div>
         </div>
       </section>
     </div>

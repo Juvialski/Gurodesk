@@ -57,9 +57,17 @@ export function LessonPlanPrintPreviewPage() {
     return () => { mounted = false }
   }, [id, user?.id, profile?.id, isDemo])
 
-  const model = useMemo(() => plan && profile && preferences
-    ? buildLessonPlanExportModel(plan, profile, preferences, lessonPreferences)
-    : null, [plan, profile, preferences, lessonPreferences])
+  const activePreferences = useMemo<TeacherExportPreferences | null>(() => {
+    if (!preferences) return null
+    if (selectedTemplateId === 'gurodesk_ilaw_multisession' || selectedTemplateId === 'gurodesk_ilaw_standard') {
+      return { ...preferences, defaultTemplateId: selectedTemplateId }
+    }
+    return preferences
+  }, [preferences, selectedTemplateId])
+
+  const model = useMemo(() => plan && profile && activePreferences
+    ? buildLessonPlanExportModel(plan, profile, activePreferences, lessonPreferences)
+    : null, [plan, profile, activePreferences, lessonPreferences])
 
   const selectedCustomTemplate = customTemplates.find((item) => item.id === selectedTemplateId) ?? null
 
@@ -83,7 +91,7 @@ export function LessonPlanPrintPreviewPage() {
   }, [selectedCustomTemplate?.id, selectedCustomTemplate?.updatedAt, model])
 
   async function download(kind: 'pdf' | 'docx') {
-    if (!model || !preferences) return
+    if (!model || !activePreferences) return
     setDownloading(kind)
     try {
       if (selectedCustomTemplate) {
@@ -93,8 +101,8 @@ export function LessonPlanPrintPreviewPage() {
           if (!customPreviewElement) throw new Error('Wait for the custom template preview to finish rendering before downloading PDF.')
           await customDocxPreviewToPdf(customPreviewElement, lessonPlanExportFilename(model, 'pdf'))
         }
-      } else if (kind === 'pdf') downloadLessonPlanPdf(model, preferences)
-      else await downloadLessonPlanDocx(model, preferences)
+      } else if (kind === 'pdf') downloadLessonPlanPdf(model, activePreferences)
+      else await downloadLessonPlanDocx(model, activePreferences)
     } catch (err) {
       setTemplateError(err instanceof Error ? err.message : 'Unable to download document.')
     } finally {
@@ -105,20 +113,49 @@ export function LessonPlanPrintPreviewPage() {
   if (loading) return <div className="loading-screen"><span className="loader" /><strong>Preparing printable lesson…</strong></div>
   if (error || !model || !plan) return <div className="export-preview-error"><FileText size={28} /><h2>Preview unavailable</h2><p>{error || 'Unable to build document preview.'}</p><Link className="button ghost" to="/lesson-plans">Back to lesson plans</Link></div>
 
+  const isMultiSession = selectedTemplateId === 'gurodesk_ilaw_multisession'
   const printPaper = preferences?.paperSize === 'letter' ? 'letter' : preferences?.paperSize === 'legal' ? 'legal' : 'A4'
-  const selectedLabel = selectedCustomTemplate?.name ?? 'ILAW Standard'
+  const selectedLabel = selectedCustomTemplate?.name
+    ? selectedCustomTemplate.name
+    : isMultiSession
+      ? 'ILAW Multi-Session Log (4-Session Grid)'
+      : 'ILAW Standard'
 
   return (
-    <div className={`print-preview-page ${selectedCustomTemplate ? 'custom-template-active' : `paper-${preferences?.paperSize ?? 'a4'}`}`}>
-      {!selectedCustomTemplate && <style>{`@media print { @page { size: ${printPaper}; margin: 0; } }`}</style>}
+    <div className={`print-preview-page ${selectedCustomTemplate ? 'custom-template-active' : `paper-${preferences?.paperSize ?? 'a4'}`} ${isMultiSession ? 'print-landscape' : ''}`}>
+      {!selectedCustomTemplate && <style>{`@media print { @page { size: ${printPaper} ${isMultiSession ? 'landscape' : 'portrait'}; margin: 0; } }`}</style>}
       <div className="print-preview-toolbar no-print">
         <Link className="button ghost" to={`/lesson-plans/${plan.id}`}><ArrowLeft size={16} /> Back to editor</Link>
-        <div className="print-preview-title"><strong>Document preview</strong><small>{selectedLabel}{selectedCustomTemplate ? ' · Original teacher template' : ` · ${model.language === 'filipino' ? 'Filipino labels' : 'English labels'} · ${preferences?.paperSize.toUpperCase()}`}</small></div>
+        <div className="print-preview-title">
+          <strong>Document preview</strong>
+          <small>{selectedLabel}{selectedCustomTemplate ? ' · Original teacher template' : ` · ${model.language === 'filipino' ? 'Filipino labels' : 'English labels'} · ${preferences?.paperSize.toUpperCase()}${isMultiSession ? ' · Landscape' : ''}`}</small>
+        </div>
         <div className="preview-template-picker">
           <button className="template-picker-trigger" onClick={() => setTemplateMenuOpen((value) => !value)}><FileText size={15} /><span>{selectedLabel}</span><ChevronDown size={15} /></button>
           {templateMenuOpen && <div className="preview-template-menu">
-            <button onClick={() => { setSelectedTemplateId(BUILTIN_ID); setTemplateMenuOpen(false) }}><div><strong>ILAW Standard</strong><small>Built-in GuroDesk fallback</small></div>{!selectedCustomTemplate && <Check size={15} />}</button>
-            {customTemplates.map((template) => <button key={template.id} onClick={() => { setSelectedTemplateId(template.id); setTemplateMenuOpen(false) }}><div><strong>{template.name}</strong><small>{template.originalFilename}{template.isDefault ? ' · Default' : ''}</small></div>{selectedTemplateId === template.id && <Check size={15} />}</button>)}
+            <button onClick={() => { setSelectedTemplateId('gurodesk_ilaw_multisession'); setTemplateMenuOpen(false) }}>
+              <div>
+                <strong>ILAW Multi-Session Log (4-Session Grid)</strong>
+                <small>DepEd Order No. 016, s. 2026 weekly matrix & coaching rubric</small>
+              </div>
+              {selectedTemplateId === 'gurodesk_ilaw_multisession' && <Check size={15} />}
+            </button>
+            <button onClick={() => { setSelectedTemplateId('gurodesk_ilaw_standard'); setTemplateMenuOpen(false) }}>
+              <div>
+                <strong>ILAW Standard</strong>
+                <small>Plain printable single-flow layout</small>
+              </div>
+              {selectedTemplateId === 'gurodesk_ilaw_standard' && <Check size={15} />}
+            </button>
+            {customTemplates.map((template) => (
+              <button key={template.id} onClick={() => { setSelectedTemplateId(template.id); setTemplateMenuOpen(false) }}>
+                <div>
+                  <strong>{template.name}</strong>
+                  <small>{template.originalFilename}{template.isDefault ? ' · Default' : ''}</small>
+                </div>
+                {selectedTemplateId === template.id && <Check size={15} />}
+              </button>
+            ))}
           </div>}
         </div>
         <div className="print-preview-actions">
@@ -129,7 +166,7 @@ export function LessonPlanPrintPreviewPage() {
       </div>
       {templateError && <div className="custom-template-error no-print">{templateError}</div>}
       {templateLoading && <div className="loading-screen compact no-print"><span className="loader" /><strong>Filling original template…</strong></div>}
-      <div className={`print-preview-stage ${selectedCustomTemplate ? 'custom-docx-stage' : ''}`}>
+      <div className={`print-preview-stage ${selectedCustomTemplate ? 'custom-docx-stage' : ''} ${isMultiSession ? 'multisession-stage' : ''}`}>
         {selectedCustomTemplate && customBlob
           ? <CustomDocxPreview blob={customBlob} onReady={setCustomPreviewElement} onError={setTemplateError} />
           : !selectedCustomTemplate ? <LessonPlanDocumentView model={model} /> : null}

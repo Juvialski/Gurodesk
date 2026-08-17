@@ -1136,8 +1136,14 @@ export async function generateMissingAssessmentItems(options: AssessmentGenerati
         // state as an explicit recovery replacement; teacher-owned content is
         // excluded by assessmentItemNeedsQuestionGeneration above.
         const recoveringBlankMachineDraft = hasExistingAssessmentContent(item)
+        const knownItems = [...assessment.items, ...summary.results]
+        const peerItems = knownItems.filter((other) => other.id !== item.id && other.prompt.trim() && other.competencySnapshot?.id && other.competencySnapshot.id === item.competencySnapshot?.id)
+        const peerAvoidContext = peerItems.length
+          ? `Avoid duplicating the scenario, wording, or evidence of already generated Item ${peerItems.map((p) => p.itemNumber).join(', ')}: ${peerItems.map((p) => `"${p.prompt.slice(0, 180)}"`).join('; ')}`
+          : ''
         const suggestion = await generate({
           assessment, item, demo, alternative: recoveringBlankMachineDraft, signal,
+          teacherContext: peerAvoidContext,
           onQuestionReady: options.onQuestionReady
             ? async (questionSuggestion) => {
               const questionItem = applyAssessmentItemSuggestion(item, questionSuggestion, { alternative: recoveringBlankMachineDraft, source: 'generated' })

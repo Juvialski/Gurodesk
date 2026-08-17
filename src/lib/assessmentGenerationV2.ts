@@ -115,6 +115,10 @@ function isMathArea(learningArea: string) {
   return /\bmath(?:ematics)?\b|\bmathematika\b/i.test(learningArea)
 }
 
+function isVisualEligibleArea(learningArea: string) {
+  return /\bmath(?:ematics)?\b|\bmathematika\b|\bcalculus\b|\bscience\b|\bphysics\b|\bchemistry\b|\bbiology\b|\bgeometry\b|\bstatistics\b|\bstem\b|\btle\b/i.test(learningArea)
+}
+
 function isLanguageArea(learningArea: string) {
   return /\benglish\b|\bfilipino\b|\blanguage\b|\breading\b|\bliterature\b|\bcommunication\b/i.test(learningArea)
 }
@@ -251,7 +255,7 @@ export function validateAssessmentV2Setup(tos: TosRecord | null, setup: Assessme
       message: `${bucket.pointsAllocated} point${bucket.pointsAllocated === 1 ? '' : 's'} allocated to ${bucket.cognitiveLabel} for ${bucket.competencyCode || bucket.competencyText} cannot be composed from the selected question types. Add a compatible lower-point format or increase total points.`,
     })
   }
-  if (setup.visualPolicy === 'more_visuals' && !isMathArea(tos.content.learningArea)) warnings.push({ key: 'visual-policy', message: 'More visuals is enabled, but automatic required diagrams remain conservative outside Mathematics.' })
+  if (setup.visualPolicy === 'more_visuals' && !isVisualEligibleArea(tos.content.learningArea)) warnings.push({ key: 'visual-policy', message: 'More visuals is enabled, but automatic required diagrams remain conservative outside visual-eligible learning areas.' })
   return { ready: errors.length === 0, errors, warnings, pointBuckets }
 }
 
@@ -306,7 +310,7 @@ export function validateAndFinalizeMasterPlan(raw: unknown, options: FinalizeMas
     if (taskIntent.length < 8) throw new Error('Every planned question needs a concise task intent.')
     const requestedRequirement = value.visualRequirement === 'required' ? 'required' : 'none'
     if (requestedRequirement === 'required' && options.visualPolicy === 'off') throw new Error('The master plan added a visual while the teacher visual policy is Off.')
-    if (requestedRequirement === 'required' && !isMathArea(options.learningArea)) throw new Error('Automatic required visuals are limited to Mathematics in Assessment Generation V2.')
+    if (requestedRequirement === 'required' && !isVisualEligibleArea(options.learningArea)) throw new Error('Automatic required visuals are limited to Mathematics and visual-eligible learning areas (Science, STEM) in Assessment Generation V2.')
     const requirement = requestedRequirement
     const visualIntent = requirement !== 'none' ? safeIntent(value.visualIntent, 700) : ''
     if (requirement !== 'none' && !visualIntent) throw new Error('Every planned visual needs a bounded visual intent.')

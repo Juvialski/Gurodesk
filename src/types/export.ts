@@ -1,8 +1,8 @@
 export type ExportPaperSize = 'a4' | 'letter' | 'legal'
 export type ExportDocumentLanguage = 'match' | 'english' | 'filipino'
 
-// Keep the stored ID stable so existing teacher preferences continue to load.
-export type ExportTemplateId = 'gurodesk_ilaw_standard'
+// Keep stored IDs stable so existing teacher preferences continue to load.
+export type ExportTemplateId = 'gurodesk_ilaw_standard' | 'gurodesk_ilaw_multisession'
 
 export type TeacherExportPreferences = {
   userId: string
@@ -36,6 +36,54 @@ export type LessonExportSection = {
   key: string
   heading: string
   body: string
+}
+
+export type MultiSessionGridRow = {
+  key: string
+  heading: string
+  guideQuestions?: string
+  sessions: string[] // 4 session cells
+  isFullSpan?: boolean
+  fullSpanContent?: string
+}
+
+export type SelfCheckRubricItem = {
+  criterion: string
+  status: 'yes' | 'not_yet' | 'empty'
+  improvementNote?: string
+}
+
+export type LessonPlanMultiSessionExportModel = {
+  documentTitle: string
+  templateLabel: string
+  language: 'english' | 'filipino'
+  labels: LessonExportLabels
+  status: 'draft' | 'final' | 'archived'
+  identity: LessonExportIdentity
+  lesson: {
+    title: string
+    schoolYear: string
+    gradeLevel: string
+    learningArea: string
+    sections: string
+    curriculumPeriod: string
+    gradingTerm: string
+    lessonDate: string
+    weekLabel: string
+    sessions: string
+    duration: string
+  }
+  sessionHeaders: string[]
+  referencesDetail: {
+    officialReferences: string[]
+    otherLearningSources: string[]
+    lowTechAlternatives: string[]
+  }
+  aiDeclarationStatement: string
+  rows: MultiSessionGridRow[]
+  rubricItems: SelfCheckRubricItem[]
+  coachingNotes: string
+  signatories: Array<{ role: string; name: string; title: string }>
 }
 
 export type LessonExportLabels = {
@@ -94,6 +142,7 @@ export type LessonPlanExportModel = {
   }
   references: string
   signatories: Array<{ role: string; name: string; title: string }>
+  multiSession?: LessonPlanMultiSessionExportModel
 }
 
 export const EXPORT_TEMPLATE_OPTIONS: Array<{ id: ExportTemplateId; label: string; description: string }> = [
@@ -101,6 +150,11 @@ export const EXPORT_TEMPLATE_OPTIONS: Array<{ id: ExportTemplateId; label: strin
     id: 'gurodesk_ilaw_standard',
     label: 'ILAW Standard',
     description: 'Plain printable ILAW lesson-plan layout using Intentions, Learning Experience, Assessing Learning, and Ways Forward.',
+  },
+  {
+    id: 'gurodesk_ilaw_multisession',
+    label: 'ILAW Multi-Session Log (4-Session Weekly Grid)',
+    description: 'Official DepEd Order No. 016, s. 2026 weekly matrix with session-by-session flow, formative quizzes, cross-curricular integration, and self-check coaching rubric.',
   },
 ]
 

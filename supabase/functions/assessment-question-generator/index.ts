@@ -18,7 +18,7 @@ type PreferenceRow = { language_preference?: string; local_language_name?: strin
 
 const QUESTION_TYPES = new Set<QuestionType>(['multiple_choice', 'true_false', 'short_answer', 'constructed_response', 'identification', 'fill_in_the_blank', 'numerical_answer', 'problem_solving', 'matching', 'multiple_select', 'essay'])
 const LANGUAGE_OPTIONS = new Set(['Auto', 'English', 'Filipino', 'English + Filipino', 'Mother tongue / local language'])
-const ASSESSMENT_VISUALS_ENABLED = false
+const ASSESSMENT_VISUALS_ENABLED = true
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 function json(body: unknown, status = 200) { return new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }) }

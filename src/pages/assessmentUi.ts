@@ -100,7 +100,10 @@ export function typeLabel(type: AssessmentItemType) {
   return labels[type] ?? type
 }
 
+import type { AssessmentFinalReview } from '../lib/assessmentFinalReview'
+
 export function stateLabel(state: AssessmentAuthorshipState | string | undefined) {
+  if (state === 'Blocked') return 'Blocked'
   if (state === 'ai_suggestion') return 'AI suggestion'
   if (state === 'teacher_accepted') return 'Accepted'
   if (state === 'teacher_edited') return 'Edited'
@@ -119,6 +122,7 @@ export function stateLabel(state: AssessmentAuthorshipState | string | undefined
  * teacher's default assessment workflow.
  */
 export function assessmentItemStatusLabel(state: AssessmentAuthorshipState | string | undefined): string {
+  if (state === 'Blocked') return 'Blocked'
   if (state === 'generated' || state === 'verified' || state === 'locked' || state === 'teacher_accepted' || state === 'manual') return 'Ready'
   if (state === 'teacher_edited') return 'Edited'
   if (state === 'answer_needs_recheck') return 'Check needed'
@@ -129,8 +133,10 @@ export function assessmentItemStatusLabel(state: AssessmentAuthorshipState | str
 /** Alias with an explicit translation name for UI callers and focused tests. */
 export const translateAssessmentItemStatus = assessmentItemStatusLabel
 
-export function assessmentItemStatusTone(state: AssessmentAuthorshipState | string | undefined): 'missing' | 'ready' | 'edited' | 'attention' {
+export function assessmentItemStatusTone(state: AssessmentAuthorshipState | string | undefined, hasBlocker = false): 'missing' | 'ready' | 'edited' | 'attention' {
+  if (hasBlocker) return 'attention'
   const label = assessmentItemStatusLabel(state)
+  if (label === 'Blocked') return 'attention'
   if (label === 'Ready') return 'ready'
   if (label === 'Edited') return 'edited'
   if (label === 'Needs review' || label === 'Check needed') return 'attention'
@@ -168,13 +174,15 @@ export function assessmentPreparationPhaseLabel(stage: AssessmentPreparationStag
   return assessmentPreparationStageLabel(stage)
 }
 
-export function assessmentItemStatus(item: AssessmentItem): string {
+export function assessmentItemStatus(item: AssessmentItem, review?: AssessmentFinalReview | null): string {
+  if (review && review.hardErrors.some((e) => e.itemId === item.id)) return 'Blocked'
   if (item.authorshipState === 'ai_suggestion') return 'Needs review'
   const qaState = record(item).qaState
   return assessmentItemStatusLabel(typeof qaState === 'string' ? qaState : item.authorshipState)
 }
 
-export function assessmentItemHasPreparationBlocker(item: AssessmentItem): boolean {
+export function assessmentItemHasPreparationBlocker(item: AssessmentItem, review?: AssessmentFinalReview | null): boolean {
+  if (review && review.hardErrors.some((e) => e.itemId === item.id)) return true
   const qaState = String(record(item).qaState ?? '')
   if (!item.prompt.trim()) return true
   if (assessmentItemStatusLabel(qaState || item.authorshipState) === 'Missing') return true
@@ -184,16 +192,16 @@ export function assessmentItemHasPreparationBlocker(item: AssessmentItem): boole
   return false
 }
 
-export function assessmentItemNeedsAttention(item: AssessmentItem): boolean {
-  return item.authorshipState === 'ai_suggestion' || assessmentItemHasPreparationBlocker(item)
+export function assessmentItemNeedsAttention(item: AssessmentItem, review?: AssessmentFinalReview | null): boolean {
+  return item.authorshipState === 'ai_suggestion' || assessmentItemHasPreparationBlocker(item, review)
 }
 
-export function assessmentReadyCount(recordValue: AssessmentRecord): number {
-  return recordValue.items.filter((item) => !assessmentItemNeedsAttention(item)).length
+export function assessmentReadyCount(recordValue: AssessmentRecord, review?: AssessmentFinalReview | null): number {
+  return recordValue.items.filter((item) => !assessmentItemNeedsAttention(item, review)).length
 }
 
-export function assessmentAttentionCount(recordValue: AssessmentRecord): number {
-  return recordValue.items.filter(assessmentItemNeedsAttention).length
+export function assessmentAttentionCount(recordValue: AssessmentRecord, review?: AssessmentFinalReview | null): number {
+  return recordValue.items.filter((item) => assessmentItemNeedsAttention(item, review)).length
 }
 
 /** Keep provider/runtime wording inside Technical details in Simple mode. */

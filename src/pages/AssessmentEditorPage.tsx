@@ -20,7 +20,7 @@ import { validateAssessmentItemDeterministic, verifierRequiresRepair } from '../
 import { applyQuestionTypeDistributionToEmptySlots } from '../lib/assessmentDistribution'
 import { reviewAssessmentForFinalization, finalReviewMessages, type AssessmentFinalReview } from '../lib/assessmentFinalReview'
 import { duplicateAssessmentDocument, loadAssessmentDocument, saveAssessmentDocument, saveAssessmentItemVisualCheckpoint } from '../lib/assessmentRepository'
-import type { AssessmentAnswer, AssessmentChoice, AssessmentItem, AssessmentMatchingChoice, AssessmentMatchingMapping, AssessmentMatchingPrompt, AssessmentRecord, AssessmentScoringCriterion, AssessmentSettings, AssessmentSubpart, QuestionType } from '../types/assessment'
+import type { AssessmentAnswer, AssessmentChoice, AssessmentItem, AssessmentMatchingChoice, AssessmentMatchingMapping, AssessmentMatchingPrompt, AssessmentRecord, AssessmentScoringCriterion, AssessmentSettings, AssessmentSubpart, AssessmentVisualPolicy, QuestionType } from '../types/assessment'
 import { ASSESSMENT_QUESTION_TYPES } from '../types/assessment'
 import { assessmentItemNumberLabel } from '../lib/assessmentGenerationV2'
 import { ASSESSMENT_VIEW_MODE_STORAGE_KEY, allowedQuestionTypes, answerForType, appendItemHistory, assessmentCompletion, assessmentItemNeedsAttention, cloneItem, defaultPointsForType, extractErrorMessage, isLocked, mappingDetails, mappingLabel, normalizeAssessment, pointsForItem, recordWithItems, stateLabel, typeLabel, type AssessmentViewMode } from './assessmentUi'
@@ -45,7 +45,7 @@ function makeId(prefix: string) { return `${prefix}-${Math.random().toString(36)
 
 function defaultSettings(recordValue: AssessmentRecord) {
   const settings = object(object(recordValue).settings)
-  return { mode: text(settings.mode) || 'auto_balanced', visualPolicy: 'off', allowedTypes: allowedQuestionTypes(recordValue), counts: object(settings.counts), percentages: object(settings.percentages), defaultPoints: object(settings.defaultPoints), targetTotalPoints: settings.targetTotalPoints === undefined ? null : settings.targetTotalPoints } as AssessmentSettings
+  return { mode: text(settings.mode) || 'auto_balanced', visualPolicy: (text(settings.visualPolicy) as AssessmentVisualPolicy) || 'balanced', allowedTypes: allowedQuestionTypes(recordValue), counts: object(settings.counts), percentages: object(settings.percentages), defaultPoints: object(settings.defaultPoints), targetTotalPoints: settings.targetTotalPoints === undefined ? null : settings.targetTotalPoints } as AssessmentSettings
 }
 
 function targetPointsMessage(target: unknown, current: number, itemCount: number) {
@@ -151,7 +151,16 @@ export function AssessmentEditorPage() {
   const completion = recordValue ? assessmentCompletion(recordValue) : { filled: 0, total: 0, percent: 0, needsReview: 0, totalPoints: 0, objectivePoints: 0, teacherScoredPoints: 0 }
   const settings = useMemo(() => view ? defaultSettings(view) : null, [view])
   const allowedTypes = settings?.allowedTypes ?? []
-  const reviewMessages = review ? finalReviewMessages(review) : null
+  const liveReview = useMemo(() => {
+    if (review) return review
+    if (!view) return null
+    return reviewAssessmentForFinalization(view)
+  }, [review, view])
+  const reviewMessages = liveReview ? finalReviewMessages(liveReview) : null
+  const blockedItemIds = useMemo(() => {
+    return new Set(liveReview?.hardErrors.map((issue) => issue.itemId).filter(Boolean) as string[])
+  }, [liveReview])
+  const activeItemHardErrors = current ? (liveReview?.hardErrors.filter((issue) => issue.itemId === current.id) ?? []) : []
   const currentVisualPlan = current ? assessmentVisualPlanForItem(current) : null
 
   useEffect(() => {
@@ -436,13 +445,27 @@ export function AssessmentEditorPage() {
       }
     })
 
-    const draft = recordWithItems(source, nextItems, 'draft', title.trim(), instructions)
-    const firstReview = reviewAssessmentForFinalization(draft)
+    const draftForReview = recordWithItems(source, nextItems, 'draft', title.trim(), instructions)
+    const firstReview = reviewAssessmentForFinalization(draftForReview)
     const acknowledgedWarningCodes = [...new Set(firstReview.warnings.map((entry) => entry.code))]
-    const verifiedReview = reviewAssessmentForFinalization(draft, { acknowledgedWarningCodes })
+    const verifiedReview = reviewAssessmentForFinalization(draftForReview, { acknowledgedWarningCodes })
     setWarningsAccepted(true)
     setReview(verifiedReview)
     setReviewOpen(verifiedReview.hardErrors.length > 0)
+
+    const reviewBlockedIds = new Set(verifiedReview.hardErrors.map((e) => e.itemId).filter(Boolean) as string[])
+
+    // Unlock any items that have active paper-level review hard errors (e.g. duplicate questions)
+    const finalizedCandidateItems = nextItems.map((item) => {
+      if (reviewBlockedIds.has(item.id)) {
+        acceptedIds.delete(item.id)
+        structurallyBlocked.add(item.itemNumber)
+        return unlockAssessmentItem(item)
+      }
+      return item
+    })
+
+    const draft = recordWithItems(source, finalizedCandidateItems, 'draft', title.trim(), instructions)
 
     setSuggestions((currentSuggestions) => {
       const next = { ...currentSuggestions }
@@ -479,8 +502,19 @@ export function AssessmentEditorPage() {
     try {
       const result = await persistVerifiedAssessment(recordRef.current ?? recordValue, true)
       if (!result.finalized) {
+        if (result.review?.hardErrors.length) {
+          const firstBlockedItem = result.record.items.find((item) => result.review?.hardErrors.some((e) => e.itemId === item.id))
+          if (firstBlockedItem) {
+            const firstIndex = result.record.items.indexOf(firstBlockedItem)
+            if (firstIndex >= 0) selectIndex(firstIndex)
+          }
+          setReviewOpen(true)
+        }
         setSavedMessage(view.mode === 'performance_task' ? 'Performance task draft saved with remaining review items.' : `${result.acceptedCount} completed item${result.acceptedCount === 1 ? '' : 's'} accepted, teacher-verified, locked, and saved.`)
-        setError(view.mode === 'performance_task' ? 'Complete the required performance task fields and rubric criteria before finalization.' : `${result.blockerCount} structural blocker${result.blockerCount === 1 ? '' : 's'} remain. Use Generate & prepare paper to let Gemini retry AI-generated blockers automatically.`)
+        const firstErrorMsg = result.review?.hardErrors[0]?.message
+        setError(view.mode === 'performance_task'
+          ? 'Complete the required performance task fields and rubric criteria before finalization.'
+          : `${result.blockerCount} structural blocker${result.blockerCount === 1 ? '' : 's'} remain${firstErrorMsg ? `: ${firstErrorMsg}` : ''}. Resolve the blocked question on the card or click Regenerate with AI.`)
         return
       }
       setSavedMessage(view.mode === 'performance_task' ? 'Performance task verified, locked, and finalized.' : `${result.acceptedCount} completed item${result.acceptedCount === 1 ? '' : 's'} accepted, teacher-verified, locked, and assessment finalized.`)
@@ -502,8 +536,8 @@ export function AssessmentEditorPage() {
       demo: isDemo,
       teacherContext: instructions,
       signal: controller.signal,
-      maxRounds: 1,
-      disableVisuals: true,
+      maxRounds: 2,
+      disableVisuals: false,
       onProgress: (progress) => {
         setBatchMessage(progress.message)
       },
@@ -570,12 +604,16 @@ export function AssessmentEditorPage() {
       if (!persisted) return
       const persistedView = normalizeAssessment(persisted)
       const persistedIsV2 = Number(persistedView.settings?.schemaVersion ?? 1) >= 2 && persistedView.settings?.generationVersion === 'v2'
-      const balanced = persistedIsV2
-        ? { items: persistedView.items }
-        : resolveAssessmentVisualPlans(persistedView.items, { learningArea: persistedView.learningArea, visualPolicy: persistedView.settings?.visualPolicy })
-      // Diagrams are temporarily disabled for all assessments. Preserve the
-      // checkpoint flow, but never schedule a visual request.
-      const balancedIds = new Set<string>()
+      const balancedIds = new Set<string>(
+        persistedIsV2
+          ? persistedView.items
+              .filter((item) => assessmentVisualPlanForItem(item, { learningArea: persistedView.learningArea, visualPolicy: persistedView.settings?.visualPolicy }).eligible)
+              .map((item) => item.id)
+          : (() => {
+              const balanced = resolveAssessmentVisualPlans(persistedView.items, { learningArea: persistedView.learningArea, visualPolicy: persistedView.settings?.visualPolicy })
+              return [...balanced.requiredItemIds, ...balanced.optionalItemIds]
+            })()
+      )
       const requestedIds = itemIds?.length
         ? itemIds.filter((itemId) => balancedIds.has(itemId))
         : [...balancedIds]
@@ -591,7 +629,7 @@ export function AssessmentEditorPage() {
         .filter((itemId) => balancedIds.has(itemId))
       setBatchProgress({ processed: 0, total: pendingIds.length, succeeded: 0, failed: 0, cancelled: 0, remaining: pendingIds.length })
       if (!pendingIds.length) setBatchStage('qa')
-      setBatchMessage(pendingIds.length ? `Questions saved. Enriching ${pendingIds.length} visual${pendingIds.length === 1 ? '' : 's'} sequentially…` : 'Questions saved. Diagrams are temporarily disabled; running paper QA…')
+      setBatchMessage(pendingIds.length ? `Questions saved. Enriching ${pendingIds.length} visual${pendingIds.length === 1 ? '' : 's'} sequentially…` : 'Questions saved; running paper QA…')
       const summary = await enrichAssessmentVisualsSequentially({
         assessment: persisted,
         demo: isDemo,
@@ -822,7 +860,7 @@ export function AssessmentEditorPage() {
 
   function fixSimpleRemaining() {
     if (!view) return
-    const firstAttention = view.items.findIndex(assessmentItemNeedsAttention)
+    const firstAttention = view.items.findIndex((item) => assessmentItemNeedsAttention(item, liveReview))
     if (firstAttention >= 0) selectIndex(firstAttention)
     reviewSimpleQuestions()
   }
@@ -959,6 +997,8 @@ export function AssessmentEditorPage() {
     onReviewQuestions={reviewSimpleQuestions}
     onFinalize={() => { void acceptVerifyAndFinalizeAll() }}
     finalizing={saving}
+    blockedItemIds={blockedItemIds}
+    review={liveReview}
   />
 
   return <>
@@ -968,13 +1008,18 @@ export function AssessmentEditorPage() {
     {savedMessage && <div className="assessment-saved-message" role="status"><Check size={15} /> {savedMessage}</div>}
     <div className="assessment-editor-context panel"><div><small>{view.mode === 'lesson_quiz' ? 'Source Lesson' : view.mode === 'unit_quiz' ? 'Source Unit' : 'Source TOS'}</small><strong>{view.sourceLessonTitle || view.sourceTosTitle}</strong><span>{[view.gradeLevel, view.learningArea, view.schoolYear].filter(Boolean).join(' · ')}</span></div><div className="assessment-editor-progress"><div><strong>{completion.filled}/{completion.total}</strong><span>{isV2 ? 'questions complete' : 'items complete'}</span></div><div className="assessment-progress"><span style={{ width: `${completion.percent}%` }} /></div></div>{!readOnly && <div className="assessment-context-actions"><button className="button secondary assessment-batch-button" type="button" onClick={() => void generateMissing()} disabled={batchWorking || Boolean(aiWorking) || saving}><WandSparkles size={16} /> {batchWorking ? 'Preparing paper…' : 'Generate & prepare paper'}</button><small>Generates empty slots, retries AI-generated blockers, runs deterministic QA, and saves a reviewable draft. Finalization always requires your explicit confirmation.</small></div>}</div>
     <section className="panel assessment-score-summary"><div><strong>{isV2 ? 'Questions' : 'Items'}</strong><span>{view.items.length}{isV2 ? '' : ` / ${view.totalItems}`}</span></div><div><strong>Total points</strong><span>{completion.totalPoints}</span></div><div><strong>Completed</strong><span>{completion.filled} / {completion.total}</span></div><div><strong>Needs review</strong><span>{completion.needsReview}</span></div><div><strong>Objective points</strong><span>{completion.objectivePoints}</span></div><div><strong>Teacher-scored points</strong><span>{completion.teacherScoredPoints}</span></div></section>
-    {!readOnly && settings && !isV2 && <section className="panel assessment-settings-panel"><div className="assessment-section-heading"><span><ShieldCheck size={15} /></span><div><h2>Question types and distribution</h2><p>Teacher-controlled settings. TOS item allocation is unchanged.</p></div></div><div className="assessment-allowed-types">{TYPE_OPTIONS.map((option) => <label key={option.value}><input type="checkbox" checked={allowedTypes.includes(option.value)} onChange={(event) => { const nextAllowed = event.target.checked ? [...allowedTypes, option.value] : allowedTypes.filter((type) => type !== option.value); if (!nextAllowed.length) return; updateSettings({ allowedTypes: nextAllowed }) }} /><span>{typeLabel(option.value)}</span></label>)}</div><div className="assessment-distribution-row"><label>Mode<select value={text(settings.mode)} onChange={(event) => updateSettings({ mode: event.target.value as AssessmentSettings['mode'] })}><option value="auto_balanced">Auto / balanced · grouped sections</option><option value="fixed_counts">Fixed counts</option><option value="percentages">Percentages</option><option value="manual_per_item">Manual per item</option></select></label><label>Visuals<select value="off" disabled aria-label="Visuals temporarily disabled"><option value="off">Off · temporarily disabled</option></select></label><label>Target total points<input type="number" min="0" step="1" value={settings.targetTotalPoints === null || settings.targetTotalPoints === undefined ? '' : String(settings.targetTotalPoints)} onChange={(event) => updateSettings({ targetTotalPoints: event.target.value === '' ? null : number(event.target.value, 0) })} /></label><span>{targetPointsMessage(settings.targetTotalPoints, completion.totalPoints, view.items.length)}</span></div>{(settings.mode === 'fixed_counts' || settings.mode === 'percentages') && <div className="assessment-distribution-fields"><strong>{settings.mode === 'fixed_counts' ? 'Items per type' : 'Percentage of item slots per type'}</strong>{allowedTypes.map((type) => <label key={`${settings.mode}-${type}`}>{typeLabel(type)}<input type="number" min="0" step={settings.mode === 'fixed_counts' ? '1' : '0.1'} value={String(object(settings[settings.mode === 'fixed_counts' ? 'counts' : 'percentages'])[type] ?? '')} onChange={(event) => updateSettingsMap(settings.mode === 'fixed_counts' ? 'counts' : 'percentages', type, event.target.value)} /></label>)}<small>Counts and percentages are reconciled deterministically to {view.items.length} item slots when applied. Question types are kept in contiguous test-paper sections following the order shown above. Point weight remains a separate metric.</small></div>}<div className="assessment-distribution-fields"><strong>Default points for new items</strong>{allowedTypes.map((type) => <label key={`points-${type}`}>{typeLabel(type)}<input type="number" min="0.1" step="0.5" value={String(object(settings.defaultPoints)[type] ?? defaultPointsForType(view, type))} onChange={(event) => updateSettingsMap('defaultPoints', type, event.target.value)} /></label>)}<small>These are editable convenience defaults; current item scores remain unchanged until a distribution is applied.</small></div><button className="button secondary" type="button" onClick={applyDistribution}><Sparkles size={15} /> Apply distribution to empty slots</button><small className="assessment-usage-estimate">{usageEstimates.length ? `Today’s GuroDesk request estimate (approximate): ${usageEstimates.map((entry) => `${entry.model} ${entry.requestCount}`).join(' · ')}. Provider usage/quota may differ.` : 'No local AI requests recorded today. Provider usage/quota may differ.'}</small></section>}
+    {!readOnly && settings && !isV2 && <section className="panel assessment-settings-panel"><div className="assessment-section-heading"><span><ShieldCheck size={15} /></span><div><h2>Question types and distribution</h2><p>Teacher-controlled settings. TOS item allocation is unchanged.</p></div></div><div className="assessment-allowed-types">{TYPE_OPTIONS.map((option) => <label key={option.value}><input type="checkbox" checked={allowedTypes.includes(option.value)} onChange={(event) => { const nextAllowed = event.target.checked ? [...allowedTypes, option.value] : allowedTypes.filter((type) => type !== option.value); if (!nextAllowed.length) return; updateSettings({ allowedTypes: nextAllowed }) }} /><span>{typeLabel(option.value)}</span></label>)}</div><div className="assessment-distribution-row"><label>Mode<select value={text(settings.mode)} onChange={(event) => updateSettings({ mode: event.target.value as AssessmentSettings['mode'] })}><option value="auto_balanced">Auto / balanced · grouped sections</option><option value="fixed_counts">Fixed counts</option><option value="percentages">Percentages</option><option value="manual_per_item">Manual per item</option></select></label><label>Visuals<select value={text(settings.visualPolicy) || 'balanced'} onChange={(event) => updateSettings({ visualPolicy: event.target.value as AssessmentVisualPolicy })}><option value="balanced">Balanced (recommended)</option><option value="more_visuals">More visuals</option><option value="off">Off · text-only</option></select></label><label>Target total points<input type="number" min="0" step="1" value={settings.targetTotalPoints === null || settings.targetTotalPoints === undefined ? '' : String(settings.targetTotalPoints)} onChange={(event) => updateSettings({ targetTotalPoints: event.target.value === '' ? null : number(event.target.value, 0) })} /></label><span>{targetPointsMessage(settings.targetTotalPoints, completion.totalPoints, view.items.length)}</span></div>{(settings.mode === 'fixed_counts' || settings.mode === 'percentages') && <div className="assessment-distribution-fields"><strong>{settings.mode === 'fixed_counts' ? 'Items per type' : 'Percentage of item slots per type'}</strong>{allowedTypes.map((type) => <label key={`${settings.mode}-${type}`}>{typeLabel(type)}<input type="number" min="0" step={settings.mode === 'fixed_counts' ? '1' : '0.1'} value={String(object(settings[settings.mode === 'fixed_counts' ? 'counts' : 'percentages'])[type] ?? '')} onChange={(event) => updateSettingsMap(settings.mode === 'fixed_counts' ? 'counts' : 'percentages', type, event.target.value)} /></label>)}<small>Counts and percentages are reconciled deterministically to {view.items.length} item slots when applied. Question types are kept in contiguous test-paper sections following the order shown above. Point weight remains a separate metric.</small></div>}<div className="assessment-distribution-fields"><strong>Default points for new items</strong>{allowedTypes.map((type) => <label key={`points-${type}`}>{typeLabel(type)}<input type="number" min="0.1" step="0.5" value={String(object(settings.defaultPoints)[type] ?? defaultPointsForType(view, type))} onChange={(event) => updateSettingsMap('defaultPoints', type, event.target.value)} /></label>)}<small>These are editable convenience defaults; current item scores remain unchanged until a distribution is applied.</small></div><button className="button secondary" type="button" onClick={applyDistribution}><Sparkles size={15} /> Apply distribution to empty slots</button><small className="assessment-usage-estimate">{usageEstimates.length ? `Today’s GuroDesk request estimate (approximate): ${usageEstimates.map((entry) => `${entry.model} ${entry.requestCount}`).join(' · ')}. Provider usage/quota may differ.` : 'No local AI requests recorded today. Provider usage/quota may differ.'}</small></section>}
     {batchWorking && <div className="assessment-batch-progress panel"><div><LoaderCircle size={17} className="spin" /><strong>{batchStage === 'visuals' ? 'Enriching diagrams' : batchStage === 'qa' ? 'Preparing paper' : 'Generating missing items'}</strong><span>{batchProgress.succeeded}/{batchProgress.total} completed · {batchProgress.processed}/{batchProgress.total} processed{batchProgress.failed ? ` · ${batchProgress.failed} failed` : ''}{batchProgress.remaining ? ` · ${batchProgress.remaining} remaining` : ''}</span></div><button className="button ghost" type="button" onClick={cancelBatchGeneration}><X size={15} /> Cancel</button></div>}
     {batchMessage && <div className="assessment-batch-message" role="status"><Sparkles size={15} /> {batchMessage}</div>}
     {batchFailures.length > 0 && <div className="assessment-batch-message" role="status"><CircleAlert size={15} /><div><strong>{batchFailures.length} item{batchFailures.length === 1 ? '' : 's'} needed another generation attempt.</strong><span>Generate & prepare paper retries recoverable AI failures automatically within the bounded preparation loop.</span><details><summary>Show failure details</summary>{batchFailures.slice(0, 10).map((failure) => { const itemNumber = view.items.find((item) => item.id === failure.itemId)?.itemNumber; return <p key={failure.itemId}>{itemNumber ? `Item ${itemNumber}: ` : ''}{failure.message}</p> })}{batchFailures.length > 10 && <p>+ {batchFailures.length - 10} more failed items</p>}</details></div></div>}
     <section className="panel assessment-details-panel"><div className="assessment-details-heading"><div><small>Assessment details</small><strong>Title and learner directions</strong></div><span>{readOnly ? 'Locked after finalization' : 'Teacher-authored'}</span></div><div className="assessment-details-fields"><label>Assessment title<input disabled={readOnly} value={title} onChange={(event) => { setTitle(event.target.value); setSavedMessage('') }} placeholder="e.g. First summative test" /></label><label>Directions / instructions<textarea rows={3} disabled={readOnly} value={instructions} onChange={(event) => { setInstructions(event.target.value); setSavedMessage('') }} placeholder="Teacher-authored directions for learners" /></label></div></section>
-    <div className="assessment-editor-layout"><aside className="assessment-item-navigator panel" aria-label="Assessment item navigator"><div className="assessment-navigator-heading"><div><small>{isV2 ? 'Questions' : 'Items'}</small><strong>{selectedIndex + 1} of {view.items.length}</strong></div><span>{completion.percent}% complete</span></div><nav className="assessment-item-buttons" aria-label="Choose assessment item">{view.items.map((item, index) => <button key={item.id} id={`assessment-item-${index}`} type="button" className={`assessment-item-button ${selectedIndex === index ? 'selected' : ''} state-${item.authorshipState} ${isLocked(item) ? 'locked' : ''}`} aria-current={selectedIndex === index ? 'step' : undefined} aria-label={`Question ${assessmentItemNumberLabel(item, numberingMode)}, ${stateLabel(object(item).qaState as string || item.authorshipState)}`} onClick={() => selectIndex(index)}><span>{assessmentItemNumberLabel(item, numberingMode)}</span><small>{stateLabel(object(item).qaState as string || item.authorshipState)}</small></button>)}</nav></aside>
-      <main className="assessment-editor-main"><section className="panel assessment-item-card"><div className="assessment-item-card-heading"><div><span className="assessment-item-number">{current ? assessmentItemNumberLabel(current, numberingMode) : ''}</span><div><span className={`assessment-state-chip ${String(object(current).qaState ?? current?.authorshipState)}`}>{current && stateLabel(String(object(current).qaState ?? current.authorshipState))}</span><h2>Question {current ? assessmentItemNumberLabel(current, numberingMode) : ''}</h2></div></div><div className="assessment-item-nav-actions"><button className="icon-button" type="button" disabled={selectedIndex <= 0} onClick={() => selectIndex(selectedIndex - 1)} aria-label="Previous item"><ChevronLeft size={19} /></button><button className="icon-button" type="button" disabled={selectedIndex >= view.items.length - 1} onClick={() => selectIndex(selectedIndex + 1)} aria-label="Next item"><ChevronRight size={19} /></button></div></div>
+    <div className="assessment-editor-layout"><aside className="assessment-item-navigator panel" aria-label="Assessment item navigator"><div className="assessment-navigator-heading"><div><small>{isV2 ? 'Questions' : 'Items'}</small><strong>{selectedIndex + 1} of {view.items.length}</strong></div><span>{completion.percent}% complete</span></div><nav className="assessment-item-buttons" aria-label="Choose assessment item">{view.items.map((item, index) => {
+      const isItemBlocked = blockedItemIds.has(item.id)
+      const itemStateLabel = isItemBlocked ? 'Blocked' : stateLabel(object(item).qaState as string || item.authorshipState)
+      return <button key={item.id} id={`assessment-item-${index}`} type="button" className={`assessment-item-button ${selectedIndex === index ? 'selected' : ''} ${isItemBlocked ? 'has-blocker state-blocked' : `state-${item.authorshipState}`} ${isLocked(item) ? 'locked' : ''}`} aria-current={selectedIndex === index ? 'step' : undefined} aria-label={`Question ${assessmentItemNumberLabel(item, numberingMode)}, ${itemStateLabel}`} onClick={() => selectIndex(index)}><span>{assessmentItemNumberLabel(item, numberingMode)}</span><small>{itemStateLabel}</small></button>
+    })}</nav></aside>
+      <main className="assessment-editor-main"><section className="panel assessment-item-card"><div className="assessment-item-card-heading"><div><span className="assessment-item-number">{current ? assessmentItemNumberLabel(current, numberingMode) : ''}</span><div><span className={`assessment-state-chip ${current && blockedItemIds.has(current.id) ? 'Blocked' : String(object(current).qaState ?? current?.authorshipState)}`}>{current && (blockedItemIds.has(current.id) ? 'Blocked' : stateLabel(String(object(current).qaState ?? current.authorshipState)))}</span><h2>Question {current ? assessmentItemNumberLabel(current, numberingMode) : ''}</h2></div></div><div className="assessment-item-nav-actions"><button className="icon-button" type="button" disabled={selectedIndex <= 0} onClick={() => selectIndex(selectedIndex - 1)} aria-label="Previous item"><ChevronLeft size={19} /></button><button className="icon-button" type="button" disabled={selectedIndex >= view.items.length - 1} onClick={() => selectIndex(selectedIndex + 1)} aria-label="Next item"><ChevronRight size={19} /></button></div></div>
+        {current && activeItemHardErrors.length > 0 && <div className="assessment-item-blocker-banner" role="alert"><div className="assessment-item-blocker-info"><CircleAlert size={18} className="assessment-item-blocker-icon" /><div><strong>Structural blocker detected on this question</strong>{activeItemHardErrors.map((err, idx) => <p key={idx}>{err.message}</p>)}</div></div><div className="assessment-item-blocker-actions"><button type="button" className="button primary" disabled={Boolean(aiWorking) || batchWorking || saving} onClick={async () => { if (isLocked(current)) { await toggleLock(selectedIndex) }; void generateItem(selectedIndex, true) }}><WandSparkles size={15} /> Regenerate with AI (Replace duplicate)</button>{isLocked(current) && <button type="button" className="button ghost" disabled={saving} onClick={() => void toggleLock(selectedIndex)}><Lock size={14} /> Unlock to edit manually</button>}</div></div>}
         {current && <><div className="assessment-mapping-card"><div><small>{view.mode === 'lesson_quiz' || view.mode === 'unit_quiz' ? 'Immutable Lesson Competency' : 'Immutable TOS mapping'}</small><div className="assessment-mapping-badges"><span>{current.competencySnapshot.code || 'Competency'}</span><span>{current.cognitiveCategorySnapshot.shortLabel || current.cognitiveCategorySnapshot.label || 'Cognitive category'}</span></div><strong>{mappingLabel(current)}</strong><span>{mappingDetails(current)}</span></div><span className="assessment-mapping-lock"><ShieldCheck size={14} /> Locked by source</span></div><div className="assessment-type-picker" role="radiogroup" aria-label="Question type"><span className="assessment-field-label">Question type</span><div>{TYPE_OPTIONS.filter((option) => allowedTypes.includes(option.value) || option.value === current.questionType).map((option) => <button key={option.value} type="button" role="radio" aria-checked={current.questionType === option.value} className={current.questionType === option.value ? 'selected' : ''} disabled={readOnly || isLocked(current) || isV2} onClick={() => updateItem(selectedIndex, (item) => ({ ...item, questionType: option.value, answer: option.value === item.questionType ? item.answer : answerForType(option.value), pointsPossible: option.value === item.questionType ? pointsForItem(item) : defaultPointsForType(view, option.value), points: option.value === item.questionType ? item.points : defaultPointsForType(view, option.value) }))}><strong>{typeLabel(option.value)}</strong><small>{option.hint}</small></button>)}</div></div><label className="assessment-question-field">Question / prompt<textarea rows={5} disabled={readOnly || isLocked(current)} value={current.prompt} onChange={(event) => updateItem(selectedIndex, (item) => ({ ...item, prompt: event.target.value }))} placeholder="Write the question learners should answer." /></label>{currentVisualPlan && currentVisualPlan.requirement !== 'none' && <div className={`assessment-visual-plan-status status-${currentVisualPlan.status}`}><strong>{currentVisualPlan.requirement === 'required' ? 'Visual required' : 'Visual helpful'} · {currentVisualPlan.status.replace('_', ' ')}</strong><span>{currentVisualPlan.intent}</span>{currentVisualPlan.error && <small>{currentVisualPlan.error}</small>}</div>}<AssessmentVisualEditor visual={current.visual} disabled={readOnly || isLocked(current)} onChange={(visual) => updateItem(selectedIndex, (item) => ({ ...item, visual }))} /><TypeEditor item={current} readOnly={readOnly || isLocked(current)} onChange={(updater) => updateItem(selectedIndex, updater)} /><CommonFields item={current} readOnly={readOnly || isLocked(current)} pointsLocked={isV2} onChange={(updater) => updateItem(selectedIndex, updater)} /><label className="assessment-question-field">Teacher notes <small>Private planning note; not shown in student preview.</small><textarea rows={3} disabled={readOnly || isLocked(current)} value={current.teacherNotes ?? ''} onChange={(event) => updateItem(selectedIndex, (item) => ({ ...item, teacherNotes: event.target.value }))} placeholder="Optional note for your review" /></label><HistoryPanel item={current} readOnly={readOnly || isLocked(current)} onRestore={(historyIndex) => restoreHistory(selectedIndex, historyIndex)} /></>}
       </section>
       {!readOnly && current && <section className="panel assessment-ai-card"><div className="assessment-ai-heading"><div><span className="eyebrow">Teacher-controlled assistance</span><h2>Question actions</h2><p>Accepting an AI suggestion also locks it in one step. Unlock only when you want to edit it or regenerate its visual.</p></div><Sparkles size={22} /></div><div className="assessment-ai-actions"><button className="button secondary" type="button" disabled={Boolean(aiWorking) || batchWorking || saving || isLocked(current)} onClick={() => void generateItem(selectedIndex, Boolean(current.prompt.trim()))}><WandSparkles size={15} /> {aiWorking === current.id ? 'Working…' : current.prompt ? 'Generate alternative' : 'Generate question'}</button>{current.prompt && currentVisualPlan && (currentVisualPlan.requirement !== 'none' || current.visual) && <button className="button ghost" type="button" title={isLocked(current) ? 'Unlock this item before regenerating only its visual.' : 'Preserves the question text, answer, points, and TOS mapping.'} disabled={Boolean(aiWorking) || batchWorking || saving || isLocked(current)} onClick={() => void regenerateVisual(selectedIndex)}><RefreshCw size={15} /> {current.visual ? 'Regenerate visual' : 'Generate visual'}</button>}{current.prompt && <button className="button ghost" type="button" disabled={Boolean(aiWorking) || batchWorking || saving || isLocked(current)} onClick={() => void checkAccuracy(selectedIndex)}><ShieldCheck size={15} /> Check accuracy</button>}{isLocked(current) ? <button className="button ghost" type="button" disabled={saving} onClick={() => void toggleLock(selectedIndex)}><Lock size={15} /> Unlock item</button> : !suggestions[current.id] && current.prompt.trim() ? <button className="button ghost" type="button" disabled={saving} onClick={() => void toggleLock(selectedIndex)}><Lock size={15} /> Lock item</button> : null}</div>{isDemo && <p className="assessment-demo-note"><Info size={14} /> Local demo preview; signed-in workspaces use the teacher's configured Gemini service.</p>}{suggestions[current.id] && <SuggestionPreview suggestion={suggestions[current.id]} onAccept={() => acceptSuggestion(selectedIndex)} />}</section>}

@@ -109,7 +109,7 @@ function emptyAnswer(questionType: QuestionType = 'multiple_choice'): Assessment
 export const DEFAULT_ASSESSMENT_SETTINGS: AssessmentSettings = {
   schemaVersion: 1,
   mode: 'auto_balanced',
-  visualPolicy: 'off',
+  visualPolicy: 'balanced',
   allowedTypes: [
     'multiple_choice', 'true_false', 'short_answer', 'constructed_response',
     'identification', 'fill_in_the_blank', 'numerical_answer',
@@ -285,7 +285,8 @@ export function createAssessmentBlueprintV2(
       visualStatus: entry.visualRequirement === 'none' ? 'not_required' : 'pending',
       visualAttempts: 0,
     }
-    return withResolvedAssessmentVisualPlan(item, { visualPolicy: 'off' })
+    const policy = masterPlan.visualPolicy || options?.visualPolicy || 'balanced'
+    return withResolvedAssessmentVisualPlan(item, { visualPolicy: policy, learningArea: content.learningArea })
   })
   items.sort((a, b) => a.itemNumber - b.itemNumber)
   const now = timestamp(options)
@@ -306,6 +307,7 @@ export function createAssessmentBlueprintV2(
     totalPoints: masterPlan.totalPoints,
     settings: {
       ...clone(DEFAULT_ASSESSMENT_SETTINGS),
+      visualPolicy: masterPlan.visualPolicy || options?.visualPolicy || 'balanced',
       schemaVersion: 2,
       generationVersion: 'v2',
       numberingMode: 'point_ranges',

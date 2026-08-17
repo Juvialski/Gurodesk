@@ -471,6 +471,7 @@ export type AssessmentMasterPlan = {
   plannerModel: string
   plannerFallbackUsed: boolean
   createdAt: string
+  visualPolicy?: AssessmentVisualPolicy
   pointBuckets: AssessmentV2PointBucket[]
   entries: AssessmentMasterPlanEntry[]
 }
@@ -554,6 +555,7 @@ export type AssessmentFactoryOptions = {
   instructions?: string
   status?: AssessmentStatus
   versionNumber?: number
+  visualPolicy?: AssessmentVisualPolicy
   now?: string
 }
 

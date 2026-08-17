@@ -5,6 +5,7 @@ import { AssessmentDiagram } from '../AssessmentDiagram'
 import { SimpleAdvancedToggle } from '../ui/SimpleAdvancedToggle'
 import type { AssessmentItem } from '../../types/assessment'
 import type { AssessmentRecordView } from '../../pages/assessmentUi'
+import type { AssessmentFinalReview } from '../../lib/assessmentFinalReview'
 import { assessmentItemNumberLabel } from '../../lib/assessmentGenerationV2'
 import { assessmentSourcePresentation } from '../../lib/assessmentSourcePresentation'
 import { assessmentAttentionCount, assessmentItemHasPreparationBlocker, assessmentReadyCount, assessmentTeacherErrorLabel, pointsForItem } from '../../pages/assessmentUi'
@@ -32,6 +33,8 @@ export function AssessmentSimpleView({
   onReviewQuestions,
   onFinalize,
   finalizing = false,
+  blockedItemIds,
+  review,
 }: {
   record: AssessmentRecordView
   selectedIndex: number
@@ -51,15 +54,17 @@ export function AssessmentSimpleView({
   onReviewQuestions: () => void
   onFinalize: () => void
   finalizing?: boolean
+  blockedItemIds?: Set<string>
+  review?: AssessmentFinalReview | null
 }) {
-  const ready = assessmentReadyCount(record)
-  const attention = assessmentAttentionCount(record)
+  const ready = assessmentReadyCount(record, review)
+  const attention = assessmentAttentionCount(record, review)
   const total = Math.max(record.totalItems, record.items.length)
-  const preparationBlockers = record.items.filter(assessmentItemHasPreparationBlocker).length
+  const preparationBlockers = record.items.filter((item) => assessmentItemHasPreparationBlocker(item, review)).length
   const unreviewed = record.items.filter((item) => item.authorshipState === 'ai_suggestion').length
   const readyForTeacherReview = !readOnly && preparationBlockers === 0 && record.items.length >= total
   const complete = readOnly && record.status !== 'draft'
-  const firstAttention = record.items.findIndex(assessmentItemHasPreparationBlocker)
+  const firstAttention = record.items.findIndex((item) => assessmentItemHasPreparationBlocker(item, review))
   const visualItems = record.items.filter((item) => Boolean(item.visual))
   const numberingMode = record.settings?.numberingMode ?? 'legacy_items'
   const pointRangeNumbering = numberingMode === 'point_ranges'
@@ -78,7 +83,7 @@ export function AssessmentSimpleView({
     {batchMessage && !preparation.working && <details className="assessment-technical-details assessment-simple-update"><summary>Technical details</summary><p>{batchMessage}</p></details>}
     {!readOnly && !preparation.working && preparationBlockers > 0 && <section className="panel assessment-simple-attention"><div><strong>{preparationBlockers} question{preparationBlockers === 1 ? '' : 's'} need attention</strong><span>Fix the remaining items or review the question list.</span></div><div><button type="button" className="button primary" onClick={onFixRemaining}>{firstAttention >= 0 ? 'Fix remaining' : 'Review questions'}</button><button type="button" className="button ghost" onClick={onReviewQuestions}>Review questions</button></div></section>}
     {complete && <section className="panel assessment-simple-export"><div><span className="assessment-simple-eyebrow">Share your test</span><h2>Preview and download</h2><p>The existing canonical preview keeps Student, Teacher, and Answer Key copies aligned across Word, PDF, and print.</p></div><div className="assessment-simple-export-actions"><Link className="button primary" to={`/assessments/${record.id}/print`}><Download size={16} /> Download Word</Link><Link className="button secondary" to={`/assessments/${record.id}/print`}><FileText size={16} /> PDF</Link><Link className="button ghost" to={`/assessments/${record.id}/print`}><Printer size={16} /> Print</Link></div><div className="assessment-simple-export-modes"><span><Eye size={13} /> Student</span><span><FileDown size={13} /> Teacher</span><span><Check size={13} /> Answer Key</span><small>Choose a copy in the preview.</small></div></section>}
-    <section className="assessment-simple-review-section" id="assessment-simple-questions"><div className="assessment-simple-section-heading"><div><span className="assessment-simple-eyebrow">Question review</span><h2>Questions at a glance</h2><p>Choose one question to edit. {sourcePresentation.protectionText}</p></div><span>{ready}/{total} ready</span></div><AssessmentQuestionOutline items={record.items} selectedIndex={selectedIndex} onSelect={onSelect} numberingMode={numberingMode} /></section>
+    <section className="assessment-simple-review-section" id="assessment-simple-questions"><div className="assessment-simple-section-heading"><div><span className="assessment-simple-eyebrow">Question review</span><h2>Questions at a glance</h2><p>Choose one question to edit. {sourcePresentation.protectionText}</p></div><span>{ready}/{total} ready</span></div><AssessmentQuestionOutline items={record.items} selectedIndex={selectedIndex} onSelect={onSelect} numberingMode={numberingMode} blockedItemIds={blockedItemIds} /></section>
     {current && <AssessmentSimpleQuestionEditor item={current} index={selectedIndex} total={record.items.length} readOnly={readOnly} numberingMode={numberingMode} onChange={onChangeItem} onBack={onReviewQuestions} onPrevious={onPrevious} onNext={onNext} onSave={onSave} />}
   </div>
 }

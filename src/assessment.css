@@ -111,16 +111,76 @@
 .assessment-item-button.state-ai_suggestion { border-color:#fcd34d; background:#fffbeb; }
 .assessment-item-button.state-teacher_accepted { border-color:#86efac; background:#f0fdf4; }
 .assessment-item-button.state-teacher_edited,.assessment-item-button.state-manual { border-color:#93c5fd; }
+.assessment-item-button.has-blocker,
+.assessment-item-button.state-blocked {
+  border-color: #f87171 !important;
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+}
+.assessment-item-button.has-blocker span,
+.assessment-item-button.state-blocked span {
+  color: #b91c1c !important;
+}
+.assessment-item-button.has-blocker small,
+.assessment-item-button.state-blocked small {
+  color: #dc2626 !important;
+  font-weight: 700;
+}
 .assessment-navigator-legend { display:flex; flex-wrap:wrap; align-items:center; gap:6px 9px; padding-top:11px; border-top:1px solid #edf0f4; color:#64748b; font-size:11px; }
 .state-dot { width:9px; height:9px; display:inline-block; border-radius:50%; background:#94a3b8; }
-.state-dot.suggestion { background:#d97706; }.state-dot.accepted { background:#16a34a; }
+.state-dot.suggestion { background:#d97706; }.state-dot.accepted { background:#16a34a; }.state-dot.blocked { background:#dc2626; }
 .assessment-editor-main { min-width:0; display:grid; gap:15px; }
 .assessment-item-card { min-width:0; padding:22px; border-radius:16px; background:#fff; border:1px solid var(--border); box-shadow:var(--shadow); }
+.assessment-item-blocker-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+.assessment-item-blocker-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.assessment-item-blocker-icon {
+  color: #dc2626;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.assessment-item-blocker-info strong {
+  display: block;
+  color: #991b1b;
+  font-size: 13.5px;
+  font-weight: 800;
+  margin-bottom: 3px;
+}
+.assessment-item-blocker-info p {
+  margin: 2px 0 0;
+  color: #7f1d1d;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.assessment-item-blocker-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.assessment-item-blocker-actions .button {
+  min-height: 40px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+}
 .assessment-item-card-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:16px; }
 .assessment-item-card-heading > div:first-child { display:flex; gap:12px; align-items:flex-start; min-width:0; }
 .assessment-item-card-heading h2 { margin:5px 0 0; color:var(--navy); font-size:18px; font-weight:800; }
 .assessment-item-number { width:36px; height:36px; flex:0 0 auto; display:grid; place-items:center; border-radius:11px; color:#fff; background:var(--navy); font-size:15px; font-weight:900; }
 .assessment-state-chip { display:inline-flex; align-items:center; border-radius:999px; padding:5px 9px; color:#475569; background:#f1f5f9; font-size:11px; font-weight:800; }
+.assessment-state-chip.Blocked { color:#991b1b; background:#fee2e2; font-weight:900; }
 .assessment-state-chip.ai_suggestion { color:#92400e; background:#fef3c7; }.assessment-state-chip.teacher_accepted { color:#14532d; background:#dcfce7; }.assessment-state-chip.teacher_edited { color:#1e40af; background:#dbeafe; }.assessment-state-chip.manual { color:#334155; background:#f1f5f9; }
 .assessment-item-nav-actions { display:flex; gap:6px; }
 .assessment-item-nav-actions .icon-button { min-width:44px; width:44px; height:44px; }

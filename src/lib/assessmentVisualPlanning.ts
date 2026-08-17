@@ -18,10 +18,10 @@ const REQUIRED_VISUAL_COMPETENCY = /(?:\b(?:visuali[sz]e|illustrate|draw|constru
 const VISUAL_REQUIREMENTS = new Set<AssessmentVisualRequirement>(['none', 'helpful', 'required'])
 const VISUAL_STATUSES = new Set<AssessmentVisualStatus>(['not_required', 'pending', 'running', 'succeeded', 'failed', 'stale'])
 
-const MATH_LEARNING_AREA = /(?:^|\b)(?:mathematics|math|calculus)(?:\b|$)/iu
+const AUTOMATIC_VISUAL_LEARNING_AREAS = /(?:^|\b)(?:mathematics|math|calculus|science|physics|chemistry|biology|geometry|statistics|stem|tle)(?:\b|$)/iu
 
 export function assessmentLearningAreaSupportsAutomaticVisuals(learningArea: unknown) {
-  return MATH_LEARNING_AREA.test(clean(learningArea, 240))
+  return AUTOMATIC_VISUAL_LEARNING_AREAS.test(clean(learningArea, 240))
 }
 
 function normalizedVisualPolicy(value: AssessmentVisualPolicy | undefined): AssessmentVisualPolicy {

@@ -315,16 +315,14 @@ function identityLines(model: AssessmentExportModel): AssessmentPaperIdentityLin
 }
 
 function metadataRows(model: AssessmentExportModel): AssessmentPaperMetadataField[][] {
-  const totalItems = String(model.metadata.totalItems ?? model.questions.length)
   const totalPoints = String(model.metadata.totalPoints ?? model.questions.reduce((sum, question) => sum + question.pointsPossible, 0))
   const scoreLabel = model.language === 'filipino' ? 'Iskor' : 'Score'
-  const pointRangeNumbering = model.metadata.numberingMode === 'point_ranges'
   if (model.mode === 'answer_key') {
     return [
       [metadataField('teacher', model.labels.teacher, model.metadata.teacherName, { placeholder: '____________________' }), metadataField('school', model.labels.school, model.metadata.schoolName, { placeholder: '____________________' })],
       [metadataField('gradeLevel', model.labels.gradeLevel, model.metadata.gradeLevel), metadataField('learningArea', model.labels.learningArea, model.metadata.learningArea)],
       [metadataField('gradingTerm', model.labels.gradingTerm, model.metadata.gradingTerm), metadataField('schoolYear', model.labels.schoolYear, model.metadata.schoolYear)],
-      pointRangeNumbering ? [metadataField('totalPoints', model.labels.totalPoints, totalPoints)] : [metadataField('totalItems', model.labels.totalItems, totalItems), metadataField('totalPoints', model.labels.totalPoints, totalPoints)],
+      [metadataField('totalPoints', model.labels.totalPoints, totalPoints)],
     ]
   }
   const rows: AssessmentPaperMetadataField[][] = [
@@ -333,9 +331,7 @@ function metadataRows(model: AssessmentExportModel): AssessmentPaperMetadataFiel
     [metadataField('gradeLevel', model.labels.gradeLevel, model.metadata.gradeLevel), metadataField('learningArea', model.labels.learningArea, model.metadata.learningArea)],
     [metadataField('gradingTerm', model.labels.gradingTerm, model.metadata.gradingTerm), metadataField('schoolYear', model.labels.schoolYear, model.metadata.schoolYear)],
     ...(model.mode === 'teacher' && text(model.metadata.curriculumPeriods) ? [[metadataField('curriculumPeriods', model.labels.curriculumPeriods, model.metadata.curriculumPeriods)]] : []),
-    pointRangeNumbering
-      ? [metadataField('totalPoints', model.labels.totalPoints, totalPoints), metadataField('score', scoreLabel, model.mode === 'student' ? '' : totalPoints, { placeholder: `________ / ${totalPoints}`, learnerWritable: model.mode === 'student' })]
-      : [metadataField('totalItems', model.labels.totalItems, totalItems), metadataField('totalPoints', model.labels.totalPoints, totalPoints), metadataField('score', scoreLabel, model.mode === 'student' ? '' : totalPoints, { placeholder: `________ / ${totalPoints}`, learnerWritable: model.mode === 'student' })],
+    [metadataField('totalPoints', model.labels.totalPoints, totalPoints), metadataField('score', scoreLabel, model.mode === 'student' ? '' : totalPoints, { placeholder: `________ / ${totalPoints}`, learnerWritable: model.mode === 'student' })],
   ]
   return rows
 }

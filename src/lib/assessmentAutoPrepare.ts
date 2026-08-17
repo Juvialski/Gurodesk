@@ -87,7 +87,7 @@ function duplicatePeerContext(assessment: AssessmentRecord, messages: string[]) 
   return numbers.flatMap((itemNumber) => {
     const peer = assessment.items.find((item) => item.itemNumber === itemNumber)
     return peer?.prompt.trim() ? [`Avoid duplicating this existing prompt from Item ${itemNumber}: ${peer.prompt.trim().slice(0, 320)}`] : []
-  }).slice(0, 2)
+  }).slice(0, 4)
 }
 
 function blockerRepairContext(assessment: AssessmentRecord, itemId: string, teacherContext: string, round: number) {

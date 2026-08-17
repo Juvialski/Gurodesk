@@ -31,6 +31,7 @@ import {
   generateAssessmentItemSuggestion,
   hasExistingAssessmentContent,
 } from '../lib/assessmentGeneration'
+import { autoPrepareAssessmentPaper } from '../lib/assessmentAutoPrepare'
 import { createAssessmentMasterPlan } from '../lib/assessmentMasterPlanner'
 import {
   minimumAssessmentV2Points,
@@ -49,6 +50,7 @@ import { loadLessonPlans } from '../lib/repository'
 import { loadTosDocuments } from '../lib/tosRepository'
 import { DEFAULT_ASSESSMENT_SETTINGS } from '../lib/assessmentBlueprint'
 import { applyQuestionTypeDistributionToEmptySlots } from '../lib/assessmentDistribution'
+import { assessmentVisualItemIdsForAssessment } from '../lib/assessmentVisualPlanning'
 import {
   ASSESSMENT_QUESTION_TYPES,
   type AssessmentCpdKey,
@@ -213,7 +215,7 @@ export function AssessmentNewPage() {
   const [totalPoints, setTotalPoints] = useState(40)
   const [pointsTouched, setPointsTouched] = useState(false)
   const [allowedTypes, setAllowedTypes] = useState<QuestionType[]>(DEFAULT_TYPES)
-  const [visualPolicy, setVisualPolicy] = useState<AssessmentVisualPolicy>('off')
+  const [visualPolicy, setVisualPolicy] = useState<AssessmentVisualPolicy>('balanced')
   const [step, setStep] = useState<SetupStep>(1)
   const [generation, setGeneration] = useState<GenerationState | null>(null)
   const [workingRecord, setWorkingRecord] = useState<AssessmentRecord | null>(null)
@@ -387,10 +389,10 @@ export function AssessmentNewPage() {
     () => ({
       totalPoints,
       allowedTypes,
-      visualPolicy: 'off',
+      visualPolicy,
       generationInstructions: generationInstructions.trim(),
     }),
-    [totalPoints, allowedTypes, generationInstructions]
+    [totalPoints, allowedTypes, visualPolicy, generationInstructions]
   )
 
   const setupValidation = useMemo(() => validateAssessmentV2Setup(selectedTos, setup), [selectedTos, setup])
@@ -466,12 +468,17 @@ export function AssessmentNewPage() {
         })
         let checkpointedQuestion: AssessmentRecord['items'][number] | null = null
         const recoveringBlankMachineDraft = hasExistingAssessmentContent(source)
+        const peerItems = working.items.filter((other) => other.id !== source.id && other.prompt.trim() && other.competencySnapshot.id === source.competencySnapshot.id)
+        const peerAvoidContext = peerItems.length
+          ? `Avoid duplicating the scenario, wording, or evidence of already generated Item ${peerItems.map((p) => p.itemNumber).join(', ')}: ${peerItems.map((p) => `"${p.prompt.slice(0, 180)}"`).join('; ')}`
+          : ''
+        const combinedTeacherContext = [options.teacherContext?.trim(), peerAvoidContext].filter(Boolean).join('\n')
         const suggestion = await generateAssessmentItemSuggestion({
           assessment: working,
           item: source,
           demo: isDemo,
           alternative: recoveringBlankMachineDraft,
-          teacherContext: options.teacherContext ?? '',
+          teacherContext: combinedTeacherContext,
           signal: controller.signal,
           onQuestionReady: async (draftSuggestion) => {
             const savedDraftItem = applyAssessmentItemSuggestion(source, draftSuggestion, {
@@ -507,9 +514,10 @@ export function AssessmentNewPage() {
         }
       }
 
-      // Assessment diagrams are temporarily disabled for every creation mode.
-      // Keep this stage empty so question generation goes straight to review.
-      const visualIds: string[] = []
+      const visualIds = assessmentVisualItemIdsForAssessment(working.items, {
+        learningArea: working.learningArea,
+        visualPolicy: working.settings?.visualPolicy ?? visualPolicy,
+      })
       if (visualIds.length) {
         setGeneration({ stage: 'visuals', current: 0, total: visualIds.length, message: 'Creating planned diagrams…' })
         const visualSummary = await enrichAssessmentVisualsSequentially({
@@ -542,6 +550,36 @@ export function AssessmentNewPage() {
           })
         }
       }
+
+      // Pass 3: Automatic Paper QA & Blocker Auto-Repair (Duplicates, diagrams, deterministic issues)
+      setGeneration({
+        stage: 'finishing',
+        current: working.items.length,
+        total: working.items.length,
+        message: 'Checking paper quality and repairing any duplicate questions…',
+      })
+
+      const prepared = await autoPrepareAssessmentPaper({
+        assessment: working,
+        demo: isDemo,
+        teacherContext: options.teacherContext ?? working.instructions,
+        signal: controller.signal,
+        maxRounds: 2,
+        disableVisuals: false,
+        onProgress: (progress) => {
+          setGeneration({
+            stage: progress.phase === 'repair' ? 'questions' : 'finishing',
+            current: progress.itemNumber ?? completedQuestions,
+            total: working.items.length,
+            message: progress.message,
+          })
+        },
+        onCheckpoint: async (draft) => {
+          working = await saveAssessmentDocument(draft, isDemo)
+          setWorkingRecord(working)
+        },
+      })
+      working = prepared.assessment
 
       setGeneration({
         stage: 'finishing',
@@ -615,7 +653,7 @@ export function AssessmentNewPage() {
           isDemo,
           tosTitle.trim() || undefined,
           tosInstructions.trim(),
-          'off',
+          visualPolicy,
           generationInstructions.trim(),
           allowedTypes
         )
@@ -667,7 +705,7 @@ export function AssessmentNewPage() {
             ...DEFAULT_ASSESSMENT_SETTINGS,
             ...created.settings,
             allowedTypes: quizAllowedTypes,
-            visualPolicy: 'off',
+            visualPolicy,
           },
         }
         created = await saveAssessmentDocument(created, isDemo)
@@ -719,7 +757,7 @@ export function AssessmentNewPage() {
             ...DEFAULT_ASSESSMENT_SETTINGS,
             ...created.settings,
             allowedTypes: unitAllowedTypes,
-            visualPolicy: 'off',
+            visualPolicy,
           },
         }
         created = await saveAssessmentDocument(created, isDemo)
@@ -1114,6 +1152,20 @@ export function AssessmentNewPage() {
                         placeholder="Instructions shown at the top of the assessment..."
                       />
                     </label>
+
+                    <label>
+                      <span>Diagrams & Visuals</span>
+                      <select
+                        className="select"
+                        value={visualPolicy}
+                        onChange={(event) => setVisualPolicy(event.target.value as AssessmentVisualPolicy)}
+                      >
+                        <option value="balanced">Balanced (recommended) · up to 1 diagram per 4 questions</option>
+                        <option value="more_visuals">More visuals · up to 50% diagram coverage</option>
+                        <option value="off">Off · text-only questions</option>
+                      </select>
+                      <small>Generates geometric, Cartesian, and diagrammatic visuals for questions that need them.</small>
+                    </label>
                   </div>
 
                   <footer className="assessment-v2-wizard-footer">
@@ -1389,6 +1441,20 @@ export function AssessmentNewPage() {
                         onChange={(e) => setQuizInstructions(e.target.value)}
                       />
                     </label>
+
+                    <label>
+                      <span>Diagrams & Visuals</span>
+                      <select
+                        className="select"
+                        value={visualPolicy}
+                        onChange={(e) => setVisualPolicy(e.target.value as AssessmentVisualPolicy)}
+                      >
+                        <option value="balanced">Balanced (recommended) · up to 1 diagram per 4 questions</option>
+                        <option value="more_visuals">More visuals · up to 50% diagram coverage</option>
+                        <option value="off">Off · text-only questions</option>
+                      </select>
+                      <small>Generates diagrams for topics that require visual representations.</small>
+                    </label>
                   </div>
 
                   <footer className="assessment-v2-wizard-footer">
@@ -1636,6 +1702,20 @@ export function AssessmentNewPage() {
                         placeholder="Answer all questions in the sections below..."
                         onChange={(e) => setUnitInstructions(e.target.value)}
                       />
+                    </label>
+
+                    <label>
+                      <span>Diagrams & Visuals</span>
+                      <select
+                        className="select"
+                        value={visualPolicy}
+                        onChange={(e) => setVisualPolicy(e.target.value as AssessmentVisualPolicy)}
+                      >
+                        <option value="balanced">Balanced (recommended) · up to 1 diagram per 4 questions</option>
+                        <option value="more_visuals">More visuals · up to 50% diagram coverage</option>
+                        <option value="off">Off · text-only questions</option>
+                      </select>
+                      <small>Generates diagrams for topics that require visual representations.</small>
                     </label>
                   </div>
 
