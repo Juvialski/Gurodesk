@@ -212,8 +212,10 @@ function drawPdfQuestionHead(ctx: PdfContext, question: AssessmentPaperQuestion,
     ctx.doc.text(pointText, ctx.x + ctx.width - pointReserve + 8, startY)
   }
   ctx.doc.setFont('helvetica', 'normal'); ctx.doc.setFontSize(9.5)
-  const promptWidth = ctx.width - 28 - pointReserve
-  drawWrappedPdfText(ctx, question.prompt, contentX, promptWidth, { size: 9.5, after: 4 })
+  const numberWidth = ctx.doc.getTextWidth(pdfSafeText(question.numberLabel)) + 8
+  const actualContentX = Math.max(contentX, ctx.x + numberWidth)
+  const promptWidth = ctx.width - (actualContentX - ctx.x) - pointReserve
+  drawWrappedPdfText(ctx, question.prompt, actualContentX, promptWidth, { size: 9.5, after: 4 })
 }
 
 function drawPdfChoiceList(ctx: PdfContext, question: AssessmentPaperQuestion, contentX: number, contentWidth: number) {

@@ -113,8 +113,8 @@ const TYPE_LABELS: Record<QuestionType, string> = {
 
 const SECTION_DIRECTIONS: Record<QuestionType, { english: string; filipino: string }> = {
   multiple_choice: {
-    english: 'Directions: Read each question carefully. Choose the letter of the correct answer and write it on the space provided before each number.',
-    filipino: 'Panuto: Basahing mabuti ang bawat tanong. Piliin ang titik ng tamang sagot at isulat ito sa patlang bago ang bawat bilang.',
+    english: 'Directions: Read each question carefully. Choose the letter of the correct answer.',
+    filipino: 'Panuto: Basahing mabuti ang bawat tanong. Piliin ang titik ng tamang sagot.',
   },
   true_false: {
     english: 'Directions: Write TRUE if the statement is correct and FALSE if it is incorrect. Write your answer on the space provided before each number.',
@@ -340,7 +340,7 @@ function paperQuestion(model: AssessmentExportModel, question: AssessmentExportQ
         ? Math.max(1, blanksFor(question).length)
         : 0
   const prompt = 'prompt' in question ? text(question.prompt) : ''
-  const isDepEdPrecedingBlank = model.mode === 'student' && (question.questionType === 'true_false' || question.questionType === 'multiple_choice' || question.questionType === 'identification')
+  const isDepEdPrecedingBlank = model.mode === 'student' && question.questionType === 'true_false'
   const numberLabel = isDepEdPrecedingBlank
     ? `_____ ${question.numberLabel || question.itemNumber}.`
     : `${question.numberLabel || question.itemNumber}.`
