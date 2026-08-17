@@ -60,7 +60,13 @@ For DB changes, preserve production data and fresh/upgrade compatibility.
 Do not claim a test passed if the environment could not actually run it.
 
 ## Workspace Skills
-When modifying assessments, export renderers, or question generation:
-- Follow `.agents/skills/deped-assessment-standards/SKILL.md` for official DepEd bilingual directions, True/False format, blanks, and typography rules.
-- Follow `.agents/skills/assessment-export-qa/SKILL.md` for 4-target verification (DOCX, PDF, Web Preview, Browser Print) and math normalizer safety.
+Consult and follow the specialized workspace skills in `.agents/skills/` when working on specific subsystems:
+- **`deped-assessment-standards`** (`.agents/skills/deped-assessment-standards/SKILL.md`): Official DepEd bilingual directions, True/False format, blanks, and typography rules.
+- **`assessment-export-qa`** (`.agents/skills/assessment-export-qa/SKILL.md`): 4-target verification (DOCX, PDF, Web Preview, Browser Print) and math normalizer safety.
+- **`gemini-generation-standards`** (`.agents/skills/gemini-generation-standards/SKILL.md`): Edge function AI prompt contracts, 11 question types JSON schemas, anti-leak rules, and visual contracts.
+- **`lesson-plan-standards`** (`.agents/skills/lesson-plan-standards/SKILL.md`): DepEd DLL/DLP structure (DO 42, s. 2016), multilingual terminology, and template exports.
+- **`table-of-specifications-standards`** (`.agents/skills/table-of-specifications-standards/SKILL.md`): Cognitive taxonomy allocation (60-30-10 rule), Hamilton item distribution, and multi-format exports.
+- **`student-results-and-remediation`** (`.agents/skills/student-results-and-remediation/SKILL.md`): Privacy boundaries, psychometric calculations (facility/discrimination index), and grounded remediation.
+- **`curriculum-and-district-standards`** (`.agents/skills/curriculum-and-district-standards/SKILL.md`): 196 official curriculum manifests governance and School District reconciliation.
+
 
