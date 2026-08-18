@@ -1,9 +1,29 @@
-import { ArrowRight, BookOpen, Check, CheckCircle2, Plus, School, Sparkles, Trash2, UserRound } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import {
+  ArrowRight,
+  BookOpen,
+  Check,
+  CheckCircle2,
+  ClipboardPaste,
+  Compass,
+  ExternalLink,
+  Eye,
+  EyeOff,
+  KeyRound,
+  Plus,
+  School,
+  ShieldCheck,
+  Sparkles,
+  Trash2,
+  UserRound,
+} from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../contexts/AppContext'
+import { AI_STUDIO_API_KEY_URL, getAiModel } from '../data/aiModels'
 import { GRADE_LEVELS, POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
 import { curriculumCatalogGroups, findCurriculumCatalogEntry, learningAreasForGrade } from '../data/curriculumCatalog'
+import { loadAiCredentialStatus, saveTeacherAiCredential } from '../lib/repository'
+import type { AiCredentialStatus } from '../types/ai'
 import type { Profile } from '../types/app'
 import { Brand } from '../components/Brand'
 import { SchoolPicker } from '../components/SchoolPicker'
@@ -13,6 +33,15 @@ type DraftAssignment = {
   gradeLevel: string
   learningArea: string
   sectionsText: string
+}
+
+const initialAiStatus: AiCredentialStatus = {
+  configured: false,
+  keyLast4: null,
+  verifiedAt: null,
+  preferredModel: 'gemini-3.5-flash-lite',
+  fallbackModel: 'gemini-3.1-flash-lite',
+  fallbackEnabled: true,
 }
 
 export function OnboardingPage() {
@@ -39,6 +68,22 @@ export function OnboardingPage() {
   })
   const [privateCurriculum, setPrivateCurriculum] = useState(false)
 
+  // AI BYOK setup state
+  const [aiStatus, setAiStatus] = useState<AiCredentialStatus>(initialAiStatus)
+  const [apiKey, setApiKey] = useState('')
+  const [showKey, setShowKey] = useState(false)
+  const [aiWorking, setAiWorking] = useState<string | null>(null)
+  const [aiNotice, setAiNotice] = useState<{ kind: 'success' | 'error'; text: string } | null>(null)
+  const keyInputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    let mounted = true
+    loadAiCredentialStatus(isDemo)
+      .then((next) => { if (mounted) setAiStatus(next) })
+      .catch(() => {})
+    return () => { mounted = false }
+  }, [isDemo])
+
   const officialAreas = useMemo(() => learningAreasForGrade(draft.gradeLevel, form.schoolYear), [draft.gradeLevel, form.schoolYear])
   const officialGroups = useMemo(() => curriculumCatalogGroups(draft.gradeLevel, form.schoolYear), [draft.gradeLevel, form.schoolYear])
   const selectedOfficialEntry = findCurriculumCatalogEntry(draft.gradeLevel, draft.learningArea, form.schoolYear)
@@ -52,9 +97,55 @@ export function OnboardingPage() {
     if (!officialAreas.includes(draft.learningArea)) setDraft((current) => ({ ...current, learningArea: officialAreas[0] }))
   }, [draft.learningArea, officialAreas])
 
-  async function saveIdentity() {
-    if (!form.fullName.trim() || !form.schoolName.trim()) {
-      setLocalError('Name and school are required to continue.')
+  function cleanPastedKey(value: string) {
+    return value.trim().replace(/\s+/g, '')
+  }
+
+  async function pasteFromClipboard() {
+    setAiNotice(null)
+    try {
+      if (!navigator.clipboard?.readText) throw new Error('Clipboard API unavailable')
+      const clipboardText = cleanPastedKey(await navigator.clipboard.readText())
+      if (!clipboardText) throw new Error('Clipboard is empty')
+      setApiKey(clipboardText)
+      keyInputRef.current?.focus()
+      setAiNotice({ kind: 'success', text: 'API key pasted from clipboard. Tap "Test & save key" to connect.' })
+    } catch {
+      keyInputRef.current?.focus()
+      setAiNotice({ kind: 'error', text: 'Browser blocked one-tap paste. Tap and hold inside the API key box, then select Paste.' })
+    }
+  }
+
+  async function saveKey() {
+    if (isDemo) {
+      setAiNotice({ kind: 'error', text: 'Demo mode runs locally and does not store live keys. You can proceed safely to test the workspace.' })
+      return
+    }
+    if (apiKey.trim().length < 20) {
+      setAiNotice({ kind: 'error', text: 'Paste your Gemini API key first.' })
+      return
+    }
+    setAiWorking('save-key')
+    setAiNotice(null)
+    try {
+      const result = await saveTeacherAiCredential(apiKey.trim(), {
+        preferredModel: aiStatus.preferredModel,
+        fallbackModel: aiStatus.fallbackModel,
+        fallbackEnabled: aiStatus.fallbackEnabled,
+      }, isDemo)
+      setAiStatus(result)
+      setApiKey('')
+      setAiNotice({ kind: 'success', text: result.message })
+    } catch (error) {
+      setAiNotice({ kind: 'error', text: error instanceof Error ? error.message : 'Unable to save Gemini key.' })
+    } finally {
+      setAiWorking(null)
+    }
+  }
+
+  async function saveIdentityAndProceed() {
+    if (!form.fullName.trim()) {
+      setLocalError('Please enter your full name.')
       return
     }
     setBusy(true)
@@ -64,6 +155,23 @@ export function OnboardingPage() {
       setLocalError(null)
     } catch (error) {
       setLocalError(error instanceof Error ? error.message : 'Unable to save your profile.')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  async function saveSchoolAndProceed() {
+    if (!form.schoolName.trim()) {
+      setLocalError('Please search and select your school, or enter it manually.')
+      return
+    }
+    setBusy(true)
+    try {
+      await updateProfile({ ...form, onboardingCompleted: false })
+      setStep(4)
+      setLocalError(null)
+    } catch (error) {
+      setLocalError(error instanceof Error ? error.message : 'Unable to save school identity.')
     } finally {
       setBusy(false)
     }
@@ -120,81 +228,378 @@ export function OnboardingPage() {
   async function finishWithPrivateCurriculum() {
     setPrivateCurriculum(true)
     setLocalError(null)
-    setStep(3)
+    setStep(5)
   }
+
+  const preferredModelInfo = getAiModel(aiStatus.preferredModel)
 
   return (
     <div className="onboarding-page">
-      <header className="onboarding-top"><Brand /><span>Setup {step} of 4</span></header>
+      <header className="onboarding-top">
+        <Brand />
+        <span>Setup {step} of 5</span>
+      </header>
       <div className="onboarding-layout">
         <aside className="onboarding-intro">
           <span className="hero-kicker"><BookOpen size={15} /> Teacher setup</span>
           <h1>Set it once. GuroDesk adapts to what you teach.</h1>
           <p>Your school year and teaching assignments drive curriculum context across lesson plans, TOS, assessments, results, and related reports.</p>
           <div className="setup-steps">
-            <div className={step >= 1 ? 'active' : ''}><span>{step > 1 ? <Check size={16} /> : '1'}</span><div><strong>About you</strong><small>Name, school, and school year</small></div></div>
-            <div className={step >= 2 ? 'active' : ''}><span>{step > 2 ? <Check size={16} /> : '2'}</span><div><strong>What you teach</strong><small>One class and its sections</small></div></div>
-            <div className={step >= 3 ? 'active' : ''}><span>{step > 3 ? <Check size={16} /> : '3'}</span><div><strong>AI setup</strong><small>Optional Gemini assistance</small></div></div>
-            <div className={step >= 4 ? 'active' : ''}><span>4</span><div><strong>Ready</strong><small>Choose your first task</small></div></div>
+            <div className={step >= 1 ? 'active' : ''}>
+              <span>{step > 1 ? <Check size={16} /> : '1'}</span>
+              <div><strong>About you</strong><small>Name, position, and school year</small></div>
+            </div>
+            <div className={step >= 2 ? 'active' : ''}>
+              <span>{step > 2 ? <Check size={16} /> : '2'}</span>
+              <div><strong>AI setup</strong><small>Connect free Gemini API</small></div>
+            </div>
+            <div className={step >= 3 ? 'active' : ''}>
+              <span>{step > 3 ? <Check size={16} /> : '3'}</span>
+              <div><strong>Your school</strong><small>DepEd directory or manual entry</small></div>
+            </div>
+            <div className={step >= 4 ? 'active' : ''}>
+              <span>{step > 4 ? <Check size={16} /> : '4'}</span>
+              <div><strong>What you teach</strong><small>Classes, subjects, and sections</small></div>
+            </div>
+            <div className={step >= 5 ? 'active' : ''}>
+              <span>5</span>
+              <div><strong>Ready & Tour</strong><small>Choose your first task</small></div>
+            </div>
           </div>
         </aside>
 
         <section className="onboarding-card panel">
           {step === 1 ? (
             <>
-              <div className="section-title"><span className="title-icon"><UserRound size={20} /></span><div><h2>About you</h2><p>Use the details you normally place on school documents.</p></div></div>
+              <div className="section-title">
+                <span className="title-icon"><UserRound size={20} /></span>
+                <div>
+                  <h2>About you</h2>
+                  <p>Use the details you normally place on official school documents and reports.</p>
+                </div>
+              </div>
               <div className="form-grid two">
-                <label>Full name<input value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} placeholder="Juan Dela Cruz" /></label>
-                <label>Position<select value={form.positionTitle} onChange={(e) => setForm({ ...form, positionTitle: e.target.value })}>{POSITION_TITLES.map((item) => <option key={item}>{item}</option>)}</select></label>
-                <div className="span-two"><SchoolPicker value={form} onChange={(patch) => setForm((current) => ({ ...current, ...patch }))} isDemo={isDemo} required /></div>
-                <label>School year<select value={form.schoolYear} onChange={(e) => setForm({ ...form, schoolYear: e.target.value })}>{SCHOOL_YEARS.map((item) => <option key={item}>{item}</option>)}</select></label>
+                <label className="span-two">
+                  Full name
+                  <input
+                    value={form.fullName}
+                    onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+                    placeholder="e.g. Juan Dela Cruz"
+                    autoFocus
+                    required
+                  />
+                </label>
+                <label>
+                  Position title
+                  <select value={form.positionTitle} onChange={(e) => setForm({ ...form, positionTitle: e.target.value })}>
+                    {POSITION_TITLES.map((item) => <option key={item}>{item}</option>)}
+                  </select>
+                </label>
+                <label>
+                  School year
+                  <select value={form.schoolYear} onChange={(e) => setForm({ ...form, schoolYear: e.target.value })}>
+                    {SCHOOL_YEARS.map((item) => <option key={item}>{item}</option>)}
+                  </select>
+                </label>
               </div>
               {localError && <div className="form-message error">{localError}</div>}
-              <div className="form-footer"><span /><button className="button primary" onClick={() => void saveIdentity()} disabled={busy}>Continue <ArrowRight size={17} /></button></div>
+              <div className="form-footer">
+                <span />
+                <button className="button primary" onClick={() => void saveIdentityAndProceed()} disabled={busy}>
+                  Continue to AI setup <ArrowRight size={17} />
+                </button>
+              </div>
             </>
           ) : step === 2 ? (
             <>
-              <div className="section-title"><span className="title-icon"><School size={20} /></span><div><h2>What do you teach? <span className="sr-only">Your teaching load</span></h2><p>Add at least one class. Official curriculum is resolved from your grade, learning area, and school year.</p></div></div>
-              <div className="assignment-builder">
-                <div className="form-grid three">
-                  <label>Grade level<select value={draft.gradeLevel} onChange={(e) => setDraft({ ...draft, gradeLevel: e.target.value })}>{GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}</select></label>
-                  <label>Learning area<select value={draft.learningArea} onChange={(e) => setDraft({ ...draft, learningArea: e.target.value })} disabled={!officialGroups.length}>{officialGroups.map(({ group, entries }) => <optgroup key={group} label={group}>{entries.map((entry) => <option key={entry.id} value={entry.learningArea}>{entry.displayName}</option>)}</optgroup>)}</select></label>
-                  <label>Sections<input value={draft.sectionsText} onChange={(e) => setDraft({ ...draft, sectionsText: e.target.value })} placeholder="Rizal, Mabini" /></label>
+              <div className="section-title">
+                <span className="title-icon"><Sparkles size={20} /></span>
+                <div>
+                  <h2>Optional AI setup</h2>
+                  <p>Connect your Gemini API key for AI-assisted lesson planning and test drafting. GuroDesk works fully with or without AI.</p>
                 </div>
-                <button className="button secondary" onClick={() => void addAssignment()} disabled={busy || !selectedOfficialEntry}><Plus size={17} /> Add assignment</button>
-              </div>
-              {selectedOfficialEntry && <div className="custom-curriculum-assignment-help"><BookOpen size={15} /><span>{selectedOfficialEntry.status === 'verified_competencies' ? 'Verified competency pack ready.' : selectedOfficialEntry.status === 'transitional' ? 'Official transition offering catalogued; exact competencies remain source-gated.' : 'Official curriculum offering catalogued; exact competencies remain source-gated until imported.'}</span></div>}
-
-              <div className="private-curriculum-onboarding">
-                <div><strong>Private school or school-developed curriculum?</strong><span>Use your school's curriculum instead. You can add and approve it from Curriculum after setup.</span></div>
-                <button aria-label="Set up school curriculum" className="button secondary" onClick={() => void finishWithPrivateCurriculum()} disabled={busy}>Use my school's curriculum <ArrowRight size={16} /></button>
               </div>
 
-              <div className="assignment-list compact-list">
-                {assignments.length === 0 ? <div className="mini-empty">No assignments yet.</div> : assignments.map((item) => (
-                  <div className="assignment-row" key={item.id}>
-                    <div><strong>{item.gradeLevel} · {item.learningArea}</strong><span>{item.sections.join(' · ')}</span></div>
-                    <button className="icon-button danger" aria-label="Remove assignment" onClick={() => void removeAssignment(item.id)}><Trash2 size={17} /></button>
+              <div className="ai-connection-status-row">
+                <span className={`ai-connection-badge ${aiStatus.configured ? 'connected' : ''}`}>
+                  {aiStatus.configured ? <CheckCircle2 size={14} /> : <KeyRound size={14} />}
+                  {aiStatus.configured ? `Connected · ••••${aiStatus.keyLast4}` : 'Not connected'}
+                </span>
+                <span className="ai-model-hint">Default: <strong>{preferredModelInfo.label}</strong> (Free tier)</span>
+              </div>
+
+              <div className="onboarding-ai-steps">
+                <div className="ai-step-card">
+                  <div className="ai-step-badge">1</div>
+                  <div className="ai-step-content">
+                    <strong>Get a free Gemini API key</strong>
+                    <p>Open Google AI Studio in a new tab and click <em>Create API key</em>.</p>
                   </div>
-                ))}
+                  <a className="button secondary compact" href={AI_STUDIO_API_KEY_URL} target="_blank" rel="noreferrer">
+                    Google AI Studio <ExternalLink size={14} />
+                  </a>
+                </div>
+
+                <div className="ai-step-card">
+                  <div className="ai-step-badge">2</div>
+                  <div className="ai-step-content">
+                    <strong>Paste & save your key</strong>
+                    <div className="ai-key-input-row" style={{ marginTop: '8px' }}>
+                      <input
+                        ref={keyInputRef}
+                        type={showKey ? 'text' : 'password'}
+                        value={apiKey}
+                        autoComplete="off"
+                        autoCapitalize="none"
+                        autoCorrect="off"
+                        inputMode="text"
+                        enterKeyHint="done"
+                        spellCheck={false}
+                        placeholder={aiStatus.configured ? 'Paste new key to replace saved key' : 'Paste AI Studio API key (AIzaSy...)'}
+                        onChange={(event) => setApiKey(event.target.value)}
+                        onPaste={(event) => {
+                          event.preventDefault()
+                          setApiKey(cleanPastedKey(event.clipboardData.getData('text')))
+                          setAiNotice(null)
+                        }}
+                        disabled={isDemo || Boolean(aiWorking)}
+                      />
+                      <button
+                        className="ai-key-icon-button"
+                        type="button"
+                        onClick={() => setShowKey((val) => !val)}
+                        disabled={isDemo || Boolean(aiWorking)}
+                        aria-label={showKey ? 'Hide API key' : 'Show API key'}
+                        title={showKey ? 'Hide API key' : 'Show API key'}
+                      >
+                        {showKey ? <EyeOff size={17} /> : <Eye size={17} />}
+                      </button>
+                    </div>
+                    <div className="ai-key-entry-actions" style={{ marginTop: '8px' }}>
+                      <button className="button secondary compact" type="button" onClick={() => void pasteFromClipboard()} disabled={isDemo || Boolean(aiWorking)}>
+                        <ClipboardPaste size={14} /> Paste from clipboard
+                      </button>
+                      <button className="button primary compact" type="button" onClick={() => void saveKey()} disabled={isDemo || apiKey.trim().length < 20 || Boolean(aiWorking)}>
+                        {aiWorking === 'save-key' ? <span className="mini-spinner" /> : <KeyRound size={14} />}
+                        {aiStatus.configured ? 'Test & replace key' : 'Test & save key'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              {localError && <div className="form-message error">{localError}</div>}
-              <div className="form-footer"><button className="button ghost" onClick={() => setStep(1)}>Back</button><button className="button secondary" onClick={() => void finishAndNavigate('/')} disabled={busy}>Open workspace</button><button className="button primary" onClick={() => setStep(3)} disabled={busy}>{assignments.length ? 'Continue' : 'Skip classes for now'} <ArrowRight size={17} /></button></div>
+
+              {isDemo && (
+                <div className="ai-setup-note warning" style={{ marginTop: '14px' }}>
+                  <ShieldCheck size={16} />
+                  <p>Demo preview mode runs in-browser. Connect your real Gemini key when signed in to your live workspace.</p>
+                </div>
+              )}
+
+              {aiNotice && (
+                <div className={`ai-setup-notice ${aiNotice.kind}`} style={{ marginTop: '12px' }}>
+                  {aiNotice.kind === 'success' ? <CheckCircle2 size={15} /> : <ShieldCheck size={15} />}
+                  <span>{aiNotice.text}</span>
+                </div>
+              )}
+
+              <div className="workflow-onboarding-choice-grid" style={{ marginTop: '18px' }}>
+                <button type="button" className="workflow-onboarding-choice" onClick={() => void finishAndNavigate('/settings#ai-assistance')} disabled={busy}>
+                  <Sparkles size={20} />
+                  <strong>Connect now</strong>
+                  <span>Open AI assistance settings after onboarding.</span>
+                  <small>No key details are shown here.</small>
+                </button>
+                <button type="button" className="workflow-onboarding-choice" onClick={() => setStep(3)} disabled={busy}>
+                  <CheckCircle2 size={20} />
+                  <strong>Set up later</strong>
+                  <span>Start teaching first and connect AI whenever you are ready.</span>
+                </button>
+              </div>
+
+              <div className="form-footer">
+                <button className="button ghost" onClick={() => setStep(1)}>Back</button>
+                <button className="button primary" onClick={() => setStep(3)} disabled={busy}>
+                  {aiStatus.configured ? 'Continue to School' : 'Set up later'} <ArrowRight size={17} />
+                </button>
+              </div>
             </>
           ) : step === 3 ? (
             <>
-              <div className="section-title"><span className="title-icon"><Sparkles size={20} /></span><div><h2>Optional AI setup</h2><p>Connect Gemini if you want help creating draft lesson plans and assessments. You can finish setup without AI.</p></div></div>
-              <div className="workflow-onboarding-choice-grid"><button type="button" className="workflow-onboarding-choice" onClick={() => void finishAndNavigate('/settings#ai-assistance')} disabled={busy}><Sparkles size={20} /><strong>Connect now</strong><span>Open AI assistance settings after onboarding.</span><small>No key details are shown here.</small></button><button type="button" className="workflow-onboarding-choice" onClick={() => setStep(4)} disabled={busy}><CheckCircle2 size={20} /><strong>Set up later</strong><span>Start teaching first and connect AI whenever you are ready.</span></button></div>
-              {privateCurriculum && <div className="workflow-info-note"><BookOpen size={15} /> You can attach your approved school curriculum from Curriculum after setup.</div>}
+              <div className="section-title">
+                <span className="title-icon"><School size={20} /></span>
+                <div>
+                  <h2>Where do you teach?</h2>
+                  <p>Select your school from the official DepEd directory to auto-populate school documents, or enter it manually.</p>
+                </div>
+              </div>
+
+              <div className="onboarding-school-container">
+                <SchoolPicker
+                  value={form}
+                  onChange={(patch) => setForm((current) => ({ ...current, ...patch }))}
+                  isDemo={isDemo}
+                  required
+                />
+              </div>
+
               {localError && <div className="form-message error">{localError}</div>}
-              <div className="form-footer"><button className="button ghost" onClick={() => setStep(2)}>Back</button><button className="button primary" onClick={() => setStep(4)} disabled={busy}>Set up later <ArrowRight size={17} /></button></div>
+              <div className="form-footer">
+                <button className="button ghost" onClick={() => setStep(2)}>Back</button>
+                <button className="button primary" onClick={() => void saveSchoolAndProceed()} disabled={busy}>
+                  Continue to Classes <ArrowRight size={17} />
+                </button>
+              </div>
+            </>
+          ) : step === 4 ? (
+            <>
+              <div className="section-title">
+                <span className="title-icon"><BookOpen size={20} /></span>
+                <div>
+                  <h2>What you teach <span className="sr-only">Your teaching load</span></h2>
+                  <p>Add at least one class. Official curriculum is resolved from your grade, learning area, and school year.</p>
+                </div>
+              </div>
+
+              <div className="assignment-builder">
+                <div className="form-grid three">
+                  <label>
+                    Grade level
+                    <select value={draft.gradeLevel} onChange={(e) => setDraft({ ...draft, gradeLevel: e.target.value })}>
+                      {GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}
+                    </select>
+                  </label>
+                  <label>
+                    Learning area
+                    <select value={draft.learningArea} onChange={(e) => setDraft({ ...draft, learningArea: e.target.value })} disabled={!officialGroups.length}>
+                      {officialGroups.map(({ group, entries }) => (
+                        <optgroup key={group} label={group}>
+                          {entries.map((entry) => <option key={entry.id} value={entry.learningArea}>{entry.displayName}</option>)}
+                        </optgroup>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Sections
+                    <input
+                      value={draft.sectionsText}
+                      onChange={(e) => setDraft({ ...draft, sectionsText: e.target.value })}
+                      placeholder="e.g. Rizal, Mabini"
+                    />
+                  </label>
+                </div>
+                <button className="button secondary" onClick={() => void addAssignment()} disabled={busy || !selectedOfficialEntry}>
+                  <Plus size={17} /> Add assignment
+                </button>
+              </div>
+
+              {selectedOfficialEntry && (
+                <div className="custom-curriculum-assignment-help">
+                  <BookOpen size={15} />
+                  <span>
+                    {selectedOfficialEntry.status === 'verified_competencies'
+                      ? 'Verified competency pack ready.'
+                      : selectedOfficialEntry.status === 'transitional'
+                        ? 'Official transition offering catalogued; exact competencies remain source-gated.'
+                        : 'Official curriculum offering catalogued; exact competencies remain source-gated until imported.'}
+                  </span>
+                </div>
+              )}
+
+              <div className="private-curriculum-onboarding">
+                <div>
+                  <strong>Private school or school-developed curriculum?</strong>
+                  <span>Use your school's curriculum instead. You can add and approve it from Curriculum after setup.</span>
+                </div>
+                <button aria-label="Set up school curriculum" className="button secondary" onClick={() => void finishWithPrivateCurriculum()} disabled={busy}>
+                  Use my school's curriculum <ArrowRight size={16} />
+                </button>
+              </div>
+
+              <div className="assignment-list compact-list">
+                {assignments.length === 0 ? (
+                  <div className="mini-empty">No classes added yet. Add at least one above or continue to skip for now.</div>
+                ) : (
+                  assignments.map((item) => (
+                    <div className="assignment-row" key={item.id}>
+                      <div>
+                        <strong>{item.gradeLevel} · {item.learningArea}</strong>
+                        <span>{item.sections.join(' · ')}</span>
+                      </div>
+                      <button className="icon-button danger" aria-label="Remove assignment" onClick={() => void removeAssignment(item.id)}>
+                        <Trash2 size={17} />
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {localError && <div className="form-message error">{localError}</div>}
+              <div className="form-footer">
+                <button className="button ghost" onClick={() => setStep(3)}>Back</button>
+                <button className="button secondary" onClick={() => void finishAndNavigate('/')} disabled={busy}>Open workspace</button>
+                <button className="button primary" onClick={() => setStep(5)} disabled={busy}>
+                  {assignments.length ? 'Continue to Tour' : 'Skip classes for now'} <ArrowRight size={17} />
+                </button>
+              </div>
             </>
           ) : (
             <>
-              <div className="section-title"><span className="title-icon"><CheckCircle2 size={20} /></span><div><h2>You’re ready to go</h2><p>Your workspace is set up. Choose a first task, or open the workspace and explore.</p></div></div>
-              <div className="workflow-ready-actions">{privateCurriculum ? <button type="button" className="workflow-ready-card" onClick={() => void finishAndNavigate('/curriculum')} disabled={busy}><BookOpen size={19} /><strong>Set up my curriculum</strong><span>Open Curriculum to add and approve your school's curriculum.</span></button> : <button type="button" className="workflow-ready-card" onClick={() => void finishAndNavigate('/lesson-plans/new')} disabled={busy}><BookOpen size={19} /><strong>Create lesson plan</strong><span>Start with a topic and add verified curriculum alignment as needed.</span></button>}<button type="button" className="workflow-ready-card" onClick={() => void finishAndNavigate('/tos/new')} disabled={busy}><School size={19} /><strong>Create TOS</strong><span>Choose covered competencies and a test size.</span></button><button type="button" className="workflow-ready-card" onClick={() => void finishAndNavigate('/assessments/new')} disabled={busy}><Sparkles size={19} /><strong>Create test</strong><span>Build a test from a finalized TOS.</span></button></div>
+              <div className="section-title">
+                <span className="title-icon"><CheckCircle2 size={20} /></span>
+                <div>
+                  <h2>You’re ready to go</h2>
+                  <p>Your workspace is set up. Take a quick interactive tour or start your first task right away.</p>
+                </div>
+              </div>
+
+              <div className="onboarding-tour-card">
+                <div className="onboarding-tour-badge"><Compass size={24} /></div>
+                <div className="onboarding-tour-details">
+                  <strong>Take the 2-minute interactive tour</strong>
+                  <p>Explore lesson plans, Table of Specifications (TOS), DepEd test generation, and student analytics.</p>
+                </div>
+                <button type="button" className="button primary" onClick={() => void finishAndNavigate('/')} disabled={busy}>
+                  Start tour <ArrowRight size={16} />
+                </button>
+              </div>
+
+              <div className="workflow-ready-divider">
+                <span>or jump straight into creating</span>
+              </div>
+
+              <div className="workflow-ready-actions">
+                {privateCurriculum ? (
+                  <button type="button" className="workflow-ready-card" onClick={() => void finishAndNavigate('/curriculum')} disabled={busy}>
+                    <BookOpen size={19} />
+                    <strong>Set up my curriculum</strong>
+                    <span>Open Curriculum to add and approve your school's curriculum.</span>
+                  </button>
+                ) : (
+                  <button type="button" className="workflow-ready-card" onClick={() => void finishAndNavigate('/lesson-plans/new')} disabled={busy}>
+                    <BookOpen size={19} />
+                    <strong>Create lesson plan</strong>
+                    <span>Start with a topic and add verified curriculum alignment as needed.</span>
+                  </button>
+                )}
+                <button type="button" className="workflow-ready-card" onClick={() => void finishAndNavigate('/tos/new')} disabled={busy}>
+                  <School size={19} />
+                  <strong>Create TOS</strong>
+                  <span>Choose covered competencies and test size.</span>
+                </button>
+                <button type="button" className="workflow-ready-card" onClick={() => void finishAndNavigate('/assessments/new')} disabled={busy}>
+                  <Sparkles size={19} />
+                  <strong>Create test</strong>
+                  <span>Build a test from a finalized TOS.</span>
+                </button>
+              </div>
+
               {localError && <div className="form-message error">{localError}</div>}
-              <div className="form-footer"><button className="button ghost" onClick={() => setStep(3)}>Back</button><button className="button secondary" onClick={() => void finishAndNavigate('/')} disabled={busy}>Open workspace <ArrowRight size={17} /></button></div>
+              <div className="form-footer">
+                <button className="button ghost" onClick={() => setStep(4)}>Back</button>
+                <button className="button secondary" onClick={() => void finishAndNavigate('/')} disabled={busy}>
+                  Open workspace <ArrowRight size={17} />
+                </button>
+              </div>
             </>
           )}
         </section>

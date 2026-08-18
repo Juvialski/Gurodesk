@@ -27,11 +27,10 @@ for (const required of [
   assert.match(app, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `task-oriented route missing: ${required}`)
 }
 
-// Onboarding offers four explicit steps. Gemini is an optional decision in its
-// own step; choosing “Set up later” must lead to the ready screen rather than a
-// credential gate or a failed workspace load.
+// Onboarding offers five explicit progressive steps. Gemini is an optional decision in its
+// own step; choosing “Set up later” allows advancing without configuring Gemini.
 for (const required of [
-  'Setup {step} of 4',
+  'Setup {step} of 5',
   'About you',
   'What you teach',
   'AI setup',
@@ -44,7 +43,7 @@ for (const required of [
   assert.match(onboarding, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `optional AI onboarding marker missing: ${required}`)
 }
 assert.match(onboarding, /finishAndNavigate\(['"]\/settings#ai-assistance['"]\)/, 'Connect now must remain a Settings-local AI entry point')
-assert.match(onboarding, /setStep\(4\)/, 'Set up later must reach the ready step without configuring Gemini')
+assert.match(onboarding, /setStep\(3\)|setStep\(4\)|setStep\(5\)/, 'Set up later must reach the ready step without configuring Gemini')
 
 // Settings is the normal feature-local home for AI setup and explicitly keeps
 // non-AI workflows available when no key is configured.

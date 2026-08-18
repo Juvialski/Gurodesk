@@ -1590,6 +1590,122 @@ button.competency-row.selected .competency-text { color: #0b2d5b; font-weight: 6
 }
 .workflow-ready-card svg { color: #1667d9; }
 
+/* Onboarding 5-step experience enhancements */
+.ai-connection-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ai-model-hint {
+  color: #64748b;
+  font-size: 12px;
+}
+.onboarding-ai-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ai-step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+.ai-step-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ai-step-content {
+  flex: 1;
+  min-width: 0;
+}
+.ai-step-content strong {
+  display: block;
+  color: var(--navy);
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.ai-step-content p {
+  margin: 0;
+  color: #64748b;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.onboarding-school-container {
+  margin-top: 4px;
+}
+.onboarding-tour-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  margin-bottom: 18px;
+}
+.onboarding-tour-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.onboarding-tour-details {
+  flex: 1;
+  min-width: 0;
+}
+.onboarding-tour-details strong {
+  display: block;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 750;
+  margin-bottom: 3px;
+}
+.onboarding-tour-details p {
+  margin: 0;
+  color: #475569;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+.workflow-ready-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 18px 0 14px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.workflow-ready-divider::before,
+.workflow-ready-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+.workflow-ready-divider span {
+  padding: 0 12px;
+}
 @media (max-width: 620px) {
   .private-curriculum-onboarding { align-items: stretch; flex-direction: column; }
   .private-curriculum-onboarding .button { width: 100%; justify-content: center; }
@@ -1597,6 +1713,23 @@ button.competency-row.selected .competency-text { color: #0b2d5b; font-weight: 6
   .workflow-ready-actions { grid-template-columns: 1fr; }
   .workflow-onboarding-choice,
   .workflow-ready-card { min-height: 0; }
+  .ai-step-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ai-step-card .button {
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+  .onboarding-tour-card {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+  .onboarding-tour-card .button {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* Phase 6 — per-key Gemini model availability */
