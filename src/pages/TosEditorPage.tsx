@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowLeft, ArrowUp, Check, ChevronDown, ChevronUp, CircleAlert, FileDown, Plus, Save, Search, ShieldCheck, Trash2, X } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, ChevronDown, ChevronUp, CircleAlert, FileDown, Plus, Save, Search, ShieldCheck, Trash2, X } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
@@ -106,6 +106,7 @@ function TosSimpleFlow({
   onFinalize,
   onCustomize,
 }: TosSimpleFlowProps) {
+  const [step, setStep] = useState<1 | 2 | 3>(1)
   const parsedTotal = Number(totalItemsInput)
   const totalItems = Number.isFinite(parsedTotal) && parsedTotal > 0 ? Math.floor(parsedTotal) : 0
   const selectedIds = new Set(record.content.rows.map((row) => row.competency.id))
@@ -118,72 +119,141 @@ function TosSimpleFlow({
         <div>
           <span className="eyebrow">Guided setup</span>
           <h2>Create a table of specifications</h2>
-          <p>Name the TOS, choose what you covered, and set the test size. GuroDesk will suggest a balanced allocation that you can customize.</p>
+          <p>Follow three simple steps to select covered competencies, allocate test items, and prepare your TOS.</p>
         </div>
-        <span className="workflow-step-count">3 short steps</span>
+        <span className="workflow-step-count">Step {step} of 3</span>
       </div>
 
-      <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>1</span><div><strong>Name the TOS and choose the class</strong><small>The TOS title is required and is the name shown in your TOS list and exports.</small></div></div>
-        <div className="workflow-form-grid">
-          <label>Class<select disabled={readOnly} value={assignmentId} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option value={item.id} key={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label>
-          <label>TOS title <small>(required)</small><input disabled={readOnly} value={record.content.title} onChange={(event) => onUpdateContent((content) => { content.title = event.target.value })} placeholder="e.g. Quarter 1 Mathematics TOS" /><small className="workflow-field-help">This identifies the TOS in your list and exported document.</small></label>
-          <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => onUpdateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First summative test" /><small className="workflow-field-help">Used as a suggested test title when you create an assessment from this TOS.</small></label>
-        </div>
-        <div className="workflow-chip-group">
-          <span className="workflow-field-label">School grading term</span>
-          <div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} disabled={readOnly} aria-pressed={record.content.gradingTermId === period.id} className={`workflow-chip ${record.content.gradingTermId === period.id ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermId = period.id; content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">No grading calendar is loaded.</span>}</div>
-        </div>
-        <div className="workflow-chip-group">
-          <span className="workflow-field-label">Curriculum-guide period</span>
-          <div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} disabled={readOnly} aria-pressed={record.content.curriculumPeriodIds.includes(period.id)} className={`workflow-chip ${record.content.curriculumPeriodIds.includes(period.id) ? 'selected' : ''}`} onClick={() => onTogglePeriod(period.id)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div>
-        </div>
-      </div>
+      <nav className="workflow-wizard-stepper" aria-label="TOS creation steps">
+        <button
+          type="button"
+          className={`workflow-stepper-btn ${step === 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`}
+          onClick={() => setStep(1)}
+        >
+          <span className="workflow-stepper-num">{step > 1 ? <Check size={12} /> : '1'}</span>
+          <span>1. Setup & Title</span>
+        </button>
+        <button
+          type="button"
+          className={`workflow-stepper-btn ${step === 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`}
+          onClick={() => setStep(2)}
+        >
+          <span className="workflow-stepper-num">{step > 2 ? <Check size={12} /> : '2'}</span>
+          <span>2. Competencies ({selectedCount})</span>
+        </button>
+        <button
+          type="button"
+          className={`workflow-stepper-btn ${step === 3 ? 'active' : ''} ${step === 3 && validation?.ready ? 'completed' : ''}`}
+          onClick={() => setStep(3)}
+        >
+          <span className="workflow-stepper-num">{validation?.ready ? <Check size={12} /> : '3'}</span>
+          <span>3. Size & Allocation</span>
+        </button>
+      </nav>
 
-      <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>2</span><div><strong>What was covered?</strong><small>Select every verified competency you actually taught. Nothing is selected for you.</small></div><span className="workflow-count-badge">{selectedCount} selected</span></div>
-        {!bundle?.available ? (
-          <div className="workflow-warning">
-            <strong>No verified curriculum bundle is available for this class.</strong>
-            <p style={{ marginTop: '4px', fontSize: '11px', opacity: 0.9 }}>{bundle?.coverageNote || 'GuroDesk will not invent competency rows.'}</p>
+      {step === 1 && (
+        <div className="workflow-step-card">
+          <div className="workflow-step-heading"><span>1</span><div><strong>Name the TOS and choose the class</strong><small>The TOS title is required and is the name shown in your TOS list and exports.</small></div></div>
+          <div className="workflow-form-grid">
+            <label>Class<select disabled={readOnly} value={assignmentId} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option value={item.id} key={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label>
+            <label>TOS title <small>(required)</small><input disabled={readOnly} value={record.content.title} onChange={(event) => onUpdateContent((content) => { content.title = event.target.value })} placeholder="e.g. Quarter 1 Mathematics TOS" /><small className="workflow-field-help">This identifies the TOS in your list and exported document.</small></label>
+            <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => onUpdateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First summative test" /><small className="workflow-field-help">Used as a suggested test title when you create an assessment from this TOS.</small></label>
           </div>
-        ) : <>
-          <label className="workflow-search"><Search size={16} /><span className="sr-only">Search verified competencies</span><input value={search} onChange={(event) => onSearchChange(event.target.value)} placeholder="Search by code or competency" /></label>
-          <div className="workflow-competency-list">{contentGroups.map((group) => <section className="workflow-curriculum-group" key={group.key}>
-            <header className="workflow-curriculum-group-header"><small>{group.periodLabel}</small><strong>{group.contentArea}</strong></header>
-            {(group.contentStandards.length > 0 || group.performanceStandards.length > 0) && <div className="workflow-curriculum-standards">
-              {group.contentStandards.length > 0 && <div><span>Content standard</span>{group.contentStandards.map((standard) => <p key={standard}>{standard}</p>)}</div>}
-              {group.performanceStandards.length > 0 && <div><span>Performance standard</span>{group.performanceStandards.map((standard) => <p key={standard}>{standard}</p>)}</div>}
-            </div>}
-            <div className="workflow-curriculum-competencies">{group.competencies.map((competency) => {
-              const selected = selectedIds.has(competency.id) || record.content.rows.some((row) => sameVerifiedSnapshot(row, competency))
-              return <button type="button" key={competency.id} disabled={readOnly} aria-pressed={selected} className={`workflow-competency-option ${selected ? 'selected' : ''}`} onClick={() => onToggleCompetency(competency.id)}><span className="workflow-checkbox" aria-hidden="true">{selected ? <Check size={15} /> : null}</span><span><small>{competency.competencyCode || 'Verified competency'}{competency.sourcePage ? ` · source p. ${competency.sourcePage}` : ''}</small><strong>{competency.competencyText}</strong></span></button>
-            })}</div>
-          </section>)}{!visibleCompetencies.length && <div className="workflow-empty">No verified competencies match this period and search.</div>}</div>
-        </>}
-      </div>
-
-      <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>3</span><div><strong>How large is the test?</strong><small>GuroDesk will distribute whole questions deterministically across your selected competencies.</small></div></div>
-        <div className="workflow-form-grid">
-          <label>Number of questions<input disabled={readOnly} type="number" min="1" max="10000" value={totalItemsInput} onChange={(event) => onTotalItemsChange(event.target.value)} /><small className="workflow-field-help">You can customize weighting and exact allocations before finalizing.</small></label>
+          <div className="workflow-chip-group">
+            <span className="workflow-field-label">School grading term</span>
+            <div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} disabled={readOnly} aria-pressed={record.content.gradingTermId === period.id} className={`workflow-chip ${record.content.gradingTermId === period.id ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermId = period.id; content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">No grading calendar is loaded.</span>}</div>
+          </div>
+          <div className="workflow-chip-group">
+            <span className="workflow-field-label">Curriculum-guide period</span>
+            <div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} disabled={readOnly} aria-pressed={record.content.curriculumPeriodIds.includes(period.id)} className={`workflow-chip ${record.content.curriculumPeriodIds.includes(period.id) ? 'selected' : ''}`} onClick={() => onTogglePeriod(period.id)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div>
+          </div>
+          <div className="workflow-step-footer">
+            <span className="workflow-muted">Step 1 of 3</span>
+            <div className="workflow-step-footer-actions">
+              <button
+                type="button"
+                className="button primary"
+                disabled={!record.content.title.trim()}
+                onClick={() => setStep(2)}
+              >
+                Next: Covered Competencies <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="workflow-summary-card">
-          <div><span>Total questions</span><strong>{totalItems || '—'}</strong></div>
-          <div><span>Competencies</span><strong>{selectedCount}</strong></div>
-          <div><span>Allocation</span><strong>Suggested</strong></div>
+      )}
+
+      {step === 2 && (
+        <div className="workflow-step-card">
+          <div className="workflow-step-heading"><span>2</span><div><strong>What was covered?</strong><small>Select every verified competency you actually taught. Nothing is selected for you.</small></div><span className="workflow-count-badge">{selectedCount} selected</span></div>
+          {!bundle?.available ? (
+            <div className="workflow-warning">
+              <strong>No verified curriculum bundle is available for this class.</strong>
+              <p style={{ marginTop: '4px', fontSize: '11px', opacity: 0.9 }}>{bundle?.coverageNote || 'GuroDesk will not invent competency rows.'}</p>
+            </div>
+          ) : <>
+            <label className="workflow-search"><Search size={16} /><span className="sr-only">Search verified competencies</span><input value={search} onChange={(event) => onSearchChange(event.target.value)} placeholder="Search by code or competency" /></label>
+            <div className="workflow-competency-list">{contentGroups.map((group) => <section className="workflow-curriculum-group" key={group.key}>
+              <header className="workflow-curriculum-group-header"><small>{group.periodLabel}</small><strong>{group.contentArea}</strong></header>
+              {(group.contentStandards.length > 0 || group.performanceStandards.length > 0) && <div className="workflow-curriculum-standards">
+                {group.contentStandards.length > 0 && <div><span>Content standard</span>{group.contentStandards.map((standard) => <p key={standard}>{standard}</p>)}</div>}
+                {group.performanceStandards.length > 0 && <div><span>Performance standard</span>{group.performanceStandards.map((standard) => <p key={standard}>{standard}</p>)}</div>}
+              </div>}
+              <div className="workflow-curriculum-competencies">{group.competencies.map((competency) => {
+                const selected = selectedIds.has(competency.id) || record.content.rows.some((row) => sameVerifiedSnapshot(row, competency))
+                return <button type="button" key={competency.id} disabled={readOnly} aria-pressed={selected} className={`workflow-competency-option ${selected ? 'selected' : ''}`} onClick={() => onToggleCompetency(competency.id)}><span className="workflow-checkbox" aria-hidden="true">{selected ? <Check size={15} /> : null}</span><span><small>{competency.competencyCode || 'Verified competency'}{competency.sourcePage ? ` · source p. ${competency.sourcePage}` : ''}</small><strong>{competency.competencyText}</strong></span></button>
+              })}</div>
+            </section>)}{!visibleCompetencies.length && <div className="workflow-empty">No verified competencies match this period and search.</div>}</div>
+          </>}
+          <div className="workflow-step-footer">
+            <button type="button" className="button ghost" onClick={() => setStep(1)}>
+              <ArrowLeft size={15} /> Back: Setup & Title
+            </button>
+            <div className="workflow-step-footer-actions">
+              <button
+                type="button"
+                className="button primary"
+                disabled={selectedCount === 0}
+                onClick={() => setStep(3)}
+              >
+                Next: Test Size & Allocation <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
         </div>
-        {selectedCount > 0 && <div className="workflow-allocation-list"><div className="workflow-allocation-heading"><strong>Suggested allocation</strong><small>Equal starting weights · deterministic whole-question rounding</small></div>{record.content.rows.map((row) => <div className="workflow-allocation-row" key={row.id}><span>{[row.competency.contentArea, row.competency.code || 'Competency'].filter(Boolean).join(' · ')} · {row.competency.text}</span><strong>{row.itemCount} {row.itemCount === 1 ? 'question' : 'questions'}</strong></div>)}</div>}
-      </div>
+      )}
 
-      {validation && (validation.errors.length > 0 || validation.warnings.length > 0) && <div className="workflow-validation-note" id="tos-simple-validation"><strong>Before finalizing</strong>{validation.errors.slice(0, 6).map((item) => <p key={item.key}><CircleAlert size={14} />{item.message}</p>)}{validation.warnings.slice(0, 4).map((item) => <p className="warning" key={item.key}><CircleAlert size={14} />{item.message}</p>)}</div>}
-      {validation?.ready && <div className="workflow-success-note"><Check size={15} /> This TOS is ready to finalize after you review the suggested allocation.</div>}
+      {step === 3 && (
+        <div className="workflow-step-card">
+          <div className="workflow-step-heading"><span>3</span><div><strong>How large is the test?</strong><small>GuroDesk will distribute whole questions deterministically across your selected competencies.</small></div></div>
+          <div className="workflow-form-grid">
+            <label>Number of questions<input disabled={readOnly} type="number" min="1" max="10000" value={totalItemsInput} onChange={(event) => onTotalItemsChange(event.target.value)} /><small className="workflow-field-help">You can customize weighting and exact allocations before finalizing.</small></label>
+          </div>
+          <div className="workflow-summary-card">
+            <div><span>Total questions</span><strong>{totalItems || '—'}</strong></div>
+            <div><span>Competencies</span><strong>{selectedCount}</strong></div>
+            <div><span>Allocation</span><strong>Suggested</strong></div>
+          </div>
+          {selectedCount > 0 && <div className="workflow-allocation-list"><div className="workflow-allocation-heading"><strong>Suggested allocation</strong><small>Equal starting weights · deterministic whole-question rounding</small></div>{record.content.rows.map((row) => <div className="workflow-allocation-row" key={row.id}><span>{[row.competency.contentArea, row.competency.code || 'Competency'].filter(Boolean).join(' · ')} · {row.competency.text}</span><strong>{row.itemCount} {row.itemCount === 1 ? 'question' : 'questions'}</strong></div>)}</div>}
 
-      {!readOnly && <div className="workflow-actions">
-        <button type="button" className="button ghost" onClick={onCustomize}>Customize allocation</button>
-        <button type="button" className="button secondary" disabled={saving} onClick={onSaveDraft}><Save size={15} /> {saving ? 'Saving…' : 'Save draft'}</button>
-        <button type="button" className="button primary" disabled={saving || !selectedCount || totalItems < 1 || !validation?.ready} onClick={onFinalize}><ShieldCheck size={15} /> {saving ? 'Finalizing…' : 'Finalize TOS'}</button>
-      </div>}
+          {validation && (validation.errors.length > 0 || validation.warnings.length > 0) && <div className="workflow-validation-note" id="tos-simple-validation"><strong>Before finalizing</strong>{validation.errors.slice(0, 6).map((item) => <p key={item.key}><CircleAlert size={14} />{item.message}</p>)}{validation.warnings.slice(0, 4).map((item) => <p className="warning" key={item.key}><CircleAlert size={14} />{item.message}</p>)}</div>}
+          {validation?.ready && <div className="workflow-success-note"><Check size={15} /> This TOS is ready to finalize after you review the suggested allocation.</div>}
+
+          <div className="workflow-step-footer">
+            <button type="button" className="button ghost" onClick={() => setStep(2)}>
+              <ArrowLeft size={15} /> Back: Competencies
+            </button>
+            {!readOnly && (
+              <div className="workflow-step-footer-actions">
+                <button type="button" className="button ghost" onClick={onCustomize}>Customize allocation</button>
+                <button type="button" className="button secondary" disabled={saving} onClick={onSaveDraft}><Save size={15} /> {saving ? 'Saving…' : 'Save draft'}</button>
+                <button type="button" className="button primary" disabled={saving || !selectedCount || totalItems < 1 || !validation?.ready} onClick={onFinalize}><ShieldCheck size={15} /> {saving ? 'Finalizing…' : 'Finalize TOS'}</button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <p className="workflow-footnote">Save draft keeps the TOS editable. Finalize TOS locks this version for assessment generation; duplicate it later if you need an editable copy. Advanced editing keeps weighting, overrides, and cognitive categories available.</p>
     </section>
   )

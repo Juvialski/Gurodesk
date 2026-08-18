@@ -1,4 +1,4 @@
-import { ArrowLeft, BookOpenCheck, Check, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileDown, Lightbulb, Save, Search, ShieldCheck, Sparkles, Star, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpenCheck, Check, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileDown, Lightbulb, Save, Search, ShieldCheck, Sparkles, Star, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AiAssistTextarea } from '../components/AiAssistTextarea'
@@ -21,7 +21,7 @@ import {
   saveLessonPlan,
 } from '../lib/repository'
 import type { CurriculumNavigatorBundle, SchoolYearCalendar } from '../types/curriculum'
-import { LESSON_PLAN_FORMAT_OPTIONS, type AiSupportType, type LessonAiSupportResponse, type LessonPlanContent, type LessonPlanFormat, type LessonPlanRecord, type LessonQuickDraft } from '../types/lessonPlan'
+import { LESSON_PLAN_FORMAT_OPTIONS, type AiSupportType, type LessonAiSupportRequest, type LessonAiSupportResponse, type LessonPlanContent, type LessonPlanFormat, type LessonPlanRecord, type LessonQuickDraft } from '../types/lessonPlan'
 import { createDefaultTeacherLessonPreferences, LESSON_LANGUAGE_OPTIONS, type TeacherLessonPreferences } from '../types/teachingSetup'
 import type { TeacherAssignment } from '../types/app'
 import '../workflows.css'
@@ -160,6 +160,7 @@ type LessonSimpleFlowProps = {
   assignment: TeacherAssignment | null
   bundle: CurriculumNavigatorBundle | null
   calendar: SchoolYearCalendar | null
+  preferences: TeacherLessonPreferences
   filteredCompetencies: CurriculumNavigatorBundle['competencies']
   topicSuggestions: Array<{ id: string; label: string }>
   competencyPickerOpen: boolean
@@ -168,6 +169,12 @@ type LessonSimpleFlowProps = {
   quickDraftLoading: boolean
   quickDraftMessage: string | null
   quickDraftPreview: LessonAiSupportResponse | null
+  validation: ReturnType<typeof validateLessonPlan> | null
+  saving: boolean
+  isNew: boolean
+  isDemo: boolean
+  aiContext: LessonAiSupportRequest['lessonContext']
+  pendingSections: string[]
   onUpdateContent: (mutator: (content: LessonPlanContent) => void) => void
   onAssignmentChange: (id: string) => void
   onSelectPeriod: (label: string) => void
@@ -184,6 +191,11 @@ type LessonSimpleFlowProps = {
   onPrepare: () => void
   onDiscardDraft: () => void
   onApplyDraft: () => void
+  onSave: (status: 'draft' | 'final') => void
+  onConfirmAllAiReview: () => void
+  onSetResources: (value: string) => void
+  onAppendSavedResource: (resource: string) => void
+  onMarkAiUsed: (supportType: AiSupportType) => void
 }
 
 function LessonSimpleFlow({
@@ -193,6 +205,7 @@ function LessonSimpleFlow({
   assignment,
   bundle,
   calendar,
+  preferences,
   filteredCompetencies,
   topicSuggestions,
   competencyPickerOpen,
@@ -201,6 +214,12 @@ function LessonSimpleFlow({
   quickDraftLoading,
   quickDraftMessage,
   quickDraftPreview,
+  validation,
+  saving,
+  isNew,
+  isDemo,
+  aiContext,
+  pendingSections,
   onUpdateContent,
   onAssignmentChange,
   onSelectPeriod,
@@ -217,46 +236,591 @@ function LessonSimpleFlow({
   onPrepare,
   onDiscardDraft,
   onApplyDraft,
+  onSave,
+  onConfirmAllAiReview,
+  onSetResources,
+  onAppendSavedResource,
+  onMarkAiUsed,
 }: LessonSimpleFlowProps) {
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1)
+  const isFinal = plan.status === 'final'
+  const pending = (sectionKey: string) => pendingSections.includes(sectionKey)
+
   return (
     <section className="workflow-simple-shell lesson-simple-flow">
+      {isFinal && (
+        <div className="workflow-finalized-card">
+          <div className="workflow-finalized-badge"><Sparkles size={28} /></div>
+          <div className="workflow-finalized-details">
+            <span className="eyebrow">Lesson Plan Finalized</span>
+            <h3>Ready for teaching and assessment</h3>
+            <p>Your lesson plan is approved and locked. Create an aligned assessment or export your printable document.</p>
+          </div>
+          <div className="workflow-finalized-actions">
+            <Link to={`/assessments/new?lesson=${plan.id}&mode=lesson_quiz`} className="button primary">
+              <Sparkles size={16} /> Create assessment from lesson
+            </Link>
+            <Link to={`/tos/new?lessonPlan=${plan.id}`} className="button secondary">
+              <FileCheck2 size={16} /> Create TOS
+            </Link>
+            <Link to={`/lesson-plans/${plan.id}/print`} className="button ghost">
+              <FileDown size={16} /> Preview / download
+            </Link>
+          </div>
+        </div>
+      )}
+
       <div className="workflow-intro">
         <div>
           <span className="eyebrow">Guided setup</span>
           <h2>Prepare a lesson plan</h2>
-          <p>Start with what you are teaching, then add as much verified curriculum alignment as the lesson needs.</p>
+          <p>Complete each step to create and personalize your DepEd ILAW lesson plan.</p>
         </div>
-        <span className="workflow-step-count">3 short steps</span>
+        <span className="workflow-step-count">Step {step} of 4</span>
       </div>
 
-      <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>1</span><div><strong>Class and lesson setup</strong><small>Curriculum-guide period and school grading term are shown separately.</small></div></div>
-        <div className="workflow-form-grid"><label>Class<select value={assignmentId} disabled={Boolean(plan.id)} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option key={item.id} value={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label></div>
-        <div className="workflow-context-banner"><strong>{assignment?.gradeLevel} {assignment?.learningArea}</strong><span>{assignment?.sections.join(' · ') || 'Class sections'} · {plan.content.schoolYear}</span></div>
-        <div className="workflow-chip-group"><span className="workflow-field-label">Curriculum-guide period</span><div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.curriculumPeriodLabel === period.label} className={`workflow-chip ${plan.content.curriculumPeriodLabel === period.label ? 'selected' : ''}`} onClick={() => onSelectPeriod(period.label)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div></div>
-        <div className="workflow-chip-group"><span className="workflow-field-label">School grading term</span><div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.gradingTermLabel === period.label} className={`workflow-chip ${plan.content.gradingTermLabel === period.label ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">Loading grading terms…</span>}</div></div>
-        <div className="workflow-chip-group"><span className="workflow-field-label">Lesson length</span><div className="workflow-chip-row">{[45, 60, 90].map((minutes) => <button type="button" key={minutes} aria-pressed={plan.content.durationMinutes === minutes} className={`workflow-chip ${plan.content.durationMinutes === minutes ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.durationMinutes = minutes })}>{minutes} min</button>)}</div></div>
-        <div className="workflow-chip-group"><span className="workflow-field-label">Lesson plan type</span><div className="workflow-chip-row workflow-format-chips">{LESSON_PLAN_FORMAT_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={(plan.content.lessonPlanFormat ?? 'ilaw') === item.value} className={`workflow-chip ${((plan.content.lessonPlanFormat ?? 'ilaw') === item.value) ? 'selected' : ''}`} title={item.description} onClick={() => onLessonPlanFormatChange(item.value)}>{item.label}</button>)}</div></div>
-        <div className="workflow-chip-group"><span className="workflow-field-label">Lesson language</span><div className="workflow-chip-row workflow-language-chips">{LESSON_LANGUAGE_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={simpleLanguage === item.value} className={`workflow-chip ${simpleLanguage === item.value ? 'selected' : ''}`} onClick={() => onLanguageChange(item.value)}>{item.label}</button>)}</div></div>
-      </div>
+      <nav className="workflow-wizard-stepper" aria-label="Lesson plan creation steps">
+        <button
+          type="button"
+          className={`workflow-stepper-btn ${step === 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`}
+          onClick={() => setStep(1)}
+        >
+          <span className="workflow-stepper-num">{step > 1 ? <Check size={12} /> : '1'}</span>
+          <span>1. Class Setup</span>
+        </button>
+        <button
+          type="button"
+          className={`workflow-stepper-btn ${step === 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`}
+          onClick={() => setStep(2)}
+        >
+          <span className="workflow-stepper-num">{step > 2 ? <Check size={12} /> : '2'}</span>
+          <span>2. Topic & Focus</span>
+        </button>
+        <button
+          type="button"
+          className={`workflow-stepper-btn ${step === 3 ? 'active' : ''} ${step > 3 ? 'completed' : ''}`}
+          onClick={() => setStep(3)}
+        >
+          <span className="workflow-stepper-num">{step > 3 ? <Check size={12} /> : '3'}</span>
+          <span>3. Alignment & AI</span>
+        </button>
+        <button
+          type="button"
+          className={`workflow-stepper-btn ${step === 4 ? 'active' : ''} ${step === 4 && isFinal ? 'completed' : ''}`}
+          onClick={() => setStep(4)}
+        >
+          <span className="workflow-stepper-num">{isFinal ? <Check size={12} /> : '4'}</span>
+          <span>4. Lesson Content (ILAW)</span>
+        </button>
+      </nav>
 
-      <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>2</span><div><strong>What are you teaching?</strong><small>Enter the topic or lesson focus in the words you use for your class.</small></div></div>
-        <label className="workflow-topic-field"><span>Topic / lesson focus <small>(required)</small></span><input data-testid="lesson-focus-input" value={plan.content.lessonFocus} onChange={(event) => onTopicChange(event.target.value)} placeholder={`e.g. ${assignment?.learningArea === 'Mathematics' ? 'Percentage increase and decrease' : 'A focused lesson topic'}`} /><small>This is the main pedagogical focus. It may cover all, part, or several competencies.</small></label>
-        <div className="workflow-topic-suggestions"><span>Curriculum-derived content areas</span><small className="workflow-muted">These are verified content-area labels, not invented official lesson titles.</small><div className="workflow-chip-row">{topicSuggestions.map((suggestion) => <button type="button" key={suggestion.id} className={`workflow-chip ${plan.content.lessonFocusSource === 'curriculum_derived' && plan.content.lessonFocusSourceId === suggestion.id ? 'selected' : ''}`} onClick={() => onTopicSuggestion(suggestion.id, suggestion.label)}>{suggestion.label}</button>)}</div></div>
-        <span className="workflow-topic-source">{plan.content.lessonFocusSource === 'curriculum_derived' ? <><ShieldCheck size={12} /> Curriculum-derived suggestion</> : <><Sparkles size={12} /> Teacher-entered topic</>}</span>
-      </div>
+      {step === 1 && (
+        <div className="workflow-step-card">
+          <div className="workflow-step-heading"><span>1</span><div><strong>Class and lesson setup</strong><small>Curriculum-guide period and school grading term are shown separately.</small></div></div>
+          <div className="workflow-form-grid"><label>Class<select value={assignmentId} disabled={Boolean(plan.id)} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option key={item.id} value={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label></div>
+          <div className="workflow-context-banner"><strong>{assignment?.gradeLevel} {assignment?.learningArea}</strong><span>{assignment?.sections.join(' · ') || 'Class sections'} · {plan.content.schoolYear}</span></div>
+          <div className="workflow-chip-group"><span className="workflow-field-label">Curriculum-guide period</span><div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.curriculumPeriodLabel === period.label} className={`workflow-chip ${plan.content.curriculumPeriodLabel === period.label ? 'selected' : ''}`} onClick={() => onSelectPeriod(period.label)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div></div>
+          <div className="workflow-chip-group"><span className="workflow-field-label">School grading term</span><div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.gradingTermLabel === period.label} className={`workflow-chip ${plan.content.gradingTermLabel === period.label ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">Loading grading terms…</span>}</div></div>
+          <div className="workflow-chip-group"><span className="workflow-field-label">Lesson length</span><div className="workflow-chip-row">{[45, 60, 90].map((minutes) => <button type="button" key={minutes} aria-pressed={plan.content.durationMinutes === minutes} className={`workflow-chip ${plan.content.durationMinutes === minutes ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.durationMinutes = minutes })}>{minutes} min</button>)}</div></div>
+          <div className="workflow-chip-group"><span className="workflow-field-label">Lesson plan type</span><div className="workflow-chip-row workflow-format-chips">{LESSON_PLAN_FORMAT_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={(plan.content.lessonPlanFormat ?? 'ilaw') === item.value} className={`workflow-chip ${((plan.content.lessonPlanFormat ?? 'ilaw') === item.value) ? 'selected' : ''}`} title={item.description} onClick={() => onLessonPlanFormatChange(item.value)}>{item.label}</button>)}</div></div>
+          <div className="workflow-chip-group"><span className="workflow-field-label">Lesson language</span><div className="workflow-chip-row workflow-language-chips">{LESSON_LANGUAGE_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={simpleLanguage === item.value} className={`workflow-chip ${simpleLanguage === item.value ? 'selected' : ''}`} onClick={() => onLanguageChange(item.value)}>{item.label}</button>)}</div></div>
+          <div className="workflow-step-footer">
+            <span className="workflow-muted">Step 1 of 4</span>
+            <div className="workflow-step-footer-actions">
+              <button type="button" className="button primary" onClick={() => setStep(2)}>
+                Next: Lesson Topic <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      <div className="workflow-step-card">
-        <div className="workflow-step-heading"><span>3</span><div><strong>Curriculum alignment</strong><small>Select zero, one, or several verified competencies. Choose one primary competency when several apply.</small></div><span className="workflow-count-badge">{plan.content.curriculumAlignments.length} selected</span></div>
-        <AlignmentPicker plan={plan} bundle={bundle} competencies={filteredCompetencies} open={competencyPickerOpen} search={competencySearch} onToggleOpen={onToggleCompetencyPicker} onClose={onCloseCompetencyPicker} onSearchChange={onCompetencySearchChange} onToggleCompetency={onToggleCompetency} onSetPrimary={onSetPrimary} onRemove={onRemoveCompetency} />
-        <AlignmentModePanel plan={plan} onUpdateContent={onUpdateContent} />
-      </div>
+      {step === 2 && (
+        <div className="workflow-step-card">
+          <div className="workflow-step-heading"><span>2</span><div><strong>What are you teaching?</strong><small>Enter the topic or lesson focus in the words you use for your class.</small></div></div>
+          <label className="workflow-topic-field"><span>Topic / lesson focus <small>(required)</small></span><input data-testid="lesson-focus-input" value={plan.content.lessonFocus} onChange={(event) => onTopicChange(event.target.value)} placeholder={`e.g. ${assignment?.learningArea === 'Mathematics' ? 'Percentage increase and decrease' : 'A focused lesson topic'}`} /><small>This is the main pedagogical focus. It may cover all, part, or several competencies.</small></label>
+          <div className="workflow-topic-suggestions"><span>Curriculum-derived content areas</span><small className="workflow-muted">These are verified content-area labels, not invented official lesson titles.</small><div className="workflow-chip-row">{topicSuggestions.map((suggestion) => <button type="button" key={suggestion.id} className={`workflow-chip ${plan.content.lessonFocusSource === 'curriculum_derived' && plan.content.lessonFocusSourceId === suggestion.id ? 'selected' : ''}`} onClick={() => onTopicSuggestion(suggestion.id, suggestion.label)}>{suggestion.label}</button>)}</div></div>
+          <span className="workflow-topic-source">{plan.content.lessonFocusSource === 'curriculum_derived' ? <><ShieldCheck size={12} /> Curriculum-derived suggestion</> : <><Sparkles size={12} /> Teacher-entered topic</>}</span>
+          <div className="workflow-step-footer">
+            <button type="button" className="button ghost" onClick={() => setStep(1)}>
+              <ArrowLeft size={15} /> Back
+            </button>
+            <div className="workflow-step-footer-actions">
+              <button
+                type="button"
+                className="button primary"
+                disabled={!plan.content.lessonFocus.trim()}
+                onClick={() => setStep(3)}
+              >
+                Next: Curriculum Alignment <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      {quickDraftMessage && <div className="workflow-warning">{quickDraftMessage}</div>}
-      {quickDraftPreview?.draft && <div className="workflow-review-card"><div className="workflow-review-heading"><div><strong>Review your lesson plan draft</strong><small>Only empty planning fields are suggested. Check that each idea fits your real class.</small></div><span>{quickDraftPreview.model === 'demo-local-preview' ? 'Preview' : 'AI draft'}</span></div><div className="workflow-review-list">{QUICK_DRAFT_LABELS.map(([key, label]) => quickDraftPreview.draft?.[key] ? <div key={key}><strong>{label}</strong><p>{quickDraftPreview.draft[key]}</p></div> : null)}</div><div className="workflow-actions"><button type="button" className="button ghost" onClick={onDiscardDraft}>Discard</button><button type="button" className="button primary" onClick={onApplyDraft}><CheckCircle2 size={15} /> Apply to empty fields</button></div></div>}
-      <div className="workflow-actions lesson-simple-actions"><button type="button" className="button primary" disabled={quickDraftLoading || plan.content.lessonFocus.trim().length < 3 || (plan.content.curriculumAlignments.length === 0 && !hasExplicitTopicOnlyPurpose(plan.content))} onClick={onPrepare}>{quickDraftLoading ? 'Preparing…' : 'Prepare lesson plan'} <ArrowRightIcon /></button></div>
-      <p className="workflow-footnote">AI assistance is optional. Your existing text is never overwritten, and resources or references are not invented. Review and adapt the draft before using it.</p>
+      {step === 3 && (
+        <div className="workflow-step-card">
+          <div className="workflow-step-heading"><span>3</span><div><strong>Curriculum alignment</strong><small>Select zero, one, or several verified competencies. Choose one primary competency when several apply.</small></div><span className="workflow-count-badge">{plan.content.curriculumAlignments.length} selected</span></div>
+          <AlignmentPicker plan={plan} bundle={bundle} competencies={filteredCompetencies} open={competencyPickerOpen} search={competencySearch} onToggleOpen={onToggleCompetencyPicker} onClose={onCloseCompetencyPicker} onSearchChange={onCompetencySearchChange} onToggleCompetency={onToggleCompetency} onSetPrimary={onSetPrimary} onRemove={onRemoveCompetency} />
+          <AlignmentModePanel plan={plan} onUpdateContent={onUpdateContent} />
+
+          {quickDraftMessage && <div className="workflow-warning">{quickDraftMessage}</div>}
+          {quickDraftPreview?.draft && (
+            <div className="workflow-review-card">
+              <div className="workflow-review-heading">
+                <div>
+                  <strong>Review your lesson plan draft</strong>
+                  <small>Only empty planning fields are suggested. Check that each idea fits your real class.</small>
+                </div>
+                <span>{quickDraftPreview.model === 'demo-local-preview' ? 'Preview' : 'AI draft'}</span>
+              </div>
+              <div className="workflow-review-list">
+                {QUICK_DRAFT_LABELS.map(([key, label]) => quickDraftPreview.draft?.[key] ? (
+                  <div key={key}>
+                    <strong>{label}</strong>
+                    <p>{quickDraftPreview.draft[key]}</p>
+                  </div>
+                ) : null)}
+              </div>
+              <div className="workflow-actions">
+                <button type="button" className="button ghost" onClick={onDiscardDraft}>Discard</button>
+                <button type="button" className="button primary" onClick={() => {
+                  onApplyDraft()
+                  setStep(4)
+                }}>
+                  <CheckCircle2 size={15} /> Apply to empty fields & continue
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="workflow-step-footer">
+            <button type="button" className="button ghost" onClick={() => setStep(2)}>
+              <ArrowLeft size={15} /> Back
+            </button>
+            <div className="workflow-step-footer-actions">
+              <button
+                type="button"
+                className="button secondary"
+                disabled={quickDraftLoading || plan.content.lessonFocus.trim().length < 3 || (plan.content.curriculumAlignments.length === 0 && !hasExplicitTopicOnlyPurpose(plan.content))}
+                onClick={onPrepare}
+              >
+                {quickDraftLoading ? <span className="mini-spinner" /> : <Lightbulb size={15} />}
+                {quickDraftLoading ? 'Preparing…' : 'Prepare Quick Draft'}
+              </button>
+              <button type="button" className="button primary" onClick={() => setStep(4)}>
+                Next: Lesson Content (ILAW) <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {step === 4 && (
+        <div className="lesson-simple-sections">
+          <div className="lesson-simple-sections-header">
+            <h2>Lesson plan content (ILAW)</h2>
+            <p>Review and refine all four ILAW sections. GuroDesk never auto-fills specific books or physical equipment without your verification.</p>
+          </div>
+
+          {/* I - Intentions */}
+          <div className="lesson-simple-ilaw-card">
+            <div className="editor-section-head">
+              <div>
+                <span className="ilaw-letter intentions">I</span>
+                <div>
+                  <span className="eyebrow">ILAW Phase 1</span>
+                  <h2>Intentions</h2>
+                </div>
+              </div>
+            </div>
+            <div className="form-grid two">
+              <label className={pending('lessonTitle') ? 'pending-control' : ''}>
+                <span>Lesson title</span>
+                <input
+                  value={plan.content.lessonTitle}
+                  onChange={(event) => onUpdateContent((c) => { c.lessonTitle = event.target.value })}
+                  placeholder="Teacher-chosen lesson title"
+                />
+                {pending('lessonTitle') && <small className="pending-review-label">Quick Draft · review</small>}
+              </label>
+            </div>
+
+            {preferences.typicalClassProfile && !plan.content.learnerContext.trim() && (
+              <div className="saved-setup-callout">
+                <span>Saved class profile available</span>
+                <button className="button ghost" onClick={() => onUpdateContent((c) => { c.learnerContext = preferences.typicalClassProfile })}>
+                  Use saved profile
+                </button>
+              </div>
+            )}
+            <AiAssistTextarea
+              label="Learner context / readiness"
+              sectionKey="learnerContext"
+              value={plan.content.learnerContext}
+              onChange={(value) => onUpdateContent((c) => { c.learnerContext = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              placeholder="What do you know about this class that should shape the lesson? Avoid learner names or sensitive personal data."
+              help="Teacher-provided class-level context only. AI does not invent learner needs."
+            />
+            <AiAssistTextarea
+              label="Learning objectives"
+              sectionKey="intentions.learningObjectives"
+              value={plan.content.intentions.learningObjectives}
+              onChange={(value) => onUpdateContent((c) => { c.intentions.learningObjectives = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              placeholder="Choose, edit, or write the focused objectives you want learners to demonstrate."
+              help="GuroDesk can propose alternatives centered on the topic and grounded in selected verified competencies; you choose and adapt the final objectives."
+              suggestionType="suggest_learning_objectives"
+              suggestionLabel="Suggest objectives"
+              pendingQuickDraft={pending('intentions.learningObjectives')}
+            />
+          </div>
+
+          {/* L — Learning Experience */}
+          <div className="lesson-simple-ilaw-card ilaw-section learning-section">
+            <div className="editor-section-head">
+              <div>
+                <span className="ilaw-letter">L</span>
+                <div>
+                  <span className="eyebrow">Learning Experience</span>
+                  <h2>How learners will engage and learn</h2>
+                </div>
+              </div>
+              <span className="teacher-decision-chip">Teacher approves</span>
+            </div>
+
+            <div className="teacher-resource-field">
+              <div className="field-label-row">
+                <span>Learning resources</span>
+                <small>Teacher-verified only</small>
+              </div>
+              <textarea
+                rows={4}
+                value={plan.content.learningExperience.resources}
+                onChange={(event) => onSetResources(event.target.value)}
+                placeholder="Enter only materials, books, modules, devices, or other resources you will actually use."
+              />
+              {preferences.actualResources.length > 0 && (
+                <div className="saved-resource-chips">
+                  <span>From My teaching setup:</span>
+                  {preferences.actualResources.map((resource) => (
+                    <button type="button" key={resource} onClick={() => onAppendSavedResource(resource)}>
+                      + {resource}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className="resource-actions">
+                <button
+                  type="button"
+                  className="button ghost"
+                  onClick={() => onUpdateContent((c) => { c.learningExperience.resources = 'No additional learning resources required.'; c.resourcesVerifiedByTeacher = true })}
+                >
+                  No additional resources
+                </button>
+                <label className="review-check">
+                  <input
+                    type="checkbox"
+                    checked={plan.content.resourcesVerifiedByTeacher}
+                    onChange={(event) => onUpdateContent((c) => { c.resourcesVerifiedByTeacher = event.target.checked })}
+                  />
+                  I verified these are resources I actually use for this lesson.
+                </label>
+              </div>
+              <small className="field-help">AI suggestions are constrained by the resources and technology you entered in Settings, but this field itself is never AI-filled.</small>
+            </div>
+
+            <AiAssistTextarea
+              label="Pre-lesson activity"
+              sectionKey="learningExperience.preLessonActivity"
+              value={plan.content.learningExperience.preLessonActivity}
+              onChange={(value) => onUpdateContent((c) => { c.learningExperience.preLessonActivity = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={4}
+              placeholder="Brief readiness check, routine, or prior-knowledge activation"
+              suggestionType="suggest_pre_lesson"
+              suggestionLabel="Suggest openings"
+              pendingQuickDraft={pending('learningExperience.preLessonActivity')}
+            />
+            <AiAssistTextarea
+              label="Lesson flow"
+              sectionKey="learningExperience.lessonFlow"
+              value={plan.content.learningExperience.lessonFlow}
+              onChange={(value) => onUpdateContent((c) => { c.learningExperience.lessonFlow = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={8}
+              placeholder="Choose or write the sequence, interactions, prompts, practice, and adjustments you intend to use."
+              help="Suggestions use the lesson topic, selected verified alignments, available time, and saved teaching preferences."
+              suggestionType="suggest_lesson_flow"
+              suggestionLabel="Suggest lesson flows"
+              pendingQuickDraft={pending('learningExperience.lessonFlow')}
+            />
+            <AiAssistTextarea
+              label="Integration & contextualization"
+              sectionKey="learningExperience.integrationContextualization"
+              value={plan.content.learningExperience.integrationContextualization}
+              onChange={(value) => onUpdateContent((c) => { c.learningExperience.integrationContextualization = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={4}
+              placeholder="Real-life, local, cultural, community, technology, or cross-learning-area connections"
+              suggestionType="suggest_contextualization"
+              suggestionLabel="Suggest contexts"
+              pendingQuickDraft={pending('learningExperience.integrationContextualization')}
+            />
+            <AiAssistTextarea
+              label="Inclusion / accommodations"
+              sectionKey="learningExperience.inclusionAccommodations"
+              value={plan.content.learningExperience.inclusionAccommodations}
+              onChange={(value) => onUpdateContent((c) => { c.learningExperience.inclusionAccommodations = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={4}
+              placeholder="Classroom-level supports, accommodations, or modifications where applicable"
+              suggestionType="suggest_inclusion"
+              suggestionLabel="Suggest supports"
+              pendingQuickDraft={pending('learningExperience.inclusionAccommodations')}
+            />
+            <AiAssistTextarea
+              label="Home-based / Hinay alternative"
+              sectionKey="learningExperience.homeBasedAlternative"
+              value={plan.content.learningExperience.homeBasedAlternative}
+              onChange={(value) => onUpdateContent((c) => { c.learningExperience.homeBasedAlternative = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={3}
+              placeholder="Alternative activity if face-to-face instruction is interrupted"
+              suggestionType="suggest_home_alternative"
+              suggestionLabel="Suggest alternatives"
+              pendingQuickDraft={pending('learningExperience.homeBasedAlternative')}
+            />
+          </div>
+
+          {/* A — Assessing Learning */}
+          <div className="lesson-simple-ilaw-card ilaw-section assessment-section">
+            <div className="editor-section-head">
+              <div>
+                <span className="ilaw-letter">A</span>
+                <div>
+                  <span className="eyebrow">Assessing Learning</span>
+                  <h2>Evidence gathered during learning</h2>
+                </div>
+              </div>
+              <span className="teacher-decision-chip">Teacher approves</span>
+            </div>
+
+            <AiAssistTextarea
+              label="Formative assessments"
+              sectionKey="assessingLearning.formativeAssessments"
+              value={plan.content.assessingLearning.formativeAssessments}
+              onChange={(value) => onUpdateContent((c) => { c.assessingLearning.formativeAssessments = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={6}
+              placeholder="Checks you will use throughout the session"
+              suggestionType="suggest_formative_assessment"
+              suggestionLabel="Suggest checks"
+              pendingQuickDraft={pending('assessingLearning.formativeAssessments')}
+            />
+            <AiAssistTextarea
+              label="What evidence will show learning?"
+              sectionKey="assessingLearning.evidenceOfLearning"
+              value={plan.content.assessingLearning.evidenceOfLearning}
+              onChange={(value) => onUpdateContent((c) => { c.assessingLearning.evidenceOfLearning = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={4}
+              placeholder="Describe the evidence you will look for before moving forward."
+              suggestionType="suggest_evidence_of_learning"
+              suggestionLabel="Suggest evidence"
+              pendingQuickDraft={pending('assessingLearning.evidenceOfLearning')}
+            />
+          </div>
+
+          {/* W — Ways Forward */}
+          <div className="lesson-simple-ilaw-card ilaw-section ways-section">
+            <div className="editor-section-head">
+              <div>
+                <span className="ilaw-letter">W</span>
+                <div>
+                  <span className="eyebrow">Ways Forward</span>
+                  <h2>Reflection and next instructional steps</h2>
+                </div>
+              </div>
+              <span className="teacher-decision-chip">Teacher judgment</span>
+            </div>
+
+            <AiAssistTextarea
+              label="Next steps / intervention"
+              sectionKey="waysForward.nextSteps"
+              value={plan.content.waysForward.nextSteps}
+              onChange={(value) => onUpdateContent((c) => { c.waysForward.nextSteps = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={5}
+              placeholder="Reteaching, remediation, enrichment, adjustment, or next lesson decision"
+              suggestionType="suggest_next_steps"
+              suggestionLabel="Suggest contingencies"
+              pendingQuickDraft={pending('waysForward.nextSteps')}
+            />
+            <AiAssistTextarea
+              label="Extended learning opportunities"
+              sectionKey="waysForward.extendedLearning"
+              value={plan.content.waysForward.extendedLearning}
+              onChange={(value) => onUpdateContent((c) => { c.waysForward.extendedLearning = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={4}
+              placeholder="Optional reinforcement, enrichment, or remediation beyond the session"
+              suggestionType="suggest_extended_learning"
+              suggestionLabel="Suggest extensions"
+              pendingQuickDraft={pending('waysForward.extendedLearning')}
+            />
+            <AiAssistTextarea
+              label="Reflection"
+              sectionKey="waysForward.reflection"
+              value={plan.content.waysForward.reflection}
+              onChange={(value) => onUpdateContent((c) => { c.waysForward.reflection = value })}
+              isDemo={isDemo}
+              context={aiContext}
+              onAiUsed={onMarkAiUsed}
+              documentId={plan.id || undefined}
+              rows={5}
+              placeholder="After teaching, record what the evidence showed and what you noticed."
+              help="Reflection stays teacher-authored because it describes what actually happened. AI may polish your wording afterward."
+            />
+          </div>
+
+          {/* ILAW Self-Check & Quality Summary */}
+          <div className="lesson-simple-quality-card">
+            <span className="eyebrow">ILAW self-check</span>
+            <div className="validation-score">
+              <strong>{validation?.score ?? 0}%</strong>
+              <span>{validation?.ready ? 'Ready to finalize' : 'Draft needs attention'}</span>
+            </div>
+            <div className="validation-list">
+              {validation?.items.map((item) => (
+                <div className={`validation-item ${item.passed ? 'passed' : ''}`} key={item.key}>
+                  {item.passed ? <CheckCircle2 size={15} /> : <CircleAlert size={15} />}
+                  <div>
+                    <strong>{item.label}</strong>
+                    <small>{item.detail}</small>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Simple Mode Save & Export Action Panel */}
+          <div className="lesson-simple-actions-card">
+            <div className="current-status">
+              <FileCheck2 size={16} />
+              <strong>Document status: {plan.status}</strong>
+            </div>
+
+            <div className="lesson-simple-actions-row">
+              <button
+                type="button"
+                className="button primary"
+                disabled={saving}
+                onClick={() => onSave('draft')}
+              >
+                <Save size={16} /> Save draft
+              </button>
+
+              <button
+                type="button"
+                className="button secondary"
+                disabled={saving || !validation?.ready}
+                onClick={() => onSave('final')}
+              >
+                <CheckCircle2 size={16} /> Mark final
+              </button>
+
+              {plan.id ? (
+                <Link to={`/lesson-plans/${plan.id}/print`} className="button ghost">
+                  <FileDown size={16} /> Preview / download
+                </Link>
+              ) : (
+                <button type="button" className="button ghost" disabled>
+                  <FileDown size={16} /> Save before export
+                </button>
+              )}
+
+              {plan.status === 'final' && (
+                <Link to={`/assessments/new?lesson=${plan.id}&mode=lesson_quiz`} className="button accent">
+                  <Sparkles size={16} /> Create assessment
+                </Link>
+              )}
+            </div>
+
+            {pendingSections.length > 0 && (
+              <div className="quick-draft-pending">
+                <CircleAlert size={16} />
+                <div>
+                  <strong>{pendingSections.length} Quick Draft section{pendingSections.length === 1 ? '' : 's'} need your review</strong>
+                  <p>Edit anything you want, then confirm when the suggested text matches your actual class and intended instruction.</p>
+                </div>
+                <button type="button" className="button secondary" onClick={onConfirmAllAiReview}>
+                  <CheckCircle2 size={15} /> I reviewed all
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="workflow-step-footer">
+            <button type="button" className="button ghost" onClick={() => setStep(3)}>
+              <ArrowLeft size={15} /> Back: Alignment & AI
+            </button>
+            <div className="workflow-step-footer-actions">
+              <button
+                type="button"
+                className="button secondary"
+                disabled={saving}
+                onClick={() => onSave('draft')}
+              >
+                <Save size={16} /> Save draft
+              </button>
+              <button
+                type="button"
+                className="button primary"
+                disabled={saving || !validation?.ready}
+                onClick={() => onSave('final')}
+              >
+                <CheckCircle2 size={16} /> Mark final
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
@@ -701,49 +1265,79 @@ export function LessonPlanEditorPage() {
         eyebrow="ILAW lesson planning · Phase 3.6.3"
         title={isNew ? 'New lesson plan' : plan.title || 'Lesson plan'}
         description="Start with a lesson topic, add optional verified curriculum alignment, and review every planning decision before teaching."
-        actions={<div className="editor-header-actions"><SimpleAdvancedToggle mode={viewMode} onChange={setViewMode} /> <Link to="/lesson-plans" className="button ghost"><ArrowLeft size={15} /> Back</Link><button className="button primary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button></div>}
+        actions={
+          <div className="editor-header-actions">
+            <SimpleAdvancedToggle mode={viewMode} onChange={setViewMode} />
+            <Link to="/lesson-plans" className="button ghost"><ArrowLeft size={15} /> Back</Link>
+            <button className="button primary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button>
+            {plan.id && (
+              <Link to={`/lesson-plans/${plan.id}/print`} className="button secondary">
+                <FileDown size={15} /> Preview / download
+              </Link>
+            )}
+            {plan.status === 'final' && (
+              <Link to={`/assessments/new?lesson=${plan.id}&mode=lesson_quiz`} className="button accent">
+                <Sparkles size={15} /> Create assessment
+              </Link>
+            )}
+          </div>
+        }
       />
 
       {error && <div className="editor-alert error"><CircleAlert size={15} /> {error}</div>}
       {savedMessage && <div className="editor-alert success"><CheckCircle2 size={15} /> {savedMessage}</div>}
 
-      {viewMode === 'simple' ? <LessonSimpleFlow
-        plan={plan}
-        assignments={assignments}
-        assignmentId={assignmentId}
-        assignment={assignment}
-        bundle={bundle}
-        calendar={calendar}
-        filteredCompetencies={filteredCompetencies}
-        topicSuggestions={topicSuggestions}
-        competencyPickerOpen={competencyPickerOpen}
-        competencySearch={competencySearch}
-        simpleLanguage={simpleLanguage}
-        quickDraftLoading={quickDraftLoading}
-        quickDraftMessage={quickDraftMessage}
-        quickDraftPreview={quickDraftPreview}
-        onUpdateContent={updateContent}
-        onAssignmentChange={changeAssignment}
-        onSelectPeriod={selectCurriculumPeriod}
-        onLessonPlanFormatChange={(value) => updateContent((content) => {
-          content.lessonPlanFormat = value
-          if (value === 'daily_lesson_log') content.numberOfSessions = 4
-        })}
-        onTopicChange={changeLessonFocus}
-        onTopicSuggestion={useTopicSuggestion}
-        onToggleCompetency={toggleCompetency}
-        onSetPrimary={setPrimaryCompetency}
-        onRemoveCompetency={removeCompetency}
-        onToggleCompetencyPicker={() => setCompetencyPickerOpen((open) => !open)}
-        onCloseCompetencyPicker={() => { setCompetencyPickerOpen(false); setCompetencySearch('') }}
-        onCompetencySearchChange={setCompetencySearch}
-        onLanguageChange={(value) => {
-          updateContent((content) => { content.lessonLanguage = value })
-        }}
-        onPrepare={() => void prepareQuickDraft()}
-        onDiscardDraft={() => setQuickDraftPreview(null)}
-        onApplyDraft={applyQuickDraft}
-      /> : <>
+      {viewMode === 'simple' ? (
+        <LessonSimpleFlow
+          plan={plan}
+          assignments={assignments}
+          assignmentId={assignmentId}
+          assignment={assignment}
+          bundle={bundle}
+          calendar={calendar}
+          preferences={preferences}
+          filteredCompetencies={filteredCompetencies}
+          topicSuggestions={topicSuggestions}
+          competencyPickerOpen={competencyPickerOpen}
+          competencySearch={competencySearch}
+          simpleLanguage={simpleLanguage}
+          quickDraftLoading={quickDraftLoading}
+          quickDraftMessage={quickDraftMessage}
+          quickDraftPreview={quickDraftPreview}
+          validation={validation}
+          saving={saving}
+          isNew={isNew}
+          isDemo={isDemo}
+          aiContext={aiContext}
+          pendingSections={pendingSections}
+          onUpdateContent={updateContent}
+          onAssignmentChange={changeAssignment}
+          onSelectPeriod={selectCurriculumPeriod}
+          onLessonPlanFormatChange={(value) => updateContent((content) => {
+            content.lessonPlanFormat = value
+            if (value === 'daily_lesson_log') content.numberOfSessions = 4
+          })}
+          onTopicChange={changeLessonFocus}
+          onTopicSuggestion={useTopicSuggestion}
+          onToggleCompetency={toggleCompetency}
+          onSetPrimary={setPrimaryCompetency}
+          onRemoveCompetency={removeCompetency}
+          onToggleCompetencyPicker={() => setCompetencyPickerOpen((open) => !open)}
+          onCloseCompetencyPicker={() => { setCompetencyPickerOpen(false); setCompetencySearch('') }}
+          onCompetencySearchChange={setCompetencySearch}
+          onLanguageChange={(value) => {
+            updateContent((content) => { content.lessonLanguage = value })
+          }}
+          onPrepare={() => void prepareQuickDraft()}
+          onDiscardDraft={() => setQuickDraftPreview(null)}
+          onApplyDraft={applyQuickDraft}
+          onSave={(status) => void save(status)}
+          onConfirmAllAiReview={confirmAllAiReview}
+          onSetResources={setResources}
+          onAppendSavedResource={appendSavedResource}
+          onMarkAiUsed={markAiUsed}
+        />
+      ) : <>
       <section className="policy-banner panel warning">
         <span className="policy-banner-icon"><ShieldCheck size={20} /></span>
         <div><strong>AI suggestions are starting points</strong><p>{LESSON_PLANNING_POLICY.aiRule} GuroDesk never auto-fills specific books, page numbers, materials, or devices.</p></div>

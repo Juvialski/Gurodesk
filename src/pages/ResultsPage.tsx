@@ -1,4 +1,4 @@
-import { ArrowRight, ClipboardList, FileCheck2, FlaskConical, Plus, UsersRound } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, ClipboardList, FileCheck2, FlaskConical, Plus, UsersRound } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
@@ -43,6 +43,7 @@ export function ResultsPage() {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [openNew, setOpenNew] = useState(false)
+  const [entryStep, setEntryStep] = useState<1 | 2>(1)
   const [assessmentId, setAssessmentId] = useState('')
   const [assignmentId, setAssignmentId] = useState(selection.assignmentId ?? '')
   const [sectionName, setSectionName] = useState(selection.section ?? '')
@@ -148,6 +149,7 @@ export function ResultsPage() {
 
   function beginNew() {
     setOpenNew(true)
+    setEntryStep(1)
     setLearnersOpen(false)
     if (!assignmentId) setAssignmentId(assignments.find((assignment) => assignment.id === selection.assignmentId && assignment.isActive)?.id ?? assignments.find((assignment) => assignment.isActive)?.id ?? assignments[0]?.id ?? '')
   }
@@ -216,31 +218,121 @@ export function ResultsPage() {
     </section>
 
     {openNew && <section className={`panel results-setup-panel workflow-results-setup ${viewMode}`}>
-      <div className="results-section-heading"><div><span className="eyebrow">Start entering results</span><h2>Enter results</h2><p>Choose one finalized assessment and one class. Active learners are selected by default, and you can change that under Choose learners.</p></div><button className="button ghost" type="button" onClick={() => setOpenNew(false)}>Close</button></div>
-      <div className="results-form-grid">
-        <label>{viewMode === 'simple' ? 'Assessment' : 'Finalized assessment'}<select value={assessmentId} onChange={(event) => {
-          const nextId = event.target.value
-          setAssessmentId(nextId)
-          const target = compatibleAssessments.find((a) => a.id === nextId)
-          if (target?.mode === 'performance_task' || Boolean(target?.performanceTask)) setEntryMode('rubric')
-          else if (entryMode === 'rubric') setEntryMode('answer_sheet')
-        }}><option value="">Choose assessment</option>{compatibleAssessments.map((assessment) => <option value={assessment.id} key={assessment.id}>{assessment.title} · {assessment.mode === 'performance_task' ? 'Performance Task (Rubric)' : `${assessment.items.length} items`}</option>)}</select>{viewMode === 'simple' && <small className="workflow-field-help">Only finalized assessments appear.</small>}</label>
-        <label>{viewMode === 'simple' ? 'Class' : 'Assignment'}<select value={assignmentId} onChange={(event) => setAssignmentId(event.target.value)}><option value="">Choose class</option>{assignments.filter((assignment) => assignment.isActive).map((assignment) => <option value={assignment.id} key={assignment.id}>{assignment.gradeLevel} · {assignment.learningArea}</option>)}</select></label>
-        <label>Section<select value={sectionName} onChange={(event) => setSectionName(event.target.value)} disabled={!selectedAssignment}><option value="">Choose section</option>{selectedAssignment?.sections.map((section) => <option value={section} key={section}>{section}</option>)}</select></label>
-        {viewMode === 'advanced' && <><label>Administration date<input type="date" value={administrationDate} onChange={(event) => setAdministrationDate(event.target.value)} /></label><label className="results-form-wide">Title (optional)<input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="e.g., Quiz 1 results" /></label></>}
+      <div className="results-section-heading">
+        <div>
+          <span className="eyebrow">Start entering results</span>
+          <h2>Enter results</h2>
+          <p>Choose one finalized assessment and one class. Active learners are selected by default.</p>
+        </div>
+        <button className="button ghost" type="button" onClick={() => setOpenNew(false)}>Close</button>
       </div>
-      <div className="results-mode-picker"><strong>{viewMode === 'simple' ? 'How do you want to enter results?' : 'Encoding mode'}</strong><div className="results-segmented" role="group" aria-label="Result entry method">{(
-        isPerformanceTaskAssessment
-          ? [['rubric', 'Rubric scoring', 'Score 4-level criteria & qualitative notes']]
-          : [
-            ['answer_sheet', 'Enter answers', 'Best for objective tests'],
-            ['item', 'Enter by question', 'Check one item across the class'],
-            ['score_only', 'Enter scores only', 'Item analysis will be limited'],
-          ]
-      ).map(([value, label, hint]) => <button type="button" key={value} className={entryMode === value ? 'selected' : ''} onClick={() => setEntryMode(value as AssessmentResultSession['entryMode'])}><strong>{label}</strong><small>{hint}</small></button>)}</div></div>
-      <div className="results-learner-selection"><div className="results-section-heading compact"><div><h3>{viewMode === 'simple' ? 'Choose learners' : `Active learners in ${sectionName || 'this section'}`}</h3><p>{selectedLearners.length} of {totalActiveLearners} selected · all active learners start selected.</p></div><div className="results-inline-actions">{viewMode === 'simple' && <button className="button ghost" type="button" onClick={() => setLearnersOpen((open) => !open)}>{learnersOpen ? 'Hide learners' : 'Choose learners'}</button>}{(viewMode === 'advanced' || learnersOpen) && <><button className="text-button" type="button" onClick={() => setSelectedLearners(learners.filter((learner) => learner.status === 'active').map((learner) => learner.id))}>Select all</button><button className="text-button" type="button" onClick={() => setSelectedLearners([])}>Clear</button></>}</div></div>{(viewMode === 'advanced' || learnersOpen) && <div className="results-selection-grid">{learners.filter((learner) => learner.status === 'active').map((learner) => <label key={learner.id} className="results-selection-chip"><input type="checkbox" checked={selectedLearners.includes(learner.id)} onChange={(event) => setSelectedLearners((current) => event.target.checked ? [...current, learner.id] : current.filter((id) => id !== learner.id))} /><span>{learner.displayName}</span></label>)}</div>}{learners.length === 0 && <p className="results-muted">No learners yet. <Link to={`/results/roster/${assignmentId}/${encodeURIComponent(sectionName)}`}>Open roster</Link> to add them.</p>}</div>
-      {entryMode === 'score_only' && <p className="workflow-limit-note">Scores-only entry is fastest when papers are already checked. Per-question item analysis will be limited.</p>}
-      <div className="results-form-footer"><Link className="button ghost" to={`/results/roster/${assignmentId}/${encodeURIComponent(sectionName)}`}>Manage roster</Link><button className="button primary" type="button" disabled={working || rosterLoading || !selectedLearners.length} onClick={() => void create()}>{working ? 'Starting…' : rosterLoading ? 'Loading learners…' : 'Start entering results'} <ArrowRight size={15} /></button></div>
+
+      {viewMode === 'simple' && (
+        <nav className="workflow-wizard-stepper" aria-label="Result entry steps">
+          <button
+            type="button"
+            className={`workflow-stepper-btn ${entryStep === 1 ? 'active' : ''} ${entryStep > 1 ? 'completed' : ''}`}
+            onClick={() => setEntryStep(1)}
+          >
+            <span className="workflow-stepper-num">{entryStep > 1 ? <Check size={12} /> : '1'}</span>
+            <span>1. Assessment & Method</span>
+          </button>
+          <button
+            type="button"
+            className={`workflow-stepper-btn ${entryStep === 2 ? 'active' : ''}`}
+            onClick={() => setEntryStep(2)}
+          >
+            <span className="workflow-stepper-num">2</span>
+            <span>2. Confirm Learners ({selectedLearners.length})</span>
+          </button>
+        </nav>
+      )}
+
+      {(viewMode === 'advanced' || entryStep === 1) && (
+        <>
+          <div className="results-form-grid">
+            <label>{viewMode === 'simple' ? 'Assessment' : 'Finalized assessment'}<select value={assessmentId} onChange={(event) => {
+              const nextId = event.target.value
+              setAssessmentId(nextId)
+              const target = compatibleAssessments.find((a) => a.id === nextId)
+              if (target?.mode === 'performance_task' || Boolean(target?.performanceTask)) setEntryMode('rubric')
+              else if (entryMode === 'rubric') setEntryMode('answer_sheet')
+            }}><option value="">Choose assessment</option>{compatibleAssessments.map((assessment) => <option value={assessment.id} key={assessment.id}>{assessment.title} · {assessment.mode === 'performance_task' ? 'Performance Task (Rubric)' : `${assessment.items.length} items`}</option>)}</select>{viewMode === 'simple' && <small className="workflow-field-help">Only finalized assessments appear.</small>}</label>
+            <label>{viewMode === 'simple' ? 'Class' : 'Assignment'}<select value={assignmentId} onChange={(event) => setAssignmentId(event.target.value)}><option value="">Choose class</option>{assignments.filter((assignment) => assignment.isActive).map((assignment) => <option value={assignment.id} key={assignment.id}>{assignment.gradeLevel} · {assignment.learningArea}</option>)}</select></label>
+            <label>Section<select value={sectionName} onChange={(event) => setSectionName(event.target.value)} disabled={!selectedAssignment}><option value="">Choose section</option>{selectedAssignment?.sections.map((section) => <option value={section} key={section}>{section}</option>)}</select></label>
+            {viewMode === 'advanced' && <><label>Administration date<input type="date" value={administrationDate} onChange={(event) => setAdministrationDate(event.target.value)} /></label><label className="results-form-wide">Title (optional)<input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="e.g., Quiz 1 results" /></label></>}
+          </div>
+          <div className="results-mode-picker"><strong>{viewMode === 'simple' ? 'How do you want to enter results?' : 'Encoding mode'}</strong><div className="results-segmented" role="group" aria-label="Result entry method">{(
+            isPerformanceTaskAssessment
+              ? [['rubric', 'Rubric scoring', 'Score 4-level criteria & qualitative notes']]
+              : [
+                ['answer_sheet', 'Enter answers', 'Best for objective tests'],
+                ['item', 'Enter by question', 'Check one item across the class'],
+                ['score_only', 'Enter scores only', 'Item analysis will be limited'],
+              ]
+          ).map(([value, label, hint]) => <button type="button" key={value} className={entryMode === value ? 'selected' : ''} onClick={() => setEntryMode(value as AssessmentResultSession['entryMode'])}><strong>{label}</strong><small>{hint}</small></button>)}</div></div>
+          {entryMode === 'score_only' && <p className="workflow-limit-note">Scores-only entry is fastest when papers are already checked. Per-question item analysis will be limited.</p>}
+          {viewMode === 'simple' && (
+            <div className="workflow-step-footer">
+              <button type="button" className="button ghost" onClick={() => setOpenNew(false)}>Cancel</button>
+              <div className="workflow-step-footer-actions">
+                <button
+                  type="button"
+                  className="button primary"
+                  disabled={!assessmentId || !assignmentId || !sectionName}
+                  onClick={() => setEntryStep(2)}
+                >
+                  Next: Confirm Learners ({selectedLearners.length}) <ArrowRight size={15} />
+                </button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {(viewMode === 'advanced' || entryStep === 2) && (
+        <>
+          <div className="results-learner-selection">
+            <div className="results-section-heading compact">
+              <div>
+                <h3>{viewMode === 'simple' ? 'Active learners' : `Active learners in ${sectionName || 'this section'}`}</h3>
+                <p>{selectedLearners.length} of {totalActiveLearners} selected · all active learners start selected.</p>
+              </div>
+              <div className="results-inline-actions">
+                <button className="text-button" type="button" onClick={() => setSelectedLearners(learners.filter((learner) => learner.status === 'active').map((learner) => learner.id))}>Select all</button>
+                <button className="text-button" type="button" onClick={() => setSelectedLearners([])}>Clear</button>
+              </div>
+            </div>
+            <div className="results-selection-grid">
+              {learners.filter((learner) => learner.status === 'active').map((learner) => (
+                <label key={learner.id} className="results-selection-chip">
+                  <input type="checkbox" checked={selectedLearners.includes(learner.id)} onChange={(event) => setSelectedLearners((current) => event.target.checked ? [...current, learner.id] : current.filter((id) => id !== learner.id))} />
+                  <span>{learner.displayName}</span>
+                </label>
+              ))}
+            </div>
+            {learners.length === 0 && <p className="results-muted">No learners yet. <Link to={`/results/roster/${assignmentId}/${encodeURIComponent(sectionName)}`}>Open roster</Link> to add them.</p>}
+          </div>
+
+          <div className="workflow-step-footer">
+            {viewMode === 'simple' ? (
+              <button type="button" className="button ghost" onClick={() => setEntryStep(1)}>
+                <ArrowLeft size={15} /> Back: Assessment & Method
+              </button>
+            ) : (
+              <Link className="button ghost" to={`/results/roster/${assignmentId}/${encodeURIComponent(sectionName)}`}>Manage roster</Link>
+            )}
+            <div className="workflow-step-footer-actions">
+              {viewMode === 'simple' && (
+                <Link className="button ghost" to={`/results/roster/${assignmentId}/${encodeURIComponent(sectionName)}`}>Manage roster</Link>
+              )}
+              <button className="button primary" type="button" disabled={working || rosterLoading || !selectedLearners.length} onClick={() => void create()}>
+                {working ? 'Starting…' : rosterLoading ? 'Loading learners…' : 'Start entering results'} <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </section>}
 
     {error && <div className="form-message error results-alert">{error}</div>}
