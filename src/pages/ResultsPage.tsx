@@ -220,9 +220,8 @@ export function ResultsPage() {
     {openNew && <section className={`panel results-setup-panel workflow-results-setup ${viewMode}`}>
       <div className="results-section-heading">
         <div>
-          <span className="eyebrow">Start entering results</span>
           <h2>Enter results</h2>
-          <p>Choose one finalized assessment and one class. Active learners are selected by default.</p>
+          <p>Choose a finalized assessment and class to start recording learner results.</p>
         </div>
         <button className="button ghost" type="button" onClick={() => setOpenNew(false)}>Close</button>
       </div>

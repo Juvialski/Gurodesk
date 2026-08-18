@@ -270,15 +270,6 @@ function LessonSimpleFlow({
         </div>
       )}
 
-      <div className="workflow-intro">
-        <div>
-          <span className="eyebrow">Guided setup</span>
-          <h2>Prepare a lesson plan</h2>
-          <p>Complete each step to create and personalize your DepEd ILAW lesson plan.</p>
-        </div>
-        <span className="workflow-step-count">Step {step} of 4</span>
-      </div>
-
       <nav className="workflow-wizard-stepper" aria-label="Lesson plan creation steps">
         <button
           type="button"

@@ -1,10 +1,11 @@
 /* Guided workflow surfaces. Kept separate so the global shell can opt in once. */
 .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
 .workflow-simple-shell {
-  max-width: 920px;
+  max-width: 1140px;
   margin: 0 auto;
   display: grid;
-  gap: 14px;
+  gap: 16px;
+  width: 100%;
 }
 .workflow-simple-shell > * { min-width: 0; }
 
@@ -25,17 +26,17 @@
 .workflow-intro {
   justify-content: space-between;
   gap: 16px;
-  padding: 4px 2px 8px;
+  padding: 0 0 6px;
 }
 
-.workflow-intro h2 { margin: 0 0 6px; color: var(--navy); font-size: 24px; letter-spacing: -.4px; font-weight: 800; }
-.workflow-intro p { max-width: 680px; margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.6; }
+.workflow-intro h2 { margin: 0 0 4px; color: var(--navy); font-size: 22px; letter-spacing: -.4px; font-weight: 800; }
+.workflow-intro p { max-width: 680px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .workflow-step-count,
 .workflow-count-badge,
 .workflow-review-heading > span {
   display: inline-flex;
   align-items: center;
-  min-height: 30px;
+  min-height: 28px;
   padding: 0 11px;
   border-radius: 999px;
   color: #1d4ed8;
@@ -47,7 +48,7 @@
 
 .workflow-step-card {
   min-width: 0;
-  padding: 22px;
+  padding: 24px 28px;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--surface);
@@ -71,16 +72,18 @@
 .workflow-step-heading strong,
 .workflow-step-heading small { display: block; }
 .workflow-step-heading strong { color: var(--navy); font-size: 16px; font-weight: 750; }
-.workflow-step-heading small { margin-top: 3px; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+.workflow-step-heading small { margin-top: 2px; color: var(--muted); font-size: 12.5px; line-height: 1.4; }
 
-.workflow-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.workflow-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }
 .workflow-form-grid label { min-width: 0; }
-.workflow-field-label { display: block; margin-bottom: 8px; color: #334155; font-size: 12.5px; font-weight: 750; }
-.workflow-chip-group { margin-top: 16px; }
+.workflow-form-grid label input,
+.workflow-form-grid label select { min-height: 44px; font-size: 14px; border-radius: 10px; }
+.workflow-field-label { display: block; margin-bottom: 8px; color: #334155; font-size: 13px; font-weight: 750; }
+.workflow-chip-group { margin-top: 18px; }
 .workflow-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .workflow-chip {
-  min-height: 44px;
-  padding: 9px 15px;
+  min-height: 42px;
+  padding: 8px 16px;
   border: 1px solid #cbd5e1;
   border-radius: 999px;
   background: #fff;
@@ -389,16 +392,16 @@
 }
 
 /* Lesson Simple Flow ILAW Sections & Finalized Banner */
-.lesson-simple-sections { display: flex; flex-direction: column; gap: 18px; margin-top: 24px; }
-.lesson-simple-sections-header { padding: 4px 0 2px; }
+.lesson-simple-sections { display: flex; flex-direction: column; gap: 16px; margin-top: 0; }
+.lesson-simple-sections-header { padding: 2px 0; }
 .lesson-simple-sections-header h2 { margin: 0 0 4px; color: var(--navy); font-size: 20px; font-weight: 800; }
 .lesson-simple-sections-header p { margin: 0; color: #64748b; font-size: 13.5px; }
 
-.lesson-simple-ilaw-card { padding: 22px; border: 1px solid #e2e8f0; border-radius: 14px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-.lesson-simple-ilaw-card .editor-section-head { margin-bottom: 18px; }
+.lesson-simple-ilaw-card { padding: 24px 28px; border: 1px solid #e2e8f0; border-radius: 16px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+.lesson-simple-ilaw-card .editor-section-head { margin-bottom: 16px; }
 
-.lesson-simple-quality-card { padding: 20px 22px; border: 1px solid #e2e8f0; border-radius: 14px; background: #f8fafc; }
-.lesson-simple-actions-card { padding: 20px 22px; border: 1.5px solid #bfdbfe; border-radius: 14px; background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%); display: flex; flex-direction: column; gap: 14px; }
+.lesson-simple-quality-card { padding: 22px 26px; border: 1px solid #e2e8f0; border-radius: 16px; background: #f8fafc; }
+.lesson-simple-actions-card { padding: 22px 26px; border: 1.5px solid #bfdbfe; border-radius: 16px; background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%); display: flex; flex-direction: column; gap: 14px; }
 .lesson-simple-actions-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .lesson-simple-actions-row .button { min-height: 42px; font-size: 13.5px; font-weight: 750; }
 
@@ -422,63 +425,69 @@
 /* Workflow Wizard Stepper & Step Navigation */
 .workflow-wizard-stepper {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  width: 100%;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   padding: 6px;
-  background: #f1f5f9;
-  border-radius: 12px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 .workflow-stepper-btn {
+  flex: 1 1 0;
+  min-height: 48px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border: 1px solid transparent;
-  border-radius: 9px;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
   background: transparent;
   color: #64748b;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 13.5px;
+  font-weight: 750;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .workflow-stepper-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   color: var(--navy);
 }
 .workflow-stepper-btn.active {
-  background: #fff;
+  background: #ffffff;
   color: var(--navy);
-  border-color: #cbd5e1;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-color: #3b82f6;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.12);
 }
 .workflow-stepper-btn.completed {
-  color: #059669;
+  color: #047857;
+  background: #f0fdf4;
+  border-color: #bbf7d0;
 }
 .workflow-stepper-num {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: #e2e8f0;
   color: #475569;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 }
 .workflow-stepper-btn.active .workflow-stepper-num {
-  background: var(--navy);
-  color: #fff;
+  background: #2563eb;
+  color: #ffffff;
 }
 .workflow-stepper-btn.completed .workflow-stepper-num {
   background: #10b981;
-  color: #fff;
+  color: #ffffff;
 }
 
 .workflow-step-footer {

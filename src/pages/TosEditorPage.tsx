@@ -115,15 +115,6 @@ function TosSimpleFlow({
 
   return (
     <section className="workflow-simple-shell tos-simple-flow">
-      <div className="workflow-intro">
-        <div>
-          <span className="eyebrow">Guided setup</span>
-          <h2>Create a table of specifications</h2>
-          <p>Follow three simple steps to select covered competencies, allocate test items, and prepare your TOS.</p>
-        </div>
-        <span className="workflow-step-count">Step {step} of 3</span>
-      </div>
-
       <nav className="workflow-wizard-stepper" aria-label="TOS creation steps">
         <button
           type="button"
