@@ -113,22 +113,32 @@ async function visible(page: Page, role: 'heading' | 'textbox', name: RegExp | s
 }
 
 async function completeOnboarding(page: Page) {
+  // Step 1: About you
   await expect(page.getByRole('heading', { name: 'About you' })).toBeVisible()
   await page.getByLabel('Full name').fill(process.env.E2E_FULL_NAME?.trim() || 'Playwright Teacher')
-  await page.getByLabel('School name').fill(process.env.E2E_SCHOOL_NAME?.trim() || 'Playwright Local School')
-  await page.getByRole('button', { name: 'Continue' }).click()
+  await page.getByRole('button', { name: /Continue/i }).click()
 
-  await expect(page.getByRole('heading', { name: 'What do you teach?' })).toBeVisible()
+  // Step 2: Optional AI setup
+  await expect(page.getByRole('heading', { name: 'Optional AI setup' })).toBeVisible()
+  await page.getByRole('button', { name: 'Set up later', exact: true }).first().click()
+
+  // Step 3: Where do you teach?
+  await expect(page.getByRole('heading', { name: 'Where do you teach?' })).toBeVisible()
+  const manualButton = page.getByRole('button', { name: 'Enter manually' })
+  if (await manualButton.isVisible()) {
+    await manualButton.click()
+  }
+  await page.getByLabel('School name').fill(process.env.E2E_SCHOOL_NAME?.trim() || 'Playwright Local School')
+  await page.getByRole('button', { name: /Continue/i }).click()
+
+  // Step 4: What you teach
+  await expect(page.getByRole('heading', { name: /What (?:do )?you teach/i })).toBeVisible()
   await page.getByLabel('Sections').fill(process.env.E2E_SECTIONS?.trim() || 'E2E Section')
   await page.getByRole('button', { name: 'Add assignment' }).click()
   await expect(page.getByText('Grade 7 · Mathematics', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: /Continue/i, exact: true }).click()
 
-  // AI setup is a four-step, optional onboarding decision. The local E2E
-  // suite deliberately exercises the non-AI path so ordinary workspace entry
-  // remains covered without configuring a provider key.
-  await page.getByRole('button', { name: 'Continue', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'Optional AI setup' })).toBeVisible()
-  await page.getByRole('button', { name: 'Set up later', exact: true }).first().click()
+  // Step 5: You’re ready to go
   await expect(page.getByRole('heading', { name: 'You’re ready to go' })).toBeVisible()
   await page.getByRole('button', { name: 'Open workspace', exact: true }).click()
 }
