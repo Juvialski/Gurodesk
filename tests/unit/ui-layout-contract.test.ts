@@ -5,12 +5,13 @@ const readSource = (relativePath: string) =>
   readFileSync(new URL(`../../${relativePath}`, import.meta.url), 'utf8')
 
 describe('UI layout and grid consistency contracts', () => {
-  it('defines responsive column variants for workspace context picker grid', () => {
+  it('defines responsive column variants for workspace context picker grid and bounds desktop popover', () => {
     const styles = readSource('src/styles.css')
     expect(styles).toContain('.workspace-picker-grid')
     expect(styles).toContain('.workspace-picker-grid.cols-2')
     expect(styles).toContain('.workspace-picker-grid.cols-3')
     expect(styles).toContain('.workspace-picker-grid.cols-4')
+    expect(styles).toMatch(/\.workspace-context-picker\s*\{[^}]*max-width:\s*760px/)
   })
 
   it('computes dynamic column count in WorkspaceContextPicker component', () => {
@@ -48,7 +49,7 @@ describe('UI layout and grid consistency contracts', () => {
   it('bounds curriculum catalog search width and prevents unconstrained stretch', () => {
     const styles = readSource('src/styles.css')
     expect(styles).toContain('.catalog-search')
-    expect(styles).toMatch(/\.catalog-search\s*\{[^}]*max-width:\s*380px/)
+    expect(styles).toMatch(/\.catalog-search\s*\{[^}]*max-width:\s*280px/)
   })
 
   it('eliminates nested scroll traps on curriculum catalog entry grid', () => {
@@ -60,5 +61,40 @@ describe('UI layout and grid consistency contracts', () => {
   it('defines compact card empty state for custom curriculum panel', () => {
     const styles = readSource('src/styles.css')
     expect(styles).toContain('.custom-curriculum-panel .mini-empty')
+    expect(styles).toMatch(/\.custom-curriculum-panel\s*\{[^}]*padding:\s*18px\s+20px/)
+  })
+
+  it('enforces inline horizontal flex layout on all search bar primitives', () => {
+    const styles = readSource('src/styles.css')
+    expect(styles).toMatch(/\.curriculum-search,\s*\.catalog-search,\s*\.workflow-search/)
+    expect(styles).toContain('flex-direction: row !important')
+
+    const workflows = readSource('src/workflows.css')
+    expect(workflows).toContain('.workflow-search')
+    expect(workflows).toContain('flex-direction: row')
+
+    const tos = readSource('src/tos.css')
+    expect(tos).toContain('.tos-picker-search')
+    expect(tos).toContain('flex-direction: row !important')
+  })
+
+  it('styles curriculum assignment select as inline flex row in header actions', () => {
+    const styles = readSource('src/styles.css')
+    expect(styles).toMatch(/\.curriculum-assignment-select\s*\{[^}]*flex-direction:\s*row\s*!important/)
+  })
+
+  it('uses div elements for search containers in catalog, curriculum, lesson, and tos editors', () => {
+    const catalogBrowser = readSource('src/components/CurriculumCatalogBrowser.tsx')
+    expect(catalogBrowser).toContain('<div className="curriculum-search catalog-search">')
+
+    const curriculumPage = readSource('src/pages/CurriculumPage.tsx')
+    expect(curriculumPage).toContain('<div className="curriculum-search">')
+
+    const lessonPage = readSource('src/pages/LessonPlanEditorPage.tsx')
+    expect(lessonPage).toContain('<div className="workflow-search">')
+
+    const tosPage = readSource('src/pages/TosEditorPage.tsx')
+    expect(tosPage).toContain('<div className="workflow-search">')
+    expect(tosPage).toContain('<div className="tos-picker-search">')
   })
 })

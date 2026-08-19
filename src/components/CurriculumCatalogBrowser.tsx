@@ -56,7 +56,7 @@ export function CurriculumCatalogBrowser({ initialSchoolYear, initialGradeLevel,
         <label className="compact-select"><span>School year</span><select value={schoolYear} onChange={(event) => { setSchoolYear(event.target.value); setGroup('all') }}>{SCHOOL_YEARS.map((item) => <option key={item}>{item}</option>)}</select></label>
         <label className="compact-select"><span>Grade level</span><select value={gradeLevel} onChange={(event) => { setGradeLevel(event.target.value); setGroup('all') }}>{GRADE_LEVELS.map((item) => <option key={item}>{item}</option>)}</select></label>
         <label className="compact-select"><span><Filter size={11} /> Group</span><select value={group} onChange={(event) => setGroup(event.target.value)}><option value="all">All groups</option>{groups.map((item) => <option key={item.group} value={item.group}>{item.group}</option>)}</select></label>
-        <label className="curriculum-search catalog-search"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search subjects" aria-label="Search official curriculum catalog" /></label>
+        <div className="curriculum-search catalog-search"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search subjects" aria-label="Search official curriculum catalog" /></div>
       </div>
 
       <div className="catalog-integrity-note"><ShieldCheck size={15} /><span><strong>Source integrity:</strong> catalogued means GuroDesk has a source-grounded official offering/rollout record. It does not mean the official competency text has already been transcribed. Pending subjects remain unavailable to competency-grounded workflows until a verified pack is imported.</span></div>

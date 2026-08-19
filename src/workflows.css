@@ -306,7 +306,7 @@
 .workflow-view-tabs { display: inline-flex; flex-wrap: wrap; gap: 5px; padding: 5px; border: 1px solid #cbd5e1; border-radius: 12px; background: #f8fafc; }
 .workflow-view-tabs button { min-height: 42px; padding: 8px 14px; border: 0; border-radius: 9px; background: transparent; color: #475569; font-size: 12.5px; font-weight: 800; cursor: pointer; }
 .workflow-view-tabs button.active { color: #1d4ed8; background: #fff; box-shadow: 0 1px 4px rgba(15, 23, 42, .08); }
-.workflow-header-actions { flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+.workflow-header-actions { display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 12px; }
 .workflow-source-details { margin-top: 10px; color: #475569; font-size: 12px; }
 .workflow-source-details summary { color: #1d4ed8; font-weight: 800; cursor: pointer; }
 .workflow-source-details p { margin: 6px 0; line-height: 1.5; }
@@ -593,5 +593,26 @@
     width: 100%;
   }
 }
+
+.workflow-required {
+  color: #dc2626;
+  font-weight: 700;
+  font-size: 11.5px;
+}
+
+.workflow-inline-error {
+  display: block;
+  margin-top: 4px;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.workflow-form-grid label.has-error input,
+.workflow-form-grid label.has-error select {
+  border-color: #dc2626;
+  background-color: #fffaf9;
+}
+
 
 

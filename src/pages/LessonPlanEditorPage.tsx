@@ -112,7 +112,7 @@ function AlignmentPicker({
       <ChevronDown size={16} aria-hidden="true" />
     </button>
     {open && <div className="workflow-picker-panel">
-      <label className="workflow-search"><Search size={16} /><span className="sr-only">Search verified competencies</span><input value={search} onChange={(event) => onSearchChange(event.target.value)} placeholder="Search competency, code, content area, or standard" autoFocus /></label>
+      <div className="workflow-search"><Search size={16} aria-hidden="true" /><span className="sr-only">Search verified competencies</span><input value={search} onChange={(event) => onSearchChange(event.target.value)} placeholder="Search competency, code, content area, or standard" autoFocus /></div>
       <div className="workflow-picker-summary"><span>{competencies.length} verified curriculum {competencies.length === 1 ? 'match' : 'matches'}</span><button type="button" onClick={onClose}>Done</button></div>
       <div className="workflow-competency-list" id="lesson-competency-options" role="listbox" aria-label="Verified curriculum alignments" aria-multiselectable="true">
         {groups.map((group) => <section className="workflow-curriculum-group" key={group.key}>
@@ -243,8 +243,25 @@ function LessonSimpleFlow({
   onMarkAiUsed,
 }: LessonSimpleFlowProps) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1)
+  const [step1Errors, setStep1Errors] = useState<{ lessonDate?: string; weekLabel?: string }>({})
   const isFinal = plan.status === 'final'
   const pending = (sectionKey: string) => pendingSections.includes(sectionKey)
+
+  const handleStep1Next = () => {
+    const errors: { lessonDate?: string; weekLabel?: string } = {}
+    if (!plan.content.lessonDate?.trim()) {
+      errors.lessonDate = 'Choose the lesson date.'
+    }
+    if (!plan.content.weekLabel?.trim()) {
+      errors.weekLabel = 'Enter the week or schedule.'
+    }
+    if (Object.keys(errors).length > 0) {
+      setStep1Errors(errors)
+      return
+    }
+    setStep1Errors({})
+    setStep(2)
+  }
 
   return (
     <section className="workflow-simple-shell lesson-simple-flow">
@@ -282,7 +299,13 @@ function LessonSimpleFlow({
         <button
           type="button"
           className={`workflow-stepper-btn ${step === 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`}
-          onClick={() => setStep(2)}
+          onClick={() => {
+            if (!plan.content.lessonDate?.trim() || !plan.content.weekLabel?.trim()) {
+              handleStep1Next()
+            } else {
+              setStep(2)
+            }
+          }}
         >
           <span className="workflow-stepper-num">{step > 2 ? <Check size={12} /> : '2'}</span>
           <span>Topic & Focus</span>
@@ -290,7 +313,13 @@ function LessonSimpleFlow({
         <button
           type="button"
           className={`workflow-stepper-btn ${step === 3 ? 'active' : ''} ${step > 3 ? 'completed' : ''}`}
-          onClick={() => setStep(3)}
+          onClick={() => {
+            if (!plan.content.lessonDate?.trim() || !plan.content.weekLabel?.trim()) {
+              handleStep1Next()
+            } else {
+              setStep(3)
+            }
+          }}
         >
           <span className="workflow-stepper-num">{step > 3 ? <Check size={12} /> : '3'}</span>
           <span>Alignment & AI</span>
@@ -324,6 +353,37 @@ function LessonSimpleFlow({
                   </option>
                 ))}
               </select>
+            </label>
+          </div>
+
+          <div className="workflow-form-grid two" style={{ marginTop: '16px' }}>
+            <label className={step1Errors.lessonDate ? 'has-error' : ''}>
+              <span>Lesson date <small className="workflow-required">(required)</small></span>
+              <input
+                data-testid="lesson-date-input"
+                type="date"
+                value={plan.content.lessonDate}
+                onChange={(event) => {
+                  const val = event.target.value
+                  onUpdateContent((content) => { content.lessonDate = val })
+                  if (val.trim()) setStep1Errors((prev) => ({ ...prev, lessonDate: '' }))
+                }}
+              />
+              {step1Errors.lessonDate && <span className="workflow-inline-error" role="alert">{step1Errors.lessonDate}</span>}
+            </label>
+            <label className={step1Errors.weekLabel ? 'has-error' : ''}>
+              <span>Week / schedule <small className="workflow-required">(required)</small></span>
+              <input
+                data-testid="lesson-week-input"
+                value={plan.content.weekLabel}
+                placeholder="e.g. Week 4 — August 17–21, 2026"
+                onChange={(event) => {
+                  const val = event.target.value
+                  onUpdateContent((content) => { content.weekLabel = val })
+                  if (val.trim()) setStep1Errors((prev) => ({ ...prev, weekLabel: '' }))
+                }}
+              />
+              {step1Errors.weekLabel && <span className="workflow-inline-error" role="alert">{step1Errors.weekLabel}</span>}
             </label>
           </div>
 
@@ -418,7 +478,7 @@ function LessonSimpleFlow({
           <div className="workflow-step-footer">
             <span className="workflow-muted">Step 1 of 4</span>
             <div className="workflow-step-footer-actions">
-              <button type="button" className="button primary" onClick={() => setStep(2)}>
+              <button type="button" className="button primary" onClick={handleStep1Next}>
                 Next: Lesson Topic <ArrowRight size={15} />
               </button>
             </div>
@@ -1254,6 +1314,14 @@ export function LessonPlanEditorPage() {
     const activePlan = plan
     if (!activePlan || activePlan.content.lessonFocus.trim().length < 3) {
       setQuickDraftMessage('Enter the topic or lesson focus first.')
+      return
+    }
+    if (!activePlan.content.lessonDate?.trim()) {
+      setQuickDraftMessage('Choose the lesson date.')
+      return
+    }
+    if (!activePlan.content.weekLabel?.trim()) {
+      setQuickDraftMessage('Enter the week or schedule.')
       return
     }
     if (activePlan.content.curriculumAlignments.length === 0 && !hasExplicitTopicOnlyPurpose(activePlan.content)) {

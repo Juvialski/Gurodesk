@@ -282,15 +282,15 @@ export function CurriculumPage() {
                   <span className="eyebrow">{selectedPeriod?.label}</span>
                   <h2>Learning competencies</h2>
                 </div>
-                <label className="curriculum-search">
-                  <Search size={16} />
+                <div className="curriculum-search">
+                  <Search size={16} aria-hidden="true" />
                   <input
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                     placeholder="Search competencies"
                     aria-label="Search competencies"
                   />
-                </label>
+                </div>
               </div>
 
               {groups.length ? groups.map(({ domain, competencies }) => (
