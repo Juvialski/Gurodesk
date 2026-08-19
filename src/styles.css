@@ -1507,7 +1507,7 @@ button.competency-row.selected .competency-text { color: #0b2d5b; font-weight: 6
 .catalog-integrity-note { display:flex; align-items:flex-start; gap:8px; margin-top:14px; padding:11px 13px; border:1px solid #bfdbfe; border-radius:10px; color:#1e40af; background:#eff6ff; font-size:12.5px; line-height:1.5; }
 .catalog-integrity-note svg { flex:0 0 auto; margin-top:1px; color:#1d4ed8; }
 .catalog-entry-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:14px; max-height:480px; overflow:auto; padding-right:3px; }
-.catalog-entry { min-width:0; padding:14px; border:1px solid #e2e8f0; border-radius:12px; background:#fff; }
+.catalog-entry { min-width:0; padding:14px; border:1px solid #e2e8f0; border-radius:12px; background:#fff; display:flex; flex-direction:column; }
 .catalog-entry.highlighted { border-color:#3b82f6; box-shadow:0 0 0 2px rgba(59,130,246,.12); background:#f8fbff; }
 .catalog-entry h3 { margin:6px 0 4px; color:var(--navy); font-size:13.5px; line-height:1.4; font-weight:750; }
 .catalog-entry>p { margin:0; color:#64748b; font-size:12px; line-height:1.5; }
@@ -1515,7 +1515,7 @@ button.competency-row.selected .competency-text { color: #0b2d5b; font-weight: 6
 .catalog-status.verified { background:#ecfdf5; color:#065f46; border: 1px solid #d1fae5; }
 .catalog-status.pending { background:#f1f5f9; color:#475569; }
 .catalog-status.transition { background:#fffbeb; color:#92400e; border: 1px solid #fef3c7; }
-.catalog-entry-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+.catalog-entry-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:9px; }
 .catalog-entry-meta span { padding:4px 7px; border-radius:7px; background:#f1f5f9; color:#475569; font-size:11px; font-weight:750; }
 @media (max-width:980px) { .catalog-entry-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .catalog-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:780px) { .catalog-heading { flex-direction:column; } .catalog-stat-strip { width:100%; min-width:0; } .catalog-controls,.catalog-entry-grid { grid-template-columns:1fr; } .catalog-entry-grid { max-height:520px; } }

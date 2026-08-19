@@ -131,8 +131,9 @@
 .remediation-ai-panel { border-color: #bbf7d0; background: linear-gradient(180deg, #f0fdf4 0%, #fff 100%); }
 .remediation-ai-boundary { color: #64748b; font-size: .8rem; }
 .remediation-suggestion-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
-.remediation-suggestion-card { padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; background: #fff; box-shadow: var(--shadow); }
+.remediation-suggestion-card { padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; background: #fff; box-shadow: var(--shadow); display: flex; flex-direction: column; }
 .remediation-suggestion-card > p:not(.eyebrow) { min-height: 52px; margin: 6px 0 12px; color: #334155; font-size: .88rem; line-height: 1.5; }
+.remediation-suggestion-card > .button { margin-top: auto; }
 .remediation-accepted-suggestion { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; color: #334155; font-size: .82rem; font-weight: 750; }
 .remediation-accepted-suggestion textarea { width: 100%; min-height: 88px; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 10px; background: #fff; color: #0f172a; font: inherit; font-weight: 500; padding: 10px 12px; resize: vertical; line-height: 1.5; }
 .remediation-muted { color: #64748b; font-size: .9rem; }

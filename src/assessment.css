@@ -10,7 +10,7 @@
 .assessment-boundary p,.assessment-locked p { margin:4px 0 0; color:var(--muted); font-size:12px; line-height:1.55; }
 .assessment-future-note { margin-left:auto; color:#7c6a38; background:#fff7e4; border:1px solid #f1dfad; border-radius:999px; padding:6px 11px; font-size:11px; font-weight:800; white-space:nowrap; }
 .assessment-card-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-.assessment-card { min-width:0; padding:20px; border-radius:16px; box-shadow:var(--shadow); }
+.assessment-card { min-width:0; padding:20px; border-radius:16px; box-shadow:var(--shadow); display:flex; flex-direction:column; }
 .assessment-card-top { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:12px; }
 .assessment-status,.assessment-demo-chip { display:inline-flex; align-items:center; gap:5px; border-radius:999px; padding:5px 10px; font-size:11px; font-weight:800; text-transform:capitalize; }
 .assessment-status.draft { background:#fff5df; color:#9a650d; }
@@ -32,7 +32,7 @@
 .assessment-progress { height:8px; overflow:hidden; border-radius:99px; background:#e7edf3; }
 .assessment-progress > span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#2e78c7,#52b38d); transition:width .2s ease; }
 .assessment-card-meta { display:flex; justify-content:space-between; gap:8px; margin:10px 0 14px; color:#64748b; font-size:11.5px; }
-.assessment-card-actions { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+.assessment-card-actions { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-top:auto; }
 .assessment-card-actions .button { min-height:44px; padding:9px 13px; font-size:13px; }
 .assessment-card-actions .icon-button { margin-right:auto; }
 .assessment-card-actions .button.secondary { margin-left:auto; }
@@ -527,9 +527,9 @@
 .assessment-visual-review-heading strong { color:var(--navy); font-size:13px; font-weight:750; }
 .assessment-visual-review-heading span { color:#64748b; font-size:11.5px; }
 .assessment-visual-review-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:10px; }
-.assessment-visual-review-card { min-width:0; padding:9px; border:1px solid #dce5ed; border-radius:10px; background:#fff; color:#334155; text-align:left; }
+.assessment-visual-review-card { min-width:0; padding:9px; border:1px solid #dce5ed; border-radius:10px; background:#fff; color:#334155; text-align:left; display:flex; flex-direction:column; }
 .assessment-visual-review-card > span { display:block; margin-bottom:5px; font-size:11.5px; font-weight:750; }
-.assessment-visual-review-open { width:100%; min-height:36px; margin-top:6px; justify-content:center; font-size:11.5px; }
+.assessment-visual-review-open { width:100%; min-height:36px; margin-top:auto; justify-content:center; font-size:11.5px; }
 .assessment-visual-review-diagram { min-height:88px; max-height:130px; overflow:hidden; border-radius:8px; background:#fff; }
 @media (max-width:680px) { .assessment-visual-review-heading { align-items:flex-start; flex-direction:column; }.assessment-visual-review-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
@@ -616,6 +616,7 @@
 
 /* Assessment Generation V2 — guided creation flow.
  * Presentation only: the TOS/CPD/master-plan/generation contracts remain in
+ * the existing V2 domain and repository layers. */
 .assessment-v2-wizard-shell{width:100%;max-width:100%;margin:0 0 56px;display:grid;gap:18px}
 .assessment-v2-stepper{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;width:100%;max-width:100%;margin:2px 0 0}
 .assessment-v2-step{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;color:#64748b;font-size:12px;font-weight:800}
