@@ -891,7 +891,7 @@ export async function createAssessmentFromMasterPlan(
   demo: boolean,
   title?: string,
   instructions?: string,
-  visualPolicy: NonNullable<AssessmentRecord['settings']>['visualPolicy'] = 'balanced',
+  visualPolicy: NonNullable<AssessmentRecord['settings']>['visualPolicy'] = 'off',
   generationInstructions = '',
   allowedTypes?: QuestionType[],
 ): Promise<AssessmentRecord> {

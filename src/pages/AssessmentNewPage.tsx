@@ -215,7 +215,7 @@ export function AssessmentNewPage() {
   const [totalPoints, setTotalPoints] = useState(40)
   const [pointsTouched, setPointsTouched] = useState(false)
   const [allowedTypes, setAllowedTypes] = useState<QuestionType[]>(DEFAULT_TYPES)
-  const [visualPolicy, setVisualPolicy] = useState<AssessmentVisualPolicy>('balanced')
+  const [visualPolicy, setVisualPolicy] = useState<AssessmentVisualPolicy>('off')
   const [step, setStep] = useState<SetupStep>(1)
   const [generation, setGeneration] = useState<GenerationState | null>(null)
   const [workingRecord, setWorkingRecord] = useState<AssessmentRecord | null>(null)
@@ -1160,9 +1160,9 @@ export function AssessmentNewPage() {
                         value={visualPolicy}
                         onChange={(event) => setVisualPolicy(event.target.value as AssessmentVisualPolicy)}
                       >
-                        <option value="balanced">Balanced (recommended) · up to 1 diagram per 4 questions</option>
+                        <option value="off">Off (recommended) · text-only questions</option>
+                        <option value="balanced">Balanced · up to 1 diagram per 4 questions</option>
                         <option value="more_visuals">More visuals · up to 50% diagram coverage</option>
-                        <option value="off">Off · text-only questions</option>
                       </select>
                       <small>Generates geometric, Cartesian, and diagrammatic visuals for questions that need them.</small>
                     </label>
@@ -1449,9 +1449,9 @@ export function AssessmentNewPage() {
                         value={visualPolicy}
                         onChange={(e) => setVisualPolicy(e.target.value as AssessmentVisualPolicy)}
                       >
-                        <option value="balanced">Balanced (recommended) · up to 1 diagram per 4 questions</option>
+                        <option value="off">Off (recommended) · text-only questions</option>
+                        <option value="balanced">Balanced · up to 1 diagram per 4 questions</option>
                         <option value="more_visuals">More visuals · up to 50% diagram coverage</option>
-                        <option value="off">Off · text-only questions</option>
                       </select>
                       <small>Generates diagrams for topics that require visual representations.</small>
                     </label>
@@ -1711,9 +1711,9 @@ export function AssessmentNewPage() {
                         value={visualPolicy}
                         onChange={(e) => setVisualPolicy(e.target.value as AssessmentVisualPolicy)}
                       >
-                        <option value="balanced">Balanced (recommended) · up to 1 diagram per 4 questions</option>
+                        <option value="off">Off (recommended) · text-only questions</option>
+                        <option value="balanced">Balanced · up to 1 diagram per 4 questions</option>
                         <option value="more_visuals">More visuals · up to 50% diagram coverage</option>
-                        <option value="off">Off · text-only questions</option>
                       </select>
                       <small>Generates diagrams for topics that require visual representations.</small>
                     </label>

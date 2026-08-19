@@ -317,7 +317,7 @@ export function validateAndFinalizeMasterPlan(raw: unknown, options: FinalizeMas
     if (requirement === 'none' && safeIntent(value.visualIntent, 700)) throw new Error('Text-only master-plan entries cannot include a visual intent.')
     normalized.push({ bucketId, questionType, pointsPossible, taskIntent, visualRequirement: requirement, visualIntent })
   }
-  if ((options.visualPolicy ?? 'balanced') === 'balanced') {
+  if ((options.visualPolicy ?? 'off') === 'balanced') {
     const requiredVisuals = normalized.filter((entry) => entry.visualRequirement === 'required').length
     const balancedLimit = normalized.length < 4 ? 0 : Math.floor(normalized.length / 4)
     if (requiredVisuals > balancedLimit) throw new Error(`Balanced visual policy allows at most ${balancedLimit} required visual${balancedLimit === 1 ? '' : 's'} for ${normalized.length} logical questions.`)

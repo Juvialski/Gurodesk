@@ -299,7 +299,7 @@ Deno.serve(async (req) => {
     const sourceTosId = clean(body.sourceTosId, 80)
     const totalPoints = integer(body.totalPoints)
     const visualPolicy: VisualPolicy = ASSESSMENT_VISUALS_ENABLED
-      ? (body.visualPolicy === 'off' || body.visualPolicy === 'more_visuals' ? body.visualPolicy : 'balanced')
+      ? (body.visualPolicy === 'balanced' || body.visualPolicy === 'more_visuals' ? body.visualPolicy : 'off')
       : 'off'
     if (!UUID.test(sourceTosId) || !Number.isSafeInteger(totalPoints) || totalPoints < 1 || totalPoints > 1000) return json({ error: 'A finalized TOS and supported total point value are required.' }, 400)
     const allowedTypes = Array.isArray(body.allowedTypes) ? [...new Set(body.allowedTypes.filter((type): type is AssessmentQuestionType => QUESTION_TYPES.has(String(type))))] : []
