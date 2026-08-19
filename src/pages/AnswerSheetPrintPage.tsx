@@ -1,13 +1,14 @@
-import { ArrowLeft, Printer } from 'lucide-react'
+import { ArrowLeft, Download, Printer, Scissors } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { useApp } from '../contexts/AppContext'
 import { generateAnswerSheetLayout } from '../lib/answerSheet/layoutEngine'
 import { renderAnswerSheetPageSvg } from '../lib/answerSheet/printRenderer'
+import { downloadAnswerSheetDocx, resolveSlipsPerPage } from '../lib/answerSheet/answerSheetDocxExport'
 import { loadAssessmentDocument } from '../lib/assessmentRepository'
 import { loadClassLearners } from '../lib/resultsRepository'
 import type { AssessmentRecord } from '../types/assessment'
-import type { AnswerSheetDefinition, AnswerSheetMode, AnswerSheetPaperSize } from '../types/answerSheet'
+import type { AnswerSheetDefinition, AnswerSheetDensity, AnswerSheetMode, AnswerSheetPaperSize } from '../types/answerSheet'
 import type { ClassLearner } from '../types/results'
 
 export function AnswerSheetPrintPage() {
@@ -18,10 +19,14 @@ export function AnswerSheetPrintPage() {
   const [assessment, setAssessment] = useState<AssessmentRecord | null>(null)
   const [learners, setLearners] = useState<ClassLearner[]>([])
   const [loading, setLoading] = useState(true)
+  const [downloadingDocx, setDownloadingDocx] = useState(false)
   const [error, setError] = useState('')
 
   const mode = (searchParams.get('mode') ?? 'generic') as AnswerSheetMode
   const paperSize = (searchParams.get('paperSize') ?? 'a4') as AnswerSheetPaperSize
+  const [density, setDensity] = useState<AnswerSheetDensity>(
+    (searchParams.get('density') as AnswerSheetDensity) || 'auto',
+  )
   const sectionName = searchParams.get('section') ?? ''
   const learnerIdsParam = searchParams.get('learners') ?? ''
   const copiesParam = Number(searchParams.get('copies') ?? 1)
@@ -83,8 +88,41 @@ export function AnswerSheetPrintPage() {
     return Array.from({ length: copies }, () => single)
   }, [assessment, mode, paperSize, selectedLearners, copies])
 
+  const slipsPerPage = useMemo(() => {
+    return resolveSlipsPerPage(assessment?.items?.length || 0, density)
+  }, [assessment?.items?.length, density])
+
+  const paginatedSlipGroups = useMemo(() => {
+    const groups: AnswerSheetDefinition[][] = []
+    for (let i = 0; i < sheets.length; i += slipsPerPage) {
+      groups.push(sheets.slice(i, i + slipsPerPage))
+    }
+    return groups
+  }, [sheets, slipsPerPage])
+
+  const totalPages = paginatedSlipGroups.length
+
   function handlePrint() {
     window.print()
+  }
+
+  async function handleDownloadDocx() {
+    if (!assessment) return
+    setDownloadingDocx(true)
+    try {
+      await downloadAnswerSheetDocx(assessment, {
+        mode,
+        paperSize,
+        density,
+        copies,
+        learners: selectedLearners,
+        sectionName,
+      })
+    } catch (err) {
+      console.error('Failed to download Word answer sheet:', err)
+    } finally {
+      setDownloadingDocx(false)
+    }
   }
 
   if (loading) {
@@ -124,11 +162,13 @@ export function AnswerSheetPrintPage() {
           .no-print {
             display: none !important;
           }
-          .sheet-container {
+          .sheet-page-wrapper {
             margin: 0 !important;
             box-shadow: none !important;
             page-break-after: always !important;
             break-after: page !important;
+            width: 100% !important;
+            max-width: none !important;
           }
         }
       `}</style>
@@ -140,42 +180,95 @@ export function AnswerSheetPrintPage() {
         </Link>
 
         <div className="print-preview-title">
-          <strong>Smart Answer Sheet Print View</strong>
+          <strong>Smart Answer Sheet Print &amp; Export</strong>
           <small>
             {mode === 'personalized'
-              ? `${sheets.length} Personalized Student Sheets · Section ${sectionName || 'All'}`
+              ? `${sheets.length} Student Sheets · Section ${sectionName || 'All'}`
               : `${copies} Generic Sheet${copies > 1 ? 's' : ''}`}{' '}
-            · {paperSize.toUpperCase()}
+            · {slipsPerPage}-Up ({totalPages} Page{totalPages > 1 ? 's' : ''}) · {paperSize.toUpperCase()}
           </small>
         </div>
 
         <div className="assessment-preview-actions">
+          <div className="inline-density-picker flex items-center gap-2">
+            <select
+              className="select-input text-xs"
+              value={density}
+              onChange={(e) => setDensity(e.target.value as AnswerSheetDensity)}
+              title="Sheets per Page"
+            >
+              <option value="auto">Auto ({slipsPerPage}-Up)</option>
+              <option value="1-up">1-Up (Full Page)</option>
+              <option value="2-up">2-Up (Half Sheet)</option>
+              <option value="3-up">3-Up (1/3 Sheet)</option>
+              <option value="4-up">4-Up (Quarter Sheet)</option>
+            </select>
+          </div>
+          <button
+            className="button secondary"
+            type="button"
+            disabled={downloadingDocx}
+            onClick={() => void handleDownloadDocx()}
+          >
+            <Download size={16} /> {downloadingDocx ? 'Building Word…' : 'Download Word (.docx)'}
+          </button>
           <button className="button primary" type="button" onClick={handlePrint}>
-            <Printer size={16} /> Print {sheets.length} Sheet{sheets.length > 1 ? 's' : ''}
+            <Printer size={16} /> Print {totalPages} Page{totalPages > 1 ? 's' : ''}
           </button>
         </div>
       </div>
 
       {/* Printable Stage */}
       <div className="print-preview-stage answer-sheet-print-stage">
-        {sheets.map((sheet, sIdx) =>
-          sheet.pages.map((page, pIdx) => {
-            const svgContent = renderAnswerSheetPageSvg(sheet, page)
-            return (
-              <div
-                key={`sheet-${sIdx}-page-${pIdx}`}
-                className="sheet-container"
-                style={{
-                  background: '#ffffff',
-                  margin: '16px auto',
-                  maxWidth: '850px',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
-                }}
-                dangerouslySetInnerHTML={{ __html: svgContent }}
-              />
-            )
-          }),
-        )}
+        {paginatedSlipGroups.map((group, gIdx) => (
+          <div
+            key={`page-group-${gIdx}`}
+            className="sheet-page-wrapper"
+            style={{
+              background: '#ffffff',
+              margin: '20px auto',
+              maxWidth: '850px',
+              padding: slipsPerPage === 1 ? '0' : '10px 14px',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+              borderRadius: '6px',
+            }}
+          >
+            {group.map((sheet, sIdx) => {
+              const page = sheet.pages[0]
+              if (!page) return null
+              const svgContent = renderAnswerSheetPageSvg(sheet, page)
+              const isLastInGroup = sIdx === group.length - 1
+
+              return (
+                <div key={`sheet-${gIdx}-${sIdx}`} className="sheet-slip-item" style={{ flex: 1 }}>
+                  <div
+                    className="sheet-svg-wrap"
+                    style={{
+                      maxHeight:
+                        slipsPerPage === 1
+                          ? 'none'
+                          : slipsPerPage === 2
+                          ? '46vh'
+                          : slipsPerPage === 3
+                          ? '30vh'
+                          : '22vh',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                    dangerouslySetInnerHTML={{ __html: svgContent }}
+                  />
+                  {!isLastInGroup && (
+                    <div className="sheet-cut-divider">
+                      <Scissors size={14} />
+                      <span>Cut along dashed line</span>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        ))}
       </div>
     </div>
   )

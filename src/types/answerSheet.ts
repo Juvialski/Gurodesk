@@ -7,6 +7,8 @@ export type AnswerSheetMode = 'generic' | 'personalized'
 
 export type AnswerSheetPaperSize = 'a4' | 'letter' | 'legal' | 'folio'
 
+export type AnswerSheetDensity = 'auto' | '1-up' | '2-up' | '3-up' | '4-up'
+
 export type AnswerSheetPoint = {
   xMm: number
   yMm: number

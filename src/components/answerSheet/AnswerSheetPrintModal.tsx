@@ -1,11 +1,12 @@
-import { Check, CheckCircle2, Copy, FileText, Info, Printer, QrCode, Sparkles, Users, X } from 'lucide-react'
+import { Check, CheckCircle2, Copy, Download, FileText, Info, Printer, QrCode, Sparkles, Users, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../contexts/AppContext'
 import { calculateAnswerSheetCompatibility } from '../../lib/answerSheet/compatibility'
+import { downloadAnswerSheetDocx } from '../../lib/answerSheet/answerSheetDocxExport'
 import { loadClassLearners } from '../../lib/resultsRepository'
 import type { AssessmentRecord } from '../../types/assessment'
-import type { AnswerSheetMode, AnswerSheetPaperSize } from '../../types/answerSheet'
+import type { AnswerSheetDensity, AnswerSheetMode, AnswerSheetPaperSize } from '../../types/answerSheet'
 import type { ClassLearner } from '../../types/results'
 
 export type AnswerSheetPrintModalProps = {
@@ -20,10 +21,12 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
 
   const [mode, setMode] = useState<AnswerSheetMode>('generic')
   const [paperSize, setPaperSize] = useState<AnswerSheetPaperSize>('a4')
+  const [density, setDensity] = useState<AnswerSheetDensity>('auto')
   const [sectionName, setSectionName] = useState('')
   const [learners, setLearners] = useState<ClassLearner[]>([])
   const [selectedLearnerIds, setSelectedLearnerIds] = useState<string[]>([])
   const [loadingRoster, setLoadingRoster] = useState(false)
+  const [downloadingDocx, setDownloadingDocx] = useState(false)
   const [copies, setCopies] = useState<number>(30)
 
   const compatibility = useMemo(() => calculateAnswerSheetCompatibility(assessment), [assessment])
@@ -89,6 +92,7 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
     const params = new URLSearchParams()
     params.set('mode', mode)
     params.set('paperSize', paperSize)
+    params.set('density', density)
     if (mode === 'personalized') {
       if (sectionName) params.set('section', sectionName)
       if (selectedLearnerIds.length > 0) params.set('learners', selectedLearnerIds.join(','))
@@ -98,6 +102,24 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
     navigate(`/assessments/${assessment.id}/answer-sheet?${params.toString()}`)
   }
 
+  async function handleDownloadDocx() {
+    setDownloadingDocx(true)
+    try {
+      await downloadAnswerSheetDocx(assessment, {
+        mode,
+        paperSize,
+        density,
+        copies,
+        learners: mode === 'personalized' ? learners.filter((l) => selectedLearnerIds.includes(l.id)) : [],
+        sectionName,
+      })
+    } catch (err) {
+      console.error('Failed to download Word answer sheet:', err)
+    } finally {
+      setDownloadingDocx(false)
+    }
+  }
+
   return (
     <div className="modal-backdrop answer-sheet-print-modal-backdrop" onClick={onClose}>
       <div className="modal-content answer-sheet-print-modal" onClick={(e) => e.stopPropagation()}>
@@ -105,7 +127,7 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
           <div className="modal-title-group">
             <QrCode className="modal-icon" size={24} />
             <div>
-              <h3>Print Smart Answer Sheets</h3>
+              <h3>Print &amp; Export Answer Sheets</h3>
               <p>{assessment.title} · Version {assessment.versionNumber || 1}</p>
             </div>
           </div>
@@ -171,6 +193,22 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
                 <p>Pre-printed student names with individual opaque QR codes.</p>
               </button>
             </div>
+          </div>
+
+          {/* Layout Density / Paper Saver */}
+          <div className="modal-form-row">
+            <label>Sheets per Page (Paper Saver):</label>
+            <select
+              className="select-input"
+              value={density}
+              onChange={(e) => setDensity(e.target.value as AnswerSheetDensity)}
+            >
+              <option value="auto">Auto (Smart Paper-Saving · Recommended)</option>
+              <option value="1-up">1 per page (Full Sheet)</option>
+              <option value="2-up">2 per page (Half Sheet · 2-Up)</option>
+              <option value="3-up">3 per page (1/3 Sheet · 3-Up)</option>
+              <option value="4-up">4 per page (Quarter Sheet · 4-Up)</option>
+            </select>
           </div>
 
           {/* Paper Size */}
@@ -275,14 +313,21 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
           </button>
           <button
             type="button"
+            className="button secondary"
+            disabled={downloadingDocx || (mode === 'personalized' && selectedLearnerIds.length === 0)}
+            onClick={() => void handleDownloadDocx()}
+          >
+            <Download size={16} />
+            {downloadingDocx ? 'Building Word…' : 'Download Word (.docx)'}
+          </button>
+          <button
+            type="button"
             className="button primary"
             disabled={mode === 'personalized' && selectedLearnerIds.length === 0}
             onClick={handleProceedToPrint}
           >
             <Printer size={16} />
-            {mode === 'personalized'
-              ? `Print ${selectedLearnerIds.length} Student Sheets`
-              : `Print ${copies} Answer Sheets`}
+            Preview &amp; Print
           </button>
         </div>
       </div>
