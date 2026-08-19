@@ -146,7 +146,16 @@ function TosSimpleFlow({
         <div className="workflow-step-card">
           <div className="workflow-step-heading"><span>1</span><div><strong>Name the TOS and choose the class</strong><small>The TOS title is required and is the name shown in your TOS list and exports.</small></div></div>
           <div className="workflow-form-grid three">
-            <label>Class<select disabled={readOnly} value={assignmentId} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option value={item.id} key={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label>
+            <label>
+              Class
+              <select disabled={readOnly} value={assignmentId} onChange={(event) => onAssignmentChange(event.target.value)}>
+                {assignments.map((item) => (
+                  <option value={item.id} key={item.id}>
+                    {item.gradeLevel} · {item.learningArea}{item.sections?.length ? ` · ${item.sections.join(' · ')}` : ''} · {item.schoolYear}
+                  </option>
+                ))}
+              </select>
+            </label>
             <label>TOS title <small>(required)</small><input disabled={readOnly} value={record.content.title} onChange={(event) => onUpdateContent((content) => { content.title = event.target.value })} placeholder="e.g. Quarter 1 Mathematics TOS" /><small className="workflow-field-help">This identifies the TOS in your list and exported document.</small></label>
             <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => onUpdateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First summative test" /><small className="workflow-field-help">Used as a suggested test title when you create an assessment from this TOS.</small></label>
           </div>

@@ -318,13 +318,13 @@ function LessonSimpleFlow({
             <label>
               Class
               <select value={assignmentId} disabled={Boolean(plan.id)} onChange={(event) => onAssignmentChange(event.target.value)}>
-                {assignments.map((item) => <option key={item.id} value={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}
+                {assignments.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.gradeLevel} · {item.learningArea}{item.sections?.length ? ` · ${item.sections.join(' · ')}` : ''} · {item.schoolYear}
+                  </option>
+                ))}
               </select>
             </label>
-          </div>
-          <div className="workflow-context-banner">
-            <strong>{assignment?.gradeLevel} {assignment?.learningArea}</strong>
-            <span>{assignment?.sections.join(' · ') || 'Class sections'} · {plan.content.schoolYear}</span>
           </div>
 
           <div className="workflow-options-grid two-col">
