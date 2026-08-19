@@ -248,12 +248,16 @@ function dedupeStandards(items: (string | undefined | null)[]): string[] {
   const seen = new Set<string>()
   const result: string[] = []
   for (const raw of items) {
-    const text = clean(raw)
-    if (!text) continue
-    const key = text.toLowerCase().replace(/\s+/g, ' ')
-    if (seen.has(key)) continue
-    seen.add(key)
-    result.push(text)
+    if (!raw) continue
+    const lines = typeof raw === 'string' ? raw.split(/\r?\n/) : [raw]
+    for (const line of lines) {
+      const text = clean(line).replace(/^[•*-]\s*/, '')
+      if (!text) continue
+      const key = text.toLowerCase().replace(/\s+/g, ' ')
+      if (seen.has(key)) continue
+      seen.add(key)
+      result.push(text)
+    }
   }
   return result
 }

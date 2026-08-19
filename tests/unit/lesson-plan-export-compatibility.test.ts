@@ -202,4 +202,35 @@ describe('lesson-plan export compatibility', () => {
     expect(model.lesson.sessions).toBe('1')
     expect(model.multiSession?.lesson.sessions).toBe('4')
   })
+
+  it('correctly splits and dedupes multiline performance standards without loose orphan lines', () => {
+    const plan = exportPlan()
+    plan.content.curriculumAlignments = [
+      snapshot('c1', 'Competency 1', {
+        performanceStandards: [
+          'convert units of measure from different systems of measure. (MG)',
+          'find the volume of square and rectangular pyramids, and the volume of cylinders. (MG)',
+        ],
+      }),
+    ]
+    plan.content.performanceStandard =
+      'convert units of measure from different systems of measure. (MG)\nfind the volume of square and rectangular pyramids, and the volume of cylinders. (MG)'
+
+    const model = buildLessonPlanExportModel(plan, profile, preferences)
+    const standardsBlock = model.ilaw.intentions.find((item) => item.key === 'competency-standards')?.body ?? ''
+
+    expect(standardsBlock).toContain('### Performance Standards')
+    // Should have exactly 2 bullets, not 3 or 4
+    const bulletMatches = standardsBlock.match(/• convert units of measure/g)
+    expect(bulletMatches).toHaveLength(1)
+    const bulletMatches2 = standardsBlock.match(/• find the volume of square/g)
+    expect(bulletMatches2).toHaveLength(1)
+    // No line starting without bullet after Performance Standards heading
+    const perfSection = standardsBlock.split('### Performance Standards')[1]
+    const lines = perfSection.trim().split('\n').filter(Boolean)
+    expect(lines).toEqual([
+      '• convert units of measure from different systems of measure. (MG)',
+      '• find the volume of square and rectangular pyramids, and the volume of cylinders. (MG)',
+    ])
+  })
 })
