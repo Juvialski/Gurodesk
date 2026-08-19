@@ -23,6 +23,7 @@ function breadcrumbLabel(pathname: string) {
     tos: 'Templates & TOS',
     files: 'Documents',
     documents: 'Documents',
+    admin: 'Admin Dashboard',
     settings: 'Settings',
     help: 'Help',
   }

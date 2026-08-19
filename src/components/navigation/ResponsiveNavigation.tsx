@@ -13,12 +13,15 @@ import {
   UsersRound,
   X,
   Plus,
+  ShieldCheck,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import type { Profile } from '../../types/app'
 import { Brand } from '../Brand'
+import { useApp } from '../../contexts/AppContext'
+import { isAdminUser } from '../../lib/adminAuth'
 
 type Icon = LucideIcon
 type NavigationEntry = { to: string; label: string; icon: Icon; end?: boolean }
@@ -72,10 +75,19 @@ function NavigationLink({ entry, onNavigate, className = '' }: { entry: Navigati
 }
 
 export function ResponsiveNavigation({ profile, onSignOut, onReplayTour }: ResponsiveNavigationProps) {
+  const { user, isDemo } = useApp()
   const location = useLocation()
   const navigate = useNavigate()
   const [moreOpen, setMoreOpen] = useState(false)
   const moreMenuRef = useRef<HTMLElement>(null)
+
+  const isAdmin = isAdminUser(user, profile, isDemo)
+  const currentSecondaryNavigation = isAdmin
+    ? [...secondaryNavigation, { to: '/admin', label: 'Admin Dashboard', icon: ShieldCheck }]
+    : secondaryNavigation
+  const currentMoreNavigation = isAdmin
+    ? [...moreNavigation, { to: '/admin', label: 'Admin Dashboard', icon: ShieldCheck }]
+    : moreNavigation
 
   useEffect(() => {
     setMoreOpen(false)
@@ -152,7 +164,7 @@ export function ResponsiveNavigation({ profile, onSignOut, onReplayTour }: Respo
         </nav>
         <div className="sidebar-secondary">
           <span className="nav-group-label">Workspace</span>
-          {secondaryNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} className="nav-item" />)}
+          {currentSecondaryNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} className="nav-item" />)}
         </div>
         <div className="sidebar-bottom">
           <div className="sidebar-account">
@@ -184,7 +196,7 @@ export function ResponsiveNavigation({ profile, onSignOut, onReplayTour }: Respo
           <section id="mobile-more-menu" className="mobile-more-menu" role="dialog" aria-modal="true" aria-labelledby="mobile-more-title" ref={moreMenuRef}>
             <div className="mobile-more-heading"><div><span className="eyebrow">Workspace</span><h2 id="mobile-more-title">More</h2></div><button className="icon-button" type="button" onClick={() => setMoreOpen(false)} aria-label="Close more menu" data-dialog-autofocus><X size={19} /></button></div>
             <div className="mobile-more-links">
-              {moreNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} onNavigate={() => setMoreOpen(false)} className="mobile-more-link" />)}
+              {currentMoreNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} onNavigate={() => setMoreOpen(false)} className="mobile-more-link" />)}
               <button className="mobile-more-link" type="button" onClick={goToAdvancedDiagnostics}><Settings size={19} aria-hidden="true" /><span>Advanced diagnostics</span></button>
               <button className="mobile-more-link" type="button" onClick={handleReplayTour}><CircleHelp size={19} aria-hidden="true" /><span>Replay Tour</span></button>
             </div>

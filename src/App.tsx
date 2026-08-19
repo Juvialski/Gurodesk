@@ -2,9 +2,11 @@ import { lazy, Suspense } from 'react'
 import { FileBarChart, RefreshCw } from 'lucide-react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
+import { AdminGuard } from './components/admin/AdminGuard'
 import { useApp } from './contexts/AppContext'
 import { signedInEntryState } from './lib/workspaceEntry'
 
+const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage').then((m) => ({ default: m.AdminDashboardPage })))
 const AssessmentEditorPage = lazy(() => import('./pages/AssessmentEditorPage').then((m) => ({ default: m.AssessmentEditorPage })))
 const AssessmentNewPage = lazy(() => import('./pages/AssessmentNewPage').then((m) => ({ default: m.AssessmentNewPage })))
 const AssessmentPrintPreviewPage = lazy(() => import('./pages/AssessmentPrintPreviewPage').then((m) => ({ default: m.AssessmentPrintPreviewPage })))
@@ -84,6 +86,7 @@ function WorkspaceRoutes() {
           <Route path="documents" element={<Navigate to="/files" replace />} />
           <Route path="templates" element={<Navigate to="/tos" replace />} />
           <Route path="help" element={<HelpPage />} />
+          <Route path="admin" element={<AdminGuard><AdminDashboardPage /></AdminGuard>} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
