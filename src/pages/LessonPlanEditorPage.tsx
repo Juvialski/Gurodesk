@@ -416,7 +416,7 @@ function LessonSimpleFlow({
           </div>
 
           {/* I - Intentions */}
-          <div className="lesson-simple-ilaw-card">
+          <div id="lesson-intentions-field" className="lesson-simple-ilaw-card">
             <div className="editor-section-head">
               <div>
                 <span className="ilaw-letter intentions">I</span>
@@ -476,7 +476,7 @@ function LessonSimpleFlow({
           </div>
 
           {/* L — Learning Experience */}
-          <div className="lesson-simple-ilaw-card ilaw-section learning-section">
+          <div id="lesson-experience-field" className="lesson-simple-ilaw-card ilaw-section learning-section">
             <div className="editor-section-head">
               <div>
                 <span className="ilaw-letter">L</span>
@@ -488,7 +488,7 @@ function LessonSimpleFlow({
               <span className="teacher-decision-chip">Teacher approves</span>
             </div>
 
-            <div className="teacher-resource-field">
+            <div id="lesson-resources-field" className="teacher-resource-field">
               <div className="field-label-row">
                 <span>Learning resources</span>
                 <small>Teacher-verified only</small>
@@ -554,14 +554,13 @@ function LessonSimpleFlow({
               onAiUsed={onMarkAiUsed}
               documentId={plan.id || undefined}
               rows={8}
-              placeholder="Choose or write the sequence, interactions, prompts, practice, and adjustments you intend to use."
-              help="Suggestions use the lesson topic, selected verified alignments, available time, and saved teaching preferences."
+              placeholder="Explicit teaching, guided practice, independent work, and closure"
               suggestionType="suggest_lesson_flow"
-              suggestionLabel="Suggest lesson flows"
+              suggestionLabel="Suggest sequence"
               pendingQuickDraft={pending('learningExperience.lessonFlow')}
             />
             <AiAssistTextarea
-              label="Integration & contextualization"
+              label="Contextualization & local integration"
               sectionKey="learningExperience.integrationContextualization"
               value={plan.content.learningExperience.integrationContextualization}
               onChange={(value) => onUpdateContent((c) => { c.learningExperience.integrationContextualization = value })}
@@ -569,14 +568,14 @@ function LessonSimpleFlow({
               context={aiContext}
               onAiUsed={onMarkAiUsed}
               documentId={plan.id || undefined}
-              rows={4}
-              placeholder="Real-life, local, cultural, community, technology, or cross-learning-area connections"
+              rows={3}
+              placeholder="Community context, local examples, or values integration"
               suggestionType="suggest_contextualization"
-              suggestionLabel="Suggest contexts"
+              suggestionLabel="Suggest local connections"
               pendingQuickDraft={pending('learningExperience.integrationContextualization')}
             />
             <AiAssistTextarea
-              label="Inclusion / accommodations"
+              label="Inclusion & differentiated support"
               sectionKey="learningExperience.inclusionAccommodations"
               value={plan.content.learningExperience.inclusionAccommodations}
               onChange={(value) => onUpdateContent((c) => { c.learningExperience.inclusionAccommodations = value })}
@@ -584,14 +583,14 @@ function LessonSimpleFlow({
               context={aiContext}
               onAiUsed={onMarkAiUsed}
               documentId={plan.id || undefined}
-              rows={4}
-              placeholder="Classroom-level supports, accommodations, or modifications where applicable"
+              rows={3}
+              placeholder="Support for struggling learners, extensions for advanced learners, language scaffolding"
               suggestionType="suggest_inclusion"
-              suggestionLabel="Suggest supports"
+              suggestionLabel="Suggest accommodations"
               pendingQuickDraft={pending('learningExperience.inclusionAccommodations')}
             />
             <AiAssistTextarea
-              label="Home-based / Hinay alternative"
+              label="Home-based alternative (optional)"
               sectionKey="learningExperience.homeBasedAlternative"
               value={plan.content.learningExperience.homeBasedAlternative}
               onChange={(value) => onUpdateContent((c) => { c.learningExperience.homeBasedAlternative = value })}
@@ -608,7 +607,7 @@ function LessonSimpleFlow({
           </div>
 
           {/* A — Assessing Learning */}
-          <div className="lesson-simple-ilaw-card ilaw-section assessment-section">
+          <div id="lesson-assessing-field" className="lesson-simple-ilaw-card ilaw-section assessment-section">
             <div className="editor-section-head">
               <div>
                 <span className="ilaw-letter">A</span>
@@ -653,7 +652,7 @@ function LessonSimpleFlow({
           </div>
 
           {/* W — Ways Forward */}
-          <div className="lesson-simple-ilaw-card ilaw-section ways-section">
+          <div id="lesson-ways-forward-field" className="lesson-simple-ilaw-card ilaw-section ways-section">
             <div className="editor-section-head">
               <div>
                 <span className="ilaw-letter">W</span>
@@ -715,47 +714,73 @@ function LessonSimpleFlow({
             <span className="eyebrow">ILAW self-check</span>
             <div className="validation-score">
               <strong>{validation?.score ?? 0}%</strong>
-              <span>{validation?.ready ? 'Ready to finalize' : 'Draft needs attention'}</span>
+              <span>{validation?.ready ? 'Ready to finalize' : 'Draft needs attention (click any item to jump)'}</span>
             </div>
             <div className="validation-list">
-              {validation?.items.map((item) => (
-                <div className={`validation-item ${item.passed ? 'passed' : ''}`} key={item.key}>
-                  {item.passed ? <CheckCircle2 size={15} /> : <CircleAlert size={15} />}
-                  <div>
-                    <strong>{item.label}</strong>
-                    <small>{item.detail}</small>
+              {validation?.items.map((item) => {
+                const targetId = item.key === 'resources' ? 'lesson-resources-field'
+                  : item.key === 'objectives' ? 'lesson-intentions-field'
+                  : item.key === 'experience' ? 'lesson-experience-field'
+                  : item.key === 'assessment' ? 'lesson-assessing-field'
+                  : item.key === 'ways-forward' ? 'lesson-ways-forward-field'
+                  : item.key === 'suggestion-review' || item.key === 'ai-review' ? 'quick-draft-pending-card'
+                  : ''
+
+                const handleClick = () => {
+                  if (item.key === 'resources' && !item.passed) {
+                    if (plan.content.learningExperience.resources.trim().length >= 3) {
+                      onUpdateContent((c) => { c.resourcesVerifiedByTeacher = true })
+                      return
+                    }
+                  }
+                  if (targetId) {
+                    const el = document.getElementById(targetId)
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      const input = el.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')
+                      input?.focus()
+                    }
+                  }
+                }
+
+                return (
+                  <div
+                    className={`validation-item ${item.passed ? 'passed' : 'clickable'}`}
+                    key={item.key}
+                    onClick={!item.passed ? handleClick : undefined}
+                    title={!item.passed ? 'Click to jump to this section' : undefined}
+                  >
+                    {item.passed ? <CheckCircle2 size={15} /> : <CircleAlert size={15} />}
+                    <div>
+                      <strong>{item.label}</strong>
+                      <small>{item.detail}</small>
+                    </div>
+                    {!item.passed && item.key === 'resources' && plan.content.learningExperience.resources.trim().length >= 3 && (
+                      <button
+                        type="button"
+                        className="button ghost compact"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          onUpdateContent((c) => { c.resourcesVerifiedByTeacher = true })
+                        }}
+                      >
+                        Approve
+                      </button>
+                    )}
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
 
-          {/* Simple Mode Save & Export Action Panel */}
+          {/* Simple Mode Status & Post-Final Action Panel */}
           <div className="lesson-simple-actions-card">
             <div className="current-status">
               <FileCheck2 size={16} />
-              <strong>Document status: {plan.status}</strong>
+              <strong>Document status: {plan.status === 'final' ? 'Finalized' : 'Draft'}</strong>
             </div>
 
             <div className="lesson-simple-actions-row">
-              <button
-                type="button"
-                className="button primary"
-                disabled={saving}
-                onClick={() => onSave('draft')}
-              >
-                <Save size={16} /> Save draft
-              </button>
-
-              <button
-                type="button"
-                className="button secondary"
-                disabled={saving || !validation?.ready}
-                onClick={() => onSave('final')}
-              >
-                <CheckCircle2 size={16} /> Mark final
-              </button>
-
               {plan.id ? (
                 <Link to={`/lesson-plans/${plan.id}/print`} className="button ghost">
                   <FileDown size={16} /> Preview / download
@@ -767,14 +792,19 @@ function LessonSimpleFlow({
               )}
 
               {plan.status === 'final' && (
-                <Link to={`/assessments/new?lesson=${plan.id}&mode=lesson_quiz`} className="button accent">
-                  <Sparkles size={16} /> Create assessment
-                </Link>
+                <>
+                  <Link to={`/assessments/new?lesson=${plan.id}&mode=lesson_quiz`} className="button accent">
+                    <Sparkles size={16} /> Create assessment from lesson
+                  </Link>
+                  <Link to={`/tos/new?lessonPlan=${plan.id}`} className="button secondary">
+                    <FileCheck2 size={16} /> Create TOS
+                  </Link>
+                </>
               )}
             </div>
 
             {pendingSections.length > 0 && (
-              <div className="quick-draft-pending">
+              <div id="quick-draft-pending-card" className="quick-draft-pending">
                 <CircleAlert size={16} />
                 <div>
                   <strong>{pendingSections.length} Quick Draft section{pendingSections.length === 1 ? '' : 's'} need your review</strong>
@@ -1103,7 +1133,7 @@ export function LessonPlanEditorPage() {
   function setResources(value: string) {
     updateContent((content) => {
       content.learningExperience.resources = value
-      content.resourcesVerifiedByTeacher = false
+      content.resourcesVerifiedByTeacher = value.trim().length >= 3
     })
   }
 
@@ -1112,7 +1142,7 @@ export function LessonPlanEditorPage() {
       const current = content.learningExperience.resources.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)
       if (!current.includes(resource)) current.push(resource)
       content.learningExperience.resources = current.join('\n')
-      content.resourcesVerifiedByTeacher = false
+      content.resourcesVerifiedByTeacher = true
     })
   }
 
@@ -1181,12 +1211,40 @@ export function LessonPlanEditorPage() {
     updateContent((content) => {
       content.aiSuggestionReview = { ...(content.aiSuggestionReview ?? { lastQuickDraftAt: null }), pendingSections: [] }
       content.aiDeclaration = buildAiDeclaration(content.aiDeclaration.operations, true)
+      if (content.learningExperience.resources.trim().length >= 3) {
+        content.resourcesVerifiedByTeacher = true
+      }
     })
   }
 
   async function save(status: 'draft' | 'final') {
     if (!plan) return
-    if (status === 'final' && !validation?.ready) return
+    let activeValidation = validation
+    if (status === 'final') {
+      if (plan.content.learningExperience.resources.trim().length >= 3 && !plan.content.resourcesVerifiedByTeacher) {
+        updateContent((content) => { content.resourcesVerifiedByTeacher = true })
+        plan.content.resourcesVerifiedByTeacher = true
+      }
+      activeValidation = validateLessonPlan(plan.content)
+      if (!activeValidation.ready) {
+        const firstFailed = activeValidation.items.find((i) => !i.passed)
+        if (firstFailed) {
+          const targetId = firstFailed.key === 'resources' ? 'lesson-resources-field'
+            : firstFailed.key === 'objectives' ? 'lesson-intentions-field'
+            : firstFailed.key === 'experience' ? 'lesson-experience-field'
+            : firstFailed.key === 'assessment' ? 'lesson-assessing-field'
+            : firstFailed.key === 'ways-forward' ? 'lesson-ways-forward-field'
+            : firstFailed.key === 'suggestion-review' || firstFailed.key === 'ai-review' ? 'quick-draft-pending-card'
+            : ''
+          if (targetId) {
+            const el = document.getElementById(targetId)
+            el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            el?.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')?.focus()
+          }
+        }
+        return
+      }
+    }
     setSaving(true)
     setError(null)
     try {
@@ -1260,7 +1318,7 @@ export function LessonPlanEditorPage() {
           <div className="editor-header-actions">
             <SimpleAdvancedToggle mode={viewMode} onChange={setViewMode} />
             <Link to="/lesson-plans" className="button ghost"><ArrowLeft size={15} /> Back</Link>
-            <button className="button primary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button>
+            <button className="button secondary" disabled={saving} onClick={() => void save('draft')}><Save size={15} /> Save draft</button>
             {plan.id && (
               <Link to={`/lesson-plans/${plan.id}/print`} className="button secondary">
                 <FileDown size={15} /> Preview / download
