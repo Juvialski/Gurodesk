@@ -147,7 +147,7 @@ function TosSimpleFlow({
           <div className="workflow-step-heading"><span>1</span><div><strong>Name the TOS and choose the class</strong><small>The TOS title is required and is the name shown in your TOS list and exports.</small></div></div>
           <div className="workflow-form-grid three">
             <label>
-              Class
+              <span>Class</span>
               <select disabled={readOnly} value={assignmentId} onChange={(event) => onAssignmentChange(event.target.value)}>
                 {assignments.map((item) => (
                   <option value={item.id} key={item.id}>
@@ -156,8 +156,16 @@ function TosSimpleFlow({
                 ))}
               </select>
             </label>
-            <label>TOS title <small>(required)</small><input disabled={readOnly} value={record.content.title} onChange={(event) => onUpdateContent((content) => { content.title = event.target.value })} placeholder="e.g. Quarter 1 Mathematics TOS" /><small className="workflow-field-help">This identifies the TOS in your list and exported document.</small></label>
-            <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => onUpdateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First summative test" /><small className="workflow-field-help">Used as a suggested test title when you create an assessment from this TOS.</small></label>
+            <label>
+              <span>TOS title <small className="workflow-required">(required)</small></span>
+              <input disabled={readOnly} value={record.content.title} onChange={(event) => onUpdateContent((content) => { content.title = event.target.value })} placeholder="e.g. Quarter 1 Mathematics TOS" />
+              <small className="workflow-field-help">This identifies the TOS in your list and exported document.</small>
+            </label>
+            <label>
+              <span>Assessment title <small className="field-optional">(optional)</small></span>
+              <input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => onUpdateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First summative test" />
+              <small className="workflow-field-help">Used as a suggested test title when you create an assessment from this TOS.</small>
+            </label>
           </div>
           <div className="workflow-options-grid two-col">
             <div className="workflow-chip-group">
@@ -229,7 +237,11 @@ function TosSimpleFlow({
         <div className="workflow-step-card">
           <div className="workflow-step-heading"><span>3</span><div><strong>How large is the test?</strong><small>GuroDesk will distribute whole questions deterministically across your selected competencies.</small></div></div>
           <div className="workflow-form-grid one">
-            <label>Number of questions<input disabled={readOnly} type="number" min="1" max="10000" value={totalItemsInput} onChange={(event) => onTotalItemsChange(event.target.value)} /><small className="workflow-field-help">You can customize weighting and exact allocations before finalizing.</small></label>
+            <label>
+              <span>Number of questions</span>
+              <input disabled={readOnly} type="number" min="1" max="10000" value={totalItemsInput} onChange={(event) => onTotalItemsChange(event.target.value)} />
+              <small className="workflow-field-help">You can customize weighting and exact allocations before finalizing.</small>
+            </label>
           </div>
           <div className="workflow-summary-card">
             <div><span>Total questions</span><strong>{totalItems || '—'}</strong></div>
@@ -556,10 +568,10 @@ export function TosEditorPage() {
         <section className="panel tos-section">
           <div className="tos-section-heading"><span>1</span><div><h2>Assessment context</h2><p>School grading term and curriculum-guide period stay separate.</p></div></div>
           <div className="form-grid two">
-            <label>Teaching assignment<select disabled={readOnly} value={assignmentId} onChange={(event) => changeAssignment(event.target.value)}>{assignments.map((item) => <option value={item.id} key={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label>
-            <label>TOS title<input disabled={readOnly} value={record.content.title} onChange={(event) => updateContent((content) => { content.title = event.target.value })} placeholder="e.g. Term 1 Mathematics TOS" /></label>
-            <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => updateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First Summative Test" /></label>
-            <label>Total test items<input disabled={readOnly} type="number" inputMode="numeric" min="0" max="10000" value={totalItemsInput} onChange={(event) => setTotalItemsInput(event.target.value)} onBlur={() => updateContent((content) => { content.totalItems = stagedTotalItems() })} /></label>
+            <label><span>Teaching assignment</span><select disabled={readOnly} value={assignmentId} onChange={(event) => changeAssignment(event.target.value)}>{assignments.map((item) => <option value={item.id} key={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label>
+            <label><span>TOS title <small className="workflow-required">(required)</small></span><input disabled={readOnly} value={record.content.title} onChange={(event) => updateContent((content) => { content.title = event.target.value })} placeholder="e.g. Term 1 Mathematics TOS" /></label>
+            <label><span>Assessment title <small className="field-optional">(optional)</small></span><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => updateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First Summative Test" /></label>
+            <label><span>Total test items</span><input disabled={readOnly} type="number" inputMode="numeric" min="0" max="10000" value={totalItemsInput} onChange={(event) => setTotalItemsInput(event.target.value)} onBlur={() => updateContent((content) => { content.totalItems = stagedTotalItems() })} /></label>
           </div>
           <div className="tos-context-choices">
             <fieldset><legend>School grading term</legend><p>Reporting calendar</p><div className="choice-row">{calendar?.periods.map((period) => <button aria-pressed={record.content.gradingTermId === period.id} disabled={readOnly} className={`choice-chip ${record.content.gradingTermId === period.id ? 'selected' : ''}`} type="button" key={period.id} onClick={() => updateContent((content) => { content.gradingTermId = period.id; content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="muted-copy">No verified grading calendar is loaded.</span>}</div></fieldset>
@@ -594,23 +606,23 @@ export function TosEditorPage() {
           <div className="tos-row-list">{record.content.rows.map((row, index) => <article className="tos-row-card" key={row.id}>
             <header><span className="tos-row-number">{index + 1}</span><div><small>{[row.competency.contentArea, row.competency.code || row.competency.curriculumPeriodLabel].filter(Boolean).join(' · ') || 'Verified competency'}</small><strong>{row.competency.text}</strong></div>{!readOnly && <div className="tos-row-tools"><button type="button" disabled={index === 0} onClick={() => moveRow(index, -1)} aria-label="Move up"><ArrowUp size={15} /></button><button type="button" disabled={index === record.content.rows.length - 1} onClick={() => moveRow(index, 1)} aria-label="Move down"><ArrowDown size={15} /></button><button type="button" onClick={() => updateContent((content) => { content.rows.splice(index, 1) })} aria-label="Remove competency"><Trash2 size={15} /></button></div>}</header>
             <div className="tos-row-allocation">
-              {record.content.weightingMethod === 'instructional_time' && <label>Minutes taught<input disabled={readOnly} inputMode="decimal" value={row.instructionalMinutes} onChange={(event) => updateContent((content) => { content.rows[index].instructionalMinutes = event.target.value })} placeholder="0" /></label>}
-              {record.content.weightingMethod === 'manual_percentage' && <label>Manual weight %<input disabled={readOnly} inputMode="decimal" value={row.manualWeight} onChange={(event) => updateContent((content) => { content.rows[index].manualWeight = event.target.value })} placeholder="0" /></label>}
+              {record.content.weightingMethod === 'instructional_time' && <label><span>Minutes taught</span><input disabled={readOnly} inputMode="decimal" value={row.instructionalMinutes} onChange={(event) => updateContent((content) => { content.rows[index].instructionalMinutes = event.target.value })} placeholder="0" /></label>}
+              {record.content.weightingMethod === 'manual_percentage' && <label><span>Manual weight %</span><input disabled={readOnly} inputMode="decimal" value={row.manualWeight} onChange={(event) => updateContent((content) => { content.rows[index].manualWeight = event.target.value })} placeholder="0" /></label>}
               {record.content.weightingMethod === 'equal' && <div className="tos-readout"><small>Source weight</small><strong>Equal</strong></div>}
-              <label>Item override <small>(optional)</small><input disabled={readOnly} inputMode="numeric" value={row.itemCountOverride} onChange={(event) => updateContent((content) => { content.rows[index].itemCountOverride = event.target.value })} placeholder="Auto" /></label>
+              <label><span>Item override <small className="field-optional">(optional)</small></span><input disabled={readOnly} inputMode="numeric" value={row.itemCountOverride} onChange={(event) => updateContent((content) => { content.rows[index].itemCountOverride = event.target.value })} placeholder="Auto" /></label>
               <div className="tos-readout"><small>Computed weight</small><strong>{row.computedWeightPercent}%</strong></div><div className="tos-readout"><small>Items</small><strong>{row.itemCount}</strong></div><div className="tos-readout range"><small>Placement</small><strong>{row.itemRangeLabel || '—'}</strong></div>
             </div>
             <button aria-controls={`tos-row-details-${row.id}`} aria-expanded={expandedRows.has(row.id)} className="tos-expand-button" type="button" onClick={() => setExpandedRows((current) => { const next = new Set(current); next.has(row.id) ? next.delete(row.id) : next.add(row.id); return next })}><span>Cognitive allocation and notes</span>{expandedRows.has(row.id) ? <ChevronUp size={16} /> : <ChevronDown size={16} />}</button>
-            {expandedRows.has(row.id) && <div className="tos-row-details" id={`tos-row-details-${row.id}`}><div className="tos-cognitive-inputs">{record.content.cognitiveCategories.map((category) => <label key={category.id}><span>{category.shortLabel} · {category.label}</span><input disabled={readOnly} inputMode="decimal" value={row.cognitiveWeights[category.id] ?? category.weight} onChange={(event) => updateContent((content) => { content.rows[index].cognitiveWeights[category.id] = event.target.value })} /><small>{row.cognitiveAllocations.find((item) => item.categoryId === category.id)?.itemCount ?? 0} item(s) · {row.cognitiveAllocations.find((item) => item.categoryId === category.id)?.rangeLabel || '—'}</small></label>)}</div><label>Row notes<textarea disabled={readOnly} rows={2} value={row.notes} onChange={(event) => updateContent((content) => { content.rows[index].notes = event.target.value })} placeholder="Optional school-specific note" /></label></div>}
+            {expandedRows.has(row.id) && <div className="tos-row-details" id={`tos-row-details-${row.id}`}><div className="tos-cognitive-inputs">{record.content.cognitiveCategories.map((category) => <label key={category.id}><span>{category.shortLabel} · {category.label}</span><input disabled={readOnly} inputMode="decimal" value={row.cognitiveWeights[category.id] ?? category.weight} onChange={(event) => updateContent((content) => { content.rows[index].cognitiveWeights[category.id] = event.target.value })} /><small>{row.cognitiveAllocations.find((item) => item.categoryId === category.id)?.itemCount ?? 0} item(s) · {row.cognitiveAllocations.find((item) => item.categoryId === category.id)?.rangeLabel || '—'}</small></label>)}</div><label><span>Row notes</span><textarea disabled={readOnly} rows={2} value={row.notes} onChange={(event) => updateContent((content) => { content.rows[index].notes = event.target.value })} placeholder="Optional school-specific note" /></label></div>}
           </article>)}</div>
           {!record.content.rows.length && <div className="tos-empty-rows">Choose verified competencies above to begin allocating items.</div>}
         </section>
 
         <section className="panel tos-section">
           <div className="tos-section-heading"><span>4</span><div><h2>Cognitive categories</h2><p>Labels are configurable so the saved model can adapt to school-specific TOS formats.</p></div></div>
-          <div className="tos-category-list">{record.content.cognitiveCategories.map((category, index) => <div className="tos-category-row" key={category.id}><label>Label<input disabled={readOnly} value={category.label} onChange={(event) => updateContent((content) => { content.cognitiveCategories[index].label = event.target.value })} /></label><label>Short label<input disabled={readOnly} value={category.shortLabel} onChange={(event) => updateContent((content) => { content.cognitiveCategories[index].shortLabel = event.target.value })} /></label><label>Default relative weight<input disabled={readOnly} inputMode="decimal" value={category.weight} onChange={(event) => updateContent((content) => { content.cognitiveCategories[index].weight = event.target.value })} /></label>{!readOnly && <button className="icon-button danger" disabled={record.content.cognitiveCategories.length === 1} type="button" onClick={() => removeCategory(category.id)} aria-label={`Remove ${category.label}`}><X size={16} /></button>}</div>)}</div>
+          <div className="tos-category-list">{record.content.cognitiveCategories.map((category, index) => <div className="tos-category-row" key={category.id}><label><span>Label</span><input disabled={readOnly} value={category.label} onChange={(event) => updateContent((content) => { content.cognitiveCategories[index].label = event.target.value })} /></label><label><span>Short label</span><input disabled={readOnly} value={category.shortLabel} onChange={(event) => updateContent((content) => { content.cognitiveCategories[index].shortLabel = event.target.value })} /></label><label><span>Default relative weight</span><input disabled={readOnly} inputMode="decimal" value={category.weight} onChange={(event) => updateContent((content) => { content.cognitiveCategories[index].weight = event.target.value })} /></label>{!readOnly && <button className="icon-button danger" disabled={record.content.cognitiveCategories.length === 1} type="button" onClick={() => removeCategory(category.id)} aria-label={`Remove ${category.label}`}><X size={16} /></button>}</div>)}</div>
           {!readOnly && <button className="button ghost" type="button" onClick={addCategory}><Plus size={15} /> Add category</button>}
-          <label className="tos-notes-field">TOS notes<textarea disabled={readOnly} rows={4} value={record.content.notes} onChange={(event) => updateContent((content) => { content.notes = event.target.value })} placeholder="Optional notes for reviewers or signatories" /></label>
+          <label className="tos-notes-field"><span>TOS notes</span><textarea disabled={readOnly} rows={4} value={record.content.notes} onChange={(event) => updateContent((content) => { content.notes = event.target.value })} placeholder="Optional notes for reviewers or signatories" /></label>
         </section>
       </main>
 

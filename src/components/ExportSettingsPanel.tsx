@@ -97,12 +97,12 @@ export function ExportSettingsPanel({ userId, profile, isDemo }: { userId: strin
         </div>
 
         <div className="form-grid two export-signatory-grid">
-          <label>Prepared by name<input value={preferences.preparedByName} onChange={(event) => setPreferences((current) => ({ ...current, preparedByName: event.target.value }))} placeholder={profile.fullName || 'Defaults to teacher profile'} /></label>
-          <label>Prepared by title<input value={preferences.preparedByTitle} onChange={(event) => setPreferences((current) => ({ ...current, preparedByTitle: event.target.value }))} placeholder={profile.positionTitle || 'Defaults to position'} /></label>
-          <label>Reviewed by name<input value={preferences.reviewedByName} onChange={(event) => setPreferences((current) => ({ ...current, reviewedByName: event.target.value }))} placeholder="Optional" /></label>
-          <label>Reviewed by title<input value={preferences.reviewedByTitle} onChange={(event) => setPreferences((current) => ({ ...current, reviewedByTitle: event.target.value }))} placeholder="e.g. Master Teacher I" /></label>
-          <label>Noted by name<input value={preferences.notedByName} onChange={(event) => setPreferences((current) => ({ ...current, notedByName: event.target.value }))} placeholder="Optional" /></label>
-          <label>Noted by title<input value={preferences.notedByTitle} onChange={(event) => setPreferences((current) => ({ ...current, notedByTitle: event.target.value }))} placeholder="e.g. School Principal" /></label>
+          <label><span>Prepared by name</span><input value={preferences.preparedByName} onChange={(event) => setPreferences((current) => ({ ...current, preparedByName: event.target.value }))} placeholder={profile.fullName || 'Defaults to teacher profile'} /></label>
+          <label><span>Prepared by title</span><input value={preferences.preparedByTitle} onChange={(event) => setPreferences((current) => ({ ...current, preparedByTitle: event.target.value }))} placeholder={profile.positionTitle || 'Defaults to position'} /></label>
+          <label><span>Reviewed by name <small className="field-optional">(optional)</small></span><input value={preferences.reviewedByName} onChange={(event) => setPreferences((current) => ({ ...current, reviewedByName: event.target.value }))} placeholder="Optional" /></label>
+          <label><span>Reviewed by title</span><input value={preferences.reviewedByTitle} onChange={(event) => setPreferences((current) => ({ ...current, reviewedByTitle: event.target.value }))} placeholder="e.g. Master Teacher I" /></label>
+          <label><span>Noted by name <small className="field-optional">(optional)</small></span><input value={preferences.notedByName} onChange={(event) => setPreferences((current) => ({ ...current, notedByName: event.target.value }))} placeholder="Optional" /></label>
+          <label><span>Noted by title</span><input value={preferences.notedByTitle} onChange={(event) => setPreferences((current) => ({ ...current, notedByTitle: event.target.value }))} placeholder="e.g. School Principal" /></label>
         </div>
 
         {message && <div className={`form-message ${message.toLowerCase().includes('unable') ? 'error' : ''}`}>{message}</div>}

@@ -83,6 +83,29 @@ h1, h2, h3, .brand strong { font-family: -apple-system, BlinkMacSystemFont, "Seg
 input, select, textarea { width: 100%; border: 1px solid #cbd5e1; border-radius: 11px; background: #fff; min-height: 44px; padding: 10px 14px; color: var(--text); font-size: 14px; outline: none; transition: border-color .15s ease, box-shadow .15s ease; }
 input:focus, select:focus, textarea:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, .15); }
 label { display: flex; flex-direction: column; gap: 7px; color: #334155; font-size: 13px; font-weight: 700; }
+label > span:first-child,
+.workflow-form-grid label > span:first-child,
+.form-grid label > span:first-child {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 5px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+}
+.field-optional {
+  display: inline;
+  color: #8c97a5;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.workflow-field-badge {
+  display: inline;
+  color: #64748b;
+  font-size: 11.5px;
+  font-weight: 500;
+}
 
 .panel { background: white; border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }
 .eyebrow { display: inline-block; text-transform: uppercase; font-size: 11px; font-weight: 800; color: #475569; letter-spacing: 1px; margin-bottom: 7px; }

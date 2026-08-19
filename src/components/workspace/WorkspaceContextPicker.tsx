@@ -82,18 +82,22 @@ export function WorkspaceContextPicker({
 
       <div className={`workspace-picker-grid cols-${visibleControlCount}`}>
         <label>
-          Class or assignment
+          <span>Class or assignment</span>
           <span className="workspace-picker-control">
-            <select value={selectedAssignmentId} onChange={(event) => changeAssignment(event.target.value)}>
-              <option value="">Choose an assignment</option>
-              {activeAssignments.map((assignment) => <option key={assignment.id} value={assignment.id}>{assignment.gradeLevel} · {assignment.learningArea}</option>)}
+            <select value={selectedAssignment?.id ?? ''} onChange={(event) => changeAssignment(event.target.value)}>
+              <option value="">Choose a class</option>
+              {assignments.map((assignment) => (
+                <option key={assignment.id} value={assignment.id}>
+                  {assignment.gradeLevel} · {assignment.learningArea}{assignment.sections?.length ? ` · ${assignment.sections.join(', ')}` : ''} · {assignment.schoolYear}
+                </option>
+              ))}
             </select>
             <ChevronDown size={16} aria-hidden="true" />
           </span>
         </label>
 
         <label>
-          Section <span className="field-optional">(optional)</span>
+          <span>Section <span className="field-optional">(optional)</span></span>
           <span className="workspace-picker-control">
             <select value={selectedSection ?? ''} onChange={(event) => changeSection(event.target.value)} disabled={!selectedAssignment}>
               <option value="">Choose a section</option>
@@ -104,7 +108,7 @@ export function WorkspaceContextPicker({
         </label>
 
         {hasGradingTerms && <label>
-          Grading term <span className="field-optional">(optional)</span>
+          <span>Grading term <span className="field-optional">(optional)</span></span>
           <span className="workspace-picker-control">
             <select value={gradingTerms?.some((option) => option.id === selection.gradingTermId) ? selection.gradingTermId ?? '' : ''} onChange={(event) => changeTerm(event.target.value)}>
               <option value="">Choose a grading term</option>
@@ -115,7 +119,7 @@ export function WorkspaceContextPicker({
         </label>}
 
         {hasCurriculumPeriods && <label>
-          Curriculum period <span className="field-optional">(optional)</span>
+          <span>Curriculum period <span className="field-optional">(optional)</span></span>
           <span className="workspace-picker-control">
             <select value={curriculumPeriods?.some((option) => option.id === selection.curriculumPeriodId) ? selection.curriculumPeriodId ?? '' : ''} onChange={(event) => changePeriod(event.target.value)}>
               <option value="">Choose a curriculum period</option>

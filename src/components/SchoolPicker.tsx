@@ -300,7 +300,7 @@ export function SchoolPicker({ value, onChange, isDemo, required = false }: Prop
             />
           </label>
           <label>
-            School ID <small>(optional)</small>
+            <span>School ID <small className="field-optional">(optional)</small></span>
             <input
               inputMode="numeric"
               value={value.schoolId ?? ''}

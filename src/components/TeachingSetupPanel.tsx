@@ -104,7 +104,7 @@ export function TeachingSetupPanel({ userId, isDemo }: Props) {
         <div className="resource-library-box">
           <div className="resource-library-heading"><BookOpenCheck size={17} /><div><strong>Books, modules & materials you actually use</strong><small>One resource per line. GuroDesk may mention only items you list here or explicitly add to the lesson.</small></div><span>{resourceCount}</span></div>
           <textarea rows={5} value={resourcesText} onChange={(event) => setResourcesText(event.target.value)} placeholder={'Example:\nTeacher-made slides\nDepEd Mathematics 7 module\nSchool-issued scientific calculator'} />
-          <label>Resource notes<textarea rows={2} value={form.resourceNotes} onChange={(event) => setForm({ ...form, resourceNotes: event.target.value })} placeholder="Optional constraints, e.g. only one projector for the room; no student internet." /></label>
+          <label><span>Resource notes <small className="field-optional">(optional)</small></span><textarea rows={2} value={form.resourceNotes} onChange={(event) => setForm({ ...form, resourceNotes: event.target.value })} placeholder="Optional constraints, e.g. only one projector for the room; no student internet." /></label>
         </div>
 
         {message && <div className="ai-setup-notice success"><CheckCircle2 size={14} /> {message}</div>}

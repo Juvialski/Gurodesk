@@ -402,10 +402,10 @@ export function CustomCurriculumPanel(props: Props) {
       </div>
       {review.warnings.length > 0 && <div className="curriculum-review-warnings"><strong>AI review notes</strong>{review.warnings.map((warning, index) => <p key={`${index}:${warning}`}>{warning}</p>)}</div>}
       <div className="curriculum-review-grid">
-        <label>Periods <small>key || label || quarter/term/semester/year</small><textarea rows={5} value={periodText} onChange={(event) => setPeriodText(event.target.value)} /></label>
-        <label>Domains / strands <small>key || code || name</small><textarea rows={5} value={domainText} onChange={(event) => setDomainText(event.target.value)} /></label>
-        <label className="span-two">Standards <small>type || text || periodKey || domainKey || sourcePage</small><textarea rows={7} value={standardText} onChange={(event) => setStandardText(event.target.value)} /></label>
-        <label className="span-two">Competencies / learning objectives <small>code || exact text || periodKey || domainKey || sourcePage · one record per line</small><textarea rows={14} value={competencyText} onChange={(event) => setCompetencyText(event.target.value)} /></label>
+        <label><span>Periods <small className="field-optional">key || label || quarter/term/semester/year</small></span><textarea rows={5} value={periodText} onChange={(event) => setPeriodText(event.target.value)} /></label>
+        <label><span>Domains / strands <small className="field-optional">key || code || name</small></span><textarea rows={5} value={domainText} onChange={(event) => setDomainText(event.target.value)} /></label>
+        <label className="span-two"><span>Standards <small className="field-optional">type || text || periodKey || domainKey || sourcePage</small></span><textarea rows={7} value={standardText} onChange={(event) => setStandardText(event.target.value)} /></label>
+        <label className="span-two"><span>Competencies / learning objectives <small className="field-optional">code || exact text || periodKey || domainKey || sourcePage · one record per line</small></span><textarea rows={14} value={competencyText} onChange={(event) => setCompetencyText(event.target.value)} /></label>
       </div>
       <div className="custom-review-summary"><span><strong>{lines(competencyText).length}</strong> competencies/objectives</span><span><strong>{lines(periodText).length}</strong> periods</span><span><strong>{lines(domainText).length}</strong> domains</span></div>
       {reviewValidation.length > 0 && <div className="form-message error">{reviewValidation[0]}</div>}

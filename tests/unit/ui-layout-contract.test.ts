@@ -43,7 +43,7 @@ describe('UI layout and grid consistency contracts', () => {
     expect(lessonPlanSource).toMatch(/<div className="form-grid one">\s*<label[^>]*>\s*<span>Lesson title<\/span>/)
 
     const tosSource = readSource('src/pages/TosEditorPage.tsx')
-    expect(tosSource).toMatch(/<div className="workflow-form-grid one">\s*<label>Number of questions/)
+    expect(tosSource).toMatch(/<div className="workflow-form-grid one">\s*<label>\s*<span>Number of questions<\/span>/)
   })
 
   it('bounds curriculum catalog search width and prevents unconstrained stretch', () => {
@@ -96,5 +96,22 @@ describe('UI layout and grid consistency contracts', () => {
     const tosPage = readSource('src/pages/TosEditorPage.tsx')
     expect(tosPage).toContain('<div className="workflow-search">')
     expect(tosPage).toContain('<div className="tos-picker-search">')
+  })
+
+  it('keeps optional and required text beside field labels inline rather than vertically stacked', () => {
+    const styles = readSource('src/styles.css')
+    expect(styles).toMatch(/label\s*>\s*span:first-child/)
+    expect(styles).toContain('.field-optional')
+    expect(styles).toMatch(/\.field-optional\s*\{[^}]*display:\s*inline/)
+
+    const picker = readSource('src/components/workspace/WorkspaceContextPicker.tsx')
+    expect(picker).toContain('<span>Section <span className="field-optional">(optional)</span></span>')
+    expect(picker).toContain('<span>Grading term <span className="field-optional">(optional)</span></span>')
+    expect(picker).toContain('<span>Curriculum period <span className="field-optional">(optional)</span></span>')
+
+    const tos = readSource('src/pages/TosEditorPage.tsx')
+    expect(tos).toContain('<span>TOS title <small className="workflow-required">(required)</small></span>')
+    expect(tos).toContain('<span>Assessment title <small className="field-optional">(optional)</small></span>')
+    expect(tos).toContain('<span>Item override <small className="field-optional">(optional)</small></span>')
   })
 })
