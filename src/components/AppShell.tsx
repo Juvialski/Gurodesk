@@ -8,6 +8,7 @@ import { shouldAutoOpenTeacherTour } from '../lib/teacherTour'
 import { Brand } from './Brand'
 import { ErrorBoundary } from './ErrorBoundary'
 import { TeacherTour } from './TeacherTour'
+import { AiKeyPromptModal } from './AiKeyPromptModal'
 import { ResponsiveNavigation } from './navigation/ResponsiveNavigation'
 import { WorkspaceContextBar } from './workspace/WorkspaceContextBar'
 
@@ -32,7 +33,7 @@ function breadcrumbLabel(pathname: string) {
 }
 
 export function AppShell() {
-  const { profile, assignments, signOut, user } = useApp()
+  const { profile, assignments, signOut, user, isDemo } = useApp()
   const location = useLocation()
   const workspace = useWorkspaceSelection(user?.id)
   const { isOnline, wasOffline } = useOnlineStatus()
@@ -94,6 +95,7 @@ export function AppShell() {
         </main>
       </div>
       <TeacherTour userId={user?.id ?? null} open={tourOpen} onClose={closeTour} />
+      <AiKeyPromptModal isDemo={isDemo} userId={user?.id ?? null} />
     </div>
   )
 }

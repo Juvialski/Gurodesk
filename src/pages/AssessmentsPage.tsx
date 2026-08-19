@@ -1,12 +1,13 @@
-import { Archive, ArrowRight, ClipboardCheck, Copy, Download, FileCheck2, Plus, ShieldCheck, Sparkles } from 'lucide-react'
+import { Archive, ArrowRight, ClipboardCheck, Copy, Download, FileCheck2, FileText, Plus, ShieldCheck, Sparkles } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
+import { ExternalExamModal } from '../components/answerSheet/ExternalExamModal'
 import { useApp } from '../contexts/AppContext'
-import { archiveAssessmentDocument, duplicateAssessmentDocument, loadAssessmentDocuments } from '../lib/assessmentRepository'
+import { archiveAssessmentDocument, duplicateAssessmentDocument, loadAssessmentDocuments, saveAssessmentDocument } from '../lib/assessmentRepository'
 import { loadTosDocuments } from '../lib/tosRepository'
-import type { AssessmentRecord } from '../types/assessment'
+import type { AssessmentBlueprint, AssessmentRecord } from '../types/assessment'
 import type { TosRecord } from '../types/tos'
 import { assessmentCompletion, extractErrorMessage, normalizeAssessment } from './assessmentUi'
 
@@ -24,6 +25,7 @@ export function AssessmentsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [workingId, setWorkingId] = useState('')
+  const [externalExamOpen, setExternalExamOpen] = useState(false)
 
   async function refresh() {
     if (!user) return
@@ -44,6 +46,15 @@ export function AssessmentsPage() {
   }
 
   useEffect(() => { void refresh() }, [user?.id, isDemo])
+
+  async function handleSaveExternalExam(blueprint: AssessmentBlueprint) {
+    try {
+      const saved = await saveAssessmentDocument({ ...blueprint, id: '' }, isDemo)
+      navigate(`/assessments/${saved.id}/print-preview`)
+    } catch (nextError) {
+      setError(extractErrorMessage(nextError, 'Unable to save external exam.'))
+    }
+  }
 
   async function duplicate(document: AssessmentRecord) {
     setWorkingId(document.id)
@@ -77,7 +88,19 @@ export function AssessmentsPage() {
       eyebrow="Assessment studio"
       title="Assessments"
       description="Create teacher-reviewed assessments from Tables of Specifications, lesson plans, unit modules, or authentic performance tasks with 4-level rubrics."
-      actions={<Link className="button primary" to="/assessments/new"><Plus size={16} /> New assessment</Link>}
+      actions={
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            className="button secondary"
+            onClick={() => setExternalExamOpen(true)}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+          >
+            <FileText size={16} /> Quick Answer Key (External)
+          </button>
+          <Link className="button primary" to="/assessments/new"><Plus size={16} /> New assessment</Link>
+        </div>
+      }
     />
 
     <section className="assessment-boundary panel">
@@ -166,5 +189,13 @@ export function AssessmentsPage() {
         </article>
       })}
     </section>}
+
+    {externalExamOpen && (
+      <ExternalExamModal
+        isOpen={externalExamOpen}
+        onClose={() => setExternalExamOpen(false)}
+        onSave={handleSaveExternalExam}
+      />
+    )}
   </>
 }

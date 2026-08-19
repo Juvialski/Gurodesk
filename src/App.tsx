@@ -7,6 +7,7 @@ import { useApp } from './contexts/AppContext'
 import { signedInEntryState } from './lib/workspaceEntry'
 
 const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage').then((m) => ({ default: m.AdminDashboardPage })))
+const AnswerSheetPrintPage = lazy(() => import('./pages/AnswerSheetPrintPage').then((m) => ({ default: m.AnswerSheetPrintPage })))
 const AssessmentEditorPage = lazy(() => import('./pages/AssessmentEditorPage').then((m) => ({ default: m.AssessmentEditorPage })))
 const AssessmentNewPage = lazy(() => import('./pages/AssessmentNewPage').then((m) => ({ default: m.AssessmentNewPage })))
 const AssessmentPrintPreviewPage = lazy(() => import('./pages/AssessmentPrintPreviewPage').then((m) => ({ default: m.AssessmentPrintPreviewPage })))
@@ -60,6 +61,7 @@ function WorkspaceRoutes() {
         <Route path="lesson-plans/:id/print" element={<LessonPlanPrintPreviewPage />} />
         <Route path="tos/:id/print" element={<TosPrintPreviewPage />} />
         <Route path="assessments/:id/print" element={<AssessmentPrintPreviewPage />} />
+        <Route path="assessments/:id/answer-sheet" element={<AnswerSheetPrintPage />} />
         <Route path="results/:id/print" element={<ResultsPrintPreviewPage />} />
         <Route element={<AppShell />}>
           <Route index element={<DashboardPage />} />

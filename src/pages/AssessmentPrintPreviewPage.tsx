@@ -1,7 +1,8 @@
-import { ArrowLeft, Check, Download, FileText, Printer } from 'lucide-react'
+import { ArrowLeft, Check, Download, FileText, Printer, QrCode } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { AssessmentDocumentView } from '../components/AssessmentDocumentView'
+import { AnswerSheetPrintModal } from '../components/answerSheet/AnswerSheetPrintModal'
 import { useApp } from '../contexts/AppContext'
 import { downloadAssessmentDocx, downloadAssessmentPdf } from '../lib/assessmentExport'
 import { buildAssessmentExportModel } from '../lib/assessmentExportModel'
@@ -24,6 +25,7 @@ export function AssessmentPrintPreviewPage() {
   const [loading, setLoading] = useState(true)
   const [downloading, setDownloading] = useState<'pdf' | 'docx' | ''>('')
   const [printing, setPrinting] = useState(false)
+  const [answerSheetModalOpen, setAnswerSheetModalOpen] = useState(false)
   const [error, setError] = useState('')
   const [actionError, setActionError] = useState('')
 
@@ -106,8 +108,9 @@ export function AssessmentPrintPreviewPage() {
 
   return <div className={`print-preview-page assessment-preview-page assessment-preview-${mode}`}>
     <style>{`@media print { @page { size: ${preferences?.paperSize ?? 'a4'}; margin: 0; } }`}</style>
-    <div className="print-preview-toolbar no-print"><Link className="button ghost" to={`/assessments/${assessment.id}`}><ArrowLeft size={16} /> Back to editor</Link><div className="print-preview-title"><strong>Assessment preview</strong><small>{mode === 'student' ? 'Student copy' : mode === 'teacher' ? 'Teacher copy' : 'Answer key'} · {preferences.paperSize.toUpperCase()}</small></div><div className="assessment-preview-actions"><button className="button ghost" type="button" disabled={printing || Boolean(downloading)} onClick={() => void printDocument()}><Printer size={16} /> {printing ? 'Preparing…' : 'Print'}</button><button className="button primary" type="button" disabled={printing || Boolean(downloading)} onClick={() => void download('docx')}><Download size={16} /> {downloading === 'docx' ? 'Building Word…' : 'Download Word (.docx)'}</button><button className="button secondary" type="button" disabled={printing || Boolean(downloading)} onClick={() => void download('pdf')}><Download size={16} /> {downloading === 'pdf' ? 'Building PDF…' : 'PDF'}</button></div></div>{actionError && <div className="assessment-preview-action-error no-print" role="alert">{actionError}</div>}
+    <div className="print-preview-toolbar no-print"><Link className="button ghost" to={`/assessments/${assessment.id}`}><ArrowLeft size={16} /> Back to editor</Link><div className="print-preview-title"><strong>Assessment preview</strong><small>{mode === 'student' ? 'Student copy' : mode === 'teacher' ? 'Teacher copy' : 'Answer key'} · {preferences.paperSize.toUpperCase()}</small></div><div className="assessment-preview-actions"><button className="button ghost" type="button" onClick={() => setAnswerSheetModalOpen(true)}><QrCode size={16} /> Smart Answer Sheet</button><button className="button ghost" type="button" disabled={printing || Boolean(downloading)} onClick={() => void printDocument()}><Printer size={16} /> {printing ? 'Preparing…' : 'Print'}</button><button className="button primary" type="button" disabled={printing || Boolean(downloading)} onClick={() => void download('docx')}><Download size={16} /> {downloading === 'docx' ? 'Building Word…' : 'Download Word (.docx)'}</button><button className="button secondary" type="button" disabled={printing || Boolean(downloading)} onClick={() => void download('pdf')}><Download size={16} /> {downloading === 'pdf' ? 'Building PDF…' : 'PDF'}</button></div></div>{actionError && <div className="assessment-preview-action-error no-print" role="alert">{actionError}</div>}
     <div className="assessment-preview-controls no-print"><div className="assessment-mode-tabs" role="tablist" aria-label="Preview mode">{(['student', 'teacher', 'answer_key'] as AssessmentExportMode[]).map((option) => <button key={option} role="tab" aria-selected={mode === option} className={mode === option ? 'selected' : ''} type="button" onClick={() => setMode(option)}>{option === 'student' ? 'Student' : option === 'teacher' ? 'Teacher' : 'Answer key'}</button>)}</div>{mode === 'teacher' && <div className="assessment-preview-toggles"><label><input type="checkbox" checked={showCompetency} onChange={(event) => setShowCompetency(event.target.checked)} /> Competency</label><label><input type="checkbox" checked={showCognitive} onChange={(event) => setShowCognitive(event.target.checked)} /> Cognitive category</label><label><input type="checkbox" checked={showRationale} onChange={(event) => setShowRationale(event.target.checked)} /> Rationale</label></div>}<p>{mode === 'student' ? 'Student preview hides answers, mappings, AI metadata, IDs, and GuroDesk branding.' : mode === 'teacher' ? 'Teacher preview includes answer and review context according to the toggles.' : 'Answer key is derived from the saved structured answers.'}</p></div>
     <div className="print-preview-stage assessment-print-stage"><AssessmentDocumentView model={model} showCompetency={showCompetency} showCognitive={showCognitive} showRationale={showRationale} /></div>
+    {assessment && <AnswerSheetPrintModal assessment={assessment} isOpen={answerSheetModalOpen} onClose={() => setAnswerSheetModalOpen(false)} />}
   </div>
 }

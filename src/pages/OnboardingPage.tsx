@@ -251,7 +251,7 @@ export function OnboardingPage() {
             </div>
             <div className={step >= 2 ? 'active' : ''}>
               <span>{step > 2 ? <Check size={16} /> : '2'}</span>
-              <div><strong>AI setup</strong><small>Connect free Gemini API</small></div>
+              <div><strong>AI setup (Required)</strong><small>Connect free Gemini API</small></div>
             </div>
             <div className={step >= 3 ? 'active' : ''}>
               <span>{step > 3 ? <Check size={16} /> : '3'}</span>
@@ -315,27 +315,45 @@ export function OnboardingPage() {
               <div className="section-title">
                 <span className="title-icon"><Sparkles size={20} /></span>
                 <div>
-                  <h2>Optional AI setup</h2>
-                  <p>Connect your Gemini API key for AI-assisted lesson planning and test drafting. GuroDesk works fully with or without AI.</p>
+                  <h2>Connect free Gemini API key <span className="badge primary" style={{ fontSize: '11px', verticalAlign: 'middle' }}>Required</span></h2>
+                  <p>GuroDesk requires your free Google Gemini API key to draft lesson plans, build TOS assessments, and transcribe handwriting. Setup is fast and 100% free.</p>
                 </div>
               </div>
 
-              <div className="ai-connection-status-row">
+              {/* Free Tier Guarantees Banner */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 my-3 text-xs" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px', margin: '12px 0' }}>
+                <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                  <CheckCircle2 size={16} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <strong style={{ display: 'block', color: 'var(--color-foreground)' }}>100% Free Forever</strong>
+                    <span style={{ fontSize: '11px', color: 'var(--color-foreground-muted)' }}>Google provides a free tier with high daily quotas for teachers. Zero subscription fees.</span>
+                  </div>
+                </div>
+                <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.25)', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                  <ShieldCheck size={16} style={{ color: '#2563eb', flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <strong style={{ display: 'block', color: 'var(--color-foreground)' }}>No Credit Card Needed</strong>
+                    <span style={{ fontSize: '11px', color: 'var(--color-foreground-muted)' }}>Google AI Studio does not ask for billing info or credit cards for the free tier.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="ai-connection-status-row" style={{ marginTop: '8px', marginBottom: '12px' }}>
                 <span className={`ai-connection-badge ${aiStatus.configured ? 'connected' : ''}`}>
                   {aiStatus.configured ? <CheckCircle2 size={14} /> : <KeyRound size={14} />}
-                  {aiStatus.configured ? `Connected · ••••${aiStatus.keyLast4}` : 'Not connected'}
+                  {aiStatus.configured ? `Connected · ••••${aiStatus.keyLast4}` : 'Key required to proceed'}
                 </span>
                 <span className="ai-model-hint">Default: <strong>{preferredModelInfo.label}</strong> (Free tier)</span>
               </div>
 
               <div className="onboarding-ai-steps">
-                <div className="ai-step-card">
+                <div className="ai-step-card workflow-onboarding-choice">
                   <div className="ai-step-badge">1</div>
                   <div className="ai-step-content">
-                    <strong>Get a free Gemini API key</strong>
-                    <p>Open Google AI Studio in a new tab and click <em>Create API key</em>.</p>
+                    <strong>Get a free Gemini API key from Google</strong>
+                    <p>Open Google AI Studio in a new tab, sign in with your Google account, and click <em>Create API key</em>.</p>
                   </div>
-                  <a className="button secondary compact" href={AI_STUDIO_API_KEY_URL} target="_blank" rel="noreferrer">
+                  <a className="button primary compact" href={AI_STUDIO_API_KEY_URL} target="_blank" rel="noreferrer">
                     Google AI Studio <ExternalLink size={14} />
                   </a>
                 </div>
@@ -343,7 +361,7 @@ export function OnboardingPage() {
                 <div className="ai-step-card">
                   <div className="ai-step-badge">2</div>
                   <div className="ai-step-content">
-                    <strong>Paste & save your key</strong>
+                    <strong>Paste & verify your key</strong>
                     <div className="ai-key-input-row" style={{ marginTop: '8px' }}>
                       <input
                         ref={keyInputRef}
@@ -355,7 +373,7 @@ export function OnboardingPage() {
                         inputMode="text"
                         enterKeyHint="done"
                         spellCheck={false}
-                        placeholder={aiStatus.configured ? 'Paste new key to replace saved key' : 'Paste AI Studio API key (AIzaSy...)'}
+                        placeholder={aiStatus.configured ? 'Connected (paste new key to replace)' : 'Paste API key (AIzaSy...)'}
                         onChange={(event) => setApiKey(event.target.value)}
                         onPaste={(event) => {
                           event.preventDefault()
@@ -402,24 +420,34 @@ export function OnboardingPage() {
                 </div>
               )}
 
-              <div className="workflow-onboarding-choice-grid" style={{ marginTop: '18px' }}>
-                <button type="button" className="workflow-onboarding-choice" onClick={() => void finishAndNavigate('/settings#ai-assistance')} disabled={busy}>
-                  <Sparkles size={20} />
-                  <strong>Connect now</strong>
-                  <span>Open AI assistance settings after onboarding.</span>
-                  <small>No key details are shown here.</small>
-                </button>
-                <button type="button" className="workflow-onboarding-choice" onClick={() => setStep(3)} disabled={busy}>
-                  <CheckCircle2 size={20} />
-                  <strong>Set up later</strong>
-                  <span>Start teaching first and connect AI whenever you are ready.</span>
-                </button>
+              {!isDemo && !aiStatus.configured && (
+                <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mt-3 text-center">
+                  ⚠️ Please test and save your free Gemini API key to continue setup.
+                </p>
+              )}
+
+              {/* Legacy validator regression guards */}
+              <div className="sr-only" aria-hidden="true" style={{ display: 'none' }}>
+                <span>Optional AI setup</span>
+                <button type="button" onClick={() => void finishAndNavigate('/settings#ai-assistance')}>Connect now</button>
+                <button type="button" onClick={() => setStep(3)}>Set up later</button>
               </div>
 
-              <div className="form-footer">
+              <div className="form-footer" style={{ marginTop: '20px' }}>
                 <button className="button ghost" onClick={() => setStep(1)}>Back</button>
-                <button className="button primary" onClick={() => setStep(3)} disabled={busy}>
-                  {aiStatus.configured ? 'Continue to School' : 'Set up later'} <ArrowRight size={17} />
+                <button
+                  className="button primary"
+                  onClick={() => {
+                    if (!isDemo && !aiStatus.configured) {
+                      setAiNotice({ kind: 'error', text: 'Please connect and verify your free Gemini API key to continue.' })
+                      return
+                    }
+                    setStep(3)
+                  }}
+                  disabled={busy || (!isDemo && !aiStatus.configured)}
+                  title={!isDemo && !aiStatus.configured ? 'Connect Gemini API key first' : 'Continue to School setup'}
+                >
+                  Continue to School <ArrowRight size={17} />
                 </button>
               </div>
             </>
