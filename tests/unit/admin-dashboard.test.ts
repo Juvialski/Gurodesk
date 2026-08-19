@@ -10,6 +10,7 @@ import {
 } from '../../src/lib/adminDemo'
 import {
   loadAdminOverviewMetrics,
+  loadAdminRecentActivity,
   loadAdminRegionStats,
   loadAdminRegistrationTrends,
   loadAdminTeacherDetails,
@@ -124,11 +125,38 @@ describe('Admin Repository & Directory Search', () => {
     expect(result.teachers.every((t) => t.onboardingCompleted === false)).toBe(true)
   })
 
-  it('loads full teacher details including assignments and documents', async () => {
+  it('loads full teacher details including assignments and documents in demo mode', async () => {
     const details = await loadAdminTeacherDetails('usr-deped-001', true)
     expect(details).not.toBeNull()
     expect(details?.fullName).toBe('Maria Santos')
     expect(details?.assignments.length).toBeGreaterThan(0)
     expect(details?.recentDocuments.length).toBeGreaterThan(0)
+  })
+
+  it('guarantees real mode (demo: false) returns clean empty real structures without simulated demo data when unconfigured', async () => {
+    const metrics = await loadAdminOverviewMetrics(false)
+    expect(metrics.totalUsers).toBe(0)
+    expect(metrics.totalLessonPlans).toBe(0)
+    expect(metrics.totalAssessments).toBe(0)
+
+    const trends = await loadAdminRegistrationTrends(false)
+    expect(trends).toEqual([])
+
+    const regions = await loadAdminRegionStats(false)
+    expect(regions).toEqual([])
+
+    const flow = await loadAdminUserFlow(false)
+    expect(flow.funnelStages[0].count).toBe(0)
+    expect(flow.featureAdoptions.every((f) => f.activeTeachers === 0)).toBe(true)
+
+    const directory = await loadAdminTeacherDirectory({}, false)
+    expect(directory.teachers).toEqual([])
+    expect(directory.totalCount).toBe(0)
+
+    const teacher = await loadAdminTeacherDetails('nonexistent-id', false)
+    expect(teacher).toBeNull()
+
+    const activity = await loadAdminRecentActivity(false)
+    expect(activity).toEqual([])
   })
 })

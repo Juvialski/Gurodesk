@@ -106,54 +106,61 @@ export function AdminRegistrationsTab({ trends, regionStats, totalTeachers, load
           </div>
         </div>
 
-        <div className="admin-table-container">
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th style={{ width: '40px' }}>#</th>
-                <th>Region</th>
-                <th style={{ textAlign: 'right' }}>Teachers</th>
-                <th style={{ textAlign: 'right' }}>% of Total</th>
-                <th style={{ textAlign: 'right' }}>Onboarded</th>
-                <th style={{ textAlign: 'right' }}>Divisions</th>
-                <th style={{ textAlign: 'right' }}>Documents Created</th>
-              </tr>
-            </thead>
-            <tbody>
-              {regionStats.map((item, index) => {
-                const percentage = totalTeachers > 0 ? Math.round((item.teacherCount / totalTeachers) * 100) : 0
-                return (
-                  <tr key={item.region}>
-                    <td style={{ fontWeight: 700, color: '#94a3b8' }}>{index + 1}</td>
-                    <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <MapPin size={15} color="#2563eb" />
-                        <strong>{item.region}</strong>
-                      </div>
-                    </td>
-                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--navy)' }}>
-                      {item.teacherCount}
-                    </td>
-                    <td style={{ textAlign: 'right' }}>
-                      <span className="admin-badge-pill">{percentage}%</span>
-                    </td>
-                    <td style={{ textAlign: 'right' }}>
-                      <span className={`admin-badge-status ${item.onboardingCount === item.teacherCount ? 'completed' : 'pending'}`}>
-                        {item.onboardingCount} / {item.teacherCount}
-                      </span>
-                    </td>
-                    <td style={{ textAlign: 'right', color: '#475569' }}>
-                      {item.divisionsCount}
-                    </td>
-                    <td style={{ textAlign: 'right', fontWeight: 600, color: '#1d4ed8' }}>
-                      {item.documentCount}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+        {regionStats.length === 0 ? (
+          <div className="home-empty-state compact" style={{ padding: '24px 12px' }}>
+            <MapPin size={24} color="#94a3b8" />
+            <p style={{ margin: '6px 0 0', fontSize: '13px', color: '#64748b' }}>No regional registration data recorded yet.</p>
+          </div>
+        ) : (
+          <div className="admin-table-container">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th style={{ width: '40px' }}>#</th>
+                  <th>Region</th>
+                  <th style={{ textAlign: 'right' }}>Teachers</th>
+                  <th style={{ textAlign: 'right' }}>% of Total</th>
+                  <th style={{ textAlign: 'right' }}>Onboarded</th>
+                  <th style={{ textAlign: 'right' }}>Divisions</th>
+                  <th style={{ textAlign: 'right' }}>Documents Created</th>
+                </tr>
+              </thead>
+              <tbody>
+                {regionStats.map((item, index) => {
+                  const percentage = totalTeachers > 0 ? Math.round((item.teacherCount / totalTeachers) * 100) : 0
+                  return (
+                    <tr key={item.region}>
+                      <td style={{ fontWeight: 700, color: '#94a3b8' }}>{index + 1}</td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <MapPin size={15} color="#2563eb" />
+                          <strong>{item.region}</strong>
+                        </div>
+                      </td>
+                      <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--navy)' }}>
+                        {item.teacherCount}
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        <span className="admin-badge-pill">{percentage}%</span>
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        <span className={`admin-badge-status ${item.onboardingCount === item.teacherCount ? 'completed' : 'pending'}`}>
+                          {item.onboardingCount} / {item.teacherCount}
+                        </span>
+                      </td>
+                      <td style={{ textAlign: 'right', color: '#475569' }}>
+                        {item.divisionsCount}
+                      </td>
+                      <td style={{ textAlign: 'right', fontWeight: 600, color: '#1d4ed8' }}>
+                        {item.documentCount}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
     </div>
   )

@@ -19,72 +19,129 @@ import {
 } from './adminDemo'
 import { supabase } from './supabase'
 
+export const EMPTY_ADMIN_OVERVIEW_METRICS: AdminOverviewMetrics = {
+  totalUsers: 0,
+  newUsersLast24Hours: 0,
+  newUsersLast7Days: 0,
+  newUsersLast30Days: 0,
+  onboardingCompletedCount: 0,
+  onboardingRatePercentage: 0,
+  totalTeachingAssignments: 0,
+  totalLessonPlans: 0,
+  totalAssessments: 0,
+  totalTosDocuments: 0,
+  totalResultSessions: 0,
+  totalLearnersEvaluated: 0,
+  totalRemediationPlans: 0,
+  activeUsersLast7Days: 0,
+  aiConfiguredCount: 0,
+}
+
+export const EMPTY_ADMIN_USER_FLOW: AdminUserFlowData = {
+  funnelStages: [
+    { id: 'stage-signup', label: 'Signed Up', description: 'Total registered teacher accounts', count: 0, percentageOfTotal: 100, dropoffPercentage: 0, stepNumber: 1 },
+    { id: 'stage-onboarding', label: 'Onboarding Completed', description: 'Profile and school identity verified', count: 0, percentageOfTotal: 0, dropoffPercentage: 0, stepNumber: 2 },
+    { id: 'stage-assignments', label: 'Teaching Classes Setup', description: 'Added grade level, subject & sections', count: 0, percentageOfTotal: 0, dropoffPercentage: 0, stepNumber: 3 },
+    { id: 'stage-lesson-plans', label: 'Lesson Plans Generated', description: 'Created DepEd DLL / DLP drafts', count: 0, percentageOfTotal: 0, dropoffPercentage: 0, stepNumber: 4 },
+    { id: 'stage-assessments', label: 'Assessments Built', description: 'Built TOS and DepEd test questions', count: 0, percentageOfTotal: 0, dropoffPercentage: 0, stepNumber: 5 },
+    { id: 'stage-results', label: 'Results & Item Analysis', description: 'Encoded scores and psychometric indices', count: 0, percentageOfTotal: 0, dropoffPercentage: 0, stepNumber: 6 },
+    { id: 'stage-remediation', label: 'Remediation Plans', description: 'Targeted support for struggling competencies', count: 0, percentageOfTotal: 0, dropoffPercentage: 0, stepNumber: 7 },
+  ],
+  featureAdoptions: [
+    { featureName: 'Lesson Planning (DO 42, s. 2016)', description: 'Daily Lesson Logs and Detailed Lesson Plans', activeTeachers: 0, percentageOfOnboarded: 0, totalEntitiesCreated: 0 },
+    { featureName: 'Table of Specifications (TOS)', description: 'DepEd 60-30-10 cognitive item distributions', activeTeachers: 0, percentageOfOnboarded: 0, totalEntitiesCreated: 0 },
+    { featureName: 'Assessment Engine (11 Question Types)', description: 'Test generation, DOCX/PDF export & print previews', activeTeachers: 0, percentageOfOnboarded: 0, totalEntitiesCreated: 0 },
+    { featureName: 'Class Results & Item Analysis', description: 'Difficulty, discrimination & mastery tracking', activeTeachers: 0, percentageOfOnboarded: 0, totalEntitiesCreated: 0 },
+    { featureName: 'Targeted Remediation', description: 'Personalized intervention plans for unmastered items', activeTeachers: 0, percentageOfOnboarded: 0, totalEntitiesCreated: 0 },
+    { featureName: 'AI Assistance (Gemini BYOK)', description: 'Teachers with personal API key connected', activeTeachers: 0, percentageOfOnboarded: 0, totalEntitiesCreated: 0 },
+  ],
+  averageTimeFromSignupToFirstDocMinutes: null,
+}
+
 export async function loadAdminOverviewMetrics(demo: boolean): Promise<AdminOverviewMetrics> {
-  if (demo || !supabase) {
+  if (demo) {
     return getDemoOverviewMetrics()
+  }
+  if (!supabase) {
+    return EMPTY_ADMIN_OVERVIEW_METRICS
   }
 
   try {
     const { data, error } = await supabase.rpc('get_admin_overview_metrics')
     if (error) {
-      console.warn('Admin overview RPC failed, falling back to aggregate queries or demo data', error)
-      return getDemoOverviewMetrics()
+      console.warn('Admin overview RPC returned error:', error)
+      return EMPTY_ADMIN_OVERVIEW_METRICS
     }
     if (data) {
       return data as AdminOverviewMetrics
     }
-    return getDemoOverviewMetrics()
+    return EMPTY_ADMIN_OVERVIEW_METRICS
   } catch (err) {
     console.warn('Error loading admin overview metrics:', err)
-    return getDemoOverviewMetrics()
+    return EMPTY_ADMIN_OVERVIEW_METRICS
   }
 }
 
 export async function loadAdminRegistrationTrends(demo: boolean): Promise<AdminRegistrationTrendPoint[]> {
-  if (demo || !supabase) {
+  if (demo) {
     return getDemoRegistrationTrends()
+  }
+  if (!supabase) {
+    return []
   }
 
   try {
     const { data, error } = await supabase.rpc('get_admin_registration_trends')
     if (error) {
-      return getDemoRegistrationTrends()
+      console.warn('Admin registration trends RPC returned error:', error)
+      return []
     }
-    return (data as AdminRegistrationTrendPoint[]) ?? getDemoRegistrationTrends()
-  } catch {
-    return getDemoRegistrationTrends()
+    return (data as AdminRegistrationTrendPoint[]) ?? []
+  } catch (err) {
+    console.warn('Error loading admin registration trends:', err)
+    return []
   }
 }
 
 export async function loadAdminRegionStats(demo: boolean): Promise<AdminRegionStat[]> {
-  if (demo || !supabase) {
+  if (demo) {
     return getDemoRegionStats()
+  }
+  if (!supabase) {
+    return []
   }
 
   try {
     const { data, error } = await supabase.rpc('get_admin_region_stats')
     if (error) {
-      return getDemoRegionStats()
+      console.warn('Admin region stats RPC returned error:', error)
+      return []
     }
-    return (data as AdminRegionStat[]) ?? getDemoRegionStats()
-  } catch {
-    return getDemoRegionStats()
+    return (data as AdminRegionStat[]) ?? []
+  } catch (err) {
+    console.warn('Error loading admin region stats:', err)
+    return []
   }
 }
 
 export async function loadAdminUserFlow(demo: boolean): Promise<AdminUserFlowData> {
-  if (demo || !supabase) {
+  if (demo) {
     return getDemoUserFlow()
+  }
+  if (!supabase) {
+    return EMPTY_ADMIN_USER_FLOW
   }
 
   try {
     const { data, error } = await supabase.rpc('get_admin_user_flow')
     if (error) {
-      return getDemoUserFlow()
+      console.warn('Admin user flow RPC returned error:', error)
+      return EMPTY_ADMIN_USER_FLOW
     }
-    return (data as AdminUserFlowData) ?? getDemoUserFlow()
-  } catch {
-    return getDemoUserFlow()
+    return (data as AdminUserFlowData) ?? EMPTY_ADMIN_USER_FLOW
+  } catch (err) {
+    console.warn('Error loading admin user flow:', err)
+    return EMPTY_ADMIN_USER_FLOW
   }
 }
 
@@ -92,7 +149,7 @@ export async function loadAdminTeacherDirectory(
   filters: AdminDirectoryFilter = {},
   demo: boolean,
 ): Promise<{ teachers: AdminTeacherRecord[]; totalCount: number }> {
-  if (demo || !supabase) {
+  if (demo) {
     let list = [...DEMO_ADMIN_TEACHERS]
 
     if (filters.searchQuery?.trim()) {
@@ -144,6 +201,10 @@ export async function loadAdminTeacherDirectory(
     return { teachers: paginated, totalCount }
   }
 
+  if (!supabase) {
+    return { teachers: [], totalCount: 0 }
+  }
+
   try {
     const { data, error } = await supabase.rpc('get_admin_teacher_directory', {
       p_search: filters.searchQuery ?? '',
@@ -157,47 +218,57 @@ export async function loadAdminTeacherDirectory(
     })
 
     if (error) {
-      console.warn('get_admin_teacher_directory RPC returned error, using fallback:', error)
-      return { teachers: DEMO_ADMIN_TEACHERS, totalCount: DEMO_ADMIN_TEACHERS.length }
+      console.warn('get_admin_teacher_directory RPC returned error:', error)
+      return { teachers: [], totalCount: 0 }
     }
 
     const result = data as { teachers: AdminTeacherRecord[]; totalCount: number } | null
-    return result ?? { teachers: DEMO_ADMIN_TEACHERS, totalCount: DEMO_ADMIN_TEACHERS.length }
+    return result ?? { teachers: [], totalCount: 0 }
   } catch (err) {
     console.warn('Directory error:', err)
-    return { teachers: DEMO_ADMIN_TEACHERS, totalCount: DEMO_ADMIN_TEACHERS.length }
+    return { teachers: [], totalCount: 0 }
   }
 }
 
 export async function loadAdminTeacherDetails(userId: string, demo: boolean): Promise<AdminTeacherDetails | null> {
-  if (demo || !supabase) {
+  if (demo) {
     return getDemoTeacherDetails(userId)
+  }
+  if (!supabase) {
+    return null
   }
 
   try {
     const { data, error } = await supabase.rpc('get_admin_teacher_details', { p_user_id: userId })
     if (error) {
-      return getDemoTeacherDetails(userId)
+      console.warn('get_admin_teacher_details RPC returned error:', error)
+      return null
     }
-    return (data as AdminTeacherDetails) ?? getDemoTeacherDetails(userId)
-  } catch {
-    return getDemoTeacherDetails(userId)
+    return (data as AdminTeacherDetails) ?? null
+  } catch (err) {
+    console.warn('Error loading teacher details:', err)
+    return null
   }
 }
 
 export async function loadAdminRecentActivity(demo: boolean): Promise<AdminActivityEvent[]> {
-  if (demo || !supabase) {
+  if (demo) {
     return DEMO_ADMIN_ACTIVITY_EVENTS
+  }
+  if (!supabase) {
+    return []
   }
 
   try {
     const { data, error } = await supabase.rpc('get_admin_recent_activity')
     if (error) {
-      return DEMO_ADMIN_ACTIVITY_EVENTS
+      console.warn('get_admin_recent_activity RPC returned error:', error)
+      return []
     }
-    return (data as AdminActivityEvent[]) ?? DEMO_ADMIN_ACTIVITY_EVENTS
-  } catch {
-    return DEMO_ADMIN_ACTIVITY_EVENTS
+    return (data as AdminActivityEvent[]) ?? []
+  } catch (err) {
+    console.warn('Error loading recent activity:', err)
+    return []
   }
 }
 

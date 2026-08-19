@@ -180,31 +180,38 @@ export function AdminOverviewTab({ metrics, activity, loading }: AdminOverviewTa
             </div>
           </div>
 
-          <div className="admin-activity-list">
-            {activity.slice(0, 6).map((item) => (
-              <div className="admin-activity-item" key={item.id}>
-                <div className="admin-activity-icon">
-                  {item.type === 'user_registered' && <Users size={14} />}
-                  {item.type === 'onboarding_completed' && <CheckCircle2 size={14} />}
-                  {item.type === 'lesson_plan_created' && <BookOpenCheck size={14} />}
-                  {item.type === 'assessment_created' && <ClipboardCheck size={14} />}
-                  {item.type === 'results_encoded' && <ChartNoAxesColumnIncreasing size={14} />}
-                  {item.type === 'remediation_created' && <Sparkles size={14} />}
-                  {!['user_registered', 'onboarding_completed', 'lesson_plan_created', 'assessment_created', 'results_encoded', 'remediation_created'].includes(item.type) && <Clock size={14} />}
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flex: 1 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
-                    <strong style={{ color: 'var(--navy)', fontSize: '13px' }}>{item.userName}</strong>
-                    <span style={{ fontSize: '11px', color: '#94a3b8', whiteSpace: 'nowrap' }}>
-                      {new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
+          {activity.length === 0 ? (
+            <div className="home-empty-state compact" style={{ padding: '24px 12px' }}>
+              <Clock size={24} color="#94a3b8" />
+              <p style={{ margin: '6px 0 0', fontSize: '13px', color: '#64748b' }}>No recent administrative events recorded yet.</p>
+            </div>
+          ) : (
+            <div className="admin-activity-list">
+              {activity.slice(0, 6).map((item) => (
+                <div className="admin-activity-item" key={item.id}>
+                  <div className="admin-activity-icon">
+                    {item.type === 'user_registered' && <Users size={14} />}
+                    {item.type === 'onboarding_completed' && <CheckCircle2 size={14} />}
+                    {item.type === 'lesson_plan_created' && <BookOpenCheck size={14} />}
+                    {item.type === 'assessment_created' && <ClipboardCheck size={14} />}
+                    {item.type === 'results_encoded' && <ChartNoAxesColumnIncreasing size={14} />}
+                    {item.type === 'remediation_created' && <Sparkles size={14} />}
+                    {!['user_registered', 'onboarding_completed', 'lesson_plan_created', 'assessment_created', 'results_encoded', 'remediation_created'].includes(item.type) && <Clock size={14} />}
                   </div>
-                  <span style={{ color: '#475569', fontSize: '12px' }}>{item.title}</span>
-                  <small style={{ color: '#94a3b8', fontSize: '11px' }}>{item.schoolName} · {item.region.split('(')[0]}</small>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flex: 1 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                      <strong style={{ color: 'var(--navy)', fontSize: '13px' }}>{item.userName}</strong>
+                      <span style={{ fontSize: '11px', color: '#94a3b8', whiteSpace: 'nowrap' }}>
+                        {new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                    <span style={{ color: '#475569', fontSize: '12px' }}>{item.title}</span>
+                    <small style={{ color: '#94a3b8', fontSize: '11px' }}>{item.schoolName} · {item.region.split('(')[0]}</small>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>

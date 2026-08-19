@@ -43,16 +43,20 @@ begin
   select count(*) into v_total_assessments from public.documents where document_type = 'assessment' and status <> 'archived';
   select count(*) into v_total_tos from public.documents where document_type = 'tos' and status <> 'archived';
 
-  -- Result sessions and remediation plans
+  -- Result sessions and remediation plans (remediation_plans uses review_state)
   select count(*) into v_total_results from public.result_sessions where status <> 'archived';
-  select count(*) into v_total_remediations from public.remediation_plans where status <> 'archived';
+  select count(*) into v_total_remediations from public.remediation_plans where review_state <> 'archived';
 
   -- Active users in the last 7 days (profiles updated or created documents recently)
   select count(distinct id) into v_active_7d
   from (
     select id from public.profiles where updated_at >= (v_now - interval '7 days')
     union
-    select user_id as id from public.documents where updated_at >= (v_now - interval '7 days')
+    select user_id as id from public.documents where updated_at >= (v_now - interval '7 days') and status <> 'archived'
+    union
+    select user_id as id from public.result_sessions where updated_at >= (v_now - interval '7 days') and status <> 'archived'
+    union
+    select user_id as id from public.remediation_plans where updated_at >= (v_now - interval '7 days') and review_state <> 'archived'
   ) active_set;
 
   -- Teachers with AI credentials configured
@@ -90,10 +94,17 @@ as $$
   with daily_counts as (
     select
       date_trunc('day', created_at)::date as reg_date,
-      count(*) as reg_count
+      count(*)::integer as reg_count
     from public.profiles
     where created_at >= (timezone('utc', now()) - interval '30 days')
     group by date_trunc('day', created_at)::date
+  ),
+  with_cumulative as (
+    select
+      reg_date,
+      reg_count,
+      sum(reg_count) over (order by reg_date asc)::integer as cumulative_count
+    from daily_counts
     order by reg_date asc
   )
   select coalesce(
@@ -102,12 +113,12 @@ as $$
         'date', to_char(reg_date, 'YYYY-MM-DD'),
         'label', to_char(reg_date, 'Mon DD'),
         'registrations', reg_count,
-        'cumulative', sum(reg_count) over (order by reg_date asc)
+        'cumulative', cumulative_count
       )
     ),
     '[]'::jsonb
   )
-  from daily_counts;
+  from with_cumulative;
 $$;
 
 grant execute on function public.get_admin_registration_trends() to authenticated;
@@ -122,10 +133,10 @@ as $$
   with region_agg as (
     select
       coalesce(nullif(trim(p.region), ''), 'Unspecified Region') as region_name,
-      count(p.id) as teacher_count,
-      count(case when p.onboarding_completed then 1 end) as onboarded_count,
-      count(distinct nullif(trim(p.division), '')) as divisions_count,
-      coalesce(sum((select count(*) from public.documents d where d.user_id = p.id and d.status <> 'archived')), 0) as doc_count
+      count(p.id)::integer as teacher_count,
+      count(case when p.onboarding_completed then 1 end)::integer as onboarded_count,
+      count(distinct nullif(trim(p.division), ''))::integer as divisions_count,
+      coalesce(sum((select count(*) from public.documents d where d.user_id = p.id and d.status <> 'archived')), 0)::integer as doc_count
     from public.profiles p
     group by coalesce(nullif(trim(p.region), ''), 'Unspecified Region')
     order by teacher_count desc
@@ -168,6 +179,7 @@ declare
   v_assessments_total integer := 0;
   v_results_total integer := 0;
   v_remediations_total integer := 0;
+  v_avg_time_minutes numeric := null;
 begin
   select count(*) into v_total_users from public.profiles;
   select count(*) into v_onboarded from public.profiles where onboarding_completed = true;
@@ -187,9 +199,21 @@ begin
   from public.result_sessions where status <> 'archived';
 
   select count(distinct user_id), count(*) into v_with_remediation, v_remediations_total
-  from public.remediation_plans where status <> 'archived';
+  from public.remediation_plans where review_state <> 'archived';
 
   select count(distinct user_id) into v_with_ai from public.teacher_ai_credentials;
+
+  -- Real average time from profile creation to first created document in minutes
+  select round(avg(extract(epoch from (first_doc.created_at - p.created_at)) / 60.0)::numeric, 1)
+  into v_avg_time_minutes
+  from public.profiles p
+  join (
+    select user_id, min(created_at) as created_at
+    from public.documents
+    where status <> 'archived'
+    group by user_id
+  ) first_doc on first_doc.user_id = p.id
+  where first_doc.created_at >= p.created_at;
 
   return jsonb_build_object(
     'funnelStages', jsonb_build_array(
@@ -301,7 +325,7 @@ begin
         'totalEntitiesCreated', 0
       )
     ),
-    'averageTimeFromSignupToFirstDocMinutes', 18.5
+    'averageTimeFromSignupToFirstDocMinutes', v_avg_time_minutes
   );
 end;
 $$;
@@ -348,7 +372,7 @@ begin
     or (p_onboarding_status = 'pending' and p.onboarding_completed = false)
   );
 
-  with teacher_list as (
+  with teacher_metrics as (
     select
       p.id,
       p.email,
@@ -364,13 +388,13 @@ begin
       p.onboarding_completed as "onboardingCompleted",
       p.created_at as "createdAt",
       p.updated_at as "lastActiveAt",
-      (select count(*) from public.teacher_assignments ta where ta.user_id = p.id and ta.is_active = true) as "assignmentsCount",
-      (select count(*) from public.documents d where d.user_id = p.id and d.document_type = 'lesson_plan' and d.status <> 'archived') as "lessonPlansCount",
-      (select count(*) from public.documents d where d.user_id = p.id and d.document_type = 'assessment' and d.status <> 'archived') as "assessmentsCount",
-      (select count(*) from public.documents d where d.user_id = p.id and d.document_type = 'tos' and d.status <> 'archived') as "tosCount",
-      (select count(*) from public.result_sessions rs where rs.user_id = p.id and rs.status <> 'archived') as "resultSessionsCount",
-      (select count(*) from public.remediation_plans rp where rp.user_id = p.id and rp.status <> 'archived') as "remediationPlansCount",
-      (select count(*) from public.documents d where d.user_id = p.id and d.status <> 'archived') as "totalDocumentsCount",
+      (select count(*)::integer from public.teacher_assignments ta where ta.user_id = p.id and ta.is_active = true) as "assignmentsCount",
+      (select count(*)::integer from public.documents d where d.user_id = p.id and d.document_type = 'lesson_plan' and d.status <> 'archived') as "lessonPlansCount",
+      (select count(*)::integer from public.documents d where d.user_id = p.id and d.document_type = 'assessment' and d.status <> 'archived') as "assessmentsCount",
+      (select count(*)::integer from public.documents d where d.user_id = p.id and d.document_type = 'tos' and d.status <> 'archived') as "tosCount",
+      (select count(*)::integer from public.result_sessions rs where rs.user_id = p.id and rs.status <> 'archived') as "resultSessionsCount",
+      (select count(*)::integer from public.remediation_plans rp where rp.user_id = p.id and rp.review_state <> 'archived') as "remediationPlansCount",
+      (select count(*)::integer from public.documents d where d.user_id = p.id and d.status <> 'archived') as "totalDocumentsCount",
       exists (select 1 from public.teacher_ai_credentials tac where tac.user_id = p.id) as "hasAiConfigured"
     from public.profiles p
     where (
@@ -388,18 +412,24 @@ begin
       or (p_onboarding_status = 'completed' and p.onboarding_completed = true)
       or (p_onboarding_status = 'pending' and p.onboarding_completed = false)
     )
+  ),
+  sorted_teachers as (
+    select *
+    from teacher_metrics
     order by
-      case when p_sort_by = 'fullName' and p_sort_direction = 'asc' then p.full_name end asc,
-      case when p_sort_by = 'fullName' and p_sort_direction = 'desc' then p.full_name end desc,
-      case when p_sort_by = 'lastActiveAt' and p_sort_direction = 'asc' then p.updated_at end asc,
-      case when p_sort_by = 'lastActiveAt' and p_sort_direction = 'desc' then p.updated_at end desc,
-      case when p_sort_by = 'createdAt' and p_sort_direction = 'asc' then p.created_at end asc,
-      case when p_sort_by = 'createdAt' and p_sort_direction = 'desc' then p.created_at end desc,
-      p.created_at desc
+      case when p_sort_by = 'fullName' and p_sort_direction = 'asc' then "fullName" end asc,
+      case when p_sort_by = 'fullName' and p_sort_direction = 'desc' then "fullName" end desc,
+      case when p_sort_by = 'documentsCount' and p_sort_direction = 'asc' then "totalDocumentsCount" end asc,
+      case when p_sort_by = 'documentsCount' and p_sort_direction = 'desc' then "totalDocumentsCount" end desc,
+      case when p_sort_by = 'lastActiveAt' and p_sort_direction = 'asc' then "lastActiveAt" end asc,
+      case when p_sort_by = 'lastActiveAt' and p_sort_direction = 'desc' then "lastActiveAt" end desc,
+      case when p_sort_by = 'createdAt' and p_sort_direction = 'asc' then "createdAt" end asc,
+      case when p_sort_by = 'createdAt' and p_sort_direction = 'desc' then "createdAt" end desc,
+      "createdAt" desc
     limit greatest(coalesce(p_page_size, 15), 1)
     offset v_offset
   )
-  select coalesce(jsonb_agg(to_jsonb(t)), '[]'::jsonb) into v_teachers from teacher_list t;
+  select coalesce(jsonb_agg(to_jsonb(t)), '[]'::jsonb) into v_teachers from sorted_teachers t;
 
   return jsonb_build_object(
     'teachers', v_teachers,
@@ -411,3 +441,282 @@ $$;
 grant execute on function public.get_admin_teacher_directory(
   text, text, text, text, text, text, integer, integer
 ) to authenticated;
+
+create or replace function public.get_admin_teacher_details(p_user_id uuid)
+returns jsonb
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  v_profile public.profiles%rowtype;
+  v_assignments jsonb;
+  v_recent_docs jsonb;
+  v_recent_activity jsonb;
+  v_assignments_count integer := 0;
+  v_lp_count integer := 0;
+  v_assessments_count integer := 0;
+  v_tos_count integer := 0;
+  v_results_count integer := 0;
+  v_remediations_count integer := 0;
+  v_total_docs integer := 0;
+  v_has_ai boolean := false;
+begin
+  select * into v_profile from public.profiles where id = p_user_id;
+  if v_profile.id is null then
+    return null;
+  end if;
+
+  select count(*)::integer into v_assignments_count from public.teacher_assignments where user_id = p_user_id and is_active = true;
+  select count(*)::integer into v_lp_count from public.documents where user_id = p_user_id and document_type = 'lesson_plan' and status <> 'archived';
+  select count(*)::integer into v_assessments_count from public.documents where user_id = p_user_id and document_type = 'assessment' and status <> 'archived';
+  select count(*)::integer into v_tos_count from public.documents where user_id = p_user_id and document_type = 'tos' and status <> 'archived';
+  select count(*)::integer into v_results_count from public.result_sessions where user_id = p_user_id and status <> 'archived';
+  select count(*)::integer into v_remediations_count from public.remediation_plans where user_id = p_user_id and review_state <> 'archived';
+  select count(*)::integer into v_total_docs from public.documents where user_id = p_user_id and status <> 'archived';
+  select exists (select 1 from public.teacher_ai_credentials where user_id = p_user_id) into v_has_ai;
+
+  select coalesce(
+    jsonb_agg(
+      jsonb_build_object(
+        'id', ta.id,
+        'userId', ta.user_id,
+        'schoolYear', ta.school_year,
+        'gradeLevel', ta.grade_level,
+        'learningArea', ta.learning_area,
+        'sections', ta.section_names,
+        'isActive', ta.is_active,
+        'curriculumSourceKind', 'official',
+        'curriculumVersionId', null
+      ) order by ta.grade_level asc, ta.learning_area asc
+    ),
+    '[]'::jsonb
+  ) into v_assignments
+  from public.teacher_assignments ta
+  where ta.user_id = p_user_id and ta.is_active = true;
+
+  select coalesce(
+    jsonb_agg(
+      jsonb_build_object(
+        'id', d.id,
+        'title', d.title,
+        'documentType', d.document_type,
+        'schoolYear', d.school_year,
+        'academicPeriodLabel', d.academic_period_label,
+        'status', d.status,
+        'createdAt', d.created_at,
+        'updatedAt', d.updated_at
+      ) order by d.updated_at desc
+    ),
+    '[]'::jsonb
+  ) into v_recent_docs
+  from (
+    select id, title, document_type, school_year, academic_period_label, status, created_at, updated_at
+    from public.documents
+    where user_id = p_user_id and status <> 'archived'
+    order by updated_at desc
+    limit 10
+  ) d;
+
+  with user_events as (
+    select
+      'onboarding' as event_type,
+      'Profile setup completed' as title,
+      v_profile.updated_at as event_time
+    where v_profile.onboarding_completed = true
+    union all
+    select
+      'document_update' as event_type,
+      'Updated ' || d.title as title,
+      d.updated_at as event_time
+    from public.documents d
+    where d.user_id = p_user_id and d.status <> 'archived'
+    union all
+    select
+      'results_encoded' as event_type,
+      'Encoded results for ' || rs.title as title,
+      rs.updated_at as event_time
+    from public.result_sessions rs
+    where rs.user_id = p_user_id and rs.status <> 'archived'
+    order by event_time desc
+    limit 10
+  )
+  select coalesce(
+    jsonb_agg(
+      jsonb_build_object(
+        'type', event_type,
+        'title', title,
+        'timestamp', event_time
+      )
+    ),
+    '[]'::jsonb
+  ) into v_recent_activity
+  from user_events;
+
+  return jsonb_build_object(
+    'id', v_profile.id,
+    'email', v_profile.email,
+    'fullName', v_profile.full_name,
+    'schoolName', v_profile.school_name,
+    'schoolId', v_profile.school_id,
+    'region', v_profile.region,
+    'division', v_profile.division,
+    'district', v_profile.district,
+    'districtVerified', v_profile.district_verified,
+    'positionTitle', v_profile.position_title,
+    'schoolYear', v_profile.school_year,
+    'onboardingCompleted', v_profile.onboarding_completed,
+    'createdAt', v_profile.created_at,
+    'lastActiveAt', v_profile.updated_at,
+    'assignmentsCount', v_assignments_count,
+    'lessonPlansCount', v_lp_count,
+    'assessmentsCount', v_assessments_count,
+    'tosCount', v_tos_count,
+    'resultSessionsCount', v_results_count,
+    'remediationPlansCount', v_remediations_count,
+    'totalDocumentsCount', v_total_docs,
+    'hasAiConfigured', v_has_ai,
+    'assignments', v_assignments,
+    'recentDocuments', v_recent_docs,
+    'recentActivity', v_recent_activity
+  );
+end;
+$$;
+
+grant execute on function public.get_admin_teacher_details(uuid) to authenticated;
+
+create or replace function public.get_admin_recent_activity()
+returns jsonb
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  with recent_events as (
+    -- New user registrations
+    select
+      'usr-' || p.id::text || '-reg' as id,
+      'user_registered' as event_type,
+      p.id as user_id,
+      p.email as user_email,
+      p.full_name as user_name,
+      coalesce(nullif(trim(p.school_name), ''), 'School unassigned') as school_name,
+      coalesce(nullif(trim(p.region), ''), 'Unspecified') as region,
+      'New teacher account registered' as title,
+      p.created_at as event_time
+    from public.profiles p
+    where p.created_at >= (timezone('utc', now()) - interval '30 days')
+
+    union all
+
+    -- Onboarding completed
+    select
+      'usr-' || p.id::text || '-onb' as id,
+      'onboarding_completed' as event_type,
+      p.id as user_id,
+      p.email as user_email,
+      p.full_name as user_name,
+      coalesce(nullif(trim(p.school_name), ''), 'School unassigned') as school_name,
+      coalesce(nullif(trim(p.region), ''), 'Unspecified') as region,
+      'Completed onboarding & setup profile' as title,
+      p.updated_at as event_time
+    from public.profiles p
+    where p.onboarding_completed = true
+      and p.updated_at >= (timezone('utc', now()) - interval '30 days')
+
+    union all
+
+    -- Lesson plans created
+    select
+      'doc-' || d.id::text as id,
+      'lesson_plan_created' as event_type,
+      d.user_id,
+      p.email as user_email,
+      p.full_name as user_name,
+      coalesce(nullif(trim(p.school_name), ''), 'School unassigned') as school_name,
+      coalesce(nullif(trim(p.region), ''), 'Unspecified') as region,
+      'Created Lesson Plan: ' || d.title as title,
+      d.created_at as event_time
+    from public.documents d
+    join public.profiles p on p.id = d.user_id
+    where d.document_type = 'lesson_plan'
+      and d.status <> 'archived'
+      and d.created_at >= (timezone('utc', now()) - interval '30 days')
+
+    union all
+
+    -- Assessments created
+    select
+      'doc-' || d.id::text as id,
+      'assessment_created' as event_type,
+      d.user_id,
+      p.email as user_email,
+      p.full_name as user_name,
+      coalesce(nullif(trim(p.school_name), ''), 'School unassigned') as school_name,
+      coalesce(nullif(trim(p.region), ''), 'Unspecified') as region,
+      'Created Assessment: ' || d.title as title,
+      d.created_at as event_time
+    from public.documents d
+    join public.profiles p on p.id = d.user_id
+    where d.document_type = 'assessment'
+      and d.status <> 'archived'
+      and d.created_at >= (timezone('utc', now()) - interval '30 days')
+
+    union all
+
+    -- Results encoded
+    select
+      'res-' || rs.id::text as id,
+      'results_encoded' as event_type,
+      rs.user_id,
+      p.email as user_email,
+      p.full_name as user_name,
+      coalesce(nullif(trim(p.school_name), ''), 'School unassigned') as school_name,
+      coalesce(nullif(trim(p.region), ''), 'Unspecified') as region,
+      'Encoded results for: ' || rs.title as title,
+      rs.created_at as event_time
+    from public.result_sessions rs
+    join public.profiles p on p.id = rs.user_id
+    where rs.status <> 'archived'
+      and rs.created_at >= (timezone('utc', now()) - interval '30 days')
+
+    union all
+
+    -- Remediation plans created
+    select
+      'rem-' || rp.id::text as id,
+      'remediation_created' as event_type,
+      rp.user_id,
+      p.email as user_email,
+      p.full_name as user_name,
+      coalesce(nullif(trim(p.school_name), ''), 'School unassigned') as school_name,
+      coalesce(nullif(trim(p.region), ''), 'Unspecified') as region,
+      'Formulated targeted remediation plan' as title,
+      rp.created_at as event_time
+    from public.remediation_plans rp
+    join public.profiles p on p.id = rp.user_id
+    where rp.review_state <> 'archived'
+      and rp.created_at >= (timezone('utc', now()) - interval '30 days')
+  )
+  select coalesce(
+    jsonb_agg(
+      jsonb_build_object(
+        'id', id,
+        'type', event_type,
+        'userId', user_id,
+        'userEmail', user_email,
+        'userName', coalesce(nullif(trim(user_name), ''), 'Teacher'),
+        'schoolName', school_name,
+        'region', region,
+        'title', title,
+        'timestamp', to_char(event_time, 'YYYY-MM-DD"T"HH24:MI:SS"Z"')
+      ) order by event_time desc
+    ),
+    '[]'::jsonb
+  )
+  from (
+    select * from recent_events order by event_time desc limit 25
+  ) top_events;
+$$;
+
+grant execute on function public.get_admin_recent_activity() to authenticated;
