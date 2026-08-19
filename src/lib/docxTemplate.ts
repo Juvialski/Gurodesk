@@ -166,12 +166,31 @@ export function buildLessonTemplateValues(model: LessonPlanExportModel): LessonT
   const competencyAndStandards = sectionBody(model, 'competency-standards')
   const performanceMarker = /(?:Performance Standard|Pamantayan sa Pagganap):\s*/i
   const curriculumLines = competencyAndStandards.split(/\r?\n/)
-  const competency = curriculumLines.filter((line) => !performanceMarker.test(line)).join('\n').trim()
-  const performanceStandard = curriculumLines
-    .filter((line) => performanceMarker.test(line))
-    .map((line) => line.replace(performanceMarker, '').trim())
-    .filter(Boolean)
-    .join('\n')
+
+  let inPerformanceSection = false
+  const performanceLines: string[] = []
+  const competencyLines: string[] = []
+
+  for (const line of curriculumLines) {
+    const trimmed = line.trim()
+    if (trimmed.startsWith('### ')) {
+      const heading = trimmed.replace(/^###\s+/, '').toLowerCase()
+      inPerformanceSection = heading.includes('performance standard') || heading.includes('pamantayan sa pagganap')
+      continue
+    }
+    if (inPerformanceSection) {
+      const cleaned = trimmed.replace(/^[•*-]\s+/, '')
+      if (cleaned) performanceLines.push(cleaned)
+    } else if (performanceMarker.test(trimmed)) {
+      const cleaned = trimmed.replace(performanceMarker, '').trim()
+      if (cleaned) performanceLines.push(cleaned)
+    } else {
+      competencyLines.push(trimmed)
+    }
+  }
+
+  const competency = competencyLines.join('\n').trim()
+  const performanceStandard = performanceLines.join('\n').trim()
   const prepared = model.signatories.find((item) => item.role === model.labels.preparedBy)
   const reviewed = model.signatories.find((item) => item.role === model.labels.reviewedBy)
   const noted = model.signatories.find((item) => item.role === model.labels.notedBy)

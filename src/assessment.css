@@ -450,6 +450,49 @@
 .assessment-simple-question-status small { color:#dc2626; font-size:12px; }
 .assessment-simple-question-visual { max-width:360px; max-height:200px; margin:6px 0 0; }
 .assessment-simple-advanced-hint { margin:14px 0 0; color:#64748b; font-size:12px; line-height:1.5; }
+.assessment-simple-answer-review { margin-top: 14px; padding: 14px 16px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; }
+.assessment-simple-answer-block { display: flex; flex-direction: column; gap: 8px; }
+.assessment-simple-review-label { color: #475569; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+.assessment-simple-choices-list { display: flex; flex-direction: column; gap: 6px; }
+.assessment-simple-choice-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0; background: #fff; font-size: 13px; line-height: 1.5; color: #1e293b; }
+.assessment-simple-choice-item.is-correct { border-color: #86efac; background: #f0fdf4; }
+.assessment-simple-choice-letter { font-weight: 750; flex: 0 0 20px; color: #475569; }
+.assessment-simple-choice-item.is-correct .assessment-simple-choice-letter { color: #166534; }
+.assessment-simple-choice-text { flex: 1 1 auto; overflow-wrap: anywhere; word-break: break-word; min-width: 0; }
+.assessment-simple-correct-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 800; color: #166534; background: #dcfce7; border: 1px solid #86efac; white-space: nowrap; flex: 0 0 auto; margin-left: auto; }
+.assessment-simple-tf-display { display: flex; align-items: center; gap: 8px; }
+.assessment-simple-tf-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 800; }
+.assessment-simple-tf-badge.true-val { color: #166534; background: #dcfce7; border: 1px solid #86efac; }
+.assessment-simple-tf-badge.false-val { color: #991b1b; background: #fee2e2; border: 1px solid #fca5a5; }
+.assessment-simple-expected-box { padding: 10px 12px; border-radius: 8px; background: #fff; border: 1px solid #e2e8f0; }
+.assessment-simple-expected-primary { color: #0f172a; font-size: 13.5px; font-weight: 750; display: block; overflow-wrap: anywhere; }
+.assessment-simple-alternatives { margin-top: 6px; padding-top: 6px; border-top: 1px dashed #e2e8f0; font-size: 12px; color: #64748b; }
+.assessment-simple-alternatives span { font-weight: 700; color: #475569; }
+.assessment-simple-alternatives ul { margin: 4px 0 0 16px; padding: 0; }
+.assessment-simple-blanks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.assessment-simple-blank-card { padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid #e2e8f0; font-size: 12.5px; }
+.assessment-simple-blank-card strong { display: block; color: #1e293b; margin-bottom: 2px; font-size: 12px; }
+.assessment-simple-blank-card span { color: #0f172a; font-weight: 600; display: block; overflow-wrap: anywhere; }
+.assessment-simple-blank-card small { color: #64748b; font-size: 11px; }
+.assessment-simple-numerical-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.assessment-simple-num-box { padding: 6px 12px; border-radius: 8px; background: #fff; border: 1px solid #e2e8f0; text-align: center; }
+.assessment-simple-num-box small { display: block; color: #64748b; font-size: 10.5px; font-weight: 700; text-transform: uppercase; }
+.assessment-simple-num-box strong { display: block; color: #0f172a; font-size: 14px; font-weight: 800; }
+.assessment-simple-unit-badge { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 750; color: #1e40af; background: #eff6ff; border: 1px solid #bfdbfe; }
+.assessment-simple-matching-list { display: flex; flex-direction: column; gap: 6px; }
+.assessment-simple-match-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-radius: 8px; background: #fff; border: 1px solid #e2e8f0; font-size: 12.5px; }
+.assessment-simple-match-prompt { flex: 1 1 180px; min-width: 140px; color: #1e293b; }
+.assessment-simple-match-arrow { color: #2563eb; font-weight: 900; flex: 0 0 auto; }
+.assessment-simple-match-choice { flex: 1 1 180px; min-width: 140px; color: #1e293b; }
+.assessment-simple-match-pts { color: #64748b; font-size: 11px; flex: 0 0 auto; margin-left: auto; }
+.assessment-simple-problem-field { padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid #e2e8f0; font-size: 12.5px; }
+.assessment-simple-problem-field small { display: block; color: #64748b; font-weight: 750; font-size: 11px; text-transform: uppercase; margin-bottom: 2px; }
+.assessment-simple-problem-field strong { color: #0f172a; font-size: 13.5px; }
+.assessment-simple-preserve-text { margin: 2px 0 0; white-space: pre-wrap; font-size: 12.5px; line-height: 1.5; color: #334155; }
+.assessment-simple-subparts-list, .assessment-simple-elements-list, .assessment-simple-rubric-list { padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid #e2e8f0; font-size: 12.5px; }
+.assessment-simple-subparts-list small, .assessment-simple-elements-list small, .assessment-simple-rubric-list small { display: block; color: #64748b; font-weight: 750; font-size: 11px; text-transform: uppercase; margin-bottom: 4px; }
+.assessment-simple-subparts-list ol, .assessment-simple-elements-list ul, .assessment-simple-rubric-list ul { margin: 0 0 0 16px; padding: 0; }
+.assessment-simple-subparts-list li, .assessment-simple-elements-list li, .assessment-simple-rubric-list li { margin-bottom: 3px; color: #334155; }
 .assessment-simple-question-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:18px; padding-top:14px; border-top:1px solid #edf1f5; }
 .assessment-simple-export { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px 22px; align-items:center; padding:22px 24px; margin:18px 0 2px; border-radius:16px; border:1px solid #bfdbfe; background:#eff6ff; }
 .assessment-simple-export h2 { margin:5px 0 5px; color:var(--navy); font-size:19px; font-weight:800; }

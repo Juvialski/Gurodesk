@@ -1,8 +1,65 @@
+import React from 'react'
 import type { LessonPlanExportModel, LessonPlanMultiSessionExportModel } from '../types/export'
+
+function renderMarkdownBody(body: string) {
+  const lines = body.split('\n')
+  const elements: React.ReactNode[] = []
+  let currentList: string[] = []
+
+  const flushList = () => {
+    if (currentList.length > 0) {
+      elements.push(
+        <ul key={`ul-${elements.length}`} className="print-field-list">
+          {currentList.map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}
+        </ul>,
+      )
+      currentList = []
+    }
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim()
+    if (!line) {
+      flushList()
+      continue
+    }
+    if (line.startsWith('### ')) {
+      flushList()
+      elements.push(
+        <h4 key={`h4-${elements.length}`} className="print-field-subheading">
+          {line.replace(/^###\s+/, '')}
+        </h4>,
+      )
+    } else if (line.startsWith('• ') || line.startsWith('* ') || line.startsWith('- ')) {
+      currentList.push(line.replace(/^[•*-]\s+/, ''))
+    } else {
+      flushList()
+      elements.push(
+        <p key={`p-${elements.length}`} className="print-field-paragraph">
+          {line}
+        </p>,
+      )
+    }
+  }
+  flushList()
+  return elements
+}
 
 function ExportField({ label, body }: { label: string; body: string }) {
   if (!body.trim()) return null
-  return <div className="print-field"><strong>{label}</strong><div className="print-preserve-lines">{body}</div></div>
+  const hasMarkdownStructure = body.includes('### ') || body.includes('• ')
+  return (
+    <div className="print-field">
+      <strong>{label}</strong>
+      {hasMarkdownStructure ? (
+        <div className="print-structured-body">{renderMarkdownBody(body)}</div>
+      ) : (
+        <div className="print-preserve-lines">{body}</div>
+      )}
+    </div>
+  )
 }
 
 function IlawBlock({ letter, title, fields }: { letter: string; title: string; fields: LessonPlanExportModel['ilaw']['intentions'] }) {

@@ -118,8 +118,10 @@ describe('lesson-plan export compatibility', () => {
     const grounding = model.ilaw.intentions.find((item) => item.key === 'competency-standards')?.body ?? ''
     const templateValues = buildLessonTemplateValues(model)
 
-    expect(grounding).toContain('Additional competency 1: M7-one: Classifies polygons')
-    expect(grounding).toContain('Primary competency: M7-two: Distinguishes regular and irregular polygons.')
+    expect(grounding).toContain('### Supporting Learning Competencies')
+    expect(grounding).toContain('• M7-one: Classifies polygons')
+    expect(grounding).toContain('### Primary Learning Competency')
+    expect(grounding).toContain('M7-two: Distinguishes regular and irregular polygons.')
     expect(templateValues.lessonFocus).toBe('Regular and irregular polygons')
     expect(templateValues.teachingApproaches).toBe('Guided practice\nCollaborative learning')
     expect(templateValues.competency).toContain('Distinguishes regular and irregular polygons.')
@@ -139,9 +141,10 @@ describe('lesson-plan export compatibility', () => {
     const grounding = buildLessonPlanExportModel(plan, profile, preferences)
       .ilaw.intentions.find((item) => item.key === 'competency-standards')?.body ?? ''
 
-    expect(grounding).toContain('Primary competency: M7-primary')
-    expect(grounding).toContain('Additional competency 1: M7-additional')
-    expect(grounding).not.toContain('Additional competency 2')
+    expect(grounding).toContain('### Primary Learning Competency')
+    expect(grounding).toContain('M7-primary: Classifies polygons according to the number of sides.')
+    expect(grounding).toContain('### Supporting Learning Competencies')
+    expect(grounding).toContain('• M7-additional: Distinguishes regular and irregular polygons.')
   })
 
   it('builds a grounded Daily Lesson Log model with four session columns', () => {

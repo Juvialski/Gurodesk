@@ -150,16 +150,16 @@ function instructionForRevision(type: RevisionSupportType, targetLanguage?: stri
 
 function instructionForSuggestion(type: Exclude<SuggestionSupportType, 'quick_draft'>) {
   switch (type) {
-    case 'suggest_learning_objectives': return 'Create three alternative objective sets centered on the supplied lesson focus or, when no topic is supplied, the verified primary competency. Ground them in any supplied verified curriculum alignments. Make them observable, manageable for the stated lesson duration, and grade-appropriate. They are optional starting points for teacher selection and editing.'
-    case 'suggest_home_alternative': return 'Create three alternative home-based or continuity options. Do not require or name any resource, platform, device, module, book, or material unless the teacher explicitly listed it as available.'
-    case 'suggest_pre_lesson': return 'Create three brief pre-lesson or prior-knowledge activation options that directly prepare learners for the supplied lesson focus, or for the verified primary competency when no topic is supplied, and any other supplied verified alignments.'
-    case 'suggest_lesson_flow': return 'Create three alternative lesson-flow options with realistic time allocations. Center each on the supplied lesson focus, or on the verified primary competency when no topic is supplied, and ground it in any other supplied verified alignments and teacher-selected objectives. Respect the teacher\'s preferred approaches when provided.'
-    case 'suggest_contextualization': return 'Create three possible contextualization or integration ideas. Keep them generic enough for teacher verification and do not invent local facts, community details, books, websites, or materials.'
-    case 'suggest_inclusion': return 'Create three universal classroom-support options. Do not infer, diagnose, or claim any learner disability, condition, identity, or sensitive need. Use only class-level context supplied by the teacher.'
-    case 'suggest_formative_assessment': return 'Create three formative-assessment options centered on the supplied lesson focus, or on the verified primary competency when no topic is supplied, and grounded in any other supplied verified alignments and teacher-selected objectives. They should provide actionable evidence during the lesson.'
-    case 'suggest_evidence_of_learning': return 'Create three concise descriptions of observable evidence that would show progress toward the supplied lesson focus, or the verified primary competency when no topic is supplied, together with other supplied verified alignments and objectives.'
+    case 'suggest_learning_objectives': return 'Create three alternative objective sets centered on the supplied lesson focus or, when no topic is supplied, the verified primary competency. Ground them in any supplied verified curriculum alignments. Write direct observable learner objectives. Do not include meta-language or prefixes like "Optional starting point".'
+    case 'suggest_home_alternative': return 'Create three alternative home-based or continuity options. Do not require or name any resource, platform, device, module, book, or material unless the teacher explicitly listed it as available. Write direct instructional descriptions.'
+    case 'suggest_pre_lesson': return 'Create three brief pre-lesson or prior-knowledge activation options that directly prepare learners for the supplied lesson focus, or for the verified primary competency when no topic is supplied, and any other supplied verified alignments. Write direct activities.'
+    case 'suggest_lesson_flow': return 'Create three alternative lesson-flow options with realistic time allocations. Center each on the supplied lesson focus, or on the verified primary competency when no topic is supplied, and ground it in any other supplied verified alignments and teacher-selected objectives. Respect the teacher\'s preferred approaches when provided. Write the direct flow sequence without "Optional" prefixes.'
+    case 'suggest_contextualization': return 'Create three contextualization or integration ideas. Keep them generic enough for teacher verification and do not invent local facts, community details, books, websites, or materials. Write direct classroom connections.'
+    case 'suggest_inclusion': return 'Create three universal classroom-support options. Do not infer, diagnose, or claim any learner disability, condition, identity, or sensitive need. Use only class-level context supplied by the teacher. Write direct accommodation strategies.'
+    case 'suggest_formative_assessment': return 'Create three formative-assessment options centered on the supplied lesson focus, or on the verified primary competency when no topic is supplied, and grounded in any other supplied verified alignments and teacher-selected objectives. Write direct assessment checks and cues.'
+    case 'suggest_evidence_of_learning': return 'Create three concise descriptions of observable evidence showing learner mastery. Describe direct student actions and demonstrations.'
     case 'suggest_next_steps': return 'Create three conditional ways-forward options based on possible assessment evidence, including targeted reteaching/remediation and appropriate enrichment.'
-    case 'suggest_extended_learning': return 'Create three optional extension, reinforcement, or remediation ideas tightly connected to the supplied lesson focus, or to the verified primary competency when no topic is supplied, and any other supplied verified alignments. Do not require unlisted resources.'
+    case 'suggest_extended_learning': return 'Create three direct extension, reinforcement, or remediation ideas tightly connected to the supplied lesson focus, or to the verified primary competency when no topic is supplied, and any other supplied verified alignments. Do not require unlisted resources and do not prefix with "Optional".'
   }
 }
 
@@ -524,7 +524,9 @@ function outputLanguageInstruction(body: RequestBody, teacherText = '') {
   return 'Automatically match the lesson language. Use clear natural English unless the supplied lesson text is predominantly Filipino.'
 }
 
-const sharedSuggestionGuardrail = `You are GuroDesk, a planning-suggestion assistant for a Philippine DepEd teacher. Produce OPTIONAL starting points, never a claim that the teacher has made the final instructional decision. When supplied, the TEACHER-PROVIDED LESSON TOPIC is the pedagogical focus and must never be presented as official curriculum wording. If it is absent, the VERIFIED PRIMARY COMPETENCY may act as the planning anchor; never invent a missing lesson topic. VERIFIED PRIMARY COMPETENCY and OTHER VERIFIED ALIGNMENTS are server-checked grounding context only when supplied; they are not the lesson's only identity. A TEACHER-PROVIDED HISTORICAL COMPETENCY SNAPSHOT or TEACHER-PROVIDED PERFORMANCE-STANDARD SNAPSHOT is historical/teacher context and must not be claimed as independently verified or current official wording. Never invent, add, remove, rewrite, replace, or change official curriculum alignments. The teacher will select, edit, validate, and approve the final plan.
+const sharedSuggestionGuardrail = `You are GuroDesk, an instructional planning assistant for a Philippine DepEd teacher. Write direct, teacher-ready draft lesson plan prose for teacher review. The output is a draft lesson plan, NOT meta-advice, tips, or suggestions on how to plan.
+DIRECT PROSE RULE: Every generated sentence must be written as direct classroom instruction, teacher action, learner action, or observable evidence. NEVER begin any field or sentence with meta-phrases such as "Optional...", "Suggested...", "Consider...", "Possible...", "You may...", "Teacher may...", "An optional...", "Sample...", or "Optional Starting Point:".
+When supplied, the TEACHER-PROVIDED LESSON TOPIC is the pedagogical focus and must never be presented as official curriculum wording. If it is absent, the VERIFIED PRIMARY COMPETENCY may act as the planning anchor; never invent a missing lesson topic. VERIFIED PRIMARY COMPETENCY and OTHER VERIFIED ALIGNMENTS are server-checked grounding context only when supplied; they are not the lesson's only identity. A TEACHER-PROVIDED HISTORICAL COMPETENCY SNAPSHOT or TEACHER-PROVIDED PERFORMANCE-STANDARD SNAPSHOT is historical/teacher context and must not be claimed as independently verified or current official wording. Never invent, add, remove, rewrite, replace, or change official curriculum alignments. The teacher will select, edit, validate, and approve the final plan.
 
 RESOURCE ACCURACY RULE — CRITICAL: Never invent or cite a book, module, title, author, page number, worksheet, website, platform, app, device, equipment, manipulative, laboratory material, or other resource. A specific resource or technology may appear in a suggestion only if it is explicitly listed under ACTUAL TEACHER-LISTED RESOURCES for THIS LESSON. TECHNOLOGY AVAILABILITY is feasibility context only and is not permission to name or require a device. If no lesson resource is listed, design suggestions that require no named or special resource.
 
@@ -551,9 +553,38 @@ function parseJsonObject(text: string): Record<string, unknown> {
   throw new Error('Gemini did not return valid structured JSON.')
 }
 
+function sanitizeLessonTitle(title: string): string {
+  let cleaned = title.trim()
+  cleaned = cleaned.replace(/^(?:(?:Optional|Suggested|Possible|Sample)\s+(?:Starting\s+Point|Lesson|Topic|Title)\s*[:—–-]\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:Optional|Suggested|Possible|Sample)\s*[:—–-]\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:An?\s+)?(?:optional|suggested|possible|sample)\s+/iu, '')
+  cleaned = cleaned.trim()
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1)
+  }
+  return cleaned || title.trim()
+}
+
+function sanitizeFieldProse(text: string): string {
+  let cleaned = text.trim()
+  cleaned = cleaned.replace(/^(?:(?:Optional|Suggested|Possible|Sample)\s+(?:Starting\s+Point|Session\s+Flow|Assessment\s+Checks|Support\s+Options|Indicators|Activity|Extension)\s*[:—–-]\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:An?\s+)?(?:optional|suggested|possible)\s+(?:home-based\s+reflection|session\s+flow|assessment\s+checks?|universal\s+support\s+options?|indicators?|extension|activity|check)\s*(?:utilizing|such\s+as|including|focused\s+on)?\s*[:—–-]?\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:An?\s+)?(?:optional|suggested|possible)\s*[:—–-]\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:Consider|You\s+may|Teacher\s+may)\s+(?:using|utilizing|providing|conducting|beginning\s+with)\s+)/iu, 'Use ')
+  cleaned = cleaned.replace(/^(?:(?:Consider|You\s+may|Teacher\s+may)\s+)/iu, '')
+  cleaned = cleaned.trim()
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1)
+  }
+  return cleaned || text.trim()
+}
+
 function cleanSuggestions(value: unknown) {
   if (!Array.isArray(value)) return []
-  return value.map((item) => typeof item === 'string' ? item.trim() : '').filter((item) => item.length >= 8).slice(0, 4)
+  return value
+    .map((item) => typeof item === 'string' ? sanitizeFieldProse(item) : '')
+    .filter((item) => item.length >= 8)
+    .slice(0, 4)
 }
 
 function cleanDraft(value: Record<string, unknown>) {
@@ -573,7 +604,13 @@ function cleanDraft(value: Record<string, unknown>) {
   const draft: Record<string, string> = {}
   for (const key of allowed) {
     const raw = value[key]
-    if (typeof raw === 'string' && raw.trim().length >= 4) draft[key] = raw.trim()
+    if (typeof raw === 'string' && raw.trim().length >= 4) {
+      if (key === 'lessonTitle') {
+        draft[key] = sanitizeLessonTitle(raw)
+      } else {
+        draft[key] = sanitizeFieldProse(raw)
+      }
+    }
   }
   return draft
 }
@@ -696,7 +733,7 @@ Deno.serve(async (req) => {
       prompt = `You are a text-support assistant. The teacher supplied the content and remains responsible for its accuracy. Perform only the requested text operation. Do not add new facts, resources, citations, objectives, activities, assessments, strategies, learner judgments, or instructional decisions. Return only the revised text.\n\n${revisionLanguageRule}\nTask: ${instructionForRevision(supportType as RevisionSupportType, body.targetLanguage)}\n${context ? `\nContext for preserving meaning only:\n${context}\n` : ''}\nTeacher text:\n---\n${text}\n---`
     } else if (supportType === 'quick_draft') {
       maxOutputTokens = 7500
-      prompt = `${sharedSuggestionGuardrail}\n\nOUTPUT LANGUAGE RULE: ${outputLanguageInstruction(effectiveBody, text)}\n\nPrepare ONE coherent quick-draft set of OPTIONAL suggestions. This is a review shortcut, not a final lesson plan. Do not include references or learning resources; those fields are teacher-controlled. Do not generate a post-lesson reflection because teaching has not happened yet. Existing teacher text, if any, must not be treated as something to overwrite automatically.\n\n${context}\n\nReturn ONLY valid JSON with exactly this shape and string values:\n{\n  "lessonTitle": "...",\n  "learningObjectives": "...",\n  "homeBasedAlternative": "...",\n  "preLessonActivity": "...",\n  "lessonFlow": "...",\n  "integrationContextualization": "...",\n  "inclusionAccommodations": "...",\n  "formativeAssessments": "...",\n  "evidenceOfLearning": "...",\n  "nextSteps": "...",\n  "extendedLearning": "..."\n}\n\nMake lessonFlow practical for the stated minutes/sessions. Use conditional wording for nextSteps. Never insert a specific resource unless teacher-listed in the context.`
+      prompt = `${sharedSuggestionGuardrail}\n\nOUTPUT LANGUAGE RULE: ${outputLanguageInstruction(effectiveBody, text)}\n\nPrepare ONE coherent quick-draft lesson plan written in direct, classroom-ready prose for teacher review.\nDIRECT INSTRUCTIONAL CONTENT RULES:\n- The output is a draft lesson plan ready for teacher review, NOT a list of suggestions or meta-instructions about how to write a lesson plan.\n- All fields must contain direct instructional actions, objectives, activities, checks, and criteria.\n- NEVER start fields or sentences with meta-language like "Optional...", "Suggested...", "Consider...", "Possible...", "You may...", "Teacher may...", "An optional...", or "Optional Starting Point:".\n- "lessonTitle" MUST be a real, descriptive lesson title (e.g. "Solving Problems Involving the Volume of Cylinders"), NOT "Optional Starting Point: ..." or "Suggested Lesson: ...".\n- "lessonFlow" MUST describe the actual sequence of instructional steps with realistic time allocations.\n- Do not include references or learning resources; those fields are teacher-controlled.\n- Do not generate a post-lesson reflection because teaching has not happened yet.\n- Existing teacher text, if any, must not be treated as something to overwrite automatically.\n\n${context}\n\nReturn ONLY valid JSON with exactly this shape and string values:\n{\n  "lessonTitle": "...",\n  "learningObjectives": "...",\n  "homeBasedAlternative": "...",\n  "preLessonActivity": "...",\n  "lessonFlow": "...",\n  "integrationContextualization": "...",\n  "inclusionAccommodations": "...",\n  "formativeAssessments": "...",\n  "evidenceOfLearning": "...",\n  "nextSteps": "...",\n  "extendedLearning": "..."\n}\n\nMake lessonFlow practical for the stated minutes/sessions. Use conditional wording for nextSteps. Never insert a specific resource unless teacher-listed in the context.`
     } else {
       prompt = `${sharedSuggestionGuardrail}\n\nOUTPUT LANGUAGE RULE: ${outputLanguageInstruction(effectiveBody, text)}\n\nTask: ${instructionForSuggestion(supportType as Exclude<SuggestionSupportType, 'quick_draft'>)}\n\n${context}\n${text ? `\nCurrent teacher text, if they want alternatives:\n---\n${text}\n---\n` : ''}\nReturn ONLY valid JSON in this shape: {"suggestions":["option 1","option 2","option 3"]}. Each option must be self-contained and editable. Do not include commentary outside the JSON.`
     }

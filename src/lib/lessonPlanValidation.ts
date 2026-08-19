@@ -98,3 +98,37 @@ export function validateLessonPlan(content: LessonPlanContent): LessonPlanValida
   const score = Math.round((items.filter((item) => item.passed).length / items.length) * 100)
   return { ready: items.every((item) => item.passed), score, items }
 }
+
+const META_PREFIX_PATTERN = /^(?:(?:An?\s+)?(?:optional|suggested|possible|sample)\s+(?:starting\s+point|lesson|topic|title|session\s+flow|assessment\s+checks?|universal\s+support\s+options?|indicators?|extension|activity|check|home-based\s+reflection)\s*(?:utilizing|such\s+as|including|focused\s+on)?\s*[:—–-]?\s*|(?:An?\s+)?(?:optional|suggested|possible|sample)\s*[:—–-]\s*|(?:An?\s+)?(?:optional|suggested|possible|sample)\s+|(?:Consider|You\s+may|Teacher\s+may)\s+(?:using|utilizing|providing|conducting|beginning\s+with)\s+|(?:Consider|You\s+may|Teacher\s+may)\s+)/iu
+
+export function detectMetaLanguage(text: string): boolean {
+  if (!text || typeof text !== 'string') return false
+  return META_PREFIX_PATTERN.test(text.trim())
+}
+
+export function sanitizeLessonTitle(title: string): string {
+  let cleaned = (title || '').trim()
+  cleaned = cleaned.replace(/^(?:(?:Optional|Suggested|Possible|Sample)\s+(?:Starting\s+Point|Lesson|Topic|Title)\s*[:—–-]\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:Optional|Suggested|Possible|Sample)\s*[:—–-]\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:An?\s+)?(?:optional|suggested|possible|sample)\s+/iu, '')
+  cleaned = cleaned.trim()
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1)
+  }
+  return cleaned || (title || '').trim()
+}
+
+export function sanitizeFieldProse(text: string): string {
+  let cleaned = (text || '').trim()
+  cleaned = cleaned.replace(/^(?:(?:Optional|Suggested|Possible|Sample)\s+(?:Starting\s+Point|Session\s+Flow|Assessment\s+Checks|Support\s+Options|Indicators|Activity|Extension)\s*[:—–-]\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:An?\s+)?(?:optional|suggested|possible)\s+(?:home-based\s+reflection|session\s+flow|assessment\s+checks?|universal\s+support\s+options?|indicators?|extension|activity|check)\s*(?:utilizing|such\s+as|including|focused\s+on)?\s*[:—–-]?\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:An?\s+)?(?:optional|suggested|possible)\s*[:—–-]\s*)/iu, '')
+  cleaned = cleaned.replace(/^(?:(?:Consider|You\s+may|Teacher\s+may)\s+(?:using|utilizing|providing|conducting|beginning\s+with)\s+)/iu, 'Use ')
+  cleaned = cleaned.replace(/^(?:(?:Consider|You\s+may|Teacher\s+may)\s+)/iu, '')
+  cleaned = cleaned.trim()
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1)
+  }
+  return cleaned || (text || '').trim()
+}
+

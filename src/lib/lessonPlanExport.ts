@@ -244,47 +244,88 @@ function resolveExportLanguage(
   return 'english'
 }
 
+function dedupeStandards(items: (string | undefined | null)[]): string[] {
+  const seen = new Set<string>()
+  const result: string[] = []
+  for (const raw of items) {
+    const text = clean(raw)
+    if (!text) continue
+    const key = text.toLowerCase().replace(/\s+/g, ' ')
+    if (seen.has(key)) continue
+    seen.add(key)
+    result.push(text)
+  }
+  return result
+}
+
 function competencyAndStandards(plan: LessonPlanRecord, language: 'english' | 'filipino') {
-  const labels = language === 'filipino' ? FILIPINO_FIELD_LABELS : ENGLISH_FIELD_LABELS
+  const isFilipino = language === 'filipino'
+  const labels = isFilipino ? FILIPINO_FIELD_LABELS : ENGLISH_FIELD_LABELS
   const competency = plan.content.competency
   const alignments = plan.content.curriculumAlignments?.length
     ? plan.content.curriculumAlignments
     : clean(competency.text) ? [competency] : []
-  const lines: string[] = []
   const primaryId = plan.content.primaryCompetencyId || competency.id || null
-  let additionalIndex = 0
 
-  for (const [index, alignment] of alignments.entries()) {
-    const competencyText = clean(alignment.text)
-    if (!competencyText) continue
-    const isPrimary = alignment.id === primaryId || (!primaryId && index === 0)
-    if (!isPrimary) additionalIndex += 1
-    const prefix = isPrimary ? labels.primaryCompetency : `${labels.additionalCompetency} ${additionalIndex}`
-    const statement = clean(alignment.code) ? `${clean(alignment.code)}: ${competencyText}` : competencyText
-    lines.push(`${prefix}: ${statement}`)
+  const primaryAlignment = alignments.find((a, idx) => a.id === primaryId || (!primaryId && idx === 0))
+  const supportingAlignments = alignments.filter((a) => a !== primaryAlignment && clean(a.text))
+
+  const sections: string[] = []
+
+  // 1. Primary Learning Competency
+  if (primaryAlignment && clean(primaryAlignment.text)) {
+    const code = clean(primaryAlignment.code)
+    const text = clean(primaryAlignment.text)
+    const formatted = code ? `${code}: ${text}` : text
+    const heading = isFilipino ? 'Pangunahing Kasanayang Pampagkatuto' : 'Primary Learning Competency'
+    sections.push(`### ${heading}\n${formatted}`)
   }
 
-  if (!lines.length) {
+  // 2. Supporting Learning Competencies
+  if (supportingAlignments.length > 0) {
+    const heading = isFilipino ? 'Mga Pansuportang Kasanayang Pampagkatuto' : 'Supporting Learning Competencies'
+    const items = supportingAlignments.map((a) => {
+      const code = clean(a.code)
+      const text = clean(a.text)
+      return code ? `• ${code}: ${text}` : `• ${text}`
+    })
+    sections.push(`### ${heading}\n${items.join('\n')}`)
+  }
+
+  // Fallback if no competencies attached
+  if (!primaryAlignment && supportingAlignments.length === 0) {
     const purpose = plan.content.alignmentPurpose && plan.content.alignmentPurpose !== 'regular'
       ? plan.content.alignmentPurpose.replaceAll('_', ' ')
       : ''
-    lines.push(purpose
+    const fallback = purpose
       ? `${labels.noCurriculumAlignment}. ${labels.lessonPurpose}: ${purpose}.`
-      : `${labels.noCurriculumAlignment}.`)
-    if (clean(plan.content.alignmentNote)) {
-      lines.push(`${labels.alignmentNote}: ${clean(plan.content.alignmentNote)}`)
-    }
+      : `${labels.noCurriculumAlignment}.`
+    const note = clean(plan.content.alignmentNote) ? `\n${labels.alignmentNote}: ${clean(plan.content.alignmentNote)}` : ''
+    sections.push(`${fallback}${note}`)
   }
 
-  const contentStandards = [...new Set(alignments.flatMap((alignment) => alignment.contentStandards ?? []).map(clean).filter(Boolean))]
-  for (const standard of contentStandards) lines.push(`${labels.contentStandard}: ${standard}`)
+  // 3. Content Standards
+  const rawContentStandards = alignments.flatMap((alignment) => alignment.contentStandards ?? [])
+  const contentStandards = dedupeStandards(rawContentStandards)
+  if (contentStandards.length > 0) {
+    const heading = isFilipino ? 'Mga Pamantayang Pangnilalaman' : 'Content Standards'
+    const items = contentStandards.map((std) => `• ${std}`)
+    sections.push(`### ${heading}\n${items.join('\n')}`)
+  }
 
-  const performanceStandards = [...new Set([
+  // 4. Performance Standards
+  const rawPerformanceStandards = [
     ...alignments.flatMap((alignment) => alignment.performanceStandards ?? []),
     plan.content.performanceStandard,
-  ].map(clean).filter(Boolean))]
-  for (const standard of performanceStandards) lines.push(`${labels.performanceStandard}: ${standard}`)
-  return lines.join('\n')
+  ]
+  const performanceStandards = dedupeStandards(rawPerformanceStandards)
+  if (performanceStandards.length > 0) {
+    const heading = isFilipino ? 'Mga Pamantayan sa Pagganap' : 'Performance Standards'
+    const items = performanceStandards.map((std) => `• ${std}`)
+    sections.push(`### ${heading}\n${items.join('\n')}`)
+  }
+
+  return sections.join('\n\n')
 }
 
 function splitIntoFourSessions(rawText: string): string[] {
@@ -823,17 +864,45 @@ function docxSectionHeading(text: string) {
 
 function docxField(label: string, body: string) {
   if (!clean(body)) return []
-  const lines = body.split(/\r?\n/)
-  return [
+  const rawLines = body.split(/\r?\n/)
+  const paragraphs: Paragraph[] = [
     new Paragraph({
       spacing: { before: 120, after: 45 },
       children: [new TextRun({ text: label, bold: true, color: TEXT, size: 20 })],
     }),
-    ...lines.map((line) => new Paragraph({
-      spacing: { after: 55 },
-      children: [new TextRun({ text: line || ' ', size: 20, color: TEXT })],
-    })),
   ]
+
+  for (const raw of rawLines) {
+    const line = clean(raw)
+    if (!line) continue
+    if (line.startsWith('### ')) {
+      const headingText = line.replace(/^###\s+/, '')
+      paragraphs.push(
+        new Paragraph({
+          spacing: { before: 90, after: 35 },
+          children: [new TextRun({ text: headingText, bold: true, color: TEXT, size: 19 })],
+        }),
+      )
+    } else if (line.startsWith('• ') || line.startsWith('* ') || line.startsWith('- ')) {
+      const bulletText = line.replace(/^[•*-]\s+/, '')
+      paragraphs.push(
+        new Paragraph({
+          spacing: { after: 35 },
+          bullet: { level: 0 },
+          children: [new TextRun({ text: bulletText, size: 19, color: TEXT })],
+        }),
+      )
+    } else {
+      paragraphs.push(
+        new Paragraph({
+          spacing: { after: 45 },
+          children: [new TextRun({ text: line, size: 19, color: TEXT })],
+        }),
+      )
+    }
+  }
+
+  return paragraphs
 }
 
 export async function downloadLessonPlanMultiSessionDocx(
@@ -1239,7 +1308,21 @@ function pdfSection(ctx: PdfContext, title: string) {
 function pdfLabelBody(ctx: PdfContext, label: string, body: string) {
   if (!clean(body)) return
   pdfText(ctx, label, { bold: true, size: 9.5, color: [0, 0, 0], gapAfter: 3 })
-  pdfText(ctx, body, { size: 9.5, color: [0, 0, 0], gapAfter: 9 })
+  const rawLines = body.split(/\r?\n/)
+  for (const raw of rawLines) {
+    const line = clean(raw)
+    if (!line) continue
+    if (line.startsWith('### ')) {
+      const heading = line.replace(/^###\s+/, '')
+      pdfText(ctx, heading, { bold: true, size: 9, color: [30, 41, 59], gapAfter: 2 })
+    } else if (line.startsWith('• ') || line.startsWith('* ') || line.startsWith('- ')) {
+      const bullet = `  •  ${line.replace(/^[•*-]\s+/, '')}`
+      pdfText(ctx, bullet, { size: 9, color: [0, 0, 0], gapAfter: 3 })
+    } else {
+      pdfText(ctx, line, { size: 9, color: [0, 0, 0], gapAfter: 4 })
+    }
+  }
+  ctx.y += 5
 }
 
 function pdfMetaRow(ctx: PdfContext, label: string, value: string) {
