@@ -277,7 +277,7 @@ function LessonSimpleFlow({
           onClick={() => setStep(1)}
         >
           <span className="workflow-stepper-num">{step > 1 ? <Check size={12} /> : '1'}</span>
-          <span>1. Class Setup</span>
+          <span>Class Setup</span>
         </button>
         <button
           type="button"
@@ -285,7 +285,7 @@ function LessonSimpleFlow({
           onClick={() => setStep(2)}
         >
           <span className="workflow-stepper-num">{step > 2 ? <Check size={12} /> : '2'}</span>
-          <span>2. Topic & Focus</span>
+          <span>Topic & Focus</span>
         </button>
         <button
           type="button"
@@ -293,7 +293,7 @@ function LessonSimpleFlow({
           onClick={() => setStep(3)}
         >
           <span className="workflow-stepper-num">{step > 3 ? <Check size={12} /> : '3'}</span>
-          <span>3. Alignment & AI</span>
+          <span>Alignment & AI</span>
         </button>
         <button
           type="button"
@@ -301,7 +301,7 @@ function LessonSimpleFlow({
           onClick={() => setStep(4)}
         >
           <span className="workflow-stepper-num">{isFinal ? <Check size={12} /> : '4'}</span>
-          <span>4. Lesson Content (ILAW)</span>
+          <span>Lesson Content (ILAW)</span>
         </button>
       </nav>
 

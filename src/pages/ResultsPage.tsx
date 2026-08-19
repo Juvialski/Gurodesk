@@ -234,7 +234,7 @@ export function ResultsPage() {
             onClick={() => setEntryStep(1)}
           >
             <span className="workflow-stepper-num">{entryStep > 1 ? <Check size={12} /> : '1'}</span>
-            <span>1. Assessment & Method</span>
+            <span>Assessment & Method</span>
           </button>
           <button
             type="button"
@@ -242,7 +242,7 @@ export function ResultsPage() {
             onClick={() => setEntryStep(2)}
           >
             <span className="workflow-stepper-num">2</span>
-            <span>2. Confirm Learners ({selectedLearners.length})</span>
+            <span>Confirm Learners ({selectedLearners.length})</span>
           </button>
         </nav>
       )}

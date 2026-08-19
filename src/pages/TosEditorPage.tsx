@@ -122,7 +122,7 @@ function TosSimpleFlow({
           onClick={() => setStep(1)}
         >
           <span className="workflow-stepper-num">{step > 1 ? <Check size={12} /> : '1'}</span>
-          <span>1. Setup & Title</span>
+          <span>Setup & Title</span>
         </button>
         <button
           type="button"
@@ -130,7 +130,7 @@ function TosSimpleFlow({
           onClick={() => setStep(2)}
         >
           <span className="workflow-stepper-num">{step > 2 ? <Check size={12} /> : '2'}</span>
-          <span>2. Competencies ({selectedCount})</span>
+          <span>Competencies ({selectedCount})</span>
         </button>
         <button
           type="button"
@@ -138,7 +138,7 @@ function TosSimpleFlow({
           onClick={() => setStep(3)}
         >
           <span className="workflow-stepper-num">{validation?.ready ? <Check size={12} /> : '3'}</span>
-          <span>3. Size & Allocation</span>
+          <span>Size & Allocation</span>
         </button>
       </nav>
 
