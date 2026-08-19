@@ -1,4 +1,4 @@
-import { BookMarked, Edit2, Plus, School, Trash2, X } from 'lucide-react'
+import { BookMarked, Edit2, Plus, School, Trash2, UsersRound, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PageHeader } from '../components/PageHeader'
@@ -137,7 +137,16 @@ export function ClassesPage() {
         eyebrow="Teaching setup"
         title="Classes"
         description="Add the classes you teach. Official curriculum is resolved from your grade, learning area, and school year."
-        actions={<button aria-label="Add assignment" className="button primary" onClick={() => setOpen(!open)}><Plus size={17} /> Add class</button>}
+        actions={
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Link to="/results/roster" className="button ghost" aria-label="Student rosters" title="Manage student rosters across classes">
+              <UsersRound size={16} /> Student rosters
+            </Link>
+            <button aria-label="Add assignment" className="button primary" onClick={() => setOpen(!open)}>
+              <Plus size={17} /> Add class
+            </button>
+          </div>
+        }
       />
 
       {open && (
@@ -181,6 +190,7 @@ export function ClassesPage() {
             <tbody>
               {assignments.map((item) => {
                 const isEditing = editingId === item.id
+                const primarySection = item.sections[0] || ''
                 return (
                   <tr key={item.id}>
                     <td><span className="table-grade"><School size={15} /> {item.gradeLevel}</span></td>
@@ -214,7 +224,21 @@ export function ClassesPage() {
                           </div>
                         </div>
                       ) : (
-                        item.sections.map((section) => <span className="tag" key={section}>{section}</span>)
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
+                          {item.sections.map((section) => (
+                            <Link
+                              key={section}
+                              to={`/results/roster/${item.id}/${encodeURIComponent(section)}`}
+                              className="tag tag-interactive"
+                              title={`Manage student roster for ${section}`}
+                              aria-label={`Manage student roster for ${section}`}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', textDecoration: 'none' }}
+                            >
+                              <UsersRound size={12} aria-hidden="true" />
+                              <span>{section}</span>
+                            </Link>
+                          ))}
+                        </div>
                       )}
                     </td>
                     <td>{item.schoolYear}</td>
@@ -227,6 +251,18 @@ export function ClassesPage() {
                           </>
                         ) : (
                           <>
+                            {primarySection && (
+                              <Link
+                                to={`/results/roster/${item.id}/${encodeURIComponent(primarySection)}`}
+                                className="button ghost"
+                                style={{ minHeight: '32px', padding: '4px 10px', fontSize: '12px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}
+                                title={`Manage student roster for ${item.gradeLevel} ${item.learningArea}`}
+                                aria-label={`Manage student roster for ${item.gradeLevel} ${item.learningArea}`}
+                              >
+                                <UsersRound size={14} />
+                                <span>Roster</span>
+                              </Link>
+                            )}
                             <button className="icon-button" onClick={() => startEdit(item)} aria-label="Edit sections" title="Edit sections"><Edit2 size={15} /></button>
                             <button className="icon-button danger" onClick={() => void removeAssignment(item.id)} aria-label="Delete assignment" title="Delete class"><Trash2 size={15} /></button>
                           </>
@@ -239,7 +275,7 @@ export function ClassesPage() {
             </tbody>
           </table>
         </div>
-        {assignments.length === 0 && <div className="mini-empty">No teaching assignments yet.</div>}
+        {assignments.length === 0 && <div className="mini-empty">No teaching assignments yet. Add a class to manage sections and student rosters.</div>}
       </div>
     </>
   )

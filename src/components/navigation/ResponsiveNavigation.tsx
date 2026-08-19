@@ -159,12 +159,14 @@ export function ResponsiveNavigation({ profile, onSignOut, onReplayTour }: Respo
         <div className="sidebar-top">
           <Brand />
         </div>
-        <nav className="main-nav" aria-label="Main navigation">
-          {primaryNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} className={entry.to === '/create' ? 'nav-item nav-item-create' : 'nav-item'} />)}
-        </nav>
-        <div className="sidebar-secondary">
-          <span className="nav-group-label">Workspace</span>
-          {currentSecondaryNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} className="nav-item" />)}
+        <div className="sidebar-scrollable">
+          <nav className="main-nav" aria-label="Main navigation">
+            {primaryNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} className={entry.to === '/create' ? 'nav-item nav-item-create' : 'nav-item'} />)}
+          </nav>
+          <div className="sidebar-secondary">
+            <span className="nav-group-label">Workspace</span>
+            {currentSecondaryNavigation.map((entry) => <NavigationLink key={entry.to} entry={entry} className="nav-item" />)}
+          </div>
         </div>
         <div className="sidebar-bottom">
           <div className="sidebar-account">

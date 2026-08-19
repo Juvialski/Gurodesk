@@ -246,7 +246,6 @@ export function DocumentsPage() {
                 <p>{document.detail || 'Saved teacher document'}</p>
                 <div className="lesson-card-meta">
                   <span>Updated {formatDate(document.updatedAt)}</span>
-                  <span>{meta.label}</span>
                 </div>
                 <div className="lesson-card-actions">
                   {document.exportTo && <Link className="button ghost" to={document.exportTo}><FileDown size={14} /> Export</Link>}
