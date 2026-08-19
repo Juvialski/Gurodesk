@@ -1,10 +1,12 @@
 import {
   ArrowRight,
   BookOpenCheck,
-  CalendarRange,
+  ClipboardCheck,
+  FileCheck2,
   LockKeyhole,
   ShieldCheck,
   Sparkles,
+  TableProperties,
 } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { useApp } from '../contexts/AppContext'
@@ -54,19 +56,35 @@ export function AuthPage() {
             One unified workspace for curriculum-aware lesson planning, Table of Specifications (TOS), DepEd assessments, and student analytics.
           </p>
 
-          <div className="hero-feature-pills">
-            <span className="hero-pill">
-              <CalendarRange size={15} />
-              <span>School-year aware</span>
-            </span>
-            <span className="hero-pill">
-              <BookOpenCheck size={15} />
-              <span>196 DepEd curriculum manifests</span>
-            </span>
-            <span className="hero-pill">
-              <ShieldCheck size={15} />
-              <span>Zero-leak AI boundaries</span>
-            </span>
+          <div className="hero-feature-pills" aria-label="Core teacher tools">
+            <div className="hero-pill">
+              <BookOpenCheck size={18} />
+              <div className="hero-pill-text">
+                <strong>Lesson Plan</strong>
+                <span>DLL & DLP aligned to DepEd K-12 and Matatag</span>
+              </div>
+            </div>
+            <div className="hero-pill">
+              <TableProperties size={18} />
+              <div className="hero-pill-text">
+                <strong>Table of Specifications (TOS)</strong>
+                <span>Automated item distribution & Bloom's cognitive taxonomy</span>
+              </div>
+            </div>
+            <div className="hero-pill">
+              <ClipboardCheck size={18} />
+              <div className="hero-pill-text">
+                <strong>DepEd Assessments</strong>
+                <span>11 standard question types, answer keys & printable tests</span>
+              </div>
+            </div>
+            <div className="hero-pill">
+              <FileCheck2 size={18} />
+              <div className="hero-pill-text">
+                <strong>Assessment Checker</strong>
+                <span>Instant answer sheet scoring, item analysis & remediation</span>
+              </div>
+            </div>
           </div>
         </div>
 

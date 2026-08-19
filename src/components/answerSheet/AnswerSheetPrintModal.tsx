@@ -103,38 +103,36 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
       <div className="modal-content answer-sheet-print-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div className="modal-title-group">
-            <QrCode className="modal-icon text-primary" size={24} />
+            <QrCode className="modal-icon" size={24} />
             <div>
               <h3>Print Smart Answer Sheets</h3>
-              <p className="text-muted text-sm">{assessment.title} · Version {assessment.versionNumber || 1}</p>
+              <p>{assessment.title} · Version {assessment.versionNumber || 1}</p>
             </div>
           </div>
-          <button type="button" className="button ghost icon-only" onClick={onClose} aria-label="Close">
+          <button type="button" className="button ghost icon-only modal-close-btn" onClick={onClose} aria-label="Close">
             <X size={20} />
           </button>
         </div>
 
-        <div className="modal-body space-y-4">
+        <div className="modal-body">
           {/* Compatibility Summary Banner */}
-          <div className={`compatibility-badge-card ${compatibility.isScanReady ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'} p-3 rounded-lg border flex items-start gap-3`}>
+          <div className={`compatibility-badge-card ${compatibility.isFullyMachineCheckable ? 'scan-ready' : 'is-mixed'}`}>
             {compatibility.isFullyMachineCheckable ? (
-              <CheckCircle2 className="text-emerald-600 shrink-0 mt-0.5" size={18} />
+              <CheckCircle2 className="compatibility-icon auto" size={20} />
             ) : (
-              <Info className="text-amber-600 shrink-0 mt-0.5" size={18} />
+              <Info className="compatibility-icon manual" size={20} />
             )}
-            <div className="text-sm">
-              <strong className="block text-slate-800">
+            <div className="compatibility-details">
+              <strong>
                 {compatibility.isFullyMachineCheckable
                   ? '100% Machine Scannable'
                   : `Scan-Ready: ${compatibility.machineCheckableCount} of ${compatibility.totalQuestions} items auto-checkable (${compatibility.machineCheckablePercentage}%)`}
               </strong>
-              <div className="flex flex-wrap gap-1.5 mt-1.5">
+              <div className="compatibility-pill-list">
                 {compatibility.typesBreakdown.map((t) => (
                   <span
                     key={t.questionType}
-                    className={`inline-flex items-center text-xs px-2 py-0.5 rounded-full font-medium ${
-                      t.isMachineCheckable ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
-                    }`}
+                    className={`compatibility-pill ${t.isMachineCheckable ? 'auto' : 'manual'}`}
                   >
                     {t.count} {t.label} ({t.isMachineCheckable ? 'Automatic' : 'Manual'})
                   </span>
@@ -144,46 +142,42 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
           </div>
 
           {/* Mode Selection */}
-          <div className="form-group">
-            <label className="form-label font-semibold">Select Sheet Format</label>
-            <div className="grid grid-cols-2 gap-2">
+          <div className="modal-section">
+            <label className="modal-section-label">Select Sheet Format</label>
+            <div className="choice-card-grid">
               <button
                 type="button"
-                className={`choice-card p-3 rounded-lg border text-left transition-all ${
-                  mode === 'generic' ? 'border-primary bg-primary/5 ring-2 ring-primary/20' : 'border-slate-200 hover:border-slate-300'
-                }`}
+                className={`choice-card ${mode === 'generic' ? 'selected' : ''}`}
                 onClick={() => setMode('generic')}
               >
-                <div className="flex items-center justify-between mb-1">
-                  <FileText size={18} className={mode === 'generic' ? 'text-primary' : 'text-slate-500'} />
-                  {mode === 'generic' && <Check size={16} className="text-primary" />}
+                <div className="choice-card-top">
+                  <FileText size={18} className={mode === 'generic' ? 'text-primary' : 'text-slate'} />
+                  {mode === 'generic' && <Check size={16} className="choice-check" />}
                 </div>
-                <strong className="block text-sm text-slate-900">Generic Sheets</strong>
-                <p className="text-xs text-muted mt-0.5">Blank student name line. Teacher matches learner when scanning.</p>
+                <strong>Generic Sheets</strong>
+                <p>Blank student name line. Teacher matches learner when scanning.</p>
               </button>
 
               <button
                 type="button"
-                className={`choice-card p-3 rounded-lg border text-left transition-all ${
-                  mode === 'personalized' ? 'border-primary bg-primary/5 ring-2 ring-primary/20' : 'border-slate-200 hover:border-slate-300'
-                }`}
+                className={`choice-card ${mode === 'personalized' ? 'selected' : ''}`}
                 onClick={() => setMode('personalized')}
               >
-                <div className="flex items-center justify-between mb-1">
-                  <Users size={18} className={mode === 'personalized' ? 'text-primary' : 'text-slate-500'} />
-                  {mode === 'personalized' && <Check size={16} className="text-primary" />}
+                <div className="choice-card-top">
+                  <Users size={18} className={mode === 'personalized' ? 'text-primary' : 'text-slate'} />
+                  {mode === 'personalized' && <Check size={16} className="choice-check" />}
                 </div>
-                <strong className="block text-sm text-slate-900">Personalized Roster</strong>
-                <p className="text-xs text-muted mt-0.5">Pre-printed student names with individual opaque QR codes.</p>
+                <strong>Personalized Roster</strong>
+                <p>Pre-printed student names with individual opaque QR codes.</p>
               </button>
             </div>
           </div>
 
           {/* Paper Size */}
-          <div className="form-row flex items-center justify-between gap-4">
-            <label className="text-sm font-medium text-slate-700">Paper Size:</label>
+          <div className="modal-form-row">
+            <label>Paper Size:</label>
             <select
-              className="select-input text-sm"
+              className="select-input"
               value={paperSize}
               onChange={(e) => setPaperSize(e.target.value as AnswerSheetPaperSize)}
             >
@@ -196,12 +190,12 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
 
           {/* Personalized Roster Controls */}
           {mode === 'personalized' ? (
-            <div className="personalized-section space-y-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-semibold text-slate-800">Class Section:</label>
+            <div className="personalized-section">
+              <div className="roster-section-head">
+                <label>Class Section:</label>
                 {availableSections.length > 1 ? (
                   <select
-                    className="select-input text-sm"
+                    className="select-input"
                     value={sectionName}
                     onChange={(e) => setSectionName(e.target.value)}
                   >
@@ -212,46 +206,46 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
                     ))}
                   </select>
                 ) : (
-                  <span className="text-sm font-medium text-slate-700">{sectionName || 'All Students'}</span>
+                  <span>{sectionName || 'All Students'}</span>
                 )}
               </div>
 
               {loadingRoster ? (
-                <div className="text-center py-4 text-sm text-muted">Loading class roster…</div>
+                <div className="roster-loading-state">Loading class roster…</div>
               ) : learners.length === 0 ? (
-                <div className="text-center py-3 text-sm text-amber-700 bg-amber-50 rounded">
+                <div className="roster-empty-state">
                   No active students found in this section. Add students in Classes &amp; Rosters.
                 </div>
               ) : (
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-semibold text-slate-600">
+                <div className="roster-list-container">
+                  <div className="roster-list-header">
+                    <span>
                       Students ({selectedLearnerIds.length} of {learners.length} selected)
                     </span>
                     <button
                       type="button"
-                      className="button ghost small text-xs"
+                      className="button ghost small"
                       onClick={handleSelectAll}
                     >
                       {selectedLearnerIds.length === learners.length ? 'Deselect All' : 'Select All'}
                     </button>
                   </div>
-                  <div className="max-h-40 overflow-y-auto border border-slate-200 rounded bg-white p-2 space-y-1">
+                  <div className="roster-picker-list">
                     {learners.map((learner) => {
                       const isChecked = selectedLearnerIds.includes(learner.id)
                       return (
                         <label
                           key={learner.id}
-                          className="flex items-center gap-2 text-xs py-1 px-1.5 rounded hover:bg-slate-50 cursor-pointer"
+                          className="roster-picker-item"
                         >
                           <input
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => handleToggleLearner(learner.id)}
                           />
-                          <span className="font-medium text-slate-800">{learner.displayName}</span>
+                          <span>{learner.displayName}</span>
                           {learner.localReference && (
-                            <span className="text-muted text-[11px]">({learner.localReference})</span>
+                            <small>({learner.localReference})</small>
                           )}
                         </label>
                       )
@@ -261,13 +255,13 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
               )}
             </div>
           ) : (
-            <div className="generic-copies-row flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-200">
-              <label className="text-sm font-medium text-slate-700">Number of generic copies to print:</label>
+            <div className="generic-copies-row">
+              <label>Number of generic copies to print:</label>
               <input
                 type="number"
                 min="1"
                 max="200"
-                className="input-number text-sm w-20 text-center"
+                className="input-number"
                 value={copies}
                 onChange={(e) => setCopies(Math.max(1, Number(e.target.value) || 1))}
               />
@@ -275,13 +269,13 @@ export function AnswerSheetPrintModal({ assessment, isOpen, onClose }: AnswerShe
           )}
         </div>
 
-        <div className="modal-footer flex items-center justify-end gap-2 pt-3 border-t">
+        <div className="modal-footer">
           <button type="button" className="button ghost" onClick={onClose}>
             Cancel
           </button>
           <button
             type="button"
-            className="button primary flex items-center gap-1.5"
+            className="button primary"
             disabled={mode === 'personalized' && selectedLearnerIds.length === 0}
             onClick={handleProceedToPrint}
           >
