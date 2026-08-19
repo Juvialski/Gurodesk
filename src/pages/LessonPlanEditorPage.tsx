@@ -307,14 +307,114 @@ function LessonSimpleFlow({
 
       {step === 1 && (
         <div className="workflow-step-card">
-          <div className="workflow-step-heading"><span>1</span><div><strong>Class and lesson setup</strong><small>Curriculum-guide period and school grading term are shown separately.</small></div></div>
-          <div className="workflow-form-grid"><label>Class<select value={assignmentId} disabled={Boolean(plan.id)} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option key={item.id} value={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label></div>
-          <div className="workflow-context-banner"><strong>{assignment?.gradeLevel} {assignment?.learningArea}</strong><span>{assignment?.sections.join(' · ') || 'Class sections'} · {plan.content.schoolYear}</span></div>
-          <div className="workflow-chip-group"><span className="workflow-field-label">Curriculum-guide period</span><div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.curriculumPeriodLabel === period.label} className={`workflow-chip ${plan.content.curriculumPeriodLabel === period.label ? 'selected' : ''}`} onClick={() => onSelectPeriod(period.label)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div></div>
-          <div className="workflow-chip-group"><span className="workflow-field-label">School grading term</span><div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} aria-pressed={plan.content.gradingTermLabel === period.label} className={`workflow-chip ${plan.content.gradingTermLabel === period.label ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">Loading grading terms…</span>}</div></div>
-          <div className="workflow-chip-group"><span className="workflow-field-label">Lesson length</span><div className="workflow-chip-row">{[45, 60, 90].map((minutes) => <button type="button" key={minutes} aria-pressed={plan.content.durationMinutes === minutes} className={`workflow-chip ${plan.content.durationMinutes === minutes ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.durationMinutes = minutes })}>{minutes} min</button>)}</div></div>
-          <div className="workflow-chip-group"><span className="workflow-field-label">Lesson plan type</span><div className="workflow-chip-row workflow-format-chips">{LESSON_PLAN_FORMAT_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={(plan.content.lessonPlanFormat ?? 'ilaw') === item.value} className={`workflow-chip ${((plan.content.lessonPlanFormat ?? 'ilaw') === item.value) ? 'selected' : ''}`} title={item.description} onClick={() => onLessonPlanFormatChange(item.value)}>{item.label}</button>)}</div></div>
-          <div className="workflow-chip-group"><span className="workflow-field-label">Lesson language</span><div className="workflow-chip-row workflow-language-chips">{LESSON_LANGUAGE_OPTIONS.map((item) => <button type="button" key={item.value} aria-pressed={simpleLanguage === item.value} className={`workflow-chip ${simpleLanguage === item.value ? 'selected' : ''}`} onClick={() => onLanguageChange(item.value)}>{item.label}</button>)}</div></div>
+          <div className="workflow-step-heading">
+            <span>1</span>
+            <div>
+              <strong>Class and lesson setup</strong>
+              <small>Curriculum-guide period and school grading term are shown separately.</small>
+            </div>
+          </div>
+          <div className="workflow-form-grid one">
+            <label>
+              Class
+              <select value={assignmentId} disabled={Boolean(plan.id)} onChange={(event) => onAssignmentChange(event.target.value)}>
+                {assignments.map((item) => <option key={item.id} value={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}
+              </select>
+            </label>
+          </div>
+          <div className="workflow-context-banner">
+            <strong>{assignment?.gradeLevel} {assignment?.learningArea}</strong>
+            <span>{assignment?.sections.join(' · ') || 'Class sections'} · {plan.content.schoolYear}</span>
+          </div>
+
+          <div className="workflow-options-grid two-col">
+            <div className="workflow-chip-group">
+              <span className="workflow-field-label">Curriculum-guide period</span>
+              <div className="workflow-chip-row">
+                {bundle?.periods.map((period) => (
+                  <button
+                    type="button"
+                    key={period.id}
+                    aria-pressed={plan.content.curriculumPeriodLabel === period.label}
+                    className={`workflow-chip ${plan.content.curriculumPeriodLabel === period.label ? 'selected' : ''}`}
+                    onClick={() => onSelectPeriod(period.label)}
+                  >
+                    {period.label}
+                  </button>
+                )) ?? <span className="workflow-muted">Loading verified periods…</span>}
+              </div>
+            </div>
+
+            <div className="workflow-chip-group">
+              <span className="workflow-field-label">School grading term</span>
+              <div className="workflow-chip-row">
+                {calendar?.periods.map((period) => (
+                  <button
+                    type="button"
+                    key={period.id}
+                    aria-pressed={plan.content.gradingTermLabel === period.label}
+                    className={`workflow-chip ${plan.content.gradingTermLabel === period.label ? 'selected' : ''}`}
+                    onClick={() => onUpdateContent((content) => { content.gradingTermLabel = period.label })}
+                  >
+                    {period.label}
+                  </button>
+                )) ?? <span className="workflow-muted">Loading grading terms…</span>}
+              </div>
+            </div>
+
+            <div className="workflow-chip-group">
+              <span className="workflow-field-label">Lesson length</span>
+              <div className="workflow-chip-row">
+                {[45, 60, 90].map((minutes) => (
+                  <button
+                    type="button"
+                    key={minutes}
+                    aria-pressed={plan.content.durationMinutes === minutes}
+                    className={`workflow-chip ${plan.content.durationMinutes === minutes ? 'selected' : ''}`}
+                    onClick={() => onUpdateContent((content) => { content.durationMinutes = minutes })}
+                  >
+                    {minutes} min
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="workflow-chip-group">
+              <span className="workflow-field-label">Lesson plan type</span>
+              <div className="workflow-chip-row workflow-format-chips">
+                {LESSON_PLAN_FORMAT_OPTIONS.map((item) => (
+                  <button
+                    type="button"
+                    key={item.value}
+                    aria-pressed={(plan.content.lessonPlanFormat ?? 'ilaw') === item.value}
+                    className={`workflow-chip ${((plan.content.lessonPlanFormat ?? 'ilaw') === item.value) ? 'selected' : ''}`}
+                    title={item.description}
+                    onClick={() => onLessonPlanFormatChange(item.value)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="workflow-chip-group full-width">
+              <span className="workflow-field-label">Lesson language</span>
+              <div className="workflow-chip-row workflow-language-chips">
+                {LESSON_LANGUAGE_OPTIONS.map((item) => (
+                  <button
+                    type="button"
+                    key={item.value}
+                    aria-pressed={simpleLanguage === item.value}
+                    className={`workflow-chip ${simpleLanguage === item.value ? 'selected' : ''}`}
+                    onClick={() => onLanguageChange(item.value)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="workflow-step-footer">
             <span className="workflow-muted">Step 1 of 4</span>
             <div className="workflow-step-footer-actions">
@@ -619,36 +719,38 @@ function LessonSimpleFlow({
               <span className="teacher-decision-chip">Teacher approves</span>
             </div>
 
-            <AiAssistTextarea
-              label="Formative assessments"
-              sectionKey="assessingLearning.formativeAssessments"
-              value={plan.content.assessingLearning.formativeAssessments}
-              onChange={(value) => onUpdateContent((c) => { c.assessingLearning.formativeAssessments = value })}
-              isDemo={isDemo}
-              context={aiContext}
-              onAiUsed={onMarkAiUsed}
-              documentId={plan.id || undefined}
-              rows={6}
-              placeholder="Checks you will use throughout the session"
-              suggestionType="suggest_formative_assessment"
-              suggestionLabel="Suggest checks"
-              pendingQuickDraft={pending('assessingLearning.formativeAssessments')}
-            />
-            <AiAssistTextarea
-              label="What evidence will show learning?"
-              sectionKey="assessingLearning.evidenceOfLearning"
-              value={plan.content.assessingLearning.evidenceOfLearning}
-              onChange={(value) => onUpdateContent((c) => { c.assessingLearning.evidenceOfLearning = value })}
-              isDemo={isDemo}
-              context={aiContext}
-              onAiUsed={onMarkAiUsed}
-              documentId={plan.id || undefined}
-              rows={4}
-              placeholder="Describe the evidence you will look for before moving forward."
-              suggestionType="suggest_evidence_of_learning"
-              suggestionLabel="Suggest evidence"
-              pendingQuickDraft={pending('assessingLearning.evidenceOfLearning')}
-            />
+            <div className="form-grid two">
+              <AiAssistTextarea
+                label="Formative assessments"
+                sectionKey="assessingLearning.formativeAssessments"
+                value={plan.content.assessingLearning.formativeAssessments}
+                onChange={(value) => onUpdateContent((c) => { c.assessingLearning.formativeAssessments = value })}
+                isDemo={isDemo}
+                context={aiContext}
+                onAiUsed={onMarkAiUsed}
+                documentId={plan.id || undefined}
+                rows={6}
+                placeholder="Checks you will use throughout the session"
+                suggestionType="suggest_formative_assessment"
+                suggestionLabel="Suggest checks"
+                pendingQuickDraft={pending('assessingLearning.formativeAssessments')}
+              />
+              <AiAssistTextarea
+                label="What evidence will show learning?"
+                sectionKey="assessingLearning.evidenceOfLearning"
+                value={plan.content.assessingLearning.evidenceOfLearning}
+                onChange={(value) => onUpdateContent((c) => { c.assessingLearning.evidenceOfLearning = value })}
+                isDemo={isDemo}
+                context={aiContext}
+                onAiUsed={onMarkAiUsed}
+                documentId={plan.id || undefined}
+                rows={6}
+                placeholder="Describe the evidence you will look for before moving forward."
+                suggestionType="suggest_evidence_of_learning"
+                suggestionLabel="Suggest evidence"
+                pendingQuickDraft={pending('assessingLearning.evidenceOfLearning')}
+              />
+            </div>
           </div>
 
           {/* W — Ways Forward */}
@@ -664,36 +766,38 @@ function LessonSimpleFlow({
               <span className="teacher-decision-chip">Teacher judgment</span>
             </div>
 
-            <AiAssistTextarea
-              label="Next steps / intervention"
-              sectionKey="waysForward.nextSteps"
-              value={plan.content.waysForward.nextSteps}
-              onChange={(value) => onUpdateContent((c) => { c.waysForward.nextSteps = value })}
-              isDemo={isDemo}
-              context={aiContext}
-              onAiUsed={onMarkAiUsed}
-              documentId={plan.id || undefined}
-              rows={5}
-              placeholder="Reteaching, remediation, enrichment, adjustment, or next lesson decision"
-              suggestionType="suggest_next_steps"
-              suggestionLabel="Suggest contingencies"
-              pendingQuickDraft={pending('waysForward.nextSteps')}
-            />
-            <AiAssistTextarea
-              label="Extended learning opportunities"
-              sectionKey="waysForward.extendedLearning"
-              value={plan.content.waysForward.extendedLearning}
-              onChange={(value) => onUpdateContent((c) => { c.waysForward.extendedLearning = value })}
-              isDemo={isDemo}
-              context={aiContext}
-              onAiUsed={onMarkAiUsed}
-              documentId={plan.id || undefined}
-              rows={4}
-              placeholder="Optional reinforcement, enrichment, or remediation beyond the session"
-              suggestionType="suggest_extended_learning"
-              suggestionLabel="Suggest extensions"
-              pendingQuickDraft={pending('waysForward.extendedLearning')}
-            />
+            <div className="form-grid two">
+              <AiAssistTextarea
+                label="Next steps / intervention"
+                sectionKey="waysForward.nextSteps"
+                value={plan.content.waysForward.nextSteps}
+                onChange={(value) => onUpdateContent((c) => { c.waysForward.nextSteps = value })}
+                isDemo={isDemo}
+                context={aiContext}
+                onAiUsed={onMarkAiUsed}
+                documentId={plan.id || undefined}
+                rows={5}
+                placeholder="Reteaching, remediation, enrichment, adjustment, or next lesson decision"
+                suggestionType="suggest_next_steps"
+                suggestionLabel="Suggest contingencies"
+                pendingQuickDraft={pending('waysForward.nextSteps')}
+              />
+              <AiAssistTextarea
+                label="Extended learning opportunities"
+                sectionKey="waysForward.extendedLearning"
+                value={plan.content.waysForward.extendedLearning}
+                onChange={(value) => onUpdateContent((c) => { c.waysForward.extendedLearning = value })}
+                isDemo={isDemo}
+                context={aiContext}
+                onAiUsed={onMarkAiUsed}
+                documentId={plan.id || undefined}
+                rows={5}
+                placeholder="Optional reinforcement, enrichment, or remediation beyond the session"
+                suggestionType="suggest_extended_learning"
+                suggestionLabel="Suggest extensions"
+                pendingQuickDraft={pending('waysForward.extendedLearning')}
+              />
+            </div>
             <AiAssistTextarea
               label="Reflection"
               sectionKey="waysForward.reflection"

@@ -18,8 +18,8 @@
 .results-section-heading h2 { color: var(--navy); font-size: 20px; font-weight: 800; margin: 0 0 4px; }
 .results-section-heading h3 { color: var(--navy); font-size: 16px; font-weight: 800; margin: 0 0 4px; }
 .results-section-heading p { color: var(--muted); font-size: 12.5px; line-height: 1.55; margin: 0; max-width: 700px; }
-.results-form-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
-.results-form-grid .results-form-wide { grid-column: span 2; }
+.results-form-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 18px; }
+.results-form-grid .results-form-wide { grid-column: 1 / -1; }
 .results-mode-picker { padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; margin-bottom: 16px; }
 .results-mode-picker > strong { display: block; color: var(--navy); font-size: 13px; font-weight: 750; margin-bottom: 9px; }
 .results-segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }

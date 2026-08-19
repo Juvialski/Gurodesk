@@ -644,13 +644,14 @@
 .assessment-v2-wizard-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 24px;border-top:1px solid #edf0f4;background:#f8fafc}
 .assessment-v2-wizard-footer .button{min-width:120px;min-height:46px;font-size:13.5px;justify-content:center}
 .assessment-v2-wizard-footer-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.assessment-v2-primary-fields{display:grid;gap:16px;padding:22px 24px 10px}
-.assessment-v2-primary-fields label,.assessment-v2-advanced label{display:grid;gap:8px}
+.assessment-v2-primary-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px;padding:22px 24px 10px}
+.assessment-v2-primary-fields label,.assessment-v2-advanced label{display:grid;gap:8px;min-width:0}
+.assessment-v2-primary-fields label.full-width{grid-column:1/-1}
 .assessment-v2-primary-fields label>span,.assessment-v2-advanced label>span{color:#334155;font-size:13px;font-weight:800}
 .assessment-v2-primary-fields label>span small,.assessment-v2-advanced label>span small{color:var(--text-muted);font-weight:600;font-size:11.5px}
 .assessment-v2-primary-fields input,.assessment-v2-primary-fields textarea,.assessment-v2-advanced textarea{width:100%;font-size:13.5px}
 .assessment-v2-points-field{grid-template-columns:minmax(0,1fr)!important}
-.assessment-v2-points-field input{max-width:220px;font-size:22px;font-weight:900;color:var(--navy)}
+.assessment-v2-points-field input{max-width:100%;font-size:22px;font-weight:900;color:var(--navy)}
 .assessment-v2-points-field>small{color:var(--text-muted);font-size:11.5px}
 .assessment-v2-visual-section{display:grid;grid-template-columns:minmax(180px,.75fr) minmax(0,1.25fr);gap:18px;align-items:center;margin:10px 24px 18px;padding:16px;border:1px solid #e2e8f0;border-radius:14px;background:#f8fafc}
 .assessment-v2-visual-section>div:first-child{display:grid;gap:3px}

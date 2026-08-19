@@ -75,9 +75,32 @@
 .workflow-step-heading small { margin-top: 2px; color: var(--muted); font-size: 12.5px; line-height: 1.4; }
 
 .workflow-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }
+.workflow-form-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.workflow-form-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.workflow-form-grid.one { grid-template-columns: 1fr; }
 .workflow-form-grid label { min-width: 0; }
 .workflow-form-grid label input,
 .workflow-form-grid label select { min-height: 44px; font-size: 14px; border-radius: 10px; }
+
+.workflow-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 24px;
+  margin-top: 18px;
+}
+.workflow-options-grid.three-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.workflow-options-grid .workflow-chip-group {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.workflow-options-grid .workflow-chip-group.full-width {
+  grid-column: 1 / -1;
+}
+
 .workflow-field-label { display: block; margin-bottom: 8px; color: #334155; font-size: 13px; font-weight: 750; }
 .workflow-chip-group { margin-top: 18px; }
 .workflow-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -97,6 +120,17 @@
 .workflow-chip.selected { border-color: #2563eb; color: #1d4ed8; background: #eff6ff; box-shadow: 0 0 0 2px rgba(37, 99, 235, .12); }
 .workflow-chip:disabled { cursor: not-allowed; opacity: .6; }
 .workflow-muted { color: var(--muted); font-size: 12px; }
+
+@media (max-width: 768px) {
+  .workflow-form-grid,
+  .workflow-form-grid.three,
+  .workflow-form-grid.two,
+  .workflow-options-grid,
+  .workflow-options-grid.three-col {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
 
 .workflow-context-banner {
   flex-wrap: wrap;

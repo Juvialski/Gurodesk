@@ -145,18 +145,20 @@ function TosSimpleFlow({
       {step === 1 && (
         <div className="workflow-step-card">
           <div className="workflow-step-heading"><span>1</span><div><strong>Name the TOS and choose the class</strong><small>The TOS title is required and is the name shown in your TOS list and exports.</small></div></div>
-          <div className="workflow-form-grid">
+          <div className="workflow-form-grid three">
             <label>Class<select disabled={readOnly} value={assignmentId} onChange={(event) => onAssignmentChange(event.target.value)}>{assignments.map((item) => <option value={item.id} key={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label>
             <label>TOS title <small>(required)</small><input disabled={readOnly} value={record.content.title} onChange={(event) => onUpdateContent((content) => { content.title = event.target.value })} placeholder="e.g. Quarter 1 Mathematics TOS" /><small className="workflow-field-help">This identifies the TOS in your list and exported document.</small></label>
             <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => onUpdateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First summative test" /><small className="workflow-field-help">Used as a suggested test title when you create an assessment from this TOS.</small></label>
           </div>
-          <div className="workflow-chip-group">
-            <span className="workflow-field-label">School grading term</span>
-            <div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} disabled={readOnly} aria-pressed={record.content.gradingTermId === period.id} className={`workflow-chip ${record.content.gradingTermId === period.id ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermId = period.id; content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">No grading calendar is loaded.</span>}</div>
-          </div>
-          <div className="workflow-chip-group">
-            <span className="workflow-field-label">Curriculum-guide period</span>
-            <div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} disabled={readOnly} aria-pressed={record.content.curriculumPeriodIds.includes(period.id)} className={`workflow-chip ${record.content.curriculumPeriodIds.includes(period.id) ? 'selected' : ''}`} onClick={() => onTogglePeriod(period.id)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div>
+          <div className="workflow-options-grid two-col">
+            <div className="workflow-chip-group">
+              <span className="workflow-field-label">School grading term</span>
+              <div className="workflow-chip-row">{calendar?.periods.map((period) => <button type="button" key={period.id} disabled={readOnly} aria-pressed={record.content.gradingTermId === period.id} className={`workflow-chip ${record.content.gradingTermId === period.id ? 'selected' : ''}`} onClick={() => onUpdateContent((content) => { content.gradingTermId = period.id; content.gradingTermLabel = period.label })}>{period.label}</button>) ?? <span className="workflow-muted">No grading calendar is loaded.</span>}</div>
+            </div>
+            <div className="workflow-chip-group">
+              <span className="workflow-field-label">Curriculum-guide period</span>
+              <div className="workflow-chip-row">{bundle?.periods.map((period) => <button type="button" key={period.id} disabled={readOnly} aria-pressed={record.content.curriculumPeriodIds.includes(period.id)} className={`workflow-chip ${record.content.curriculumPeriodIds.includes(period.id) ? 'selected' : ''}`} onClick={() => onTogglePeriod(period.id)}>{period.label}</button>) ?? <span className="workflow-muted">Loading verified periods…</span>}</div>
+            </div>
           </div>
           <div className="workflow-step-footer">
             <span className="workflow-muted">Step 1 of 3</span>
