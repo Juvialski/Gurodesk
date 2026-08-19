@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AiAssistTextarea } from '../components/AiAssistTextarea'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
+import { HelpTooltip } from '../components/ui/HelpTooltip'
 import { SimpleAdvancedToggle } from '../components/ui/SimpleAdvancedToggle'
 import { useApp } from '../contexts/AppContext'
 import { useWorkspaceSelection } from '../hooks/useWorkspaceSelection'
@@ -25,6 +26,9 @@ import { LESSON_PLAN_FORMAT_OPTIONS, type AiSupportType, type LessonAiSupportReq
 import { createDefaultTeacherLessonPreferences, LESSON_LANGUAGE_OPTIONS, type TeacherLessonPreferences } from '../types/teachingSetup'
 import type { TeacherAssignment } from '../types/app'
 import '../workflows.css'
+
+const LESSON_DETAILS_HELP_TEXT =
+  'These lesson details are used in the heading of the generated lesson document. Optional details left blank will be omitted from the generated heading. Required fields must still be completed.'
 
 const QUICK_DRAFT_LABELS: Array<[keyof LessonQuickDraft, string]> = [
   ['lessonTitle', 'Lesson title'],
@@ -339,7 +343,13 @@ function LessonSimpleFlow({
           <div className="workflow-step-heading">
             <span>1</span>
             <div>
-              <strong>Class and lesson setup</strong>
+              <div className="workflow-step-title-with-help">
+                <strong>Class and lesson setup</strong>
+                <HelpTooltip
+                  label="About class and lesson setup heading"
+                  content={LESSON_DETAILS_HELP_TEXT}
+                />
+              </div>
               <small>Curriculum-guide period and school grading term are shown separately.</small>
             </div>
           </div>
@@ -1575,7 +1585,21 @@ export function LessonPlanEditorPage() {
       <div className="lesson-editor-grid">
         <div className="lesson-editor-main">
           <section className="panel editor-section">
-            <div className="editor-section-head"><div><span className="ilaw-letter neutral">01</span><div><span className="eyebrow">Lesson details</span><h2>Class and curriculum context</h2></div></div></div>
+            <div className="editor-section-head">
+              <div>
+                <span className="ilaw-letter neutral">01</span>
+                <div>
+                  <div className="editor-eyebrow-row">
+                    <span className="eyebrow">Lesson details</span>
+                    <HelpTooltip
+                      label="About lesson details heading"
+                      content={LESSON_DETAILS_HELP_TEXT}
+                    />
+                  </div>
+                  <h2>Class and curriculum context</h2>
+                </div>
+              </div>
+            </div>
             <div className="form-grid two">
               <label>Teaching assignment<select value={assignmentId} disabled={!isNew} onChange={(event) => changeAssignment(event.target.value)}>{assignments.map((item) => <option key={item.id} value={item.id}>{item.gradeLevel} · {item.learningArea}</option>)}</select></label>
               <label className="workflow-topic-field">Topic / lesson focus<input value={plan.content.lessonFocus} onChange={(event) => changeLessonFocus(event.target.value)} placeholder="What are you teaching?" /><small>The topic is the main pedagogical focus. Curriculum alignments ground it when selected.</small></label>
