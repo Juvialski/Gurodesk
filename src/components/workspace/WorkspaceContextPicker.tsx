@@ -47,6 +47,7 @@ export function WorkspaceContextPicker({
   const selectedSection = selection.section && sections.includes(selection.section) ? selection.section : null
   const hasGradingTerms = Boolean(gradingTerms?.length)
   const hasCurriculumPeriods = Boolean(curriculumPeriods?.length)
+  const visibleControlCount = 2 + (hasGradingTerms ? 1 : 0) + (hasCurriculumPeriods ? 1 : 0)
 
   function changeAssignment(assignmentId: string) {
     onChange({
@@ -79,7 +80,7 @@ export function WorkspaceContextPicker({
         {onClose && <button className="icon-button" type="button" onClick={onClose} aria-label="Close context picker">×</button>}
       </div>
 
-      <div className="workspace-picker-grid">
+      <div className={`workspace-picker-grid cols-${visibleControlCount}`}>
         <label>
           Class or assignment
           <span className="workspace-picker-control">

@@ -150,33 +150,39 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  min-height: 48px;
+  min-height: 44px;
   padding: 0 12px;
-  border: 1px solid #dbe3ec;
-  border-radius: 11px;
-  color: #6e8093;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  color: #64748b;
+  background: #f8fafc;
+}
+.workflow-search:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, .12);
   background: #fff;
 }
-.workflow-search input { width: 100%; min-width: 0; min-height: 44px; padding: 8px 0; border: 0; box-shadow: none; }
-.workflow-search-icon { color: #6e8093; font-size: 20px; line-height: 1; }
+.workflow-search input { width: 100%; min-width: 0; min-height: 40px; padding: 6px 0; border: 0; background: transparent; box-shadow: none; }
+.workflow-search-icon { color: #64748b; font-size: 18px; line-height: 1; }
 .workflow-competency-list { display: grid; gap: 7px; max-height: 390px; margin-top: 11px; overflow: auto; }
 .workflow-competency-option {
   width: 100%;
-  min-height: 48px;
+  min-height: 44px;
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
+  grid-template-columns: 26px minmax(0, 1fr);
   align-items: start;
   gap: 10px;
-  padding: 11px;
-  border: 1px solid #e1e7ef;
-  border-radius: 11px;
-  color: #405970;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  color: #334155;
   background: #fff;
   text-align: left;
   cursor: pointer;
+  transition: all .15s ease;
 }
-.workflow-competency-option:hover { border-color: #9ab9dc; background: #f8fbff; }
-.workflow-competency-option.selected { border-color: #77a9d9; background: #eff7ff; }
+.workflow-competency-option:hover { border-color: #93c5fd; background: #f8fbff; }
+.workflow-competency-option.selected { border-color: #60a5fa; background: #eff6ff; }
 .workflow-competency-option > span:last-child { min-width: 0; }
 .workflow-competency-option small,
 .workflow-competency-option strong { display: block; }
@@ -232,7 +238,7 @@
 
 .workflow-picker-trigger { width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 12px; background: #fff; color: #334155; text-align: left; font-size: 13px; font-weight: 600; cursor: pointer; }
 .workflow-picker-trigger.open { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(37, 99, 235, .12); }
-.workflow-picker-panel { position: relative; max-width: 100%; min-width: 0; margin-top: 8px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 14px; background: #f8fafc; overflow: hidden; }
+.workflow-picker-panel { position: relative; max-width: 100%; min-width: 0; margin-top: 8px; padding: 12px; border: 1px solid #d8e2ed; border-radius: 14px; background: #fff; box-shadow: 0 4px 16px rgba(15, 23, 42, .05); overflow: hidden; }
 .workflow-picker-summary { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 2px; color: #64748b; font-size: 12px; }
 .workflow-picker-summary button { min-height: 44px; padding-inline: 10px; border: 0; background: none; color: #1d4ed8; font-weight: 800; cursor: pointer; }
 .workflow-grounding { display: flex; gap: 10px; margin-top: 12px; padding: 12px 14px; border: 1px solid #bbf7d0; border-radius: 12px; color: #166534; background: #f0fdf4; }
@@ -399,17 +405,17 @@
 }
 
 /* Curriculum-aware TOS competency grouping. */
-.workflow-curriculum-group { border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; background: #f8fafc; }
-.workflow-curriculum-group-header { padding: 13px 14px 11px; border-bottom: 1px solid #e2e8f0; background: #f1f5f9; }
+.workflow-curriculum-group { border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #fafcff; }
+.workflow-curriculum-group-header { padding: 11px 13px 9px; border-bottom: 1px solid #e2e8f0; background: #f1f5f9; }
 .workflow-curriculum-group-header small,
 .workflow-curriculum-group-header strong { display: block; }
 .workflow-curriculum-group-header small { color: #64748b; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; }
-.workflow-curriculum-group-header strong { margin-top: 3px; color: var(--navy); font-size: 14px; font-weight: 750; }
-.workflow-curriculum-standards { display: grid; gap: 8px; padding: 11px 14px; border-bottom: 1px solid #e2e8f0; background: #fff; }
+.workflow-curriculum-group-header strong { margin-top: 2px; color: var(--navy); font-size: 13.5px; font-weight: 750; }
+.workflow-curriculum-standards { display: grid; gap: 8px; padding: 10px 13px; border-bottom: 1px solid #e2e8f0; background: #fff; }
 .workflow-curriculum-standards > div { min-width: 0; }
 .workflow-curriculum-standards span { display: block; color: #475569; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .03em; }
 .workflow-curriculum-standards p { margin: 3px 0 0; color: #334155; font-size: 12.5px; line-height: 1.5; }
-.workflow-curriculum-competencies { display: grid; gap: 8px; padding: 10px; }
+.workflow-curriculum-competencies { display: grid; gap: 6px; padding: 8px; }
 .workflow-curriculum-group .workflow-competency-option { margin: 0; }
 .competency-picker-group { border-top: 1px solid #e2e8f0; }
 .competency-picker-group:first-child { border-top: 0; }

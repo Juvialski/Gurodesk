@@ -228,7 +228,7 @@ function TosSimpleFlow({
       {step === 3 && (
         <div className="workflow-step-card">
           <div className="workflow-step-heading"><span>3</span><div><strong>How large is the test?</strong><small>GuroDesk will distribute whole questions deterministically across your selected competencies.</small></div></div>
-          <div className="workflow-form-grid">
+          <div className="workflow-form-grid one">
             <label>Number of questions<input disabled={readOnly} type="number" min="1" max="10000" value={totalItemsInput} onChange={(event) => onTotalItemsChange(event.target.value)} /><small className="workflow-field-help">You can customize weighting and exact allocations before finalizing.</small></label>
           </div>
           <div className="workflow-summary-card">
@@ -555,7 +555,7 @@ export function TosEditorPage() {
       <main className="tos-editor-main">
         <section className="panel tos-section">
           <div className="tos-section-heading"><span>1</span><div><h2>Assessment context</h2><p>School grading term and curriculum-guide period stay separate.</p></div></div>
-          <div className="form-grid two-column">
+          <div className="form-grid two">
             <label>Teaching assignment<select disabled={readOnly} value={assignmentId} onChange={(event) => changeAssignment(event.target.value)}>{assignments.map((item) => <option value={item.id} key={item.id}>{item.gradeLevel} · {item.learningArea} · {item.schoolYear}</option>)}</select></label>
             <label>TOS title<input disabled={readOnly} value={record.content.title} onChange={(event) => updateContent((content) => { content.title = event.target.value })} placeholder="e.g. Term 1 Mathematics TOS" /></label>
             <label>Assessment title <small>(optional)</small><input disabled={readOnly} value={record.content.assessmentTitle} onChange={(event) => updateContent((content) => { content.assessmentTitle = event.target.value })} placeholder="e.g. First Summative Test" /></label>

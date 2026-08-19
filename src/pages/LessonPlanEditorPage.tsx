@@ -526,7 +526,7 @@ function LessonSimpleFlow({
                 </div>
               </div>
             </div>
-            <div className="form-grid two">
+            <div className="form-grid one">
               <label className={pending('lessonTitle') ? 'pending-control' : ''}>
                 <span>Lesson title</span>
                 <input
@@ -729,7 +729,7 @@ function LessonSimpleFlow({
                 context={aiContext}
                 onAiUsed={onMarkAiUsed}
                 documentId={plan.id || undefined}
-                rows={6}
+                rows={4}
                 placeholder="Checks you will use throughout the session"
                 suggestionType="suggest_formative_assessment"
                 suggestionLabel="Suggest checks"
@@ -744,7 +744,7 @@ function LessonSimpleFlow({
                 context={aiContext}
                 onAiUsed={onMarkAiUsed}
                 documentId={plan.id || undefined}
-                rows={6}
+                rows={4}
                 placeholder="Describe the evidence you will look for before moving forward."
                 suggestionType="suggest_evidence_of_learning"
                 suggestionLabel="Suggest evidence"
@@ -776,7 +776,7 @@ function LessonSimpleFlow({
                 context={aiContext}
                 onAiUsed={onMarkAiUsed}
                 documentId={plan.id || undefined}
-                rows={5}
+                rows={4}
                 placeholder="Reteaching, remediation, enrichment, adjustment, or next lesson decision"
                 suggestionType="suggest_next_steps"
                 suggestionLabel="Suggest contingencies"
@@ -791,7 +791,7 @@ function LessonSimpleFlow({
                 context={aiContext}
                 onAiUsed={onMarkAiUsed}
                 documentId={plan.id || undefined}
-                rows={5}
+                rows={4}
                 placeholder="Optional reinforcement, enrichment, or remediation beyond the session"
                 suggestionType="suggest_extended_learning"
                 suggestionLabel="Suggest extensions"

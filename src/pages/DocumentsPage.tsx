@@ -168,7 +168,7 @@ export function DocumentsPage() {
       />
 
       <section className="panel">
-        <div className="form-grid four" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
+        <div className="form-grid four">
           <label>
             Search documents
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by title, subject, topic, or type" />
