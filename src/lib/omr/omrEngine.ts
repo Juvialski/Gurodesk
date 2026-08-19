@@ -159,10 +159,10 @@ export function processAnswerSheetImage(
 
   // 5. Rectify Image using 4-point Homography Warp to whole page coordinates
   const targetWidth = 1050
-  const targetHeight = 1485
   const page0 = sheetDefinition.pages[0]
   const pageW = page0.dimensionsMm.widthMm
   const pageH = page0.dimensionsMm.heightMm
+  const targetHeight = Math.round(targetWidth * (pageH / pageW))
 
   const dstFiducials: QuadCorners = {
     topLeft: {

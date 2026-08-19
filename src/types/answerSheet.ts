@@ -148,6 +148,8 @@ export type AnswerSheetQrPayload = {
 export type AnswerSheetGenerateOptions = {
   mode?: AnswerSheetMode
   paperSize?: AnswerSheetPaperSize
+  density?: AnswerSheetDensity
+  slipsPerPage?: number
   learner?: ClassLearner | { id: string; displayName: string; localReference?: string | null }
   now?: string
 }

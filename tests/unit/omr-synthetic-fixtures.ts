@@ -32,13 +32,13 @@ export function createSyntheticAnswerSheetImage(
   sheet: AnswerSheetDefinition,
   options: SyntheticSheetOptions = {},
 ): OmrImageBuffer {
+  const page = sheet.pages[0]
+  const pageDims = page.dimensionsMm
   const W = options.width ?? 1050
-  const H = options.height ?? 1485
+  const H = options.height ?? Math.round(W * (pageDims.heightMm / pageDims.widthMm))
   const data = new Uint8Array(W * H)
   data.fill(255) // White paper background
 
-  const page = sheet.pages[0]
-  const pageDims = page.dimensionsMm
   const scaleX = W / pageDims.widthMm
   const scaleY = H / pageDims.heightMm
 

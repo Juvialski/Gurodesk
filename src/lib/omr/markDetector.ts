@@ -1,9 +1,9 @@
 import type { AnswerSheetDefinition, AnswerSheetItemRegion, AnswerSheetPageLayout } from '../../types/answerSheet'
 import type { OmrBubbleMeasurement, OmrImageBuffer, OmrItemRecognition, OmrMarkState } from '../../types/omr'
 
-const FILL_THRESHOLD_PERCENT = 40 // >= 40% fill is considered marked
-const EMPTY_THRESHOLD_PERCENT = 16 // <= 16% fill is considered blank
-const MIN_CONTRAST_PERCENT = 18 // minimum contrast against local background
+const FILL_THRESHOLD_PERCENT = 32 // >= 32% fill is considered marked
+const EMPTY_THRESHOLD_PERCENT = 14 // <= 14% fill is considered blank
+const MIN_CONTRAST_PERCENT = 12 // minimum contrast against local background
 
 /**
  * Measures the photometric darkness and contrast of a single circular bubble on the rectified image.
@@ -45,9 +45,9 @@ export function measureBubble(
   const meanInnerDarkness = innerPixelCount > 0 ? innerDarknessSum / innerPixelCount : 0
   const fillPercentage = Math.round((meanInnerDarkness / 255) * 100)
 
-  // 2. Measure local background paper darkness in the surrounding ring (radius * 1.3 to radius * 1.8)
-  const bgInnerR = r * 1.3
-  const bgOuterR = r * 1.8
+  // 2. Measure local background paper darkness in the surrounding ring (radius * 1.25 to radius * 1.55)
+  const bgInnerR = r * 1.25
+  const bgOuterR = r * 1.55
   const bgInnerR2 = bgInnerR * bgInnerR
   const bgOuterR2 = bgOuterR * bgOuterR
 
@@ -82,7 +82,7 @@ export function measureBubble(
   if (fillPercentage >= FILL_THRESHOLD_PERCENT && contrast >= MIN_CONTRAST_PERCENT) {
     state = 'FILLED'
     isMarked = true
-  } else if (fillPercentage > EMPTY_THRESHOLD_PERCENT || (contrast > 12 && fillPercentage > 20)) {
+  } else if (fillPercentage > EMPTY_THRESHOLD_PERCENT || (contrast > 10 && fillPercentage > 18)) {
     state = 'UNCERTAIN'
     isMarked = false
   } else {
@@ -152,13 +152,23 @@ function evaluateItemRegion(
     let needsReview = false
     let reviewReason: string | undefined
 
-    if (filled.length === 1 && uncertain.length === 0) {
-      // Clean single answer
-      state = 'FILLED'
-      selectedChoiceIds = [filled[0].choiceId]
-      selectedLabels = [filled[0].label]
-      confidence = Math.min(1.0, filled[0].fillPercentage / 80)
-      needsReview = false
+    if (filled.length === 1) {
+      const strongErasure = uncertain.filter((u) => u.fillPercentage >= 28 && u.fillPercentage >= filled[0].fillPercentage * 0.55)
+      if (strongErasure.length > 0) {
+        state = 'AMBIGUOUS'
+        selectedChoiceIds = [filled[0].choiceId, ...strongErasure.map((u) => u.choiceId)]
+        selectedLabels = [filled[0].label, ...strongErasure.map((u) => u.label)]
+        confidence = 0.5
+        needsReview = true
+        reviewReason = `Possible erasure or ambiguous mark between ${selectedLabels.join(' and ')}.`
+      } else {
+        // Clean single answer
+        state = 'FILLED'
+        selectedChoiceIds = [filled[0].choiceId]
+        selectedLabels = [filled[0].label]
+        confidence = Math.min(1.0, filled[0].fillPercentage / 80)
+        needsReview = false
+      }
     } else if (filled.length > 1) {
       // Multiple marked
       state = 'MULTIPLE'
@@ -214,11 +224,22 @@ function evaluateItemRegion(
     let needsReview = false
     let reviewReason: string | undefined
 
-    if (filled.length === 1 && uncertain.length === 0) {
-      state = 'FILLED'
-      trueFalseValue = filled[0].label === 'T'
-      selectedLabels = [filled[0].label]
-      confidence = 0.95
+    if (filled.length === 1) {
+      const strongErasure = uncertain.filter((u) => u.fillPercentage >= 28 && u.fillPercentage >= filled[0].fillPercentage * 0.55)
+      if (strongErasure.length > 0) {
+        state = 'AMBIGUOUS'
+        trueFalseValue = filled[0].label === 'T'
+        selectedLabels = [filled[0].label, ...strongErasure.map((u) => u.label)]
+        confidence = 0.5
+        needsReview = true
+        reviewReason = `Possible erasure between True and False.`
+      } else {
+        state = 'FILLED'
+        trueFalseValue = filled[0].label === 'T'
+        selectedLabels = [filled[0].label]
+        confidence = 0.95
+        needsReview = false
+      }
     } else if (filled.length > 1) {
       state = 'MULTIPLE'
       selectedLabels = filled.map((f) => f.label)

@@ -68,6 +68,10 @@ export function AnswerSheetPrintPage() {
     return learners.filter((l) => requestedIds.has(l.id))
   }, [mode, learners, learnerIdsParam])
 
+  const slipsPerPage = useMemo(() => {
+    return resolveSlipsPerPage(assessment?.items?.length || 0, density)
+  }, [assessment?.items?.length, density])
+
   const sheets: AnswerSheetDefinition[] = useMemo(() => {
     if (!assessment) return []
     if (mode === 'personalized') {
@@ -75,6 +79,8 @@ export function AnswerSheetPrintPage() {
         generateAnswerSheetLayout(assessment, {
           mode: 'personalized',
           paperSize,
+          density,
+          slipsPerPage,
           learner,
         }),
       )
@@ -84,13 +90,11 @@ export function AnswerSheetPrintPage() {
     const single = generateAnswerSheetLayout(assessment, {
       mode: 'generic',
       paperSize,
+      density,
+      slipsPerPage,
     })
     return Array.from({ length: copies }, () => single)
-  }, [assessment, mode, paperSize, selectedLearners, copies])
-
-  const slipsPerPage = useMemo(() => {
-    return resolveSlipsPerPage(assessment?.items?.length || 0, density)
-  }, [assessment?.items?.length, density])
+  }, [assessment, mode, paperSize, density, slipsPerPage, selectedLearners, copies])
 
   const paginatedSlipGroups = useMemo(() => {
     const groups: AnswerSheetDefinition[][] = []
@@ -228,9 +232,10 @@ export function AnswerSheetPrintPage() {
               background: '#ffffff',
               margin: '20px auto',
               maxWidth: '850px',
-              padding: slipsPerPage === 1 ? '0' : '10px 14px',
+              padding: '0',
               boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
-              borderRadius: '6px',
+              borderRadius: '4px',
+              overflow: 'hidden',
             }}
           >
             {group.map((sheet, sIdx) => {
@@ -240,19 +245,11 @@ export function AnswerSheetPrintPage() {
               const isLastInGroup = sIdx === group.length - 1
 
               return (
-                <div key={`sheet-${gIdx}-${sIdx}`} className="sheet-slip-item" style={{ flex: 1 }}>
+                <div key={`sheet-${gIdx}-${sIdx}`} className="sheet-slip-item" style={{ width: '100%' }}>
                   <div
                     className="sheet-svg-wrap"
                     style={{
-                      maxHeight:
-                        slipsPerPage === 1
-                          ? 'none'
-                          : slipsPerPage === 2
-                          ? '46vh'
-                          : slipsPerPage === 3
-                          ? '30vh'
-                          : '22vh',
-                      overflow: 'hidden',
+                      width: '100%',
                       display: 'flex',
                       justifyContent: 'center',
                     }}
@@ -260,7 +257,7 @@ export function AnswerSheetPrintPage() {
                   />
                   {!isLastInGroup && (
                     <div className="sheet-cut-divider">
-                      <Scissors size={14} />
+                      <Scissors size={13} />
                       <span>Cut along dashed line</span>
                     </div>
                   )}

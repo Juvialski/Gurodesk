@@ -19,6 +19,7 @@ import type {
   AnswerSheetRectMm,
 } from '../../types/answerSheet'
 import { calculateAnswerSheetCompatibility, isQuestionTypeMachineCheckable } from './compatibility'
+import { resolveSlipsPerPage } from './answerSheetDocxExport'
 import { generateQrSvgPath } from './qrEncoder'
 import { encodeAnswerSheetQrPayload } from './qrPayload'
 
@@ -29,11 +30,11 @@ export const PAPER_DIMENSIONS_MM: Record<AnswerSheetPaperSize, { widthMm: number
   folio: { widthMm: 215.9, heightMm: 330.2 },
 }
 
-const MARGIN_MM = 12
-const FIDUCIAL_SIZE_MM = 8
-const QR_SIZE_MM = 24
-const BUBBLE_RADIUS_MM = 2.1
-const BUBBLE_SPACING_MM = 5.8
+const MARGIN_MM = 6
+const FIDUCIAL_SIZE_MM = 5.5
+const QR_SIZE_MM = 13
+const BUBBLE_RADIUS_MM = 1.9
+const BUBBLE_SPACING_MM = 5.2
 
 function resolveItemPointRangeLabel(item: AssessmentItem): string {
   const start = Number(item.pointStart)
@@ -121,7 +122,12 @@ export function generateAnswerSheetLayout(
   const mode = options.mode ?? 'generic'
   const dims = PAPER_DIMENSIONS_MM[paperSize] || PAPER_DIMENSIONS_MM.a4
   const W = dims.widthMm
-  const H = dims.heightMm
+
+  const sortedItems = [...(assessment.items || [])].sort((a, b) => a.itemNumber - b.itemNumber)
+  const totalItems = sortedItems.length
+
+  const slipsPerPage = options.slipsPerPage || resolveSlipsPerPage(totalItems, options.density)
+  const H = dims.heightMm / slipsPerPage
   const now = options.now ?? new Date().toISOString()
 
   const learner = mode === 'personalized' && options.learner
@@ -134,7 +140,7 @@ export function generateAnswerSheetLayout(
 
   const compatibility = calculateAnswerSheetCompatibility(assessment)
 
-  // 1. Fiducial Markers at 4 corners
+  // 1. Fiducial Markers at 4 corners of this slip
   const fiducials: AnswerSheetPageLayout['fiducialMarkers'] = {
     topLeft: {
       corner: 'top-left',
@@ -158,7 +164,7 @@ export function generateAnswerSheetLayout(
     },
   }
 
-  // 2. QR Code Payload & SVG
+  // 2. QR Code Payload & SVG (Compact 13mm size)
   const qrPayload = encodeAnswerSheetQrPayload({
     assessmentId: assessment.id,
     assessmentVersion: assessment.versionNumber || 1,
@@ -168,50 +174,49 @@ export function generateAnswerSheetLayout(
   })
 
   const qrBoundsMm: AnswerSheetRectMm = {
-    xMm: W - MARGIN_MM - FIDUCIAL_SIZE_MM - QR_SIZE_MM - 4,
-    yMm: MARGIN_MM + 2,
+    xMm: W - MARGIN_MM - FIDUCIAL_SIZE_MM - QR_SIZE_MM - 2,
+    yMm: MARGIN_MM,
     widthMm: QR_SIZE_MM,
     heightMm: QR_SIZE_MM,
   }
 
   const { svgPath } = generateQrSvgPath(qrPayload, QR_SIZE_MM)
 
-  // 3. Header & Learner Block Bounds
+  // 3. Header & Learner Block Bounds (Clean, Space-Saving)
   const headerBoundsMm: AnswerSheetRectMm = {
-    xMm: MARGIN_MM + FIDUCIAL_SIZE_MM + 4,
-    yMm: MARGIN_MM + 2,
-    widthMm: qrBoundsMm.xMm - (MARGIN_MM + FIDUCIAL_SIZE_MM + 6),
-    heightMm: 16,
+    xMm: MARGIN_MM + FIDUCIAL_SIZE_MM + 3,
+    yMm: MARGIN_MM,
+    widthMm: qrBoundsMm.xMm - (MARGIN_MM + FIDUCIAL_SIZE_MM + 5),
+    heightMm: 7.5,
   }
 
   const learnerBoxBoundsMm: AnswerSheetRectMm = {
-    xMm: MARGIN_MM + FIDUCIAL_SIZE_MM + 4,
-    yMm: headerBoundsMm.yMm + headerBoundsMm.heightMm + 2,
-    widthMm: qrBoundsMm.xMm - (MARGIN_MM + FIDUCIAL_SIZE_MM + 6),
-    heightMm: 12,
+    xMm: MARGIN_MM + FIDUCIAL_SIZE_MM + 3,
+    yMm: headerBoundsMm.yMm + headerBoundsMm.heightMm + 1,
+    widthMm: qrBoundsMm.xMm - (MARGIN_MM + FIDUCIAL_SIZE_MM + 5),
+    heightMm: 5.5,
   }
 
   // 4. Grid Geometry Planning
-  const contentTopY = learnerBoxBoundsMm.yMm + learnerBoxBoundsMm.heightMm + 6
-  const contentBottomY = H - MARGIN_MM - FIDUCIAL_SIZE_MM - 4
-  const availableHeightMm = contentBottomY - contentTopY
-  const contentLeftX = MARGIN_MM + 4
-  const contentRightX = W - MARGIN_MM - 4
+  const contentTopY = learnerBoxBoundsMm.yMm + learnerBoxBoundsMm.heightMm + 3.5
+  const contentBottomY = H - MARGIN_MM - FIDUCIAL_SIZE_MM - 1.5
+  const availableHeightMm = Math.max(20, contentBottomY - contentTopY)
+  const contentLeftX = MARGIN_MM + FIDUCIAL_SIZE_MM + 2
+  const contentRightX = W - MARGIN_MM - FIDUCIAL_SIZE_MM - 2
   const contentWidthMm = contentRightX - contentLeftX
 
-  const sortedItems = [...(assessment.items || [])].sort((a, b) => a.itemNumber - b.itemNumber)
-  const totalItems = sortedItems.length
+  // Determine column count based on item count:
+  let numColumns = 2
+  if (totalItems > 45) numColumns = 5
+  else if (totalItems > 24) numColumns = 4
+  else if (totalItems > 10 && slipsPerPage >= 2) numColumns = 3
+  else if (totalItems > 15) numColumns = 3
 
-  // Determine column count:
-  // <= 20 items: 2 columns
-  // 21 - 50 items: 3 columns
-  // 51 - 100 items: 4 columns
-  const numColumns = totalItems <= 20 ? 2 : totalItems <= 50 ? 3 : 4
-  const columnGapMm = 5
+  const columnGapMm = 4
   const columnWidthMm = (contentWidthMm - (numColumns - 1) * columnGapMm) / numColumns
   const itemsPerColumn = Math.ceil(totalItems / numColumns) || 1
 
-  const rowHeightMm = Math.min(8.5, Math.max(6.2, (availableHeightMm - 10) / itemsPerColumn))
+  const rowHeightMm = Math.min(6.5, Math.max(4.6, availableHeightMm / itemsPerColumn))
 
   const itemRegions: AnswerSheetItemRegion[] = []
 
@@ -238,9 +243,9 @@ export function generateAnswerSheetLayout(
     let manualBox: AnswerSheetItemRegion['manualBox']
 
     // Horizontal layout within column:
-    // [Number: 9mm] [Bubbles or Manual area: remaining]
-    const numberWidthMm = 9
-    const bubbleAreaStartX = colX + numberWidthMm + 2
+    // [Number: 7mm] [Bubbles or Manual area: remaining]
+    const numberWidthMm = 7
+    const bubbleAreaStartX = colX + numberWidthMm + 1.5
 
     if (item.questionType === 'multiple_choice') {
       const choices = resolveMcqChoices(item)
@@ -265,7 +270,7 @@ export function generateAnswerSheetLayout(
           id: option.id,
           label: option.label,
           centerMm: {
-            xMm: bubbleAreaStartX + oIdx * (BUBBLE_SPACING_MM * 1.3) + BUBBLE_RADIUS_MM,
+            xMm: bubbleAreaStartX + oIdx * (BUBBLE_SPACING_MM * 1.2) + BUBBLE_RADIUS_MM,
             yMm: itemY + rowHeightMm / 2,
           },
           radiusMm: BUBBLE_RADIUS_MM,
@@ -291,7 +296,7 @@ export function generateAnswerSheetLayout(
           id: `${prompt.id}:${choice.id}`,
           label: choice.label,
           centerMm: {
-            xMm: bubbleAreaStartX + 6 + cIdx * (BUBBLE_SPACING_MM * 0.9) + BUBBLE_RADIUS_MM,
+            xMm: bubbleAreaStartX + 5 + cIdx * (BUBBLE_SPACING_MM * 0.9) + BUBBLE_RADIUS_MM,
             yMm: itemY + rowHeightMm / 2,
           },
           radiusMm: BUBBLE_RADIUS_MM,
@@ -308,9 +313,9 @@ export function generateAnswerSheetLayout(
       manualBox = {
         boundsMm: {
           xMm: bubbleAreaStartX,
-          yMm: itemY + 1,
-          widthMm: columnWidthMm - numberWidthMm - 4,
-          heightMm: rowHeightMm - 2,
+          yMm: itemY + 0.8,
+          widthMm: columnWidthMm - numberWidthMm - 3,
+          heightMm: rowHeightMm - 1.6,
         },
         pointsPossible,
       }
@@ -334,7 +339,7 @@ export function generateAnswerSheetLayout(
     pageNumber: 1,
     totalPages: 1,
     paperSize,
-    dimensionsMm: dims,
+    dimensionsMm: { widthMm: W, heightMm: H },
     fiducialMarkers: fiducials,
     qrCode: {
       boundsMm: qrBoundsMm,

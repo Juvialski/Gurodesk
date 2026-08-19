@@ -77,7 +77,7 @@ function createMockAssessment(itemCount = 30): AssessmentBlueprint {
 describe('Smart Answer Sheet Layout Engine & Geometry', () => {
   it('generates deterministic fiducial corner coordinates for A4 paper', () => {
     const assessment = createMockAssessment(20)
-    const layout = generateAnswerSheetLayout(assessment, { paperSize: 'a4', mode: 'generic' })
+    const layout = generateAnswerSheetLayout(assessment, { paperSize: 'a4', mode: 'generic', density: '1-up' })
 
     expect(layout.pages.length).toBe(1)
     const page = layout.pages[0]
@@ -85,11 +85,11 @@ describe('Smart Answer Sheet Layout Engine & Geometry', () => {
 
     const { topLeft, topRight, bottomLeft, bottomRight } = page.fiducialMarkers
 
-    // Margins = 12mm, Fiducial size = 8mm -> Center = 12 + 4 = 16mm
-    expect(topLeft.centerMm).toEqual({ xMm: 16, yMm: 16 })
-    expect(topRight.centerMm).toEqual({ xMm: 210 - 16, yMm: 16 })
-    expect(bottomLeft.centerMm).toEqual({ xMm: 16, yMm: 297 - 16 })
-    expect(bottomRight.centerMm).toEqual({ xMm: 210 - 16, yMm: 297 - 16 })
+    // Margins = 6mm, Fiducial size = 5.5mm -> Center = 6 + 2.75 = 8.75mm
+    expect(topLeft.centerMm).toEqual({ xMm: 8.75, yMm: 8.75 })
+    expect(topRight.centerMm).toEqual({ xMm: 210 - 8.75, yMm: 8.75 })
+    expect(bottomLeft.centerMm).toEqual({ xMm: 8.75, yMm: 297 - 8.75 })
+    expect(bottomRight.centerMm).toEqual({ xMm: 210 - 8.75, yMm: 297 - 8.75 })
   })
 
   it('produces stable, identical coordinates across multiple layout runs for the same assessment', () => {
@@ -100,16 +100,15 @@ describe('Smart Answer Sheet Layout Engine & Geometry', () => {
     expect(JSON.stringify(run1)).toBe(JSON.stringify(run2))
   })
 
-  it('distributes 50 questions across 3 columns with exact bubble positions', () => {
+  it('distributes 50 questions across columns with exact bubble positions', () => {
     const assessment = createMockAssessment(50)
-    const layout = generateAnswerSheetLayout(assessment, { paperSize: 'a4' })
+    const layout = generateAnswerSheetLayout(assessment, { paperSize: 'a4', density: '1-up' })
     const page = layout.pages[0]
 
     expect(page.items.length).toBe(50)
     expect(page.items[0].itemNumber).toBe(1)
     expect(page.items[49].itemNumber).toBe(50)
 
-    // Items 1-17 in Column 1, 18-34 in Column 2, 35-50 in Column 3
     const item1 = page.items[0]
     const item20 = page.items[19]
     const item40 = page.items[39]
@@ -134,11 +133,10 @@ describe('Smart Answer Sheet Layout Engine & Geometry', () => {
     const svg = renderAnswerSheetPageSvg(layout, layout.pages[0])
 
     expect(svg).toContain('<svg xmlns="http://www.w3.org/2000/svg"')
-    expect(svg).toContain('GURODESK SMART ANSWER SHEET')
-    expect(svg).toContain('Grade 8 Mathematics Quarter 1 Examination')
-    expect(svg).toContain('LAYOUT v1 · GENERIC')
-    expect(svg).toContain('STUDENT NAME:')
-    expect(svg).toContain('INSTRUCTIONS:')
+    expect(svg).toContain('Grade 8 Mathematics Quarter 1 Examination — ANSWER SHEET')
+    expect(svg).toContain('v1·GENERIC')
+    expect(svg).toContain('NAME:')
+    expect(svg).toContain('Shade bubbles completely:')
     expect(svg).toContain('</svg>')
   })
 })

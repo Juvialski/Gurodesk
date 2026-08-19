@@ -76,8 +76,8 @@ function findMarkerInRegion(
   let bestY = 0
 
   // Coarse scan
-  const stride = Math.max(2, Math.floor(Math.min(maxX - minX, maxY - minY) / 40))
-  const boxSize = Math.max(4, Math.floor(Math.min(imageWidth, imageHeight) * 0.025))
+  const stride = Math.max(2, Math.floor(Math.min(maxX - minX, maxY - minY) / 50))
+  const boxSize = Math.max(3, Math.floor(Math.min(imageWidth, imageHeight) * 0.016))
 
   for (let y = minY + boxSize; y < maxY - boxSize; y += stride) {
     for (let x = minX + boxSize; x < maxX - boxSize; x += stride) {
@@ -98,7 +98,7 @@ function findMarkerInRegion(
       }
 
       const score = darkPixels / (total || 1)
-      if (score > bestScore && score >= 0.45) {
+      if (score > bestScore && score >= 0.30) {
         bestScore = score
         bestX = x
         bestY = y
@@ -106,7 +106,7 @@ function findMarkerInRegion(
     }
   }
 
-  if (bestScore < 0.45) return null
+  if (bestScore < 0.30) return null
 
   // Refine center of mass around best candidate
   let sumX = 0

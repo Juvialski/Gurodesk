@@ -124,7 +124,7 @@ describe('Personalized Smart Answer Sheets from Class Roster', () => {
 
     const svg1 = renderAnswerSheetPageSvg(sheet1, sheet1.pages[0])
     expect(svg1).toContain('Juan Dela Cruz')
-    expect(svg1).toContain('PRE-ASSIGNED ROSTER SHEET')
+    expect(svg1).toContain('STUDENT:')
 
     // QR Verification & Privacy Check: QR must NOT contain the plain name 'Juan Dela Cruz'
     const qrPayload1 = sheet1.pages[0].qrCode.payload
