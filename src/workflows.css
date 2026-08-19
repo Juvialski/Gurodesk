@@ -1,11 +1,11 @@
 /* Guided workflow surfaces. Kept separate so the global shell can opt in once. */
 .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
 .workflow-simple-shell {
-  max-width: 1140px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   display: grid;
   gap: 16px;
-  width: 100%;
 }
 .workflow-simple-shell > * { min-width: 0; }
 
