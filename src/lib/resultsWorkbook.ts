@@ -320,6 +320,85 @@ function inspectionSharedStrings(zip: PizZip) {
   return inspectionDescendants(parsed, 'si').map((item) => inspectionDescendants(item, 't').map((textNode) => textNode.textContent ?? '').join(''))
 }
 
+function detectHeaderRow(table: string[][]): number {
+  if (table.length <= 1) return 0
+  const maxScan = Math.min(table.length, 50)
+  let bestRowIndex = 0
+  let bestScore = -1
+
+  const KEYWORDS = [
+    'name', 'learner', 'student', 'last name', 'first name', 'display name',
+    'apelyido', 'pangalan', 'middle name', 'extension', 'ext', 'sex', 'gender',
+    'lrn', 'remarks', 'score', 'item', 'no.', 'no', '#', 'status', 'reference',
+    'learner name', "learner's name", 'student name', 'full name', 'q1', 'q2', 'q3', 'q4',
+  ]
+
+  for (let i = 0; i < maxScan; i++) {
+    const row = table[i]
+    const filledCells = row.filter((c) => c && c.trim().length > 0)
+    if (filledCells.length === 0) continue
+
+    let score = 0
+    for (const cell of filledCells) {
+      const lower = cell.toLowerCase().trim()
+      for (const kw of KEYWORDS) {
+        if (lower === kw) score += 40
+        else if (lower.includes(kw)) score += 20
+      }
+    }
+
+    if (filledCells.length === 1 && filledCells[0].length > 25) score -= 30
+    if (filledCells.length >= 2) score += 10
+
+    if (score > bestScore) {
+      bestScore = score
+      bestRowIndex = i
+    }
+  }
+
+  return bestScore > 10 ? bestRowIndex : 0
+}
+
+function composeCompositeNames(headers: string[], rows: string[][]): { headers: string[]; rows: string[][] } {
+  const normHeaders = headers.map((h) => h.toLowerCase().replace(/[^a-z0-9]/g, ''))
+
+  const singleNameHeaders = ['name', 'learner', 'learnername', 'student', 'studentname', 'displayname', 'fullname', 'pangalan', 'learnersname']
+  if (normHeaders.some((h) => singleNameHeaders.includes(h))) {
+    return { headers, rows }
+  }
+
+  const lastNames = ['lastname', 'last', 'apelyido', 'surname']
+  const firstNames = ['firstname', 'first', 'givenname', 'pangalan']
+  const middleNames = ['middlename', 'middle', 'middleinitial', 'mi']
+  const extensions = ['extension', 'ext', 'nameextension', 'suffix']
+
+  const lastIdx = normHeaders.findIndex((h) => lastNames.includes(h))
+  const firstIdx = normHeaders.findIndex((h) => firstNames.includes(h))
+  const midIdx = normHeaders.findIndex((h) => middleNames.includes(h))
+  const extIdx = normHeaders.findIndex((h) => extensions.includes(h))
+
+  if (lastIdx >= 0 && firstIdx >= 0) {
+    const composedHeader = 'Learner Name (Last, First Middle)'
+    const nextHeaders = [composedHeader, ...headers]
+    const nextRows = rows.map((row) => {
+      const last = (row[lastIdx] ?? '').trim()
+      const first = (row[firstIdx] ?? '').trim()
+      const middle = midIdx >= 0 ? (row[midIdx] ?? '').trim() : ''
+      const ext = extIdx >= 0 ? (row[extIdx] ?? '').trim() : ''
+      let composed = ''
+      if (last && first) {
+        composed = `${last}, ${first}${middle ? ` ${middle}` : ''}${ext ? ` ${ext}` : ''}`
+      } else {
+        composed = last || first
+      }
+      return [composed, ...row]
+    })
+    return { headers: nextHeaders, rows: nextRows }
+  }
+
+  return { headers, rows }
+}
+
 function inspectWorksheet(zip: PizZip, sheet: XlsxSheetPath, sharedStrings: string[], maxRows: number, maxColumns: number): ResultsXlsxSheetPreview {
   const raw = inspectionText(zip, sheet.path, `Worksheet ${sheet.name}`)
   if (!raw) throw new Error(`Worksheet “${sheet.name}” could not be read.`)
@@ -342,11 +421,14 @@ function inspectWorksheet(zip: PizZip, sheet: XlsxSheetPath, sharedStrings: stri
     }
     while (rowValues.length > 0 && rowValues[rowValues.length - 1] === '') rowValues.pop()
     if (rowValues.some((value) => value.trim())) table.push(rowValues)
-    if (table.length >= maxRows + 1) { truncated = true; break }
+    if (table.length >= maxRows + 50) { truncated = true; break }
   }
-  const headers = table.shift() ?? []
-  const bodyRows = table.slice(0, maxRows)
-  if (table.length > maxRows) truncated = true
+  const headerIndex = detectHeaderRow(table)
+  const rawHeaders = table[headerIndex] ?? []
+  const rawBodyRows = table.slice(headerIndex + 1, headerIndex + 1 + maxRows)
+  if (table.length - (headerIndex + 1) > maxRows) truncated = true
+
+  const { headers, rows: bodyRows } = composeCompositeNames(rawHeaders, rawBodyRows)
   return { name: sheet.name, headers, rows: bodyRows, truncated }
 }
 

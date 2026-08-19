@@ -22,16 +22,38 @@ async function edgeError(error: unknown, fallback: string) {
   return maybe?.message || fallback
 }
 
+import { detectTosCandidates, prioritizeTosTemplateElements } from './xlsxTemplate'
+
 export async function analyzeTosTemplate(elements: TosTemplateElement[]): Promise<TosTemplateAnalysisResult> {
-  if (!supabase) throw new Error('Template analysis requires a signed-in Supabase workspace.')
-  const safeElements = elements
-    .filter((item) => !item.isFormula && !item.text.startsWith('=') && (!item.isMerged || item.isMergedAnchor))
-    .slice(0, 320)
+  const safeElements = prioritizeTosTemplateElements(elements, 320)
     .map(({ id, kind, text, context, isFormula, isMerged, isMergedAnchor }) => ({ id, kind, text, context, isFormula, isMerged, isMergedAnchor }))
-  const { data, error } = await supabase.functions.invoke('tos-template-analyzer', { body: { elements: safeElements } })
-  if (error) throw new Error(await edgeError(error, 'Unable to analyze this workbook.'))
-  if (data?.error) throw new Error(String(data.error))
-  return data as TosTemplateAnalysisResult
+
+  if (!supabase) {
+    return {
+      mappings: detectTosCandidates(elements),
+      model: 'deterministic-offline-detector',
+      fallbackUsed: true,
+    }
+  }
+
+  try {
+    const { data, error } = await supabase.functions.invoke('tos-template-analyzer', { body: { elements: safeElements } })
+    if (error) {
+      const fallback = detectTosCandidates(elements)
+      if (fallback.length > 0) return { mappings: fallback, model: 'deterministic-fallback', fallbackUsed: true }
+      throw new Error(await edgeError(error, 'Unable to analyze this workbook.'))
+    }
+    if (data?.error) {
+      const fallback = detectTosCandidates(elements)
+      if (fallback.length > 0) return { mappings: fallback, model: 'deterministic-fallback', fallbackUsed: true }
+      throw new Error(String(data.error))
+    }
+    return data as TosTemplateAnalysisResult
+  } catch (err) {
+    const fallback = detectTosCandidates(elements)
+    if (fallback.length > 0) return { mappings: fallback, model: 'deterministic-fallback', fallbackUsed: true }
+    throw err
+  }
 }
 
 export async function listTosTemplates(userId: string): Promise<TosDocumentTemplate[]> {

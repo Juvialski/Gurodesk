@@ -616,5 +616,146 @@
   background-color: #fffaf9;
 }
 
+/* Teaching approach picker styles */
+.teaching-approach-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.approach-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.workflow-chip.approach-chip.custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.custom-approach-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.custom-approach-remove:hover {
+  opacity: 1;
+}
+.custom-approach-add-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  width: 100%;
+  max-width: 480px;
+}
+.custom-approach-input {
+  flex: 1;
+  min-width: 0;
+  height: 38px;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.custom-approach-button {
+  flex-shrink: 0;
+  height: 38px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+/* Duration stepper control */
+.workflow-duration-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.workflow-duration-stepper-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+}
+.workflow-duration-stepper-btn:hover:not(:disabled) {
+  border-color: #3b82f6;
+  background: #f8fafc;
+}
+.workflow-duration-stepper-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Roster Drag-and-Drop and Paste Styles */
+.roster-import-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.roster-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  outline: none;
+}
+.roster-dropzone:hover,
+.roster-dropzone:focus-visible {
+  border-color: #3b82f6;
+  background: #f0f7ff;
+}
+.roster-dropzone.dragging {
+  border-color: #2563eb;
+  background: #e0f2fe;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+.roster-dropzone-icon {
+  color: #64748b;
+  margin-bottom: 8px;
+}
+.roster-dropzone strong {
+  font-size: 14px;
+  color: #1e293b;
+}
+.roster-dropzone span {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
+}
+.roster-paste-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.roster-paste-zone textarea {
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
 
 

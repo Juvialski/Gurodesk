@@ -340,9 +340,10 @@ export function createLessonQuizBlueprint(
     ? (lessonInput as AssessmentLessonSourceSnapshot)
     : createLessonSourceSnapshot(lessonInput as LessonPlanRecord)
 
-  const totalItems = Number.isSafeInteger(options.totalItems) && Number(options.totalItems) > 0
-    ? Number(options.totalItems)
-    : 10
+  const rawTotal = Number(options.totalItems)
+  const totalItems = Number.isSafeInteger(rawTotal) && rawTotal >= 1
+    ? Math.min(100, rawTotal)
+    : 5
 
   const coveragePlan = allocateLessonCoverage({
     lessons: [lessonSnapshot],

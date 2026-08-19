@@ -3,6 +3,7 @@ import type {
   TosTemplateElement,
   TosTemplateMapping,
   TosTemplateFieldKey,
+  TosTemplateMappingMode,
   XlsxCellLocator,
   XlsxColumnLocator,
 } from '../types/tosTemplate'
@@ -160,7 +161,7 @@ export function extractXlsxTemplateStructure(buffer: ArrayBuffer): TosTemplateEl
           isMergedAnchor: Boolean(mergedRange && mergedRange.split(':')[0].toUpperCase() === address),
           styleIndex: cell.getAttribute('s'),
         })
-        if (elements.length >= 1200) return elements
+        if (elements.length >= 5000) return elements
       }
     }
   }
@@ -377,4 +378,168 @@ export function columnLocatorFromHeader(element: TosTemplateElement, firstDataRo
   if (element.locator.kind !== 'worksheet_cell') throw new Error('Choose a worksheet cell for an XLSX column mapping.')
   const { column } = splitAddress(element.locator.cellAddress)
   return { kind: 'worksheet_column', sheetName: element.locator.sheetName, columnAddress: column, firstDataRow, lastDataRow }
+}
+
+export const TOS_FIELD_SYNONYMS: Record<string, string[]> = {
+  teacherName: ['teacher', 'guro', 'name of teacher', 'teacher name', "teacher's name", 'prepared by'],
+  teacherPosition: ['position', 'designation', 'rank', 'posisyon'],
+  schoolName: ['school', 'paaralan', 'school name', 'pangalan ng paaralan'],
+  region: ['region', 'rehiyon'],
+  division: ['division', 'sangay', 'schools division'],
+  district: ['district', 'distrito'],
+  gradeLevel: ['grade', 'baitang', 'grade level', 'level'],
+  sections: ['section', 'seksyon', 'sections'],
+  gradeSection: ['grade & section', 'grade and section', 'grade / section', 'baitang at seksyon'],
+  learningArea: ['learning area', 'subject', 'asignatura', 'course'],
+  schoolYear: ['school year', 's.y.', 'sy', 'taong panuruan'],
+  gradingTerm: ['quarter', 'grading period', 'markahan', 'term', 'period'],
+  curriculumPeriod: ['curriculum period', 'curriculum-guide period'],
+  tosTitle: ['table of specifications', 't.o.s.', 'tos', 'talahanayan ng ispesipikasyon'],
+  assessmentTitle: ['assessment title', 'test title', 'examination', 'pagsusulit'],
+  totalItems: ['total items', 'total test items', 'total questions', 'kabuuang bilang ng aytem'],
+  weightingMethod: ['weighting', 'weighting method'],
+  competencyRowNumber: ['item no.', 'row no.', 'row #', 'item #', 'bilang', 'row'],
+  competencyCode: ['code', 'competency code', 'learning competency code', 'lc code', 'koda'],
+  competency: ['competency', 'competencies', 'learning competency', 'learning competencies', 'kasanayan', 'mga kasanayan', 'pamantayan sa pagkatuto', 'objectives', 'most essential learning competencies', 'melc', 'content standard'],
+  rowCurriculumPeriod: ['curriculum period', 'quarter', 'period', 'markahan'],
+  instructionalMinutes: ['minutes', 'instructional minutes', 'min', 'time', 'hours', 'oras', 'araw', 'days', 'sessions'],
+  weightPercent: ['weight', 'weight %', 'bahagdan', '% of items', 'percent', 'percentage', 'timbang'],
+  itemCount: ['no. of items', 'number of items', 'item count', 'actual items', 'bilang ng aytem', 'items count', 'no of items', 'bilang ng mga aytem'],
+  itemPlacement: ['item placement', 'placement', 'item number', 'item numbers', 'kinalalagyan', 'item distribution'],
+  rowNotes: ['notes', 'remarks', 'puna'],
+  totalWeight: ['total weight', '100%', 'total %'],
+  preparedBy: ['prepared by', 'inihanda ni', 'guro'],
+  reviewedBy: ['reviewed by', 'sinuri ni', 'checked by', 'recommending approval'],
+  notedBy: ['noted by', 'pinagtibay ni', 'approved by'],
+}
+
+export function prioritizeTosTemplateElements(elements: TosTemplateElement[], maxElements = 320): TosTemplateElement[] {
+  const scored = elements.map((element) => {
+    let score = 0
+    if (element.isFormula || element.text.startsWith('=') || (element.isMerged && !element.isMergedAnchor)) {
+      return { element, score: -100 }
+    }
+    const lower = element.text.toLowerCase().trim()
+    if (lower.length > 0) {
+      score += 10
+      for (const synonyms of Object.values(TOS_FIELD_SYNONYMS)) {
+        if (synonyms.some((s) => lower === s)) {
+          score += 100
+          break
+        } else if (synonyms.some((s) => s.length > 3 && lower.includes(s))) {
+          score += 50
+          break
+        }
+      }
+    } else if (element.styleIndex) {
+      score += 5
+    }
+    return { element, score }
+  })
+
+  scored.sort((a, b) => b.score - a.score)
+  return scored.filter((item) => item.score >= 0).slice(0, maxElements).map((item) => item.element)
+}
+
+const IMPORTANT_FIELD_KEYS: TosTemplateFieldKey[] = [
+  'competency', 'itemCount', 'itemPlacement', 'weightPercent', 'schoolName', 'teacherName', 'learningArea', 'gradeLevel', 'gradingTerm', 'tosTitle', 'totalItems'
+]
+const TABLE_COLUMN_FIELD_KEYS: TosTemplateFieldKey[] = [
+  'competencyRowNumber', 'competencyCode', 'competency', 'rowCurriculumPeriod',
+  'instructionalMinutes', 'weightPercent', 'itemCount', 'itemPlacement', 'rowNotes',
+  'cognitiveItems1', 'cognitiveItems2', 'cognitiveItems3', 'cognitiveItems4',
+  'cognitiveItems5', 'cognitiveItems6', 'cognitiveItems7', 'cognitiveItems8',
+]
+
+export function detectTosCandidates(elements: TosTemplateElement[]): Array<{ fieldKey: TosTemplateFieldKey; elementId: string; mode: TosTemplateMappingMode; confidence: number }> {
+  const result: Array<{ fieldKey: TosTemplateFieldKey; elementId: string; mode: TosTemplateMappingMode; confidence: number }> = []
+  const usedElements = new Set<string>()
+
+  const usable = elements.filter((item) => !item.isFormula && !item.text.startsWith('=') && (!item.isMerged || item.isMergedAnchor))
+
+  const fieldEntries = Object.entries(TOS_FIELD_SYNONYMS) as Array<[TosTemplateFieldKey, string[]]>
+  fieldEntries.sort(([keyA], [keyB]) => {
+    const isImpA = IMPORTANT_FIELD_KEYS.includes(keyA)
+    const isImpB = IMPORTANT_FIELD_KEYS.includes(keyB)
+    if (isImpA && !isImpB) return -1
+    if (!isImpA && isImpB) return 1
+    return 0
+  })
+
+  for (const [key, synonyms] of fieldEntries) {
+    const matches: Array<{ element: TosTemplateElement; score: number }> = []
+    const isTableColumn = TABLE_COLUMN_FIELD_KEYS.includes(key)
+
+    for (const el of usable) {
+      if (usedElements.has(el.id)) continue
+      const lower = el.text.toLowerCase().trim()
+      let matchScore = 0
+      for (const syn of synonyms) {
+        if (lower === syn) {
+          matchScore = Math.max(matchScore, 100 + syn.length)
+        } else if (syn.length > 3 && lower.includes(syn)) {
+          matchScore = Math.max(matchScore, 70 + syn.length)
+        }
+      }
+      if (matchScore > 0) {
+        matches.push({ element: el, score: matchScore })
+      }
+    }
+
+    matches.sort((a, b) => b.score - a.score)
+    if (matches.length > 0) {
+      const best = matches[0]
+      usedElements.add(best.element.id)
+      result.push({
+        fieldKey: key,
+        elementId: best.element.id,
+        mode: isTableColumn ? 'table_column' : 'replace',
+        confidence: best.score / 100,
+      })
+    }
+  }
+
+  return result
+}
+
+export function inferTosTableRange(
+  elements: TosTemplateElement[],
+  headerRow: number,
+  sheetName: string,
+): { firstDataRow: number; lastDataRow: number } {
+  const sheetElements = elements.filter((e) => e.locator.sheetName === sheetName)
+  const firstDataRow = Math.max(1, headerRow + 1)
+  let lastDataRow = firstDataRow + 39
+
+  const rowsAfterHeader = new Set<number>()
+  sheetElements.forEach((e) => {
+    const parsed = safeSplitAddress(e.locator.cellAddress)
+    if (parsed && parsed.row >= firstDataRow) {
+      rowsAfterHeader.add(parsed.row)
+    }
+  })
+
+  const stopKeywords = ['total', 'kabuuan', 'prepared by', 'reviewed by', 'noted by', 'approved by', 'summary']
+  let detectedStopRow: number | null = null
+
+  sheetElements.forEach((e) => {
+    const parsed = safeSplitAddress(e.locator.cellAddress)
+    if (parsed && parsed.row > firstDataRow) {
+      const lower = e.text.toLowerCase()
+      if (stopKeywords.some((kw) => lower.includes(kw))) {
+        if (detectedStopRow === null || parsed.row < detectedStopRow) {
+          detectedStopRow = parsed.row
+        }
+      }
+    }
+  })
+
+  if (detectedStopRow !== null && detectedStopRow > firstDataRow) {
+    lastDataRow = detectedStopRow - 1
+  } else if (rowsAfterHeader.size > 0) {
+    const maxRowFound = Math.max(...rowsAfterHeader)
+    lastDataRow = Math.max(firstDataRow + 5, maxRowFound)
+  }
+
+  return { firstDataRow, lastDataRow: Math.min(firstDataRow + 500, lastDataRow) }
 }

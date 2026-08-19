@@ -224,7 +224,8 @@ export function AssessmentNewPage() {
   // Lesson Quiz State
   const [selectedLessonId, setSelectedLessonId] = useState(searchParams.get('lesson') ?? '')
   const [quizTitle, setQuizTitle] = useState('')
-  const [quizItemCount, setQuizItemCount] = useState(10)
+  const [quizItemCount, setQuizItemCount] = useState(5)
+  const [customQuizCount, setCustomQuizCount] = useState(false)
   const [quizInstructions, setQuizInstructions] = useState('')
   const [quizAllowedTypes, setQuizAllowedTypes] = useState<QuestionType[]>([
     'multiple_choice',
@@ -1414,15 +1415,41 @@ export function AssessmentNewPage() {
                       <span>Number of questions / items</span>
                       <select
                         className="select"
-                        value={quizItemCount}
-                        onChange={(e) => setQuizItemCount(Number(e.target.value))}
+                        value={[5, 10, 15, 20].includes(quizItemCount) && !customQuizCount ? quizItemCount : 'custom'}
+                        onChange={(e) => {
+                          if (e.target.value === 'custom') {
+                            setCustomQuizCount(true)
+                          } else {
+                            setCustomQuizCount(false)
+                            setQuizItemCount(Number(e.target.value))
+                          }
+                        }}
                       >
-                        <option value={5}>5 Questions (Quick Check · ~10 mins)</option>
-                        <option value={10}>10 Questions (Standard Quiz · ~20 mins)</option>
-                        <option value={15}>15 Questions (Extended Quiz · ~30 mins)</option>
-                        <option value={20}>20 Questions (Summative Formative · ~45 mins)</option>
+                        <option value={5}>5 Questions — Recommended (Quick formative check · ~10 mins)</option>
+                        <option value={10}>10 Questions (Short quiz · ~20 mins)</option>
+                        <option value={15}>15 Questions (Extended quiz · ~30 mins)</option>
+                        <option value={20}>20 Questions (Substantial lesson assessment · ~45 mins)</option>
+                        <option value="custom">Custom number of questions…</option>
                       </select>
                     </label>
+
+                    {customQuizCount && (
+                      <label>
+                        <span>Custom question count <small>(1 to 50 questions)</small></span>
+                        <input
+                          type="number"
+                          min="1"
+                          max="50"
+                          value={quizItemCount}
+                          onChange={(e) => {
+                            const val = Number(e.target.value)
+                            if (Number.isFinite(val)) {
+                              setQuizItemCount(Math.max(1, Math.min(50, Math.floor(val))))
+                            }
+                          }}
+                        />
+                      </label>
+                    )}
 
                     <TeachingAssignmentField
                       assignments={assignments}

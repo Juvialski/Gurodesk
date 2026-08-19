@@ -161,8 +161,12 @@ function tabularToArrays(input: TabularRows): { headers: string[]; rows: unknown
 
 function headersForRole(headers: readonly string[], role: 'display_name' | 'local_reference') {
   const candidates = role === 'display_name'
-    ? new Set(['name', 'learner', 'learner name', 'student', 'student name', 'display name', 'full name', 'pangalan'])
-    : new Set(['reference', 'local reference', 'teacher reference', 'ref', 'code'])
+    ? new Set([
+        'name', 'learner', 'learner name', 'student', 'student name', 'display name',
+        'full name', 'pangalan', "learner's name", 'learners name',
+        'learner name (last, first middle)', 'name of learner', 'name of student',
+      ])
+    : new Set(['reference', 'local reference', 'teacher reference', 'ref', 'code', 'local ref'])
   return headers.filter((header) => candidates.has(normalizedHeader(header)))
 }
 
@@ -276,7 +280,13 @@ function scoreHeaders(headers: readonly string[]) {
 }
 
 function learnerHeaders(headers: readonly string[]) {
-  return headers.filter((header) => new Set(['learner', 'learner name', 'student', 'student name', 'name', 'display name', 'pangalan']).has(normalizedHeader(header)))
+  return headers.filter((header) =>
+    new Set([
+      'learner', 'learner name', 'student', 'student name', 'name', 'display name',
+      'pangalan', "learner's name", 'learners name', 'learner name (last, first middle)',
+      'name of learner', 'name of student',
+    ]).has(normalizedHeader(header))
+  )
 }
 
 function inferResultsMapping(headers: readonly string[], options: ResultsImportOptions) {

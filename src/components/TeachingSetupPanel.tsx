@@ -1,13 +1,14 @@
 import { BookOpenCheck, CheckCircle2, Save, Settings2 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import { normalizeLessonDurationMinutes } from '../lib/lessonDuration'
 import { loadTeacherLessonPreferences, saveTeacherLessonPreferences } from '../lib/repository'
 import {
-  APPROACH_OPTIONS,
   LESSON_LANGUAGE_OPTIONS,
   TECHNOLOGY_OPTIONS,
   createDefaultTeacherLessonPreferences,
   type TeacherLessonPreferences,
 } from '../types/teachingSetup'
+import { TeachingApproachPicker } from './TeachingApproachPicker'
 
 type Props = {
   userId: string
@@ -20,6 +21,7 @@ function lines(value: string) {
 
 export function TeachingSetupPanel({ userId, isDemo }: Props) {
   const [form, setForm] = useState<TeacherLessonPreferences>(() => createDefaultTeacherLessonPreferences(userId))
+  const [durationInput, setDurationInput] = useState('60')
   const [resourcesText, setResourcesText] = useState('')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -34,6 +36,7 @@ export function TeachingSetupPanel({ userId, isDemo }: Props) {
       .then((next) => {
         if (cancelled) return
         setForm(next)
+        setDurationInput(String(next.defaultDurationMinutes || 60))
         setResourcesText(next.actualResources.join('\n'))
       })
       .catch((err) => { if (!cancelled) setError(err instanceof Error ? err.message : 'Unable to load teaching setup.') })
@@ -43,11 +46,18 @@ export function TeachingSetupPanel({ userId, isDemo }: Props) {
 
   const resourceCount = useMemo(() => lines(resourcesText).length, [resourcesText])
 
-  function toggleList(key: 'availableTechnology' | 'preferredApproaches', value: string) {
+  function toggleList(key: 'availableTechnology', value: string) {
     setForm((current) => ({
       ...current,
       [key]: current[key].includes(value) ? current[key].filter((item) => item !== value) : [...current[key], value],
     }))
+  }
+
+  function commitDuration(val?: string) {
+    const raw = val !== undefined ? val : durationInput
+    const normalized = normalizeLessonDurationMinutes(raw, form.defaultDurationMinutes || 60)
+    setDurationInput(String(normalized))
+    setForm((current) => ({ ...current, defaultDurationMinutes: normalized }))
   }
 
   async function save() {
@@ -55,13 +65,16 @@ export function TeachingSetupPanel({ userId, isDemo }: Props) {
     setSaving(true)
     setMessage(null)
     setError(null)
+    const normalizedDuration = normalizeLessonDurationMinutes(durationInput, form.defaultDurationMinutes || 60)
     try {
       const next = await saveTeacherLessonPreferences({
         ...form,
+        defaultDurationMinutes: normalizedDuration,
         userId,
         actualResources: lines(resourcesText),
       }, isDemo)
       setForm(next)
+      setDurationInput(String(next.defaultDurationMinutes || 60))
       setResourcesText(next.actualResources.join('\n'))
       setMessage('Teaching setup saved. New lesson suggestions will use these constraints.')
     } catch (err) {
@@ -84,7 +97,18 @@ export function TeachingSetupPanel({ userId, isDemo }: Props) {
 
       {loading ? <div className="lesson-loading"><span className="loader" /><strong>Loading teaching setup…</strong></div> : <>
         <div className="form-grid two teaching-setup-grid">
-          <label>Typical minutes per session<input type="number" min="10" max="300" value={form.defaultDurationMinutes} onChange={(event) => setForm({ ...form, defaultDurationMinutes: Math.max(10, Number(event.target.value) || 60) })} /></label>
+          <label>Typical minutes per session
+            <input
+              type="number"
+              min="10"
+              max="300"
+              step="5"
+              value={durationInput}
+              onChange={(event) => setDurationInput(event.target.value)}
+              onBlur={() => commitDuration()}
+              onKeyDown={(event) => { if (event.key === 'Enter') commitDuration() }}
+            />
+          </label>
           <label>Usual lesson language<select value={form.languagePreference} onChange={(event) => setForm({ ...form, languagePreference: event.target.value })}>{LESSON_LANGUAGE_OPTIONS.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select></label>
           {form.languagePreference === 'Mother tongue / local language' && <label>Local language name<input value={form.localLanguageName} onChange={(event) => setForm({ ...form, localLanguageName: event.target.value })} placeholder="e.g. Cebuano, Ilocano, Hiligaynon" /></label>}
           <label className="span-two">Typical class profile<textarea rows={3} value={form.typicalClassProfile} onChange={(event) => setForm({ ...form, typicalClassProfile: event.target.value })} placeholder="Class-level information only, e.g. mixed readiness; benefits from worked examples and short guided practice." /></label>
@@ -97,8 +121,11 @@ export function TeachingSetupPanel({ userId, isDemo }: Props) {
         </div>
 
         <div className="teaching-preference-block">
-          <strong>Approaches you commonly use</strong>
-          <div className="setup-chip-grid">{APPROACH_OPTIONS.map((item) => <label className="check-chip" key={item}><input type="checkbox" checked={form.preferredApproaches.includes(item)} onChange={() => toggleList('preferredApproaches', item)} /> {item}</label>)}</div>
+          <TeachingApproachPicker
+            value={form.preferredApproaches}
+            onChange={(preferredApproaches) => setForm({ ...form, preferredApproaches })}
+            label="Approaches you commonly use"
+          />
         </div>
 
         <div className="resource-library-box">

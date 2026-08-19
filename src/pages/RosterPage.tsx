@@ -1,5 +1,5 @@
-import { Check, Edit3, RotateCcw, Trash2, Upload, UserPlus, UserRound, X } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { Check, Edit3, FileText, RotateCcw, Trash2, Upload, UserPlus, UserRound, X } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState'
 import { PageHeader } from '../components/PageHeader'
@@ -52,6 +52,10 @@ export function RosterPage() {
   const [localReference, setLocalReference] = useState('')
   const [status, setStatus] = useState<ClassLearner['status']>('active')
   const [importOpen, setImportOpen] = useState(false)
+  const [importMode, setImportMode] = useState<'file' | 'paste'>('file')
+  const [pastedNames, setPastedNames] = useState('')
+  const [isDragging, setIsDragging] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [rawImport, setRawImport] = useState<(TabularRows & { errors?: string[] }) | null>(null)
   const [importMapping, setImportMapping] = useState<RosterImportMapping>({})
   const [importPreview, setImportPreview] = useState<RosterImportPreview | null>(null)
@@ -93,6 +97,7 @@ export function RosterPage() {
   }, [assignmentId, isDemo, selectedSection, user?.id])
 
   function chooseScope(nextAssignmentId: string, nextSectionName: string) {
+    setEditingId(null); setName(''); setLocalReference(''); setStatus('active')
     setAssignmentId(nextAssignmentId)
     setSectionName(nextSectionName)
     navigate(`/results/roster/${nextAssignmentId}/${encodeURIComponent(nextSectionName)}`, { replace: true })
@@ -206,6 +211,52 @@ export function RosterPage() {
     setImportPreview(initial)
   }
 
+  function handleDragOver(e: React.DragEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(true)
+  }
+
+  function handleDragLeave(e: React.DragEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+  }
+
+  function handleDrop(e: React.DragEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDragging(false)
+    const files = Array.from(e.dataTransfer.files)
+    if (!files.length) return
+    const file = files[0]
+    const lower = file.name.toLowerCase()
+    if (!lower.endsWith('.csv') && !lower.endsWith('.xlsx')) {
+      setMessage('Please drop a CSV or XLSX spreadsheet file.')
+      return
+    }
+    void readImport(file)
+  }
+
+  function handlePasteNamesSubmit() {
+    setMessage('')
+    const rawLines = pastedNames.split(/\r?\n/)
+    const cleanNames = rawLines.map((line) => line.trim()).filter((line) => line.length > 0)
+    if (cleanNames.length === 0) {
+      setMessage('Please paste at least one learner name.')
+      return
+    }
+    if (cleanNames.length > MAX_IMPORT_ROWS) {
+      setMessage(`You pasted more than ${MAX_IMPORT_ROWS} names. Please limit each batch to ${MAX_IMPORT_ROWS}.`)
+      return
+    }
+    const tabular: TabularRows = { headers: ['Learner Name'], rows: cleanNames.map((n) => [n]), source: 'csv' }
+    setRawImport(tabular)
+    const initial = finalizeRosterPreview(previewRosterTabularRows(tabular, { sectionName: selectedSection, existingLearners: learners }), [])
+    setImportMapping({ 'Learner Name': 'display_name' })
+    setImportPreview(initial)
+  }
+
   function editImportCell(index: number, field: 'displayName' | 'localReference', value: string) {
     if (!rawImport || !importPreview) return
     const displayColumn = Object.entries(importMapping).find(([, role]) => role === 'display_name')?.[0]
@@ -229,11 +280,10 @@ export function RosterPage() {
     if (hasInvalid || blockingErrors.length > 0) { setMessage('Correct invalid rows and mappings before importing. Duplicate display names are allowed with a visible warning.'); return }
     setWorking(true)
     try {
-      // This is one bounded roster batch; no learner identity is sent to AI.
       await saveClassLearnersBulk(importPreview.rows.map((row) => ({ assignmentId, sectionName: selectedSection, displayName: row.displayName, localReference: row.localReference, status: 'active' as const })), user.id, isDemo)
       const nextLearners = await loadClassLearners(user.id, assignmentId, selectedSection, isDemo)
       setLearners(nextLearners)
-      setImportOpen(false); setRawImport(null); setImportPreview(null)
+      setImportOpen(false); setRawImport(null); setImportPreview(null); setPastedNames('')
       setMessage(importPreview.rows.some((row) => row.status === 'duplicate') ? 'Imported with duplicate-name warnings. Review the roster.' : 'Roster imported.')
     } catch (nextError) { setMessage(nextError instanceof Error ? nextError.message : 'Unable to import this roster.') } finally { setWorking(false) }
   }
@@ -256,6 +306,92 @@ export function RosterPage() {
       </section>
       <section className="panel results-roster-form"><div className="results-section-heading"><div><span className="eyebrow">Manual maintenance</span><h2>{editingId ? 'Edit learner' : 'Add learner'}</h2><p>Use a local reference only if it helps you distinguish learners.</p></div>{editingId && <button className="icon-button" type="button" onClick={beginAdd} aria-label="Cancel edit"><X size={16} /></button>}</div><div className="stack-form"><label>Display name<input value={name} maxLength={200} onChange={(event) => setName(event.target.value)} placeholder="e.g., Ana Cruz" autoComplete="off" /></label><label>Teacher-local reference <span className="label-optional">optional</span><input value={localReference} maxLength={100} onChange={(event) => setLocalReference(event.target.value)} placeholder="e.g., A-01" autoComplete="off" /></label>{editingId && <label>Status<select value={status} onChange={(event) => setStatus(event.target.value as ClassLearner['status'])}><option value="active">Active</option><option value="inactive">Inactive</option></select></label>}<button className="button primary full" type="button" disabled={working} onClick={() => void save()}>{working ? 'Saving…' : editingId ? 'Save changes' : 'Add learner'} <Check size={15} /></button></div></section>
     </div>
-    {importOpen && <section className="panel results-import-card roster-import-card"><div className="results-section-heading"><div><span className="eyebrow">Preview before saving</span><h2>Roster CSV / XLSX import</h2><p>Empty rows and invalid mappings block saving. Duplicate display names remain visible warnings and can be imported after teacher confirmation.</p></div><button className="icon-button" type="button" onClick={() => setImportOpen(false)} aria-label="Close import"><X size={16} /></button></div><label className="results-file-input">Choose CSV or XLSX<input type="file" accept=".csv,text/csv,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={(event) => { const file = event.target.files?.[0]; if (file) void readImport(file) }} /></label>{xlsxSheets.length > 1 && <label className="results-xlsx-sheet-picker">Worksheet<select value={xlsxWorksheet} onChange={(event) => chooseXlsxWorksheet(event.target.value)}><option value="">Choose worksheet</option>{xlsxSheets.map((name) => <option value={name} key={name}>{name}</option>)}</select></label>}{rawImport && <div className="results-import-map"><label>Display-name column<select value={displayColumn} onChange={(event) => { const next = { ...importMapping, [event.target.value]: 'display_name' as const }; Object.keys(next).forEach((key) => { if (key !== event.target.value && next[key] === 'display_name') next[key] = 'ignore' }); setImportMapping(next); refreshImport(next) }}><option value="">Choose column</option>{rawImport.headers.map((header) => <option key={header}>{header}</option>)}</select></label><label>Local-reference column<select value={referenceColumn} onChange={(event) => { const next = { ...importMapping, [event.target.value]: 'local_reference' as const }; Object.keys(next).forEach((key) => { if (key !== event.target.value && next[key] === 'local_reference') next[key] = 'ignore' }); setImportMapping(next); refreshImport(next) }}><option value="">None</option>{rawImport.headers.map((header) => <option key={header}>{header}</option>)}</select></label></div>}{importPreview && <><div className={`results-import-status ${importPreview.ready ? 'ready' : 'blocked'}`}><span>{importPreview.ready ? <Check size={15} /> : <X size={15} />}</span><strong>{importPreview.ready ? `${importPreview.rows.length} rows ready` : 'Correction needed'}</strong><small>{importPreview.errors[0] || 'Review each row.'}</small></div><div className="results-import-preview roster-preview">{importPreview.rows.map((row, index) => <div className="results-import-row roster-preview-row" key={row.rowNumber}><span>{row.rowNumber}</span><input value={row.displayName} onChange={(event) => editImportCell(index, 'displayName', event.target.value)} aria-label={`Display name row ${row.rowNumber}`} /><input value={row.localReference ?? ''} onChange={(event) => editImportCell(index, 'localReference', event.target.value)} aria-label={`Local reference row ${row.rowNumber}`} placeholder="Local ref" /><span className={`results-row-status ${row.status}`}>{row.status}</span><small>{row.messages[0] || 'Ready'}</small></div>)}</div><div className="results-import-actions"><button className="button ghost" type="button" onClick={() => { setRawImport(null); setImportPreview(null) }}>Start over</button><button className="button primary" type="button" disabled={importPreview.rows.some((row) => row.status === 'invalid') || !importPreview.rows.length} onClick={() => void confirmImport()}><Check size={15} /> Confirm import</button></div></>}</section>}
+    {importOpen && <section className="panel results-import-card roster-import-card">
+      <div className="results-section-heading">
+        <div>
+          <span className="eyebrow">Preview before saving</span>
+          <h2>Roster import</h2>
+          <p>Empty rows and invalid mappings block saving. Duplicate display names remain visible warnings and can be imported after teacher confirmation.</p>
+        </div>
+        <button className="icon-button" type="button" onClick={() => setImportOpen(false)} aria-label="Close import"><X size={16} /></button>
+      </div>
+
+      <div className="roster-import-tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={importMode === 'file'}
+          className={`button mini ${importMode === 'file' ? 'secondary' : 'ghost'}`}
+          onClick={() => { setImportMode('file'); setRawImport(null); setImportPreview(null) }}
+        >
+          <Upload size={14} /> Upload / Drop file
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={importMode === 'paste'}
+          className={`button mini ${importMode === 'paste' ? 'secondary' : 'ghost'}`}
+          onClick={() => { setImportMode('paste'); setRawImport(null); setImportPreview(null) }}
+        >
+          <FileText size={14} /> Paste learner names
+        </button>
+      </div>
+
+      {importMode === 'file' && (
+        <>
+          <div
+            className={`roster-dropzone ${isDragging ? 'dragging' : ''}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={() => fileInputRef.current?.click()}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInputRef.current?.click() } }}
+            aria-label="Drag and drop CSV or XLSX file here or click to browse"
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="sr-only"
+              accept=".csv,text/csv,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              onChange={(event) => { const file = event.target.files?.[0]; if (file) void readImport(file) }}
+            />
+            <Upload size={24} className="roster-dropzone-icon" />
+            <strong>Drag and drop CSV or XLSX file here</strong>
+            <span>or click to browse from your device · maximum 10 MB</span>
+          </div>
+          {xlsxSheets.length > 1 && <label className="results-xlsx-sheet-picker" style={{ marginTop: '12px' }}>Worksheet<select value={xlsxWorksheet} onChange={(event) => chooseXlsxWorksheet(event.target.value)}><option value="">Choose worksheet</option>{xlsxSheets.map((name) => <option value={name} key={name}>{name}</option>)}</select></label>}
+        </>
+      )}
+
+      {importMode === 'paste' && (
+        <div className="roster-paste-zone">
+          <label>
+            <span>Paste learner names <small>(one per line)</small></span>
+            <textarea
+              rows={6}
+              value={pastedNames}
+              onChange={(e) => setPastedNames(e.target.value)}
+              placeholder={"Dela Cruz, Juan M.\nSantos, Maria A.\nAquino, Paolo B."}
+            />
+          </label>
+          <small className="field-help">Names only. Empty lines are skipped. No LRN, contact, or sensitive personal data is required or collected.</small>
+          <div>
+            <button
+              type="button"
+              className="button secondary"
+              disabled={!pastedNames.trim()}
+              onClick={handlePasteNamesSubmit}
+            >
+              Preview pasted names
+            </button>
+          </div>
+        </div>
+      )}
+
+      {rawImport && <div className="results-import-map" style={{ marginTop: '14px' }}><label>Display-name column<select value={displayColumn} onChange={(event) => { const next = { ...importMapping, [event.target.value]: 'display_name' as const }; Object.keys(next).forEach((key) => { if (key !== event.target.value && next[key] === 'display_name') next[key] = 'ignore' }); setImportMapping(next); refreshImport(next) }}><option value="">Choose column</option>{rawImport.headers.map((header) => <option key={header}>{header}</option>)}</select></label><label>Local-reference column<select value={referenceColumn} onChange={(event) => { const next = { ...importMapping, [event.target.value]: 'local_reference' as const }; Object.keys(next).forEach((key) => { if (key !== event.target.value && next[key] === 'local_reference') next[key] = 'ignore' }); setImportMapping(next); refreshImport(next) }}><option value="">None</option>{rawImport.headers.map((header) => <option key={header}>{header}</option>)}</select></label></div>}
+      {importPreview && <><div className={`results-import-status ${importPreview.ready ? 'ready' : 'blocked'}`}><span>{importPreview.ready ? <Check size={15} /> : <X size={15} />}</span><strong>{importPreview.ready ? `${importPreview.rows.length} rows ready` : 'Correction needed'}</strong><small>{importPreview.errors[0] || 'Review each row.'}</small></div><div className="results-import-preview roster-preview">{importPreview.rows.map((row, index) => <div className="results-import-row roster-preview-row" key={row.rowNumber}><span>{row.rowNumber}</span><input value={row.displayName} onChange={(event) => editImportCell(index, 'displayName', event.target.value)} aria-label={`Display name row ${row.rowNumber}`} /><input value={row.localReference ?? ''} onChange={(event) => editImportCell(index, 'localReference', event.target.value)} aria-label={`Local reference row ${row.rowNumber}`} placeholder="Local ref" /><span className={`results-row-status ${row.status}`}>{row.status}</span><small>{row.messages[0] || 'Ready'}</small></div>)}</div><div className="results-import-actions"><button className="button ghost" type="button" onClick={() => { setRawImport(null); setImportPreview(null); setPastedNames('') }}>Start over</button><button className="button primary" type="button" disabled={importPreview.rows.some((row) => row.status === 'invalid') || !importPreview.rows.length} onClick={() => void confirmImport()}><Check size={15} /> Confirm import</button></div></>}
+    </section>}
   </>
 }

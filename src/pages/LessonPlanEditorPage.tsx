@@ -25,6 +25,14 @@ import type { CurriculumNavigatorBundle, SchoolYearCalendar } from '../types/cur
 import { LESSON_PLAN_FORMAT_OPTIONS, type AiSupportType, type LessonAiSupportRequest, type LessonAiSupportResponse, type LessonPlanContent, type LessonPlanFormat, type LessonPlanRecord, type LessonQuickDraft } from '../types/lessonPlan'
 import { createDefaultTeacherLessonPreferences, LESSON_LANGUAGE_OPTIONS, type TeacherLessonPreferences } from '../types/teachingSetup'
 import type { TeacherAssignment } from '../types/app'
+import { TeachingApproachPicker } from '../components/TeachingApproachPicker'
+import {
+  MIN_LESSON_DURATION_MINUTES,
+  MAX_LESSON_DURATION_MINUTES,
+  LESSON_DURATION_STEP_MINUTES,
+  STANDARD_DURATION_PRESETS,
+  normalizeLessonDurationMinutes,
+} from '../lib/lessonDuration'
 import '../workflows.css'
 
 const LESSON_DETAILS_HELP_TEXT =
@@ -279,7 +287,7 @@ function LessonSimpleFlow({
           </div>
           <div className="workflow-finalized-actions">
             <Link to={`/assessments/new?lesson=${plan.id}&mode=lesson_quiz`} className="button primary">
-              <Sparkles size={16} /> Create assessment from lesson
+              <Sparkles size={16} /> Create lesson quiz
             </Link>
             <Link to={`/tos/new?lessonPlan=${plan.id}`} className="button secondary">
               <FileCheck2 size={16} /> Create TOS
@@ -435,7 +443,7 @@ function LessonSimpleFlow({
             <div className="workflow-chip-group">
               <span className="workflow-field-label">Lesson length</span>
               <div className="workflow-chip-row">
-                {[45, 60, 90].map((minutes) => (
+                {STANDARD_DURATION_PRESETS.map((minutes) => (
                   <button
                     type="button"
                     key={minutes}
@@ -446,6 +454,31 @@ function LessonSimpleFlow({
                     {minutes} min
                   </button>
                 ))}
+                {!STANDARD_DURATION_PRESETS.includes(plan.content.durationMinutes as (typeof STANDARD_DURATION_PRESETS)[number]) && plan.content.durationMinutes > 0 && (
+                  <span className="workflow-chip selected">
+                    {plan.content.durationMinutes} min
+                  </span>
+                )}
+                <div className="workflow-duration-stepper" role="group" aria-label="Adjust duration in 5-minute steps">
+                  <button
+                    type="button"
+                    className="workflow-duration-stepper-btn"
+                    aria-label="Decrease session duration by 5 minutes"
+                    disabled={(plan.content.durationMinutes || 60) <= MIN_LESSON_DURATION_MINUTES}
+                    onClick={() => onUpdateContent((c) => { c.durationMinutes = normalizeLessonDurationMinutes((c.durationMinutes || 60) - LESSON_DURATION_STEP_MINUTES) })}
+                  >
+                    -5
+                  </button>
+                  <button
+                    type="button"
+                    className="workflow-duration-stepper-btn"
+                    aria-label="Increase session duration by 5 minutes"
+                    disabled={(plan.content.durationMinutes || 60) >= MAX_LESSON_DURATION_MINUTES}
+                    onClick={() => onUpdateContent((c) => { c.durationMinutes = normalizeLessonDurationMinutes((c.durationMinutes || 60) + LESSON_DURATION_STEP_MINUTES) })}
+                  >
+                    +5
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -968,7 +1001,7 @@ function LessonSimpleFlow({
               {plan.status === 'final' && (
                 <>
                   <Link to={`/assessments/new?lesson=${plan.id}&mode=lesson_quiz`} className="button accent">
-                    <Sparkles size={16} /> Create assessment from lesson
+                    <Sparkles size={16} /> Create lesson quiz
                   </Link>
                   <Link to={`/tos/new?lessonPlan=${plan.id}`} className="button secondary">
                     <FileCheck2 size={16} /> Create TOS
@@ -1047,6 +1080,7 @@ export function LessonPlanEditorPage() {
   const [quickDraftMessage, setQuickDraftMessage] = useState<string | null>(null)
   const [competencyPickerOpen, setCompetencyPickerOpen] = useState(false)
   const [competencySearch, setCompetencySearch] = useState('')
+  const [durationInput, setDurationInput] = useState('60')
   const [viewMode, setViewMode] = useState<'simple' | 'advanced'>(() => {
     try {
       return localStorage.getItem('gurodesk.lesson-plan.view-mode') === 'advanced' ? 'advanced' : 'simple'
@@ -1056,6 +1090,19 @@ export function LessonPlanEditorPage() {
   })
 
   const assignment = assignments.find((item) => item.id === assignmentId) ?? null
+
+  useEffect(() => {
+    if (plan?.content.durationMinutes !== undefined) {
+      setDurationInput(String(plan.content.durationMinutes))
+    }
+  }, [plan?.content.durationMinutes])
+
+  const commitAdvancedDuration = (val?: string) => {
+    const raw = val !== undefined ? val : durationInput
+    const normalized = normalizeLessonDurationMinutes(raw, plan?.content.durationMinutes || 60)
+    setDurationInput(String(normalized))
+    updateContent((c) => { c.durationMinutes = normalized })
+  }
 
   useEffect(() => {
     try {
@@ -1508,7 +1555,7 @@ export function LessonPlanEditorPage() {
             )}
             {plan.status === 'final' && (
               <Link to={`/assessments/new?lesson=${plan.id}&mode=lesson_quiz`} className="button accent">
-                <Sparkles size={15} /> Create assessment
+                <Sparkles size={15} /> Create lesson quiz
               </Link>
             )}
           </div>
@@ -1610,11 +1657,29 @@ export function LessonPlanEditorPage() {
               <label>Week / schedule<input value={plan.content.weekLabel} onChange={(event) => updateContent((c) => { c.weekLabel = event.target.value })} placeholder="e.g. Week 3" /></label>
               <label>Lesson plan type<select value={plan.content.lessonPlanFormat ?? 'ilaw'} onChange={(event) => updateContent((c) => { const value = event.target.value as LessonPlanFormat; c.lessonPlanFormat = value; if (value === 'daily_lesson_log') c.numberOfSessions = 4 })}>{LESSON_PLAN_FORMAT_OPTIONS.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
               <label>No. of sessions<input type="number" min="1" max="20" disabled={plan.content.lessonPlanFormat === 'daily_lesson_log'} value={plan.content.numberOfSessions} onChange={(event) => updateContent((c) => { c.numberOfSessions = Math.max(1, Number(event.target.value) || 1) })} />{plan.content.lessonPlanFormat === 'daily_lesson_log' && <small className="field-help">Daily Lesson Log uses four sessions.</small>}</label>
-              <label>Minutes per session<input type="number" min="10" max="300" value={plan.content.durationMinutes} onChange={(event) => updateContent((c) => { c.durationMinutes = Math.max(10, Number(event.target.value) || 60) })} /></label>
-              <label>Lesson language<select value={plan.content.lessonLanguage} onChange={(event) => updateContent((c) => { c.lessonLanguage = event.target.value })}>{LESSON_LANGUAGE_OPTIONS.map((item) => <option value={item.value} key={item.value}>{item.label}</option>)}</select></label>
+              <label>Minutes per session
+                <input
+                  type="number"
+                  min="10"
+                  max="300"
+                  step="5"
+                  value={durationInput}
+                  onChange={(event) => setDurationInput(event.target.value)}
+                  onBlur={() => commitAdvancedDuration()}
+                  onKeyDown={(event) => { if (event.key === 'Enter') commitAdvancedDuration() }}
+                />
+              </label>
+              <label>Lesson language<select value={plan.content.lessonLanguage} onChange={(event) => updateContent((c) => { c.lessonLanguage = event.target.value })}>{LESSON_LANGUAGE_OPTIONS.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select></label>
             </div>
             <div className="section-picker"><strong>Sections</strong><div>{assignment?.sections.map((section) => <label className="check-chip" key={section}><input type="checkbox" checked={plan.content.sections.includes(section)} onChange={(event) => updateContent((c) => { c.sections = event.target.checked ? [...new Set([...c.sections, section])] : c.sections.filter((item) => item !== section) })} /> {section}</label>)}</div></div>
-            <label className="full-field teacher-verified-field">Teaching approaches<textarea rows={3} value={plan.content.teachingApproaches.join('\n')} onChange={(event) => updateContent((c) => { c.teachingApproaches = [...new Set(event.target.value.split(/\r?\n|,/).map((item) => item.trim()).filter(Boolean))] })} placeholder="One approach per line, such as explicit instruction or collaborative learning" /><small>Lesson-specific choices. Saved teaching-setup preferences are used as the initial suggestions and can be changed here.</small></label>
+            <div className="full-field">
+              <TeachingApproachPicker
+                value={plan.content.teachingApproaches}
+                onChange={(approaches) => updateContent((c) => { c.teachingApproaches = approaches })}
+                label="Teaching approaches"
+                helpText="Lesson-specific choices. Saved teaching-setup preferences are used as the initial suggestions and can be changed here."
+              />
+            </div>
             <div className="full-field competency-picker-field">
               <span className="competency-picker-label">Verified curriculum alignment</span>
               <small className="field-help">Select zero, one, or multiple competencies. One selected competency is kept as the primary alignment for reporting and legacy compatibility.</small>

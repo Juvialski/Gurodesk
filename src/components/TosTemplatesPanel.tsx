@@ -1,4 +1,4 @@
-import { Check, FileSpreadsheet, Pencil, Search, Sparkles, Star, Trash2, Upload, X } from 'lucide-react'
+import { Check, CircleAlert, FileSpreadsheet, Pencil, Search, Sparkles, Star, Trash2, Upload, X } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { sha256Hex } from '../lib/docxTemplate'
 import {
@@ -10,7 +10,13 @@ import {
   setDefaultTosTemplate,
   updateTosTemplate,
 } from '../lib/tosTemplateRepository'
-import { columnLocatorFromHeader, extractXlsxTemplateStructure, validateXlsxTemplateMappings } from '../lib/xlsxTemplate'
+import {
+  columnLocatorFromHeader,
+  detectTosCandidates,
+  extractXlsxTemplateStructure,
+  inferTosTableRange,
+  validateXlsxTemplateMappings,
+} from '../lib/xlsxTemplate'
 import {
   TOS_TEMPLATE_FIELDS,
   type TosDocumentTemplate,
@@ -48,26 +54,34 @@ export function TosTemplatesPanel({ userId, isDemo }: { userId: string; isDemo: 
   const dialogRef = useRef<HTMLDivElement | null>(null)
   const lastFocusRef = useRef<HTMLElement | null>(null)
   const [templates, setTemplates] = useState<TosDocumentTemplate[]>([])
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [analyzing, setAnalyzing] = useState(false)
   const [draft, setDraft] = useState<Draft | null>(null)
   const [editing, setEditing] = useState<TosDocumentTemplate | null>(null)
   const [pickerField, setPickerField] = useState<TosTemplateFieldKey | null>(null)
   const [pickerSearch, setPickerSearch] = useState('')
-  const [loading, setLoading] = useState(!isDemo)
-  const [analyzing, setAnalyzing] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState('')
+  const [sheetFilter, setSheetFilter] = useState('all')
   const [firstDataRowInput, setFirstDataRowInput] = useState('2')
   const [lastDataRowInput, setLastDataRowInput] = useState('41')
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
   const active = draft ?? editing
   const activeElements = active?.elements ?? []
   const activeMappings = active?.mappings ?? []
-  const savedColumnMapping = activeMappings.find((item) => item.locator.kind === 'worksheet_column')
-  const savedFirstRow = savedColumnMapping?.locator.kind === 'worksheet_column' ? savedColumnMapping.locator.firstDataRow : 2
-  const savedLastRow = savedColumnMapping?.locator.kind === 'worksheet_column' ? savedColumnMapping.locator.lastDataRow : 41
-  const activeFirstRow = draft?.firstDataRow ?? savedFirstRow
-  const activeLastRow = draft?.lastDataRow ?? savedLastRow
+  const activeFirstRow = draft ? draft.firstDataRow : editing?.mappings.find((item) => item.locator.kind === 'worksheet_column')?.locator.kind === 'worksheet_column' ? (editing?.mappings.find((item) => item.locator.kind === 'worksheet_column')?.locator as { firstDataRow: number }).firstDataRow : 2
+  const activeLastRow = draft ? draft.lastDataRow : editing?.mappings.find((item) => item.locator.kind === 'worksheet_column')?.locator.kind === 'worksheet_column' ? (editing?.mappings.find((item) => item.locator.kind === 'worksheet_column')?.locator as { lastDataRow: number }).lastDataRow : 41
+
+  const requiredUnmapped = useMemo(() => {
+    return TOS_TEMPLATE_FIELDS.filter((f) => f.important && !activeMappings.some((m) => m.fieldKey === f.key))
+  }, [activeMappings])
+
+  const availableSheets = useMemo(() => {
+    const sheets = new Set<string>()
+    activeElements.forEach((el) => { if (el.locator.sheetName) sheets.add(el.locator.sheetName) })
+    return Array.from(sheets)
+  }, [activeElements])
 
   useEffect(() => {
     if (!pickerField) return
@@ -84,12 +98,13 @@ export function TosTemplatesPanel({ userId, isDemo }: { userId: string; isDemo: 
   }, [pickerField])
 
   async function refresh() {
-    if (isDemo) return
+    if (!userId || isDemo) { setLoading(false); return }
     setLoading(true)
-    try { setTemplates(await listTosTemplates(userId)); setError('') }
-    catch (nextError) { setError(nextError instanceof Error ? nextError.message : 'Unable to load TOS templates.') }
+    try { setTemplates(await listTosTemplates(userId)) }
+    catch (nextError) { setError(nextError instanceof Error ? nextError.message : 'Unable to load saved TOS templates.') }
     finally { setLoading(false) }
   }
+
   useEffect(() => { void refresh() }, [userId, isDemo])
 
   async function chooseFile(file: File) {
@@ -101,9 +116,54 @@ export function TosTemplatesPanel({ userId, isDemo }: { userId: string; isDemo: 
       const elements = extractXlsxTemplateStructure(buffer)
       if (elements.length < 3) throw new Error('Not enough existing workbook cells were found for reliable mapping.')
       setEditing(null)
-      setDraft({ id: crypto.randomUUID(), file, name: file.name.replace(/\.xlsx$/i, '').trim(), elements, mappings: [], sourceHash: await sha256Hex(buffer), analysisModel: null, makeDefault: templates.length === 0, firstDataRow: 2, lastDataRow: 41 })
-      setFirstDataRowInput('2'); setLastDataRowInput('41')
-      setMessage(`Workbook inspected locally. ${elements.length} existing cells are available for mapping; the master has not been uploaded yet.`)
+
+      const initialCandidates = detectTosCandidates(elements)
+      const fieldMap = new Map(TOS_TEMPLATE_FIELDS.map((item) => [item.key, item]))
+      const elementMap = new Map(elements.map((item) => [item.id, item]))
+
+      let detectedHeaderRow = 1
+      let detectedSheet = elements[0]?.locator.sheetName || 'Sheet1'
+      for (const item of initialCandidates) {
+        const field = fieldMap.get(item.fieldKey as TosTemplateFieldKey)
+        const element = elementMap.get(item.elementId)
+        if (field?.tableColumn && element?.locator.kind === 'worksheet_cell') {
+          const parsed = rowFromAddress(element.locator.cellAddress)
+          if (parsed) {
+            detectedHeaderRow = parsed
+            detectedSheet = element.locator.sheetName
+            break
+          }
+        }
+      }
+
+      const inferred = inferTosTableRange(elements, detectedHeaderRow, detectedSheet)
+      const firstDataRow = inferred.firstDataRow
+      const lastDataRow = inferred.lastDataRow
+
+      const initialMappings = initialCandidates.flatMap((item) => {
+        const field = fieldMap.get(item.fieldKey as TosTemplateFieldKey)
+        const element = elementMap.get(item.elementId)
+        if (!field || !element || element.locator.kind !== 'worksheet_cell'
+          || element.isFormula || element.text.startsWith('=') || (element.isMerged && !element.isMergedAnchor)) return []
+        const locator = field.tableColumn ? columnLocatorFromHeader(element, firstDataRow, lastDataRow) : element.locator
+        return [{ fieldKey: field.key, elementId: element.id, locator, mode: field.tableColumn ? 'table_column' : 'replace', confidence: item.confidence } satisfies TosTemplateMapping]
+      })
+
+      setDraft({
+        id: crypto.randomUUID(),
+        file,
+        name: file.name.replace(/\.xlsx$/i, '').trim(),
+        elements,
+        mappings: initialMappings,
+        sourceHash: await sha256Hex(buffer),
+        analysisModel: null,
+        makeDefault: templates.length === 0,
+        firstDataRow,
+        lastDataRow,
+      })
+      setFirstDataRowInput(String(firstDataRow))
+      setLastDataRowInput(String(lastDataRow))
+      setMessage(`Workbook inspected locally across ${elements.length} cells. ${initialMappings.length} candidate fields mapped (Data rows ${firstDataRow}–${lastDataRow}).`)
     } catch (nextError) { setError(nextError instanceof Error ? nextError.message : 'Unable to inspect this XLSX workbook.') }
   }
 
@@ -138,11 +198,11 @@ export function TosTemplatesPanel({ userId, isDemo }: { userId: string; isDemo: 
 
   function openPicker(field: TosTemplateFieldKey) {
     lastFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
-    setPickerField(field); setPickerSearch('')
+    setPickerField(field); setPickerSearch(''); setSheetFilter('all')
   }
 
   function closePicker() {
-    setPickerField(null); setPickerSearch('')
+    setPickerField(null); setPickerSearch(''); setSheetFilter('all')
     window.requestAnimationFrame(() => lastFocusRef.current?.focus())
   }
 
@@ -171,20 +231,39 @@ export function TosTemplatesPanel({ userId, isDemo }: { userId: string; isDemo: 
       const result = await analyzeTosTemplate(draft.elements)
       const elementMap = new Map(draft.elements.map((item) => [item.id, item]))
       const fieldMap = new Map(TOS_TEMPLATE_FIELDS.map((item) => [item.key, item]))
+
+      let detectedHeaderRow = draft.firstDataRow > 1 ? draft.firstDataRow - 1 : 1
+      let detectedSheet = draft.elements[0]?.locator.sheetName || 'Sheet1'
+      for (const item of result.mappings) {
+        const field = fieldMap.get(item.fieldKey as TosTemplateFieldKey)
+        const element = elementMap.get(item.elementId)
+        if (field?.tableColumn && element?.locator.kind === 'worksheet_cell') {
+          const parsed = rowFromAddress(element.locator.cellAddress)
+          if (parsed) {
+            detectedHeaderRow = parsed
+            detectedSheet = element.locator.sheetName
+            break
+          }
+        }
+      }
+
+      const inferred = inferTosTableRange(draft.elements, detectedHeaderRow, detectedSheet)
+      const firstDataRow = inferred.firstDataRow
+      const lastDataRow = inferred.lastDataRow
+
       const mappings = result.mappings.flatMap((item) => {
         const field = fieldMap.get(item.fieldKey as TosTemplateFieldKey)
         const element = elementMap.get(item.elementId)
         if (!field || !element || element.locator.kind !== 'worksheet_cell'
           || element.isFormula || element.text.startsWith('=') || (element.isMerged && !element.isMergedAnchor)) return []
-        const inferredFirst = Math.max(draft.firstDataRow, rowFromAddress(element.locator.cellAddress) + 1)
-        const locator = field.tableColumn ? columnLocatorFromHeader(element, inferredFirst, Math.max(draft.lastDataRow, inferredFirst)) : element.locator
+        const locator = field.tableColumn ? columnLocatorFromHeader(element, firstDataRow, lastDataRow) : element.locator
         return [{ fieldKey: field.key, elementId: element.id, locator, mode: field.tableColumn ? 'table_column' : 'replace', confidence: item.confidence } satisfies TosTemplateMapping]
       })
-      const column = mappings.find((item) => item.locator.kind === 'worksheet_column')
-      const firstDataRow = column?.locator.kind === 'worksheet_column' ? column.locator.firstDataRow : draft.firstDataRow
-      setDraft({ ...draft, mappings, analysisModel: result.model, firstDataRow })
+
+      setDraft({ ...draft, mappings, analysisModel: result.model, firstDataRow, lastDataRow })
       setFirstDataRowInput(String(firstDataRow))
-      setMessage(`Gemini suggested ${mappings.length} destinations in one text-structure analysis call. Confirm every cell and table range before saving.`)
+      setLastDataRowInput(String(lastDataRow))
+      setMessage(`Suggested ${mappings.length} destinations (Data rows ${firstDataRow}–${lastDataRow}). Confirm every cell and table range before saving.`)
     } catch (nextError) { setError(nextError instanceof Error ? nextError.message : 'Unable to analyze the workbook structure.') }
     finally { setAnalyzing(false) }
   }
@@ -234,8 +313,16 @@ export function TosTemplatesPanel({ userId, isDemo }: { userId: string; isDemo: 
 
   const pickerElements = useMemo(() => {
     const needle = pickerSearch.trim().toLocaleLowerCase('en')
-    return activeElements.filter((item) => item.kind === 'worksheet_cell' && (!needle || `${item.id} ${item.text} ${item.context}`.toLocaleLowerCase('en').includes(needle))).slice(0, 240)
-  }, [activeElements, pickerSearch])
+    let list = activeElements.filter((item) => item.kind === 'worksheet_cell')
+    if (sheetFilter !== 'all') {
+      list = list.filter((item) => item.locator.sheetName === sheetFilter)
+    }
+    if (needle) {
+      list = list.filter((item) => `${item.id} ${item.text} ${item.context}`.toLocaleLowerCase('en').includes(needle))
+    }
+    return list.slice(0, 300)
+  }, [activeElements, pickerSearch, sheetFilter])
+
   const groups = useMemo(() => {
     const map = new Map<string, typeof TOS_TEMPLATE_FIELDS>()
     TOS_TEMPLATE_FIELDS.forEach((field) => map.set(field.group, [...(map.get(field.group) ?? []), field]))
@@ -252,8 +339,77 @@ export function TosTemplatesPanel({ userId, isDemo }: { userId: string; isDemo: 
     {!active && templates.length > 0 && <div className="template-library"><div className="template-library-title"><strong>My TOS workbooks</strong><span>{templates.length}</span></div><div className="template-library-item"><div className="template-file-icon"><FileSpreadsheet size={18} /></div><div className="template-library-copy"><div><strong>TOS Standard</strong>{!templates.some((item) => item.isDefault) && <span className="phase-pill live"><Star size={11} /> Default</span>}</div><small>Built-in printable and XLSX fallback</small></div><div className="template-library-actions">{templates.some((item) => item.isDefault) && <button className="button mini" onClick={() => void useBuiltIn()}>Set default</button>}</div></div>{templates.map((template) => <div className="template-library-item" key={template.id}><div className="template-file-icon"><FileSpreadsheet size={18} /></div><div className="template-library-copy"><div><strong>{template.name}</strong>{template.isDefault && <span className="phase-pill live"><Star size={11} /> Default</span>}</div><small>{template.originalFilename} · {template.mappings.length} mappings{template.analysisModel ? ` · ${template.analysisModel}` : ' · manual'}</small></div><div className="template-library-actions">{!template.isDefault && <button aria-label={`Set ${template.name} as default`} className="icon-button" title="Set default" onClick={() => void makeDefault(template)}><Star size={16} /></button>}<button aria-label={`Edit ${template.name} mapping`} className="icon-button" title="Edit mapping" onClick={() => beginEditing(template)}><Pencil size={16} /></button><button aria-label={`Delete ${template.name}`} className="icon-button danger" title="Delete" onClick={() => void remove(template)}><Trash2 size={16} /></button></div></div>)}</div>}
     {draft && <div className="template-editor-head"><label>Template name<input value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} /></label><label className="check-chip"><input type="checkbox" checked={draft.makeDefault} onChange={(event) => setDraft({ ...draft, makeDefault: event.target.checked })} /> Make default for TOS exports</label><div className="template-editor-file"><FileSpreadsheet size={17} /><div><strong>{draft.file.name}</strong><small>{draft.elements.length} existing cells · {(draft.file.size / 1024).toFixed(0)} KB</small></div></div><div className="inline-actions"><button className="button secondary" disabled={analyzing} onClick={() => void analyze()}><Sparkles size={15} />{analyzing ? 'Analyzing…' : 'Analyze once with Gemini'}</button><button className="button ghost" onClick={() => setDraft(null)}><X size={15} /> Cancel</button></div></div>}
     {editing && <div className="template-editor-head"><label>Template name<input value={editing.name} onChange={(event) => setEditing({ ...editing, name: event.target.value })} /></label><div className="template-editor-file"><Pencil size={17} /><div><strong>Editing saved mapping</strong><small>The original XLSX master remains unchanged.</small></div></div><button className="button ghost" onClick={() => setEditing(null)}><X size={15} /> Cancel</button></div>}
-    {active && <div className="template-mapping-editor"><div className="template-mapping-heading"><div><strong>Confirm workbook mapping</strong><p>Table columns fill only existing cells within the fixed row range. No rows or columns are inserted.</p></div><span>{activeMappings.length} mapped</span></div><div className="tos-template-range"><label>First competency data row<input type="number" inputMode="numeric" min="1" value={firstDataRowInput} onChange={(event) => setFirstDataRowInput(event.target.value)} onBlur={() => updateDataRows(Number(firstDataRowInput), Number(lastDataRowInput))} /></label><label>Last available data row<input type="number" inputMode="numeric" min={activeFirstRow} value={lastDataRowInput} onChange={(event) => setLastDataRowInput(event.target.value)} onBlur={() => updateDataRows(Number(firstDataRowInput), Number(lastDataRowInput))} /></label><small>Capacity: {Math.max(0, activeLastRow - activeFirstRow + 1)} rows</small></div>{groups.map(([group, fields]) => <div className="template-field-group" key={group}><strong>{group}</strong>{fields.map((field) => { const mapping = activeMappings.find((item) => item.fieldKey === field.key); const element = mapping ? activeElements.find((item) => item.id === mapping.elementId) : undefined; return <div className={`template-field-row ${mapping ? 'mapped' : ''}`} key={field.key}><div><span>{field.label}{field.important ? ' *' : ''}</span><small>{targetLabel(element, mapping)}</small></div><div className="template-field-actions">{field.tableColumn && <span className="mapping-mode active">Table column</span>}<button className="button mini" type="button" onClick={() => openPicker(field.key)}>{mapping ? 'Change' : 'Map'}</button></div></div>})}</div>)}<div className="inline-actions"><button className="button primary" disabled={saving} onClick={() => void (draft ? saveDraft() : saveEditing())}><Check size={16} /> {saving ? 'Saving…' : 'Save template'}</button></div></div>}
+    {active && <div className="template-mapping-editor">
+      <div className="template-mapping-heading">
+        <div>
+          <strong>Confirm workbook mapping</strong>
+          <p>Table columns fill only existing cells within the fixed row range. No rows or columns are inserted.</p>
+        </div>
+        <span>Mapped: {activeMappings.length} / Still unmapped: {TOS_TEMPLATE_FIELDS.length - activeMappings.length}</span>
+      </div>
+
+      {requiredUnmapped.length > 0 && (
+        <div className="template-safety-note" style={{ borderColor: '#f59e0b', background: '#fffbeb' }}>
+          <CircleAlert size={17} style={{ color: '#d97706', flexShrink: 0 }} />
+          <div>
+            <strong style={{ color: '#92400e' }}>Required unmapped fields ({requiredUnmapped.length}):</strong>
+            <p style={{ color: '#b45309', margin: '4px 0 8px' }}>These fields must be mapped before saving for accurate TOS generation.</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              {requiredUnmapped.map((field) => (
+                <button
+                  key={field.key}
+                  type="button"
+                  className="button mini secondary"
+                  onClick={() => openPicker(field.key)}
+                >
+                  + Map {field.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="tos-template-range">
+        <label>First competency data row<input type="number" inputMode="numeric" min="1" value={firstDataRowInput} onChange={(event) => setFirstDataRowInput(event.target.value)} onBlur={() => updateDataRows(Number(firstDataRowInput), Number(lastDataRowInput))} /></label>
+        <label>Last available data row<input type="number" inputMode="numeric" min={activeFirstRow} value={lastDataRowInput} onChange={(event) => setLastDataRowInput(event.target.value)} onBlur={() => updateDataRows(Number(firstDataRowInput), Number(lastDataRowInput))} /></label>
+        <small>Capacity: {Math.max(0, activeLastRow - activeFirstRow + 1)} rows</small>
+      </div>
+
+      {groups.map(([group, fields]) => (
+        <div className="template-field-group" key={group}>
+          <strong>{group}</strong>
+          {fields.map((field) => {
+            const mapping = activeMappings.find((item) => item.fieldKey === field.key)
+            const element = mapping ? activeElements.find((item) => item.id === mapping.elementId) : undefined
+            return (
+              <div className={`template-field-row ${mapping ? 'mapped' : ''}`} key={field.key}>
+                <div>
+                  <span>{field.label}{field.important ? ' *' : ''}</span>
+                  <small>{targetLabel(element, mapping)}</small>
+                </div>
+                <div className="template-field-actions">
+                  {field.tableColumn && <span className="mapping-mode active">Table column</span>}
+                  <button className="button mini" type="button" onClick={() => openPicker(field.key)}>{mapping ? 'Change' : 'Map'}</button>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      ))}
+      <div className="inline-actions"><button className="button primary" disabled={saving} onClick={() => void (draft ? saveDraft() : saveEditing())}><Check size={16} /> {saving ? 'Saving…' : 'Save template'}</button></div>
+    </div>}
     {message && <div className="form-message success">{message}</div>}{error && <div className="form-message error">{error}</div>}
-    {pickerField && <div className="template-picker-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) closePicker() }}><div aria-labelledby="tos-template-picker-title" aria-modal="true" className="template-picker-panel" onKeyDown={handleDialogKeyDown} ref={dialogRef} role="dialog"><div className="template-picker-head"><div><span className="eyebrow">Map XLSX field</span><h3 id="tos-template-picker-title">{TOS_TEMPLATE_FIELDS.find((item) => item.key === pickerField)?.label}</h3></div><button aria-label="Close workbook mapping picker" className="icon-button" onClick={closePicker}><X size={18} /></button></div><div className="template-picker-search"><Search size={16} /><input aria-label="Search workbook cells" autoFocus value={pickerSearch} onChange={(event) => setPickerSearch(event.target.value)} placeholder="Search sheet, cell, or nearby text…" /></div><button className="template-picker-option clear" type="button" onClick={() => mapField(pickerField, null)}><strong>Leave unmapped</strong><small>Keep these cells unchanged in the master copy.</small></button><div className="template-picker-list">{pickerElements.map((element) => { const readOnly = element.isFormula || element.text.startsWith('=') || (element.isMerged && !element.isMergedAnchor); return <button className="template-picker-option" disabled={readOnly} key={element.id} type="button" onClick={() => mapField(pickerField, element)}><div><strong>{element.id}</strong><small>{element.isFormula || element.text.startsWith('=') ? 'Formula cell · read-only' : element.isMerged && !element.isMergedAnchor ? 'Merged non-anchor · read-only' : element.text || '[blank styled cell]'}</small></div><p>{element.context}</p></button> })}</div></div></div>}
+    {pickerField && <div className="template-picker-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) closePicker() }}><div aria-labelledby="tos-template-picker-title" aria-modal="true" className="template-picker-panel" onKeyDown={handleDialogKeyDown} ref={dialogRef} role="dialog"><div className="template-picker-head"><div><span className="eyebrow">Map XLSX field</span><h3 id="tos-template-picker-title">{TOS_TEMPLATE_FIELDS.find((item) => item.key === pickerField)?.label}</h3></div><button aria-label="Close workbook mapping picker" className="icon-button" onClick={closePicker}><X size={18} /></button></div>
+      {availableSheets.length > 1 && (
+        <div style={{ padding: '8px 16px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <span style={{ fontSize: '12px', fontWeight: 600, color: '#475569' }}>Filter worksheet:</span>
+          <select value={sheetFilter} onChange={(e) => setSheetFilter(e.target.value)} style={{ fontSize: '12px', padding: '3px 8px', borderRadius: '6px' }}>
+            <option value="all">All sheets ({availableSheets.length})</option>
+            {availableSheets.map((name) => <option key={name} value={name}>{name}</option>)}
+          </select>
+        </div>
+      )}
+      <div className="template-picker-search"><Search size={16} /><input aria-label="Search workbook cells" autoFocus value={pickerSearch} onChange={(event) => setPickerSearch(event.target.value)} placeholder="Search sheet, cell address, or text…" /></div><button className="template-picker-option clear" type="button" onClick={() => mapField(pickerField, null)}><strong>Leave unmapped</strong><small>Keep these cells unchanged in the master copy.</small></button><div className="template-picker-list">{pickerElements.map((element) => { const readOnly = element.isFormula || element.text.startsWith('=') || (element.isMerged && !element.isMergedAnchor); return <button className="template-picker-option" disabled={readOnly} key={element.id} type="button" onClick={() => mapField(pickerField, element)}><div><strong>{element.id}</strong><small>{element.isFormula || element.text.startsWith('=') ? 'Formula cell · read-only' : element.isMerged && !element.isMergedAnchor ? 'Merged non-anchor · read-only' : element.text || '[blank styled cell]'}</small></div><p>{element.context}</p></button> })}</div></div></div>}
   </section>
 }
