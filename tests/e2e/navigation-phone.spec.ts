@@ -16,14 +16,19 @@ test('phone navigation keeps the task-first Home → Create → TOS path usable'
   await tosAction.click()
   await expect(appPage).toHaveURL(/\/tos\/new(?:\?.*)?$/)
   await expect(appPage.getByRole('heading', { name: 'New TOS' })).toBeVisible({ timeout: 30_000 })
-  await expect(appPage.locator('.workflow-step-card')).toHaveCount(3)
-  await expect(appPage.locator('.workflow-curriculum-group').first()).toBeVisible({ timeout: 30_000 })
+  await expect(appPage.locator('.workflow-wizard-stepper')).toBeVisible()
+  await expect(appPage.locator('.workflow-step-card')).toHaveCount(1)
   const tosCardStyle = await appPage.locator('.workflow-step-card').first().evaluate((element) => {
     const style = getComputedStyle(element)
     return { background: style.backgroundColor, radius: Number.parseFloat(style.borderRadius) }
   })
   expect(tosCardStyle.background).not.toBe('rgba(0, 0, 0, 0)')
   expect(tosCardStyle.radius).toBeGreaterThanOrEqual(10)
+
+  await appPage.getByLabel('TOS title').fill('Grade 7 Mathematics TOS')
+  await appPage.getByRole('button', { name: /Next: Covered Competencies/i }).click()
+  await expect(appPage.locator('.workflow-curriculum-group').first()).toBeVisible({ timeout: 30_000 })
+
   const pageWidth = await appPage.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, innerWidth }))
   expect(pageWidth.scrollWidth).toBeLessThanOrEqual(pageWidth.innerWidth)
 })

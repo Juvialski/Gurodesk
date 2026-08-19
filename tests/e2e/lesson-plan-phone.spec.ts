@@ -16,12 +16,32 @@ for (const width of phoneWidths) {
     await appPage.goto('/lesson-plans/new')
 
     await expect(appPage.getByRole('heading', { name: 'New lesson plan' })).toBeVisible()
-    await expect(appPage.locator('.workflow-step-card')).toHaveCount(3)
+    await expect(appPage.locator('.workflow-wizard-stepper')).toBeVisible()
+    await expect(appPage.locator('.workflow-step-card')).toHaveCount(1)
+
+    const cardStyle = await appPage.locator('.workflow-step-card').first().evaluate((element) => {
+      const style = getComputedStyle(element)
+      return { background: style.backgroundColor, radius: Number.parseFloat(style.borderRadius) }
+    })
+    expect(cardStyle.background).not.toBe('rgba(0, 0, 0, 0)')
+    expect(cardStyle.radius).toBeGreaterThanOrEqual(10)
+
+    const chipStyle = await appPage.locator('.workflow-chip').first().evaluate((element) => {
+      const style = getComputedStyle(element)
+      return { minHeight: Number.parseFloat(style.minHeight), radius: Number.parseFloat(style.borderRadius) }
+    })
+    expect(chipStyle.minHeight).toBeGreaterThanOrEqual(44)
+    expect(chipStyle.radius).toBeGreaterThanOrEqual(20)
+    await expectNoHorizontalOverflow(appPage)
+
+    await appPage.getByRole('button', { name: /Next: Lesson Topic/i }).click()
     await expect(appPage.getByText('What are you teaching?', { exact: true })).toBeVisible()
 
     const lessonFocus = appPage.getByTestId('lesson-focus-input')
     await lessonFocus.fill('Regular and irregular polygons')
     await expect(lessonFocus).toHaveValue('Regular and irregular polygons')
+
+    await appPage.getByRole('button', { name: /Next: Curriculum Alignment/i }).click()
 
     const picker = appPage.getByRole('button', { name: /Find verified curriculum matches|Add or change curriculum alignment/u })
     await expect(picker).toBeEnabled({ timeout: 30_000 })
@@ -39,26 +59,16 @@ for (const width of phoneWidths) {
     await expect(selected).toContainText('2 verified competencies aligned')
     await selected.getByRole('button', { name: 'Make primary', exact: true }).click()
     await expect(selected.locator('.workflow-selected-alignment.primary')).toContainText(secondCompetencyText)
-
-    const cardStyle = await appPage.locator('.workflow-step-card').first().evaluate((element) => {
-      const style = getComputedStyle(element)
-      return { background: style.backgroundColor, radius: Number.parseFloat(style.borderRadius) }
-    })
-    expect(cardStyle.background).not.toBe('rgba(0, 0, 0, 0)')
-    expect(cardStyle.radius).toBeGreaterThanOrEqual(10)
-
-    const chipStyle = await appPage.locator('.workflow-chip').first().evaluate((element) => {
-      const style = getComputedStyle(element)
-      return { minHeight: Number.parseFloat(style.minHeight), radius: Number.parseFloat(style.borderRadius) }
-    })
-    expect(chipStyle.minHeight).toBeGreaterThanOrEqual(44)
-    expect(chipStyle.radius).toBeGreaterThanOrEqual(20)
     await expectNoHorizontalOverflow(appPage)
 
     await appPage.getByRole('button', { name: 'Save draft', exact: true }).click()
     await expect(appPage).toHaveURL(/\/lesson-plans\/(?!new(?:\?|$))[^/?]+$/u)
     await appPage.reload()
+
+    await appPage.getByRole('button', { name: /2\. Topic & Focus/i }).click()
     await expect(appPage.getByTestId('lesson-focus-input')).toHaveValue('Regular and irregular polygons')
+
+    await appPage.getByRole('button', { name: /3\. Alignment & AI/i }).click()
     await expect(appPage.getByTestId('selected-lesson-alignments')).toContainText('2 verified competencies aligned')
     await expect(appPage.getByTestId('selected-lesson-alignments').locator('.workflow-selected-alignment.primary')).toContainText(secondCompetencyText)
     await expectNoHorizontalOverflow(appPage)
@@ -70,7 +80,10 @@ test('a phone teacher can explicitly save and reopen a topic-only enrichment les
   await loginAndOpenWorkspace(appPage)
   await appPage.goto('/lesson-plans/new')
 
+  await appPage.getByRole('button', { name: /Next: Lesson Topic/i }).click()
   await appPage.getByTestId('lesson-focus-input').fill('Locally developed numeracy enrichment')
+
+  await appPage.getByRole('button', { name: /Next: Curriculum Alignment/i }).click()
   await appPage.getByRole('button', { name: 'Continue without curriculum alignment', exact: true }).click()
   await appPage.getByRole('button', { name: 'Enrichment', exact: true }).click()
   await expect(appPage.getByText(/teacher-provided and not curriculum-aligned/iu)).toBeVisible()
@@ -80,7 +93,10 @@ test('a phone teacher can explicitly save and reopen a topic-only enrichment les
   await expect(appPage).toHaveURL(/\/lesson-plans\/(?!new(?:\?|$))[^/?]+$/u)
   await appPage.reload()
 
+  await appPage.getByRole('button', { name: /2\. Topic & Focus/i }).click()
   await expect(appPage.getByTestId('lesson-focus-input')).toHaveValue('Locally developed numeracy enrichment')
+
+  await appPage.getByRole('button', { name: /3\. Alignment & AI/i }).click()
   await expect(appPage.getByRole('button', { name: 'Enrichment', exact: true })).toHaveAttribute('aria-pressed', 'true')
   await expect(appPage.getByTestId('selected-lesson-alignments')).toHaveCount(0)
   await expectNoHorizontalOverflow(appPage)
@@ -91,7 +107,10 @@ test('switching curriculum periods clears alignments from the previous period', 
   await loginAndOpenWorkspace(appPage)
   await appPage.goto('/lesson-plans/new')
 
+  await appPage.getByRole('button', { name: /Next: Lesson Topic/i }).click()
   await appPage.getByTestId('lesson-focus-input').fill('Regular and irregular polygons')
+
+  await appPage.getByRole('button', { name: /Next: Curriculum Alignment/i }).click()
   const picker = appPage.getByRole('button', { name: /Find verified curriculum matches/u })
   await expect(picker).toBeEnabled({ timeout: 30_000 })
   await picker.click()
@@ -100,6 +119,7 @@ test('switching curriculum periods clears alignments from the previous period', 
   await option.click()
   await expect(appPage.getByTestId('selected-lesson-alignments')).toContainText('1 verified competency aligned')
 
+  await appPage.getByRole('button', { name: /1\. Class Setup/i }).click()
   const periodButtons = appPage.locator('.workflow-step-card').first()
     .locator('.workflow-chip-group').first().getByRole('button')
   expect(await periodButtons.count()).toBeGreaterThanOrEqual(2)
@@ -108,6 +128,8 @@ test('switching curriculum periods clears alignments from the previous period', 
   await nextPeriod.click()
 
   await expect(nextPeriod).toHaveAttribute('aria-pressed', 'true')
+
+  await appPage.getByRole('button', { name: /3\. Alignment & AI/i }).click()
   await expect(appPage.getByTestId('selected-lesson-alignments')).toHaveCount(0)
   await expect(appPage.getByRole('button', { name: /Prepare lesson plan/iu })).toBeDisabled()
   await expectNoHorizontalOverflow(appPage)
@@ -118,17 +140,22 @@ test('switching periods preserves an explicit topic-only lesson purpose', async 
   await loginAndOpenWorkspace(appPage)
   await appPage.goto('/lesson-plans/new')
 
+  await appPage.getByRole('button', { name: /Next: Lesson Topic/i }).click()
   await appPage.getByTestId('lesson-focus-input').fill('Targeted prerequisite review')
+
+  await appPage.getByRole('button', { name: /Next: Curriculum Alignment/i }).click()
   await appPage.getByRole('button', { name: 'Continue without curriculum alignment', exact: true }).click()
   const reviewPurpose = appPage.getByRole('button', { name: 'Review', exact: true })
   await reviewPurpose.click()
 
+  await appPage.getByRole('button', { name: /1\. Class Setup/i }).click()
   const periodButtons = appPage.locator('.workflow-step-card').first()
     .locator('.workflow-chip-group').first().getByRole('button')
   expect(await periodButtons.count()).toBeGreaterThanOrEqual(2)
   const firstIsCurrent = await periodButtons.first().getAttribute('aria-pressed') === 'true'
   await (firstIsCurrent ? periodButtons.nth(1) : periodButtons.first()).click()
 
+  await appPage.getByRole('button', { name: /3\. Alignment & AI/i }).click()
   await expect(reviewPurpose).toHaveAttribute('aria-pressed', 'true')
   await expect(appPage.getByRole('button', { name: /Prepare lesson plan/iu })).toBeEnabled()
   await expect(appPage.getByTestId('selected-lesson-alignments')).toHaveCount(0)
