@@ -10,6 +10,7 @@ import {
   ListChecks,
   RefreshCw,
   Save,
+  Sparkles,
   Trash2,
   Upload,
   X,
@@ -27,6 +28,7 @@ import { checkDuplicateScan } from '../../lib/omr/duplicateSafety'
 import { triggerScanSuccessFeedback, triggerScanWarningFeedback } from '../../lib/omr/scanFeedback'
 import { calculateBatchSummary, clearBatchScanSession, loadBatchScanSession, saveBatchScanSession } from '../../lib/omr/batchScanStorage'
 import { calculateResultTotals, formatScore, scoreAnswerSheet } from '../../lib/resultsScoring'
+import { gradeSubjectiveResponse, type SubjectiveGradingResult } from '../../lib/omr/subjectiveAutoGrader'
 import { AnswerSheetReviewModal } from './AnswerSheetReviewModal'
 
 export type AnswerSheetScannerModalProps = {
@@ -63,6 +65,30 @@ export function AnswerSheetScannerModal({
   const [feedbackStatus, setFeedbackStatus] = useState<'idle' | 'detecting' | 'scanned' | 'error'>('idle')
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [reviewingItem, setReviewingItem] = useState<BatchScanItem | null>(null)
+
+  const [aiAutoGradeConsent, setAiAutoGradeConsent] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('gurodesk_ai_autograder_consent') === 'true'
+    }
+    return false
+  })
+
+  const hasSubjectiveQuestions = useMemo(() => {
+    return session.assessmentSnapshot.items.some(
+      (it) =>
+        it.questionType === 'essay' ||
+        it.questionType === 'problem_solving' ||
+        it.questionType === 'constructed_response' ||
+        it.questionType === 'short_answer',
+    )
+  }, [session.assessmentSnapshot.items])
+
+  function handleToggleAiConsent(checked: boolean) {
+    setAiAutoGradeConsent(checked)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('gurodesk_ai_autograder_consent', checked ? 'true' : 'false')
+    }
+  }
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const stableFrameCountRef = useRef(0)
@@ -179,23 +205,110 @@ export function AnswerSheetScannerModal({
         items: [newItem, ...prev.items],
       }))
 
+      // If AI auto-grader consent is active, run AI auto-grader in background for subjective items
+      if (aiAutoGradeConsent) {
+        const subjectiveRecs = scanResult.recognizedItems.filter(
+          (r) => !r.isMachineCheckable && r.writingCropBase64,
+        )
+
+        if (subjectiveRecs.length > 0) {
+          Promise.all(
+            subjectiveRecs.map(async (rec) => {
+              const itemSnapshot = session.assessmentSnapshot.items.find((it) => it.id === rec.itemId)
+              if (!itemSnapshot || !rec.writingCropBase64) return null
+              const res = await gradeSubjectiveResponse({
+                cropBase64: rec.writingCropBase64,
+                item: itemSnapshot,
+                learningArea: session.assessmentSnapshot.learningArea,
+                gradeLevel: session.assessmentSnapshot.gradeLevel,
+              })
+              return { itemId: rec.itemId, res }
+            }),
+          )
+            .then((results) => {
+              const successfulGrades = results.filter(Boolean) as {
+                itemId: string
+                res: SubjectiveGradingResult
+              }[]
+              if (successfulGrades.length === 0) return
+
+              setBatchSession((prev) => ({
+                ...prev,
+                items: prev.items.map((it) => {
+                  if (it.id !== newItem.id) return it
+
+                  const updatedRecognitions = it.scanResult.recognizedItems.map((r) => {
+                    const matchGrade = successfulGrades.find((g) => g.itemId === r.itemId && g.res.success)
+                    if (matchGrade) {
+                      return {
+                        ...r,
+                        aiGradingSuggestion: {
+                          transcript: matchGrade.res.transcript,
+                          suggestedPoints: matchGrade.res.suggestedPoints,
+                          feedback: matchGrade.res.feedback,
+                          confidence: matchGrade.res.confidence,
+                        },
+                      }
+                    }
+                    return r
+                  })
+
+                  const updatedTeacherPoints = { ...it.teacherPoints }
+                  for (const g of successfulGrades) {
+                    if (g.res.success && updatedTeacherPoints[g.itemId] === undefined) {
+                      updatedTeacherPoints[g.itemId] = g.res.suggestedPoints
+                    }
+                  }
+
+                  const updatedOutcomes =
+                    it.learnerId && it.participantId
+                      ? scoreAnswerSheet(
+                          session,
+                          { participantId: it.participantId, learnerId: it.learnerId },
+                          it.answers,
+                          session.assessmentSnapshot.items,
+                          updatedTeacherPoints,
+                        )
+                      : it.outcomes
+
+                  const updatedTotals = calculateResultTotals(updatedOutcomes)
+
+                  return {
+                    ...it,
+                    scanResult: { ...it.scanResult, recognizedItems: updatedRecognitions },
+                    teacherPoints: updatedTeacherPoints,
+                    outcomes: updatedOutcomes,
+                    totals: updatedTotals,
+                  }
+                }),
+              }))
+            })
+            .catch((err) => {
+              console.warn('Background AI grading error:', err)
+            })
+        }
+      }
+
       triggerScanSuccessFeedback()
       setFeedbackStatus('scanned')
-      setFeedbackMessage(`✓ Scanned: ${learner?.displayName || 'Generic Sheet (Requires Assignment)'} (${totals.rawScore}/${totals.possiblePoints} pts)`)
+      setFeedbackMessage(
+        `✓ Scanned: ${learner?.displayName || 'Generic Sheet (Requires Assignment)'} (${totals.rawScore}/${totals.possiblePoints} pts)`,
+      )
 
       // Set cooldown before next sheet
       cooldownRef.current = true
       setTimeout(() => {
         cooldownRef.current = false
         setFeedbackStatus('idle')
-        setFeedbackMessage('Ready for next paper')
+        setFeedbackMessage('Position next answer sheet within camera frame')
       }, 1400)
     } catch (err) {
-      console.error('[AnswerSheetScannerModal] Frame processing error', err)
+      console.error('Scan processing error:', err)
+      triggerScanWarningFeedback()
       setFeedbackStatus('error')
-      setFeedbackMessage('Unable to process sheet. Ensure proper lighting.')
+      setFeedbackMessage('Unable to process image. Ensure good lighting.')
     }
-  }, [session, scannedLearnerIds, scannedFingerprints])
+  }, [session, scannedLearnerIds, scannedFingerprints, aiAutoGradeConsent])
 
   const handleFrameLoop = useCallback(() => {
     if (!isOpen || !isScanningActive || cooldownRef.current) {
@@ -381,6 +494,30 @@ export function AnswerSheetScannerModal({
             </button>
           </div>
         </div>
+
+        {/* Teacher Consent Notice for AI Auto-Grading */}
+        {hasSubjectiveQuestions && (
+          <div className="scanner-consent-card">
+            <div className="scanner-consent-header">
+              <div className="scanner-consent-title">
+                <Sparkles size={16} />
+                <span>Optional AI Auto-Grader for Essay & Problem Solving</span>
+              </div>
+              <label className="scanner-consent-toggle">
+                <input
+                  type="checkbox"
+                  checked={aiAutoGradeConsent}
+                  onChange={(e) => handleToggleAiConsent(e.target.checked)}
+                />
+                <span>Enable AI grading suggestions</span>
+              </label>
+            </div>
+            <p className="scanner-consent-description">
+              Student handwritten responses will be analyzed by AI to draft suggested scores and rubric-aligned feedback.
+              In accordance with DepEd Teacher Primacy guidelines (DepEd Order No. 015, s. 2026), all AI scores are drafts and require your review and confirmation before finalizing.
+            </p>
+          </div>
+        )}
 
         {/* Live Camera Viewfinder or Camera Fallback */}
         <div className="scanner-viewfinder-container">
@@ -574,6 +711,8 @@ export function AnswerSheetScannerModal({
           session={session}
           existingOutcomes={session.itemOutcomes}
           scannedFingerprints={scannedFingerprints}
+          aiAutoGradeConsent={aiAutoGradeConsent}
+          onToggleAiConsent={handleToggleAiConsent}
           onConfirm={(learnerId, updatedOutcomes) => {
             const totals = calculateResultTotals(updatedOutcomes)
             const learner = session.learners.find((l) => l.learnerId === learnerId)

@@ -44,6 +44,15 @@ export type OmrItemRecognition = {
   /** Individual measurements for each bubble in this item */
   bubbles: OmrBubbleMeasurement[]
   boundsMm: { xMm: number; yMm: number; widthMm: number; heightMm: number }
+  /** Base64 JPEG crop of student's handwriting box for subjective items */
+  writingCropBase64?: string
+  /** Optional AI-assisted score suggestion (requires teacher consent) */
+  aiGradingSuggestion?: {
+    transcript: string
+    suggestedPoints: number
+    feedback: string
+    confidence: number
+  }
 }
 
 export type OmrScanStatus =

@@ -1,5 +1,6 @@
 import type { AnswerSheetDefinition, AnswerSheetItemRegion, AnswerSheetPageLayout } from '../../types/answerSheet'
 import type { OmrBubbleMeasurement, OmrImageBuffer, OmrItemRecognition, OmrMarkState } from '../../types/omr'
+import { cropWritingArea } from './handwritingTranscription'
 
 const FILL_THRESHOLD_PERCENT = 32 // >= 32% fill is considered marked
 const EMPTY_THRESHOLD_PERCENT = 14 // <= 14% fill is considered blank
@@ -359,6 +360,18 @@ function evaluateItemRegion(
     }
   }
 
+  let writingCropBase64: string | undefined
+  if (item.manualBox || item.boundsMm) {
+    const boxMm = item.manualBox?.boundsMm || item.boundsMm
+    const boxPx = {
+      x: (boxMm.xMm / pageDims.widthMm) * image.width,
+      y: (boxMm.yMm / pageDims.heightMm) * image.height,
+      width: (boxMm.widthMm / pageDims.widthMm) * image.width,
+      height: (boxMm.heightMm / pageDims.heightMm) * image.height,
+    }
+    writingCropBase64 = cropWritingArea(image, boxPx)
+  }
+
   return {
     itemId: item.itemId,
     itemNumber: item.itemNumber,
@@ -371,5 +384,6 @@ function evaluateItemRegion(
     needsReview: false,
     bubbles: [],
     boundsMm: item.boundsMm,
+    writingCropBase64,
   }
 }
