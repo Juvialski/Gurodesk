@@ -2,9 +2,11 @@ import type {
   AssessmentResultSession,
   LearnerItemAnswer,
   ResultAssessmentItemSnapshot,
+  ResultAssessmentSnapshot,
   ResultItemOutcome,
 } from '../../types/results'
 import type { OmrItemRecognition, OmrScanResult } from '../../types/omr'
+import type { AssessmentBlueprint } from '../../types/assessment'
 import { calculateResultTotals, scoreAnswerSheet, type ResultTotals } from '../resultsScoring'
 
 /**
@@ -121,5 +123,48 @@ export function previewScoredScan(
     flaggedItems,
     requiresTeacherReview,
     isFullyScored: !hasUnscoredTeacherItems && !requiresTeacherReview,
+  }
+}
+
+/**
+ * Converts a ResultAssessmentSnapshot into an AssessmentBlueprint suitable for layout reconstruction.
+ */
+export function assessmentSnapshotToBlueprint(
+  snapshot: ResultAssessmentSnapshot,
+): AssessmentBlueprint {
+  return {
+    id: snapshot.assessmentId,
+    userId: '',
+    assignmentId: snapshot.assignmentId || null,
+    title: snapshot.assessmentTitle,
+    instructions: '',
+    gradeLevel: snapshot.gradeLevel,
+    learningArea: snapshot.learningArea,
+    schoolYear: snapshot.schoolYear,
+    gradingTermId: snapshot.gradingTermId,
+    gradingTermLabel: snapshot.gradingTermLabel,
+    curriculumPeriodIds: snapshot.curriculumPeriodIds || [],
+    curriculumPeriodLabels: snapshot.curriculumPeriodLabels || [],
+    totalItems: snapshot.totalItems,
+    totalPoints: snapshot.totalPossiblePoints,
+    versionNumber: snapshot.assessmentVersionNumber || 1,
+    status: 'final',
+    items: (snapshot.items || []).map((it) => ({
+      id: it.id,
+      itemNumber: it.itemNumber,
+      pointStart: it.pointStart,
+      pointEnd: it.pointEnd,
+      prompt: it.prompt,
+      questionType: it.questionType,
+      answer: it.answer,
+      pointsPossible: it.pointsPossible ?? it.points,
+      points: it.points,
+      authorshipState: 'teacher_accepted',
+      competencySnapshot: it.competencySnapshot,
+      cognitiveCategorySnapshot: it.cognitiveCategorySnapshot,
+      mapping: it.mapping,
+    })),
+    createdAt: '',
+    updatedAt: '',
   }
 }

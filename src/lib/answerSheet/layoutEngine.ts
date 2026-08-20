@@ -19,7 +19,7 @@ import type {
   AnswerSheetRectMm,
 } from '../../types/answerSheet'
 import { calculateAnswerSheetCompatibility, isQuestionTypeMachineCheckable } from './compatibility'
-import { resolveSlipsPerPage } from './answerSheetDocxExport'
+import { resolveSlipsPerPage } from './layoutPolicy'
 import { generateQrSvgPath } from './qrEncoder'
 import { encodeAnswerSheetQrPayload } from './qrPayload'
 
@@ -126,7 +126,7 @@ export function generateAnswerSheetLayout(
   const sortedItems = [...(assessment.items || [])].sort((a, b) => a.itemNumber - b.itemNumber)
   const totalItems = sortedItems.length
 
-  const slipsPerPage = options.slipsPerPage || resolveSlipsPerPage(totalItems, options.density)
+  const slipsPerPage = options.slipsPerPage || resolveSlipsPerPage(totalItems, options.density, paperSize)
   const H = dims.heightMm / slipsPerPage
   const now = options.now ?? new Date().toISOString()
 
@@ -168,7 +168,10 @@ export function generateAnswerSheetLayout(
   const qrPayload = encodeAnswerSheetQrPayload({
     assessmentId: assessment.id,
     assessmentVersion: assessment.versionNumber || 1,
-    layoutVersion: 'v1',
+    layoutVersion: 'v2',
+    paperSize,
+    density: options.density,
+    slipsPerPage,
     mode,
     learnerId: learner?.id,
   })
@@ -291,15 +294,19 @@ export function generateAnswerSheetLayout(
       })
     } else if (item.questionType === 'matching') {
       const { prompts, choices } = resolveMatchingPrompts(item)
+      const promptCount = Math.max(1, prompts.length)
+      const subRowHeightMm = rowHeightMm / promptCount
+
       matchingPrompts = prompts.map((prompt, pIdx) => {
+        const promptY = itemY + (pIdx + 0.5) * subRowHeightMm
         const promptRowBubbles: AnswerSheetBubbleOption[] = choices.map((choice, cIdx) => ({
           id: `${prompt.id}:${choice.id}`,
           label: choice.label,
           centerMm: {
-            xMm: bubbleAreaStartX + 5 + cIdx * (BUBBLE_SPACING_MM * 0.9) + BUBBLE_RADIUS_MM,
-            yMm: itemY + rowHeightMm / 2,
+            xMm: bubbleAreaStartX + 6 + cIdx * (BUBBLE_SPACING_MM * 0.85) + BUBBLE_RADIUS_MM,
+            yMm: promptY,
           },
-          radiusMm: BUBBLE_RADIUS_MM,
+          radiusMm: Math.min(BUBBLE_RADIUS_MM, subRowHeightMm * 0.38),
         }))
         return {
           promptId: prompt.id,
@@ -352,7 +359,7 @@ export function generateAnswerSheetLayout(
   }
 
   return {
-    layoutVersion: 'v1',
+    layoutVersion: 'v2',
     mode,
     assessmentId: assessment.id,
     assessmentVersionNumber: assessment.versionNumber || 1,
@@ -364,6 +371,8 @@ export function generateAnswerSheetLayout(
     assignmentId: assessment.assignmentId || undefined,
     learner,
     paperSize,
+    density: options.density,
+    slipsPerPage,
     pages: [pageLayout],
     compatibility,
     generatedAt: now,

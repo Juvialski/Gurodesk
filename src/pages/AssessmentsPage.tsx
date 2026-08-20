@@ -50,7 +50,7 @@ export function AssessmentsPage() {
   async function handleSaveExternalExam(blueprint: AssessmentBlueprint) {
     try {
       const saved = await saveAssessmentDocument({ ...blueprint, id: '' }, isDemo)
-      navigate(`/assessments/${saved.id}/print-preview`)
+      navigate(`/assessments/${saved.id}/answer-sheet`)
     } catch (nextError) {
       setError(extractErrorMessage(nextError, 'Unable to save external exam.'))
     }

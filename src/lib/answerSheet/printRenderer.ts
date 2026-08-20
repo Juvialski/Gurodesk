@@ -90,7 +90,7 @@ export function renderAnswerSheetPageSvg(
     <g transform="translate(${qrx}, ${qry})">
       <rect x="-0.5" y="-0.5" width="${qrw + 1}" height="${qrh + 1}" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.2" rx="0.5" />
       <path d="${page.qrCode.svgPath}" fill="#000000" />
-      <text x="${qrw / 2}" y="${qrh + 1.8}" font-size="1.2" font-weight="700" fill="#64748b" text-anchor="middle">v1·${sheet.mode === 'personalized' ? 'ROSTER' : 'GENERIC'}</text>
+      <text x="${qrw / 2}" y="${qrh + 1.8}" font-size="1.2" font-weight="700" fill="#64748b" text-anchor="middle">${sheet.layoutVersion || 'v2'}·${sheet.mode === 'personalized' ? 'ROSTER' : 'GENERIC'}</text>
     </g>
   `
 
@@ -127,13 +127,19 @@ export function renderAnswerSheetPageSvg(
     } else if (item.matchingPrompts && item.matchingPrompts.length > 0) {
       // Matching sub-prompt rows
       for (const prompt of item.matchingPrompts) {
+        if (prompt.bubbles.length > 0) {
+          const firstB = prompt.bubbles[0]
+          const labelX = (firstB.centerMm.xMm - ib.xMm - firstB.radiusMm - 2.2).toFixed(2)
+          const labelY = (firstB.centerMm.yMm - ib.yMm + 0.5).toFixed(2)
+          svg += `<text x="${labelX}" y="${labelY}" font-size="1.3" font-weight="700" fill="#475569" text-anchor="end">${escapeXml(prompt.promptLabel)}</text>`
+        }
         for (const b of prompt.bubbles) {
           const cx = (b.centerMm.xMm - ib.xMm).toFixed(2)
           const cy = (b.centerMm.yMm - ib.yMm).toFixed(2)
           const r = b.radiusMm.toFixed(2)
           svg += `
-            <circle cx="${cx}" cy="${cy}" r="${r}" fill="#ffffff" stroke="#1e293b" stroke-width="0.35" />
-            <text x="${cx}" y="${(Number(cy) + 0.6).toFixed(2)}" font-size="1.5" font-weight="700" fill="#1e293b" text-anchor="middle">${escapeXml(b.label)}</text>
+            <circle cx="${cx}" cy="${cy}" r="${r}" fill="#ffffff" stroke="#1e293b" stroke-width="0.3" />
+            <text x="${cx}" y="${(Number(cy) + 0.5).toFixed(2)}" font-size="1.3" font-weight="700" fill="#1e293b" text-anchor="middle">${escapeXml(b.label)}</text>
           `
         }
       }

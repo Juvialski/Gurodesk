@@ -1,5 +1,5 @@
-import { Check, FileText, Plus, Sparkles, X, Zap } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { Check, X } from 'lucide-react'
+import { useState } from 'react'
 import { createExternalExamBlueprint } from '../../lib/answerSheet/externalExamAdapter'
 import type { AssessmentBlueprint } from '../../types/assessment'
 import { useApp } from '../../contexts/AppContext'
@@ -11,7 +11,8 @@ export type ExternalExamModalProps = {
 }
 
 export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModalProps) {
-  const { user } = useApp()
+  const { user, assignments } = useApp()
+  const [assignmentId, setAssignmentId] = useState<string>('')
   const [title, setTitle] = useState('Quarterly Examination (External)')
   const [gradeLevel, setGradeLevel] = useState('9')
   const [learningArea, setLearningArea] = useState('Science')
@@ -28,6 +29,15 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
   const [saving, setSaving] = useState(false)
 
   if (!isOpen) return null
+
+  function handleAssignmentChange(id: string) {
+    setAssignmentId(id)
+    const selected = assignments.find((a) => a.id === id)
+    if (selected) {
+      if (selected.gradeLevel) setGradeLevel(selected.gradeLevel)
+      if (selected.learningArea) setLearningArea(selected.learningArea)
+    }
+  }
 
   function handleTotalItemsChange(count: number) {
     const validCount = Math.max(5, Math.min(100, count))
@@ -58,6 +68,7 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
     try {
       const blueprint = createExternalExamBlueprint({
         userId: user?.id || 'demo-user',
+        assignmentId: assignmentId || null,
         title,
         gradeLevel,
         learningArea,
@@ -78,12 +89,14 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
 
   return (
     <div className="modal-backdrop external-exam-backdrop" role="dialog" aria-modal="true" aria-labelledby="ext-modal-title">
-      <div className="modal-content external-exam-modal panel max-w-2xl max-h-[90vh] flex flex-col">
+      <div className="modal-content external-exam-modal panel">
         {/* Modal Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-border">
+        <div className="external-exam-header">
           <div>
-            <span className="text-xs uppercase tracking-wider font-semibold text-primary">External Exam / Answer Sheet Only</span>
-            <h2 id="ext-modal-title" className="text-lg font-bold text-foreground">
+            <span style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 800, color: 'var(--primary)' }}>
+              External Exam / Answer Sheet Only
+            </span>
+            <h2 id="ext-modal-title">
               Quick Answer Key Builder
             </h2>
           </div>
@@ -93,23 +106,51 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
         </div>
 
         {/* Scrollable Setup & Matrix */}
-        <div className="flex-1 overflow-y-auto py-3 space-y-4 pr-1">
-          {/* Metadata inputs */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="md:col-span-3">
-              <label className="text-xs font-medium text-foreground block mb-1">Exam / Assessment Title</label>
+        <div className="external-exam-body">
+          {/* Class Assignment & Metadata inputs */}
+          <div className="external-exam-form-grid">
+            <div style={{ gridColumn: '1 / -1' }}>
+              <label style={{ fontSize: '11.5px', fontWeight: 600, color: 'var(--foreground)', display: 'block', marginBottom: '4px' }}>
+                Exam / Assessment Title
+              </label>
               <input
                 type="text"
-                className="w-full text-sm py-1.5 px-3 rounded border border-border bg-surface text-foreground"
+                className="input"
+                style={{ width: '100%' }}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Grade 10 Math Periodic Test"
               />
             </div>
+
+            {assignments.length > 0 && (
+              <div style={{ gridColumn: '1 / -1' }}>
+                <label style={{ fontSize: '11.5px', fontWeight: 600, color: 'var(--foreground)', display: 'block', marginBottom: '4px' }}>
+                  Assign to Class / Teaching Assignment (Optional)
+                </label>
+                <select
+                  className="input"
+                  style={{ width: '100%' }}
+                  value={assignmentId}
+                  onChange={(e) => handleAssignmentChange(e.target.value)}
+                >
+                  <option value="">-- Standalone Assessment (No Class Roster) --</option>
+                  {assignments.map((a) => (
+                    <option key={a.id} value={a.id}>
+                      Grade {a.gradeLevel} - {a.learningArea} ({a.sections.join(', ')})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             <div>
-              <label className="text-xs font-medium text-foreground block mb-1">Grade Level</label>
+              <label style={{ fontSize: '11.5px', fontWeight: 600, color: 'var(--foreground)', display: 'block', marginBottom: '4px' }}>
+                Grade Level
+              </label>
               <select
-                className="w-full text-sm py-1.5 px-3 rounded border border-border bg-surface text-foreground"
+                className="input"
+                style={{ width: '100%' }}
                 value={gradeLevel}
                 onChange={(e) => setGradeLevel(e.target.value)}
               >
@@ -120,20 +161,28 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
                 ))}
               </select>
             </div>
+
             <div>
-              <label className="text-xs font-medium text-foreground block mb-1">Learning Area</label>
+              <label style={{ fontSize: '11.5px', fontWeight: 600, color: 'var(--foreground)', display: 'block', marginBottom: '4px' }}>
+                Learning Area
+              </label>
               <input
                 type="text"
-                className="w-full text-sm py-1.5 px-3 rounded border border-border bg-surface text-foreground"
+                className="input"
+                style={{ width: '100%' }}
                 value={learningArea}
                 onChange={(e) => setLearningArea(e.target.value)}
                 placeholder="e.g. Science, Mathematics"
               />
             </div>
+
             <div>
-              <label className="text-xs font-medium text-foreground block mb-1">Question Type</label>
+              <label style={{ fontSize: '11.5px', fontWeight: 600, color: 'var(--foreground)', display: 'block', marginBottom: '4px' }}>
+                Question Type
+              </label>
               <select
-                className="w-full text-sm py-1.5 px-3 rounded border border-border bg-surface text-foreground"
+                className="input"
+                style={{ width: '100%' }}
                 value={questionType}
                 onChange={(e) => {
                   const val = e.target.value as 'multiple_choice' | 'true_false'
@@ -148,18 +197,15 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
           </div>
 
           {/* Quick presets bar */}
-          <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded bg-surface-muted border border-border text-xs">
-            <div className="flex items-center gap-2">
-              <span className="font-medium text-foreground-muted">Number of Items:</span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '8px', padding: '10px 14px', borderRadius: '10px', background: 'var(--surface-muted)', border: '1px solid var(--border)', fontSize: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontWeight: 600, color: 'var(--foreground-muted)' }}>Number of Items:</span>
               {[20, 30, 40, 50, 100].map((preset) => (
                 <button
                   key={preset}
                   type="button"
-                  className={`px-2.5 py-1 rounded font-semibold border ${
-                    totalItems === preset
-                      ? 'bg-primary text-primary-foreground border-primary'
-                      : 'bg-surface hover:bg-surface-muted text-foreground border-border'
-                  }`}
+                  className={`button compact ${totalItems === preset ? 'primary' : 'ghost'}`}
+                  style={{ minHeight: '28px', padding: '0 10px', fontSize: '11.5px' }}
                   onClick={() => handleTotalItemsChange(preset)}
                 >
                   {preset}
@@ -168,17 +214,14 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
             </div>
 
             {questionType === 'multiple_choice' && (
-              <div className="flex items-center gap-2">
-                <span className="font-medium text-foreground-muted">Choices:</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontWeight: 600, color: 'var(--foreground-muted)' }}>Choices:</span>
                 {[4, 5].map((c) => (
                   <button
                     key={c}
                     type="button"
-                    className={`px-2 py-1 rounded font-semibold border ${
-                      choicesPerItem === c
-                        ? 'bg-primary text-primary-foreground border-primary'
-                        : 'bg-surface hover:bg-surface-muted text-foreground border-border'
-                    }`}
+                    className={`button compact ${choicesPerItem === c ? 'primary' : 'ghost'}`}
+                    style={{ minHeight: '28px', padding: '0 8px', fontSize: '11.5px' }}
                     onClick={() => setChoicesPerItem(c)}
                   >
                     A–{String.fromCharCode(64 + c)}
@@ -190,16 +233,19 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
 
           {/* Answer Key Grid */}
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <strong className="text-sm font-semibold text-foreground">Answer Key Matrix ({totalItems} items)</strong>
-              <div className="flex items-center gap-1 text-xs">
-                <span className="text-foreground-muted mr-1">Quick fill:</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+              <strong style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--foreground)' }}>
+                Answer Key Matrix ({totalItems} items)
+              </strong>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px' }}>
+                <span style={{ color: 'var(--foreground-muted)' }}>Quick fill:</span>
                 {questionType === 'multiple_choice' ? (
                   letters.map((l) => (
                     <button
                       key={l}
                       type="button"
-                      className="button ghost compact px-2 py-0.5"
+                      className="button ghost compact"
+                      style={{ padding: '2px 6px', fontSize: '11px' }}
                       onClick={() => handleFillAll(l)}
                     >
                       All {l}
@@ -207,10 +253,20 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
                   ))
                 ) : (
                   <>
-                    <button type="button" className="button ghost compact px-2 py-0.5" onClick={() => handleFillAll('T')}>
+                    <button
+                      type="button"
+                      className="button ghost compact"
+                      style={{ padding: '2px 6px', fontSize: '11px' }}
+                      onClick={() => handleFillAll('T')}
+                    >
                       All True
                     </button>
-                    <button type="button" className="button ghost compact px-2 py-0.5" onClick={() => handleFillAll('F')}>
+                    <button
+                      type="button"
+                      className="button ghost compact"
+                      style={{ padding: '2px 6px', fontSize: '11px' }}
+                      onClick={() => handleFillAll('F')}
+                    >
                       All False
                     </button>
                   </>
@@ -218,27 +274,20 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 max-h-72 overflow-y-auto p-2 border border-border rounded-lg bg-surface">
+            <div className="external-exam-key-matrix">
               {Array.from({ length: totalItems }, (_, idx) => idx + 1).map((itemNum) => {
                 const currentKey = keyMap[itemNum] || (questionType === 'true_false' ? 'T' : 'A')
 
                 return (
-                  <div
-                    key={itemNum}
-                    className="flex items-center justify-between p-1.5 rounded border border-border/60 bg-surface-muted text-xs"
-                  >
-                    <span className="font-bold text-foreground w-7">#{itemNum}</span>
-                    <div className="flex items-center gap-1">
+                  <div key={itemNum} className="external-exam-key-cell">
+                    <strong>#{itemNum}</strong>
+                    <div className="external-exam-key-buttons">
                       {questionType === 'multiple_choice'
                         ? letters.map((letter) => (
                             <button
                               key={letter}
                               type="button"
-                              className={`w-6 h-6 rounded-full font-bold transition-colors flex items-center justify-center border text-[11px] ${
-                                currentKey === letter
-                                  ? 'bg-primary text-primary-foreground border-primary'
-                                  : 'bg-surface hover:bg-surface-muted text-foreground border-border'
-                              }`}
+                              className={`external-exam-key-btn ${currentKey === letter ? 'active' : ''}`}
                               onClick={() => handleSelectKey(itemNum, letter)}
                             >
                               {letter}
@@ -248,14 +297,11 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
                             <button
                               key={tf}
                               type="button"
-                              className={`px-2 h-6 rounded-full font-bold transition-colors flex items-center justify-center border text-[11px] ${
-                                currentKey === tf
-                                  ? 'bg-primary text-primary-foreground border-primary'
-                                  : 'bg-surface hover:bg-surface-muted text-foreground border-border'
-                              }`}
+                              className={`external-exam-key-btn ${currentKey === tf ? 'active' : ''}`}
+                              style={{ width: '32px' }}
                               onClick={() => handleSelectKey(itemNum, tf)}
                             >
-                              {tf === 'T' ? 'True' : 'False'}
+                              {tf}
                             </button>
                           ))}
                     </div>
@@ -267,15 +313,16 @@ export function ExternalExamModal({ isOpen, onClose, onSave }: ExternalExamModal
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between pt-3 border-t border-border mt-auto">
+        <div className="external-exam-footer">
           <button type="button" className="button ghost" onClick={onClose}>
             Cancel
           </button>
           <button
             type="button"
-            className="button primary flex items-center gap-1.5"
+            className="button primary"
             disabled={saving}
             onClick={() => void handleCreateBlueprint()}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
           >
             <Check size={16} />
             <span>{saving ? 'Creating…' : 'Generate Smart Answer Sheet'}</span>

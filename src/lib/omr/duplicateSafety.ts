@@ -28,11 +28,16 @@ export function checkDuplicateScan(
   newOutcomes: ResultItemOutcome[],
   existingOutcomes: ResultItemOutcome[],
   scannedFingerprints: Set<string> = new Set(),
+  excludeFingerprint?: string,
 ): DuplicateCheckResult {
   const newTotals = calculateResultTotals(newOutcomes)
 
   // 1. Check for identical image fingerprint (re-scanning the exact same photo)
-  if (scanResult.imageFingerprint && scannedFingerprints.has(scanResult.imageFingerprint)) {
+  if (
+    scanResult.imageFingerprint &&
+    scanResult.imageFingerprint !== excludeFingerprint &&
+    scannedFingerprints.has(scanResult.imageFingerprint)
+  ) {
     const existingLearnerOutcomes = learnerId
       ? existingOutcomes.filter((o) => o.learnerId === learnerId)
       : []
@@ -52,7 +57,9 @@ export function checkDuplicateScan(
 
   // 2. Check if the learner already has recorded answers in this session
   if (learnerId) {
-    const existingLearnerOutcomes = existingOutcomes.filter((o) => o.learnerId === learnerId && (o.answer !== null || o.earnedPoints > 0))
+    const existingLearnerOutcomes = existingOutcomes.filter(
+      (o) => o.learnerId === learnerId && (o.answer !== null || o.earnedPoints > 0),
+    )
 
     if (existingLearnerOutcomes.length > 0) {
       const existingTotals = calculateResultTotals(existingLearnerOutcomes)

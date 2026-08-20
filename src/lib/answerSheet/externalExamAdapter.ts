@@ -9,6 +9,7 @@ import type {
 export type ExternalExamOptions = {
   id?: string
   userId: string
+  assignmentId?: string | null
   title: string
   gradeLevel: string
   learningArea: string
@@ -23,11 +24,13 @@ export type ExternalExamOptions = {
 /**
  * Creates a standard GuroDesk AssessmentBlueprint from an external exam answer key.
  * Enables teachers to generate printable Smart Answer Sheets and scan existing tests.
+ * External items are explicitly UNMAPPED to prevent fabricating official DepEd competencies.
  */
 export function createExternalExamBlueprint(options: ExternalExamOptions): AssessmentBlueprint {
   const {
     id = `ext-asm-${Date.now()}`,
     userId,
+    assignmentId = null,
     title,
     gradeLevel,
     learningArea,
@@ -39,20 +42,21 @@ export function createExternalExamBlueprint(options: ExternalExamOptions): Asses
     defaultQuestionType = 'multiple_choice',
   } = options
 
+  // External exams do not fabricate official DepEd competencies
   const defaultComp: AssessmentCompetencySnapshot = {
-    id: 'comp-ext-1',
-    code: 'EXT-01',
-    text: 'External Exam Assessment Item',
-    sourcePage: 1,
-    academicPeriodId: 'q1',
-    curriculumPeriodId: 'q1',
-    curriculumPeriodLabel: gradingTermLabel,
+    id: 'comp-ext-unmapped',
+    code: null,
+    text: 'Unmapped External Assessment Item',
+    sourcePage: null,
+    academicPeriodId: null,
+    curriculumPeriodId: null,
+    curriculumPeriodLabel: 'External',
   }
 
   const defaultCognitive: AssessmentCognitiveCategorySnapshot = {
-    id: 'cog-ext-1',
-    label: 'Remembering',
-    shortLabel: 'Rem',
+    id: 'cog-ext-unmapped',
+    label: 'Uncategorized',
+    shortLabel: 'Uncat',
   }
 
   const items: AssessmentItem[] = []
@@ -121,7 +125,7 @@ export function createExternalExamBlueprint(options: ExternalExamOptions): Asses
   return {
     id,
     userId,
-    assignmentId: null,
+    assignmentId,
     title: title.trim() || 'External Exam (Answer Sheet)',
     instructions: 'Shade the circle corresponding to your answer for each item.',
     gradeLevel,

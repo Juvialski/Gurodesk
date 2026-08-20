@@ -1,4 +1,19 @@
-import { AlertTriangle, Camera, Check, ChevronUp, ChevronDown, CircleAlert, FileImage, Flashlight, FlashlightOff, Layers, ListChecks, Play, RefreshCw, Save, Sparkles, Trash2, Upload, UserCheck, X, Zap } from 'lucide-react'
+import {
+  Camera,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  CircleAlert,
+  FileImage,
+  Flashlight,
+  FlashlightOff,
+  ListChecks,
+  RefreshCw,
+  Save,
+  Trash2,
+  Upload,
+  X,
+} from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { AssessmentResultSession, ResultItemOutcome } from '../../types/results'
 import type { BatchScanItem, BatchScanSession } from '../../types/batchScan'
@@ -8,7 +23,7 @@ import { detectFiducialCorners } from '../../lib/omr/cornerDetection'
 import { processAnswerSheetImage } from '../../lib/omr/omrEngine'
 import { matchScanToLearner } from '../../lib/omr/learnerMatching'
 import { omrRecognitionsToLearnerAnswers } from '../../lib/omr/omrResultsAdapter'
-import { checkDuplicateScan, resolveDuplicateOutcomes } from '../../lib/omr/duplicateSafety'
+import { checkDuplicateScan } from '../../lib/omr/duplicateSafety'
 import { triggerScanSuccessFeedback, triggerScanWarningFeedback } from '../../lib/omr/scanFeedback'
 import { calculateBatchSummary, clearBatchScanSession, loadBatchScanSession, saveBatchScanSession } from '../../lib/omr/batchScanStorage'
 import { calculateResultTotals, formatScore, scoreAnswerSheet } from '../../lib/resultsScoring'
@@ -43,12 +58,11 @@ export function AnswerSheetScannerModal({
     }
   })
 
-  const [isScanningActive, setIsScanningActive] = useState(true)
+  const [isScanningActive] = useState(true)
   const [feedbackMessage, setFeedbackMessage] = useState<string>('Position answer sheet within camera frame')
   const [feedbackStatus, setFeedbackStatus] = useState<'idle' | 'detecting' | 'scanned' | 'error'>('idle')
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [reviewingItem, setReviewingItem] = useState<BatchScanItem | null>(null)
-  const [isProcessingFrame, setIsProcessingFrame] = useState(false)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const stableFrameCountRef = useRef(0)
@@ -56,7 +70,6 @@ export function AnswerSheetScannerModal({
   const timerRef = useRef<number | null>(null)
 
   const {
-    isStreaming,
     isLoading: isCameraLoading,
     error: cameraError,
     hasTorch,
@@ -91,6 +104,7 @@ export function AnswerSheetScannerModal({
   const handleProcessImageBuffer = useCallback((fullFrame: OmrImageBuffer) => {
     try {
       const scanResult: OmrScanResult = processAnswerSheetImage(fullFrame, {
+        expectedAssessmentSnapshot: session.assessmentSnapshot,
         expectedAssessmentId: session.assessmentSnapshot.assessmentId,
         expectedVersionNumber: session.assessmentSnapshot.assessmentVersionNumber,
       })
@@ -102,9 +116,9 @@ export function AnswerSheetScannerModal({
         return
       }
 
-      // Match learner
+      // Match learner from QR (personalized) or require explicit teacher selection (generic)
       const match = matchScanToLearner(scanResult, session.learners, scannedLearnerIds)
-      const learner = match.matchedLearner || session.learners.find((l) => !scannedLearnerIds.has(l.learnerId)) || null
+      const learner = match.matchedLearner || null // NEVER auto-assign to first student
 
       // Convert answers and score
       const learnerAnswers = omrRecognitionsToLearnerAnswers(scanResult.recognizedItems)
@@ -129,6 +143,20 @@ export function AnswerSheetScannerModal({
         scannedFingerprints,
       )
 
+      let itemStatus: BatchScanItem['status'] = 'CLEAN'
+      let reviewReason: string | undefined
+
+      if (!learner) {
+        itemStatus = 'NEEDS_REVIEW'
+        reviewReason = 'Select student from roster'
+      } else if (duplicateCheck.hasCollision) {
+        itemStatus = 'DUPLICATE'
+        reviewReason = duplicateCheck.message
+      } else if (scanResult.needsReview) {
+        itemStatus = 'NEEDS_REVIEW'
+        reviewReason = scanResult.errorMessage || 'Review required'
+      }
+
       const newItem: BatchScanItem = {
         id: `batch-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
         scanTimestamp: new Date().toISOString(),
@@ -140,12 +168,8 @@ export function AnswerSheetScannerModal({
         teacherPoints: {},
         outcomes,
         totals,
-        status: duplicateCheck.hasCollision
-          ? 'DUPLICATE'
-          : scanResult.needsReview
-          ? 'NEEDS_REVIEW'
-          : 'CLEAN',
-        reviewReason: duplicateCheck.hasCollision ? duplicateCheck.message : undefined,
+        status: itemStatus,
+        reviewReason,
       }
 
       // Add to batch session
@@ -157,7 +181,7 @@ export function AnswerSheetScannerModal({
 
       triggerScanSuccessFeedback()
       setFeedbackStatus('scanned')
-      setFeedbackMessage(`✓ Scanned: ${learner?.displayName || 'Student Sheet'} (${totals.rawScore}/${totals.possiblePoints} pts)`)
+      setFeedbackMessage(`✓ Scanned: ${learner?.displayName || 'Generic Sheet (Requires Assignment)'} (${totals.rawScore}/${totals.possiblePoints} pts)`)
 
       // Set cooldown before next sheet
       cooldownRef.current = true
@@ -173,105 +197,103 @@ export function AnswerSheetScannerModal({
     }
   }, [session, scannedLearnerIds, scannedFingerprints])
 
-  // Continuous frame processing loop
-  const processLiveFrame = useCallback(() => {
-    if (!isOpen || !isScanningActive || !isStreaming || isProcessingFrame || cooldownRef.current) {
+  const handleFrameLoop = useCallback(() => {
+    if (!isOpen || !isScanningActive || cooldownRef.current) {
+      timerRef.current = window.setTimeout(handleFrameLoop, 200)
       return
     }
 
-    // 1. Quick downscaled check for 4 corners (fast and power-efficient)
-    const downscaled = captureFrame(2)
-    if (!downscaled) return
-
-    const cornerCheck = detectFiducialCorners(downscaled)
-
-    if (!cornerCheck.success || !cornerCheck.corners) {
-      stableFrameCountRef.current = 0
-      setFeedbackStatus('idle')
-      setFeedbackMessage('Align all 4 corner markers inside the frame')
+    const frame = captureFrame(480) // 480px width for fast 15-20fps fiducial detection
+    if (!frame) {
+      timerRef.current = window.setTimeout(handleFrameLoop, 200)
       return
     }
 
-    stableFrameCountRef.current++
-    setFeedbackStatus('detecting')
-    setFeedbackMessage('Markers aligned! Hold steady…')
+    const cornerCheck = detectFiducialCorners(frame)
+    if (cornerCheck.success && cornerCheck.corners) {
+      stableFrameCountRef.current += 1
+      setFeedbackStatus('detecting')
+      setFeedbackMessage('Hold steady...')
 
-    // When aligned for 2 consecutive ticks, trigger full capture
-    if (stableFrameCountRef.current >= 2) {
-      stableFrameCountRef.current = 0
-      setIsProcessingFrame(true)
-
-      const fullFrame = captureFrame(1)
-      if (!fullFrame) {
-        setIsProcessingFrame(false)
-        return
+      // When 2 consecutive stable frames detect fiducials, capture high-res frame
+      if (stableFrameCountRef.current >= 2) {
+        stableFrameCountRef.current = 0
+        const fullFrame = captureFrame(1050)
+        if (fullFrame) {
+          handleProcessImageBuffer(fullFrame)
+        }
       }
-
-      try {
-        handleProcessImageBuffer(fullFrame)
-      } finally {
-        setIsProcessingFrame(false)
+    } else {
+      stableFrameCountRef.current = Math.max(0, stableFrameCountRef.current - 1)
+      if (feedbackStatus === 'detecting') {
+        setFeedbackStatus('idle')
+        setFeedbackMessage('Position answer sheet within camera frame')
       }
     }
-  }, [
-    isOpen,
-    isScanningActive,
-    isStreaming,
-    isProcessingFrame,
-    captureFrame,
-    handleProcessImageBuffer,
-  ])
+
+    timerRef.current = window.setTimeout(handleFrameLoop, 150)
+  }, [isOpen, isScanningActive, captureFrame, feedbackStatus, handleProcessImageBuffer])
 
   useEffect(() => {
-    if (!isOpen || !isScanningActive) return
-
-    timerRef.current = window.setInterval(processLiveFrame, 160)
-
+    if (isOpen && isScanningActive) {
+      timerRef.current = window.setTimeout(handleFrameLoop, 400)
+    }
     return () => {
       if (timerRef.current) {
-        clearInterval(timerRef.current)
+        clearTimeout(timerRef.current)
+        timerRef.current = null
       }
     }
-  }, [isOpen, isScanningActive, processLiveFrame])
+  }, [isOpen, isScanningActive, handleFrameLoop])
 
   function handleFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
 
     const reader = new FileReader()
-    reader.onload = (event) => {
+    reader.onload = () => {
       const img = new Image()
       img.onload = () => {
         const canvas = document.createElement('canvas')
-        canvas.width = img.naturalWidth || img.width
-        canvas.height = img.naturalHeight || img.height
-
+        const maxDim = 1400
+        let w = img.width
+        let h = img.height
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round((h * maxDim) / w)
+            w = maxDim
+          } else {
+            w = Math.round((w * maxDim) / h)
+            h = maxDim
+          }
+        }
+        canvas.width = w
+        canvas.height = h
         const ctx = canvas.getContext('2d')
         if (!ctx) return
+        ctx.drawImage(img, 0, 0, w, h)
+        const imgData = ctx.getImageData(0, 0, w, h)
 
-        ctx.drawImage(img, 0, 0)
-        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-        const rgba = imgData.data
-        const grayscale = new Uint8Array(canvas.width * canvas.height)
-
-        for (let i = 0, j = 0; i < rgba.length; i += 4, j++) {
-          grayscale[j] = Math.round(0.299 * rgba[i] + 0.587 * rgba[i + 1] + 0.114 * rgba[i + 2])
+        // Convert RGBA to Grayscale
+        const gray = new Uint8Array(w * h)
+        for (let i = 0, j = 0; i < imgData.data.length; i += 4, j++) {
+          gray[j] = Math.round(
+            imgData.data[i] * 0.299 +
+            imgData.data[i + 1] * 0.587 +
+            imgData.data[i + 2] * 0.114,
+          )
         }
 
         handleProcessImageBuffer({
-          width: canvas.width,
-          height: canvas.height,
-          data: grayscale,
+          data: gray,
+          width: w,
+          height: h,
         })
       }
-      img.src = String(event.target?.result || '')
+      img.src = reader.result as string
     }
     reader.readAsDataURL(file)
-
-    // Reset input
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
+    e.target.value = ''
   }
 
   function handleRemoveItem(itemId: string) {
@@ -281,7 +303,13 @@ export function AnswerSheetScannerModal({
     }))
   }
 
+  const hasUnresolvedItems = batchSession.items.some(
+    (i) => i.status !== 'CLEAN' || !i.learnerId || i.outcomes.length === 0,
+  )
+
   function handleCommitBatch() {
+    if (hasUnresolvedItems) return
+
     // Collect all outcomes from batch items
     const allOutcomes: ResultItemOutcome[] = []
     for (const item of batchSession.items) {
@@ -301,34 +329,32 @@ export function AnswerSheetScannerModal({
     <div className="modal-backdrop answer-sheet-scanner-backdrop" role="dialog" aria-modal="true">
       <div className="modal-content answer-sheet-scanner-modal full-screen-modal">
         {/* Top Header */}
-        <div className="scanner-header flex items-center justify-between p-3 bg-neutral-900 text-white">
+        <div className="scanner-header">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs px-2 py-0.5 rounded bg-primary text-primary-foreground font-bold uppercase tracking-wider">
-                Burst Mode
-              </span>
-              <strong className="text-sm font-semibold">{session.sectionName} · Smart Scan</strong>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span className="scanner-badge">Burst Mode</span>
+              <strong style={{ fontSize: '14px', fontWeight: 700 }}>{session.sectionName} · Smart Scan</strong>
             </div>
-            <span className="text-xs text-neutral-400 block mt-0.5">
+            <span style={{ fontSize: '11.5px', color: '#94a3b8', display: 'block', marginTop: '2px' }}>
               {session.assessmentSnapshot.assessmentTitle}
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <button
               type="button"
-              className="button ghost compact text-white hover:bg-neutral-800 text-xs flex items-center gap-1.5"
+              className="button ghost compact"
+              style={{ color: '#ffffff', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}
               onClick={() => fileInputRef.current?.click()}
               title="Upload photo or take with native camera"
             >
-              <Upload size={16} />
+              <Upload size={15} />
               <span>Upload Photo</span>
             </button>
             <input
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              className="hidden"
               style={{ display: 'none' }}
               onChange={handleFileInputChange}
             />
@@ -336,39 +362,42 @@ export function AnswerSheetScannerModal({
             {hasTorch && (
               <button
                 type="button"
-                className="icon-button text-white hover:bg-neutral-800"
+                className="icon-button"
+                style={{ color: '#ffffff' }}
                 onClick={() => void toggleTorch()}
                 aria-label={isTorchOn ? 'Turn flashlight off' : 'Turn flashlight on'}
               >
-                {isTorchOn ? <Flashlight size={20} className="text-amber-400" /> : <FlashlightOff size={20} />}
+                {isTorchOn ? <Flashlight size={18} style={{ color: '#fbbf24' }} /> : <FlashlightOff size={18} />}
               </button>
             )}
             <button
               type="button"
-              className="icon-button text-white hover:bg-neutral-800"
+              className="icon-button"
+              style={{ color: '#ffffff' }}
               onClick={onClose}
               aria-label="Close scanner"
             >
-              <X size={22} />
+              <X size={20} />
             </button>
           </div>
         </div>
 
         {/* Live Camera Viewfinder or Camera Fallback */}
-        <div className="scanner-viewfinder-container relative flex-1 bg-black flex items-center justify-center overflow-hidden">
+        <div className="scanner-viewfinder-container">
           {cameraError ? (
-            <div className="camera-fallback-panel p-6 text-center text-white max-w-sm">
-              <CircleAlert size={48} className="text-amber-400 mx-auto mb-3" />
-              <strong className="text-lg block font-bold">Camera Access Unavailable</strong>
-              <p className="text-sm text-neutral-400 my-2">
+            <div className="camera-fallback-panel">
+              <CircleAlert size={44} style={{ color: '#f59e0b', margin: '0 auto 12px' }} />
+              <strong style={{ fontSize: '16px', display: 'block', fontWeight: 800 }}>Camera Access Unavailable</strong>
+              <p style={{ fontSize: '12.5px', color: '#94a3b8', margin: '8px 0 16px', lineHeight: 1.5 }}>
                 {cameraError}. You can still upload photos of the answer sheet directly from your device.
               </p>
               <button
                 type="button"
-                className="button primary mt-4 w-full flex items-center justify-center gap-2"
+                className="button primary"
+                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                 onClick={() => fileInputRef.current?.click()}
               >
-                <FileImage size={18} />
+                <FileImage size={17} />
                 <span>Select / Capture Photo</span>
               </button>
             </div>
@@ -376,46 +405,36 @@ export function AnswerSheetScannerModal({
             <>
               <video
                 ref={videoRef}
-                className="scanner-video-preview w-full h-full object-cover"
+                className="scanner-video-preview"
                 playsInline
                 muted
                 autoPlay
               />
 
               {/* Corner Alignment Overlay Guide */}
-              <div className="viewfinder-alignment-guide pointer-events-none absolute inset-6 md:inset-12 border-2 border-dashed border-white/60 rounded-xl flex flex-col justify-between p-2">
+              <div className="viewfinder-alignment-guide">
                 {/* Top Corners */}
-                <div className="flex justify-between">
-                  <div className="w-8 h-8 border-t-4 border-l-4 border-primary rounded-tl" />
-                  <div className="w-8 h-8 border-t-4 border-r-4 border-primary rounded-tr" />
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div className="viewfinder-guide-corner" style={{ borderTop: '4px solid #3b82f6', borderLeft: '4px solid #3b82f6', borderTopLeftRadius: '4px' }} />
+                  <div className="viewfinder-guide-corner" style={{ borderTop: '4px solid #3b82f6', borderRight: '4px solid #3b82f6', borderTopRightRadius: '4px' }} />
                 </div>
                 {/* Bottom Corners */}
-                <div className="flex justify-between">
-                  <div className="w-8 h-8 border-b-4 border-l-4 border-primary rounded-bl" />
-                  <div className="w-8 h-8 border-b-4 border-r-4 border-primary rounded-br" />
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div className="viewfinder-guide-corner" style={{ borderBottom: '4px solid #3b82f6', borderLeft: '4px solid #3b82f6', borderBottomLeftRadius: '4px' }} />
+                  <div className="viewfinder-guide-corner" style={{ borderBottom: '4px solid #3b82f6', borderRight: '4px solid #3b82f6', borderBottomRightRadius: '4px' }} />
                 </div>
               </div>
 
               {/* Live Status Toast Banner */}
-              <div
-                className={`scanner-status-pill absolute top-4 px-4 py-2 rounded-full text-xs font-semibold text-white shadow-lg transition-all flex items-center gap-2 ${
-                  feedbackStatus === 'scanned'
-                    ? 'bg-emerald-600 scale-105'
-                    : feedbackStatus === 'detecting'
-                    ? 'bg-amber-600 animate-pulse'
-                    : feedbackStatus === 'error'
-                    ? 'bg-rose-600'
-                    : 'bg-neutral-900/80 backdrop-blur'
-                }`}
-              >
+              <div className={`scanner-status-pill ${feedbackStatus}`}>
                 {feedbackStatus === 'scanned' ? (
-                  <Check size={16} />
+                  <Check size={15} />
                 ) : feedbackStatus === 'detecting' ? (
-                  <RefreshCw size={14} className="spin" />
+                  <RefreshCw size={13} className="spin" />
                 ) : feedbackStatus === 'error' ? (
-                  <CircleAlert size={16} />
+                  <CircleAlert size={15} />
                 ) : (
-                  <Camera size={14} />
+                  <Camera size={13} />
                 )}
                 <span>{feedbackMessage}</span>
               </div>
@@ -424,26 +443,26 @@ export function AnswerSheetScannerModal({
         </div>
 
         {/* Bottom Tray / Batch Summary Counter */}
-        <div className="scanner-bottom-tray bg-surface border-t border-border p-3">
+        <div className="scanner-bottom-tray">
           {/* Metrics summary bar */}
-          <div className="flex items-center justify-between pb-2 border-b border-border text-xs">
-            <div className="flex items-center gap-3">
+          <div className="scanner-metrics-bar">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div>
-                <span className="text-foreground-muted block">Scanned</span>
-                <strong className="text-sm font-bold text-foreground">
+                <span style={{ color: 'var(--foreground-muted)', display: 'block', fontSize: '11px' }}>Scanned</span>
+                <strong style={{ fontSize: '14px', fontWeight: 800, color: 'var(--foreground)' }}>
                   {summary.totalScanned} / {summary.totalRosterCount}
                 </strong>
               </div>
-              <div className="border-l border-border pl-3">
-                <span className="text-foreground-muted block">Clean</span>
-                <strong className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+              <div style={{ borderLeft: '1px solid var(--border)', paddingLeft: '12px' }}>
+                <span style={{ color: 'var(--foreground-muted)', display: 'block', fontSize: '11px' }}>Clean</span>
+                <strong style={{ fontSize: '14px', fontWeight: 800, color: '#059669' }}>
                   {summary.cleanCount}
                 </strong>
               </div>
               {summary.needsReviewCount > 0 && (
-                <div className="border-l border-border pl-3">
-                  <span className="text-foreground-muted block">Review</span>
-                  <strong className="text-sm font-bold text-amber-600 dark:text-amber-400">
+                <div style={{ borderLeft: '1px solid var(--border)', paddingLeft: '12px' }}>
+                  <span style={{ color: 'var(--foreground-muted)', display: 'block', fontSize: '11px' }}>Review</span>
+                  <strong style={{ fontSize: '14px', fontWeight: 800, color: '#d97706' }}>
                     {summary.needsReviewCount}
                   </strong>
                 </div>
@@ -452,7 +471,8 @@ export function AnswerSheetScannerModal({
 
             <button
               type="button"
-              className="button ghost text-xs flex items-center gap-1"
+              className="button ghost text-xs"
+              style={{ display: 'flex', alignItems: 'center', gap: '5px' }}
               onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
               <ListChecks size={14} />
@@ -463,33 +483,40 @@ export function AnswerSheetScannerModal({
 
           {/* Collapsible Scanned Items Queue */}
           {isDrawerOpen && (
-            <div className="scanned-queue-list max-h-48 overflow-y-auto my-2 space-y-1.5 pr-1">
+            <div className="scanned-queue-list">
               {batchSession.items.length === 0 ? (
-                <p className="text-xs text-foreground-muted text-center py-3">No answer sheets scanned yet.</p>
+                <p style={{ fontSize: '12px', color: 'var(--foreground-muted)', textAlign: 'center', padding: '12px 0' }}>
+                  No answer sheets scanned yet.
+                </p>
               ) : (
                 batchSession.items.map((item) => (
                   <div
                     key={item.id}
-                    className="scanned-queue-card flex items-center justify-between p-2 rounded bg-surface-muted border border-border text-xs"
+                    className={`scanned-queue-card ${item.status !== 'CLEAN' ? 'flagged' : ''}`}
                   >
                     <div>
-                      <strong className="text-foreground block">{item.learnerName || 'Generic Sheet'}</strong>
-                      <span className="text-foreground-muted">
+                      <strong style={{ color: 'var(--foreground)', display: 'block' }}>
+                        {item.learnerName || 'Generic Sheet (Requires Assignment)'}
+                      </strong>
+                      <span style={{ color: 'var(--foreground-muted)', fontSize: '11px' }}>
                         Score: {formatScore(item.totals.rawScore)} / {item.totals.possiblePoints} pts
+                        {item.reviewReason ? ` · [${item.reviewReason}]` : ''}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <button
                         type="button"
-                        className="button ghost text-xs py-1 px-2"
+                        className="button ghost text-xs"
+                        style={{ padding: '3px 8px' }}
                         onClick={() => setReviewingItem(item)}
                       >
                         Inspect
                       </button>
                       <button
                         type="button"
-                        className="icon-button text-rose-500"
+                        className="icon-button"
+                        style={{ color: '#ef4444' }}
                         onClick={() => handleRemoveItem(item.id)}
                         aria-label="Delete scan"
                       >
@@ -502,8 +529,8 @@ export function AnswerSheetScannerModal({
             </div>
           )}
 
-          {/* Action Buttons */}
-          <div className="flex items-center justify-between pt-2">
+          {/* Action Buttons & Commit Gate */}
+          <div className="scanner-actions-bar">
             <button
               type="button"
               className="button ghost text-xs"
@@ -515,18 +542,26 @@ export function AnswerSheetScannerModal({
               }}
               disabled={batchSession.items.length === 0}
             >
-              Clear
+              Clear Batch
             </button>
 
-            <button
-              type="button"
-              className="button primary flex items-center gap-1.5"
-              disabled={batchSession.items.length === 0}
-              onClick={handleCommitBatch}
-            >
-              <Save size={16} />
-              <span>Commit {batchSession.items.length} Scans to Session</span>
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              {hasUnresolvedItems && (
+                <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#d97706' }}>
+                  Resolve all flagged sheets before committing
+                </span>
+              )}
+              <button
+                type="button"
+                className="button primary"
+                style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                disabled={batchSession.items.length === 0 || hasUnresolvedItems}
+                onClick={handleCommitBatch}
+              >
+                <Save size={15} />
+                <span>Commit {batchSession.items.length} Scans to Session</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -555,6 +590,7 @@ export function AnswerSheetScannerModal({
                       outcomes: updatedOutcomes,
                       totals,
                       status: 'CLEAN',
+                      reviewReason: undefined,
                     }
                   : i,
               ),

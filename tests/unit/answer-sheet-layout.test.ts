@@ -134,7 +134,7 @@ describe('Smart Answer Sheet Layout Engine & Geometry', () => {
 
     expect(svg).toContain('<svg xmlns="http://www.w3.org/2000/svg"')
     expect(svg).toContain('Grade 8 Mathematics Quarter 1 Examination — ANSWER SHEET')
-    expect(svg).toContain('v1·GENERIC')
+    expect(svg).toContain('v2·GENERIC')
     expect(svg).toContain('NAME:')
     expect(svg).toContain('Shade bubbles completely:')
     expect(svg).toContain('</svg>')

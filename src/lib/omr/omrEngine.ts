@@ -1,15 +1,20 @@
 import type { AssessmentBlueprint } from '../../types/assessment'
-import type { AnswerSheetDefinition } from '../../types/answerSheet'
+import type { AnswerSheetDefinition, AnswerSheetRectMm } from '../../types/answerSheet'
 import type { OmrImageBuffer, OmrScanResult, OmrScanSummary } from '../../types/omr'
-import { generateAnswerSheetLayout, PAPER_DIMENSIONS_MM } from '../answerSheet/layoutEngine'
+import type { ResultAssessmentSnapshot } from '../../types/results'
+import { generateAnswerSheetLayout } from '../answerSheet/layoutEngine'
 import { decodeAnswerSheetQrPayload, validateQrMatchesAssessment } from '../answerSheet/qrPayload'
 import { detectFiducialCorners } from './cornerDetection'
 import { detectMarksOnRectifiedSheet } from './markDetector'
 import { warpPerspectiveGrayscale, type QuadCorners } from './perspectiveWarp'
+import { decodeQrFromRectifiedImage } from './qrDecoder'
+import { assessmentSnapshotToBlueprint } from './omrResultsAdapter'
 
 export type ProcessOmrOptions = {
   /** Target assessment blueprint to validate against */
   expectedAssessment?: AssessmentBlueprint
+  /** Result assessment snapshot from active session */
+  expectedAssessmentSnapshot?: ResultAssessmentSnapshot
   /** Layout definition if already generated */
   layoutDefinition?: AnswerSheetDefinition
   /** Expected version number */
@@ -78,8 +83,111 @@ export function processAnswerSheetImage(
     }
   }
 
-  // 2. Decode & Validate QR Code
-  const rawQr = options.scannedQrPayload
+  // 2. Detect 4 Corner Fiducials
+  const cornerResult = detectFiducialCorners(image)
+  if (!cornerResult.success || !cornerResult.corners) {
+    return {
+      status: 'MARKERS_NOT_FOUND',
+      success: false,
+      needsReview: true,
+      recognizedItems: [],
+      summary: emptySummary,
+      imageFingerprint: fingerprint,
+      processingTimeMs: Math.round((typeof performance !== 'undefined' ? performance.now() : Date.now()) - startTime),
+      errorMessage: cornerResult.error || 'Corner markers could not be detected. Ensure all 4 black corner squares are clearly in frame.',
+    }
+  }
+
+  // Determine candidate blueprint
+  const candidateBlueprint = options.expectedAssessment
+    || (options.expectedAssessmentSnapshot ? assessmentSnapshotToBlueprint(options.expectedAssessmentSnapshot) : undefined)
+
+  // 3. Temporary layout geometry for homography (default A4 or from provided layout/snapshot)
+  const defaultPaperSize = options.layoutDefinition?.paperSize || 'a4'
+  const defaultPaperDims = defaultPaperSize === 'letter' ? { widthMm: 215.9, heightMm: 279.4 } : { widthMm: 210, heightMm: 297 }
+  const tempSheet = options.layoutDefinition
+    || (candidateBlueprint ? generateAnswerSheetLayout(candidateBlueprint, { paperSize: defaultPaperSize }) : null)
+
+  const page0 = tempSheet?.pages[0] || {
+    dimensionsMm: defaultPaperDims,
+    fiducialMarkers: {
+      topLeft: { centerMm: { xMm: 8.75, yMm: 8.75 }, sizeMm: 5.5 },
+      topRight: { centerMm: { xMm: defaultPaperDims.widthMm - 8.75, yMm: 8.75 }, sizeMm: 5.5 },
+      bottomLeft: { centerMm: { xMm: 8.75, yMm: defaultPaperDims.heightMm - 8.75 }, sizeMm: 5.5 },
+      bottomRight: { centerMm: { xMm: defaultPaperDims.widthMm - 8.75, yMm: defaultPaperDims.heightMm - 8.75 }, sizeMm: 5.5 },
+    },
+    qrCode: {
+      boundsMm: {
+        xMm: defaultPaperDims.widthMm - 6 - 5.5 - 13 - 2,
+        yMm: 6,
+        widthMm: 13,
+        heightMm: 13,
+      },
+    },
+  }
+
+  const pageW = page0.dimensionsMm.widthMm
+  const pageH = page0.dimensionsMm.heightMm
+  const targetWidth = 1050
+  const targetHeight = Math.round(targetWidth * (pageH / pageW))
+
+  const dstFiducials: QuadCorners = {
+    topLeft: {
+      x: (page0.fiducialMarkers.topLeft.centerMm.xMm / pageW) * targetWidth,
+      y: (page0.fiducialMarkers.topLeft.centerMm.yMm / pageH) * targetHeight,
+    },
+    topRight: {
+      x: (page0.fiducialMarkers.topRight.centerMm.xMm / pageW) * targetWidth,
+      y: (page0.fiducialMarkers.topRight.centerMm.yMm / pageH) * targetHeight,
+    },
+    bottomLeft: {
+      x: (page0.fiducialMarkers.bottomLeft.centerMm.xMm / pageW) * targetWidth,
+      y: (page0.fiducialMarkers.bottomLeft.centerMm.yMm / pageH) * targetHeight,
+    },
+    bottomRight: {
+      x: (page0.fiducialMarkers.bottomRight.centerMm.xMm / pageW) * targetWidth,
+      y: (page0.fiducialMarkers.bottomRight.centerMm.yMm / pageH) * targetHeight,
+    },
+  }
+
+  // 4. Rectify Image using 4-point Homography Warp to whole page coordinates
+  let rectifiedImage: OmrImageBuffer
+  try {
+    rectifiedImage = warpPerspectiveGrayscale(
+      image,
+      cornerResult.corners,
+      targetWidth,
+      targetHeight,
+      dstFiducials,
+    )
+  } catch (warpError) {
+    return {
+      status: 'WARP_FAILED',
+      success: false,
+      needsReview: true,
+      recognizedItems: [],
+      summary: emptySummary,
+      imageFingerprint: fingerprint,
+      processingTimeMs: Math.round((typeof performance !== 'undefined' ? performance.now() : Date.now()) - startTime),
+      errorMessage: warpError instanceof Error ? warpError.message : 'Perspective rectification failed.',
+    }
+  }
+
+  // 5. Decode QR Code from rectified image if not provided
+  let rawQr = options.scannedQrPayload
+  if (!rawQr) {
+    const qrBoundsMm: AnswerSheetRectMm = page0.qrCode?.boundsMm || {
+      xMm: pageW - 6 - 5.5 - 13 - 2,
+      yMm: 6,
+      widthMm: 13,
+      heightMm: 13,
+    }
+    const detectedQr = decodeQrFromRectifiedImage(rectifiedImage, qrBoundsMm, { widthMm: pageW, heightMm: pageH })
+    if (detectedQr) {
+      rawQr = detectedQr
+    }
+  }
+
   let qrDecoded = rawQr ? decodeAnswerSheetQrPayload(rawQr) : null
 
   if (rawQr && (!qrDecoded || !qrDecoded.success)) {
@@ -96,8 +204,14 @@ export function processAnswerSheetImage(
   }
 
   // Validate QR payload against expected assessment
-  const expectedAsmId = options.expectedAssessmentId ?? options.expectedAssessment?.id
-  const expectedVersion = options.expectedVersionNumber ?? options.expectedAssessment?.versionNumber ?? 1
+  const expectedAsmId = options.expectedAssessmentId
+    ?? options.expectedAssessment?.id
+    ?? options.expectedAssessmentSnapshot?.assessmentId
+
+  const expectedVersion = options.expectedVersionNumber
+    ?? options.expectedAssessment?.versionNumber
+    ?? options.expectedAssessmentSnapshot?.assessmentVersionNumber
+    ?? 1
 
   if (qrDecoded?.payload && expectedAsmId) {
     const qrMatch = validateQrMatchesAssessment(qrDecoded.payload, expectedAsmId, expectedVersion)
@@ -121,13 +235,17 @@ export function processAnswerSheetImage(
     }
   }
 
-  // 3. Build or use Answer Sheet Definition
-  const sheetDefinition: AnswerSheetDefinition = options.layoutDefinition
-    ?? (options.expectedAssessment
-      ? generateAnswerSheetLayout(options.expectedAssessment, {
-          mode: qrDecoded?.payload?.mode ?? 'generic',
-        })
-      : null as never)
+  // 6. Build final authoritative Answer Sheet Definition
+  let sheetDefinition: AnswerSheetDefinition | null = options.layoutDefinition || null
+
+  if (!sheetDefinition && candidateBlueprint) {
+    sheetDefinition = generateAnswerSheetLayout(candidateBlueprint, {
+      mode: qrDecoded?.payload?.mode ?? 'generic',
+      paperSize: qrDecoded?.payload?.paperSize ?? 'a4',
+      slipsPerPage: qrDecoded?.payload?.slipsPerPage,
+      density: qrDecoded?.payload?.density,
+    })
+  }
 
   if (!sheetDefinition) {
     return {
@@ -142,74 +260,10 @@ export function processAnswerSheetImage(
     }
   }
 
-  // 4. Detect 4 Corner Fiducials
-  const cornerResult = detectFiducialCorners(image)
-  if (!cornerResult.success || !cornerResult.corners) {
-    return {
-      status: 'MARKERS_NOT_FOUND',
-      success: false,
-      needsReview: true,
-      recognizedItems: [],
-      summary: emptySummary,
-      imageFingerprint: fingerprint,
-      processingTimeMs: Math.round((typeof performance !== 'undefined' ? performance.now() : Date.now()) - startTime),
-      errorMessage: cornerResult.error || 'Corner markers could not be detected. Ensure all 4 black corner squares are clearly in frame.',
-    }
-  }
-
-  // 5. Rectify Image using 4-point Homography Warp to whole page coordinates
-  const targetWidth = 1050
-  const page0 = sheetDefinition.pages[0]
-  const pageW = page0.dimensionsMm.widthMm
-  const pageH = page0.dimensionsMm.heightMm
-  const targetHeight = Math.round(targetWidth * (pageH / pageW))
-
-  const dstFiducials: QuadCorners = {
-    topLeft: {
-      x: (page0.fiducialMarkers.topLeft.centerMm.xMm / pageW) * targetWidth,
-      y: (page0.fiducialMarkers.topLeft.centerMm.yMm / pageH) * targetHeight,
-    },
-    topRight: {
-      x: (page0.fiducialMarkers.topRight.centerMm.xMm / pageW) * targetWidth,
-      y: (page0.fiducialMarkers.topRight.centerMm.yMm / pageH) * targetHeight,
-    },
-    bottomLeft: {
-      x: (page0.fiducialMarkers.bottomLeft.centerMm.xMm / pageW) * targetWidth,
-      y: (page0.fiducialMarkers.bottomLeft.centerMm.yMm / pageH) * targetHeight,
-    },
-    bottomRight: {
-      x: (page0.fiducialMarkers.bottomRight.centerMm.xMm / pageW) * targetWidth,
-      y: (page0.fiducialMarkers.bottomRight.centerMm.yMm / pageH) * targetHeight,
-    },
-  }
-
-  let rectifiedImage: OmrImageBuffer
-
-  try {
-    rectifiedImage = warpPerspectiveGrayscale(
-      image,
-      cornerResult.corners,
-      targetWidth,
-      targetHeight,
-      dstFiducials,
-    )
-  } catch (warpError) {
-    return {
-      status: 'WARP_FAILED',
-      success: false,
-      needsReview: true,
-      recognizedItems: [],
-      summary: emptySummary,
-      imageFingerprint: fingerprint,
-      processingTimeMs: Math.round((typeof performance !== 'undefined' ? performance.now() : Date.now()) - startTime),
-      errorMessage: warpError instanceof Error ? warpError.message : 'Perspective rectification failed.',
-    }
-  }
-
-  // 6. Photometric Mark Detection
+  // 7. Photometric Mark Detection
   const recognizedItems = detectMarksOnRectifiedSheet(rectifiedImage, sheetDefinition, 0)
 
-  // 7. Aggregate Summary
+  // 8. Aggregate Summary
   let filledCount = 0
   let emptyCount = 0
   let multipleCount = 0

@@ -1,7 +1,7 @@
 import type { AssessmentRecord, QuestionType } from './assessment'
 import type { ClassLearner } from './results'
 
-export type AnswerSheetLayoutVersion = 'v1'
+export type AnswerSheetLayoutVersion = 'v1' | 'v2'
 
 export type AnswerSheetMode = 'generic' | 'personalized'
 
@@ -109,6 +109,8 @@ export type AnswerSheetDefinition = {
     localReference: string | null
   }
   paperSize: AnswerSheetPaperSize
+  density?: AnswerSheetDensity
+  slipsPerPage?: number
   pages: AnswerSheetPageLayout[]
   compatibility: AnswerSheetCompatibilitySummary
   generatedAt: string
@@ -136,10 +138,13 @@ export type AnswerSheetCompatibilitySummary = {
 }
 
 export type AnswerSheetQrPayload = {
-  format: 'GD:AS:v1'
+  format: 'GD:AS:v1' | 'GD:AS:v2'
   assessmentId: string
   assessmentVersion: number
   layoutVersion: AnswerSheetLayoutVersion
+  paperSize?: AnswerSheetPaperSize
+  density?: AnswerSheetDensity
+  slipsPerPage?: number
   mode: AnswerSheetMode
   learnerId?: string
   checksum: string

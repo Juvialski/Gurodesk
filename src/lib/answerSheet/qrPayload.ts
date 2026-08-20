@@ -1,4 +1,4 @@
-import type { AnswerSheetMode, AnswerSheetQrPayload } from '../../types/answerSheet'
+import type { AnswerSheetDensity, AnswerSheetMode, AnswerSheetPaperSize, AnswerSheetQrPayload } from '../../types/answerSheet'
 
 /**
  * Standard 16-bit CRC (CRC-16-CCITT) for lightweight, deterministic tamper/corruption detection.
@@ -21,14 +21,18 @@ export function computeQrChecksum(input: string): string {
 export type EncodeQrPayloadOptions = {
   assessmentId: string
   assessmentVersion: number
-  layoutVersion?: 'v1'
+  layoutVersion?: 'v1' | 'v2'
+  paperSize?: AnswerSheetPaperSize
+  density?: AnswerSheetDensity
+  slipsPerPage?: number
   mode: AnswerSheetMode
   learnerId?: string
 }
 
 /**
  * Encodes an opaque, privacy-safe QR payload for GuroDesk Smart Answer Sheets.
- * Format: GD:AS:v1|a:<assessmentId>|v:<version>|l:<layout>|m:<G|P>[|s:<learnerId>]|c:<checksum>
+ * Format v2: GD:AS:v2|a:<assessmentId>|v:<version>|l:<layout>|p:<paperSize>|d:<slips>|m:<G|P>[|s:<learnerId>]|c:<checksum>
+ * Format v1: GD:AS:v1|a:<assessmentId>|v:<version>|l:<layout>|m:<G|P>[|s:<learnerId>]|c:<checksum>
  * NEVER includes student names, school names, or personal demographic data.
  */
 export function encodeAnswerSheetQrPayload(options: EncodeQrPayloadOptions): string {
@@ -38,13 +42,20 @@ export function encodeAnswerSheetQrPayload(options: EncodeQrPayloadOptions): str
   if (!Number.isSafeInteger(version) || version < 1) {
     throw new Error('Assessment version must be a positive integer.')
   }
-  const layout = options.layoutVersion ?? 'v1'
+  const layout = options.layoutVersion ?? 'v2'
   const modeCode = options.mode === 'personalized' ? 'P' : 'G'
   const learnerPart = options.mode === 'personalized' && options.learnerId?.trim()
     ? `|s:${options.learnerId.trim()}`
     : ''
 
-  const base = `GD:AS:${layout}|a:${assessmentId}|v:${version}|l:${layout}|m:${modeCode}${learnerPart}`
+  let base = `GD:AS:${layout}|a:${assessmentId}|v:${version}|l:${layout}`
+  if (layout === 'v2') {
+    if (options.paperSize) base += `|p:${options.paperSize}`
+    if (options.slipsPerPage) base += `|d:${options.slipsPerPage}`
+    else if (options.density) base += `|d:${options.density}`
+  }
+  base += `|m:${modeCode}${learnerPart}`
+
   const checksum = computeQrChecksum(base)
   return `${base}|c:${checksum}`
 }
@@ -69,7 +80,7 @@ export function decodeAnswerSheetQrPayload(rawString: string): DecodeQrResult {
 
   const parts = raw.split('|')
   const header = parts[0]
-  if (header !== 'GD:AS:v1') {
+  if (header !== 'GD:AS:v1' && header !== 'GD:AS:v2') {
     return { success: false, error: `Unsupported answer sheet format or layout version: ${header}` }
   }
 
@@ -111,7 +122,7 @@ export function decodeAnswerSheetQrPayload(rawString: string): DecodeQrResult {
     return { success: false, error: 'QR code contains invalid assessment version number.' }
   }
 
-  const layoutVersion = (params.get('l') ?? 'v1') as 'v1'
+  const layoutVersion = (params.get('l') ?? (header === 'GD:AS:v2' ? 'v2' : 'v1')) as 'v1' | 'v2'
   const modeCode = params.get('m')
   const mode: AnswerSheetMode = modeCode === 'P' ? 'personalized' : 'generic'
   const learnerId = params.get('s') || undefined
@@ -120,13 +131,32 @@ export function decodeAnswerSheetQrPayload(rawString: string): DecodeQrResult {
     return { success: false, error: 'Personalized answer sheet QR missing student ID.' }
   }
 
+  const rawPaper = params.get('p')
+  const paperSize: AnswerSheetPaperSize | undefined =
+    rawPaper === 'letter' || rawPaper === 'legal' || rawPaper === 'folio' || rawPaper === 'a4'
+      ? rawPaper
+      : undefined
+
+  const rawDensity = params.get('d')
+  let slipsPerPage: number | undefined
+  let density: AnswerSheetDensity | undefined
+  if (rawDensity) {
+    if (rawDensity === '1' || rawDensity === '1-up') { slipsPerPage = 1; density = '1-up' }
+    else if (rawDensity === '2' || rawDensity === '2-up') { slipsPerPage = 2; density = '2-up' }
+    else if (rawDensity === '3' || rawDensity === '3-up') { slipsPerPage = 3; density = '3-up' }
+    else if (rawDensity === '4' || rawDensity === '4-up') { slipsPerPage = 4; density = '4-up' }
+  }
+
   return {
     success: true,
     payload: {
-      format: 'GD:AS:v1',
+      format: header as 'GD:AS:v1' | 'GD:AS:v2',
       assessmentId,
       assessmentVersion,
       layoutVersion,
+      paperSize,
+      density,
+      slipsPerPage,
       mode,
       learnerId,
       checksum: checksumProvided,
