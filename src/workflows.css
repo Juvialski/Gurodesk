@@ -759,3 +759,5 @@
 
 
 
+.onboarding-ai-choice { border: 1px solid #dbe3ee; border-radius: 10px; padding: 12px; }
+.onboarding-ai-choice > summary { cursor: pointer; min-height: 36px; display: flex; align-items: center; font-weight: 600; }

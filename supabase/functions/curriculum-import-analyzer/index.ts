@@ -1,3 +1,4 @@
+import { resolveGeminiAccess, SponsoredAiError, type GeminiAccess, geminiFetch } from '../_shared/sponsored-ai.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
@@ -166,7 +167,7 @@ Return the structured curriculum JSON only.`
 }
 
 async function geminiRequest(
-  apiKey: string,
+  apiKey: GeminiAccess,
   model: AiModelId,
   prompt: string,
   text: string | null,
@@ -177,8 +178,8 @@ async function geminiRequest(
   if (text) parts.push({ text: `SOURCE TEXT:\n${text}` })
   parts.push({ text: prompt })
 
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`
-  const response = await fetch(endpoint, {
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`
+  const response = await geminiFetch(apiKey, endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -196,7 +197,7 @@ async function geminiRequest(
 }
 
 async function callWithFallback(
-  apiKey: string,
+  apiKey: GeminiAccess,
   configured: ReturnType<typeof settings>,
   prompt: string,
   text: string | null,
@@ -205,6 +206,7 @@ async function callWithFallback(
   try {
     return { review: await geminiRequest(apiKey, configured.preferredModel, prompt, text, pdf), model: configured.preferredModel, fallbackUsed: false }
   } catch (error) {
+    if (error instanceof SponsoredAiError) throw error
     if (!(error instanceof GeminiHttpError)
       || !isFallbackEligibleStatus(error.status)
       || !fallbackAllowed(configured.preferredModel, configured.fallbackModel, configured.fallbackEnabled)) throw error
@@ -254,10 +256,9 @@ Deno.serve(async (req) => {
     ])
     if (credentialResult.error) throw credentialResult.error
     if (settingsResult.error) throw settingsResult.error
-    if (!credentialResult.data) return json({ error: 'Connect your Gemini API key before analyzing a curriculum.', code: 'AI_KEY_NOT_CONFIGURED' }, 409)
 
-    const credential = credentialResult.data as CredentialRow
-    const apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
+    const credential = credentialResult.data as CredentialRow | null
+    const apiKey = await resolveGeminiAccess(credential, admin, userData.user.id, req, Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY'))
     const configured = settings((settingsResult.data ?? null) as SettingsRow | null)
 
     let sourceText = boundedText(body.extractedText, MAX_TEXT_CHARS) || null
@@ -282,6 +283,7 @@ Deno.serve(async (req) => {
     try {
       result = await callWithFallback(apiKey, configured, promptFor(row), sourceText, pdfBytes)
     } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
       const code = error instanceof GeminiHttpError
         ? error.status === 429 ? 'AI_QUOTA_EXHAUSTED' : [400, 401, 403].includes(error.status) ? 'AI_REQUEST_REJECTED' : 'AI_PROVIDER_ERROR'
         : error instanceof GeminiResponseError ? error.category : 'AI_ANALYSIS_FAILED'
@@ -318,6 +320,7 @@ Deno.serve(async (req) => {
 
     return json({ review, model: result.model, fallbackUsed: result.fallbackUsed })
   } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
     console.error(error)
     return json({ error: 'Unable to analyze this curriculum source.' }, 500)
   }

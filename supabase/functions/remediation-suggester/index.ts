@@ -1,3 +1,4 @@
+import { resolveGeminiAccess, SponsoredAiError, type GeminiAccess } from '../_shared/sponsored-ai.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
@@ -121,10 +122,11 @@ function parseSuggestions(value: string) {
   }
 }
 
-async function callWithFallback(apiKey: string, settings: ReturnType<typeof resolveSettings>, prompt: string) {
+async function callWithFallback(apiKey: GeminiAccess, settings: ReturnType<typeof resolveSettings>, prompt: string) {
   try {
     return { output: await callGemini(apiKey, settings.preferredModel, prompt, { maxOutputTokens: 2200, temperature: 0.25 }), model: settings.preferredModel, fallbackUsed: false }
   } catch (error) {
+    if (error instanceof SponsoredAiError) throw error
     if (error instanceof GeminiHttpError && isFallbackEligibleStatus(error.status)
       && fallbackAllowed(settings.preferredModel, settings.fallbackModel, settings.fallbackEnabled)) {
       return { output: await callGemini(apiKey, settings.fallbackModel, prompt, { maxOutputTokens: 2200, temperature: 0.25 }), model: settings.fallbackModel, fallbackUsed: true }
@@ -191,7 +193,7 @@ const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}
  * answer) before reducing to counts and sums.
  */
 async function loadOutcomeRows(
-  client: ReturnType<typeof createClient>,
+  client: ReturnType<typeof createClient<any>>,
   resultSessionId: string,
   userId: string,
   itemIds: string[],
@@ -261,7 +263,6 @@ Deno.serve(async (req) => {
     if (participantCountResult.error) throw participantCountResult.error
     if (credentialResult.error) throw credentialResult.error
     if (settingsResult.error) throw settingsResult.error
-    if (!credentialResult.data) return json({ error: 'Connect your Gemini API key in AI settings first.', code: 'AI_KEY_NOT_CONFIGURED' }, 409)
     // Read only the answer-presence bit needed for deterministic attempt
     // counts, then discard the raw answer field before constructing aggregate
     // values.  It is never included in the prompt or response.
@@ -296,14 +297,8 @@ Deno.serve(async (req) => {
       pointFacility: possible > 0 ? earned / possible : null,
       numberOfLearners,
     }
-    let apiKey: string
-    try {
-      const credential = credentialResult.data as CredentialRow
-      apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
-    } catch (error) {
-      console.error('Unable to decrypt teacher Gemini credential', error)
-      return json({ error: 'Your saved Gemini key could not be decrypted. Replace it in AI settings.', code: 'AI_KEY_RECONNECT_REQUIRED' }, 409)
-    }
+    const credential = credentialResult.data as CredentialRow | null
+      const apiKey = await resolveGeminiAccess(credential, admin, userId, req, Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY'))
     const settings = resolveSettings((settingsResult.data ?? null) as SettingsRow | null)
     const generated = await callWithFallback(apiKey, settings, promptFor(aggregate, constraints))
     const suggestions = parseSuggestions(generated.output)
@@ -313,6 +308,7 @@ Deno.serve(async (req) => {
     void generated.fallbackUsed
     return json(suggestions)
   } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
     console.error('Remediation suggestion request failed', error)
     if (error instanceof GeminiHttpError && (error.status === 401 || error.status === 403)) return json({ error: 'The saved Gemini credential was rejected.' }, 502)
     return json({ error: error instanceof Error ? error.message : 'Remediation suggestions are unavailable.' }, 400)

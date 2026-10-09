@@ -124,7 +124,11 @@ Deno.serve(async (req) => {
     const existingSettings = (settingsResult.data ?? {}) as SettingRow
     const settings = normalizeSettings(body, existingSettings)
 
-    if (action === 'status') return json(statusPayload(credential, settings))
+    if (action === 'status') {
+      const { data: usage, error: usageError } = await userClient.rpc('sponsored_ai_usage')
+      if (usageError) throw usageError
+      return json({ ...statusPayload(credential, settings), sponsored: { ...(usage as Record<string, unknown>), available: Boolean(Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY')?.trim()) } })
+    }
 
     if (action === 'update_settings') {
       const { error } = await admin.from('teacher_ai_settings').upsert({

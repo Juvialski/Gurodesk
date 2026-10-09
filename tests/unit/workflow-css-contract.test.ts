@@ -73,7 +73,7 @@ describe('shared workflow stylesheet contract', () => {
     ['src/pages/TosEditorPage.tsx', 'workflow-curriculum-group'],
     ['src/pages/ClassesPage.tsx', 'workflow-chip-row'],
     ['src/pages/CurriculumPage.tsx', 'workflow-view-tabs'],
-    ['src/pages/OnboardingPage.tsx', 'workflow-onboarding-choice'],
+    ['src/pages/OnboardingPage.tsx', 'onboarding-ai-choice'],
     ['src/pages/ResultsPage.tsx', 'workflow-results-setup'],
     ['src/pages/SettingsPage.tsx', 'settings-workflow-layout'],
   ])('%s imports and uses the shared workflow stylesheet', (path, className) => {

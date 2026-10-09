@@ -26,3 +26,9 @@ verify_jwt = true
 
 [functions.assessment-master-planner]
 verify_jwt = true
+
+[functions.handwriting-transcriber]
+verify_jwt = true
+
+[functions.performance-task-generator]
+verify_jwt = true

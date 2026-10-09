@@ -1,3 +1,4 @@
+declare const Deno: { env: { get(name: string): string | undefined } }
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 

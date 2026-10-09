@@ -176,6 +176,7 @@ export function AnswerSheetReviewModal({
     setGradingInProgress((prev) => ({ ...prev, [item.id]: true }))
     try {
       const res = await gradeSubjectiveResponse({
+        teacherConsent: true,
         cropBase64: recognition.writingCropBase64,
         item,
         learningArea: session.assessmentSnapshot.learningArea,

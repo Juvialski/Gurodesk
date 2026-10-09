@@ -1,3 +1,4 @@
+import { geminiFetch, type GeminiAccess } from './sponsored-ai.ts'
 import type { AiModelId } from './ai-models.ts'
 import { generationConfigFor } from './ai-models.ts'
 
@@ -150,7 +151,7 @@ export function parseGeminiJson(value: string): Record<string, unknown> {
 }
 
 export async function callGeminiDetailed(
-  apiKey: string,
+  apiKey: GeminiAccess,
   model: AiModelId,
   prompt: string,
   configOverrides: Record<string, unknown> = {},
@@ -161,9 +162,9 @@ export async function callGeminiDetailed(
   delete config.maxOutputTokens
   config.thinkingConfig = { thinkingLevel: 'HIGH' }
 
-  const response = await fetch(endpoint, {
+  const response = await geminiFetch(apiKey, endpoint, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
       generationConfig: config,
@@ -184,7 +185,7 @@ export async function callGeminiDetailed(
 
 /** Stable string-returning boundary retained for existing non-assessment callers. */
 export async function callGemini(
-  apiKey: string,
+  apiKey: GeminiAccess,
   model: AiModelId,
   prompt: string,
   configOverrides: Record<string, unknown> = {},

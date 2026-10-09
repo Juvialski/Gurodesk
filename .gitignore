@@ -12,3 +12,5 @@ __pycache__/
 *.py[cod]
 supabase/seeds/official-curriculum-complete.sql
 *.zip
+test-results/
+playwright-report/

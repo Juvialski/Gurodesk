@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { FileBarChart, RefreshCw } from 'lucide-react'
+import { RefreshCw } from 'lucide-react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { AdminGuard } from './components/admin/AdminGuard'
@@ -18,7 +18,7 @@ const CurriculumPage = lazy(() => import('./pages/CurriculumPage').then((m) => (
 const CreateHubPage = lazy(() => import('./pages/CreateHubPage').then((m) => ({ default: m.CreateHubPage })))
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then((m) => ({ default: m.DashboardPage })))
 const DocumentsPage = lazy(() => import('./pages/DocumentsPage').then((m) => ({ default: m.DocumentsPage })))
-const FeaturePlaceholderPage = lazy(() => import('./pages/FeaturePlaceholderPage').then((m) => ({ default: m.FeaturePlaceholderPage })))
+const MailMergePage = lazy(() => import('./pages/MailMergePage').then((m) => ({ default: m.MailMergePage })))
 const HelpPage = lazy(() => import('./pages/HelpPage').then((m) => ({ default: m.HelpPage })))
 const LessonPlansPage = lazy(() => import('./pages/LessonPlansPage').then((m) => ({ default: m.LessonPlansPage })))
 const LessonPlanEditorPage = lazy(() => import('./pages/LessonPlanEditorPage').then((m) => ({ default: m.LessonPlanEditorPage })))
@@ -83,8 +83,9 @@ function WorkspaceRoutes() {
           <Route path="tos" element={<TosListPage />} />
           <Route path="tos/new" element={<TosEditorPage />} />
           <Route path="tos/:id" element={<TosEditorPage />} />
-          <Route path="paperwork" element={<FeaturePlaceholderPage eyebrow="Teacher paperwork" title="Paperwork" description="Paperwork automation is not part of the current workspace yet. Use Documents and the supported export tools for lesson plans, TOS documents, assessments, results, and reports." icon={FileBarChart} bullets={['Role-aware paperwork matrix', 'Reusable teacher data', 'Policy-version aware templates', 'Clear LIS boundaries']} />} />
+          <Route path="paperwork" element={<Navigate to="/documents" replace />} />
           <Route path="files" element={<DocumentsPage />} />
+          <Route path="documents/merge" element={<MailMergePage />} />
           <Route path="documents" element={<Navigate to="/files" replace />} />
           <Route path="templates" element={<Navigate to="/tos" replace />} />
           <Route path="help" element={<HelpPage />} />

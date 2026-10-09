@@ -1,3 +1,4 @@
+import { resolveGeminiAccess, SponsoredAiError, type GeminiAccess } from '../_shared/sponsored-ai.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
@@ -250,7 +251,7 @@ function snapshotMatchesVerifiedRow(
 }
 
 async function resolveAssignmentScope(
-  admin: ReturnType<typeof createClient>,
+  admin: ReturnType<typeof createClient<any>>,
   userId: string,
   assignmentValue: unknown,
   documentValue: unknown,
@@ -322,7 +323,7 @@ function curriculumRowMatchesScope(
 }
 
 async function verifyCurriculumContext(
-  admin: ReturnType<typeof createClient>,
+  admin: ReturnType<typeof createClient<any>>,
   userId: string,
   scope: AssignmentScope | null,
   primaryValue: unknown,
@@ -615,13 +616,14 @@ function cleanDraft(value: Record<string, unknown>) {
   return draft
 }
 
-async function callWithFallback(apiKey: string, settings: ReturnType<typeof resolveSettings>, prompt: string, maxOutputTokens: number) {
+async function callWithFallback(apiKey: GeminiAccess, settings: ReturnType<typeof resolveSettings>, prompt: string, maxOutputTokens: number) {
   let modelUsed: AiModelId = settings.preferredModel
   let fallbackUsed = false
   let output: string
   try {
     output = await callGemini(apiKey, settings.preferredModel, prompt, { maxOutputTokens, temperature: 0.35 })
   } catch (error) {
+    if (error instanceof SponsoredAiError) throw error
     if (
       error instanceof GeminiHttpError
       && isFallbackEligibleStatus(error.status)
@@ -705,18 +707,10 @@ Deno.serve(async (req) => {
     ])
     if (credentialResult.error) throw credentialResult.error
     if (settingsResult.error) throw settingsResult.error
-    if (!credentialResult.data) {
-      return json({ error: 'Connect your Gemini API key in Settings → AI Assistant before using AI support.', code: 'AI_KEY_NOT_CONFIGURED' }, 409)
-    }
 
-    const credential = credentialResult.data as CredentialRow
-    let apiKey: string
-    try {
-      apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
-    } catch (error) {
-      console.error('Unable to decrypt teacher Gemini credential', error)
-      return json({ error: 'Your saved Gemini key can no longer be decrypted. Replace it in Settings → AI Assistant.', code: 'AI_KEY_RECONNECT_REQUIRED' }, 409)
-    }
+
+    const credential = credentialResult.data as CredentialRow | null
+    const apiKey = await resolveGeminiAccess(credential, admin, userId, req, Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY'))
 
     const settings = resolveSettings((settingsResult.data ?? null) as SettingsRow | null)
     const context = contextText(effectiveBody)
@@ -742,6 +736,7 @@ Deno.serve(async (req) => {
     try {
       result = await callWithFallback(apiKey, settings, prompt, maxOutputTokens)
     } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
       console.error('Gemini support error', error)
       if (error instanceof GeminiHttpError && error.status === 429) {
         return json({ error: quotaMessage(settings.preferredModel), code: 'AI_QUOTA_EXHAUSTED' }, 429)
@@ -771,6 +766,7 @@ Deno.serve(async (req) => {
         if (Object.keys(draft).length < 6) throw new Error('Quick Draft did not contain enough usable sections.')
         responseBody = { ...responseBase, draft }
       } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
         console.error('Quick Draft parse error', error, result.output.slice(0, 500))
         return json({ error: 'Gemini returned a malformed Quick Draft. Please try again.', code: 'AI_OUTPUT_INVALID' }, 502)
       }
@@ -780,6 +776,7 @@ Deno.serve(async (req) => {
         if (suggestions.length < 2) throw new Error('Not enough suggestions returned.')
         responseBody = { ...responseBase, suggestions }
       } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
         console.error('Suggestion parse error', error, result.output.slice(0, 500))
         return json({ error: 'Gemini returned malformed suggestions. Please try again.', code: 'AI_OUTPUT_INVALID' }, 502)
       }
@@ -801,6 +798,7 @@ Deno.serve(async (req) => {
 
     return json(responseBody)
   } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
     console.error(error)
     return json({ error: 'Unable to process AI support request.' }, 500)
   }

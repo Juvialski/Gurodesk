@@ -1,13 +1,16 @@
+import { resolveGeminiAccess, SponsoredAiError, geminiFetch } from '../_shared/sponsored-ai.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
 import {
   DEFAULT_MODEL,
+  isAiModelId,
   type AiModelId,
 } from '../_shared/ai-models.ts'
 import { extractGeminiText, GeminiHttpError, GeminiResponseError } from '../_shared/gemini.ts'
 
 type RequestBody = {
+  teacherConsent?: unknown
   mode?: unknown
   imageBase64?: unknown
   promptHint?: unknown
@@ -57,6 +60,7 @@ Deno.serve(async (req: Request) => {
     return new Response('ok', { headers: corsHeaders })
   }
 
+  if (req.method !== 'POST') return json({ error: 'Method not allowed.' }, 405)
   try {
     const authHeader = req.headers.get('Authorization')
     if (!authHeader) {
@@ -78,37 +82,20 @@ Deno.serve(async (req: Request) => {
       return json({ error: 'UNAUTHORIZED', message: 'Unauthorized user token.' }, 401)
     }
 
-    // 1. Fetch encrypted teacher BYOK credential
-    const { data: credRow, error: credError } = await supabase
-      .from('user_ai_credentials')
-      .select('api_key_ciphertext, api_key_iv, encryption_key_source')
-      .eq('user_id', user.id)
-      .maybeSingle()
-
-    if (credError || !credRow) {
-      return json(
-        {
-          error: 'NO_BYOK_KEY',
-          message: 'No Gemini API key configured. AI grading and transcription requires a BYOK API key in Settings.',
-        },
-        400,
-      )
-    }
-
-    const credential = credRow as CredentialRow
-    const apiKey = await decryptCredential(
-      credential.api_key_ciphertext,
-      credential.api_key_iv,
-      credential.encryption_key_source,
-    )
-
-    if (!apiKey || apiKey.length < 10) {
-      return json({ error: 'INVALID_KEY', message: 'Stored Gemini API key could not be decrypted.' }, 400)
-    }
+    const admin = createClient(Deno.env.get('SUPABASE_URL') ?? '', Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '', { auth: { persistSession: false, autoRefreshToken: false } })
+    const { data: credential, error: credError } = await admin.from('teacher_ai_credentials')
+      .select('api_key_ciphertext, api_key_iv, encryption_key_source').eq('user_id', user.id).maybeSingle()
+    if (credError) throw credError
+    const { data: settings, error: settingsError } = await admin.from('teacher_ai_settings').select('preferred_model').eq('user_id', user.id).maybeSingle()
+    if (settingsError) throw settingsError
+    const apiKey = await resolveGeminiAccess(credential as CredentialRow | null, admin, user.id, req, Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY'))
 
     // 2. Parse and validate payload
     const body = (await req.json().catch(() => ({}))) as RequestBody
     const mode = text(body.mode, 20) || 'transcribe'
+    if (!['transcribe', 'grade'].includes(mode)) return json({ error: 'INVALID_MODE', message: 'Choose transcription or teacher-reviewed grading.' }, 400)
+    if (mode === 'grade' && body.teacherConsent !== true) return json({ error: 'CONSENT_REQUIRED', message: 'Teacher consent is required before AI grading.' }, 400)
+    if (typeof body.imageBase64 === 'string' && body.imageBase64.length > 4_000_000) return json({ error: 'IMAGE_TOO_LARGE', message: 'The writing crop is too large.' }, 400)
     const rawImage = text(body.imageBase64, 4_000_000)
     const promptHint = text(body.promptHint, 2000)
     const questionType = text(body.questionType, 50) || 'essay'
@@ -128,7 +115,10 @@ Deno.serve(async (req: Request) => {
     }
 
     // Clean base64 header if present
-    const cleanBase64 = rawImage.replace(/^data:image\/[a-z]+;base64,/iu, '').trim()
+    const mimeType = rawImage.match(/^data:(image\/(?:jpeg|png));base64,/i)?.[1] ?? 'image/jpeg'
+    if (rawImage.startsWith('data:') && !/^data:image\/(?:jpeg|png);base64,/i.test(rawImage)) return json({ error: 'INVALID_IMAGE', message: 'Use a JPEG or PNG writing crop.' }, 400)
+    const cleanBase64 = rawImage.replace(/^data:image\/(?:jpeg|png);base64,/iu, '').trim()
+    if (!/^[A-Za-z0-9+/]+={0,2}$/.test(cleanBase64) || cleanBase64.length % 4 !== 0) return json({ error: 'INVALID_IMAGE', message: 'The writing crop is not valid base64.' }, 400)
 
     // 3. Construct instruction based on mode
     let promptInstruction: string
@@ -184,14 +174,13 @@ Deno.serve(async (req: Request) => {
     }
 
     // 4. Invoke Gemini Vision Model
-    const model: AiModelId = 'gemini-2.5-flash'
+    const model: AiModelId = typeof apiKey === 'string' && isAiModelId(settings?.preferred_model) ? settings.preferred_model : DEFAULT_MODEL
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`
 
-    const response = await fetch(endpoint, {
+    const response = await geminiFetch(apiKey, endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
       },
       body: JSON.stringify({
         contents: [
@@ -200,7 +189,7 @@ Deno.serve(async (req: Request) => {
             parts: [
               {
                 inlineData: {
-                  mimeType: 'image/jpeg',
+                  mimeType,
                   data: cleanBase64,
                 },
               },
@@ -252,6 +241,7 @@ Deno.serve(async (req: Request) => {
       transcript: rawText,
     })
   } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
     if (error instanceof GeminiHttpError) {
       return json({ error: 'GEMINI_HTTP_ERROR', message: error.message, detail: error.detail }, 502)
     }

@@ -1,5 +1,5 @@
 import { CheckCircle2, Search, School, TriangleAlert } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Profile } from '../types/app'
 import type {
   PhilippineSchool,
@@ -43,6 +43,7 @@ export function SchoolPicker({ value, onChange, isDemo, required = false }: Prop
   const [loadingMore, setLoadingMore] = useState(false)
   const [hasMore, setHasMore] = useState(false)
   const [directoryError, setDirectoryError] = useState<string | null>(null)
+  const searchVersion = useRef(0)
 
   const officialSelected = value.schoolIsCustom === false && Boolean(value.schoolDirectoryId)
   const verifiedDistrictDirectory = districts.length > 0
@@ -104,6 +105,8 @@ export function SchoolPicker({ value, onChange, isDemo, required = false }: Prop
   }, [division, isDemo, manualMode, region])
 
   useEffect(() => {
+    searchVersion.current += 1
+    setLoadingMore(false)
     if (manualMode || !canSearch) {
       setResults([])
       setHasMore(false)
@@ -168,6 +171,7 @@ export function SchoolPicker({ value, onChange, isDemo, required = false }: Prop
 
   async function loadMore() {
     if (busy || loadingMore || !hasMore || !canSearch) return
+    const version = searchVersion.current
     setLoadingMore(true)
     setDirectoryError(null)
     try {
@@ -179,6 +183,7 @@ export function SchoolPicker({ value, onChange, isDemo, required = false }: Prop
         limit: PAGE_SIZE,
         offset: results.length,
       }, isDemo)
+      if (version !== searchVersion.current) return
       setResults((current) => {
         const merged = new Map(current.map((school) => [school.id, school]))
         items.forEach((school) => merged.set(school.id, school))
@@ -186,9 +191,10 @@ export function SchoolPicker({ value, onChange, isDemo, required = false }: Prop
       })
       setHasMore(items.length === PAGE_SIZE)
     } catch (error) {
+      if (version !== searchVersion.current) return
       setDirectoryError(error instanceof Error ? error.message : 'Unable to load more schools.')
     } finally {
-      setLoadingMore(false)
+      if (version === searchVersion.current) setLoadingMore(false)
     }
   }
 

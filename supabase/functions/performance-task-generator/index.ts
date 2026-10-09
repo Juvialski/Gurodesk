@@ -1,3 +1,4 @@
+import { resolveGeminiAccess, SponsoredAiError, type GeminiAccess } from '../_shared/sponsored-ai.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
@@ -97,9 +98,7 @@ Deno.serve(async (req) => {
     if (!assessmentResult.data) return json({ error: 'Assessment draft not found.' }, 404)
     if (assessmentResult.data.status !== 'draft') return json({ error: 'Only draft assessments can receive AI suggestions.' }, 409)
 
-    const credential = credentialResult.data as CredentialRow | null
-    if (!credential) return json({ error: 'Connect a Gemini API key in AI settings before using assessment AI.' }, 400)
-    const apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
+    const credential = credentialResult.data as CredentialRow | null; const apiKey = await resolveGeminiAccess(credential, admin, userId, req, Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY'))
 
     const preference = (preferencesResult.data ?? {}) as PreferenceRow
     const resources = list(preference.actual_resources, 30, 180)

@@ -1,4 +1,5 @@
-import PizZip from 'pizzip'
+import { openOfficeArchive, parseOfficeXml } from './officeArchive'
+import { replaceMappedWordText, replaceWordTextRange, replaceWordTokens, wordText } from './wordText'
 import type {
   DocumentTemplateElement,
   DocumentTemplateMapping,
@@ -8,14 +9,8 @@ import type {
 } from '../types/documentTemplate'
 import type { LessonPlanExportModel } from '../types/export'
 
-const W_NS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
-
 function childrenByLocalName(element: Element, localName: string) {
   return Array.from(element.children).filter((child) => child.localName === localName)
-}
-
-function firstChildByLocalName(element: Element, localName: string) {
-  return childrenByLocalName(element, localName)[0] ?? null
 }
 
 function descendantsByLocalName(element: Element, localName: string) {
@@ -45,10 +40,10 @@ function rowContext(cells: Element[]) {
 }
 
 export function extractDocxTemplateStructure(buffer: ArrayBuffer): DocumentTemplateElement[] {
-  const zip = new PizZip(buffer)
+  const zip = openOfficeArchive(buffer, 'docx')
   const raw = zip.file('word/document.xml')?.asText()
   if (!raw) throw new Error('This DOCX does not contain a readable Word document body.')
-  const xml = new DOMParser().parseFromString(raw, 'application/xml')
+  const xml = parseOfficeXml(raw, 'Word document')
   if (xml.getElementsByTagName('parsererror').length) throw new Error('The DOCX document XML could not be parsed.')
   const body = Array.from(xml.getElementsByTagNameNS('*', 'body'))[0]
   if (!body) throw new Error('The DOCX document body could not be found.')
@@ -133,26 +128,17 @@ function prefixForAppend(existing: string) {
 }
 
 function replaceParagraphText(paragraph: Element, value: string, mode: TemplateMappingMode) {
-  const existing = paragraphText(paragraph)
-  const finalValue = mode === 'append_after_label' ? `${prefixForAppend(existing)}${value}`.trim() : value
-  const pPr = firstChildByLocalName(paragraph, 'pPr')?.cloneNode(true) ?? null
-  const firstRun = descendantsByLocalName(paragraph, 'r')[0]
-  const runProperties = firstRun ? firstChildByLocalName(firstRun, 'rPr')?.cloneNode(true) ?? null : null
-
-  while (paragraph.firstChild) paragraph.removeChild(paragraph.firstChild)
-  if (pPr) paragraph.appendChild(pPr)
-
-  const lines = (finalValue || '').split(/\r?\n/)
-  lines.forEach((line, index) => {
-    const run = paragraph.ownerDocument.createElementNS(W_NS, 'w:r')
-    if (runProperties) run.appendChild(runProperties.cloneNode(true))
-    if (index > 0) run.appendChild(paragraph.ownerDocument.createElementNS(W_NS, 'w:br'))
-    const text = paragraph.ownerDocument.createElementNS(W_NS, 'w:t')
-    text.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:space', 'preserve')
-    text.textContent = line
-    run.appendChild(text)
-    paragraph.appendChild(run)
-  })
+  const existing = wordText(paragraph)
+  if (mode === 'append_after_label') {
+    const prefix = prefixForAppend(existing)
+    const preserved = prefix.trimEnd()
+    const index = existing.indexOf(preserved)
+    const end = index >= 0 ? index + preserved.length : 0
+    replaceWordTextRange(paragraph, end, existing.length, (preserved ? ' ' : '') + value)
+  } else if (/\{\{[a-zA-Z0-9_ .]+\}\}/.test(existing)) {
+    const match = existing.match(/\{\{[a-zA-Z0-9_ .]+\}\}/)!
+    replaceWordTextRange(paragraph, match.index!, match.index! + match[0].length, value)
+  } else replaceMappedWordText(paragraph, value)
 }
 
 export type LessonTemplateValues = Partial<Record<LessonTemplateFieldKey, string>>
@@ -243,22 +229,33 @@ export function fillDocxTemplate(
   mappings: DocumentTemplateMapping[],
   values: LessonTemplateValues,
 ) {
-  const zip = new PizZip(original)
+  const zip = openOfficeArchive(original, 'docx')
   const file = zip.file('word/document.xml')
   const raw = file?.asText()
   if (!raw) throw new Error('This DOCX does not contain a readable Word document body.')
-  const xml = new DOMParser().parseFromString(raw, 'application/xml')
+  const xml = parseOfficeXml(raw, 'Word document')
   const body = Array.from(xml.getElementsByTagNameNS('*', 'body'))[0]
   if (!body) throw new Error('The DOCX document body could not be found.')
 
   for (const mapping of mappings) {
+    if (values[mapping.fieldKey] === undefined) continue
     const value = (values[mapping.fieldKey] ?? '').trim()
-    if (!value) continue
     const paragraph = locateParagraph(body, mapping.locator)
-    if (!paragraph) continue
+    if (!paragraph) throw new Error('The saved template mapping no longer identifies an existing paragraph.')
     replaceParagraphText(paragraph, value, mapping.mode)
   }
 
+  const aliases: Record<string, string> = {}
+  for (const [key, value] of Object.entries(values)) {
+    aliases[key] = value ?? ''
+    aliases[key.replace(/[A-Z]/g, character => '_' + character.toLowerCase())] = value ?? ''
+  }
+  for (const paragraph of descendantsByLocalName(body, 'p')) replaceWordTokens(paragraph, aliases)
+  for (const part of Object.keys(zip.files).filter(name => /^word\/(?:header|footer)\d*\.xml$/.test(name))) {
+    const header = parseOfficeXml(zip.file(part)!.asText(), part)
+    for (const paragraph of Array.from(header.getElementsByTagNameNS('*', 'p'))) replaceWordTokens(paragraph, aliases)
+    zip.file(part, new XMLSerializer().serializeToString(header))
+  }
   const serialized = new XMLSerializer().serializeToString(xml)
   zip.file('word/document.xml', serialized)
   return zip.generate({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })

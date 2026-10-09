@@ -4,6 +4,7 @@ import path from 'node:path'
 import { createHash } from 'node:crypto'
 import ts from 'typescript'
 import PizZip from 'pizzip'
+import { Unzip, UnzipInflate } from 'fflate'
 import { DOMParser, XMLSerializer } from '@xmldom/xmldom'
 
 const root = process.cwd()
@@ -25,8 +26,15 @@ async function loadXlsxEngine() {
   const source = read('src/lib/xlsxTemplate.ts')
   let output = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
   output = output
+    .replace("import { openOfficeArchive } from './officeArchive';", 'const openOfficeArchive = globalThis.__phase4OpenOfficeArchive;')
     .replace("import PizZip from 'pizzip';", 'const PizZip = globalThis.__phase4PizZip;')
     .replace("import { sha256Hex } from './docxTemplate';", 'const sha256Hex = globalThis.__phase4Sha256Hex;')
+  globalThis.__phase4PizZip = PizZip
+  let archiveSource = ts.transpileModule(read('src/lib/officeArchive.ts'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
+  archiveSource = archiveSource.replace("import PizZip from 'pizzip';", 'const PizZip = globalThis.__phase4PizZip;')
+    .replace("import { Unzip, UnzipInflate } from 'fflate';", 'const { Unzip, UnzipInflate } = globalThis.__phase4Fflate;')
+  globalThis.__phase4Fflate = { Unzip, UnzipInflate }
+  globalThis.__phase4OpenOfficeArchive = (await import('data:text/javascript;base64,' + Buffer.from(archiveSource).toString('base64'))).openOfficeArchive
   globalThis.DOMParser = DOMParser
   globalThis.XMLSerializer = XMLSerializer
   globalThis.__phase4PizZip = PizZip
@@ -167,7 +175,10 @@ assert.match(migration, /contiguous item ranges must reconcile exactly/)
 
 const xlsxSource = read('src/lib/xlsxTemplate.ts')
 assert.match(xlsxSource, /openXlsx\(original\)/)
-assert.match(xlsxSource, /MAX_EXPANDED_BYTES/)
+assert.match(xlsxSource, /openOfficeArchive\(buffer, 'xlsx'\)/)
+const archiveSource = read('src/lib/officeArchive.ts')
+assert.match(archiveSource, /MAX_EXPANDED/)
+assert.match(archiveSource, /actualTotal > MAX_EXPANDED/)
 assert.match(xlsxSource, /unsupported XML entity declarations/)
 assert.match(xlsxSource, /contains a formula and is intentionally read-only/)
 assert.match(xlsxSource, /Exact template filling never inserts unstyled cells/)
