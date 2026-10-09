@@ -42,12 +42,12 @@ for (const required of [
 ]) {
   assert.match(onboarding, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `optional AI onboarding marker missing: ${required}`)
 }
-assert.match(onboarding, /finishAndNavigate\(['"]\/settings#ai-assistance['"]\)/, 'Connect now must remain a Settings-local AI entry point')
+assert.match(onboarding, /<details[^>]*><summary>Connect now<\/summary><AiSetupPanel/, 'Connect now must offer the real optional key panel without blocking onboarding')
 assert.match(onboarding, /setStep\(3\)|setStep\(4\)|setStep\(5\)/, 'Set up later must reach the ready step without configuring Gemini')
 
 // Settings is the normal feature-local home for AI setup and explicitly keeps
 // non-AI workflows available when no key is configured.
-for (const required of ['Optional Gemini help', 'GuroDesk still works without it', 'AiSetupPanel isDemo={isDemo}', '#ai-assistance']) {
+for (const required of ['Optional Gemini help', 'GuroDesk still works when AI is unavailable', 'AiSetupPanel isDemo={isDemo}', '#ai-assistance']) {
   assert.match(settings, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `Settings AI-local marker missing: ${required}`)
 }
 

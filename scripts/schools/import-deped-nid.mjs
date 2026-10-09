@@ -1,16 +1,24 @@
 #!/usr/bin/env node
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, writeFile, readFile, rename } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
+import { createHash } from 'node:crypto'
+import { pathToFileURL } from 'node:url'
 
 const BASE_URL = 'https://nid.deped.gov.ph/public-dashboard'
 const SOURCE_NAME = 'DepEd National Inventory Dashboard'
 const DEFAULT_OUT = 'data/schools/philippine-schools.generated.json'
+const checkedPages = new Map()
 
 function parseArgs(argv) {
-  const options = { out: DEFAULT_OUT, concurrency: 3, delay: 150, sync: false }
+  const options = { out: DEFAULT_OUT, concurrency: 3, delay: 150, sync: false, cacheDir: '.supabase/school-import-cache', cacheHours: 24, fromFile: null, allowRemoteSync: false, acceptSourceUpdates: false }
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i]
-    if (arg === '--sync') options.sync = true
+    if (arg === '--cache-dir') options.cacheDir = argv[++i]
+    else if (arg === '--cache-hours') options.cacheHours = Number(argv[++i])
+    else if (arg === '--from-file') options.fromFile = argv[++i]
+    else if (arg === '--allow-remote-sync') options.allowRemoteSync = true
+    else if (arg === '--accept-source-updates') options.acceptSourceUpdates = true
+    else if (arg === '--sync') options.sync = true
     else if (arg === '--out') options.out = argv[++i]
     else if (arg === '--concurrency') options.concurrency = Number(argv[++i])
     else if (arg === '--delay') options.delay = Number(argv[++i])
@@ -19,11 +27,13 @@ function parseArgs(argv) {
   }
   if (!Number.isFinite(options.concurrency) || options.concurrency < 1 || options.concurrency > 8) throw new Error('--concurrency must be between 1 and 8.')
   if (!Number.isFinite(options.delay) || options.delay < 0) throw new Error('--delay must be 0 or greater.')
+  if (!Number.isFinite(options.cacheHours) || options.cacheHours < 0 || options.cacheHours > 168) throw new Error('--cache-hours must be between 0 and 168.')
+  if (!options.cacheDir) throw new Error('--cache-dir requires a path.')
   return options
 }
 
 function usage() {
-  console.log(`Usage: node scripts/schools/import-deped-nid.mjs [options]\n\nOptions:\n  --out <path>          Output JSON path (default: ${DEFAULT_OUT})\n  --concurrency <1-8>  Concurrent division crawls (default: 3)\n  --delay <ms>          Courtesy delay between requests (default: 150)\n  --sync                Upsert validated records to Supabase using backend-only service-role env vars\n  --help                Show this help\n`)
+  console.log(`Usage: node scripts/schools/import-deped-nid.mjs [options]\n\nOptions:\n  --out <path>          Output JSON path (default: ${DEFAULT_OUT})\n  --concurrency <1-8>  Concurrent division crawls (default: 3)\n  --delay <ms>          Courtesy delay between requests (default: 150)\n  --sync                Upsert validated records to Supabase using backend-only service-role env vars\n  --cache-dir <path>    Page checkpoint cache (default: .supabase/school-import-cache)\n  --cache-hours <0-168> Reuse fetched pages (default: 24; 0 refreshes)\n  --from-file <path>    Validate/sync a completed snapshot without recrawling DepEd\n  --allow-remote-sync   Explicitly authorize a hosted target\n  --accept-source-updates  Apply reviewed conflicts owned by NID; District is preserved\n  --help                Show this help\n`)
 }
 
 function decodeHtml(value) {
@@ -134,7 +144,14 @@ function parseSchoolRows(html, regionName, divisionName, sourceUrl, checkedAt) {
 
 const sleep = (ms) => new Promise((resolvePromise) => setTimeout(resolvePromise, ms))
 
-async function fetchHtml(url, delay) {
+async function fetchHtml(url, delay, options = {}) {
+  const cachePath = options.cacheDir ? resolve(options.cacheDir, createHash('sha256').update(url).digest('hex') + '.json') : null
+  if (cachePath && options.cacheHours > 0) {
+    try {
+      const cached = JSON.parse(await readFile(cachePath, 'utf8'))
+      if (cached.url === url && typeof cached.html === 'string' && Date.now() - cached.fetchedAt < options.cacheHours * 3600000) { checkedPages.set(url, new Date(cached.fetchedAt).toISOString()); return cached.html }
+    } catch { /* Absent/corrupt cache is refetched, never treated as a complete division. */ }
+  }
   let lastError
   for (let attempt = 1; attempt <= 4; attempt += 1) {
     if (delay) await sleep(delay)
@@ -147,7 +164,15 @@ async function fetchHtml(url, delay) {
         signal: AbortSignal.timeout(30_000),
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      return await response.text()
+      const html = await response.text()
+      checkedPages.set(url, new Date().toISOString())
+      if (cachePath) {
+        await mkdir(dirname(cachePath), { recursive: true })
+        const temporary = cachePath + '.' + process.pid + '.tmp'
+        await writeFile(temporary, JSON.stringify({ url, fetchedAt: Date.now(), html }), 'utf8')
+        await rename(temporary, cachePath)
+      }
+      return html
     } catch (error) {
       lastError = error
       if (attempt < 4) await sleep(500 * (2 ** (attempt - 1)))
@@ -163,23 +188,23 @@ function routeUrl(regionName, divisionName, page) {
 
 async function crawlDivision(regionName, divisionName, options) {
   const firstUrl = routeUrl(regionName, divisionName, 1)
-  const firstHtml = await fetchHtml(firstUrl, options.delay)
+  const firstHtml = await fetchHtml(firstUrl, options.delay, options)
   const total = parseDivisionTotal(firstHtml)
-  const checkedAt = new Date().toISOString()
+  const checkedAt = checkedPages.get(firstUrl) ?? new Date().toISOString()
   const schools = parseSchoolRows(firstHtml, regionName, divisionName, firstUrl, checkedAt)
   const maxPages = total ? Math.max(1, Math.ceil(total / 50)) : 100
 
   for (let page = 2; page <= maxPages; page += 1) {
     const url = routeUrl(regionName, divisionName, page)
-    const html = await fetchHtml(url, options.delay)
-    const pageRows = parseSchoolRows(html, regionName, divisionName, url, checkedAt)
+    const html = await fetchHtml(url, options.delay, options)
+    const pageRows = parseSchoolRows(html, regionName, divisionName, url, checkedPages.get(url) ?? checkedAt)
     if (pageRows.length === 0) break
     schools.push(...pageRows)
     if (!total && pageRows.length < 50) break
   }
 
   const unique = new Map(schools.map((school) => [school.schoolId, school]))
-  if (total && unique.size < Math.min(total, 1)) throw new Error(`${divisionName}, ${regionName}: parsed zero schools from a division reporting ${total}.`)
+  if (total && unique.size !== total) throw new Error(`${divisionName}, ${regionName}: parsed ${unique.size} unique schools from a division reporting ${total}; resume or refresh the cache before importing.`)
   return [...unique.values()]
 }
 
@@ -234,22 +259,51 @@ function toDbRow(school) {
   }
 }
 
-async function syncToSupabase(schools) {
+async function syncToSupabase(schools, options) {
   const url = process.env.SUPABASE_URL
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !serviceRole) throw new Error('--sync requires SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in a backend-only environment.')
 
-  const endpoint = `${url.replace(/\/$/, '')}/rest/v1/philippine_schools?on_conflict=school_id`
+  const host = new URL(url).hostname
+  if (!['localhost', '127.0.0.1', '[::1]'].includes(host) && !options.allowRemoteSync) throw new Error('Remote school sync requires explicit --allow-remote-sync after reviewing the reconciliation report.')
+  const base = url.replace(/\/$/, '') + '/rest/v1/philippine_schools'
+  const endpoint = base + '?on_conflict=school_id'
+  const changes = { newRecords: 0, unchanged: 0, conflicts: [], acceptedUpdates: 0 }
+  const pending = []
+  // Reconcile the complete input before any write. Never modify District or mark absent schools inactive.
+  for (let start = 0; start < schools.length; start += 100) {
+    const batch = schools.slice(start, start + 100).map(toDbRow)
+    const response = await fetch(base + '?select=*&school_id=in.(' + batch.map(row => row.school_id).join(',') + ')', { headers: { apikey: serviceRole, authorization: 'Bearer ' + serviceRole }, signal: AbortSignal.timeout(30000) })
+    if (!response.ok) throw new Error('School reconciliation read failed: HTTP ' + response.status)
+    const existing = new Map((await response.json()).map(row => [row.school_id, row]))
+    for (const row of batch) {
+      const prior = existing.get(row.school_id)
+      if (!prior) { changes.newRecords++; pending.push(row); continue }
+      // NID identity pages do not attest municipality/province/type. Missing values cannot erase existing facts.
+      for (const key of Object.keys(row)) if (row[key] === null && prior[key] !== null && prior[key] !== undefined) row[key] = prior[key]
+      const fields = Object.keys(row).filter(key => !['source_checked_at', 'source_version', 'source_url'].includes(key) && row[key] !== prior[key])
+      if (fields.length) {
+        changes.conflicts.push({ schoolId: row.school_id, fields })
+        if (options.acceptSourceUpdates && prior.source_name === SOURCE_NAME) { pending.push(row); changes.acceptedUpdates++ }
+      } else changes.unchanged++
+    }
+  }
+  const reportPath = resolve(options.out + '.reconciliation.json')
+  await mkdir(dirname(reportPath), { recursive: true })
+  await writeFile(reportPath, JSON.stringify(changes, null, 2) + '\n')
+  if (changes.conflicts.length > changes.acceptedUpdates) throw new Error('Existing school identities differ. Review ' + reportPath + '; only reviewed NID-owned updates may use --accept-source-updates.')
+  schools = pending
+  console.log('Reconciliation: ' + changes.newRecords + ' new, ' + changes.unchanged + ' unchanged, ' + changes.acceptedUpdates + ' reviewed updates.')
   const batchSize = 500
   for (let start = 0; start < schools.length; start += batchSize) {
-    const batch = schools.slice(start, start + batchSize).map(toDbRow)
+    const batch = schools.slice(start, start + batchSize)
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         apikey: serviceRole,
         authorization: `Bearer ${serviceRole}`,
         'content-type': 'application/json',
-        prefer: 'resolution=merge-duplicates,return=minimal',
+        prefer: options.acceptSourceUpdates ? 'resolution=merge-duplicates,return=minimal' : 'resolution=ignore-duplicates,return=minimal',
       },
       body: JSON.stringify(batch),
       signal: AbortSignal.timeout(60_000),
@@ -263,8 +317,16 @@ async function main() {
   const options = parseArgs(process.argv.slice(2))
   if (options.help) return usage()
 
+  if (options.fromFile) {
+    const snapshot = JSON.parse(await readFile(resolve(options.fromFile), 'utf8'))
+    if (snapshot.source !== SOURCE_NAME || snapshot.sourceUrl !== BASE_URL || !Array.isArray(snapshot.schools)) throw new Error('Not an official NID importer snapshot.')
+    validateSchools(snapshot.schools, snapshot.expectedSchoolCount)
+    if (options.sync) await syncToSupabase(snapshot.schools, options)
+    else console.log('Validated cached snapshot: ' + snapshot.schools.length + ' schools. No remote requests or writes.')
+    return
+  }
   console.log(`Reading official school hierarchy from ${BASE_URL}`)
-  const nationalHtml = await fetchHtml(BASE_URL, options.delay)
+  const nationalHtml = await fetchHtml(BASE_URL, options.delay, options)
   const expectedSchoolCount = parseNationalCount(nationalHtml)
   const sourceLastUpdated = parseLastUpdated(nationalHtml)
   const regions = extractRegions(nationalHtml)
@@ -273,7 +335,7 @@ async function main() {
   const divisions = []
   for (const regionName of regions) {
     const regionUrl = `${BASE_URL}/region/${encodeURIComponent(regionName)}`
-    const html = await fetchHtml(regionUrl, options.delay)
+    const html = await fetchHtml(regionUrl, options.delay, options)
     const names = extractDivisions(html, regionName)
     if (names.length === 0) throw new Error(`No divisions found for ${regionName}; refusing a partial import.`)
     for (const divisionName of names) divisions.push({ regionName, divisionName })
@@ -312,10 +374,12 @@ async function main() {
   await writeFile(outPath, `${JSON.stringify(output, null, 2)}\n`, 'utf8')
   console.log(`Validated ${schools.length} unique schools. Wrote ${outPath}`)
 
-  if (options.sync) await syncToSupabase(schools)
+  if (options.sync) await syncToSupabase(schools, options)
 }
 
-main().catch((error) => {
+export { parseArgs, crawlDivision, validateSchools, syncToSupabase, fetchHtml }
+
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) main().catch((error) => {
   console.error(error instanceof Error ? error.stack ?? error.message : error)
   process.exit(1)
 })

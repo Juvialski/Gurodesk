@@ -1,4 +1,5 @@
-import PizZip from 'pizzip'
+import { openOfficeArchive } from './officeArchive'
+import type PizZip from 'pizzip'
 import type {
   TosTemplateElement,
   TosTemplateMapping,
@@ -12,10 +13,7 @@ import { sha256Hex } from './docxTemplate'
 const SHEET_NS = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'
 const REL_NS = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
 const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-const MAX_XLSX_BYTES = 10 * 1024 * 1024
-const MAX_EXPANDED_BYTES = 200 * 1024 * 1024
 const MAX_XML_CHARACTERS = 25 * 1024 * 1024
-const MAX_ZIP_PARTS = 5000
 const MAX_MAPPINGS = 100
 const MAX_WORKSHEET_ROW = 1048576
 const MAX_WORKSHEET_COLUMN = 16384
@@ -40,17 +38,7 @@ function expandedSize(file: unknown) {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : 0
 }
 
-function openXlsx(buffer: ArrayBuffer) {
-  if (buffer.byteLength > MAX_XLSX_BYTES) throw new Error('XLSX templates must be 10 MB or smaller.')
-  let zip: PizZip
-  try { zip = new PizZip(buffer) }
-  catch { throw new Error('This file is not a readable standard .xlsx workbook.') }
-  const parts = Object.values(zip.files)
-  if (parts.length > MAX_ZIP_PARTS) throw new Error('This XLSX contains too many workbook parts for safe in-browser inspection.')
-  const total = parts.reduce((sum, part) => sum + expandedSize(part), 0)
-  if (total > MAX_EXPANDED_BYTES) throw new Error('This XLSX expands beyond the safe in-browser template limit.')
-  return zip
-}
+function openXlsx(buffer: ArrayBuffer) { return openOfficeArchive(buffer, 'xlsx') }
 
 function zipText(zip: PizZip, path: string, label: string) {
   const file = zip.file(path)

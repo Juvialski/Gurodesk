@@ -217,6 +217,7 @@ export function AnswerSheetScannerModal({
               const itemSnapshot = session.assessmentSnapshot.items.find((it) => it.id === rec.itemId)
               if (!itemSnapshot || !rec.writingCropBase64) return null
               const res = await gradeSubjectiveResponse({
+                teacherConsent: aiAutoGradeConsent,
                 cropBase64: rec.writingCropBase64,
                 item: itemSnapshot,
                 learningArea: session.assessmentSnapshot.learningArea,

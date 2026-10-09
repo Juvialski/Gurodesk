@@ -1,3 +1,4 @@
+import { resolveGeminiAccess, SponsoredAiError, type GeminiAccess } from '../_shared/sponsored-ai.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
@@ -322,10 +323,9 @@ Deno.serve(async (req) => {
     const authoritativeRows = Array.isArray(tosRowsResult.data) ? tosRowsResult.data.map(object) : []
     const verifiedBuckets = authoritativeBuckets(authoritativeRows, totalPoints, allowedTypes, clean(content.learningArea, 160))
     try { assertClientBlueprintMatchesAuthoritative(buckets, verifiedBuckets) }
-    catch (error) { return json({ error: error instanceof Error ? error.message : 'The point blueprint no longer matches the finalized TOS projection.' }, 409) }
-    const credential = credentialResult.data as CredentialRow | null
-    if (!credential) return json({ error: 'Connect a Gemini API key in AI settings before generating an assessment.' }, 400)
-    const apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
+    catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status); return json({ error: error instanceof Error ? error.message : 'The point blueprint no longer matches the finalized TOS projection.' }, 409) }
+    const credential = credentialResult.data as CredentialRow | null; const apiKey = await resolveGeminiAccess(credential, admin, userId, req, Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY'))
     const prompt = buildPrompt({
       gradeLevel: clean(content.gradeLevel, 120),
       learningArea: clean(content.learningArea, 160),
@@ -349,12 +349,14 @@ Deno.serve(async (req) => {
         const entries = validateProviderPlan(parseGeminiJson(output), verifiedBuckets, totalPoints, visualPolicy, clean(content.learningArea, 160))
         return json({ entries, model, providerRequestCount, fallbackUsed: model !== MODEL_ORDER[0], modelOrder: MODEL_ORDER })
       } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
         lastError = error
         if (!providerRetryEligible(error)) throw error
       }
     }
     throw lastError ?? new Error('No Gemini planner model completed the request.')
   } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
     console.error('assessment-master-planner failure', {
       name: error instanceof Error ? error.name : 'UnknownError',
       providerStatus: error instanceof GeminiHttpError ? error.status : undefined,

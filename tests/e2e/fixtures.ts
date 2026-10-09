@@ -136,7 +136,7 @@ async function completeOnboarding(page: Page) {
   await page.getByLabel('Sections').fill(process.env.E2E_SECTIONS?.trim() || 'E2E Section')
   await page.getByRole('button', { name: 'Add assignment' }).click()
   await expect(page.getByText('Grade 7 · Mathematics', { exact: true })).toBeVisible()
-  await page.getByRole('button', { name: /Continue/i, exact: true }).click()
+  await page.getByRole('button', { name: 'Continue to Tour', exact: true }).click()
 
   // Step 5: You’re ready to go
   await expect(page.getByRole('heading', { level: 2, name: 'You’re ready to go' })).toBeVisible()

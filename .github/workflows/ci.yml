@@ -163,6 +163,9 @@ jobs:
       - name: Restore final all-migrations local stack
         run: ./node_modules/.bin/supabase db reset --local --yes
 
+      - name: Verify sponsored quota permissions and Manila day boundary
+        run: npm run test:quota:db
+
       - name: Create deterministic local E2E teacher
         run: npm run test:e2e:prepare
 
@@ -171,6 +174,9 @@ jobs:
 
       - name: Run local Chromium E2E tests
         run: npm run test:e2e
+
+      - name: Run isolated demo and mobile document regressions
+        run: npm run test:e2e:demo
 
       - name: Upload local Supabase and Playwright failure artifacts
         if: failure()

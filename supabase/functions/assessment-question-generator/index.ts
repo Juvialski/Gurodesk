@@ -1,3 +1,4 @@
+import { resolveGeminiAccess, SponsoredAiError, type GeminiAccess } from '../_shared/sponsored-ai.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
@@ -299,7 +300,7 @@ function parseVisualVerifier(value: string): FinishedVisualVerifier {
 // maxRetries=2 in the client scheduler means at most 3 provider attempts
 // (attempt <= 3) for one queued operation; no endless repair loop is allowed.
 async function callWithLiteFallback(
-  apiKey: string,
+  apiKey: GeminiAccess,
   settings: ReturnType<typeof resolveSettings>,
   prompt: string,
   questionType: QuestionType,
@@ -322,6 +323,7 @@ async function callWithLiteFallback(
     const output = await callGemini(apiKey, settings.preferredModel, prompt, config)
     return { output, modelUsed, fallbackUsed, providerRequestCount }
   } catch (error) {
+    if (error instanceof SponsoredAiError) throw error
     const httpFallbackEligible = error instanceof GeminiHttpError && isFallbackEligibleStatus(error.status)
     const truncatedOutput = error instanceof GeminiResponseError && error.category === 'MAX_TOKENS'
     if (
@@ -411,7 +413,7 @@ function enforceGeneratedVisualPlan(candidate: Row, plannedVisual: { requirement
     return candidate
   }
   if (isV2 && plannedVisual.requirement === 'helpful') {
-    const normalized = { ...candidate, visualRequirement: 'helpful', visualIntent: plannedVisual.intent }
+    const normalized: Row = { ...candidate, visualRequirement: 'helpful', visualIntent: plannedVisual.intent }
     if (promptDependsOnVisual(normalized.prompt)) throw new AssessmentContractError('A helpful V2 visual cannot contain essential problem data. Regenerate this item as self-contained text.', 'VISUAL_INVALID')
     return normalized
   }
@@ -433,7 +435,7 @@ function enforceGeneratedVisualPlan(candidate: Row, plannedVisual: { requirement
  * repair the exact semantic defect without changing the frozen assessment.
  */
 async function generateValidatedQuestionCandidate(
-  apiKey: string,
+  apiKey: GeminiAccess,
   settings: ReturnType<typeof resolveSettings>,
   prompt: string,
   questionType: QuestionType,
@@ -451,6 +453,7 @@ async function generateValidatedQuestionCandidate(
     const candidate = enforceGeneratedVisualPlan(validated, plannedVisual, isV2)
     return { candidate, modelUsed: initial.modelUsed, fallbackUsed: initial.fallbackUsed, providerRequestCount }
   } catch (error) {
+    if (error instanceof SponsoredAiError) throw error
     if (!questionCorrectionAllowed(error)) {
       if (error && typeof error === 'object') (error as Row).providerRequestCount = providerRequestCount
       throw error
@@ -490,7 +493,7 @@ async function generateValidatedQuestionCandidate(
 }
 
 async function callTikzWithLiteFallback(
-  apiKey: string,
+  apiKey: GeminiAccess,
   settings: ReturnType<typeof resolveSettings>,
   prompt: string,
 ) {
@@ -506,6 +509,7 @@ async function callTikzWithLiteFallback(
     const output = await callGemini(apiKey, settings.preferredModel, prompt, config)
     return { output, modelUsed, fallbackUsed, providerRequestCount }
   } catch (error) {
+    if (error instanceof SponsoredAiError) throw error
     if (
       !(error instanceof GeminiHttpError)
       || !isFallbackEligibleStatus(error.status)
@@ -529,7 +533,7 @@ async function callTikzWithLiteFallback(
 
 function oppositeLiteModel(settings: ReturnType<typeof resolveSettings>, generatorModel = ''): LiteAiModelId { if (generatorModel === DEFAULT_MODEL) return DEFAULT_FALLBACK_MODEL; if (generatorModel === DEFAULT_FALLBACK_MODEL) return DEFAULT_MODEL; if (isLiteModel(settings.preferredModel)) return settings.preferredModel === DEFAULT_MODEL ? DEFAULT_FALLBACK_MODEL : DEFAULT_MODEL; return DEFAULT_MODEL }
 type AuditPayload = { userId: string; assessmentId: string; itemId: string; questionType: QuestionType; alternative: boolean; model: string; fallbackUsed: boolean; outcome: 'success' | 'rejected' | 'error' | 'cancelled' }
-async function audit(admin: ReturnType<typeof createClient>, payload: AuditPayload) { try { await admin.from('assessment_ai_audit_events').insert({ user_id: payload.userId, assessment_document_id: payload.assessmentId, assessment_item_id: payload.itemId, question_type: payload.questionType, alternative: payload.alternative, provider: 'google', model: payload.model, fallback_used: payload.fallbackUsed, outcome: payload.outcome }) } catch { /* Metadata audit failure never changes teacher work. */ } }
+async function audit(admin: ReturnType<typeof createClient<any>>, payload: AuditPayload) { try { await admin.from('assessment_ai_audit_events').insert({ user_id: payload.userId, assessment_document_id: payload.assessmentId, assessment_item_id: payload.itemId, question_type: payload.questionType, alternative: payload.alternative, provider: 'google', model: payload.model, fallback_used: payload.fallbackUsed, outcome: payload.outcome }) } catch { /* Metadata audit failure never changes teacher work. */ } }
 function errorMessage(error: unknown) {
   if (error instanceof GeminiResponseError) {
     if (error.category === 'MAX_TOKENS') return 'Gemini stopped before completing the structured assessment item. Your draft remains unchanged; try again with shorter context.'
@@ -647,7 +651,7 @@ Deno.serve(async (req) => {
       const tosRows = (tosRowsResult.data ?? []) as unknown as Row[]; const mappedRow = tosRows.find((row) => String(row.row_id) === String(item.tos_row_id) && String(row.competency_id) === String(item.canonical_competency_id) && (isV2 || (Number(item.item_number) >= Number(row.item_start) && Number(item.item_number) <= Number(row.item_end)))); if (!mappedRow) return json({ error: isV2 ? 'The saved V2 item mapping no longer matches the finalized TOS row.' : 'The saved item mapping no longer matches the finalized TOS range.' }, 409)
       const allocations = Array.isArray(mappedRow.cognitive_allocations) ? mappedRow.cognitive_allocations.map(object) : []; const allocation = allocations.find((entry) => String(entry.categoryId) === String(item.cognitive_category_id) && Number(entry.itemStart) === Number(item.allocation_item_start) && Number(entry.itemEnd) === Number(item.allocation_item_end) && (isV2 || Number(item.item_number) === Number(item.allocation_item_start) + Number(item.allocation_index))); if (!allocation) return json({ error: 'The saved cognitive mapping no longer matches the finalized TOS allocation.' }, 409)
     }
-    const preference = (preferencesResult.data ?? {}) as PreferenceRow; const resources = list(preference.actual_resources, 30, 180); const language = languageInstruction(clean(preference.language_preference, 80) || 'Auto', clean(preference.local_language_name, 100)); const settings = resolveSettings((settingsResult.data ?? null) as SettingsRow | null); const credential = credentialResult.data as CredentialRow | null; if (!credential) return json({ error: 'Connect a Gemini API key in AI settings before using assessment AI.' }, 400); const apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
+    const preference = (preferencesResult.data ?? {}) as PreferenceRow; const resources = list(preference.actual_resources, 30, 180); const language = languageInstruction(clean(preference.language_preference, 80) || 'Auto', clean(preference.local_language_name, 100)); const settings = resolveSettings((settingsResult.data ?? null) as SettingsRow | null); const credential = credentialResult.data as CredentialRow | null; const apiKey = await resolveGeminiAccess(credential, admin, userId, req, Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY'))
     const gradeLevel = clean(item.grade_level ?? assessmentContent.gradeLevel ?? assessmentContent.grade_level ?? metadataContent.gradeLevel ?? metadataContent.grade_level)
     const learningArea = clean(item.learning_area ?? assessmentContent.learningArea ?? assessmentContent.learning_area ?? metadataContent.learningArea ?? metadataContent.learning_area)
     const pointStart = isV2 ? Number(item.point_start) : Number(item.item_number); const pointEnd = isV2 ? Number(item.point_end) : Number(item.item_number); const pointLabel = pointStart === pointEnd ? String(pointStart) : `${pointStart}–${pointEnd}`
@@ -684,7 +688,8 @@ Deno.serve(async (req) => {
         fallbackUsed = structuredOutput.fallbackUsed
         let structuredVisual: Row
         try { structuredVisual = canonicalStructuredVisual(parseJson(structuredOutput.output), itemId) }
-        catch (error) { structuredVisual = { id: `visual-${itemId}`, kind: 'geometry', version: 1, width: 600, height: 360, altText: '', primitives: [], _parseError: clean(error instanceof Error ? error.message : String(error), 300) } }
+        catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status); structuredVisual = { id: `visual-${itemId}`, kind: 'geometry', version: 1, width: 600, height: 360, altText: '', primitives: [], _parseError: clean(error instanceof Error ? error.message : String(error), 300) } }
         let structuredCheck = validateAssessmentVisual(structuredVisual)
         if (!structuredCheck.valid) {
           const retryPrompt = [
@@ -843,6 +848,7 @@ Deno.serve(async (req) => {
     }
     candidateValidationStarted = true; auditPayload.model = responseModel; auditPayload.fallbackUsed = fallbackUsed; auditPayload.outcome = 'success'; await audit(admin, auditPayload); return json({ assessmentId, itemId, questionType: serverType, candidate, approvedResources: resources, model: responseModel, fallbackUsed, providerRequestCount, editable: true })
   } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
     if (auditPayload) { auditPayload.outcome = candidateValidationStarted ? 'rejected' : 'error'; const supabaseUrl = Deno.env.get('SUPABASE_URL'); const serviceRole = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'); if (supabaseUrl && serviceRole) await audit(createClient(supabaseUrl, serviceRole, { auth: { persistSession: false, autoRefreshToken: false } }), auditPayload) }
     // Safe operational diagnostic only: never log prompts, candidates, API keys,
     // ciphertext, or raw provider bodies.

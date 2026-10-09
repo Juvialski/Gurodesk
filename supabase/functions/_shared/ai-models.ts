@@ -41,7 +41,7 @@ export const ASSESSMENT_QUESTION_TYPES: readonly AssessmentQuestionType[] = [
   'essay',
 ] as const
 
-export const DEFAULT_MODEL: AiModelId = 'gemini-3.5-flash-lite'
+export const DEFAULT_MODEL: LiteAiModelId = 'gemini-3.5-flash-lite'
 export const DEFAULT_FALLBACK_MODEL: LiteAiModelId = 'gemini-3.1-flash-lite'
 
 export const ALLOWED_MODELS = new Set<AiModelId>([

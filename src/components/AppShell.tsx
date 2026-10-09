@@ -8,7 +8,7 @@ import { shouldAutoOpenTeacherTour } from '../lib/teacherTour'
 import { Brand } from './Brand'
 import { ErrorBoundary } from './ErrorBoundary'
 import { TeacherTour } from './TeacherTour'
-import { AiKeyPromptModal } from './AiKeyPromptModal'
+import { AiUsageStatus } from './AiUsageStatus'
 import { ResponsiveNavigation } from './navigation/ResponsiveNavigation'
 import { WorkspaceContextBar } from './workspace/WorkspaceContextBar'
 
@@ -55,13 +55,13 @@ export function AppShell() {
         {!isOnline && (
           <div className="connectivity-banner offline" role="status">
             <WifiOff size={15} aria-hidden="true" />
-            <span>Offline mode — your changes are safely saved locally</span>
+            <span>Offline — keep this page open. Online saving is unavailable.</span>
           </div>
         )}
         {isOnline && wasOffline && (
           <div className="connectivity-banner online" role="status">
             <CheckCircle2 size={15} aria-hidden="true" />
-            <span>Back online — changes synced</span>
+            <span>Back online — review and save any pending changes.</span>
           </div>
         )}
         <div className="mobile-topbar">
@@ -88,6 +88,7 @@ export function AppShell() {
             onChange={workspace.setSelection}
           />
         </div>
+        <AiUsageStatus isDemo={isDemo} userId={user?.id ?? null} />
         <main className="content" id="main-content">
           <ErrorBoundary>
             <Outlet />
@@ -95,7 +96,6 @@ export function AppShell() {
         </main>
       </div>
       <TeacherTour userId={user?.id ?? null} open={tourOpen} onClose={closeTour} />
-      <AiKeyPromptModal isDemo={isDemo} userId={user?.id ?? null} />
     </div>
   )
 }

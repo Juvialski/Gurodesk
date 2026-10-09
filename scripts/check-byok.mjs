@@ -30,7 +30,7 @@ for (const required of ['save_key', 'test_saved_key', 'remove_key', 'encryptCred
 if (settingsFn.includes("Deno.env.get('GEMINI_API_KEY')")) fail('Shared Gemini API key dependency still exists in ai-settings.')
 
 const lessonFn = await read('supabase/functions/lesson-ai-support/index.ts')
-for (const required of ['teacher_ai_credentials', 'decryptCredential', 'fallbackAllowed', 'thinkingLevel', 'AI_KEY_NOT_CONFIGURED']) {
+for (const required of ['teacher_ai_credentials', 'decryptCredential', 'fallbackAllowed', 'thinkingLevel', 'resolveGeminiAccess']) {
   if (!lessonFn.includes(required)) fail(`lesson-ai-support BYOK integration missing: ${required}`)
 }
 if (lessonFn.includes("Deno.env.get('GEMINI_API_KEY')")) fail('Lesson AI still depends on shared GEMINI_API_KEY.')

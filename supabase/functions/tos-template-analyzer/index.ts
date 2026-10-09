@@ -1,3 +1,4 @@
+import { resolveGeminiAccess, SponsoredAiError, type GeminiAccess } from '../_shared/sponsored-ai.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from '../_shared/cors.ts'
 import { decryptCredential, type EncryptionKeySource } from '../_shared/credentialCrypto.ts'
@@ -39,9 +40,10 @@ function parseObject(text: string) {
   if (start >= 0 && end > start) return JSON.parse(clean.slice(start, end + 1)) as Record<string, unknown>
   throw new Error('Gemini did not return valid JSON.')
 }
-async function callWithFallback(apiKey: string, configured: ReturnType<typeof settings>, prompt: string) {
+async function callWithFallback(apiKey: GeminiAccess, configured: ReturnType<typeof settings>, prompt: string) {
   try { return { output: await callGemini(apiKey, configured.preferredModel, prompt, { maxOutputTokens: 7000, temperature: 0.1 }), model: configured.preferredModel, fallbackUsed: false } }
   catch (error) {
+    if (error instanceof SponsoredAiError) throw error
     if (error instanceof GeminiHttpError && isFallbackEligibleStatus(error.status) && fallbackAllowed(configured.preferredModel, configured.fallbackModel, configured.fallbackEnabled)) {
       return { output: await callGemini(apiKey, configured.fallbackModel, prompt, { maxOutputTokens: 7000, temperature: 0.1 }), model: configured.fallbackModel, fallbackUsed: true }
     }
@@ -73,9 +75,8 @@ Deno.serve(async (req) => {
     ])
     if (credentialResult.error) throw credentialResult.error
     if (settingsResult.error) throw settingsResult.error
-    if (!credentialResult.data) return json({ error: 'Connect your Gemini API key before analyzing a workbook template.', code: 'AI_KEY_NOT_CONFIGURED' }, 409)
-    const credential = credentialResult.data as CredentialRow
-    const apiKey = await decryptCredential(credential.api_key_ciphertext, credential.api_key_iv, credential.encryption_key_source)
+    const credential = credentialResult.data as CredentialRow | null
+    const apiKey = await resolveGeminiAccess(credential, admin, userData.user.id, req, Deno.env.get('GURODESK_SPONSORED_GEMINI_KEY'))
     const configured = settings((settingsResult.data ?? null) as SettingsRow | null)
     const fieldList = FIELDS.map(([key, label, kind]) => `${key}: ${label} [${kind}]`).join('\n')
     const structure = elements.map((item) => `${item.id} [${item.kind}] text=${JSON.stringify(item.text)} context=${JSON.stringify(item.context)}`).join('\n')
@@ -83,6 +84,7 @@ Deno.serve(async (req) => {
     let result
     try { result = await callWithFallback(apiKey, configured, prompt) }
     catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status)
       if (error instanceof GeminiHttpError && error.status === 429) return json({ error: 'Gemini quota is unavailable for template analysis. Try the other Flash-Lite model or try again later.', code: 'AI_QUOTA_EXHAUSTED' }, 429)
       if (error instanceof GeminiHttpError && [400, 401, 403].includes(error.status)) return json({ error: 'Google rejected the saved Gemini key or model access. Test it in Settings → AI Assistant.', code: 'AI_KEY_INVALID' }, 401)
       throw error
@@ -99,5 +101,6 @@ Deno.serve(async (req) => {
       return [{ fieldKey, elementId, mode: allowed.get(fieldKey) === 'column' ? 'table_column' : 'replace', confidence: Math.max(0, Math.min(1, Number(item.confidence) || 0.5)) }]
     })
     return json({ mappings, model: result.model, fallbackUsed: result.fallbackUsed })
-  } catch (error) { console.error(error); return json({ error: 'Unable to analyze the TOS workbook structure.' }, 500) }
+  } catch (error) {
+    if (error instanceof SponsoredAiError) return json({ error: error.message, code: error.code }, error.status); console.error(error); return json({ error: 'Unable to analyze the TOS workbook structure.' }, 500) }
 })

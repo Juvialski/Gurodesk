@@ -2,6 +2,8 @@
 
 GuroDesk is a mobile-first workspace for DepEd teachers. Its operating rule is: **verified curriculum and policy data first, teacher judgment first, and AI only inside an explicit teacher-review workflow.**
 
+Local recovery work adds optional key onboarding, a server-accounted 20-call Manila-day sponsored Gemini allowance, resumable school reconciliation, and **Documents → Fill your template** for reusable DOCX/XLSX merging. These changes require the new migrations, shared function redeployment, and a securely configured sponsored secret before hosted use. See `docs/LOCAL_RECOVERY_HANDOFF.md`, `docs/SPONSORED_GEMINI.md`, `docs/MAIL_MERGE.md`, and `docs/SCHOOL_DIRECTORY_RECOVERY.md` for executed evidence and remaining limitations.
+
 ## Current implementation
 
 Phases 1–5.5 and the assessment-generation/visual reliability checkpoint are preserved. Phase 6 adds a universal curriculum layer while retaining the existing release harness:
@@ -139,7 +141,7 @@ Never expose a service-role key, credential-encryption material, or Gemini API k
 
 ## Gemini BYOK
 
-Each signed-in teacher connects a personal key through **Settings → AI Assistant**. The encrypted credential is decrypted only inside authenticated Edge Functions and never returned to the browser.
+Each signed-in teacher may use 20 sponsored provider calls per Manila calendar day when the service is configured, or connect a personal key through **Settings → AI Assistant**. A saved personal credential takes priority, is decrypted only inside authenticated Edge Functions, and never falls back to sponsorship. One teacher action can use several provider calls for generation, verification, and repairs.
 
 - Preferred Lite priority remains `gemini-3.5-flash-lite` → `gemini-3.1-flash-lite` under the existing product policy.
 - Lite models retain the existing high-thinking configuration.

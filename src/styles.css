@@ -2276,3 +2276,19 @@ label { font-size: 13px; line-height: 1.35; }
   .teacher-tour-navigation { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
   .teacher-tour-navigation .button { width: 100%; }
 }
+
+/* Allowance is informational and never blocks ordinary document workflows. */
+.ai-usage-status { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 20px; margin: 10px 24px 0; padding: 10px 14px; border: 1px solid var(--border, #dbe3ee); border-radius: 10px; font-size: 13px; }
+.ai-usage-status a { min-height: 36px; display: inline-flex; align-items: center; }
+.ai-usage-status p { flex-basis: 100%; margin: 0; }
+@media (max-width: 600px) { .ai-usage-status { margin: 8px 12px 0; gap: 4px; } .ai-usage-status > span { flex-basis: 100%; } }
+.merge-controls { margin-bottom: 16px; padding: 20px; display: grid; gap: 14px; }
+.merge-controls label { display: grid; gap: 6px; min-width: 0; }
+.merge-controls textarea { min-height: 70px; width: 100%; resize: vertical; }
+.merge-field { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.merge-record { display: grid; gap: 10px; border: 1px solid #dbe3ee; border-radius: 10px; padding: 14px; margin: 12px 0; min-width: 0; }
+.merge-controls .inline-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.merge-preview { overflow: hidden; padding: 16px; }
+.merge-word-preview { max-width: 100%; overflow: auto; }
+.merge-preview pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .merge-field { grid-template-columns: 1fr; } .merge-controls { padding: 14px; } .merge-controls .inline-actions .button { width: 100%; } }

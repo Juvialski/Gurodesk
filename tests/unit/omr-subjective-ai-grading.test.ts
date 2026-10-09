@@ -149,6 +149,12 @@ describe('Subjective AI Auto-Grader & Teacher Consent (Essay & Problem Solving)'
     expect(result.suggestedPoints).toBe(0)
     expect(result.error).toContain('Missing student response')
   })
+  it('refuses an AI grading request before dispatch when teacher consent is absent', async () => {
+    const assessment = createSubjectiveAssessment()
+    const result = await gradeSubjectiveResponse({ cropBase64: 'fixture-image', item: assessment.items[0] as unknown as ResultAssessmentItemSnapshot })
+    expect(result.success).toBe(false)
+    expect(result.error).toContain('consent')
+  })
 
   it('allows teacher to review and override AI score suggestions in canonical scoring engine', () => {
     const assessment = createSubjectiveAssessment()

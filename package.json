@@ -63,12 +63,15 @@
     "validate:phase6": "node scripts/check-phase6-curriculum.mjs && node scripts/check-phase6-custom-curriculum.mjs",
     "validate:phase6:curriculum": "node scripts/check-phase6-curriculum.mjs",
     "validate:phase6:custom": "node scripts/check-phase6-custom-curriculum.mjs",
-    "validate:edge-functions": "node scripts/check-edge-function-source-contract.cjs"
+    "validate:edge-functions": "node scripts/check-edge-function-source-contract.cjs && node scripts/check-edge-function-types.cjs",
+    "test:e2e:demo": "playwright test --config playwright.demo.config.ts",
+    "test:quota:db": "node scripts/test-sponsored-ai-db.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
     "docx": "^9.5.1",
     "docx-preview": "^0.4.0",
+    "fflate": "0.8.3",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "lucide-react": "^0.468.0",

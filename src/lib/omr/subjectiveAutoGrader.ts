@@ -4,6 +4,7 @@ import type { ResultAssessmentItemSnapshot } from '../../types/results'
 import { cropWritingArea, type CropRectangle } from './handwritingTranscription'
 
 export type SubjectiveGradingRequest = {
+  teacherConsent?: boolean
   cropBase64?: string
   studentText?: string
   item: ResultAssessmentItemSnapshot
@@ -91,6 +92,8 @@ export async function gradeSubjectiveResponse(
     }
   }
 
+  if (req.teacherConsent !== true) return { success: false, transcript: '', suggestedPoints: 0, feedback: '', confidence: 0, error: 'Teacher consent is required before AI grading.' }
+
   if (!supabase) {
     return {
       success: false,
@@ -108,6 +111,7 @@ export async function gradeSubjectiveResponse(
     const { data, error } = await supabase.functions.invoke('handwriting-transcriber', {
       body: {
         mode: 'grade',
+        teacherConsent: true,
         imageBase64: req.cropBase64,
         promptHint: req.item.prompt,
         questionType: req.item.questionType,

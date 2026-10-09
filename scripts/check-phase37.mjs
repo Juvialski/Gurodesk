@@ -22,14 +22,14 @@ const config = await read('supabase/config.toml')
 if (!config.includes('[functions.template-analyzer]') || !config.includes('verify_jwt = true')) fail('template-analyzer must be JWT protected')
 
 const analyzer = await read('supabase/functions/template-analyzer/index.ts')
-for (const required of ['DOCX STRUCTURE', 'AVAILABLE GURODESK FIELDS', 'Choose only element IDs', 'decryptCredential', 'callWithFallback', 'mappings']) {
+for (const required of ['DOCX STRUCTURE', 'AVAILABLE GURODESK FIELDS', 'Choose only element IDs', 'resolveGeminiAccess', 'callWithFallback', 'mappings']) {
   if (!analyzer.includes(required)) fail(`template analyzer missing ${required}`)
 }
 if (analyzer.includes('original_file') || analyzer.includes('base64')) fail('template analyzer should receive extracted structure, not raw DOCX bytes')
 pass('Gemini is used only for one-time semantic field mapping')
 
 const parser = await read('src/lib/docxTemplate.ts')
-for (const required of ['extractDocxTemplateStructure', 'fillDocxTemplate', 'word/document.xml', 'append_after_label', 'buildLessonTemplateValues', 'PizZip']) {
+for (const required of ['extractDocxTemplateStructure', 'fillDocxTemplate', 'word/document.xml', 'append_after_label', 'buildLessonTemplateValues', 'openOfficeArchive']) {
   if (!parser.includes(required)) fail(`DOCX deterministic template engine missing ${required}`)
 }
 pass('future exports fill the original DOCX deterministically without AI')

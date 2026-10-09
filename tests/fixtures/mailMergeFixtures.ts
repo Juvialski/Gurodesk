@@ -1,0 +1,31 @@
+import PizZip from 'pizzip'
+import { Document, Footer, Header, ImageRun, Math as WordMath, MathRun, Packer, Paragraph, Table, TableCell, TableRow, TextRun } from 'docx'
+
+export async function wordMaster(): Promise<ArrayBuffer> {
+  const doc = new Document({ sections: [{
+    properties: { page: { margin: { top: 720, bottom: 720, left: 720, right: 720 } } },
+    headers: { default: new Header({ children: [new Paragraph({ children: [new ImageRun({ type: 'png', data: Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aWQAAAABJRU5ErkJggg=='), c => c.charCodeAt(0)), transformation: { width: 24, height: 24 } }), new TextRun(' Department of Education · {{district}}')] })] }) },
+    footers: { default: new Footer({ children: [new Paragraph('Prepared by {{teacher_name}}')] }) },
+    children: [
+      new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: 'School: ', bold: true, font: 'Arial', size: 24 }), new TextRun({ text: '{{school_', italics: true, font: 'Calibri', size: 22 }), new TextRun({ text: 'name}}', underline: {} }), new TextRun({ text: ' · Student copy', superScript: true })] }),
+      new Table({ rows: [new TableRow({ children: [new TableCell({ children: [new Paragraph('{{#questions}}{{number}}')] }), new TableCell({ children: [new Paragraph('{{prompt}}'), new Paragraph('{{options}}')] }), new TableCell({ children: [new Paragraph('{{/questions}}')] })] })] }),
+      new Paragraph({ children: [new TextRun({ text: 'Signature: ', bold: true }), new TextRun({ text: '__________', italics: true }), new TextRun({ text: ' approval', subScript: true })] }),
+      new Paragraph({ children: [new WordMath({ children: [new MathRun('x + 2 = 5')] })] }),
+    ],
+  }] })
+  const bytes = await Packer.toBuffer(doc)
+  return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer
+}
+export function workbookMaster(): ArrayBuffer {
+  const zip = new PizZip()
+  zip.file('[Content_Types].xml', '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/></Types>')
+  zip.file('_rels/.rels', '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Target="xl/workbook.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument"/></Relationships>')
+  zip.file('xl/workbook.xml', '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="TOS" sheetId="1" r:id="rId1"/><sheet name="Notes" sheetId="2" r:id="rId2"/></sheets><definedNames><definedName name="_xlnm.Print_Area" localSheetId="0">TOS!$A$1:$C$8</definedName></definedNames></workbook>')
+  zip.file('xl/_rels/workbook.xml.rels', '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Target="worksheets/sheet1.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"/><Relationship Id="rId2" Target="worksheets/sheet2.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"/><Relationship Id="rId3" Target="styles.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles"/><Relationship Id="rId4" Target="sharedStrings.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings"/></Relationships>')
+  zip.file('xl/sharedStrings.xml', '<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><si><r><rPr><b/></rPr><t>{{school_</t></r><r><rPr><i/></rPr><t>name}}</t></r></si></sst>')
+  const row = (index: number, text: string, other = '') => `<row r="${index}" ht="24" customHeight="1"><c r="A${index}" s="1" t="inlineStr"><is><t>${text}</t></is></c>${other}</row>`
+  zip.file('xl/worksheets/sheet1.xml', `<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><cols><col min="1" max="3" width="22" customWidth="1"/></cols><sheetData><row r="1"><c r="A1" t="s" s="1"><v>0</v></c></row>${row(2, '{{#questions}}')}${row(3, '{{prompt}}', '<c r="B3" s="1"><f>1+1</f><v>2</v></c>')}${row(4, '{{prompt}}')}${row(5, '{{/questions}}')}${row(6, 'Total', '<c r="B6"><f>SUM(B3:B4)</f><v>2</v></c>')}</sheetData><mergeCells><mergeCell ref="A1:C1"/></mergeCells><pageSetup paperSize="9" orientation="portrait"/></worksheet>`)
+  zip.file('xl/worksheets/sheet2.xml', '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData><row r="1"><c r="A1" t="inlineStr"><is><t>Teacher notes remain unchanged.</t></is></c></row></sheetData></worksheet>')
+  zip.file('xl/styles.xml', '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="1"><font><name val="Arial"/><sz val="11"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>')
+  return zip.generate({ type: 'arraybuffer' })
+}

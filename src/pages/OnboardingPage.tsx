@@ -3,45 +3,28 @@ import {
   BookOpen,
   Check,
   CheckCircle2,
-  ClipboardPaste,
   Compass,
-  ExternalLink,
-  Eye,
-  EyeOff,
-  KeyRound,
   Plus,
   School,
-  ShieldCheck,
   Sparkles,
   Trash2,
   UserRound,
 } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../contexts/AppContext'
-import { AI_STUDIO_API_KEY_URL, getAiModel } from '../data/aiModels'
 import { GRADE_LEVELS, POSITION_TITLES, SCHOOL_YEARS } from '../data/constants'
 import { curriculumCatalogGroups, findCurriculumCatalogEntry, learningAreasForGrade } from '../data/curriculumCatalog'
-import { loadAiCredentialStatus, saveTeacherAiCredential } from '../lib/repository'
-import type { AiCredentialStatus } from '../types/ai'
 import type { Profile } from '../types/app'
 import { Brand } from '../components/Brand'
 import { SchoolPicker } from '../components/SchoolPicker'
+import { AiSetupPanel } from '../components/AiSetupPanel'
 import '../workflows.css'
 
 type DraftAssignment = {
   gradeLevel: string
   learningArea: string
   sectionsText: string
-}
-
-const initialAiStatus: AiCredentialStatus = {
-  configured: false,
-  keyLast4: null,
-  verifiedAt: null,
-  preferredModel: 'gemini-3.5-flash-lite',
-  fallbackModel: 'gemini-3.1-flash-lite',
-  fallbackEnabled: true,
 }
 
 export function OnboardingPage() {
@@ -68,22 +51,6 @@ export function OnboardingPage() {
   })
   const [privateCurriculum, setPrivateCurriculum] = useState(false)
 
-  // AI BYOK setup state
-  const [aiStatus, setAiStatus] = useState<AiCredentialStatus>(initialAiStatus)
-  const [apiKey, setApiKey] = useState('')
-  const [showKey, setShowKey] = useState(false)
-  const [aiWorking, setAiWorking] = useState<string | null>(null)
-  const [aiNotice, setAiNotice] = useState<{ kind: 'success' | 'error'; text: string } | null>(null)
-  const keyInputRef = useRef<HTMLInputElement | null>(null)
-
-  useEffect(() => {
-    let mounted = true
-    loadAiCredentialStatus(isDemo)
-      .then((next) => { if (mounted) setAiStatus(next) })
-      .catch(() => {})
-    return () => { mounted = false }
-  }, [isDemo])
-
   const officialAreas = useMemo(() => learningAreasForGrade(draft.gradeLevel, form.schoolYear), [draft.gradeLevel, form.schoolYear])
   const officialGroups = useMemo(() => curriculumCatalogGroups(draft.gradeLevel, form.schoolYear), [draft.gradeLevel, form.schoolYear])
   const selectedOfficialEntry = findCurriculumCatalogEntry(draft.gradeLevel, draft.learningArea, form.schoolYear)
@@ -96,52 +63,6 @@ export function OnboardingPage() {
     if (!officialAreas.length) return
     if (!officialAreas.includes(draft.learningArea)) setDraft((current) => ({ ...current, learningArea: officialAreas[0] }))
   }, [draft.learningArea, officialAreas])
-
-  function cleanPastedKey(value: string) {
-    return value.trim().replace(/\s+/g, '')
-  }
-
-  async function pasteFromClipboard() {
-    setAiNotice(null)
-    try {
-      if (!navigator.clipboard?.readText) throw new Error('Clipboard API unavailable')
-      const clipboardText = cleanPastedKey(await navigator.clipboard.readText())
-      if (!clipboardText) throw new Error('Clipboard is empty')
-      setApiKey(clipboardText)
-      keyInputRef.current?.focus()
-      setAiNotice({ kind: 'success', text: 'API key pasted from clipboard. Tap "Test & save key" to connect.' })
-    } catch {
-      keyInputRef.current?.focus()
-      setAiNotice({ kind: 'error', text: 'Browser blocked one-tap paste. Tap and hold inside the API key box, then select Paste.' })
-    }
-  }
-
-  async function saveKey() {
-    if (isDemo) {
-      setAiNotice({ kind: 'error', text: 'Demo mode runs locally and does not store live keys. You can proceed safely to test the workspace.' })
-      return
-    }
-    if (apiKey.trim().length < 20) {
-      setAiNotice({ kind: 'error', text: 'Paste your Gemini API key first.' })
-      return
-    }
-    setAiWorking('save-key')
-    setAiNotice(null)
-    try {
-      const result = await saveTeacherAiCredential(apiKey.trim(), {
-        preferredModel: aiStatus.preferredModel,
-        fallbackModel: aiStatus.fallbackModel,
-        fallbackEnabled: aiStatus.fallbackEnabled,
-      }, isDemo)
-      setAiStatus(result)
-      setApiKey('')
-      setAiNotice({ kind: 'success', text: result.message })
-    } catch (error) {
-      setAiNotice({ kind: 'error', text: error instanceof Error ? error.message : 'Unable to save Gemini key.' })
-    } finally {
-      setAiWorking(null)
-    }
-  }
 
   async function saveIdentityAndProceed() {
     if (!form.fullName.trim()) {
@@ -231,7 +152,6 @@ export function OnboardingPage() {
     setStep(5)
   }
 
-  const preferredModelInfo = getAiModel(aiStatus.preferredModel)
 
   return (
     <div className="onboarding-page">
@@ -251,7 +171,7 @@ export function OnboardingPage() {
             </div>
             <div className={step >= 2 ? 'active' : ''}>
               <span>{step > 2 ? <Check size={16} /> : '2'}</span>
-              <div><strong>AI setup (Required)</strong><small>Connect free Gemini API</small></div>
+              <div><strong>Optional AI setup</strong><small>20 free calls each day</small></div>
             </div>
             <div className={step >= 3 ? 'active' : ''}>
               <span>{step > 3 ? <Check size={16} /> : '3'}</span>
@@ -314,141 +234,13 @@ export function OnboardingPage() {
             <>
               <div className="section-title">
                 <span className="title-icon"><Sparkles size={20} /></span>
-                <div>
-                  <h2>Connect free Gemini API key <span className="badge primary" style={{ fontSize: '11px', verticalAlign: 'middle' }}>Required</span></h2>
-                  <p>GuroDesk requires your free Google Gemini API key to draft lesson plans, build TOS assessments, and transcribe handwriting. Setup is fast and 100% free.</p>
-                </div>
+                <div><h2>Optional AI setup</h2><p>You can enter GuroDesk without an API key. Each signed-in teacher gets 20 sponsored Gemini provider calls per day, resetting at midnight in Manila.</p></div>
               </div>
-
-              {/* Free Tier Guarantees Banner */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 my-3 text-xs" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px', margin: '12px 0' }}>
-                <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.25)', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <strong style={{ display: 'block', color: 'var(--color-foreground)' }}>100% Free Forever</strong>
-                    <span style={{ fontSize: '11px', color: 'var(--color-foreground-muted)' }}>Google provides a free tier with high daily quotas for teachers. Zero subscription fees.</span>
-                  </div>
-                </div>
-                <div style={{ padding: '10px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.25)', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <ShieldCheck size={16} style={{ color: '#2563eb', flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <strong style={{ display: 'block', color: 'var(--color-foreground)' }}>No Credit Card Needed</strong>
-                    <span style={{ fontSize: '11px', color: 'var(--color-foreground-muted)' }}>Google AI Studio does not ask for billing info or credit cards for the free tier.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="ai-connection-status-row" style={{ marginTop: '8px', marginBottom: '12px' }}>
-                <span className={`ai-connection-badge ${aiStatus.configured ? 'connected' : ''}`}>
-                  {aiStatus.configured ? <CheckCircle2 size={14} /> : <KeyRound size={14} />}
-                  {aiStatus.configured ? `Connected · ••••${aiStatus.keyLast4}` : 'Key required to proceed'}
-                </span>
-                <span className="ai-model-hint">Default: <strong>{preferredModelInfo.label}</strong> (Free tier)</span>
-              </div>
-
-              <div className="onboarding-ai-steps">
-                <div className="ai-step-card workflow-onboarding-choice">
-                  <div className="ai-step-badge">1</div>
-                  <div className="ai-step-content">
-                    <strong>Get a free Gemini API key from Google</strong>
-                    <p>Open Google AI Studio in a new tab, sign in with your Google account, and click <em>Create API key</em>.</p>
-                  </div>
-                  <a className="button primary compact" href={AI_STUDIO_API_KEY_URL} target="_blank" rel="noreferrer">
-                    Google AI Studio <ExternalLink size={14} />
-                  </a>
-                </div>
-
-                <div className="ai-step-card">
-                  <div className="ai-step-badge">2</div>
-                  <div className="ai-step-content">
-                    <strong>Paste & verify your key</strong>
-                    <div className="ai-key-input-row" style={{ marginTop: '8px' }}>
-                      <input
-                        ref={keyInputRef}
-                        type={showKey ? 'text' : 'password'}
-                        value={apiKey}
-                        autoComplete="off"
-                        autoCapitalize="none"
-                        autoCorrect="off"
-                        inputMode="text"
-                        enterKeyHint="done"
-                        spellCheck={false}
-                        placeholder={aiStatus.configured ? 'Connected (paste new key to replace)' : 'Paste API key (AIzaSy...)'}
-                        onChange={(event) => setApiKey(event.target.value)}
-                        onPaste={(event) => {
-                          event.preventDefault()
-                          setApiKey(cleanPastedKey(event.clipboardData.getData('text')))
-                          setAiNotice(null)
-                        }}
-                        disabled={isDemo || Boolean(aiWorking)}
-                      />
-                      <button
-                        className="ai-key-icon-button"
-                        type="button"
-                        onClick={() => setShowKey((val) => !val)}
-                        disabled={isDemo || Boolean(aiWorking)}
-                        aria-label={showKey ? 'Hide API key' : 'Show API key'}
-                        title={showKey ? 'Hide API key' : 'Show API key'}
-                      >
-                        {showKey ? <EyeOff size={17} /> : <Eye size={17} />}
-                      </button>
-                    </div>
-                    <div className="ai-key-entry-actions" style={{ marginTop: '8px' }}>
-                      <button className="button secondary compact" type="button" onClick={() => void pasteFromClipboard()} disabled={isDemo || Boolean(aiWorking)}>
-                        <ClipboardPaste size={14} /> Paste from clipboard
-                      </button>
-                      <button className="button primary compact" type="button" onClick={() => void saveKey()} disabled={isDemo || apiKey.trim().length < 20 || Boolean(aiWorking)}>
-                        {aiWorking === 'save-key' ? <span className="mini-spinner" /> : <KeyRound size={14} />}
-                        {aiStatus.configured ? 'Test & replace key' : 'Test & save key'}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {isDemo && (
-                <div className="ai-setup-note warning" style={{ marginTop: '14px' }}>
-                  <ShieldCheck size={16} />
-                  <p>Demo preview mode runs in-browser. Connect your real Gemini key when signed in to your live workspace.</p>
-                </div>
-              )}
-
-              {aiNotice && (
-                <div className={`ai-setup-notice ${aiNotice.kind}`} style={{ marginTop: '12px' }}>
-                  {aiNotice.kind === 'success' ? <CheckCircle2 size={15} /> : <ShieldCheck size={15} />}
-                  <span>{aiNotice.text}</span>
-                </div>
-              )}
-
-              {!isDemo && !aiStatus.configured && (
-                <p className="text-xs text-amber-600 dark:text-amber-400 font-medium mt-3 text-center">
-                  ⚠️ Please test and save your free Gemini API key to continue setup.
-                </p>
-              )}
-
-              {/* Legacy validator regression guards */}
-              <div className="sr-only" aria-hidden="true" style={{ display: 'none' }}>
-                <span>Optional AI setup</span>
-                <button type="button" onClick={() => void finishAndNavigate('/settings#ai-assistance')}>Connect now</button>
-                <button type="button" onClick={() => setStep(3)}>Set up later</button>
-              </div>
-
-              <div className="form-footer" style={{ marginTop: '20px' }}>
+              <p>One action can use several calls for drafting, verification, or retries. A saved personal key takes priority and does not use your free allowance.</p>
+              <details className="onboarding-ai-choice"><summary>Connect now</summary><AiSetupPanel isDemo={isDemo} /></details>
+              <div className="form-footer">
                 <button className="button ghost" onClick={() => setStep(1)}>Back</button>
-                <button
-                  className="button primary"
-                  onClick={() => {
-                    if (!isDemo && !aiStatus.configured) {
-                      setAiNotice({ kind: 'error', text: 'Please connect and verify your free Gemini API key to continue.' })
-                      return
-                    }
-                    setStep(3)
-                  }}
-                  disabled={busy || (!isDemo && !aiStatus.configured)}
-                  title={!isDemo && !aiStatus.configured ? 'Connect Gemini API key first' : 'Continue to School setup'}
-                >
-                  Continue to School <ArrowRight size={17} />
-                </button>
+                <button className="button primary" onClick={() => setStep(3)} disabled={busy}>Set up later <ArrowRight size={17} /></button>
               </div>
             </>
           ) : step === 3 ? (
@@ -483,7 +275,7 @@ export function OnboardingPage() {
               <div className="section-title">
                 <span className="title-icon"><BookOpen size={20} /></span>
                 <div>
-                  <h2>What you teach <span className="sr-only">Your teaching load</span></h2>
+                  <h2>What you teach</h2>
                   <p>Add at least one class. Official curriculum is resolved from your grade, learning area, and school year.</p>
                 </div>
               </div>

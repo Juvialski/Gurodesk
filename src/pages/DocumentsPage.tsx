@@ -164,7 +164,7 @@ export function DocumentsPage() {
         eyebrow="Workspace library"
         title="Documents"
         description="Browse saved lesson plans, TOS documents, assessments, and result sets from one place."
-        actions={<Link className="button primary" to="/create"><Plus size={16} /> Create</Link>}
+        actions={<><Link className="button secondary" to="/documents/merge">Fill your template</Link><Link className="button primary" to="/create"><Plus size={16} /> Create</Link></>}
       />
 
       <section className="panel">
